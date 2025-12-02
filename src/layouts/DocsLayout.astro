@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { navigation, componentCount } from '../data/navigation';
+import { themeConfig } from '../data/theme-config';
 
 interface Props {
   title: string;
@@ -150,6 +151,9 @@ const currentPath = Astro.url.pathname;
               ))}
             </>
           ))}
+          
+          <!-- Theme-specific components section (dynamically populated) -->
+          <div id="theme-specific-nav"></div>
         </nav>
         
         <div class="p-4 border-t border-slate-200 dark:border-border">
@@ -173,6 +177,50 @@ const currentPath = Astro.url.pathname;
       </main>
     </div>
   </div>
+
+  <script define:vars={{ themeConfig, currentPath }}>
+    // Theme-specific component configuration (made global for access from other scripts)
+    window.themeComponentConfig = themeConfig;
+    window.currentPagePath = currentPath;
+    
+    // Function to render theme-specific navigation (made global)
+    window.renderThemeSpecificNav = function(themeName) {
+      const themeNav = document.getElementById('theme-specific-nav');
+      if (!themeNav) return;
+      
+      const config = window.themeComponentConfig[themeName];
+      if (!config || !config.components || config.components.length === 0) {
+        themeNav.innerHTML = '';
+        return;
+      }
+      
+      const sectionTitle = `${config.name} Components`;
+      let html = `
+        <div class="px-3 py-2 text-[10px] font-mono text-slate-500 dark:text-dim uppercase tracking-wider mt-4">
+          ${sectionTitle}
+        </div>
+      `;
+      
+      config.components.forEach(item => {
+        const isActive = window.currentPagePath === item.href || window.currentPagePath === item.href + '/';
+        const activeClasses = isActive 
+          ? 'active text-slate-900 dark:text-white bg-theme-primary-light' 
+          : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5';
+        const iconClasses = isActive 
+          ? 'text-theme-primary' 
+          : 'text-slate-400 dark:text-dim group-hover:text-theme-primary';
+        
+        html += `
+          <a href="${item.href}" class="nav-item flex items-center gap-3 px-3 py-2 text-sm rounded transition-colors group ${activeClasses}">
+            <i class="ti ${item.icon} text-base ${iconClasses}"></i>
+            ${item.title}
+          </a>
+        `;
+      });
+      
+      themeNav.innerHTML = html;
+    };
+  </script>
 
   <script>
     // Theme Toggle (Dark/Light Mode)
@@ -199,6 +247,11 @@ const currentPath = Astro.url.pathname;
     html.classList.add(`theme-${savedColorTheme}`);
     if (currentThemeName) {
       currentThemeName.textContent = savedColorTheme.toUpperCase();
+    }
+    
+    // Render theme-specific nav for initial load
+    if (typeof window.renderThemeSpecificNav === 'function') {
+      window.renderThemeSpecificNav(savedColorTheme);
     }
     
     // Toggle theme picker dropdown
@@ -233,6 +286,11 @@ const currentPath = Astro.url.pathname;
           currentThemeName.textContent = (newTheme || 'cp').toUpperCase();
         }
         themePickerMenu?.classList.add('hidden');
+        
+        // Update theme-specific navigation
+        if (typeof window.renderThemeSpecificNav === 'function') {
+          window.renderThemeSpecificNav(newTheme || 'cp');
+        }
       });
     });
     

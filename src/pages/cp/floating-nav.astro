@@ -1,0 +1,278 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="Floating Navigation" description="CP-specific floating navigation toolbar component">
+  <!-- Header -->
+  <div class="mb-12">
+    <div class="flex items-center gap-2 text-xs font-mono text-theme-primary mb-4">
+      <span class="px-2 py-1 bg-theme-primary/10 rounded">CP Only</span>
+      <span class="text-slate-400 dark:text-slate-500">Navigation</span>
+    </div>
+    <h1 class="text-4xl font-display font-bold text-slate-900 dark:text-white mb-4">
+      Floating Navigation
+    </h1>
+    <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl">
+      A contextual toolbar that floats above the page content, providing quick access to common actions like Execute, Save, and context-specific operations. Exclusive to Costpoint (CP).
+    </p>
+  </div>
+
+  <!-- Live Example -->
+  <section class="mb-12">
+    <h2 class="text-xl font-display font-semibold text-slate-900 dark:text-white mb-4">Example</h2>
+    <div class="example-preview relative bg-slate-100 dark:bg-surface rounded-lg border border-slate-200 dark:border-border overflow-hidden">
+      <!-- Simulated Shell Header Background -->
+      <div class="h-12 bg-slate-200 dark:bg-charcoal border-b border-slate-300 dark:border-border flex items-center px-4">
+        <div class="flex items-center gap-2">
+          <div class="w-4 h-4 bg-theme-primary rounded-sm"></div>
+          <span class="text-sm font-semibold text-slate-700 dark:text-white">Costpoint</span>
+        </div>
+      </div>
+      
+      <!-- Floating Nav Bar -->
+      <div class="absolute left-1/2 -translate-x-1/2 top-3 z-10">
+        <div class="flex items-center gap-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg px-2 py-1.5">
+          <!-- Execute Button -->
+          <button class="px-3 py-1 text-xs font-medium bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-colors">
+            Execute
+          </button>
+          
+          <!-- Actions Dropdown -->
+          <button class="px-3 py-1 text-xs font-medium bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-colors flex items-center gap-1">
+            Actions
+            <i class="ti ti-chevron-down text-[10px]"></i>
+          </button>
+          
+          <!-- Refresh Button -->
+          <button class="px-2 py-1 text-xs font-medium bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-colors flex items-center gap-1">
+            <i class="ti ti-refresh text-sm"></i>
+            <i class="ti ti-chevron-down text-[10px]"></i>
+          </button>
+          
+          <!-- Save Button (Primary) -->
+          <button class="px-3 py-1 text-xs font-medium bg-theme-primary text-white rounded hover:opacity-90 transition-colors flex items-center gap-1">
+            Save
+            <i class="ti ti-chevron-down text-[10px]"></i>
+          </button>
+          
+          <!-- Pin Button -->
+          <button class="px-2 py-1 text-xs font-medium bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-400 dark:text-slate-500 transition-colors">
+            <i class="ti ti-pin text-sm"></i>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Page Content Simulation -->
+      <div class="h-48 bg-slate-50 dark:bg-obsidian flex items-center justify-center">
+        <span class="text-sm text-slate-400 dark:text-slate-600">Page Content Area</span>
+      </div>
+      
+      <!-- Progress Bar -->
+      <div class="absolute top-12 left-0 right-0">
+        <div class="h-1 bg-theme-primary/20">
+          <div class="h-full bg-theme-primary w-2/3"></div>
+        </div>
+        <div class="h-0.5 bg-red-500 opacity-50"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- When to Use -->
+  <section class="mb-12">
+    <h2 class="text-xl font-display font-semibold text-slate-900 dark:text-white mb-4">When to Use</h2>
+    <div class="grid gap-4 md:grid-cols-2">
+      <div class="p-4 rounded-lg border border-green-200 dark:border-green-900/50 bg-green-50 dark:bg-green-900/20">
+        <h3 class="font-medium text-green-800 dark:text-green-300 mb-2 flex items-center gap-2">
+          <i class="ti ti-check"></i> Do
+        </h3>
+        <ul class="text-sm text-green-700 dark:text-green-400 space-y-1">
+          <li>• Use for frequently accessed actions</li>
+          <li>• Place on data entry or form pages</li>
+          <li>• Include primary action (Save) prominently</li>
+          <li>• Show contextual actions based on page type</li>
+        </ul>
+      </div>
+      <div class="p-4 rounded-lg border border-red-200 dark:border-red-900/50 bg-red-50 dark:bg-red-900/20">
+        <h3 class="font-medium text-red-800 dark:text-red-300 mb-2 flex items-center gap-2">
+          <i class="ti ti-x"></i> Don't
+        </h3>
+        <ul class="text-sm text-red-700 dark:text-red-400 space-y-1">
+          <li>• Overcrowd with too many actions</li>
+          <li>• Use on read-only/dashboard pages</li>
+          <li>• Hide critical navigation controls</li>
+          <li>• Duplicate actions from the main header</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Anatomy -->
+  <section class="mb-12">
+    <h2 class="text-xl font-display font-semibold text-slate-900 dark:text-white mb-4">Anatomy</h2>
+    <div class="bg-slate-50 dark:bg-surface rounded-lg border border-slate-200 dark:border-border p-6">
+      <div class="space-y-4">
+        <div class="flex items-start gap-4">
+          <span class="w-6 h-6 rounded-full bg-theme-primary text-white text-xs flex items-center justify-center font-medium shrink-0">1</span>
+          <div>
+            <h4 class="font-medium text-slate-900 dark:text-white">Container</h4>
+            <p class="text-sm text-slate-600 dark:text-slate-400">Rounded container with shadow, positioned absolutely centered at the top of the page content area.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <span class="w-6 h-6 rounded-full bg-theme-primary text-white text-xs flex items-center justify-center font-medium shrink-0">2</span>
+          <div>
+            <h4 class="font-medium text-slate-900 dark:text-white">Action Buttons</h4>
+            <p class="text-sm text-slate-600 dark:text-slate-400">Secondary style buttons for non-primary actions (Execute, Actions, Refresh).</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <span class="w-6 h-6 rounded-full bg-theme-primary text-white text-xs flex items-center justify-center font-medium shrink-0">3</span>
+          <div>
+            <h4 class="font-medium text-slate-900 dark:text-white">Primary Action</h4>
+            <p class="text-sm text-slate-600 dark:text-slate-400">Theme-colored button for the main action (typically Save).</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <span class="w-6 h-6 rounded-full bg-theme-primary text-white text-xs flex items-center justify-center font-medium shrink-0">4</span>
+          <div>
+            <h4 class="font-medium text-slate-900 dark:text-white">Utility Actions</h4>
+            <p class="text-sm text-slate-600 dark:text-slate-400">Icon-only buttons for utility functions (Pin, Settings).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Variants -->
+  <section class="mb-12">
+    <h2 class="text-xl font-display font-semibold text-slate-900 dark:text-white mb-4">Variants</h2>
+    
+    <!-- Standard -->
+    <div class="mb-6">
+      <h3 class="text-sm font-mono text-slate-500 dark:text-slate-400 mb-3">Standard (Data Entry)</h3>
+      <div class="example-preview p-6 bg-slate-50 dark:bg-surface rounded-lg border border-slate-200 dark:border-border flex justify-center">
+        <div class="flex items-center gap-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg px-2 py-1.5">
+          <button class="px-3 py-1 text-xs font-medium bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200">Execute</button>
+          <button class="px-3 py-1 text-xs font-medium bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center gap-1">Actions <i class="ti ti-chevron-down text-[10px]"></i></button>
+          <button class="px-2 py-1 text-xs font-medium bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center gap-1"><i class="ti ti-refresh text-sm"></i><i class="ti ti-chevron-down text-[10px]"></i></button>
+          <button class="px-3 py-1 text-xs font-medium bg-theme-primary text-white rounded flex items-center gap-1">Save <i class="ti ti-chevron-down text-[10px]"></i></button>
+          <button class="px-2 py-1 text-xs font-medium bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded text-slate-400"><i class="ti ti-pin text-sm"></i></button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Extended -->
+    <div class="mb-6">
+      <h3 class="text-sm font-mono text-slate-500 dark:text-slate-400 mb-3">Extended (With Additional Actions)</h3>
+      <div class="example-preview p-6 bg-slate-50 dark:bg-surface rounded-lg border border-slate-200 dark:border-border flex justify-center">
+        <div class="flex items-center gap-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg px-2 py-1.5">
+          <button class="px-3 py-1 text-xs font-medium bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded text-slate-700 dark:text-slate-200">New</button>
+          <button class="px-3 py-1 text-xs font-medium bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded text-slate-700 dark:text-slate-200 flex items-center gap-1">Copy <i class="ti ti-chevron-down text-[10px]"></i></button>
+          <button class="px-3 py-1 text-xs font-medium bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded text-slate-700 dark:text-slate-200">Delete</button>
+          <button class="px-3 py-1 text-xs font-medium bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded text-slate-700 dark:text-slate-200 flex items-center gap-1">Attach <i class="ti ti-chevron-down text-[10px]"></i></button>
+          <button class="px-3 py-1 text-xs font-medium bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded text-slate-700 dark:text-slate-200 flex items-center gap-1">Approval <i class="ti ti-chevron-down text-[10px]"></i></button>
+          <div class="w-px h-5 bg-slate-200 dark:bg-slate-700 mx-1"></div>
+          <span class="text-xs text-slate-500 dark:text-slate-400 px-2">1 of 3</span>
+          <button class="px-1.5 py-1 text-xs bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded text-slate-500"><i class="ti ti-chevron-left text-sm"></i></button>
+          <button class="px-1.5 py-1 text-xs bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded text-slate-500"><i class="ti ti-chevron-right text-sm"></i></button>
+          <div class="w-px h-5 bg-slate-200 dark:bg-slate-700 mx-1"></div>
+          <span class="text-xs text-slate-500 dark:text-slate-400">Find</span>
+          <button class="px-3 py-1 text-xs font-medium bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded text-slate-700 dark:text-slate-200 flex items-center gap-1">Query <i class="ti ti-chevron-down text-[10px]"></i></button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Minimal -->
+    <div>
+      <h3 class="text-sm font-mono text-slate-500 dark:text-slate-400 mb-3">Minimal (Read-Only Context)</h3>
+      <div class="example-preview p-6 bg-slate-50 dark:bg-surface rounded-lg border border-slate-200 dark:border-border flex justify-center">
+        <div class="flex items-center gap-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg px-2 py-1.5">
+          <button class="px-3 py-1 text-xs font-medium bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded text-slate-700 dark:text-slate-200 flex items-center gap-1">Actions <i class="ti ti-chevron-down text-[10px]"></i></button>
+          <button class="px-2 py-1 text-xs font-medium bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded text-slate-700 dark:text-slate-200"><i class="ti ti-refresh text-sm"></i></button>
+          <button class="px-2 py-1 text-xs font-medium bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded text-slate-400"><i class="ti ti-pin text-sm"></i></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Code Example -->
+  <section class="mb-12">
+    <h2 class="text-xl font-display font-semibold text-slate-900 dark:text-white mb-4">Code Example</h2>
+    <div class="bg-slate-900 rounded-lg overflow-hidden">
+      <div class="flex items-center justify-between px-4 py-2 bg-slate-800 border-b border-slate-700">
+        <span class="text-xs font-mono text-slate-400">HTML</span>
+        <button class="text-xs text-slate-400 hover:text-white transition-colors">Copy</button>
+      </div>
+      <pre class="p-4 overflow-x-auto text-sm"><code class="text-slate-300">&lt;div class="floating-nav fixed left-1/2 -translate-x-1/2 top-16 z-50"&gt;
+  &lt;div class="flex items-center gap-2 bg-white dark:bg-slate-900 
+              border border-slate-200 dark:border-slate-700 
+              rounded-lg shadow-lg px-2 py-1.5"&gt;
+    
+    &lt;!-- Execute Button --&gt;
+    &lt;button class="btn-secondary"&gt;Execute&lt;/button&gt;
+    
+    &lt;!-- Actions Dropdown --&gt;
+    &lt;button class="btn-secondary flex items-center gap-1"&gt;
+      Actions
+      &lt;i class="ti ti-chevron-down"&gt;&lt;/i&gt;
+    &lt;/button&gt;
+    
+    &lt;!-- Primary Save --&gt;
+    &lt;button class="btn-primary flex items-center gap-1"&gt;
+      Save
+      &lt;i class="ti ti-chevron-down"&gt;&lt;/i&gt;
+    &lt;/button&gt;
+    
+    &lt;!-- Pin --&gt;
+    &lt;button class="btn-icon"&gt;
+      &lt;i class="ti ti-pin"&gt;&lt;/i&gt;
+    &lt;/button&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+  </section>
+
+  <!-- Behavior -->
+  <section class="mb-12">
+    <h2 class="text-xl font-display font-semibold text-slate-900 dark:text-white mb-4">Behavior</h2>
+    <div class="space-y-4">
+      <div class="p-4 rounded-lg border border-slate-200 dark:border-border bg-white dark:bg-surface">
+        <h4 class="font-medium text-slate-900 dark:text-white mb-2">Positioning</h4>
+        <p class="text-sm text-slate-600 dark:text-slate-400">The floating nav is positioned fixed or absolute, centered horizontally, overlaying the shell header area. It remains visible during page scroll.</p>
+      </div>
+      <div class="p-4 rounded-lg border border-slate-200 dark:border-border bg-white dark:bg-surface">
+        <h4 class="font-medium text-slate-900 dark:text-white mb-2">Dropdown Actions</h4>
+        <p class="text-sm text-slate-600 dark:text-slate-400">Buttons with chevron icons open dropdown menus with additional options. Use the standard Dropdown component for these menus.</p>
+      </div>
+      <div class="p-4 rounded-lg border border-slate-200 dark:border-border bg-white dark:bg-surface">
+        <h4 class="font-medium text-slate-900 dark:text-white mb-2">Pin Function</h4>
+        <p class="text-sm text-slate-600 dark:text-slate-400">The pin button allows users to lock the floating nav in a visible state, preventing it from auto-hiding during certain interactions.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Accessibility -->
+  <section>
+    <h2 class="text-xl font-display font-semibold text-slate-900 dark:text-white mb-4">Accessibility</h2>
+    <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+      <li class="flex items-start gap-2">
+        <i class="ti ti-check text-green-500 mt-0.5"></i>
+        Ensure all buttons have proper focus states and are keyboard navigable
+      </li>
+      <li class="flex items-start gap-2">
+        <i class="ti ti-check text-green-500 mt-0.5"></i>
+        Use <code class="text-xs bg-slate-100 dark:bg-slate-800 px-1 rounded">aria-label</code> for icon-only buttons
+      </li>
+      <li class="flex items-start gap-2">
+        <i class="ti ti-check text-green-500 mt-0.5"></i>
+        Dropdown menus should be accessible via keyboard (Enter to open, Escape to close)
+      </li>
+      <li class="flex items-start gap-2">
+        <i class="ti ti-check text-green-500 mt-0.5"></i>
+        Use appropriate <code class="text-xs bg-slate-100 dark:bg-slate-800 px-1 rounded">role="toolbar"</code> on the container
+      </li>
+    </ul>
+  </section>
+</DocsLayout>
+
