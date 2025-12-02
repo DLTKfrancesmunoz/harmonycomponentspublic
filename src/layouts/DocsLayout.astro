@@ -43,7 +43,7 @@ const currentPath = Astro.url.pathname;
       <!-- Brand / Left -->
       <div class="flex items-center gap-4">
         <a href="/" class="flex items-center gap-2 group cursor-pointer">
-          <div class="w-5 h-5 bg-theme-primary rounded-sm group-hover:bg-slate-900 dark:group-hover:bg-white transition-colors"></div>
+          <img id="header-logo" src="/logos/CPVPLogo.svg" alt="Logo" class="w-5 h-5 rounded-full" />
           <h1 id="header-title" class="font-display font-bold tracking-tight text-slate-900 dark:text-white text-sm">
             Harmony <span id="header-product-name" class="text-theme-primary">CP</span> <span class="text-slate-400 dark:text-slate-500 font-normal">Design System</span>
           </h1>
@@ -236,6 +236,15 @@ const currentPath = Astro.url.pathname;
     const themePickerMenu = document.getElementById('theme-picker-menu');
     const themeOptions = document.querySelectorAll('.theme-option');
     const currentThemeName = document.getElementById('current-theme-name');
+    const headerLogo = document.getElementById('header-logo') as HTMLImageElement;
+    
+    // Logo mapping for each theme
+    const logoMap: Record<string, string> = {
+      cp: '/logos/CPVPLogo.svg',
+      vp: '/logos/CPVPLogo.svg',
+      ppm: '/logos/PPMLogo.svg',
+      maconomy: '/logos/MacLogo.svg'
+    };
     
     // Load saved color theme or default to 'cp'
     const savedColorTheme = localStorage.getItem('colorTheme') || 'cp';
@@ -256,6 +265,11 @@ const currentPath = Astro.url.pathname;
       if (themeConfigData) {
         headerProductName.textContent = themeConfigData.name;
       }
+    }
+    
+    // Update header logo on initial load
+    if (headerLogo && logoMap[savedColorTheme]) {
+      headerLogo.src = logoMap[savedColorTheme];
     }
     
     // Render theme-specific nav for initial load
@@ -302,6 +316,11 @@ const currentPath = Astro.url.pathname;
           if (themeConfigData) {
             headerProductName.textContent = themeConfigData.name;
           }
+        }
+        
+        // Update header logo
+        if (headerLogo && logoMap[newTheme || 'cp']) {
+          headerLogo.src = logoMap[newTheme || 'cp'];
         }
         
         themePickerMenu?.classList.add('hidden');
