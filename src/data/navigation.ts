@@ -26,7 +26,7 @@ export const navigation: NavSection[] = [
       { title: 'Shell Header', href: '/shell/header', icon: 'ti-layout-navbar' },
       { title: 'Shell Footer', href: '/shell/footer', icon: 'ti-layout-bottombar' },
       { title: 'Page Content', href: '/shell/page-content', icon: 'ti-file-text' },
-      { title: 'Left Sidebar', href: '/shell/left-sidebar', icon: 'ti-layout-sidebar-left' },
+      { title: 'Left Sidebar', href: '/shell/left-sidebar', icon: 'ti-layout-sidebar' },
       { title: 'Right Sidebar', href: '/shell/right-sidebar', icon: 'ti-layout-sidebar-right' },
     ],
   },

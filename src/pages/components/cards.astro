@@ -5,9 +5,10 @@ import PropsTable from '../../components/PropsTable.astro';
 import ExampleSection from '../../components/ExampleSection.astro';
 
 const props = [
-  { name: 'variant', type: "'default' | 'elevated' | 'outlined' | 'interactive'", default: "'default'", description: 'Card style variant' },
+  { name: 'variant', type: "'default' | 'elevated' | 'outlined' | 'interactive' | 'top-border'", default: "'default'", description: 'Card style variant' },
   { name: 'padding', type: "'none' | 'sm' | 'md' | 'lg'", default: "'md'", description: 'Internal padding' },
   { name: 'href', type: 'string', default: '—', description: 'Makes card a link (interactive)' },
+  { name: 'borderColor', type: 'string', default: 'theme-primary', description: 'Top border color for top-border variant' },
 ];
 ---
 
@@ -116,6 +117,46 @@ const props = [
           </div>
         </div>
       </ExampleSection>
+
+      <ExampleSection title="Top Border Card" description="Card with 6px theme-colored top border accent. Used for App Panels in CP.">
+        <div class="max-w-md">
+          <div class="rounded-lg border border-slate-200 dark:border-slate-700 border-t-[6px] border-t-theme-primary bg-white dark:bg-charcoal overflow-hidden">
+            <div class="p-4 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between bg-slate-50 dark:bg-slate-800/50">
+              <h3 class="font-semibold text-slate-900 dark:text-white text-sm">App Panel Title</h3>
+              <div class="flex items-center gap-2">
+                <button class="px-2 py-1 text-xs bg-theme-primary text-white rounded">New</button>
+                <button class="px-2 py-1 text-xs bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded text-slate-600 dark:text-slate-300">Copy</button>
+              </div>
+            </div>
+            <div class="p-4">
+              <p class="text-sm text-slate-600 dark:text-slate-400">
+                The 6px top border in the theme primary color provides visual hierarchy and branding for App Panel cards.
+              </p>
+            </div>
+          </div>
+        </div>
+      </ExampleSection>
+
+      <CodeBlock 
+        language="html"
+        filename="card-top-border.html"
+        code={`<!-- Top Border Card (App Panel style) -->
+<div class="rounded-lg border border-slate-200 dark:border-slate-700 
+            border-t-[6px] border-t-theme-primary 
+            bg-white dark:bg-charcoal overflow-hidden">
+  <div class="p-4 border-b border-slate-200 dark:border-slate-700 
+              flex items-center justify-between bg-slate-50 dark:bg-slate-800/50">
+    <h3 class="font-semibold text-slate-900 dark:text-white text-sm">Panel Title</h3>
+    <div class="flex items-center gap-2">
+      <button class="btn-primary px-2 py-1 text-xs">New</button>
+      <button class="btn-secondary px-2 py-1 text-xs">Copy</button>
+    </div>
+  </div>
+  <div class="p-4">
+    <!-- Content -->
+  </div>
+</div>`}
+      />
 
       <ExampleSection title="Card with Actions" description="Card with header and action buttons.">
         <div class="max-w-sm">
