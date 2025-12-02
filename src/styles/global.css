@@ -18,7 +18,6 @@ html.theme-cp {
   --theme-primary-light: rgba(76, 146, 217, 0.1);
   
   /* CP Semi-Light Color Palette */
-  --cp-brand: #4C92D9;
   --cp-link: #3A70A6;
   --cp-table-total: #F0F3BE;
   --cp-input-bg: #FFFFFF;
@@ -41,7 +40,6 @@ html.dark.theme-cp {
   --theme-primary-light: rgba(89, 172, 255, 0.1);
   
   /* CP Semi-Dark Color Palette */
-  --cp-brand: #59ACFF;
   --cp-link: #ADD0FF;
   --cp-table-total: #223A52;
   --cp-input-bg: #1F252E;
@@ -179,6 +177,10 @@ html.theme-cp:not(.dark) a:not(.nav-item):not([class*="bg-"]) {
   color: var(--cp-link);
 }
 
+html.theme-cp:not(.dark) a.text-theme-primary {
+  color: var(--cp-link) !important;
+}
+
 /* ============================================
    CP THEME UI OVERRIDES - Semi-Dark (dark mode)
    ============================================ */
@@ -281,6 +283,10 @@ html.dark.theme-cp .dark\:hover\:bg-slate-800:hover {
 /* Links - Semi-Dark */
 html.dark.theme-cp a:not(.nav-item):not([class*="bg-"]) {
   color: var(--cp-link);
+}
+
+html.dark.theme-cp a.text-theme-primary {
+  color: var(--cp-link) !important;
 }
 
 /* Example preview containers - Semi-Dark */
