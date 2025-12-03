@@ -1,9 +1,10 @@
 ---
 /**
  * Checkbox Component
- * 
+ *
  * Checkbox input for boolean selections.
  */
+import Icon from './Icon.astro';
 
 export interface Props {
   name?: string;
@@ -48,7 +49,7 @@ const classes = [
     {...rest}
   />
   <span class="checkbox__box">
-    <i class="ti ti-check checkbox__icon"></i>
+    <Icon name="check" class="checkbox__icon" />
   </span>
   {label && <span class="checkbox__label">{label}</span>}
 </label>

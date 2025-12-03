@@ -1,9 +1,10 @@
 ---
 /**
  * CodeBlock Component
- * 
+ *
  * Syntax-highlighted code display with copy button.
  */
+import Icon from './ui/Icon.astro';
 
 interface Props {
   code: string;
@@ -23,13 +24,13 @@ const id = `code-${Math.random().toString(36).substring(7)}`;
   )}
   <div class="code-block__content">
     <pre><code id={id} class={`language-${language}`}>{code}</code></pre>
-    <button 
+    <button
       class="code-block__copy"
       data-code={code}
       aria-label="Copy code"
     >
-      <i class="ti ti-copy copy-icon"></i>
-      <i class="ti ti-check check-icon hidden"></i>
+      <Icon name="clipboard" class="copy-icon" />
+      <Icon name="check" class="check-icon hidden" />
     </button>
   </div>
 </div>

@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import { navigation, componentCount } from '../data/navigation';
 import { themeConfig } from '../data/theme-config';
+import Icon from '../components/ui/Icon.astro';
 
 interface Props {
   title: string;
@@ -56,28 +57,28 @@ const currentPath = Astro.url.pathname;
       <!-- Center - Search -->
       <div class="header__center">
         <div class="search">
-          <input 
-            type="text" 
+          <input
+            type="text"
             id="search-input"
-            placeholder="Search components..." 
+            placeholder="Search components..."
             class="search__input"
           >
-          <i class="ti ti-search search__icon"></i>
+          <Icon name="magnifying-glass" size="sm" class="search__icon" />
           <kbd class="search__kbd">⌘K</kbd>
-          
+
           <!-- Search Results Dropdown -->
           <div id="search-results" class="search__results"></div>
         </div>
       </div>
-      
+
       <!-- Right Actions -->
       <div class="header__actions">
         <!-- Theme Switcher -->
         <div class="theme-picker">
           <button id="theme-picker-btn" class="theme-picker__btn">
-            <i class="ti ti-palette theme-picker__btn-icon"></i>
+            <Icon name="swatch" size="sm" class="theme-picker__btn-icon" />
             <span id="current-theme-name" class="theme-picker__btn-text">CP</span>
-            <i class="ti ti-chevron-down theme-picker__btn-chevron"></i>
+            <Icon name="chevron-down" size="xs" class="theme-picker__btn-chevron" />
           </button>
           
           <div id="theme-picker-menu" class="theme-picker__menu">
@@ -102,12 +103,12 @@ const currentPath = Astro.url.pathname;
         
         <!-- Theme Toggle -->
         <button id="theme-toggle" class="icon-btn">
-          <i class="ti ti-sun icon-btn__icon sun-icon"></i>
-          <i class="ti ti-moon icon-btn__icon moon-icon hidden"></i>
+          <Icon name="sun" size="sm" class="icon-btn__icon sun-icon" />
+          <Icon name="moon" size="sm" class="icon-btn__icon moon-icon hidden" />
         </button>
-        
+
         <div class="divider"></div>
-        
+
         <a href="https://github.com" target="_blank" class="icon-btn">
           <i class="ti ti-brand-github icon-btn__icon"></i>
         </a>
@@ -121,11 +122,11 @@ const currentPath = Astro.url.pathname;
         <div class="sidebar__header">
           <div class="sidebar__label">Navigation</div>
           <div class="sidebar__stats">
-            <i class="ti ti-components sidebar__stats-icon"></i>
+            <Icon name="squares-plus" size="sm" class="sidebar__stats-icon" />
             {componentCount} Sections
           </div>
         </div>
-        
+
         <nav class="nav">
           {navigation.map((section) => (
             <>
@@ -133,11 +134,11 @@ const currentPath = Astro.url.pathname;
                 {section.title}
               </div>
               {section.items.map((item) => (
-                <a 
-                  href={item.href} 
+                <a
+                  href={item.href}
                   class={`nav__item ${currentPath === item.href || currentPath === item.href + '/' ? 'is-active' : ''}`}
                 >
-                  <i class={`ti ${item.icon} nav__item-icon`}></i>
+                  <Icon name={item.icon} size="sm" class="nav__item-icon" />
                   {item.title}
                 </a>
               ))}

@@ -1,9 +1,10 @@
 ---
 /**
  * Accordion Component
- * 
+ *
  * Collapsible content sections.
  */
+import Icon from './Icon.astro';
 
 export interface AccordionItem {
   title: string;
@@ -30,14 +31,14 @@ const classes = ['accordion', className].filter(Boolean).join(' ');
 <div class={classes} data-accordion data-allow-multiple={allowMultiple}>
   {items.map((item, index) => (
     <div class={`accordion__item ${item.defaultOpen ? 'is-open' : ''}`} data-accordion-item>
-      <button 
-        type="button" 
+      <button
+        type="button"
         class="accordion__trigger"
         aria-expanded={item.defaultOpen ? 'true' : 'false'}
         aria-controls={`${accordionId}-panel-${index}`}
       >
         {item.title}
-        <i class="ti ti-chevron-down accordion__icon"></i>
+        <Icon name="chevron-down" class="accordion__icon" />
       </button>
       <div 
         class="accordion__content" 

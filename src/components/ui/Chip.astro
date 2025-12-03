@@ -1,9 +1,10 @@
 ---
 /**
  * Chip Component
- * 
+ *
  * Compact element for tags, filters, or selections.
  */
+import Icon from './Icon.astro';
 
 export interface Props {
   selected?: boolean;
@@ -27,11 +28,11 @@ const classes = [
 ---
 
 <span class={classes}>
-  {icon && <i class={`ti ${icon}`}></i>}
+  {icon && <Icon name={icon} />}
   <slot />
   {removable && (
     <button type="button" class="chip__remove" aria-label="Remove">
-      <i class="ti ti-x"></i>
+      <Icon name="x-mark" />
     </button>
   )}
 </span>

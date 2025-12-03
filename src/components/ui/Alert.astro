@@ -1,9 +1,10 @@
 ---
 /**
  * Alert Component
- * 
+ *
  * Notification message with different severity levels.
  */
+import Icon from './Icon.astro';
 
 export interface Props {
   variant?: 'info' | 'success' | 'warning' | 'error';
@@ -23,10 +24,10 @@ const {
 
 // Default icons for each variant
 const defaultIcons: Record<string, string> = {
-  info: 'ti-info-circle',
-  success: 'ti-circle-check',
-  warning: 'ti-alert-triangle',
-  error: 'ti-alert-circle',
+  info: 'information-circle',
+  success: 'check-circle',
+  warning: 'exclamation-triangle',
+  error: 'exclamation-circle',
 };
 
 const alertIcon = icon || defaultIcons[variant];
@@ -39,7 +40,7 @@ const classes = [
 ---
 
 <div class={classes} role="alert">
-  <i class={`ti ${alertIcon} alert__icon`}></i>
+  <Icon name={alertIcon} class="alert__icon" />
   <div class="alert__content">
     {title && <div class="alert__title">{title}</div>}
     <div class="alert__message">
@@ -48,7 +49,7 @@ const classes = [
   </div>
   {dismissible && (
     <button type="button" class="alert__close" aria-label="Dismiss">
-      <i class="ti ti-x"></i>
+      <Icon name="x-mark" />
     </button>
   )}
 </div>

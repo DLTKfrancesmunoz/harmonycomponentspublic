@@ -1,9 +1,10 @@
 ---
 /**
  * Dropdown Component
- * 
+ *
  * Dropdown select menu with custom styling.
  */
+import Icon from './Icon.astro';
 
 export interface Option {
   value: string;
@@ -40,8 +41,8 @@ const classes = ['dropdown', className].filter(Boolean).join(' ');
 ---
 
 <div class={classes} data-dropdown id={dropdownId}>
-  <button 
-    type="button" 
+  <button
+    type="button"
     class="dropdown__trigger"
     disabled={disabled}
     aria-haspopup="listbox"
@@ -50,7 +51,7 @@ const classes = ['dropdown', className].filter(Boolean).join(' ');
     <span class="dropdown__value">
       {selectedOption ? selectedOption.label : placeholder}
     </span>
-    <i class="ti ti-chevron-down dropdown__chevron"></i>
+    <Icon name="chevron-down" class="dropdown__chevron" />
   </button>
   
   <div class="dropdown__menu" role="listbox">

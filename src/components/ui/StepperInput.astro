@@ -1,9 +1,10 @@
 ---
 /**
  * StepperInput Component
- * 
+ *
  * Number input with increment/decrement buttons.
  */
+import Icon from './Icon.astro';
 
 export interface Props {
   value?: number;
@@ -34,14 +35,14 @@ const classes = ['stepper', className].filter(Boolean).join(' ');
 ---
 
 <div class={classes} data-stepper>
-  <button 
-    type="button" 
-    class="stepper__btn" 
+  <button
+    type="button"
+    class="stepper__btn"
     data-stepper-decrement
     disabled={disabled || (min !== undefined && value <= min)}
     aria-label="Decrease"
   >
-    <i class="ti ti-minus"></i>
+    <Icon name="minus" />
   </button>
   <input
     type="number"
@@ -55,14 +56,14 @@ const classes = ['stepper', className].filter(Boolean).join(' ');
     class="stepper__input"
     {...rest}
   />
-  <button 
-    type="button" 
-    class="stepper__btn" 
+  <button
+    type="button"
+    class="stepper__btn"
     data-stepper-increment
     disabled={disabled || (max !== undefined && value >= max)}
     aria-label="Increase"
   >
-    <i class="ti ti-plus"></i>
+    <Icon name="plus" />
   </button>
 </div>
 
