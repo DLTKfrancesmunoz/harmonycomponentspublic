@@ -103,6 +103,34 @@ const iconCategories = {
 
 // Calculate total icons
 const totalIcons = Object.values(iconCategories).flat().length;
+
+// Custom Icons - Domain-specific icons from /public folder
+const customIconCategories = {
+  'Project & Resource Management': [
+    'gantt-chart', 'ms-project', 'template', 'tree',
+    'Contract', 'Report', 'Resource'
+  ],
+  'Risk Management': [
+    'Risk Shield', 'riskcategories', 'riskhandelingstrategies',
+    'riskresponsetype', 'riskstatuses', 'mitigationplan',
+    'impacttypes', 'bullseye', 'history'
+  ],
+  'Docking & Window Management': [
+    'dock-center', 'dock-right', 'dock', 'undock',
+    'minimize', 'restore', 'window-plain', 'two-columns', 'orientation'
+  ],
+  'Interactions & Actions': [
+    'drag', 'pin', 'pinned', 'related', 'upload-download', 'swap'
+  ],
+  'File Types & Data': [
+    'API Schema', 'Network Graph', 'png', 'oracle'
+  ],
+  'Media': ['mic-slash'],
+  'Multiview & Layout': ['multiview-disable', 'open-apps'],
+  'Other': ['keyboard', 'Dela D in dark circle 1']
+};
+
+const totalCustomIcons = Object.values(customIconCategories).flat().length;
 ---
 
 <DocsLayout title="Icons" description="Icon system using Hero Icons (Outline) as the primary library.">
@@ -151,6 +179,74 @@ const totalIcons = Object.values(iconCategories).flat().length;
       </ExampleSection>
     </section>
 
+    <!-- Icon Selection Guide -->
+    <section class="space-y-6">
+      <h2 class="section__title">Icon Selection Guide</h2>
+
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">Icon Hierarchy for Application Development</h3>
+        <div class="a11y-card__text">
+          <p>When building applications with this design system, follow this priority order:</p>
+          <ol class="list-decimal pl-5 space-y-3 mt-4">
+            <li>
+              <strong>Check Heroicons First</strong> - 284 outline icons for common UI needs
+              <br />
+              <code class="text-xs">&lt;Icon name="home" /&gt;</code>
+            </li>
+            <li>
+              <strong>Use Tabler Icons as Fallback</strong> - 4,600+ icons when Heroicons doesn't have what you need
+              <br />
+              <code class="text-xs">&lt;i class="ti ti-brand-github"&gt;&lt;/i&gt;</code>
+              <br />
+              <a href="https://tabler.io/icons" target="_blank" class="link text-xs">Browse Tabler Icons →</a>
+            </li>
+            <li>
+              <strong>Custom Icons for Domain-Specific Needs</strong> - Project management, risk management, etc.
+              <br />
+              <code class="text-xs">&lt;Icon name="gantt-chart" /&gt;</code>
+            </li>
+          </ol>
+          <p class="mt-4 text-sm text-secondary">
+            <strong>Note:</strong> This design system documentation uses only Heroicons and Custom icons for consistency.
+            Tabler is available as a developer tool when needed.
+          </p>
+        </div>
+      </div>
+
+      <ExampleSection title="Heroicons (Primary)" description="Via Icon component - 284 icons">
+        <div class="flex gap-4 p-6 bg-card rounded-lg border">
+          <Icon name="home" size="lg" />
+          <Icon name="user" size="lg" />
+          <Icon name="cog" size="lg" />
+        </div>
+        <pre class="bg-card p-4 rounded-lg text-sm mt-4 overflow-x-auto"><code>&lt;Icon name="home" /&gt;
+&lt;Icon name="user" size="md" /&gt;</code></pre>
+      </ExampleSection>
+
+      <ExampleSection title="Tabler Icons (Secondary Fallback)" description="Via CSS classes - 4,600+ icons">
+        <div class="flex gap-4 p-6 bg-card rounded-lg border">
+          <i class="ti ti-brand-github text-2xl"></i>
+          <i class="ti ti-database text-2xl"></i>
+          <i class="ti ti-terminal text-2xl"></i>
+        </div>
+        <pre class="bg-card p-4 rounded-lg text-sm mt-4 overflow-x-auto"><code>&lt;i class="ti ti-brand-github"&gt;&lt;/i&gt;
+&lt;i class="ti ti-database"&gt;&lt;/i&gt;</code></pre>
+        <p class="text-sm text-secondary mt-2">
+          Tabler icons require the Tabler web font. Browse all icons at <a href="https://tabler.io/icons" target="_blank" class="link">tabler.io/icons</a>
+        </p>
+      </ExampleSection>
+
+      <ExampleSection title="Custom Icons (Tertiary)" description="Domain-specific project icons">
+        <div class="flex gap-4 p-6 bg-card rounded-lg border">
+          <Icon name="gantt-chart" size="lg" />
+          <Icon name="Risk Shield" size="lg" />
+          <Icon name="dock-center" size="lg" />
+        </div>
+        <pre class="bg-card p-4 rounded-lg text-sm mt-4 overflow-x-auto"><code>&lt;Icon name="gantt-chart" /&gt;
+&lt;Icon name="Risk Shield" /&gt;</code></pre>
+      </ExampleSection>
+    </section>
+
     <!-- Hero Icons Section -->
     <section class="space-y-6">
       <h2 class="section__title">Hero Icons - Outline (24x24)</h2>
@@ -174,18 +270,54 @@ const totalIcons = Object.values(iconCategories).flat().length;
       ))}
     </section>
 
+    <!-- Custom Icons Section -->
+    <section class="space-y-6">
+      <h2 class="section__title">Custom Icons</h2>
+      <p class="text-secondary mb-6">
+        {totalCustomIcons} domain-specific icons for project management, risk management, and specialized UI features.
+        These icons extend Heroicons with project-specific needs.
+      </p>
+
+      {Object.entries(customIconCategories).map(([category, icons]) => (
+        <ExampleSection title={category} description={`${icons.length} icons`}>
+          <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-2">
+            {icons.map((icon) => (
+              <div class="flex flex-col items-center gap-1 p-2 rounded-lg hover:bg-hover-bg transition-colors cursor-pointer group" title={icon}>
+                <div class="text-secondary group-hover:text-theme-primary transition-colors">
+                  <Icon name={icon} size="lg" />
+                </div>
+                <span class="text-[9px] text-muted text-center truncate w-full">{icon}</span>
+              </div>
+            ))}
+          </div>
+        </ExampleSection>
+      ))}
+    </section>
+
     <!-- Accessibility -->
     <section class="space-y-6">
       <h2 class="section__title">Accessibility</h2>
       <div class="a11y-card">
-        <h3 class="a11y-card__title" style="display: flex; align-items: center; gap: 0.5rem;">
-          <Icon name="eye" size="md" class="shrink-0" />
+        <h3 class="a11y-card__title">
+          <div style="width: 20px; height: 20px; flex-shrink: 0;">
+            <Icon name="eye" size="md" />
+          </div>
           Icon Accessibility
         </h3>
-        <p class="a11y-card__text">
-          Icons include <code>aria-hidden="true"</code> by default. When using icons without text labels, 
-          add an <code>aria-label</code> to the parent button or link for screen reader users.
-        </p>
+        <div class="a11y-card__text">
+          <p class="mb-4">
+            All icons (Heroicons, Tabler, and Custom) include <code>aria-hidden="true"</code> by default.
+            When using icons without text labels, add an <code>aria-label</code> to the parent button or link
+            for screen reader users.
+          </p>
+          <pre class="bg-card p-4 rounded-lg text-sm overflow-x-auto"><code>&lt;button aria-label="Edit document"&gt;
+  &lt;Icon name="pencil" /&gt;
+&lt;/button&gt;
+
+&lt;button aria-label="Delete item"&gt;
+  &lt;Icon name="trash" /&gt;
+&lt;/button&gt;</code></pre>
+        </div>
       </div>
     </section>
   </article>

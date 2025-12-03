@@ -32,8 +32,26 @@ try {
     svgContent = pathMatch[1].trim();
   }
 } catch (e) {
-  // Icon not found
-  console.warn(`Icon "${name}" not found in heroicons`);
+  // Heroicon not found, try loading custom SVG from public folder
+  if (!svgContent) {
+    try {
+      const customPath = path.join(process.cwd(), 'public', `${name}.svg`);
+      const customSvg = fs.readFileSync(customPath, 'utf-8');
+      // Extract inner content and process colors
+      const pathMatch = customSvg.match(/<svg[^>]*>([\s\S]*?)<\/svg>/);
+      if (pathMatch) {
+        svgContent = pathMatch[1]
+          // Replace stroke colors but preserve stroke-width and other attributes
+          .replace(/stroke="(#[0-9A-Fa-f]{6}|#[0-9A-Fa-f]{3})"/gi, 'stroke="currentColor"')
+          // Replace fill colors but NOT fill="none" or fill="white"
+          .replace(/fill="(#[0-9A-Fa-f]{6}|#[0-9A-Fa-f]{3})"/gi, 'fill="currentColor"')
+          .trim();
+      }
+    } catch (customError) {
+      // Neither heroicon nor custom icon found
+      console.warn(`Icon "${name}" not found in heroicons or custom icons`);
+    }
+  }
 }
 
 const sizeClass = sizeClasses[size] || sizeClasses.md;
