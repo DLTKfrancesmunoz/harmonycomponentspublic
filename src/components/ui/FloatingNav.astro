@@ -9,6 +9,7 @@
  * @prop {boolean} saveDisabled - Whether the Save button is disabled (default: false)
  * @prop {string} variant - 'full' for all buttons or 'compact' for fewer buttons (default: 'full')
  */
+import Icon from './Icon.astro';
 
 interface Props {
   showExecute?: boolean;
@@ -35,12 +36,12 @@ const {
       
       <button class="floating-nav__btn floating-nav__btn--secondary floating-nav__btn--dropdown" type="button">
         <span class="floating-nav__btn-text">Actions</span>
-        <i class="ti ti-chevron-down floating-nav__btn-chevron"></i>
+        <Icon name="chevron-down" size="sm" class="floating-nav__btn-chevron" />
       </button>
       
       <button class="floating-nav__btn floating-nav__btn--secondary floating-nav__btn--icon-dropdown" type="button">
-        <i class="ti ti-refresh floating-nav__btn-icon"></i>
-        <i class="ti ti-chevron-down floating-nav__btn-chevron"></i>
+        <Icon name="arrow-path" size="md" class="floating-nav__btn-icon" />
+        <Icon name="chevron-down" size="sm" class="floating-nav__btn-chevron" />
       </button>
       
       <button 
@@ -53,7 +54,7 @@ const {
         disabled={saveDisabled}
       >
         <span class="floating-nav__btn-text">Save</span>
-        <i class="ti ti-chevron-down floating-nav__btn-chevron"></i>
+        <Icon name="chevron-down" size="sm" class="floating-nav__btn-chevron" />
       </button>
     </div>
     
@@ -62,8 +63,7 @@ const {
     
     <!-- Pin Icon -->
     <button class="floating-nav__pin" type="button" aria-label="Pin navigation">
-      <i class="ti ti-pin floating-nav__pin-icon"></i>
+      <Icon name="pin" size="md" class="floating-nav__pin-icon" />
     </button>
   </div>
 </div>
-

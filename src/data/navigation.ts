@@ -20,6 +20,12 @@ export const navigation: NavSection[] = [
     ],
   },
   {
+    title: 'CP Components',
+    items: [
+      { title: 'Floating Nav', href: '/cp/floating-nav', icon: 'ti-menu-2' },
+    ],
+  },
+  {
     title: 'Shell Layout',
     items: [
       { title: 'Shell Layout', href: '/shell/layout', icon: 'ti-layout-2' },
