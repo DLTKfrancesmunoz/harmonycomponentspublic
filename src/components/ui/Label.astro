@@ -1,0 +1,46 @@
+---
+/**
+ * Label Component
+ * 
+ * Form label with optional required indicator.
+ * 
+ * @example
+ * <Label for="email">Email</Label>
+ * <Label for="name" required>Name</Label>
+ */
+
+export interface Props {
+  /** The id of the form element this label is for */
+  for?: string;
+  /** Shows required indicator (*) */
+  required?: boolean;
+  /** Additional CSS classes */
+  class?: string;
+  /** Any additional HTML attributes */
+  [key: string]: any;
+}
+
+const {
+  for: htmlFor,
+  required = false,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+const labelClasses = [
+  'block text-sm font-medium text-slate-700 dark:text-slate-300',
+  className,
+].filter(Boolean).join(' ');
+---
+
+<label 
+  for={htmlFor}
+  class={labelClasses}
+  {...rest}
+>
+  <slot />
+  {required && (
+    <span class="text-error ml-0.5">*</span>
+  )}
+</label>
+

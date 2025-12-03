@@ -1,12 +1,14 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
-import CodeBlock from '../../components/CodeBlock.astro';
 import PropsTable from '../../components/PropsTable.astro';
 import ExampleSection from '../../components/ExampleSection.astro';
+import Badge from '../../components/ui/Badge.astro';
 
 const props = [
-  { name: 'variant', type: "'default' | 'success' | 'warning' | 'error' | 'info'", default: "'default'", description: 'Badge color variant' },
+  { name: 'variant', type: "'default' | 'primary' | 'success' | 'warning' | 'error' | 'info'", default: "'default'", description: 'Badge color variant' },
+  { name: 'style', type: "'subtle' | 'solid' | 'outline'", default: "'subtle'", description: 'Badge visual style' },
   { name: 'size', type: "'sm' | 'md'", default: "'md'", description: 'Badge size' },
+  { name: 'icon', type: 'string', default: '—', description: 'Leading icon class' },
   { name: 'dot', type: 'boolean', default: 'false', description: 'Show as dot indicator' },
 ];
 ---
@@ -16,7 +18,7 @@ const props = [
     <header class="border-b border-slate-200 dark:border-slate-800 pb-8">
       <div class="flex items-center gap-3 mb-4">
         <h1 class="font-display text-4xl font-bold text-slate-900 dark:text-white">Badges</h1>
-        <span class="text-xs px-2 py-1 rounded-full border bg-success/10 text-success border-success/30">stable</span>
+        <Badge variant="success">stable</Badge>
       </div>
       <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl">
         Badges are small visual indicators used to highlight status, categories, or counts.
@@ -35,80 +37,59 @@ const props = [
 
       <ExampleSection title="Badge Variants" description="Different color variants for various use cases.">
         <div class="flex flex-wrap gap-3">
-          <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Default</span>
-          <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-theme-primary/10 text-theme-primary">Primary</span>
-          <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-success/10 text-success">Success</span>
-          <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-warning/10 text-warning">Warning</span>
-          <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-error/10 text-error">Error</span>
-          <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-info/10 text-info">Info</span>
+          <Badge variant="default">Default</Badge>
+          <Badge variant="primary">Primary</Badge>
+          <Badge variant="success">Success</Badge>
+          <Badge variant="warning">Warning</Badge>
+          <Badge variant="error">Error</Badge>
+          <Badge variant="info">Info</Badge>
         </div>
       </ExampleSection>
-
-      <CodeBlock 
-        language="html"
-        filename="badges.html"
-        code={`<span class="px-2.5 py-1 text-xs font-medium rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Default</span>
-<span class="px-2.5 py-1 text-xs font-medium rounded-full bg-theme-primary/10 text-theme-primary">Primary</span>
-<span class="px-2.5 py-1 text-xs font-medium rounded-full bg-success/10 text-success">Success</span>
-<span class="px-2.5 py-1 text-xs font-medium rounded-full bg-warning/10 text-warning">Warning</span>
-<span class="px-2.5 py-1 text-xs font-medium rounded-full bg-error/10 text-error">Error</span>
-<span class="px-2.5 py-1 text-xs font-medium rounded-full bg-info/10 text-info">Info</span>`}
-      />
 
       <ExampleSection title="Solid Badges" description="Solid background badges for stronger emphasis.">
         <div class="flex flex-wrap gap-3">
-          <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-slate-600 text-white">Default</span>
-          <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-theme-primary text-white">Primary</span>
-          <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-success text-white">Success</span>
-          <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-warning text-white">Warning</span>
-          <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-error text-white">Error</span>
+          <Badge variant="default" style="solid">Default</Badge>
+          <Badge variant="primary" style="solid">Primary</Badge>
+          <Badge variant="success" style="solid">Success</Badge>
+          <Badge variant="warning" style="solid">Warning</Badge>
+          <Badge variant="error" style="solid">Error</Badge>
+          <Badge variant="info" style="solid">Info</Badge>
         </div>
       </ExampleSection>
 
-      <ExampleSection title="Badge with Border" description="Outlined badges for subtle emphasis.">
+      <ExampleSection title="Outline Badges" description="Outlined badges for subtle emphasis.">
         <div class="flex flex-wrap gap-3">
-          <span class="px-2.5 py-1 text-xs font-medium rounded-full border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300">Default</span>
-          <span class="px-2.5 py-1 text-xs font-medium rounded-full border border-theme-primary text-theme-primary">Primary</span>
-          <span class="px-2.5 py-1 text-xs font-medium rounded-full border border-success text-success">Success</span>
-          <span class="px-2.5 py-1 text-xs font-medium rounded-full border border-error text-error">Error</span>
+          <Badge variant="default" style="outline">Default</Badge>
+          <Badge variant="primary" style="outline">Primary</Badge>
+          <Badge variant="success" style="outline">Success</Badge>
+          <Badge variant="warning" style="outline">Warning</Badge>
+          <Badge variant="error" style="outline">Error</Badge>
         </div>
       </ExampleSection>
 
-      <ExampleSection title="Status Dots" description="Minimal status indicators.">
+      <ExampleSection title="Status Dots" description="Minimal status indicators with colored dots.">
         <div class="flex flex-wrap gap-6">
-          <span class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
-            <span class="w-2 h-2 rounded-full bg-success"></span>
-            Online
-          </span>
-          <span class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
-            <span class="w-2 h-2 rounded-full bg-warning"></span>
-            Away
-          </span>
-          <span class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
-            <span class="w-2 h-2 rounded-full bg-error"></span>
-            Busy
-          </span>
-          <span class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
-            <span class="w-2 h-2 rounded-full bg-slate-400"></span>
-            Offline
-          </span>
+          <Badge variant="success" dot>Online</Badge>
+          <Badge variant="warning" dot>Away</Badge>
+          <Badge variant="error" dot>Busy</Badge>
+          <Badge variant="default" dot>Offline</Badge>
         </div>
       </ExampleSection>
 
-      <ExampleSection title="Badge with Icon" description="Badges with leading icons.">
+      <ExampleSection title="Badge with Icon" description="Badges with leading icons for additional context.">
         <div class="flex flex-wrap gap-3">
-          <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-success/10 text-success flex items-center gap-1">
-            <i class="ti ti-check text-sm"></i>
-            Completed
-          </span>
-          <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-warning/10 text-warning flex items-center gap-1">
-            <i class="ti ti-clock text-sm"></i>
-            Pending
-          </span>
-          <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-error/10 text-error flex items-center gap-1">
-            <i class="ti ti-x text-sm"></i>
-            Failed
-          </span>
+          <Badge variant="success" icon="ti-check">Completed</Badge>
+          <Badge variant="warning" icon="ti-clock">Pending</Badge>
+          <Badge variant="error" icon="ti-x">Failed</Badge>
+          <Badge variant="info" icon="ti-info-circle">New</Badge>
+          <Badge variant="primary" icon="ti-star">Featured</Badge>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Sizes" description="Two size options for different contexts.">
+        <div class="flex flex-wrap items-center gap-3">
+          <Badge size="sm" variant="primary">Small</Badge>
+          <Badge size="md" variant="primary">Medium</Badge>
         </div>
       </ExampleSection>
 
@@ -134,6 +115,37 @@ const props = [
           </div>
         </div>
       </ExampleSection>
+
+      <ExampleSection title="In Context" description="Badges used with other elements.">
+        <div class="space-y-4 max-w-md">
+          <div class="flex items-center justify-between p-4 rounded-lg border border-slate-200 dark:border-slate-800">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-theme-primary/10 flex items-center justify-center">
+                <i class="ti ti-user text-theme-primary"></i>
+              </div>
+              <div>
+                <p class="font-medium text-slate-900 dark:text-white">John Smith</p>
+                <p class="text-sm text-slate-500">Developer</p>
+              </div>
+            </div>
+            <Badge variant="success" dot>Online</Badge>
+          </div>
+          <div class="flex items-center justify-between p-4 rounded-lg border border-slate-200 dark:border-slate-800">
+            <div>
+              <p class="font-medium text-slate-900 dark:text-white">Project Alpha</p>
+              <p class="text-sm text-slate-500">Last updated 2 hours ago</p>
+            </div>
+            <Badge variant="warning" icon="ti-clock">In Progress</Badge>
+          </div>
+          <div class="flex items-center justify-between p-4 rounded-lg border border-slate-200 dark:border-slate-800">
+            <div>
+              <p class="font-medium text-slate-900 dark:text-white">New Feature</p>
+              <p class="text-sm text-slate-500">Released v2.1.0</p>
+            </div>
+            <Badge variant="primary" style="solid">New</Badge>
+          </div>
+        </div>
+      </ExampleSection>
     </section>
 
     <section id="props">
@@ -147,10 +159,11 @@ const props = [
         <div class="p-6 rounded-lg border border-success/30 bg-success/5">
           <h3 class="font-semibold text-success mb-3 flex items-center gap-2"><i class="ti ti-check"></i> Do</h3>
           <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
-            <li>• Use consistent colors for status</li>
+            <li>• Use consistent colors for status types</li>
             <li>• Keep badge text concise</li>
             <li>• Position badges consistently</li>
             <li>• Use icons to reinforce meaning</li>
+            <li>• Use dots for simple online/offline status</li>
           </ul>
         </div>
         <div class="p-6 rounded-lg border border-error/30 bg-error/5">
@@ -160,6 +173,7 @@ const props = [
             <li>• Mix badge styles inconsistently</li>
             <li>• Use badges for long text</li>
             <li>• Rely solely on color for meaning</li>
+            <li>• Use badges for primary actions</li>
           </ul>
         </div>
       </div>
@@ -167,17 +181,26 @@ const props = [
 
     <section id="accessibility">
       <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Accessibility</h2>
-      <div class="p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-surface/50">
-        <h3 class="font-semibold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
-          <i class="ti ti-accessible text-theme-primary"></i>
-          Screen Reader Support
-        </h3>
-        <p class="text-sm text-slate-600 dark:text-slate-400">
-          For notification badges, include <code>aria-label</code> to describe the count (e.g., "3 unread notifications").
-          Status badges should include text that screen readers can announce.
-        </p>
+      <div class="space-y-4">
+        <div class="p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-surface/50">
+          <h3 class="font-semibold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+            <i class="ti ti-accessible text-theme-primary"></i>
+            Screen Reader Support
+          </h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400">
+            For notification badges, include <code>aria-label</code> to describe the count (e.g., "3 unread notifications"). Status badges should include visible text.
+          </p>
+        </div>
+        <div class="p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-surface/50">
+          <h3 class="font-semibold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+            <i class="ti ti-palette text-theme-primary"></i>
+            Color Independence
+          </h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400">
+            Never rely solely on color to convey meaning. Use icons, text, or patterns alongside color for users with color vision deficiency.
+          </p>
+        </div>
       </div>
     </section>
   </article>
 </DocsLayout>
-

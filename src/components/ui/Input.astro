@@ -1,0 +1,111 @@
+---
+/**
+ * Input Component
+ * 
+ * Text input for collecting user data with various states.
+ * 
+ * @example
+ * <Input placeholder="Enter email" type="email" />
+ * <Input icon="ti-search" placeholder="Search..." />
+ * <Input error errorMessage="Invalid email" />
+ */
+
+export interface Props {
+  /** Input type */
+  type?: 'text' | 'email' | 'password' | 'number' | 'url' | 'search' | 'tel';
+  /** Placeholder text */
+  placeholder?: string;
+  /** Input value */
+  value?: string;
+  /** Input name attribute */
+  name?: string;
+  /** Input id attribute */
+  id?: string;
+  /** Disables the input */
+  disabled?: boolean;
+  /** Shows error state */
+  error?: boolean;
+  /** Error message to display */
+  errorMessage?: string;
+  /** Leading icon class (e.g., ti-search) */
+  icon?: string;
+  /** Makes the input required */
+  required?: boolean;
+  /** Additional CSS classes */
+  class?: string;
+  /** Any additional HTML attributes */
+  [key: string]: any;
+}
+
+const {
+  type = 'text',
+  placeholder,
+  value,
+  name,
+  id,
+  disabled = false,
+  error = false,
+  errorMessage,
+  icon,
+  required = false,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+// Base classes for the input
+const baseClasses = 'w-full rounded-lg placeholder-slate-400 transition-shadow';
+
+// Default state classes
+const defaultClasses = 'border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white';
+
+// Focus state classes
+const focusClasses = 'focus:outline-none focus:ring-2 focus:ring-theme-primary focus:border-transparent';
+
+// Error state classes
+const errorClasses = error ? 'border-2 border-error focus:ring-error/50' : '';
+
+// Disabled state classes
+const disabledClasses = disabled ? 'border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-800 text-slate-500 cursor-not-allowed' : '';
+
+// Padding - adjust for icon
+const paddingClasses = icon ? 'pl-10 pr-4 py-2' : 'px-4 py-2';
+
+// Combine classes
+const inputClasses = [
+  baseClasses,
+  paddingClasses,
+  error ? errorClasses : defaultClasses,
+  disabledClasses || focusClasses,
+  className,
+].filter(Boolean).join(' ');
+---
+
+<div class="relative">
+  {icon && (
+    <i class={`ti ${icon} absolute left-3 top-1/2 -translate-y-1/2 text-slate-400`}></i>
+  )}
+  
+  <input
+    type={type}
+    placeholder={placeholder}
+    value={value}
+    name={name}
+    id={id}
+    disabled={disabled}
+    required={required}
+    class={inputClasses}
+    aria-invalid={error ? 'true' : undefined}
+    aria-describedby={error && errorMessage ? `${id || name}-error` : undefined}
+    {...rest}
+  />
+  
+  {error && errorMessage && (
+    <p 
+      id={`${id || name}-error`}
+      class="mt-1 text-sm text-error"
+    >
+      {errorMessage}
+    </p>
+  )}
+</div>
+

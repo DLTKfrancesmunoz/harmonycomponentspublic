@@ -1,0 +1,93 @@
+---
+/**
+ * ButtonGroup Component
+ * 
+ * Container for grouping related buttons together.
+ * 
+ * @example
+ * <ButtonGroup>
+ *   <Button variant="outline">Left</Button>
+ *   <Button variant="outline">Center</Button>
+ *   <Button variant="outline">Right</Button>
+ * </ButtonGroup>
+ */
+
+export interface Props {
+  /** Orientation of the button group */
+  orientation?: 'horizontal' | 'vertical';
+  /** Attach buttons (remove gaps, round only outer edges) */
+  attached?: boolean;
+  /** Gap size between buttons */
+  gap?: 'none' | 'sm' | 'md';
+  /** Additional CSS classes */
+  class?: string;
+  /** Any additional HTML attributes */
+  [key: string]: any;
+}
+
+const {
+  orientation = 'horizontal',
+  attached = false,
+  gap = 'sm',
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+// Gap sizes
+const gapClasses: Record<string, string> = {
+  none: 'gap-0',
+  sm: 'gap-1',
+  md: 'gap-2',
+};
+
+// Base classes
+const baseClasses = 'inline-flex flex-wrap items-center';
+
+// Orientation and gap classes
+const orientationClasses: Record<string, string> = {
+  horizontal: attached ? 'flex-row gap-0' : `flex-row ${gapClasses[gap]}`,
+  vertical: attached ? 'flex-col gap-0' : `flex-col ${gapClasses[gap]}`,
+};
+
+// Combine classes
+const groupClasses = [
+  baseClasses,
+  orientationClasses[orientation],
+  attached ? 'button-group-attached' : '',
+  className,
+].filter(Boolean).join(' ');
+---
+
+<div 
+  class={groupClasses} 
+  role="group"
+  {...rest}
+>
+  <slot />
+</div>
+
+<style is:global>
+  /* Attached button group styling - horizontal */
+  .button-group-attached > *:first-child {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+  .button-group-attached > *:last-child {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+  }
+  .button-group-attached > *:not(:first-child):not(:last-child) {
+    border-radius: 0 !important;
+  }
+  .button-group-attached > *:not(:first-child) {
+    margin-left: -1px;
+  }
+  
+  /* Ensure proper z-index on hover/focus for attached groups */
+  .button-group-attached > *:hover,
+  .button-group-attached > *:focus {
+    z-index: 1;
+    position: relative;
+  }
+</style>
+

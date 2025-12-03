@@ -1,0 +1,433 @@
+{
+  "$schema": "https://harmony-ds.com/tokens/components.schema.json",
+  "name": "Harmony Design System Components",
+  "version": "1.0.0",
+  "description": "Component definitions with props, variants, and Tailwind class mappings",
+
+  "components": {
+    "Button": {
+      "description": "Interactive button component for triggering actions",
+      "props": {
+        "variant": {
+          "type": "string",
+          "options": ["primary", "secondary", "outline", "ghost", "destructive"],
+          "default": "primary",
+          "description": "Visual style of the button"
+        },
+        "size": {
+          "type": "string",
+          "options": ["sm", "md", "lg"],
+          "default": "md",
+          "description": "Size of the button"
+        },
+        "disabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Disables the button"
+        },
+        "icon": {
+          "type": "string",
+          "description": "Tabler icon class (e.g., ti-plus)"
+        },
+        "iconPosition": {
+          "type": "string",
+          "options": ["left", "right"],
+          "default": "left",
+          "description": "Position of icon relative to text"
+        }
+      },
+      "variants": {
+        "primary": {
+          "classes": "bg-theme-primary hover:bg-theme-primary-hover text-white"
+        },
+        "secondary": {
+          "classes": "bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-900 dark:text-white"
+        },
+        "outline": {
+          "classes": "border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-900 dark:text-white"
+        },
+        "ghost": {
+          "classes": "hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-900 dark:text-white"
+        },
+        "destructive": {
+          "classes": "bg-error hover:bg-red-600 text-white"
+        }
+      },
+      "sizes": {
+        "sm": {
+          "classes": "px-3 py-1.5 text-sm gap-1.5"
+        },
+        "md": {
+          "classes": "px-4 py-2 gap-2"
+        },
+        "lg": {
+          "classes": "px-6 py-3 text-lg gap-2"
+        }
+      },
+      "baseClasses": "rounded-lg font-medium transition-colors inline-flex items-center justify-center",
+      "disabledClasses": "opacity-50 cursor-not-allowed"
+    },
+
+    "Card": {
+      "description": "Container for grouping related content",
+      "props": {
+        "variant": {
+          "type": "string",
+          "options": ["default", "elevated", "outlined", "interactive", "topBorder"],
+          "default": "default",
+          "description": "Card style variant"
+        },
+        "padding": {
+          "type": "string",
+          "options": ["none", "sm", "md", "lg"],
+          "default": "md",
+          "description": "Internal padding"
+        }
+      },
+      "variants": {
+        "default": {
+          "classes": "border border-slate-200 dark:border-slate-800 bg-white dark:bg-charcoal"
+        },
+        "elevated": {
+          "classes": "bg-white dark:bg-charcoal shadow-lg"
+        },
+        "outlined": {
+          "classes": "border-2 border-slate-200 dark:border-slate-700 bg-transparent"
+        },
+        "interactive": {
+          "classes": "border border-slate-200 dark:border-slate-800 bg-white dark:bg-charcoal hover:border-theme-primary dark:hover:border-theme-primary hover:shadow-md transition-all cursor-pointer"
+        },
+        "topBorder": {
+          "classes": "border border-slate-200 dark:border-slate-700 border-t-[6px] border-t-theme-primary bg-white dark:bg-charcoal"
+        }
+      },
+      "paddings": {
+        "none": { "classes": "p-0" },
+        "sm": { "classes": "p-4" },
+        "md": { "classes": "p-6" },
+        "lg": { "classes": "p-8" }
+      },
+      "baseClasses": "rounded-xl overflow-hidden"
+    },
+
+    "Input": {
+      "description": "Text input for collecting user data",
+      "props": {
+        "type": {
+          "type": "string",
+          "options": ["text", "email", "password", "number", "url", "search", "tel"],
+          "default": "text",
+          "description": "Input type"
+        },
+        "disabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Disables the input"
+        },
+        "error": {
+          "type": "boolean",
+          "default": false,
+          "description": "Shows error state"
+        },
+        "icon": {
+          "type": "string",
+          "description": "Leading icon class"
+        },
+        "placeholder": {
+          "type": "string",
+          "description": "Placeholder text"
+        }
+      },
+      "states": {
+        "default": {
+          "classes": "border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white"
+        },
+        "focus": {
+          "classes": "focus:outline-none focus:ring-2 focus:ring-theme-primary focus:border-transparent"
+        },
+        "error": {
+          "classes": "border-2 border-error focus:ring-error/50"
+        },
+        "disabled": {
+          "classes": "border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-800 text-slate-500 cursor-not-allowed"
+        }
+      },
+      "baseClasses": "w-full px-4 py-2 rounded-lg placeholder-slate-400 transition-shadow"
+    },
+
+    "Badge": {
+      "description": "Small visual indicator for status or labels",
+      "props": {
+        "variant": {
+          "type": "string",
+          "options": ["default", "primary", "success", "warning", "error", "info"],
+          "default": "default",
+          "description": "Badge color variant"
+        },
+        "style": {
+          "type": "string",
+          "options": ["subtle", "solid", "outline"],
+          "default": "subtle",
+          "description": "Badge visual style"
+        },
+        "size": {
+          "type": "string",
+          "options": ["sm", "md"],
+          "default": "md",
+          "description": "Badge size"
+        }
+      },
+      "variants": {
+        "default": {
+          "subtle": "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300",
+          "solid": "bg-slate-600 text-white",
+          "outline": "border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300"
+        },
+        "primary": {
+          "subtle": "bg-theme-primary/10 text-theme-primary",
+          "solid": "bg-theme-primary text-white",
+          "outline": "border border-theme-primary text-theme-primary"
+        },
+        "success": {
+          "subtle": "bg-success/10 text-success",
+          "solid": "bg-success text-white",
+          "outline": "border border-success text-success"
+        },
+        "warning": {
+          "subtle": "bg-warning/10 text-warning",
+          "solid": "bg-warning text-white",
+          "outline": "border border-warning text-warning"
+        },
+        "error": {
+          "subtle": "bg-error/10 text-error",
+          "solid": "bg-error text-white",
+          "outline": "border border-error text-error"
+        },
+        "info": {
+          "subtle": "bg-info/10 text-info",
+          "solid": "bg-info text-white",
+          "outline": "border border-info text-info"
+        }
+      },
+      "sizes": {
+        "sm": { "classes": "px-2 py-0.5 text-[10px]" },
+        "md": { "classes": "px-2.5 py-1 text-xs" }
+      },
+      "baseClasses": "font-medium rounded-full inline-flex items-center"
+    },
+
+    "Alert": {
+      "description": "Display important messages and notifications",
+      "props": {
+        "variant": {
+          "type": "string",
+          "options": ["success", "warning", "error", "info"],
+          "default": "info",
+          "description": "Alert type and color"
+        },
+        "title": {
+          "type": "string",
+          "description": "Optional title text"
+        },
+        "dismissible": {
+          "type": "boolean",
+          "default": false,
+          "description": "Show close button"
+        }
+      },
+      "variants": {
+        "success": {
+          "classes": "bg-success/10 border-success/30",
+          "icon": "ti-circle-check",
+          "textClass": "text-success"
+        },
+        "warning": {
+          "classes": "bg-warning/10 border-warning/30",
+          "icon": "ti-alert-triangle",
+          "textClass": "text-warning"
+        },
+        "error": {
+          "classes": "bg-error/10 border-error/30",
+          "icon": "ti-circle-x",
+          "textClass": "text-error"
+        },
+        "info": {
+          "classes": "bg-info/10 border-info/30",
+          "icon": "ti-info-circle",
+          "textClass": "text-info"
+        }
+      },
+      "baseClasses": "flex items-start gap-3 p-4 rounded-lg border"
+    },
+
+    "Checkbox": {
+      "description": "Selection control for binary choices",
+      "props": {
+        "checked": {
+          "type": "boolean",
+          "default": false,
+          "description": "Checked state"
+        },
+        "disabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Disables the checkbox"
+        },
+        "error": {
+          "type": "boolean",
+          "default": false,
+          "description": "Shows error state"
+        },
+        "label": {
+          "type": "string",
+          "description": "Label text"
+        }
+      },
+      "baseClasses": "w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-theme-primary focus:ring-theme-primary focus:ring-offset-0"
+    },
+
+    "Dropdown": {
+      "description": "Select menu for single option selection",
+      "props": {
+        "options": {
+          "type": "array",
+          "description": "Array of options",
+          "required": true
+        },
+        "placeholder": {
+          "type": "string",
+          "default": "Select...",
+          "description": "Placeholder text"
+        },
+        "disabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Disables the dropdown"
+        }
+      },
+      "baseClasses": "w-full px-4 py-2 border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-theme-primary"
+    },
+
+    "Spinner": {
+      "description": "Loading indicator",
+      "props": {
+        "size": {
+          "type": "string",
+          "options": ["sm", "md", "lg"],
+          "default": "md",
+          "description": "Spinner size"
+        }
+      },
+      "sizes": {
+        "sm": { "classes": "w-4 h-4" },
+        "md": { "classes": "w-6 h-6" },
+        "lg": { "classes": "w-8 h-8" }
+      },
+      "baseClasses": "animate-spin text-theme-primary"
+    },
+
+    "Tooltip": {
+      "description": "Contextual information on hover",
+      "props": {
+        "position": {
+          "type": "string",
+          "options": ["top", "bottom", "left", "right"],
+          "default": "top",
+          "description": "Tooltip position"
+        },
+        "content": {
+          "type": "string",
+          "required": true,
+          "description": "Tooltip text content"
+        }
+      },
+      "baseClasses": "absolute z-50 px-2 py-1 text-xs font-medium text-white bg-slate-900 dark:bg-slate-700 rounded shadow-md"
+    },
+
+    "Dialog": {
+      "description": "Modal dialog for focused interactions",
+      "props": {
+        "open": {
+          "type": "boolean",
+          "default": false,
+          "description": "Controls visibility"
+        },
+        "size": {
+          "type": "string",
+          "options": ["sm", "md", "lg", "xl", "full"],
+          "default": "md",
+          "description": "Dialog width"
+        },
+        "title": {
+          "type": "string",
+          "description": "Dialog title"
+        }
+      },
+      "sizes": {
+        "sm": { "classes": "max-w-sm" },
+        "md": { "classes": "max-w-md" },
+        "lg": { "classes": "max-w-lg" },
+        "xl": { "classes": "max-w-xl" },
+        "full": { "classes": "max-w-full mx-4" }
+      },
+      "baseClasses": "w-full bg-white dark:bg-charcoal rounded-xl shadow-xl"
+    },
+
+    "ProgressBar": {
+      "description": "Visual indicator of progress or completion",
+      "props": {
+        "value": {
+          "type": "number",
+          "default": 0,
+          "description": "Current progress value (0-100)"
+        },
+        "size": {
+          "type": "string",
+          "options": ["sm", "md", "lg"],
+          "default": "md",
+          "description": "Bar height"
+        },
+        "variant": {
+          "type": "string",
+          "options": ["default", "success", "warning", "error"],
+          "default": "default",
+          "description": "Color variant"
+        }
+      },
+      "sizes": {
+        "sm": { "classes": "h-1" },
+        "md": { "classes": "h-2" },
+        "lg": { "classes": "h-3" }
+      },
+      "baseClasses": "w-full bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden"
+    },
+
+    "Toggle": {
+      "description": "Switch control for on/off states",
+      "props": {
+        "checked": {
+          "type": "boolean",
+          "default": false,
+          "description": "Toggle state"
+        },
+        "disabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Disables the toggle"
+        },
+        "size": {
+          "type": "string",
+          "options": ["sm", "md"],
+          "default": "md",
+          "description": "Toggle size"
+        }
+      },
+      "sizes": {
+        "sm": { "track": "w-8 h-4", "thumb": "w-3 h-3" },
+        "md": { "track": "w-11 h-6", "thumb": "w-5 h-5" }
+      },
+      "baseClasses": "relative inline-flex shrink-0 cursor-pointer rounded-full transition-colors"
+    }
+  }
+}
+

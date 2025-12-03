@@ -1,0 +1,168 @@
+---
+/**
+ * Dialog Component
+ * 
+ * Modal dialog for focused interactions.
+ * Requires JavaScript to control open/close state.
+ * 
+ * @example
+ * <Dialog id="my-dialog" title="Confirm Action" size="md">
+ *   <p>Are you sure you want to proceed?</p>
+ *   <div slot="footer">
+ *     <Button variant="ghost">Cancel</Button>
+ *     <Button variant="primary">Confirm</Button>
+ *   </div>
+ * </Dialog>
+ */
+
+export interface Props {
+  /** Dialog id for JavaScript control */
+  id: string;
+  /** Dialog title */
+  title?: string;
+  /** Dialog width */
+  size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
+  /** Show close button */
+  showClose?: boolean;
+  /** Additional CSS classes */
+  class?: string;
+  /** Any additional HTML attributes */
+  [key: string]: any;
+}
+
+const {
+  id,
+  title,
+  size = 'md',
+  showClose = true,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+// Size classes
+const sizeClasses: Record<string, string> = {
+  sm: 'max-w-sm',
+  md: 'max-w-md',
+  lg: 'max-w-lg',
+  xl: 'max-w-xl',
+  full: 'max-w-full mx-4',
+};
+
+// Dialog panel classes
+const dialogClasses = [
+  'w-full bg-white dark:bg-charcoal rounded-xl shadow-xl',
+  sizeClasses[size],
+  className,
+].filter(Boolean).join(' ');
+---
+
+<!-- Dialog Backdrop -->
+<div 
+  id={id}
+  class="fixed inset-0 z-50 hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby={title ? `${id}-title` : undefined}
+  {...rest}
+>
+  <!-- Backdrop overlay -->
+  <div 
+    class="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity"
+    data-dialog-backdrop
+  ></div>
+  
+  <!-- Dialog container -->
+  <div class="fixed inset-0 overflow-y-auto">
+    <div class="flex min-h-full items-center justify-center p-4">
+      <!-- Dialog panel -->
+      <div class={dialogClasses}>
+        <!-- Header -->
+        {(title || showClose) && (
+          <div class="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-800">
+            {title && (
+              <h3 
+                id={`${id}-title`}
+                class="text-lg font-semibold text-slate-900 dark:text-white"
+              >
+                {title}
+              </h3>
+            )}
+            {showClose && (
+              <button 
+                type="button"
+                class="text-slate-400 hover:text-slate-600 dark:hover:text-white transition-colors"
+                data-dialog-close
+                aria-label="Close dialog"
+              >
+                <i class="ti ti-x text-xl"></i>
+              </button>
+            )}
+          </div>
+        )}
+        
+        <!-- Body -->
+        <div class="p-4">
+          <slot />
+        </div>
+        
+        <!-- Footer (optional slot) -->
+        {Astro.slots.has('footer') && (
+          <div class="flex items-center justify-end gap-2 p-4 border-t border-slate-200 dark:border-slate-800">
+            <slot name="footer" />
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Dialog open/close functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    // Close dialog on backdrop click
+    document.querySelectorAll('[data-dialog-backdrop]').forEach(backdrop => {
+      backdrop.addEventListener('click', () => {
+        const dialog = backdrop.closest('[role="dialog"]');
+        if (dialog) {
+          dialog.classList.add('hidden');
+        }
+      });
+    });
+
+    // Close dialog on close button click
+    document.querySelectorAll('[data-dialog-close]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const dialog = btn.closest('[role="dialog"]');
+        if (dialog) {
+          dialog.classList.add('hidden');
+        }
+      });
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('[role="dialog"]:not(.hidden)').forEach(dialog => {
+          dialog.classList.add('hidden');
+        });
+      }
+    });
+  });
+
+  // Helper function to open dialog (can be called from other scripts)
+  window.openDialog = (id: string) => {
+    const dialog = document.getElementById(id);
+    if (dialog) {
+      dialog.classList.remove('hidden');
+    }
+  };
+
+  // Helper function to close dialog
+  window.closeDialog = (id: string) => {
+    const dialog = document.getElementById(id);
+    if (dialog) {
+      dialog.classList.add('hidden');
+    }
+  };
+</script>
+

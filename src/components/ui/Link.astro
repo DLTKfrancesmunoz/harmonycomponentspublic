@@ -1,0 +1,71 @@
+---
+/**
+ * Link Component
+ * 
+ * Styled anchor element with variants.
+ * 
+ * @example
+ * <Link href="/page">Click here</Link>
+ * <Link href="/docs" variant="subtle">Documentation</Link>
+ * <Link href="/external" external>External Link</Link>
+ */
+
+export interface Props {
+  /** Link URL */
+  href: string;
+  /** Link style variant */
+  variant?: 'default' | 'subtle' | 'underline';
+  /** Open in new tab (adds external icon) */
+  external?: boolean;
+  /** Leading icon class */
+  icon?: string;
+  /** Additional CSS classes */
+  class?: string;
+  /** Any additional HTML attributes */
+  [key: string]: any;
+}
+
+const {
+  href,
+  variant = 'default',
+  external = false,
+  icon,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+// Variant classes
+const variantClasses: Record<string, string> = {
+  default: 'text-theme-primary hover:text-theme-primary-hover',
+  subtle: 'text-slate-600 dark:text-slate-400 hover:text-theme-primary',
+  underline: 'text-theme-primary underline underline-offset-2 hover:text-theme-primary-hover',
+};
+
+// Combine classes
+const linkClasses = [
+  'inline-flex items-center gap-1 transition-colors',
+  variantClasses[variant],
+  className,
+].filter(Boolean).join(' ');
+
+// External link attributes
+const externalAttrs = external
+  ? { target: '_blank', rel: 'noopener noreferrer' }
+  : {};
+---
+
+<a 
+  href={href} 
+  class={linkClasses}
+  {...externalAttrs}
+  {...rest}
+>
+  {icon && (
+    <i class={`ti ${icon}`}></i>
+  )}
+  <slot />
+  {external && (
+    <i class="ti ti-external-link text-xs"></i>
+  )}
+</a>
+

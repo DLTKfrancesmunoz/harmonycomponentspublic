@@ -1,0 +1,63 @@
+---
+/**
+ * Tooltip Component
+ * 
+ * Contextual information displayed on hover.
+ * Wrap the trigger element as a child.
+ * 
+ * @example
+ * <Tooltip content="This is a tooltip">
+ *   <button>Hover me</button>
+ * </Tooltip>
+ */
+
+export interface Props {
+  /** Tooltip text content */
+  content: string;
+  /** Tooltip position */
+  position?: 'top' | 'bottom' | 'left' | 'right';
+  /** Additional CSS classes */
+  class?: string;
+  /** Any additional HTML attributes */
+  [key: string]: any;
+}
+
+const {
+  content,
+  position = 'top',
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+// Position classes for the tooltip
+const positionClasses: Record<string, string> = {
+  top: 'bottom-full left-1/2 -translate-x-1/2 mb-2',
+  bottom: 'top-full left-1/2 -translate-x-1/2 mt-2',
+  left: 'right-full top-1/2 -translate-y-1/2 mr-2',
+  right: 'left-full top-1/2 -translate-y-1/2 ml-2',
+};
+
+// Arrow position classes
+const arrowClasses: Record<string, string> = {
+  top: 'top-full left-1/2 -translate-x-1/2 border-t-slate-900 dark:border-t-slate-700 border-x-transparent border-b-transparent',
+  bottom: 'bottom-full left-1/2 -translate-x-1/2 border-b-slate-900 dark:border-b-slate-700 border-x-transparent border-t-transparent',
+  left: 'left-full top-1/2 -translate-y-1/2 border-l-slate-900 dark:border-l-slate-700 border-y-transparent border-r-transparent',
+  right: 'right-full top-1/2 -translate-y-1/2 border-r-slate-900 dark:border-r-slate-700 border-y-transparent border-l-transparent',
+};
+
+// Tooltip classes
+const tooltipClasses = [
+  'absolute z-50 px-2 py-1 text-xs font-medium text-white bg-slate-900 dark:bg-slate-700 rounded shadow-md whitespace-nowrap',
+  'opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-200',
+  positionClasses[position],
+].join(' ');
+---
+
+<div class={`relative inline-block group ${className}`} {...rest}>
+  <slot />
+  <div class={tooltipClasses} role="tooltip">
+    {content}
+    <div class={`absolute w-0 h-0 border-4 ${arrowClasses[position]}`}></div>
+  </div>
+</div>
+

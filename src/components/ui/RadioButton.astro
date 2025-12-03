@@ -1,0 +1,136 @@
+---
+/**
+ * RadioButton Component
+ * 
+ * Single radio button for use in radio groups.
+ * 
+ * @example
+ * <RadioButton name="options" value="1" label="Option 1" />
+ * <RadioButton name="options" value="2" label="Option 2" checked />
+ */
+
+export interface Props {
+  /** Radio button label text */
+  label?: string;
+  /** Radio group name (required for grouping) */
+  name: string;
+  /** Radio button value */
+  value: string;
+  /** Checked state */
+  checked?: boolean;
+  /** Disables the radio button */
+  disabled?: boolean;
+  /** Radio button id attribute */
+  id?: string;
+  /** Additional CSS classes */
+  class?: string;
+  /** Any additional HTML attributes */
+  [key: string]: any;
+}
+
+const {
+  label,
+  name,
+  value,
+  checked = false,
+  disabled = false,
+  id,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+// Generate an ID if not provided
+const radioId = id || `radio-${name}-${value}`;
+
+// Label classes
+const labelClasses = [
+  'text-sm select-none',
+  disabled ? 'text-slate-400 dark:text-slate-500 cursor-not-allowed' : 'text-slate-700 dark:text-slate-300 cursor-pointer',
+].join(' ');
+---
+
+<label class={`radio-wrapper inline-flex items-center gap-2 ${disabled ? 'cursor-not-allowed' : 'cursor-pointer'} ${className}`}>
+  <span class:list={[
+    'radio-custom relative flex items-center justify-center w-4 h-4 rounded-full border-2 transition-all duration-150',
+    'border-slate-400 dark:border-slate-500',
+    disabled ? 'opacity-50 cursor-not-allowed bg-slate-100 dark:bg-slate-800' : 'cursor-pointer',
+    checked && !disabled ? 'border-theme-primary' : '',
+    checked && disabled ? 'border-slate-400 dark:border-slate-600' : '',
+  ]}>
+    <input
+      type="radio"
+      id={radioId}
+      name={name}
+      value={value}
+      checked={checked}
+      disabled={disabled}
+      class="radio-input absolute inset-0 opacity-0 cursor-pointer disabled:cursor-not-allowed"
+      {...rest}
+    />
+    {checked && (
+      <span class:list={[
+        'w-2 h-2 rounded-full pointer-events-none',
+        disabled ? 'bg-slate-400 dark:bg-slate-500' : 'bg-theme-primary',
+      ]}></span>
+    )}
+  </span>
+  {label && (
+    <span class={labelClasses}>{label}</span>
+  )}
+</label>
+
+<script>
+  function initRadios() {
+    document.querySelectorAll('.radio-wrapper').forEach((wrapper) => {
+      const input = wrapper.querySelector('.radio-input') as HTMLInputElement;
+      const customRadio = wrapper.querySelector('.radio-custom') as HTMLElement;
+      
+      if (!input || !customRadio) return;
+      
+      // Clone to remove existing listeners
+      const newInput = input.cloneNode(true) as HTMLInputElement;
+      input.parentNode?.replaceChild(newInput, input);
+      
+      newInput.addEventListener('change', () => {
+        const radioName = newInput.name;
+        const isChecked = newInput.checked;
+        const isDisabled = newInput.disabled;
+        
+        // Update all radios with the same name
+        document.querySelectorAll(`.radio-wrapper input[name="${radioName}"]`).forEach((radio) => {
+          const radioWrapper = radio.closest('.radio-wrapper');
+          const radioCustom = radioWrapper?.querySelector('.radio-custom') as HTMLElement;
+          const radioInput = radio as HTMLInputElement;
+          
+          if (!radioCustom) return;
+          
+          // Remove existing dot
+          const existingDot = radioCustom.querySelector('span:not(.radio-input)');
+          if (existingDot && !radioInput.checked) {
+            existingDot.remove();
+          }
+          
+          // Update border
+          if (radioInput.checked && !radioInput.disabled) {
+            radioCustom.classList.add('border-theme-primary');
+            radioCustom.classList.remove('border-slate-400', 'dark:border-slate-500');
+            
+            // Add dot if not exists
+            if (!radioCustom.querySelector('span:not(.radio-input)')) {
+              const dot = document.createElement('span');
+              dot.className = 'w-2 h-2 rounded-full pointer-events-none bg-theme-primary';
+              radioCustom.appendChild(dot);
+            }
+          } else if (!radioInput.checked) {
+            radioCustom.classList.remove('border-theme-primary');
+            radioCustom.classList.add('border-slate-400', 'dark:border-slate-500');
+          }
+        });
+      });
+    });
+  }
+  
+  initRadios();
+  document.addEventListener('astro:page-load', initRadios);
+</script>
+

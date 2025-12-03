@@ -1,15 +1,48 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
-import CodeBlock from '../../components/CodeBlock.astro';
 import PropsTable from '../../components/PropsTable.astro';
 import ExampleSection from '../../components/ExampleSection.astro';
+import Dropdown from '../../components/ui/Dropdown.astro';
+import Label from '../../components/ui/Label.astro';
 
 const props = [
-  { name: 'options', type: 'Option[]', description: 'Array of options', required: true },
+  { name: 'options', type: 'DropdownOption[]', description: 'Array of options with value and label', required: true },
   { name: 'value', type: 'string', default: '—', description: 'Selected value' },
   { name: 'placeholder', type: 'string', default: "'Select...'", description: 'Placeholder text' },
   { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables the dropdown' },
-  { name: 'searchable', type: 'boolean', default: 'false', description: 'Enable search filtering' },
+  { name: 'error', type: 'boolean', default: 'false', description: 'Shows error state' },
+  { name: 'errorMessage', type: 'string', default: '—', description: 'Error message to display' },
+  { name: 'name', type: 'string', default: '—', description: 'Dropdown name attribute' },
+  { name: 'id', type: 'string', default: '—', description: 'Dropdown id attribute' },
+];
+
+const countryOptions = [
+  { value: 'us', label: 'United States' },
+  { value: 'uk', label: 'United Kingdom' },
+  { value: 'ca', label: 'Canada' },
+  { value: 'au', label: 'Australia' },
+  { value: 'de', label: 'Germany' },
+  { value: 'fr', label: 'France' },
+];
+
+const statusOptions = [
+  { value: 'active', label: 'Active' },
+  { value: 'pending', label: 'Pending' },
+  { value: 'inactive', label: 'Inactive' },
+];
+
+const roleOptions = [
+  { value: 'admin', label: 'Administrator' },
+  { value: 'editor', label: 'Editor' },
+  { value: 'viewer', label: 'Viewer' },
+  { value: 'guest', label: 'Guest', disabled: true },
+];
+
+const priorityOptions = [
+  { value: 'low', label: 'Low' },
+  { value: 'medium', label: 'Medium' },
+  { value: 'high', label: 'High' },
+  { value: 'critical', label: 'Critical' },
 ];
 ---
 
@@ -35,91 +68,151 @@ const props = [
     <section id="examples" class="space-y-8">
       <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Examples</h2>
 
-      <ExampleSection title="Native Select" description="Standard HTML select element with custom styling.">
+      <ExampleSection title="Basic Dropdown" description="Standard select dropdown with label.">
         <div class="max-w-xs space-y-2">
-          <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Country</label>
-          <select class="w-full px-4 py-2 border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-theme-primary appearance-none bg-no-repeat bg-right pr-10" style="background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%236b7280%27 stroke-width=%272%27%3e%3cpath d=%27M6 9l6 6 6-6%27/%3e%3c/svg%3e'); background-size: 1.5rem;">
-            <option value="">Select a country</option>
-            <option value="us">United States</option>
-            <option value="uk">United Kingdom</option>
-            <option value="ca">Canada</option>
-            <option value="au">Australia</option>
-          </select>
+          <Label for="country-select">Country</Label>
+          <Dropdown 
+            id="country-select"
+            name="country"
+            options={countryOptions}
+            placeholder="Select a country"
+          />
         </div>
       </ExampleSection>
 
-      <CodeBlock 
-        language="html"
-        filename="select.html"
-        code={`<select class="w-full px-4 py-2 border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-theme-primary">
-  <option value="">Select an option</option>
-  <option value="1">Option 1</option>
-  <option value="2">Option 2</option>
-  <option value="3">Option 3</option>
-</select>`}
-      />
-
-      <ExampleSection title="Custom Dropdown" description="Styled dropdown with custom options. Click to toggle.">
-        <div class="max-w-xs">
-          <div class="dropdown-container relative">
-            <button class="dropdown-trigger w-full px-4 py-2 border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-theme-primary flex items-center justify-between">
-              <span class="text-slate-500">Select a status</span>
-              <i class="ti ti-chevron-down text-slate-400"></i>
-            </button>
-            <div class="dropdown-menu hidden absolute top-full left-0 right-0 mt-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg shadow-lg py-1 z-10">
-              <button class="w-full px-4 py-2 text-left text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-success"></span>
-                Active
-              </button>
-              <button class="w-full px-4 py-2 text-left text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-warning"></span>
-                Pending
-              </button>
-              <button class="w-full px-4 py-2 text-left text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-error"></span>
-                Inactive
-              </button>
-            </div>
-          </div>
+      <ExampleSection title="With Selected Value" description="Dropdown with a pre-selected value.">
+        <div class="max-w-xs space-y-2">
+          <Label for="status-select">Status</Label>
+          <Dropdown 
+            id="status-select"
+            name="status"
+            options={statusOptions}
+            value="active"
+          />
         </div>
       </ExampleSection>
 
-      <ExampleSection title="With Icons" description="Dropdown options with icons. Click to toggle.">
-        <div class="max-w-xs">
-          <div class="dropdown-container relative">
-            <button class="dropdown-trigger w-full px-4 py-2 border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-white flex items-center justify-between">
-              <span class="flex items-center gap-2">
-                <i class="ti ti-folder text-theme-primary"></i>
-                Projects
-              </span>
-              <i class="ti ti-chevron-down text-slate-400"></i>
-            </button>
-            <div class="dropdown-menu hidden absolute top-full left-0 right-0 mt-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg shadow-lg py-1 z-10">
-              <button class="w-full px-4 py-2 text-left text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-2">
-                <i class="ti ti-folder text-slate-400"></i>
-                Projects
-              </button>
-              <button class="w-full px-4 py-2 text-left text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-2">
-                <i class="ti ti-users text-slate-400"></i>
-                Team
-              </button>
-              <button class="w-full px-4 py-2 text-left text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-2">
-                <i class="ti ti-settings text-slate-400"></i>
-                Settings
-              </button>
-            </div>
-          </div>
+      <ExampleSection title="With Disabled Option" description="Dropdown with some options disabled.">
+        <div class="max-w-xs space-y-2">
+          <Label for="role-select">Role</Label>
+          <Dropdown 
+            id="role-select"
+            name="role"
+            options={roleOptions}
+            placeholder="Select a role"
+          />
         </div>
       </ExampleSection>
 
       <ExampleSection title="States" description="Different dropdown states.">
-        <div class="flex flex-wrap gap-4">
-          <select disabled class="px-4 py-2 border border-slate-200 dark:border-slate-800 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-500 cursor-not-allowed">
-            <option>Disabled</option>
-          </select>
-          <select class="px-4 py-2 border-2 border-error rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
-            <option>Error State</option>
-          </select>
+        <div class="grid sm:grid-cols-3 gap-4 max-w-2xl">
+          <div class="space-y-2">
+            <Label for="default-dropdown">Default</Label>
+            <Dropdown 
+              id="default-dropdown"
+              options={priorityOptions}
+              placeholder="Select priority"
+            />
+          </div>
+          <div class="space-y-2">
+            <Label for="disabled-dropdown">Disabled</Label>
+            <Dropdown 
+              id="disabled-dropdown"
+              options={priorityOptions}
+              value="medium"
+              disabled
+            />
+          </div>
+          <div class="space-y-2">
+            <Label for="error-dropdown">Error</Label>
+            <Dropdown 
+              id="error-dropdown"
+              options={priorityOptions}
+              error
+              errorMessage="Please select a priority"
+            />
+          </div>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="In a Form" description="Multiple dropdowns in a form context.">
+        <div class="max-w-md p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-charcoal">
+          <h3 class="font-semibold text-slate-900 dark:text-white mb-4">Project Settings</h3>
+          <form class="space-y-4">
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div class="space-y-2">
+                <Label for="form-status" required>Status</Label>
+                <Dropdown 
+                  id="form-status"
+                  name="status"
+                  options={statusOptions}
+                  value="active"
+                />
+              </div>
+              <div class="space-y-2">
+                <Label for="form-priority" required>Priority</Label>
+                <Dropdown 
+                  id="form-priority"
+                  name="priority"
+                  options={priorityOptions}
+                  placeholder="Select priority"
+                />
+              </div>
+            </div>
+            <div class="space-y-2">
+              <Label for="form-assignee">Assignee</Label>
+              <Dropdown 
+                id="form-assignee"
+                name="assignee"
+                options={roleOptions}
+                placeholder="Select assignee role"
+              />
+            </div>
+            <div class="space-y-2">
+              <Label for="form-region">Region</Label>
+              <Dropdown 
+                id="form-region"
+                name="region"
+                options={countryOptions}
+                placeholder="Select region"
+              />
+            </div>
+            <button type="submit" class="w-full px-4 py-2 bg-theme-primary hover:bg-theme-primary-hover text-white rounded-lg font-medium transition-colors">
+              Save Settings
+            </button>
+          </form>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Compact Layout" description="Dropdowns in a tight inline layout.">
+        <div class="flex flex-wrap gap-4 items-end">
+          <div class="space-y-1">
+            <Label for="inline-status" class="text-xs">Status</Label>
+            <Dropdown 
+              id="inline-status"
+              options={statusOptions}
+              value="active"
+              class="w-32"
+            />
+          </div>
+          <div class="space-y-1">
+            <Label for="inline-priority" class="text-xs">Priority</Label>
+            <Dropdown 
+              id="inline-priority"
+              options={priorityOptions}
+              value="high"
+              class="w-32"
+            />
+          </div>
+          <div class="space-y-1">
+            <Label for="inline-role" class="text-xs">Role</Label>
+            <Dropdown 
+              id="inline-role"
+              options={roleOptions}
+              value="editor"
+              class="w-36"
+            />
+          </div>
         </div>
       </ExampleSection>
     </section>
@@ -127,6 +220,15 @@ const props = [
     <section id="props">
       <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Props</h2>
       <PropsTable props={props} />
+      
+      <h3 class="text-lg font-semibold text-slate-900 dark:text-white mt-6 mb-3">DropdownOption Type</h3>
+      <div class="p-4 rounded-lg bg-slate-100 dark:bg-slate-800 font-mono text-sm">
+        <pre class="text-slate-700 dark:text-slate-300">{`interface DropdownOption {
+  value: string;
+  label: string;
+  disabled?: boolean;
+}`}</pre>
+      </div>
     </section>
 
     <section id="usage">
@@ -137,17 +239,19 @@ const props = [
           <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
             <li>• Use for single selection from 5+ options</li>
             <li>• Provide clear placeholder text</li>
-            <li>• Order options logically</li>
-            <li>• Consider searchable for long lists</li>
+            <li>• Order options logically (alphabetical, by frequency, etc.)</li>
+            <li>• Consider searchable dropdowns for long lists</li>
+            <li>• Use descriptive option labels</li>
           </ul>
         </div>
         <div class="p-6 rounded-lg border border-error/30 bg-error/5">
           <h3 class="font-semibold text-error mb-3 flex items-center gap-2"><i class="ti ti-x"></i> Don't</h3>
           <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
-            <li>• Use for 2-3 options (use radio)</li>
-            <li>• Hide critical options</li>
-            <li>• Make options too long</li>
-            <li>• Use for navigation</li>
+            <li>• Use for 2-3 options (use radio buttons instead)</li>
+            <li>• Hide critical options in long lists</li>
+            <li>• Make option labels too long</li>
+            <li>• Use for navigation (use proper nav components)</li>
+            <li>• Nest dropdowns within dropdowns</li>
           </ul>
         </div>
       </div>
@@ -162,53 +266,28 @@ const props = [
             Keyboard Navigation
           </h3>
           <p class="text-sm text-slate-600 dark:text-slate-400">
-            Support arrow keys for navigation, Enter/Space to select, Escape to close, and type-ahead search for quick option finding.
+            Native select elements support arrow keys for navigation, Enter/Space to open, and type-ahead search for quick option finding.
+          </p>
+        </div>
+        <div class="p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-surface/50">
+          <h3 class="font-semibold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+            <i class="ti ti-tag text-theme-primary"></i>
+            Labels
+          </h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400">
+            Always use the Label component with dropdowns. The <code>for</code> attribute should match the dropdown's <code>id</code>.
           </p>
         </div>
         <div class="p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-surface/50">
           <h3 class="font-semibold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
             <i class="ti ti-accessible text-theme-primary"></i>
-            ARIA Attributes
+            Error States
           </h3>
           <p class="text-sm text-slate-600 dark:text-slate-400">
-            Use <code>role="listbox"</code> for custom dropdowns with <code>aria-activedescendant</code> to indicate the focused option.
+            Error messages are displayed below the dropdown and associated via visual proximity. Consider adding <code>aria-describedby</code> for screen readers.
           </p>
         </div>
       </div>
     </section>
   </article>
 </DocsLayout>
-
-<script>
-  // Dropdown toggle functionality
-  document.querySelectorAll('.dropdown-trigger').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const menu = btn.nextElementSibling;
-      const isOpen = !menu.classList.contains('hidden');
-      
-      // Close all other dropdowns first
-      document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.add('hidden'));
-      
-      // Toggle current dropdown
-      if (!isOpen) {
-        menu.classList.remove('hidden');
-      }
-    });
-  });
-
-  // Close dropdowns when clicking outside
-  document.addEventListener('click', (e) => {
-    if (!e.target.closest('.dropdown-container')) {
-      document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.add('hidden'));
-    }
-  });
-
-  // Close on Escape key
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.add('hidden'));
-    }
-  });
-</script>
-

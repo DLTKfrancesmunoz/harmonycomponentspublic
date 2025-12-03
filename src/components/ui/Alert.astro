@@ -1,0 +1,111 @@
+---
+/**
+ * Alert Component
+ * 
+ * Display important messages and notifications with semantic variants.
+ * 
+ * @example
+ * <Alert variant="success" title="Success">Changes saved.</Alert>
+ * <Alert variant="error" dismissible>An error occurred.</Alert>
+ * <Alert variant="info">New features available.</Alert>
+ */
+
+export interface Props {
+  /** Alert type and color */
+  variant?: 'success' | 'warning' | 'error' | 'info';
+  /** Optional title text */
+  title?: string;
+  /** Show close button */
+  dismissible?: boolean;
+  /** Inline style (compact, no title) */
+  inline?: boolean;
+  /** Custom icon class (overrides default) */
+  icon?: string;
+  /** Additional CSS classes */
+  class?: string;
+  /** Any additional HTML attributes */
+  [key: string]: any;
+}
+
+const {
+  variant = 'info',
+  title,
+  dismissible = false,
+  inline = false,
+  icon: customIcon,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+// Variant configuration
+const variantConfig: Record<string, { classes: string; icon: string; textClass: string }> = {
+  success: {
+    classes: 'bg-success/10 border-success/30',
+    icon: 'ti-circle-check',
+    textClass: 'text-success',
+  },
+  warning: {
+    classes: 'bg-warning/10 border-warning/30',
+    icon: 'ti-alert-triangle',
+    textClass: 'text-warning',
+  },
+  error: {
+    classes: 'bg-error/10 border-error/30',
+    icon: 'ti-circle-x',
+    textClass: 'text-error',
+  },
+  info: {
+    classes: 'bg-info/10 border-info/30',
+    icon: 'ti-info-circle',
+    textClass: 'text-info',
+  },
+};
+
+const config = variantConfig[variant];
+const iconClass = customIcon || config.icon;
+
+// Base classes
+const baseClasses = inline 
+  ? 'flex items-center gap-2 px-3 py-2 rounded-lg border text-sm'
+  : 'flex items-start gap-3 p-4 rounded-lg border';
+
+// Combine classes
+const alertClasses = [
+  baseClasses,
+  config.classes,
+  inline ? config.textClass : '',
+  className,
+].filter(Boolean).join(' ');
+---
+
+<div 
+  class={alertClasses} 
+  role="alert"
+  {...rest}
+>
+  <i class={`ti ${iconClass} ${config.textClass} ${inline ? '' : 'text-xl shrink-0 mt-0.5'}`}></i>
+  
+  {inline ? (
+    <span><slot /></span>
+  ) : (
+    <div class="flex-1">
+      {title && (
+        <h4 class={`font-medium ${config.textClass}`}>{title}</h4>
+      )}
+      <p class={`text-sm ${config.textClass}/80`}>
+        <slot />
+      </p>
+    </div>
+  )}
+  
+  {dismissible && (
+    <button 
+      type="button"
+      class={`${config.textClass} hover:${config.textClass}/80 transition-colors`}
+      aria-label="Dismiss alert"
+    >
+      <i class="ti ti-x text-lg"></i>
+    </button>
+  )}
+</div>
+

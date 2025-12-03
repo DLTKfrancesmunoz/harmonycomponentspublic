@@ -1,52 +1,191 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
-import CodeBlock from '../../components/CodeBlock.astro';
+import PropsTable from '../../components/PropsTable.astro';
 import ExampleSection from '../../components/ExampleSection.astro';
+import Chip from '../../components/ui/Chip.astro';
+
+const props = [
+  { name: 'variant', type: "'default' | 'primary' | 'success' | 'warning' | 'error'", default: "'default'", description: 'Chip color variant' },
+  { name: 'dismissible', type: 'boolean', default: 'false', description: 'Show dismiss/remove button' },
+  { name: 'icon', type: 'string', default: '—', description: 'Leading icon class (e.g., ti-tag)' },
+  { name: 'clickable', type: 'boolean', default: 'false', description: 'Make chip clickable/selectable' },
+  { name: 'selected', type: 'boolean', default: 'false', description: 'Selected state (for clickable chips)' },
+];
 ---
 
 <DocsLayout title="Chips" description="Dismissible tags and filter chips.">
   <article class="space-y-12">
     <header class="border-b border-slate-200 dark:border-slate-800 pb-8">
-      <h1 class="font-display text-4xl font-bold text-slate-900 dark:text-white mb-4">Chips</h1>
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="font-display text-4xl font-bold text-slate-900 dark:text-white">Chips</h1>
+        <span class="text-xs px-2 py-1 rounded-full border bg-success/10 text-success border-success/30">stable</span>
+      </div>
       <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl">
         Chips are compact elements representing inputs, attributes, or actions. They can be dismissible or interactive.
       </p>
     </header>
 
-    <ExampleSection title="Basic Chips" description="Simple chips with optional dismiss button.">
-      <div class="flex flex-wrap gap-2">
-        <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-sm text-slate-700 dark:text-slate-300">
-          Design
-          <button class="hover:text-slate-900 dark:hover:text-white"><i class="ti ti-x text-xs"></i></button>
-        </span>
-        <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-theme-primary/10 text-sm text-theme-primary">
-          React
-          <button class="hover:text-theme-primary-hover"><i class="ti ti-x text-xs"></i></button>
-        </span>
-        <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-success/10 text-sm text-success">
-          <i class="ti ti-check text-xs"></i>
-          Complete
-        </span>
+    <nav class="flex gap-4 text-sm">
+      <a href="#examples" class="text-theme-primary hover:underline flex items-center gap-1"><i class="ti ti-eye"></i> Examples</a>
+      <a href="#props" class="text-theme-primary hover:underline flex items-center gap-1"><i class="ti ti-list"></i> Props</a>
+      <a href="#usage" class="text-theme-primary hover:underline flex items-center gap-1"><i class="ti ti-book"></i> Usage</a>
+      <a href="#accessibility" class="text-theme-primary hover:underline flex items-center gap-1"><i class="ti ti-accessible"></i> Accessibility</a>
+    </nav>
+
+    <section id="examples" class="space-y-8">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Examples</h2>
+
+      <ExampleSection title="Basic Chips" description="Simple chips in different variants.">
+        <div class="flex flex-wrap gap-2">
+          <Chip>Default</Chip>
+          <Chip variant="primary">Primary</Chip>
+          <Chip variant="success">Success</Chip>
+          <Chip variant="warning">Warning</Chip>
+          <Chip variant="error">Error</Chip>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="With Icons" description="Chips with leading icons for context.">
+        <div class="flex flex-wrap gap-2">
+          <Chip icon="ti-tag">Category</Chip>
+          <Chip icon="ti-user" variant="primary">John Doe</Chip>
+          <Chip icon="ti-check" variant="success">Verified</Chip>
+          <Chip icon="ti-alert-triangle" variant="warning">Pending</Chip>
+          <Chip icon="ti-x" variant="error">Failed</Chip>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Dismissible Chips" description="Chips that can be removed by clicking the X.">
+        <div class="flex flex-wrap gap-2">
+          <Chip dismissible>Design</Chip>
+          <Chip dismissible variant="primary">React</Chip>
+          <Chip dismissible variant="success">TypeScript</Chip>
+          <Chip dismissible icon="ti-code">JavaScript</Chip>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Selectable Chips" description="Clickable chips for filtering or selection.">
+        <div class="flex flex-wrap gap-2">
+          <Chip clickable>All</Chip>
+          <Chip clickable selected>Active</Chip>
+          <Chip clickable>Pending</Chip>
+          <Chip clickable>Completed</Chip>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Tags Example" description="Common use case for tagging items.">
+        <div class="max-w-md p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-charcoal">
+          <div class="flex items-center gap-2 mb-3">
+            <i class="ti ti-tags text-slate-400"></i>
+            <span class="text-sm font-medium text-slate-900 dark:text-white">Tags</span>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <Chip dismissible icon="ti-code">Frontend</Chip>
+            <Chip dismissible icon="ti-palette">Design</Chip>
+            <Chip dismissible icon="ti-bug">Bug Fix</Chip>
+            <Chip icon="ti-plus" clickable class="border-dashed">Add Tag</Chip>
+          </div>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Filter Chips" description="Chip group for filtering content.">
+        <div class="space-y-3">
+          <span class="text-sm text-slate-600 dark:text-slate-400">Filter by status:</span>
+          <div class="flex flex-wrap gap-2">
+            <Chip clickable selected variant="primary">All (24)</Chip>
+            <Chip clickable variant="success" icon="ti-check">Active (12)</Chip>
+            <Chip clickable variant="warning" icon="ti-clock">Pending (8)</Chip>
+            <Chip clickable variant="error" icon="ti-x">Closed (4)</Chip>
+          </div>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="User Chips" description="Chips representing users or assignees.">
+        <div class="flex flex-wrap gap-2">
+          <Chip variant="primary" dismissible>
+            <span class="w-4 h-4 rounded-full bg-blue-500 flex items-center justify-center text-[10px] text-white mr-1">J</span>
+            John Smith
+          </Chip>
+          <Chip variant="primary" dismissible>
+            <span class="w-4 h-4 rounded-full bg-green-500 flex items-center justify-center text-[10px] text-white mr-1">A</span>
+            Alice Brown
+          </Chip>
+          <Chip variant="primary" dismissible>
+            <span class="w-4 h-4 rounded-full bg-purple-500 flex items-center justify-center text-[10px] text-white mr-1">M</span>
+            Mike Wilson
+          </Chip>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Status Badges" description="Chips used as status indicators.">
+        <div class="space-y-3">
+          <div class="flex items-center gap-3">
+            <Chip variant="success" icon="ti-check">Approved</Chip>
+            <span class="text-sm text-slate-600 dark:text-slate-400">This item has been approved</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <Chip variant="warning" icon="ti-clock">In Review</Chip>
+            <span class="text-sm text-slate-600 dark:text-slate-400">Awaiting manager approval</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <Chip variant="error" icon="ti-x">Rejected</Chip>
+            <span class="text-sm text-slate-600 dark:text-slate-400">Changes requested</span>
+          </div>
+        </div>
+      </ExampleSection>
+    </section>
+
+    <section id="props">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Props</h2>
+      <PropsTable props={props} />
+    </section>
+
+    <section id="usage">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Usage Guidelines</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="p-6 rounded-lg border border-success/30 bg-success/5">
+          <h3 class="font-semibold text-success mb-3 flex items-center gap-2"><i class="ti ti-check"></i> Do</h3>
+          <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+            <li>• Use for compact, removable tags</li>
+            <li>• Use for filter selections</li>
+            <li>• Keep labels short and clear</li>
+            <li>• Group related chips together</li>
+          </ul>
+        </div>
+        <div class="p-6 rounded-lg border border-error/30 bg-error/5">
+          <h3 class="font-semibold text-error mb-3 flex items-center gap-2"><i class="ti ti-x"></i> Don't</h3>
+          <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+            <li>• Use for primary actions (use buttons)</li>
+            <li>• Make labels too long</li>
+            <li>• Use too many colors at once</li>
+            <li>• Overload with too many chips</li>
+          </ul>
+        </div>
       </div>
-    </ExampleSection>
+    </section>
 
-    <CodeBlock 
-      language="html"
-      filename="chips.html"
-      code={`<!-- Dismissible Chip -->
-<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-sm text-slate-700 dark:text-slate-300">
-  Label
-  <button class="hover:text-slate-900 dark:hover:text-white">
-    <i class="ti ti-x text-xs"></i>
-  </button>
-</span>
-
-<!-- Chip with Icon -->
-<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-success/10 text-sm text-success">
-  <i class="ti ti-check text-xs"></i>
-  Complete
-</span>`}
-    />
+    <section id="accessibility">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Accessibility</h2>
+      <div class="space-y-4">
+        <div class="p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-surface/50">
+          <h3 class="font-semibold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+            <i class="ti ti-keyboard text-theme-primary"></i>
+            Keyboard Navigation
+          </h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400">
+            Dismissible chips include a button with <code>aria-label="Remove"</code>. Clickable chips can be focused and activated with keyboard.
+          </p>
+        </div>
+        <div class="p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-surface/50">
+          <h3 class="font-semibold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+            <i class="ti ti-palette text-theme-primary"></i>
+            Color Contrast
+          </h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400">
+            Chip colors maintain sufficient contrast for readability. Don't rely solely on color - use icons or text to convey meaning.
+          </p>
+        </div>
+      </div>
+    </section>
   </article>
 </DocsLayout>
-

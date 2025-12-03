@@ -1,0 +1,106 @@
+---
+/**
+ * Textarea Component
+ * 
+ * Multi-line text input.
+ * 
+ * @example
+ * <Textarea placeholder="Enter description..." />
+ * <Textarea rows={6} resizable />
+ * <Textarea error errorMessage="Required field" />
+ */
+
+export interface Props {
+  /** Placeholder text */
+  placeholder?: string;
+  /** Textarea value */
+  value?: string;
+  /** Number of visible rows */
+  rows?: number;
+  /** Textarea name attribute */
+  name?: string;
+  /** Textarea id attribute */
+  id?: string;
+  /** Disables the textarea */
+  disabled?: boolean;
+  /** Shows error state */
+  error?: boolean;
+  /** Error message to display */
+  errorMessage?: string;
+  /** Allow resizing */
+  resizable?: boolean;
+  /** Makes the textarea required */
+  required?: boolean;
+  /** Additional CSS classes */
+  class?: string;
+  /** Any additional HTML attributes */
+  [key: string]: any;
+}
+
+const {
+  placeholder,
+  value,
+  rows = 4,
+  name,
+  id,
+  disabled = false,
+  error = false,
+  errorMessage,
+  resizable = false,
+  required = false,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+// Base classes
+const baseClasses = 'w-full px-4 py-2 rounded-lg placeholder-slate-400 transition-shadow';
+
+// Default state classes
+const defaultClasses = 'border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white';
+
+// Focus state classes
+const focusClasses = 'focus:outline-none focus:ring-2 focus:ring-theme-primary focus:border-transparent';
+
+// Error state classes
+const errorClasses = error ? 'border-2 border-error focus:ring-error/50' : '';
+
+// Disabled state classes
+const disabledClasses = disabled ? 'border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-800 text-slate-500 cursor-not-allowed' : '';
+
+// Resize class
+const resizeClass = resizable ? '' : 'resize-none';
+
+// Combine classes
+const textareaClasses = [
+  baseClasses,
+  error ? errorClasses : defaultClasses,
+  disabledClasses || focusClasses,
+  resizeClass,
+  className,
+].filter(Boolean).join(' ');
+---
+
+<div>
+  <textarea
+    placeholder={placeholder}
+    rows={rows}
+    name={name}
+    id={id}
+    disabled={disabled}
+    required={required}
+    class={textareaClasses}
+    aria-invalid={error ? 'true' : undefined}
+    aria-describedby={error && errorMessage ? `${id || name}-error` : undefined}
+    {...rest}
+  >{value}</textarea>
+  
+  {error && errorMessage && (
+    <p 
+      id={`${id || name}-error`}
+      class="mt-1 text-sm text-error"
+    >
+      {errorMessage}
+    </p>
+  )}
+</div>
+

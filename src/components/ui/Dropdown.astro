@@ -1,0 +1,290 @@
+---
+/**
+ * Dropdown Component (Custom Styled)
+ * 
+ * Fully styled select menu for single option selection.
+ * Uses JavaScript for custom dropdown behavior with full theme support.
+ * 
+ * @example
+ * <Dropdown options={[{value: '1', label: 'Option 1'}]} />
+ * <Dropdown options={options} placeholder="Select..." />
+ */
+
+export interface DropdownOption {
+  value: string;
+  label: string;
+  disabled?: boolean;
+}
+
+export interface Props {
+  /** Array of options */
+  options: DropdownOption[];
+  /** Selected value */
+  value?: string;
+  /** Placeholder text */
+  placeholder?: string;
+  /** Disables the dropdown */
+  disabled?: boolean;
+  /** Shows error state */
+  error?: boolean;
+  /** Error message */
+  errorMessage?: string;
+  /** Dropdown name attribute */
+  name?: string;
+  /** Dropdown id attribute */
+  id?: string;
+  /** Additional CSS classes */
+  class?: string;
+  /** Any additional HTML attributes */
+  [key: string]: any;
+}
+
+const {
+  options,
+  value,
+  placeholder = 'Select...',
+  disabled = false,
+  error = false,
+  errorMessage,
+  name,
+  id,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+// Generate unique ID if not provided
+const dropdownId = id || `dropdown-${Math.random().toString(36).substr(2, 9)}`;
+
+// Find the selected option label
+const selectedOption = options.find(opt => opt.value === value);
+const displayText = selectedOption ? selectedOption.label : placeholder;
+---
+
+<div class={`custom-dropdown relative ${className}`} data-dropdown-id={dropdownId}>
+  <!-- Hidden input for form submission -->
+  <input 
+    type="hidden" 
+    name={name} 
+    value={value || ''} 
+    class="dropdown-value"
+  />
+  
+  <!-- Dropdown trigger button -->
+  <button
+    type="button"
+    id={dropdownId}
+    class:list={[
+      'dropdown-trigger w-full h-10 px-3 pr-10 rounded-lg transition-all duration-150 text-left flex items-center',
+      'text-sm font-medium',
+      error 
+        ? 'border-2 border-error focus:ring-2 focus:ring-error/30' 
+        : 'border border-slate-300 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-theme-primary focus:border-theme-primary',
+      disabled 
+        ? 'bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500 cursor-not-allowed' 
+        : 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white hover:border-slate-400 dark:hover:border-slate-500',
+      !selectedOption && 'text-slate-400 dark:text-slate-500',
+    ]}
+    disabled={disabled}
+    aria-haspopup="listbox"
+    aria-expanded="false"
+    {...rest}
+  >
+    <span class="dropdown-display truncate">{displayText}</span>
+  </button>
+  
+  <!-- Custom dropdown arrow - centered vertically -->
+  <div class:list={[
+    'pointer-events-none absolute top-1/2 -translate-y-1/2 right-3',
+    disabled ? 'text-slate-300 dark:text-slate-600' : 'text-slate-500 dark:text-slate-400',
+  ]}>
+    <svg class="dropdown-arrow h-4 w-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+    </svg>
+  </div>
+  
+  <!-- Dropdown menu -->
+  <div class="dropdown-menu absolute z-50 w-full mt-1 py-1 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-lg opacity-0 invisible transition-all duration-150 max-h-60 overflow-auto">
+    {placeholder && (
+      <div 
+        class="dropdown-option px-3 py-2 text-sm text-slate-400 dark:text-slate-500 cursor-default"
+        data-value=""
+        data-placeholder="true"
+      >
+        {placeholder}
+      </div>
+    )}
+    {options.map((option) => (
+      <div 
+        class:list={[
+          'dropdown-option px-3 py-2 text-sm cursor-pointer transition-colors',
+          option.disabled 
+            ? 'text-slate-400 dark:text-slate-500 cursor-not-allowed' 
+            : 'text-slate-900 dark:text-white hover:bg-theme-primary/10 hover:text-theme-primary',
+          value === option.value && 'bg-theme-primary/10 text-theme-primary font-medium',
+        ]}
+        data-value={option.value}
+        data-label={option.label}
+        data-disabled={option.disabled ? 'true' : undefined}
+        role="option"
+        aria-selected={value === option.value ? 'true' : 'false'}
+      >
+        <span class="flex items-center justify-between">
+          {option.label}
+          {value === option.value && (
+            <svg class="w-4 h-4 text-theme-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+          )}
+        </span>
+      </div>
+    ))}
+  </div>
+  
+  {error && errorMessage && (
+    <p class="mt-1.5 text-sm text-error">{errorMessage}</p>
+  )}
+</div>
+
+<script>
+  function initDropdowns() {
+    document.querySelectorAll('.custom-dropdown').forEach((dropdown) => {
+      const trigger = dropdown.querySelector('.dropdown-trigger') as HTMLButtonElement;
+      const menu = dropdown.querySelector('.dropdown-menu') as HTMLElement;
+      const arrow = dropdown.querySelector('.dropdown-arrow') as HTMLElement;
+      const display = dropdown.querySelector('.dropdown-display') as HTMLElement;
+      const hiddenInput = dropdown.querySelector('.dropdown-value') as HTMLInputElement;
+      const options = dropdown.querySelectorAll('.dropdown-option:not([data-placeholder])');
+      
+      if (!trigger || !menu || !arrow || !display || !hiddenInput) return;
+      
+      let isOpen = false;
+      
+      // Toggle dropdown
+      const toggleDropdown = (open?: boolean) => {
+        isOpen = open !== undefined ? open : !isOpen;
+        
+        if (isOpen) {
+          menu.classList.remove('opacity-0', 'invisible');
+          menu.classList.add('opacity-100', 'visible');
+          arrow.classList.add('rotate-180');
+          trigger.setAttribute('aria-expanded', 'true');
+        } else {
+          menu.classList.add('opacity-0', 'invisible');
+          menu.classList.remove('opacity-100', 'visible');
+          arrow.classList.remove('rotate-180');
+          trigger.setAttribute('aria-expanded', 'false');
+        }
+      };
+      
+      // Close dropdown when clicking outside
+      const closeOnClickOutside = (e: MouseEvent) => {
+        if (!dropdown.contains(e.target as Node)) {
+          toggleDropdown(false);
+        }
+      };
+      
+      // Handle trigger click
+      trigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (!trigger.disabled) {
+          toggleDropdown();
+        }
+      });
+      
+      // Handle option selection
+      options.forEach((option) => {
+        option.addEventListener('click', () => {
+          if (option.getAttribute('data-disabled') === 'true') return;
+          
+          const value = option.getAttribute('data-value') || '';
+          const label = option.getAttribute('data-label') || '';
+          
+          // Update hidden input
+          hiddenInput.value = value;
+          
+          // Update display
+          display.textContent = label;
+          display.classList.remove('text-slate-400', 'dark:text-slate-500');
+          
+          // Update selected state
+          dropdown.querySelectorAll('.dropdown-option').forEach((opt) => {
+            opt.classList.remove('bg-theme-primary/10', 'text-theme-primary', 'font-medium');
+            opt.setAttribute('aria-selected', 'false');
+            const checkmark = opt.querySelector('svg');
+            if (checkmark) checkmark.remove();
+          });
+          
+          option.classList.add('bg-theme-primary/10', 'text-theme-primary', 'font-medium');
+          option.setAttribute('aria-selected', 'true');
+          
+          // Add checkmark
+          const span = option.querySelector('span');
+          if (span && !span.querySelector('svg')) {
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('class', 'w-4 h-4 text-theme-primary');
+            svg.setAttribute('fill', 'none');
+            svg.setAttribute('stroke', 'currentColor');
+            svg.setAttribute('viewBox', '0 0 24 24');
+            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            path.setAttribute('stroke-linecap', 'round');
+            path.setAttribute('stroke-linejoin', 'round');
+            path.setAttribute('stroke-width', '2');
+            path.setAttribute('d', 'M5 13l4 4L19 7');
+            svg.appendChild(path);
+            span.appendChild(svg);
+          }
+          
+          // Dispatch change event
+          hiddenInput.dispatchEvent(new Event('change', { bubbles: true }));
+          
+          // Close dropdown
+          toggleDropdown(false);
+        });
+      });
+      
+      // Handle keyboard navigation
+      trigger.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          if (!isOpen) toggleDropdown(true);
+        } else if (e.key === 'Escape') {
+          toggleDropdown(false);
+        } else if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleDropdown();
+        }
+      });
+      
+      // Add/remove click outside listener
+      document.addEventListener('click', closeOnClickOutside);
+      
+      // Cleanup on page navigation (Astro)
+      document.addEventListener('astro:before-swap', () => {
+        document.removeEventListener('click', closeOnClickOutside);
+      });
+    });
+  }
+  
+  initDropdowns();
+  document.addEventListener('astro:page-load', initDropdowns);
+</script>
+
+<style is:global>
+  /* Dropdown menu scrollbar styling */
+  .dropdown-menu::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .dropdown-menu::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .dropdown-menu::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1;
+    border-radius: 3px;
+  }
+  
+  html.dark .dropdown-menu::-webkit-scrollbar-thumb {
+    background-color: #475569;
+  }
+</style>

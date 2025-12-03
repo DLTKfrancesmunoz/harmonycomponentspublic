@@ -1,61 +1,226 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
-import CodeBlock from '../../components/CodeBlock.astro';
+import PropsTable from '../../components/PropsTable.astro';
 import ExampleSection from '../../components/ExampleSection.astro';
+import Tooltip from '../../components/ui/Tooltip.astro';
+import Button from '../../components/ui/Button.astro';
+
+const props = [
+  { name: 'content', type: 'string', description: 'Tooltip text content', required: true },
+  { name: 'position', type: "'top' | 'bottom' | 'left' | 'right'", default: "'top'", description: 'Tooltip position relative to trigger' },
+];
 ---
 
 <DocsLayout title="Tooltips" description="Hover information overlays.">
   <article class="space-y-12">
     <header class="border-b border-slate-200 dark:border-slate-800 pb-8">
-      <h1 class="font-display text-4xl font-bold text-slate-900 dark:text-white mb-4">Tooltips</h1>
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="font-display text-4xl font-bold text-slate-900 dark:text-white">Tooltips</h1>
+        <span class="text-xs px-2 py-1 rounded-full border bg-success/10 text-success border-success/30">stable</span>
+      </div>
       <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl">
         Tooltips provide additional information when users hover over or focus on an element.
       </p>
     </header>
 
-    <ExampleSection title="Basic Tooltip" description="Hover over the button to see the tooltip.">
-      <div class="relative inline-block group">
-        <button class="px-4 py-2 bg-theme-primary hover:bg-theme-primary-hover text-white rounded-lg font-medium transition-colors">
-          Hover me
-        </button>
-        <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 bg-slate-900 dark:bg-slate-700 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
-          This is a tooltip
-          <div class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-slate-900 dark:border-t-slate-700"></div>
-        </div>
-      </div>
-    </ExampleSection>
+    <nav class="flex gap-4 text-sm">
+      <a href="#examples" class="text-theme-primary hover:underline flex items-center gap-1"><i class="ti ti-eye"></i> Examples</a>
+      <a href="#props" class="text-theme-primary hover:underline flex items-center gap-1"><i class="ti ti-list"></i> Props</a>
+      <a href="#usage" class="text-theme-primary hover:underline flex items-center gap-1"><i class="ti ti-book"></i> Usage</a>
+      <a href="#accessibility" class="text-theme-primary hover:underline flex items-center gap-1"><i class="ti ti-accessible"></i> Accessibility</a>
+    </nav>
 
-    <ExampleSection title="Tooltip Positions" description="Tooltips can appear in different positions.">
-      <div class="flex gap-8 py-8">
-        <div class="relative inline-block group">
-          <button class="px-3 py-1.5 text-sm border border-slate-300 dark:border-slate-700 rounded-lg">Top</button>
-          <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 bg-slate-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity">
-            Top tooltip
+    <section id="examples" class="space-y-8">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Examples</h2>
+
+      <ExampleSection title="Basic Tooltip" description="Hover over the button to see the tooltip.">
+        <div class="flex gap-4">
+          <Tooltip content="This is a tooltip">
+            <Button variant="primary">Hover me</Button>
+          </Tooltip>
+          <Tooltip content="Another tooltip">
+            <Button variant="outline">Hover me too</Button>
+          </Tooltip>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Positions" description="Tooltips can appear in different positions.">
+        <div class="flex flex-wrap gap-6 py-8 justify-center">
+          <Tooltip content="Top tooltip" position="top">
+            <Button variant="outline">Top</Button>
+          </Tooltip>
+          <Tooltip content="Bottom tooltip" position="bottom">
+            <Button variant="outline">Bottom</Button>
+          </Tooltip>
+          <Tooltip content="Left tooltip" position="left">
+            <Button variant="outline">Left</Button>
+          </Tooltip>
+          <Tooltip content="Right tooltip" position="right">
+            <Button variant="outline">Right</Button>
+          </Tooltip>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="On Icons" description="Tooltips on icon buttons for clarity.">
+        <div class="flex gap-4">
+          <Tooltip content="Edit">
+            <button class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400">
+              <i class="ti ti-edit text-xl"></i>
+            </button>
+          </Tooltip>
+          <Tooltip content="Delete">
+            <button class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400">
+              <i class="ti ti-trash text-xl"></i>
+            </button>
+          </Tooltip>
+          <Tooltip content="Download">
+            <button class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400">
+              <i class="ti ti-download text-xl"></i>
+            </button>
+          </Tooltip>
+          <Tooltip content="Share">
+            <button class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400">
+              <i class="ti ti-share text-xl"></i>
+            </button>
+          </Tooltip>
+          <Tooltip content="Settings">
+            <button class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400">
+              <i class="ti ti-settings text-xl"></i>
+            </button>
+          </Tooltip>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Information Icons" description="Tooltips to explain form fields or features.">
+        <div class="max-w-sm space-y-4">
+          <div class="flex items-center gap-2">
+            <span class="text-sm font-medium text-slate-900 dark:text-white">API Key</span>
+            <Tooltip content="Your unique API key for authentication" position="right">
+              <i class="ti ti-info-circle text-slate-400 cursor-help"></i>
+            </Tooltip>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-sm font-medium text-slate-900 dark:text-white">Rate Limit</span>
+            <Tooltip content="Maximum requests per minute" position="right">
+              <i class="ti ti-info-circle text-slate-400 cursor-help"></i>
+            </Tooltip>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-sm font-medium text-slate-900 dark:text-white">Webhooks</span>
+            <Tooltip content="HTTP callbacks for real-time events" position="right">
+              <i class="ti ti-info-circle text-slate-400 cursor-help"></i>
+            </Tooltip>
           </div>
         </div>
-        <div class="relative inline-block group">
-          <button class="px-3 py-1.5 text-sm border border-slate-300 dark:border-slate-700 rounded-lg">Bottom</button>
-          <div class="absolute top-full left-1/2 -translate-x-1/2 mt-2 px-3 py-1.5 bg-slate-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity">
-            Bottom tooltip
-          </div>
+      </ExampleSection>
+
+      <ExampleSection title="In a Toolbar" description="Tooltips on toolbar actions.">
+        <div class="inline-flex items-center gap-1 p-2 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-charcoal">
+          <Tooltip content="Bold (Ctrl+B)">
+            <button class="p-2 rounded hover:bg-slate-100 dark:hover:bg-slate-800">
+              <i class="ti ti-bold text-slate-600 dark:text-slate-400"></i>
+            </button>
+          </Tooltip>
+          <Tooltip content="Italic (Ctrl+I)">
+            <button class="p-2 rounded hover:bg-slate-100 dark:hover:bg-slate-800">
+              <i class="ti ti-italic text-slate-600 dark:text-slate-400"></i>
+            </button>
+          </Tooltip>
+          <Tooltip content="Underline (Ctrl+U)">
+            <button class="p-2 rounded hover:bg-slate-100 dark:hover:bg-slate-800">
+              <i class="ti ti-underline text-slate-600 dark:text-slate-400"></i>
+            </button>
+          </Tooltip>
+          <div class="w-px h-6 bg-slate-200 dark:bg-slate-700 mx-1"></div>
+          <Tooltip content="Align Left">
+            <button class="p-2 rounded hover:bg-slate-100 dark:hover:bg-slate-800">
+              <i class="ti ti-align-left text-slate-600 dark:text-slate-400"></i>
+            </button>
+          </Tooltip>
+          <Tooltip content="Align Center">
+            <button class="p-2 rounded hover:bg-slate-100 dark:hover:bg-slate-800">
+              <i class="ti ti-align-center text-slate-600 dark:text-slate-400"></i>
+            </button>
+          </Tooltip>
+          <Tooltip content="Align Right">
+            <button class="p-2 rounded hover:bg-slate-100 dark:hover:bg-slate-800">
+              <i class="ti ti-align-right text-slate-600 dark:text-slate-400"></i>
+            </button>
+          </Tooltip>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Longer Text" description="Tooltips with longer content.">
+        <div class="flex gap-4">
+          <Tooltip content="This is a longer tooltip with more detailed information about the feature">
+            <Button variant="outline">Hover for details</Button>
+          </Tooltip>
+        </div>
+      </ExampleSection>
+    </section>
+
+    <section id="props">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Props</h2>
+      <PropsTable props={props} />
+    </section>
+
+    <section id="usage">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Usage Guidelines</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="p-6 rounded-lg border border-success/30 bg-success/5">
+          <h3 class="font-semibold text-success mb-3 flex items-center gap-2"><i class="ti ti-check"></i> Do</h3>
+          <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+            <li>• Use for icon-only buttons</li>
+            <li>• Provide keyboard shortcuts</li>
+            <li>• Keep content brief (1-2 lines)</li>
+            <li>• Add to info/help icons</li>
+            <li>• Position to avoid clipping</li>
+          </ul>
+        </div>
+        <div class="p-6 rounded-lg border border-error/30 bg-error/5">
+          <h3 class="font-semibold text-error mb-3 flex items-center gap-2"><i class="ti ti-x"></i> Don't</h3>
+          <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+            <li>• Put essential information in tooltips</li>
+            <li>• Use for mobile-primary interfaces</li>
+            <li>• Include interactive content</li>
+            <li>• Make them too long</li>
+            <li>• Rely on tooltips alone for accessibility</li>
+          </ul>
         </div>
       </div>
-    </ExampleSection>
+    </section>
 
-    <CodeBlock 
-      language="html"
-      filename="tooltip.html"
-      code={`<div class="relative inline-block group">
-  <button class="px-4 py-2 bg-theme-primary text-white rounded-lg">
-    Hover me
-  </button>
-  <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 bg-slate-900 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
-    Tooltip content
-    <!-- Arrow -->
-    <div class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-slate-900"></div>
-  </div>
-</div>`}
-    />
+    <section id="accessibility">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Accessibility</h2>
+      <div class="space-y-4">
+        <div class="p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-surface/50">
+          <h3 class="font-semibold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+            <i class="ti ti-accessible text-theme-primary"></i>
+            ARIA Role
+          </h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400">
+            The Tooltip content has <code>role="tooltip"</code> for screen reader identification.
+          </p>
+        </div>
+        <div class="p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-surface/50">
+          <h3 class="font-semibold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+            <i class="ti ti-mouse text-theme-primary"></i>
+            Hover Behavior
+          </h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400">
+            Tooltips appear on hover and focus. They have a small delay to prevent accidental triggers and remain visible while hovered.
+          </p>
+        </div>
+        <div class="p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-surface/50">
+          <h3 class="font-semibold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+            <i class="ti ti-device-mobile text-theme-primary"></i>
+            Touch Devices
+          </h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400">
+            Tooltips aren't available on touch devices. Ensure critical information is accessible through other means.
+          </p>
+        </div>
+      </div>
+    </section>
   </article>
 </DocsLayout>
-

@@ -1,0 +1,79 @@
+---
+/**
+ * Card Component
+ * 
+ * Container for grouping related content with multiple style variants.
+ * 
+ * @example
+ * <Card>Basic card content</Card>
+ * <Card variant="elevated" padding="lg">Elevated card</Card>
+ * <Card variant="interactive" href="/page">Clickable card</Card>
+ */
+
+export interface Props {
+  /** Card style variant */
+  variant?: 'default' | 'elevated' | 'outlined' | 'interactive' | 'topBorder';
+  /** Internal padding */
+  padding?: 'none' | 'sm' | 'md' | 'lg';
+  /** Makes card a link (for interactive variant) */
+  href?: string;
+  /** Top border color (for topBorder variant) */
+  borderColor?: string;
+  /** Additional CSS classes */
+  class?: string;
+  /** Any additional HTML attributes */
+  [key: string]: any;
+}
+
+const {
+  variant = 'default',
+  padding = 'md',
+  href,
+  borderColor,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+// Base classes applied to all cards
+const baseClasses = 'rounded-xl overflow-hidden';
+
+// Padding classes
+const paddingClasses: Record<string, string> = {
+  none: '',
+  sm: 'p-4',
+  md: 'p-6',
+  lg: 'p-8',
+};
+
+// Variant-specific classes
+const variantClasses: Record<string, string> = {
+  default: 'border border-slate-200 dark:border-slate-800 bg-white dark:bg-charcoal',
+  elevated: 'bg-white dark:bg-charcoal shadow-lg',
+  outlined: 'border-2 border-slate-200 dark:border-slate-700 bg-transparent',
+  interactive: 'border border-slate-200 dark:border-slate-800 bg-white dark:bg-charcoal hover:border-theme-primary dark:hover:border-theme-primary hover:shadow-md transition-all',
+  topBorder: 'border border-slate-200 dark:border-slate-700 border-t-[6px] border-t-theme-primary bg-white dark:bg-charcoal',
+};
+
+// Combine all classes
+const cardClasses = [
+  baseClasses,
+  paddingClasses[padding],
+  variantClasses[variant],
+  href ? 'cursor-pointer group' : '',
+  className,
+].filter(Boolean).join(' ');
+
+// Determine the element type
+const Element = href ? 'a' : 'div';
+---
+
+{href ? (
+  <a href={href} class={cardClasses} {...rest}>
+    <slot />
+  </a>
+) : (
+  <div class={cardClasses} {...rest}>
+    <slot />
+  </div>
+)}
+

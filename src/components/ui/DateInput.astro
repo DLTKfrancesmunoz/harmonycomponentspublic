@@ -1,0 +1,135 @@
+---
+/**
+ * DateInput Component
+ * 
+ * Date/time input with consistent styling and icon handling.
+ * Hides the native calendar picker indicator and uses Tabler icons.
+ * 
+ * @example
+ * <DateInput label="Start Date" />
+ * <DateInput type="datetime-local" />
+ * <DateInput type="time" />
+ */
+
+export interface Props {
+  /** Input type */
+  type?: 'date' | 'datetime-local' | 'time' | 'month' | 'week';
+  /** Input value in ISO format */
+  value?: string;
+  /** Minimum allowed value */
+  min?: string;
+  /** Maximum allowed value */
+  max?: string;
+  /** Input name attribute */
+  name?: string;
+  /** Input id attribute */
+  id?: string;
+  /** Disables the input */
+  disabled?: boolean;
+  /** Makes the input required */
+  required?: boolean;
+  /** Shows error state */
+  error?: boolean;
+  /** Error message to display */
+  errorMessage?: string;
+  /** Additional CSS classes */
+  class?: string;
+  /** Any additional HTML attributes */
+  [key: string]: any;
+}
+
+const {
+  type = 'date',
+  value,
+  min,
+  max,
+  name,
+  id,
+  disabled = false,
+  required = false,
+  error = false,
+  errorMessage,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+// Icon mapping based on input type
+const iconMap: Record<string, string> = {
+  'date': 'ti-calendar',
+  'datetime-local': 'ti-calendar-time',
+  'time': 'ti-clock',
+  'month': 'ti-calendar-month',
+  'week': 'ti-calendar-week',
+};
+
+const icon = iconMap[type] || 'ti-calendar';
+
+// Generate ID if not provided
+const inputId = id || `date-${Math.random().toString(36).substr(2, 9)}`;
+
+// Base classes
+const baseClasses = 'date-input-custom w-full h-10 px-4 pr-10 rounded-lg transition-colors text-sm';
+
+// State classes
+const stateClasses = error
+  ? 'border-2 border-error focus:ring-2 focus:ring-error/30 focus:outline-none'
+  : disabled
+    ? 'border border-slate-300 dark:border-slate-600 bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500 cursor-not-allowed'
+    : 'border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-theme-primary focus:border-theme-primary';
+
+// Combine classes
+const inputClasses = [
+  baseClasses,
+  stateClasses,
+  className,
+].filter(Boolean).join(' ');
+
+// Icon color based on state
+const iconColorClass = error
+  ? 'text-error'
+  : disabled
+    ? 'text-slate-300 dark:text-slate-600'
+    : 'text-slate-400 dark:text-slate-500';
+---
+
+<div class="relative">
+  <input
+    type={type}
+    id={inputId}
+    name={name}
+    value={value}
+    min={min}
+    max={max}
+    disabled={disabled}
+    required={required}
+    class={inputClasses}
+    aria-invalid={error ? 'true' : undefined}
+    aria-describedby={error && errorMessage ? `${inputId}-error` : undefined}
+    {...rest}
+  />
+  <div class={`pointer-events-none absolute top-1/2 -translate-y-1/2 right-3 ${iconColorClass}`}>
+    <i class={`ti ${icon}`}></i>
+  </div>
+  
+  {error && errorMessage && (
+    <p id={`${inputId}-error`} class="mt-1.5 text-sm text-error">{errorMessage}</p>
+  )}
+</div>
+
+<style is:global>
+  /* Hide native calendar picker indicator for custom date inputs */
+  .date-input-custom::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+  
+  .date-input-custom::-webkit-inner-spin-button,
+  .date-input-custom::-webkit-clear-button {
+    display: none;
+  }
+</style>
+

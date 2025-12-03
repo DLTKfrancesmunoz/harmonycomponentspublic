@@ -1,0 +1,126 @@
+{
+  "$schema": "https://harmony-ds.com/tokens/elevations.schema.json",
+  "name": "Harmony Design System Elevations",
+  "version": "1.0.0",
+  "description": "A layered shadow system that creates depth and visual hierarchy",
+
+  "shadows": {
+    "none": {
+      "value": "none",
+      "css": "none",
+      "tailwind": "shadow-none",
+      "level": 0,
+      "description": "No shadow, ground level"
+    },
+    "sm": {
+      "value": "0 1px 2px 0 rgb(15 23 42 / 0.05)",
+      "css": "0 1px 2px 0 rgb(15 23 42 / 0.05)",
+      "tailwind": "shadow-sm",
+      "level": 1,
+      "description": "Subtle elevation for buttons and small elements",
+      "usage": ["Buttons", "Inputs", "Small cards"]
+    },
+    "default": {
+      "value": "0 1px 3px 0 rgb(15 23 42 / 0.1), 0 1px 2px -1px rgb(15 23 42 / 0.1)",
+      "css": "0 1px 3px 0 rgb(15 23 42 / 0.1), 0 1px 2px -1px rgb(15 23 42 / 0.1)",
+      "tailwind": "shadow",
+      "level": 1,
+      "description": "Default elevation for cards and containers",
+      "usage": ["Cards", "Dropdowns", "Tooltips"]
+    },
+    "md": {
+      "value": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+      "css": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+      "tailwind": "shadow-md",
+      "level": 2,
+      "description": "Medium elevation for floating elements",
+      "usage": ["Floating menus", "Popovers"]
+    },
+    "lg": {
+      "value": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)",
+      "css": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)",
+      "tailwind": "shadow-lg",
+      "level": 3,
+      "description": "High elevation for prominent elements",
+      "usage": ["Modals", "Dialogs", "Notifications"]
+    },
+    "xl": {
+      "value": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+      "css": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+      "tailwind": "shadow-xl",
+      "level": 4,
+      "description": "Extra high elevation for overlays",
+      "usage": ["Full-screen modals", "Image lightboxes"]
+    },
+    "2xl": {
+      "value": "0 25px 50px -12px rgb(15 23 42 / 0.25)",
+      "css": "0 25px 50px -12px rgb(15 23 42 / 0.25)",
+      "tailwind": "shadow-2xl",
+      "level": 5,
+      "description": "Maximum elevation for dramatic effect",
+      "usage": ["Hero images", "Featured content"]
+    }
+  },
+
+  "hierarchy": [
+    {
+      "level": 0,
+      "name": "Ground Level",
+      "shadow": "none",
+      "description": "Page background, no shadow"
+    },
+    {
+      "level": 1,
+      "name": "Raised",
+      "shadow": "shadow-sm",
+      "description": "Cards, containers, buttons"
+    },
+    {
+      "level": 2,
+      "name": "Floating",
+      "shadow": "shadow-md",
+      "description": "Dropdowns, menus, popovers"
+    },
+    {
+      "level": 3,
+      "name": "Overlay",
+      "shadow": "shadow-lg",
+      "description": "Modals, dialogs"
+    },
+    {
+      "level": 4,
+      "name": "Prominent",
+      "shadow": "shadow-xl",
+      "description": "Focus elements, highlighted content"
+    }
+  ],
+
+  "borders": {
+    "default": {
+      "class": "border border-slate-200 dark:border-slate-800",
+      "description": "Standard border for cards and containers"
+    },
+    "strong": {
+      "class": "border-2 border-slate-200 dark:border-slate-800",
+      "description": "Thicker border for emphasis"
+    },
+    "ring": {
+      "class": "ring-1 ring-slate-200 dark:ring-slate-800",
+      "description": "Focus ring style border"
+    },
+    "focusRing": {
+      "class": "ring-2 ring-theme-primary",
+      "description": "Focus state indicator"
+    }
+  },
+
+  "componentDefaults": {
+    "button": "shadow-sm hover:shadow-md",
+    "card": "shadow-sm",
+    "cardElevated": "shadow-lg",
+    "dropdown": "shadow-lg",
+    "modal": "shadow-xl",
+    "tooltip": "shadow-md"
+  }
+}
+

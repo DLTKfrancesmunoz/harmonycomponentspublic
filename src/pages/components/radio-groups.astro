@@ -1,55 +1,186 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
-import CodeBlock from '../../components/CodeBlock.astro';
+import PropsTable from '../../components/PropsTable.astro';
 import ExampleSection from '../../components/ExampleSection.astro';
+import RadioButton from '../../components/ui/RadioButton.astro';
 ---
 
 <DocsLayout title="Radio Groups" description="Grouped radio selections.">
   <article class="space-y-12">
     <header class="border-b border-slate-200 dark:border-slate-800 pb-8">
-      <h1 class="font-display text-4xl font-bold text-slate-900 dark:text-white mb-4">Radio Groups</h1>
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="font-display text-4xl font-bold text-slate-900 dark:text-white">Radio Groups</h1>
+        <span class="text-xs px-2 py-1 rounded-full border bg-success/10 text-success border-success/30">stable</span>
+      </div>
       <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl">
         Organized radio button groups with card-style and list layouts.
       </p>
     </header>
 
-    <ExampleSection title="Card Style Radio Group" description="Radio options as selectable cards.">
-      <div class="grid sm:grid-cols-3 gap-4 max-w-lg">
-        <label class="relative cursor-pointer">
-          <input type="radio" name="plan" checked class="peer sr-only">
-          <div class="p-4 rounded-lg border-2 border-slate-200 dark:border-slate-800 peer-checked:border-theme-primary peer-checked:bg-theme-primary/5 transition-colors text-center">
-            <span class="block font-medium text-slate-900 dark:text-white">Basic</span>
-            <span class="text-sm text-slate-500">$10/mo</span>
-          </div>
-        </label>
-        <label class="relative cursor-pointer">
-          <input type="radio" name="plan" class="peer sr-only">
-          <div class="p-4 rounded-lg border-2 border-slate-200 dark:border-slate-800 peer-checked:border-theme-primary peer-checked:bg-theme-primary/5 transition-colors text-center">
-            <span class="block font-medium text-slate-900 dark:text-white">Pro</span>
-            <span class="text-sm text-slate-500">$25/mo</span>
-          </div>
-        </label>
-        <label class="relative cursor-pointer">
-          <input type="radio" name="plan" class="peer sr-only">
-          <div class="p-4 rounded-lg border-2 border-slate-200 dark:border-slate-800 peer-checked:border-theme-primary peer-checked:bg-theme-primary/5 transition-colors text-center">
-            <span class="block font-medium text-slate-900 dark:text-white">Enterprise</span>
-            <span class="text-sm text-slate-500">Custom</span>
-          </div>
-        </label>
-      </div>
-    </ExampleSection>
+    <nav class="flex gap-4 text-sm">
+      <a href="#examples" class="text-theme-primary hover:underline flex items-center gap-1"><i class="ti ti-eye"></i> Examples</a>
+      <a href="#usage" class="text-theme-primary hover:underline flex items-center gap-1"><i class="ti ti-book"></i> Usage</a>
+      <a href="#accessibility" class="text-theme-primary hover:underline flex items-center gap-1"><i class="ti ti-accessible"></i> Accessibility</a>
+    </nav>
 
-    <CodeBlock 
-      language="html"
-      filename="radio-group.html"
-      code={`<label class="relative cursor-pointer">
-  <input type="radio" name="plan" class="peer sr-only">
-  <div class="p-4 rounded-lg border-2 border-slate-200 dark:border-slate-800 peer-checked:border-theme-primary peer-checked:bg-theme-primary/5 text-center">
-    <span class="block font-medium">Option</span>
-    <span class="text-sm text-slate-500">Description</span>
-  </div>
-</label>`}
-    />
+    <section id="examples" class="space-y-8">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Examples</h2>
+
+      <ExampleSection title="Vertical Group" description="Standard vertical radio button list.">
+        <fieldset class="max-w-sm">
+          <legend class="text-sm font-semibold text-slate-900 dark:text-white mb-3">Select a plan</legend>
+          <div class="flex flex-col gap-3">
+            <RadioButton name="vertical-plan" value="starter" label="Starter - $9/month" checked />
+            <RadioButton name="vertical-plan" value="pro" label="Pro - $29/month" />
+            <RadioButton name="vertical-plan" value="enterprise" label="Enterprise - Custom" />
+          </div>
+        </fieldset>
+      </ExampleSection>
+
+      <ExampleSection title="Card Style Radio Group" description="Radio options as selectable cards.">
+        <div class="grid sm:grid-cols-3 gap-4 max-w-lg">
+          <label class="relative cursor-pointer">
+            <input type="radio" name="card-plan" checked class="peer sr-only" />
+            <div class="p-4 rounded-lg border-2 border-theme-primary bg-theme-primary/5 transition-colors text-center">
+              <div class="w-5 h-5 rounded-full border-2 border-theme-primary bg-theme-primary flex items-center justify-center mx-auto mb-2">
+                <div class="w-2 h-2 rounded-full bg-white"></div>
+              </div>
+              <span class="block font-medium text-slate-900 dark:text-white">Basic</span>
+              <span class="text-sm text-slate-500">$10/mo</span>
+            </div>
+          </label>
+          <label class="relative cursor-pointer">
+            <input type="radio" name="card-plan" class="peer sr-only" />
+            <div class="p-4 rounded-lg border-2 border-slate-200 dark:border-slate-800 peer-checked:border-theme-primary peer-checked:bg-theme-primary/5 transition-colors text-center">
+              <div class="w-5 h-5 rounded-full border-2 border-slate-300 dark:border-slate-600 peer-checked:border-theme-primary mx-auto mb-2"></div>
+              <span class="block font-medium text-slate-900 dark:text-white">Pro</span>
+              <span class="text-sm text-slate-500">$25/mo</span>
+            </div>
+          </label>
+          <label class="relative cursor-pointer">
+            <input type="radio" name="card-plan" class="peer sr-only" />
+            <div class="p-4 rounded-lg border-2 border-slate-200 dark:border-slate-800 peer-checked:border-theme-primary peer-checked:bg-theme-primary/5 transition-colors text-center">
+              <div class="w-5 h-5 rounded-full border-2 border-slate-300 dark:border-slate-600 peer-checked:border-theme-primary mx-auto mb-2"></div>
+              <span class="block font-medium text-slate-900 dark:text-white">Enterprise</span>
+              <span class="text-sm text-slate-500">Custom</span>
+            </div>
+          </label>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Horizontal Group" description="Radio buttons in a row for few options.">
+        <fieldset>
+          <legend class="text-sm font-semibold text-slate-900 dark:text-white mb-3">Size</legend>
+          <div class="flex items-center gap-6">
+            <RadioButton name="size-group" value="sm" label="Small" />
+            <RadioButton name="size-group" value="md" label="Medium" checked />
+            <RadioButton name="size-group" value="lg" label="Large" />
+          </div>
+        </fieldset>
+      </ExampleSection>
+
+      <ExampleSection title="List Style with Descriptions" description="Radio group with additional context.">
+        <fieldset class="max-w-md">
+          <legend class="text-sm font-semibold text-slate-900 dark:text-white mb-3">Shipping Method</legend>
+          <div class="flex flex-col gap-3">
+            <label class="flex items-start gap-3 p-4 rounded-lg border border-slate-200 dark:border-slate-800 cursor-pointer hover:border-theme-primary transition-colors">
+              <input type="radio" name="shipping-group" value="standard" checked class="mt-0.5 w-4 h-4 border-slate-300 dark:border-slate-600 text-theme-primary focus:ring-theme-primary" />
+              <div class="flex-1">
+                <div class="flex justify-between">
+                  <span class="text-sm font-medium text-slate-900 dark:text-white">Standard</span>
+                  <span class="text-sm font-medium text-slate-900 dark:text-white">Free</span>
+                </div>
+                <span class="text-sm text-slate-500">5-7 business days</span>
+              </div>
+            </label>
+            <label class="flex items-start gap-3 p-4 rounded-lg border border-slate-200 dark:border-slate-800 cursor-pointer hover:border-theme-primary transition-colors">
+              <input type="radio" name="shipping-group" value="express" class="mt-0.5 w-4 h-4 border-slate-300 dark:border-slate-600 text-theme-primary focus:ring-theme-primary" />
+              <div class="flex-1">
+                <div class="flex justify-between">
+                  <span class="text-sm font-medium text-slate-900 dark:text-white">Express</span>
+                  <span class="text-sm font-medium text-slate-900 dark:text-white">$9.99</span>
+                </div>
+                <span class="text-sm text-slate-500">2-3 business days</span>
+              </div>
+            </label>
+            <label class="flex items-start gap-3 p-4 rounded-lg border border-slate-200 dark:border-slate-800 cursor-pointer hover:border-theme-primary transition-colors">
+              <input type="radio" name="shipping-group" value="overnight" class="mt-0.5 w-4 h-4 border-slate-300 dark:border-slate-600 text-theme-primary focus:ring-theme-primary" />
+              <div class="flex-1">
+                <div class="flex justify-between">
+                  <span class="text-sm font-medium text-slate-900 dark:text-white">Overnight</span>
+                  <span class="text-sm font-medium text-slate-900 dark:text-white">$24.99</span>
+                </div>
+                <span class="text-sm text-slate-500">Next business day</span>
+              </div>
+            </label>
+          </div>
+        </fieldset>
+      </ExampleSection>
+
+      <ExampleSection title="Segmented Control" description="Radio group styled as a segmented control.">
+        <div class="inline-flex rounded-lg bg-slate-100 dark:bg-slate-800 p-1">
+          <label class="cursor-pointer">
+            <input type="radio" name="segmented" value="daily" checked class="sr-only peer" />
+            <span class="block px-4 py-1.5 text-sm font-medium rounded-md peer-checked:bg-white dark:peer-checked:bg-slate-700 peer-checked:text-slate-900 dark:peer-checked:text-white peer-checked:shadow-sm text-slate-600 dark:text-slate-400">Daily</span>
+          </label>
+          <label class="cursor-pointer">
+            <input type="radio" name="segmented" value="weekly" class="sr-only peer" />
+            <span class="block px-4 py-1.5 text-sm font-medium rounded-md peer-checked:bg-white dark:peer-checked:bg-slate-700 peer-checked:text-slate-900 dark:peer-checked:text-white peer-checked:shadow-sm text-slate-600 dark:text-slate-400">Weekly</span>
+          </label>
+          <label class="cursor-pointer">
+            <input type="radio" name="segmented" value="monthly" class="sr-only peer" />
+            <span class="block px-4 py-1.5 text-sm font-medium rounded-md peer-checked:bg-white dark:peer-checked:bg-slate-700 peer-checked:text-slate-900 dark:peer-checked:text-white peer-checked:shadow-sm text-slate-600 dark:text-slate-400">Monthly</span>
+          </label>
+        </div>
+      </ExampleSection>
+    </section>
+
+    <section id="usage">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Usage Guidelines</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="p-6 rounded-lg border border-success/30 bg-success/5">
+          <h3 class="font-semibold text-success mb-3 flex items-center gap-2"><i class="ti ti-check"></i> Do</h3>
+          <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+            <li>• Use for mutually exclusive choices</li>
+            <li>• Always use fieldset/legend for grouping</li>
+            <li>• Have one option selected by default</li>
+            <li>• Use card style for complex options</li>
+          </ul>
+        </div>
+        <div class="p-6 rounded-lg border border-error/30 bg-error/5">
+          <h3 class="font-semibold text-error mb-3 flex items-center gap-2"><i class="ti ti-x"></i> Don't</h3>
+          <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+            <li>• Use for multiple selections</li>
+            <li>• Use more than 7-8 options</li>
+            <li>• Allow deselecting all options</li>
+            <li>• Mix styles within a group</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="accessibility">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Accessibility</h2>
+      <div class="space-y-4">
+        <div class="p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-surface/50">
+          <h3 class="font-semibold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+            <i class="ti ti-users text-theme-primary"></i>
+            Group Semantics
+          </h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400">
+            Use <code>&lt;fieldset&gt;</code> and <code>&lt;legend&gt;</code> to provide group context. All radios in a group must share the same <code>name</code> attribute.
+          </p>
+        </div>
+        <div class="p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-surface/50">
+          <h3 class="font-semibold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+            <i class="ti ti-keyboard text-theme-primary"></i>
+            Keyboard Navigation
+          </h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400">
+            Arrow keys move between options in the group. <kbd class="px-1.5 py-0.5 bg-slate-200 dark:bg-slate-800 rounded text-xs">Space</kbd> selects the focused option.
+          </p>
+        </div>
+      </div>
+    </section>
   </article>
 </DocsLayout>
-

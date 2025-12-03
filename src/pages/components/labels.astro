@@ -1,58 +1,198 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
-import CodeBlock from '../../components/CodeBlock.astro';
+import PropsTable from '../../components/PropsTable.astro';
 import ExampleSection from '../../components/ExampleSection.astro';
+import Label from '../../components/ui/Label.astro';
+import Input from '../../components/ui/Input.astro';
+import Textarea from '../../components/ui/Textarea.astro';
+
+const props = [
+  { name: 'for', type: 'string', default: '—', description: 'The id of the form element this label is for' },
+  { name: 'required', type: 'boolean', default: 'false', description: 'Shows required indicator (*)' },
+];
 ---
 
 <DocsLayout title="Labels" description="Form labels with helper text.">
   <article class="space-y-12">
     <header class="border-b border-slate-200 dark:border-slate-800 pb-8">
-      <h1 class="font-display text-4xl font-bold text-slate-900 dark:text-white mb-4">Labels</h1>
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="font-display text-4xl font-bold text-slate-900 dark:text-white">Labels</h1>
+        <span class="text-xs px-2 py-1 rounded-full border bg-success/10 text-success border-success/30">stable</span>
+      </div>
       <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl">
-        Labels identify form inputs and provide context. They can include helper text and required indicators.
+        Labels identify form inputs and provide context. They can include required indicators.
       </p>
     </header>
 
-    <ExampleSection title="Label Variants" description="Different label configurations.">
-      <div class="space-y-6 max-w-sm">
-        <div>
-          <label class="block text-sm font-medium text-slate-900 dark:text-white mb-1">Basic Label</label>
-          <input type="text" class="w-full px-4 py-2 border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900">
+    <nav class="flex gap-4 text-sm">
+      <a href="#examples" class="text-theme-primary hover:underline flex items-center gap-1"><i class="ti ti-eye"></i> Examples</a>
+      <a href="#props" class="text-theme-primary hover:underline flex items-center gap-1"><i class="ti ti-list"></i> Props</a>
+      <a href="#usage" class="text-theme-primary hover:underline flex items-center gap-1"><i class="ti ti-book"></i> Usage</a>
+      <a href="#accessibility" class="text-theme-primary hover:underline flex items-center gap-1"><i class="ti ti-accessible"></i> Accessibility</a>
+    </nav>
+
+    <section id="examples" class="space-y-8">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Examples</h2>
+
+      <ExampleSection title="Basic Labels" description="Standard labels for form fields.">
+        <div class="space-y-4 max-w-sm">
+          <div class="space-y-2">
+            <Label for="basic-input">Basic Label</Label>
+            <Input id="basic-input" placeholder="Enter text..." />
+          </div>
+          <div class="space-y-2">
+            <Label for="email-input">Email Address</Label>
+            <Input id="email-input" type="email" placeholder="you@example.com" />
+          </div>
         </div>
-        <div>
-          <label class="block text-sm font-medium text-slate-900 dark:text-white mb-1">
-            Required Field <span class="text-error">*</span>
-          </label>
-          <input type="text" class="w-full px-4 py-2 border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900">
+      </ExampleSection>
+
+      <ExampleSection title="Required Labels" description="Labels with required field indicator.">
+        <div class="space-y-4 max-w-sm">
+          <div class="space-y-2">
+            <Label for="required-name" required>Full Name</Label>
+            <Input id="required-name" placeholder="John Doe" required />
+          </div>
+          <div class="space-y-2">
+            <Label for="required-email" required>Email</Label>
+            <Input id="required-email" type="email" placeholder="you@example.com" required />
+          </div>
+          <div class="space-y-2">
+            <Label for="optional-phone">Phone (optional)</Label>
+            <Input id="optional-phone" type="tel" placeholder="(555) 555-5555" />
+          </div>
         </div>
-        <div>
-          <label class="block text-sm font-medium text-slate-900 dark:text-white mb-1">With Helper Text</label>
-          <input type="text" class="w-full px-4 py-2 border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900">
-          <p class="mt-1 text-xs text-slate-500">This is helpful information about the field.</p>
+      </ExampleSection>
+
+      <ExampleSection title="With Helper Text" description="Labels with additional context below the input.">
+        <div class="space-y-4 max-w-sm">
+          <div class="space-y-2">
+            <Label for="username-input">Username</Label>
+            <Input id="username-input" placeholder="johndoe" />
+            <p class="text-xs text-slate-500">Only letters, numbers, and underscores allowed.</p>
+          </div>
+          <div class="space-y-2">
+            <Label for="password-input" required>Password</Label>
+            <Input id="password-input" type="password" placeholder="••••••••" />
+            <p class="text-xs text-slate-500">Must be at least 8 characters with one number.</p>
+          </div>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="With Textarea" description="Labels for multi-line text inputs.">
+        <div class="space-y-4 max-w-md">
+          <div class="space-y-2">
+            <Label for="bio-textarea">Bio</Label>
+            <Textarea id="bio-textarea" placeholder="Tell us about yourself..." rows={4} />
+            <p class="text-xs text-slate-500">Maximum 500 characters.</p>
+          </div>
+          <div class="space-y-2">
+            <Label for="message-textarea" required>Message</Label>
+            <Textarea id="message-textarea" placeholder="How can we help?" rows={3} />
+          </div>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Form Example" description="Labels in a complete form context.">
+        <div class="max-w-md p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-charcoal">
+          <h3 class="font-semibold text-slate-900 dark:text-white mb-4">Contact Information</h3>
+          <form class="space-y-4">
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div class="space-y-2">
+                <Label for="form-first" required>First Name</Label>
+                <Input id="form-first" placeholder="John" />
+              </div>
+              <div class="space-y-2">
+                <Label for="form-last" required>Last Name</Label>
+                <Input id="form-last" placeholder="Doe" />
+              </div>
+            </div>
+            <div class="space-y-2">
+              <Label for="form-email" required>Email</Label>
+              <Input id="form-email" type="email" icon="ti-mail" placeholder="john@example.com" />
+            </div>
+            <div class="space-y-2">
+              <Label for="form-company">Company</Label>
+              <Input id="form-company" placeholder="Acme Inc." />
+              <p class="text-xs text-slate-500">Optional - for business inquiries.</p>
+            </div>
+            <div class="space-y-2">
+              <Label for="form-message" required>Message</Label>
+              <Textarea id="form-message" rows={4} placeholder="How can we help you?" />
+            </div>
+          </form>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Inline Labels" description="Labels displayed inline with inputs.">
+        <div class="space-y-4 max-w-md">
+          <div class="flex items-center gap-4">
+            <Label for="inline-width" class="w-24 text-right">Width</Label>
+            <Input id="inline-width" type="number" placeholder="100" class="w-24" />
+            <span class="text-sm text-slate-500">px</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <Label for="inline-height" class="w-24 text-right">Height</Label>
+            <Input id="inline-height" type="number" placeholder="100" class="w-24" />
+            <span class="text-sm text-slate-500">px</span>
+          </div>
+        </div>
+      </ExampleSection>
+    </section>
+
+    <section id="props">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Props</h2>
+      <PropsTable props={props} />
+    </section>
+
+    <section id="usage">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Usage Guidelines</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="p-6 rounded-lg border border-success/30 bg-success/5">
+          <h3 class="font-semibold text-success mb-3 flex items-center gap-2"><i class="ti ti-check"></i> Do</h3>
+          <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+            <li>• Always use labels with form inputs</li>
+            <li>• Keep labels concise and clear</li>
+            <li>• Mark required fields consistently</li>
+            <li>• Use helper text for additional context</li>
+            <li>• Associate labels with inputs using <code>for</code></li>
+          </ul>
+        </div>
+        <div class="p-6 rounded-lg border border-error/30 bg-error/5">
+          <h3 class="font-semibold text-error mb-3 flex items-center gap-2"><i class="ti ti-x"></i> Don't</h3>
+          <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+            <li>• Use placeholder text as the only label</li>
+            <li>• Make labels too long or complex</li>
+            <li>• Hide labels visually (unless providing alternative)</li>
+            <li>• Use inconsistent capitalization</li>
+            <li>• Forget to mark required fields</li>
+          </ul>
         </div>
       </div>
-    </ExampleSection>
+    </section>
 
-    <CodeBlock 
-      language="html"
-      filename="labels.html"
-      code={`<!-- Basic Label -->
-<label class="block text-sm font-medium text-slate-900 dark:text-white mb-1">
-  Field Label
-</label>
-
-<!-- Required Label -->
-<label class="block text-sm font-medium text-slate-900 dark:text-white mb-1">
-  Required Field <span class="text-error">*</span>
-</label>
-
-<!-- With Helper Text -->
-<label class="block text-sm font-medium text-slate-900 dark:text-white mb-1">
-  Field Label
-</label>
-<input type="text" class="...">
-<p class="mt-1 text-xs text-slate-500">Helper text goes here.</p>`}
-    />
+    <section id="accessibility">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Accessibility</h2>
+      <div class="space-y-4">
+        <div class="p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-surface/50">
+          <h3 class="font-semibold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+            <i class="ti ti-tag text-theme-primary"></i>
+            Label Association
+          </h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400">
+            Always use the <code>for</code> attribute to associate labels with their inputs. This ensures screen readers announce the label when the input is focused.
+          </p>
+        </div>
+        <div class="p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-surface/50">
+          <h3 class="font-semibold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+            <i class="ti ti-asterisk text-theme-primary"></i>
+            Required Indicator
+          </h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400">
+            The asterisk (*) indicates required fields. Consider adding a legend at the start of forms explaining this convention.
+          </p>
+        </div>
+      </div>
+    </section>
   </article>
 </DocsLayout>
-

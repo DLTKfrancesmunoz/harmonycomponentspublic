@@ -1,0 +1,137 @@
+---
+/**
+ * Checkbox Component
+ * 
+ * Selection control for binary choices.
+ * 
+ * @example
+ * <Checkbox label="Accept terms" />
+ * <Checkbox checked label="Selected" />
+ * <Checkbox disabled label="Disabled" />
+ */
+
+export interface Props {
+  /** Checkbox label text */
+  label?: string;
+  /** Checked state */
+  checked?: boolean;
+  /** Disables the checkbox */
+  disabled?: boolean;
+  /** Shows error state */
+  error?: boolean;
+  /** Checkbox name attribute */
+  name?: string;
+  /** Checkbox id attribute */
+  id?: string;
+  /** Checkbox value */
+  value?: string;
+  /** Additional CSS classes */
+  class?: string;
+  /** Any additional HTML attributes */
+  [key: string]: any;
+}
+
+const {
+  label,
+  checked = false,
+  disabled = false,
+  error = false,
+  name,
+  id,
+  value,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+// Generate an ID if not provided
+const checkboxId = id || name || `checkbox-${Math.random().toString(36).substr(2, 9)}`;
+
+// Label classes
+const labelClasses = [
+  'text-sm select-none',
+  disabled ? 'text-slate-400 dark:text-slate-500 cursor-not-allowed' : 'text-slate-700 dark:text-slate-300 cursor-pointer',
+].join(' ');
+---
+
+<label class={`checkbox-wrapper inline-flex items-center gap-2 ${disabled ? 'cursor-not-allowed' : 'cursor-pointer'} ${className}`}>
+  <span class:list={[
+    'checkbox-custom relative flex items-center justify-center w-4 h-4 rounded border-2 transition-all duration-150',
+    error ? 'border-error' : 'border-slate-400 dark:border-slate-500',
+    disabled ? 'opacity-50 cursor-not-allowed bg-slate-100 dark:bg-slate-800' : 'cursor-pointer',
+    checked && !disabled ? 'bg-theme-primary border-theme-primary' : '',
+    checked && disabled ? 'bg-slate-400 dark:bg-slate-600 border-slate-400 dark:border-slate-600' : '',
+  ]}>
+    <input
+      type="checkbox"
+      id={checkboxId}
+      name={name}
+      value={value}
+      checked={checked}
+      disabled={disabled}
+      class="checkbox-input absolute inset-0 opacity-0 cursor-pointer disabled:cursor-not-allowed"
+      {...rest}
+    />
+    {checked && (
+      <svg class="w-3 h-3 text-white pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+      </svg>
+    )}
+  </span>
+  {label && (
+    <span class={labelClasses}>{label}</span>
+  )}
+</label>
+
+<script>
+  function initCheckboxes() {
+    document.querySelectorAll('.checkbox-wrapper').forEach((wrapper) => {
+      const input = wrapper.querySelector('.checkbox-input') as HTMLInputElement;
+      const customBox = wrapper.querySelector('.checkbox-custom') as HTMLElement;
+      
+      if (!input || !customBox) return;
+      
+      // Clone to remove existing listeners
+      const newInput = input.cloneNode(true) as HTMLInputElement;
+      input.parentNode?.replaceChild(newInput, input);
+      
+      newInput.addEventListener('change', () => {
+        const isChecked = newInput.checked;
+        const isDisabled = newInput.disabled;
+        
+        // Update custom checkbox visual
+        if (isChecked && !isDisabled) {
+          customBox.classList.add('bg-theme-primary', 'border-theme-primary');
+          customBox.classList.remove('border-slate-400', 'dark:border-slate-500');
+        } else if (!isChecked) {
+          customBox.classList.remove('bg-theme-primary', 'border-theme-primary');
+          if (!customBox.classList.contains('border-error')) {
+            customBox.classList.add('border-slate-400', 'dark:border-slate-500');
+          }
+        }
+        
+        // Toggle checkmark visibility
+        const checkmark = customBox.querySelector('svg');
+        if (isChecked && !checkmark) {
+          const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+          svg.setAttribute('class', 'w-3 h-3 text-white pointer-events-none');
+          svg.setAttribute('fill', 'none');
+          svg.setAttribute('stroke', 'currentColor');
+          svg.setAttribute('viewBox', '0 0 24 24');
+          const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          path.setAttribute('stroke-linecap', 'round');
+          path.setAttribute('stroke-linejoin', 'round');
+          path.setAttribute('stroke-width', '3');
+          path.setAttribute('d', 'M5 13l4 4L19 7');
+          svg.appendChild(path);
+          customBox.appendChild(svg);
+        } else if (!isChecked && checkmark) {
+          checkmark.remove();
+        }
+      });
+    });
+  }
+  
+  initCheckboxes();
+  document.addEventListener('astro:page-load', initCheckboxes);
+</script>
+

@@ -1,50 +1,197 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
-import CodeBlock from '../../components/CodeBlock.astro';
+import PropsTable from '../../components/PropsTable.astro';
 import ExampleSection from '../../components/ExampleSection.astro';
+import Checkbox from '../../components/ui/Checkbox.astro';
 ---
 
 <DocsLayout title="Checkbox Groups" description="Multiple selection checkbox groups.">
   <article class="space-y-12">
     <header class="border-b border-slate-200 dark:border-slate-800 pb-8">
-      <h1 class="font-display text-4xl font-bold text-slate-900 dark:text-white mb-4">Checkbox Groups</h1>
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="font-display text-4xl font-bold text-slate-900 dark:text-white">Checkbox Groups</h1>
+        <span class="text-xs px-2 py-1 rounded-full border bg-success/10 text-success border-success/30">stable</span>
+      </div>
       <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl">
         Organized groups of checkboxes for selecting multiple options from a set.
       </p>
     </header>
 
-    <ExampleSection title="Basic Group" description="Vertical checkbox group with label.">
-      <fieldset class="space-y-3">
-        <legend class="text-sm font-medium text-slate-900 dark:text-white mb-3">Select your interests</legend>
-        <label class="flex items-center gap-3 cursor-pointer">
-          <input type="checkbox" checked class="w-5 h-5 rounded border-slate-300 dark:border-slate-700 text-theme-primary focus:ring-theme-primary dark:bg-slate-900">
-          <span class="text-sm text-slate-700 dark:text-slate-300">Design</span>
-        </label>
-        <label class="flex items-center gap-3 cursor-pointer">
-          <input type="checkbox" class="w-5 h-5 rounded border-slate-300 dark:border-slate-700 text-theme-primary focus:ring-theme-primary dark:bg-slate-900">
-          <span class="text-sm text-slate-700 dark:text-slate-300">Development</span>
-        </label>
-        <label class="flex items-center gap-3 cursor-pointer">
-          <input type="checkbox" checked class="w-5 h-5 rounded border-slate-300 dark:border-slate-700 text-theme-primary focus:ring-theme-primary dark:bg-slate-900">
-          <span class="text-sm text-slate-700 dark:text-slate-300">Marketing</span>
-        </label>
-      </fieldset>
-    </ExampleSection>
+    <nav class="flex gap-4 text-sm">
+      <a href="#examples" class="text-theme-primary hover:underline flex items-center gap-1"><i class="ti ti-eye"></i> Examples</a>
+      <a href="#usage" class="text-theme-primary hover:underline flex items-center gap-1"><i class="ti ti-book"></i> Usage</a>
+      <a href="#accessibility" class="text-theme-primary hover:underline flex items-center gap-1"><i class="ti ti-accessible"></i> Accessibility</a>
+    </nav>
 
-    <CodeBlock 
-      language="html"
-      filename="checkbox-group.html"
-      code={`<fieldset class="space-y-3">
-  <legend class="text-sm font-medium text-slate-900 dark:text-white mb-3">
-    Select your interests
-  </legend>
-  <label class="flex items-center gap-3 cursor-pointer">
-    <input type="checkbox" class="w-5 h-5 rounded border-slate-300 dark:border-slate-700 text-theme-primary">
-    <span class="text-sm text-slate-700 dark:text-slate-300">Option 1</span>
-  </label>
-  <!-- More options... -->
-</fieldset>`}
-    />
+    <section id="examples" class="space-y-8">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Examples</h2>
+
+      <ExampleSection title="Basic Group" description="Vertical checkbox group with label.">
+        <fieldset class="flex flex-col gap-3">
+          <legend class="text-sm font-semibold text-slate-900 dark:text-white mb-3">Select your interests</legend>
+          <Checkbox name="interests" value="design" label="Design" checked />
+          <Checkbox name="interests" value="development" label="Development" />
+          <Checkbox name="interests" value="marketing" label="Marketing" checked />
+          <Checkbox name="interests" value="sales" label="Sales" />
+        </fieldset>
+      </ExampleSection>
+
+      <ExampleSection title="Horizontal Group" description="Checkboxes arranged in a row.">
+        <fieldset>
+          <legend class="text-sm font-semibold text-slate-900 dark:text-white mb-3">Days available</legend>
+          <div class="flex flex-wrap items-center gap-6">
+            <Checkbox name="days" value="mon" label="Mon" checked />
+            <Checkbox name="days" value="tue" label="Tue" checked />
+            <Checkbox name="days" value="wed" label="Wed" />
+            <Checkbox name="days" value="thu" label="Thu" checked />
+            <Checkbox name="days" value="fri" label="Fri" />
+          </div>
+        </fieldset>
+      </ExampleSection>
+
+      <ExampleSection title="Notification Settings" description="Common use case for preference selection.">
+        <fieldset class="max-w-md">
+          <legend class="text-sm font-semibold text-slate-900 dark:text-white mb-3">Notification Preferences</legend>
+          <div class="flex flex-col gap-4">
+            <label class="flex items-start gap-3 p-4 rounded-lg border border-slate-200 dark:border-slate-800 cursor-pointer hover:border-theme-primary transition-colors">
+              <input type="checkbox" checked class="mt-0.5 w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-theme-primary focus:ring-theme-primary" />
+              <div>
+                <span class="text-sm font-medium text-slate-900 dark:text-white block">Email notifications</span>
+                <span class="text-sm text-slate-500">Receive updates about your account via email</span>
+              </div>
+            </label>
+            <label class="flex items-start gap-3 p-4 rounded-lg border border-slate-200 dark:border-slate-800 cursor-pointer hover:border-theme-primary transition-colors">
+              <input type="checkbox" checked class="mt-0.5 w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-theme-primary focus:ring-theme-primary" />
+              <div>
+                <span class="text-sm font-medium text-slate-900 dark:text-white block">Push notifications</span>
+                <span class="text-sm text-slate-500">Get alerts on your device</span>
+              </div>
+            </label>
+            <label class="flex items-start gap-3 p-4 rounded-lg border border-slate-200 dark:border-slate-800 cursor-pointer hover:border-theme-primary transition-colors">
+              <input type="checkbox" class="mt-0.5 w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-theme-primary focus:ring-theme-primary" />
+              <div>
+                <span class="text-sm font-medium text-slate-900 dark:text-white block">Marketing emails</span>
+                <span class="text-sm text-slate-500">Receive tips, product updates, and special offers</span>
+              </div>
+            </label>
+          </div>
+        </fieldset>
+      </ExampleSection>
+
+      <ExampleSection title="Select All Pattern" description="Parent checkbox to control all children.">
+        <fieldset class="max-w-sm">
+          <legend class="text-sm font-semibold text-slate-900 dark:text-white mb-3">Permissions</legend>
+          <div class="flex flex-col gap-3">
+            <div class="pb-2 border-b border-slate-200 dark:border-slate-800">
+              <Checkbox name="select-all-perms" value="all" label="Select all" />
+            </div>
+            <div class="pl-6 flex flex-col gap-2">
+              <Checkbox name="perms" value="read" label="Read" checked />
+              <Checkbox name="perms" value="write" label="Write" checked />
+              <Checkbox name="perms" value="delete" label="Delete" />
+              <Checkbox name="perms" value="admin" label="Admin" />
+            </div>
+          </div>
+        </fieldset>
+      </ExampleSection>
+
+      <ExampleSection title="Category Selection" description="Checkbox group for filtering.">
+        <fieldset class="max-w-md">
+          <legend class="text-sm font-semibold text-slate-900 dark:text-white mb-3">Filter by category</legend>
+          <div class="flex flex-wrap items-center gap-2">
+            <label class="cursor-pointer">
+              <input type="checkbox" checked class="sr-only peer" />
+              <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-sm border peer-checked:border-theme-primary peer-checked:bg-theme-primary/10 peer-checked:text-theme-primary border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-theme-primary transition-colors">
+                <i class="ti ti-palette text-xs"></i>
+                Design
+              </span>
+            </label>
+            <label class="cursor-pointer">
+              <input type="checkbox" checked class="sr-only peer" />
+              <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-sm border peer-checked:border-theme-primary peer-checked:bg-theme-primary/10 peer-checked:text-theme-primary border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-theme-primary transition-colors">
+                <i class="ti ti-code text-xs"></i>
+                Development
+              </span>
+            </label>
+            <label class="cursor-pointer">
+              <input type="checkbox" class="sr-only peer" />
+              <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-sm border peer-checked:border-theme-primary peer-checked:bg-theme-primary/10 peer-checked:text-theme-primary border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-theme-primary transition-colors">
+                <i class="ti ti-speakerphone text-xs"></i>
+                Marketing
+              </span>
+            </label>
+            <label class="cursor-pointer">
+              <input type="checkbox" class="sr-only peer" />
+              <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-sm border peer-checked:border-theme-primary peer-checked:bg-theme-primary/10 peer-checked:text-theme-primary border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-theme-primary transition-colors">
+                <i class="ti ti-chart-bar text-xs"></i>
+                Analytics
+              </span>
+            </label>
+          </div>
+        </fieldset>
+      </ExampleSection>
+
+      <ExampleSection title="Grid Layout" description="Checkboxes in a multi-column grid.">
+        <fieldset class="max-w-md">
+          <legend class="text-sm font-semibold text-slate-900 dark:text-white mb-3">Skills</legend>
+          <div class="grid grid-cols-2 gap-3">
+            <Checkbox name="skills" value="html" label="HTML" checked />
+            <Checkbox name="skills" value="css" label="CSS" checked />
+            <Checkbox name="skills" value="js" label="JavaScript" checked />
+            <Checkbox name="skills" value="react" label="React" />
+            <Checkbox name="skills" value="vue" label="Vue" />
+            <Checkbox name="skills" value="angular" label="Angular" />
+          </div>
+        </fieldset>
+      </ExampleSection>
+    </section>
+
+    <section id="usage">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Usage Guidelines</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="p-6 rounded-lg border border-success/30 bg-success/5">
+          <h3 class="font-semibold text-success mb-3 flex items-center gap-2"><i class="ti ti-check"></i> Do</h3>
+          <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+            <li>• Use for multiple selections</li>
+            <li>• Use fieldset/legend for grouping</li>
+            <li>• Provide clear, positive labels</li>
+            <li>• Consider "Select all" for many options</li>
+          </ul>
+        </div>
+        <div class="p-6 rounded-lg border border-error/30 bg-error/5">
+          <h3 class="font-semibold text-error mb-3 flex items-center gap-2"><i class="ti ti-x"></i> Don't</h3>
+          <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+            <li>• Use for single selection (use radio)</li>
+            <li>• Use negative phrasing</li>
+            <li>• Have too many options without grouping</li>
+            <li>• Pre-select without clear reason</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="accessibility">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Accessibility</h2>
+      <div class="space-y-4">
+        <div class="p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-surface/50">
+          <h3 class="font-semibold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+            <i class="ti ti-users text-theme-primary"></i>
+            Group Semantics
+          </h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400">
+            Use <code>&lt;fieldset&gt;</code> and <code>&lt;legend&gt;</code> to provide context for checkbox groups to screen readers.
+          </p>
+        </div>
+        <div class="p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-surface/50">
+          <h3 class="font-semibold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+            <i class="ti ti-keyboard text-theme-primary"></i>
+            Keyboard Navigation
+          </h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400">
+            Use <kbd class="px-1.5 py-0.5 bg-slate-200 dark:bg-slate-800 rounded text-xs">Tab</kbd> to navigate between checkboxes and <kbd class="px-1.5 py-0.5 bg-slate-200 dark:bg-slate-800 rounded text-xs">Space</kbd> to toggle.
+          </p>
+        </div>
+      </div>
+    </section>
   </article>
 </DocsLayout>
-

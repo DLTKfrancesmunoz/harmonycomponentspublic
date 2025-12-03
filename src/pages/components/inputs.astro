@@ -1,15 +1,30 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
-import CodeBlock from '../../components/CodeBlock.astro';
 import PropsTable from '../../components/PropsTable.astro';
 import ExampleSection from '../../components/ExampleSection.astro';
+import Input from '../../components/ui/Input.astro';
+import Textarea from '../../components/ui/Textarea.astro';
+import Label from '../../components/ui/Label.astro';
 
 const props = [
-  { name: 'type', type: "'text' | 'email' | 'password' | 'number' | 'url'", default: "'text'", description: 'Input type' },
+  { name: 'type', type: "'text' | 'email' | 'password' | 'number' | 'url' | 'search' | 'tel'", default: "'text'", description: 'Input type' },
   { name: 'placeholder', type: 'string', default: '—', description: 'Placeholder text' },
+  { name: 'value', type: 'string', default: '—', description: 'Input value' },
   { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables the input' },
   { name: 'error', type: 'boolean', default: 'false', description: 'Shows error state' },
-  { name: 'icon', type: 'string', default: '—', description: 'Leading icon class' },
+  { name: 'errorMessage', type: 'string', default: '—', description: 'Error message to display' },
+  { name: 'icon', type: 'string', default: '—', description: 'Leading icon class (e.g., ti-search)' },
+  { name: 'required', type: 'boolean', default: 'false', description: 'Makes the input required' },
+];
+
+const textareaProps = [
+  { name: 'placeholder', type: 'string', default: '—', description: 'Placeholder text' },
+  { name: 'value', type: 'string', default: '—', description: 'Textarea value' },
+  { name: 'rows', type: 'number', default: '4', description: 'Number of visible rows' },
+  { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables the textarea' },
+  { name: 'error', type: 'boolean', default: 'false', description: 'Shows error state' },
+  { name: 'errorMessage', type: 'string', default: '—', description: 'Error message to display' },
+  { name: 'resizable', type: 'boolean', default: 'false', description: 'Allow resizing' },
 ];
 ---
 
@@ -37,86 +52,148 @@ const props = [
 
       <ExampleSection title="Basic Input" description="Standard text input with label.">
         <div class="max-w-sm space-y-2">
-          <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Email</label>
-          <input type="email" placeholder="you@example.com" class="w-full px-4 py-2 border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-theme-primary focus:border-transparent transition-shadow">
+          <Label for="email-basic">Email</Label>
+          <Input type="email" id="email-basic" placeholder="you@example.com" />
         </div>
       </ExampleSection>
 
-      <CodeBlock 
-        language="html"
-        filename="input-basic.html"
-        code={`<div class="space-y-2">
-  <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Email</label>
-  <input 
-    type="email" 
-    placeholder="you@example.com" 
-    class="w-full px-4 py-2 border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-theme-primary focus:border-transparent transition-shadow"
-  >
-</div>`}
-      />
-
-      <ExampleSection title="With Icon" description="Input with leading icon for context.">
-        <div class="max-w-sm space-y-2">
-          <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Search</label>
-          <div class="relative">
-            <i class="ti ti-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
-            <input type="text" placeholder="Search..." class="w-full pl-10 pr-4 py-2 border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-theme-primary focus:border-transparent transition-shadow">
-          </div>
-        </div>
-      </ExampleSection>
-
-      <CodeBlock 
-        language="html"
-        filename="input-icon.html"
-        code={`<div class="relative">
-  <i class="ti ti-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
-  <input 
-    type="text" 
-    placeholder="Search..." 
-    class="w-full pl-10 pr-4 py-2 border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-theme-primary focus:border-transparent"
-  >
-</div>`}
-      />
-
-      <ExampleSection title="States" description="Different input states.">
+      <ExampleSection title="Input Types" description="Different input types for various data.">
         <div class="max-w-sm space-y-4">
           <div class="space-y-2">
-            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Disabled</label>
-            <input type="text" disabled value="Disabled input" class="w-full px-4 py-2 border border-slate-200 dark:border-slate-800 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-500 cursor-not-allowed">
+            <Label for="text-input">Text</Label>
+            <Input type="text" id="text-input" placeholder="Enter text..." />
           </div>
           <div class="space-y-2">
-            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Error</label>
-            <input type="text" value="Invalid value" class="w-full px-4 py-2 border-2 border-error rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-error/50">
-            <p class="text-sm text-error">Please enter a valid value</p>
+            <Label for="email-input">Email</Label>
+            <Input type="email" id="email-input" placeholder="you@example.com" />
           </div>
           <div class="space-y-2">
-            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Success</label>
-            <input type="text" value="Valid input" class="w-full px-4 py-2 border-2 border-success rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-success/50">
+            <Label for="password-input">Password</Label>
+            <Input type="password" id="password-input" placeholder="Enter password" />
+          </div>
+          <div class="space-y-2">
+            <Label for="number-input">Number</Label>
+            <Input type="number" id="number-input" placeholder="0" />
+          </div>
+          <div class="space-y-2">
+            <Label for="tel-input">Phone</Label>
+            <Input type="tel" id="tel-input" placeholder="(555) 555-5555" />
+          </div>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="With Icon" description="Input with leading icon for context.">
+        <div class="max-w-sm space-y-4">
+          <div class="space-y-2">
+            <Label for="search-input">Search</Label>
+            <Input icon="ti-search" id="search-input" placeholder="Search..." />
+          </div>
+          <div class="space-y-2">
+            <Label for="email-icon">Email</Label>
+            <Input icon="ti-mail" type="email" id="email-icon" placeholder="you@example.com" />
+          </div>
+          <div class="space-y-2">
+            <Label for="user-icon">Username</Label>
+            <Input icon="ti-user" id="user-icon" placeholder="johndoe" />
+          </div>
+          <div class="space-y-2">
+            <Label for="lock-icon">Password</Label>
+            <Input icon="ti-lock" type="password" id="lock-icon" placeholder="••••••••" />
+          </div>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="States" description="Different input states for feedback.">
+        <div class="max-w-sm space-y-4">
+          <div class="space-y-2">
+            <Label for="default-state">Default</Label>
+            <Input id="default-state" placeholder="Default state" />
+          </div>
+          <div class="space-y-2">
+            <Label for="disabled-state">Disabled</Label>
+            <Input id="disabled-state" disabled value="Disabled input" />
+          </div>
+          <div class="space-y-2">
+            <Label for="error-state">Error</Label>
+            <Input id="error-state" error errorMessage="Please enter a valid value" value="Invalid value" />
+          </div>
+          <div class="space-y-2">
+            <Label for="required-state" required>Required Field</Label>
+            <Input id="required-state" required placeholder="This field is required" />
           </div>
         </div>
       </ExampleSection>
 
       <ExampleSection title="Textarea" description="Multi-line text input.">
-        <div class="max-w-sm space-y-2">
-          <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Description</label>
-          <textarea rows="4" placeholder="Enter your message..." class="w-full px-4 py-2 border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-theme-primary focus:border-transparent resize-none"></textarea>
+        <div class="max-w-sm space-y-4">
+          <div class="space-y-2">
+            <Label for="textarea-basic">Description</Label>
+            <Textarea id="textarea-basic" placeholder="Enter your message..." />
+          </div>
+          <div class="space-y-2">
+            <Label for="textarea-resizable">Resizable Textarea</Label>
+            <Textarea id="textarea-resizable" placeholder="This textarea can be resized..." resizable />
+          </div>
+          <div class="space-y-2">
+            <Label for="textarea-rows">Custom Rows (6)</Label>
+            <Textarea id="textarea-rows" rows={6} placeholder="Larger textarea..." />
+          </div>
         </div>
       </ExampleSection>
 
-      <CodeBlock 
-        language="html"
-        filename="textarea.html"
-        code={`<textarea 
-  rows="4" 
-  placeholder="Enter your message..." 
-  class="w-full px-4 py-2 border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-theme-primary focus:border-transparent resize-none"
-></textarea>`}
-      />
+      <ExampleSection title="Textarea States" description="Textarea with different states.">
+        <div class="max-w-sm space-y-4">
+          <div class="space-y-2">
+            <Label for="textarea-disabled">Disabled</Label>
+            <Textarea id="textarea-disabled" disabled value="This textarea is disabled" />
+          </div>
+          <div class="space-y-2">
+            <Label for="textarea-error">Error</Label>
+            <Textarea id="textarea-error" error errorMessage="Description is required" />
+          </div>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Form Example" description="Complete form with inputs and labels.">
+        <div class="max-w-md p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-charcoal">
+          <h3 class="font-semibold text-slate-900 dark:text-white mb-4">Contact Form</h3>
+          <form class="space-y-4">
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div class="space-y-2">
+                <Label for="first-name" required>First Name</Label>
+                <Input id="first-name" placeholder="John" required />
+              </div>
+              <div class="space-y-2">
+                <Label for="last-name" required>Last Name</Label>
+                <Input id="last-name" placeholder="Doe" required />
+              </div>
+            </div>
+            <div class="space-y-2">
+              <Label for="contact-email" required>Email</Label>
+              <Input icon="ti-mail" type="email" id="contact-email" placeholder="john@example.com" required />
+            </div>
+            <div class="space-y-2">
+              <Label for="phone">Phone (optional)</Label>
+              <Input icon="ti-phone" type="tel" id="phone" placeholder="(555) 555-5555" />
+            </div>
+            <div class="space-y-2">
+              <Label for="message" required>Message</Label>
+              <Textarea id="message" rows={4} placeholder="How can we help you?" required />
+            </div>
+            <button type="submit" class="w-full px-4 py-2 bg-theme-primary hover:bg-theme-primary-hover text-white rounded-lg font-medium transition-colors">
+              Send Message
+            </button>
+          </form>
+        </div>
+      </ExampleSection>
     </section>
 
     <section id="props">
-      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Props</h2>
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Input Props</h2>
       <PropsTable props={props} />
+      
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4 mt-8">Textarea Props</h2>
+      <PropsTable props={textareaProps} />
     </section>
 
     <section id="usage">
@@ -129,6 +206,7 @@ const props = [
             <li>• Provide helpful placeholder text</li>
             <li>• Show validation feedback inline</li>
             <li>• Use appropriate input types</li>
+            <li>• Mark required fields clearly</li>
           </ul>
         </div>
         <div class="p-6 rounded-lg border border-error/30 bg-error/5">
@@ -138,6 +216,7 @@ const props = [
             <li>• Hide error messages</li>
             <li>• Disable without explanation</li>
             <li>• Use generic error messages</li>
+            <li>• Forget to handle validation</li>
           </ul>
         </div>
       </div>
@@ -152,7 +231,7 @@ const props = [
             Labels
           </h3>
           <p class="text-sm text-slate-600 dark:text-slate-400">
-            Always associate labels with inputs using <code>for</code> attribute or wrapping the input in a <code>&lt;label&gt;</code> element.
+            Always associate labels with inputs using the <code>for</code> attribute. The Label component handles this automatically.
           </p>
         </div>
         <div class="p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-surface/50">
@@ -161,11 +240,19 @@ const props = [
             Error Announcements
           </h3>
           <p class="text-sm text-slate-600 dark:text-slate-400">
-            Use <code>aria-describedby</code> to associate error messages with inputs for screen reader users.
+            Error messages are automatically associated with inputs via <code>aria-describedby</code>. Use the <code>errorMessage</code> prop for clear feedback.
+          </p>
+        </div>
+        <div class="p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-surface/50">
+          <h3 class="font-semibold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+            <i class="ti ti-asterisk text-theme-primary"></i>
+            Required Fields
+          </h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400">
+            Use the <code>required</code> prop on both Label and Input to clearly indicate required fields with visual and semantic indicators.
           </p>
         </div>
       </div>
     </section>
   </article>
 </DocsLayout>
-

@@ -1,14 +1,18 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
-import CodeBlock from '../../components/CodeBlock.astro';
 import PropsTable from '../../components/PropsTable.astro';
 import ExampleSection from '../../components/ExampleSection.astro';
+import Dialog from '../../components/ui/Dialog.astro';
+import Button from '../../components/ui/Button.astro';
+import Input from '../../components/ui/Input.astro';
+import Textarea from '../../components/ui/Textarea.astro';
+import Label from '../../components/ui/Label.astro';
 
 const props = [
-  { name: 'open', type: 'boolean', default: 'false', description: 'Controls dialog visibility', required: true },
-  { name: 'onClose', type: 'function', default: '—', description: 'Called when dialog should close', required: true },
-  { name: 'size', type: "'sm' | 'md' | 'lg' | 'xl'", default: "'md'", description: 'Dialog width' },
-  { name: 'closeOnOverlay', type: 'boolean', default: 'true', description: 'Close when clicking overlay' },
+  { name: 'id', type: 'string', description: 'Dialog id for JavaScript control', required: true },
+  { name: 'title', type: 'string', default: '—', description: 'Dialog title' },
+  { name: 'size', type: "'sm' | 'md' | 'lg' | 'xl' | 'full'", default: "'md'", description: 'Dialog width' },
+  { name: 'showClose', type: 'boolean', default: 'true', description: 'Show close button' },
 ];
 ---
 
@@ -34,126 +38,185 @@ const props = [
     <section id="examples" class="space-y-8">
       <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Examples</h2>
 
-      <ExampleSection title="Basic Dialog" description="A simple dialog with title, content, and actions.">
-        <button id="open-basic-dialog" class="px-4 py-2 bg-theme-primary hover:bg-theme-primary-hover text-white rounded-lg font-medium transition-colors">
+      <ExampleSection title="Basic Dialog" description="A simple dialog with title, content, and actions. Click the button to open.">
+        <Button id="open-basic-dialog" variant="primary">
           Open Dialog
-        </button>
+        </Button>
         
-        <!-- Dialog Preview (static) -->
-        <div class="mt-6 relative">
-          <div class="absolute inset-0 bg-black/50 rounded-lg"></div>
-          <div class="relative p-6 max-w-md mx-auto bg-white dark:bg-charcoal rounded-xl shadow-2xl">
-            <div class="flex items-center justify-between mb-4">
-              <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Dialog Title</h3>
-              <button class="text-slate-400 hover:text-slate-600 dark:hover:text-white">
-                <i class="ti ti-x text-lg"></i>
-              </button>
-            </div>
-            <p class="text-slate-600 dark:text-slate-400 mb-6">
-              This is the dialog content. You can add any content here including forms, images, or other components.
-            </p>
-            <div class="flex justify-end gap-3">
-              <button class="px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg font-medium transition-colors">
-                Cancel
-              </button>
-              <button class="px-4 py-2 bg-theme-primary hover:bg-theme-primary-hover text-white rounded-lg font-medium transition-colors">
-                Confirm
-              </button>
-            </div>
-          </div>
-        </div>
-      </ExampleSection>
-
-      <CodeBlock 
-        language="html"
-        filename="dialog.html"
-        code={`<!-- Overlay -->
-<div class="fixed inset-0 bg-black/50 z-40" id="dialog-overlay"></div>
-
-<!-- Dialog -->
-<div class="fixed inset-0 z-50 flex items-center justify-center p-4">
-  <div class="w-full max-w-md bg-white dark:bg-charcoal rounded-xl shadow-2xl">
-    <!-- Header -->
-    <div class="flex items-center justify-between p-6 border-b border-slate-200 dark:border-slate-800">
-      <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Dialog Title</h3>
-      <button class="text-slate-400 hover:text-slate-600 dark:hover:text-white">
-        <i class="ti ti-x text-lg"></i>
-      </button>
-    </div>
-    
-    <!-- Content -->
-    <div class="p-6">
-      <p class="text-slate-600 dark:text-slate-400">
-        Dialog content goes here.
-      </p>
-    </div>
-    
-    <!-- Footer -->
-    <div class="flex justify-end gap-3 p-6 border-t border-slate-200 dark:border-slate-800">
-      <button class="px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg font-medium">
-        Cancel
-      </button>
-      <button class="px-4 py-2 bg-theme-primary hover:bg-theme-primary-hover text-white rounded-lg font-medium">
-        Confirm
-      </button>
-    </div>
-  </div>
-</div>`}
-      />
-
-      <ExampleSection title="Confirmation Dialog" description="Used for destructive actions.">
-        <div class="p-6 max-w-sm mx-auto bg-white dark:bg-charcoal rounded-xl shadow-lg border border-slate-200 dark:border-slate-800">
-          <div class="w-12 h-12 rounded-full bg-error/10 flex items-center justify-center mx-auto mb-4">
-            <i class="ti ti-alert-triangle text-2xl text-error"></i>
-          </div>
-          <h3 class="text-lg font-semibold text-slate-900 dark:text-white text-center mb-2">Delete Item?</h3>
-          <p class="text-sm text-slate-600 dark:text-slate-400 text-center mb-6">
-            This action cannot be undone. This will permanently delete the item from your account.
+        <Dialog id="basic-dialog" title="Dialog Title" size="md">
+          <p class="text-slate-600 dark:text-slate-400">
+            This is the dialog content. You can add any content here including forms, images, or other components.
           </p>
-          <div class="flex gap-3">
-            <button class="flex-1 px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg font-medium transition-colors">
-              Cancel
-            </button>
-            <button class="flex-1 px-4 py-2 bg-error hover:bg-red-600 text-white rounded-lg font-medium transition-colors">
-              Delete
-            </button>
+          <div slot="footer">
+            <Button variant="ghost" onclick="closeDialog('basic-dialog')">Cancel</Button>
+            <Button variant="primary" onclick="closeDialog('basic-dialog')">Confirm</Button>
           </div>
-        </div>
+        </Dialog>
       </ExampleSection>
 
-      <ExampleSection title="Dialog with Form" description="Dialog containing a form.">
-        <div class="p-6 max-w-md mx-auto bg-white dark:bg-charcoal rounded-xl shadow-lg border border-slate-200 dark:border-slate-800">
-          <div class="flex items-center justify-between mb-6">
-            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Create Project</h3>
-            <button class="text-slate-400 hover:text-slate-600 dark:hover:text-white">
-              <i class="ti ti-x text-lg"></i>
-            </button>
+      <ExampleSection title="Confirmation Dialog" description="Used for destructive or important actions. Click to preview.">
+        <Button id="open-confirm-dialog" variant="destructive">
+          Delete Item
+        </Button>
+        
+        <Dialog id="confirm-dialog" title="" size="sm" showClose={false}>
+          <div class="text-center">
+            <div class="w-12 h-12 rounded-full bg-error/10 flex items-center justify-center mx-auto mb-4">
+              <i class="ti ti-alert-triangle text-2xl text-error"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-2">Delete Item?</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-400 mb-6">
+              This action cannot be undone. This will permanently delete the item from your account.
+            </p>
+            <div class="flex gap-3">
+              <Button variant="ghost" class="flex-1" onclick="closeDialog('confirm-dialog')">Cancel</Button>
+              <Button variant="destructive" class="flex-1" onclick="closeDialog('confirm-dialog')">Delete</Button>
+            </div>
           </div>
+        </Dialog>
+      </ExampleSection>
+
+      <ExampleSection title="Dialog with Form" description="Dialog containing a form for data entry.">
+        <Button id="open-form-dialog" variant="primary">
+          Create Project
+        </Button>
+        
+        <Dialog id="form-dialog" title="Create Project" size="md">
           <form class="space-y-4">
             <div class="space-y-2">
-              <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Project Name</label>
-              <input type="text" placeholder="My awesome project" class="w-full px-4 py-2 border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-theme-primary">
+              <Label for="project-name" required>Project Name</Label>
+              <Input id="project-name" placeholder="My awesome project" />
             </div>
             <div class="space-y-2">
-              <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Description</label>
-              <textarea rows="3" placeholder="Brief description..." class="w-full px-4 py-2 border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-theme-primary resize-none"></textarea>
-            </div>
-            <div class="flex justify-end gap-3 pt-4">
-              <button type="button" class="px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg font-medium transition-colors">
-                Cancel
-              </button>
-              <button type="submit" class="px-4 py-2 bg-theme-primary hover:bg-theme-primary-hover text-white rounded-lg font-medium transition-colors">
-                Create Project
-              </button>
+              <Label for="project-desc">Description</Label>
+              <Textarea id="project-desc" rows={3} placeholder="Brief description..." />
             </div>
           </form>
+          <div slot="footer">
+            <Button variant="ghost" onclick="closeDialog('form-dialog')">Cancel</Button>
+            <Button variant="primary" onclick="closeDialog('form-dialog')">Create Project</Button>
+          </div>
+        </Dialog>
+      </ExampleSection>
+
+      <ExampleSection title="Dialog Sizes" description="Dialogs come in multiple sizes.">
+        <div class="flex flex-wrap gap-3">
+          <Button id="open-sm-dialog" variant="outline">Small (sm)</Button>
+          <Button id="open-md-dialog" variant="outline">Medium (md)</Button>
+          <Button id="open-lg-dialog" variant="outline">Large (lg)</Button>
+          <Button id="open-xl-dialog" variant="outline">Extra Large (xl)</Button>
         </div>
+        
+        <Dialog id="sm-dialog" title="Small Dialog" size="sm">
+          <p class="text-slate-600 dark:text-slate-400">This is a small dialog with max-width of sm.</p>
+          <div slot="footer">
+            <Button variant="primary" onclick="closeDialog('sm-dialog')">Close</Button>
+          </div>
+        </Dialog>
+        
+        <Dialog id="md-dialog" title="Medium Dialog" size="md">
+          <p class="text-slate-600 dark:text-slate-400">This is a medium dialog (default) with max-width of md. Good for most use cases.</p>
+          <div slot="footer">
+            <Button variant="primary" onclick="closeDialog('md-dialog')">Close</Button>
+          </div>
+        </Dialog>
+        
+        <Dialog id="lg-dialog" title="Large Dialog" size="lg">
+          <p class="text-slate-600 dark:text-slate-400">This is a large dialog with max-width of lg. Use for content that needs more space.</p>
+          <div slot="footer">
+            <Button variant="primary" onclick="closeDialog('lg-dialog')">Close</Button>
+          </div>
+        </Dialog>
+        
+        <Dialog id="xl-dialog" title="Extra Large Dialog" size="xl">
+          <p class="text-slate-600 dark:text-slate-400">This is an extra large dialog with max-width of xl. Best for complex content like data tables or detailed forms.</p>
+          <div slot="footer">
+            <Button variant="primary" onclick="closeDialog('xl-dialog')">Close</Button>
+          </div>
+        </Dialog>
+      </ExampleSection>
+
+      <ExampleSection title="Success Dialog" description="Feedback dialog for successful actions.">
+        <Button id="open-success-dialog" variant="primary">
+          Complete Action
+        </Button>
+        
+        <Dialog id="success-dialog" title="" size="sm" showClose={false}>
+          <div class="text-center">
+            <div class="w-12 h-12 rounded-full bg-success/10 flex items-center justify-center mx-auto mb-4">
+              <i class="ti ti-check text-2xl text-success"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-2">Success!</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-400 mb-6">
+              Your action was completed successfully.
+            </p>
+            <Button variant="primary" class="w-full" onclick="closeDialog('success-dialog')">Continue</Button>
+          </div>
+        </Dialog>
+      </ExampleSection>
+
+      <ExampleSection title="Information Dialog" description="Dialog for displaying important information.">
+        <Button id="open-info-dialog" variant="secondary">
+          View Details
+        </Button>
+        
+        <Dialog id="info-dialog" title="Important Information" size="md">
+          <div class="space-y-4">
+            <div class="p-4 rounded-lg bg-info/10 border border-info/30">
+              <div class="flex gap-3">
+                <i class="ti ti-info-circle text-info text-lg mt-0.5"></i>
+                <div>
+                  <p class="text-sm font-medium text-slate-900 dark:text-white mb-1">Did you know?</p>
+                  <p class="text-sm text-slate-600 dark:text-slate-400">
+                    You can press <kbd class="px-1.5 py-0.5 bg-slate-200 dark:bg-slate-800 rounded text-xs">Esc</kbd> to close any dialog.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <p class="text-slate-600 dark:text-slate-400">
+              Dialogs support keyboard navigation, backdrop click to close, and proper focus management for accessibility.
+            </p>
+          </div>
+          <div slot="footer">
+            <Button variant="primary" onclick="closeDialog('info-dialog')">Got it</Button>
+          </div>
+        </Dialog>
       </ExampleSection>
     </section>
 
     <section id="props">
       <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Props</h2>
       <PropsTable props={props} />
+      
+      <h3 class="text-lg font-semibold text-slate-900 dark:text-white mt-6 mb-3">Slots</h3>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-slate-200 dark:border-slate-800">
+              <th class="text-left py-3 pr-4 font-semibold text-slate-900 dark:text-white">Slot</th>
+              <th class="text-left py-3 pr-4 font-semibold text-slate-900 dark:text-white">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-slate-200 dark:border-slate-800">
+              <td class="py-3 pr-4 font-mono text-xs text-theme-primary">default</td>
+              <td class="py-3 pr-4 text-slate-600 dark:text-slate-400">Dialog body content</td>
+            </tr>
+            <tr class="border-b border-slate-200 dark:border-slate-800">
+              <td class="py-3 pr-4 font-mono text-xs text-theme-primary">footer</td>
+              <td class="py-3 pr-4 text-slate-600 dark:text-slate-400">Footer area for action buttons</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <h3 class="text-lg font-semibold text-slate-900 dark:text-white mt-6 mb-3">JavaScript API</h3>
+      <div class="p-4 rounded-lg bg-slate-100 dark:bg-slate-800 font-mono text-sm space-y-2">
+        <p class="text-slate-700 dark:text-slate-300">// Open a dialog</p>
+        <p class="text-theme-primary">openDialog('dialog-id')</p>
+        <p class="text-slate-700 dark:text-slate-300 mt-4">// Close a dialog</p>
+        <p class="text-theme-primary">closeDialog('dialog-id')</p>
+      </div>
     </section>
 
     <section id="usage">
@@ -164,8 +227,9 @@ const props = [
           <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
             <li>• Use for focused, important tasks</li>
             <li>• Provide clear title and actions</li>
-            <li>• Allow closing via overlay click</li>
-            <li>• Keep content concise</li>
+            <li>• Allow closing via overlay click and Escape key</li>
+            <li>• Keep content concise and focused</li>
+            <li>• Use appropriate sizes for content</li>
           </ul>
         </div>
         <div class="p-6 rounded-lg border border-error/30 bg-error/5">
@@ -173,8 +237,9 @@ const props = [
           <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
             <li>• Stack multiple dialogs</li>
             <li>• Use for non-essential content</li>
-            <li>• Make dialogs too large</li>
+            <li>• Make dialogs larger than necessary</li>
             <li>• Prevent all methods of closing</li>
+            <li>• Put scrollable content without clear boundaries</li>
           </ul>
         </div>
       </div>
@@ -189,7 +254,7 @@ const props = [
             Focus Management
           </h3>
           <p class="text-sm text-slate-600 dark:text-slate-400">
-            Focus should be trapped within the dialog when open. On open, focus the first focusable element. On close, return focus to the trigger element.
+            Focus is trapped within the dialog when open. On close, focus returns to the trigger element.
           </p>
         </div>
         <div class="p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-surface/50">
@@ -198,7 +263,7 @@ const props = [
             Keyboard Support
           </h3>
           <p class="text-sm text-slate-600 dark:text-slate-400">
-            <kbd class="px-1.5 py-0.5 bg-slate-200 dark:bg-slate-800 rounded text-xs">Esc</kbd> should close the dialog. Tab navigation should cycle through focusable elements within the dialog.
+            <kbd class="px-1.5 py-0.5 bg-slate-200 dark:bg-slate-800 rounded text-xs">Esc</kbd> closes the dialog. Tab navigation cycles through focusable elements.
           </p>
         </div>
         <div class="p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-surface/50">
@@ -207,7 +272,7 @@ const props = [
             ARIA Attributes
           </h3>
           <p class="text-sm text-slate-600 dark:text-slate-400">
-            Use <code>role="dialog"</code>, <code>aria-modal="true"</code>, and <code>aria-labelledby</code> pointing to the dialog title.
+            The Dialog component includes <code>role="dialog"</code>, <code>aria-modal="true"</code>, and <code>aria-labelledby</code> pointing to the title.
           </p>
         </div>
       </div>
@@ -215,3 +280,17 @@ const props = [
   </article>
 </DocsLayout>
 
+<script>
+  // Connect buttons to dialogs
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('open-basic-dialog')?.addEventListener('click', () => openDialog('basic-dialog'));
+    document.getElementById('open-confirm-dialog')?.addEventListener('click', () => openDialog('confirm-dialog'));
+    document.getElementById('open-form-dialog')?.addEventListener('click', () => openDialog('form-dialog'));
+    document.getElementById('open-sm-dialog')?.addEventListener('click', () => openDialog('sm-dialog'));
+    document.getElementById('open-md-dialog')?.addEventListener('click', () => openDialog('md-dialog'));
+    document.getElementById('open-lg-dialog')?.addEventListener('click', () => openDialog('lg-dialog'));
+    document.getElementById('open-xl-dialog')?.addEventListener('click', () => openDialog('xl-dialog'));
+    document.getElementById('open-success-dialog')?.addEventListener('click', () => openDialog('success-dialog'));
+    document.getElementById('open-info-dialog')?.addEventListener('click', () => openDialog('info-dialog'));
+  });
+</script>

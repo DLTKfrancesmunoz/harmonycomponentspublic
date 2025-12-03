@@ -1,56 +1,241 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
-import CodeBlock from '../../components/CodeBlock.astro';
+import PropsTable from '../../components/PropsTable.astro';
 import ExampleSection from '../../components/ExampleSection.astro';
+import Input from '../../components/ui/Input.astro';
+import Label from '../../components/ui/Label.astro';
 ---
 
 <DocsLayout title="Specialty Inputs" description="Number, URL, and currency inputs.">
   <article class="space-y-12">
     <header class="border-b border-slate-200 dark:border-slate-800 pb-8">
-      <h1 class="font-display text-4xl font-bold text-slate-900 dark:text-white mb-4">Specialty Inputs</h1>
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="font-display text-4xl font-bold text-slate-900 dark:text-white">Specialty Inputs</h1>
+        <span class="text-xs px-2 py-1 rounded-full border bg-success/10 text-success border-success/30">stable</span>
+      </div>
       <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl">
         Specialized input types for numbers, URLs, currency, and other formatted data.
       </p>
     </header>
 
-    <ExampleSection title="Input Types" description="Different specialized input types.">
-      <div class="space-y-4 max-w-sm">
-        <div class="space-y-2">
-          <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Number Input</label>
-          <input type="number" placeholder="0" class="w-full px-4 py-2 border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
-        </div>
-        <div class="space-y-2">
-          <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">Currency Input</label>
-          <div class="relative">
-            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500">$</span>
-            <input type="number" placeholder="0.00" step="0.01" class="w-full pl-7 pr-4 py-2 border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
+    <nav class="flex gap-4 text-sm">
+      <a href="#examples" class="text-theme-primary hover:underline flex items-center gap-1"><i class="ti ti-eye"></i> Examples</a>
+      <a href="#usage" class="text-theme-primary hover:underline flex items-center gap-1"><i class="ti ti-book"></i> Usage</a>
+      <a href="#accessibility" class="text-theme-primary hover:underline flex items-center gap-1"><i class="ti ti-accessible"></i> Accessibility</a>
+    </nav>
+
+    <section id="examples" class="space-y-8">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Examples</h2>
+
+      <ExampleSection title="Number Input" description="Input for numeric values.">
+        <div class="space-y-4 max-w-sm">
+          <div class="space-y-2">
+            <Label for="number-basic">Quantity</Label>
+            <Input type="number" id="number-basic" placeholder="0" />
+          </div>
+          <div class="space-y-2">
+            <Label for="number-minmax">Age (18-100)</Label>
+            <Input type="number" id="number-minmax" placeholder="Enter your age" min="18" max="100" />
           </div>
         </div>
-        <div class="space-y-2">
-          <label class="block text-sm font-medium text-slate-700 dark:text-slate-300">URL Input</label>
-          <div class="relative">
-            <i class="ti ti-link absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
-            <input type="url" placeholder="https://example.com" class="w-full pl-10 pr-4 py-2 border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
+      </ExampleSection>
+
+      <ExampleSection title="Currency Input" description="Input with currency prefix.">
+        <div class="space-y-4 max-w-sm">
+          <div class="space-y-2">
+            <Label for="currency-usd">Price (USD)</Label>
+            <div class="relative">
+              <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500">$</span>
+              <input type="number" id="currency-usd" placeholder="0.00" step="0.01" class="w-full pl-7 pr-4 py-2 border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-theme-primary" />
+            </div>
           </div>
+          <div class="space-y-2">
+            <Label for="currency-euro">Price (EUR)</Label>
+            <div class="relative">
+              <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500">€</span>
+              <input type="number" id="currency-euro" placeholder="0.00" step="0.01" class="w-full pl-7 pr-4 py-2 border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-theme-primary" />
+            </div>
+          </div>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="URL Input" description="Input for website URLs.">
+        <div class="space-y-2 max-w-sm">
+          <Label for="url-input">Website URL</Label>
+          <Input type="url" id="url-input" icon="ti-link" placeholder="https://example.com" />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Phone Input" description="Input for phone numbers.">
+        <div class="space-y-2 max-w-sm">
+          <Label for="phone-input">Phone Number</Label>
+          <Input type="tel" id="phone-input" icon="ti-phone" placeholder="(555) 555-5555" />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Input with Unit Suffix" description="Inputs with unit indicators.">
+        <div class="space-y-4 max-w-sm">
+          <div class="space-y-2">
+            <Label for="weight-input">Weight</Label>
+            <div class="relative">
+              <input type="number" id="weight-input" placeholder="0" class="w-full pl-4 pr-12 py-2 border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-theme-primary" />
+              <span class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm">kg</span>
+            </div>
+          </div>
+          <div class="space-y-2">
+            <Label for="height-input">Height</Label>
+            <div class="relative">
+              <input type="number" id="height-input" placeholder="0" class="w-full pl-4 pr-12 py-2 border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-theme-primary" />
+              <span class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm">cm</span>
+            </div>
+          </div>
+          <div class="space-y-2">
+            <Label for="percentage-input">Percentage</Label>
+            <div class="relative">
+              <input type="number" id="percentage-input" placeholder="0" min="0" max="100" class="w-full pl-4 pr-10 py-2 border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-theme-primary" />
+              <span class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm">%</span>
+            </div>
+          </div>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Stepper Input" description="Number input with increment/decrement buttons.">
+        <div class="space-y-2 max-w-xs">
+          <Label>Quantity</Label>
+          <div class="stepper-input inline-flex items-stretch">
+            <button type="button" class="stepper-btn px-3 py-2 border border-slate-300 dark:border-slate-600 border-r-0 rounded-l-lg bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 transition-colors">
+              <i class="ti ti-minus"></i>
+            </button>
+            <input type="number" value="1" min="0" class="stepper-value w-16 text-center border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-theme-primary focus:z-10 [-moz-appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" />
+            <button type="button" class="stepper-btn px-3 py-2 border border-slate-300 dark:border-slate-600 border-l-0 rounded-r-lg bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 transition-colors">
+              <i class="ti ti-plus"></i>
+            </button>
+          </div>
+        </div>
+        <script>
+          function initSteppers() {
+            document.querySelectorAll('.stepper-input').forEach((stepper) => {
+              const input = stepper.querySelector('.stepper-value') as HTMLInputElement;
+              const buttons = stepper.querySelectorAll('.stepper-btn');
+              
+              if (!input || buttons.length !== 2) return;
+              
+              const [decrementBtn, incrementBtn] = buttons;
+              const min = parseInt(input.min) || 0;
+              const max = parseInt(input.max) || Infinity;
+              
+              decrementBtn.addEventListener('click', () => {
+                const current = parseInt(input.value) || 0;
+                if (current > min) {
+                  input.value = String(current - 1);
+                  input.dispatchEvent(new Event('change', { bubbles: true }));
+                }
+              });
+              
+              incrementBtn.addEventListener('click', () => {
+                const current = parseInt(input.value) || 0;
+                if (current < max) {
+                  input.value = String(current + 1);
+                  input.dispatchEvent(new Event('change', { bubbles: true }));
+                }
+              });
+            });
+          }
+          
+          initSteppers();
+          document.addEventListener('astro:page-load', initSteppers);
+        </script>
+      </ExampleSection>
+
+      <ExampleSection title="Range Input" description="Slider for selecting a value within a range.">
+        <div class="space-y-4 max-w-sm">
+          <div class="space-y-2">
+            <div class="flex justify-between">
+              <Label for="range-input">Volume</Label>
+              <span class="text-sm text-slate-500">75%</span>
+            </div>
+            <input type="range" id="range-input" value="75" class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-theme-primary" />
+          </div>
+          <div class="space-y-2">
+            <div class="flex justify-between">
+              <Label for="range-input-2">Price Range</Label>
+              <span class="text-sm text-slate-500">$50 - $150</span>
+            </div>
+            <input type="range" id="range-input-2" min="0" max="200" value="100" class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-theme-primary" />
+          </div>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Color Input" description="Input for selecting colors.">
+        <div class="space-y-2 max-w-sm">
+          <Label for="color-input">Brand Color</Label>
+          <div class="flex gap-2">
+            <input type="color" id="color-input" value="#4C92D9" class="w-10 h-10 rounded-lg border border-slate-300 dark:border-slate-700 cursor-pointer" />
+            <Input type="text" placeholder="#4C92D9" class="flex-1" />
+          </div>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Date and Time" description="Inputs for date and time values.">
+        <div class="grid sm:grid-cols-2 gap-4 max-w-md">
+          <div class="space-y-2">
+            <Label for="date-input">Date</Label>
+            <input type="date" id="date-input" class="w-full px-4 py-2 border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-theme-primary" />
+          </div>
+          <div class="space-y-2">
+            <Label for="time-input">Time</Label>
+            <input type="time" id="time-input" class="w-full px-4 py-2 border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-theme-primary" />
+          </div>
+        </div>
+      </ExampleSection>
+    </section>
+
+    <section id="usage">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Usage Guidelines</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="p-6 rounded-lg border border-success/30 bg-success/5">
+          <h3 class="font-semibold text-success mb-3 flex items-center gap-2"><i class="ti ti-check"></i> Do</h3>
+          <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+            <li>• Use appropriate input types (number, url, tel)</li>
+            <li>• Show units and currency symbols clearly</li>
+            <li>• Set reasonable min/max constraints</li>
+            <li>• Provide format hints in placeholders</li>
+          </ul>
+        </div>
+        <div class="p-6 rounded-lg border border-error/30 bg-error/5">
+          <h3 class="font-semibold text-error mb-3 flex items-center gap-2"><i class="ti ti-x"></i> Don't</h3>
+          <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+            <li>• Use text input for structured data</li>
+            <li>• Hide units or currency symbols</li>
+            <li>• Allow invalid input without feedback</li>
+            <li>• Use overly complex formatting</li>
+          </ul>
         </div>
       </div>
-    </ExampleSection>
+    </section>
 
-    <CodeBlock 
-      language="html"
-      filename="specialty-inputs.html"
-      code={`<!-- Currency Input -->
-<div class="relative">
-  <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500">$</span>
-  <input type="number" placeholder="0.00" step="0.01" class="w-full pl-7 pr-4 py-2 border rounded-lg">
-</div>
-
-<!-- URL Input -->
-<div class="relative">
-  <i class="ti ti-link absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
-  <input type="url" placeholder="https://example.com" class="w-full pl-10 pr-4 py-2 border rounded-lg">
-</div>`}
-    />
+    <section id="accessibility">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Accessibility</h2>
+      <div class="space-y-4">
+        <div class="p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-surface/50">
+          <h3 class="font-semibold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+            <i class="ti ti-tag text-theme-primary"></i>
+            Input Types
+          </h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400">
+            Use semantic input types like <code>number</code>, <code>tel</code>, <code>url</code>, and <code>email</code> to enable appropriate mobile keyboards and validation.
+          </p>
+        </div>
+        <div class="p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-surface/50">
+          <h3 class="font-semibold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+            <i class="ti ti-eye text-theme-primary"></i>
+            Visual Indicators
+          </h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400">
+            Units and currency symbols should be visually associated with inputs but may need <code>aria-describedby</code> for screen readers.
+          </p>
+        </div>
+      </div>
+    </section>
   </article>
 </DocsLayout>
-

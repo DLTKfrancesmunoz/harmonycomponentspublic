@@ -1,0 +1,105 @@
+---
+/**
+ * Button Component
+ * 
+ * Interactive button with multiple variants, sizes, and states.
+ * 
+ * @example
+ * <Button variant="primary" size="md">Click me</Button>
+ * <Button variant="outline" icon="ti-plus">Add Item</Button>
+ * <Button variant="destructive" disabled>Delete</Button>
+ */
+
+export interface Props {
+  /** Visual style of the button */
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'destructive';
+  /** Size of the button */
+  size?: 'sm' | 'md' | 'lg';
+  /** Disables the button */
+  disabled?: boolean;
+  /** Tabler icon class (e.g., ti-plus) */
+  icon?: string;
+  /** Position of icon relative to text */
+  iconPosition?: 'left' | 'right';
+  /** Button type attribute */
+  type?: 'button' | 'submit' | 'reset';
+  /** Full width button */
+  fullWidth?: boolean;
+  /** Additional CSS classes */
+  class?: string;
+  /** Any additional HTML attributes */
+  [key: string]: any;
+}
+
+const {
+  variant = 'primary',
+  size = 'md',
+  disabled = false,
+  icon,
+  iconPosition = 'left',
+  type = 'button',
+  fullWidth = false,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+// Base classes applied to all buttons
+const baseClasses = 'rounded-lg font-medium transition-colors inline-flex items-center justify-center';
+
+// Check if there's slot content (text)
+const hasSlotContent = Astro.slots.has('default');
+const isIconOnly = icon && !hasSlotContent;
+
+// Size-specific classes with explicit heights for consistency
+const sizeClasses: Record<string, string> = {
+  sm: isIconOnly ? 'h-8 w-8 text-sm' : 'h-8 px-3 text-sm gap-1.5',
+  md: isIconOnly ? 'h-10 w-10' : 'h-10 px-4 gap-2',
+  lg: isIconOnly ? 'h-12 w-12 text-lg' : 'h-12 px-6 text-lg gap-2',
+};
+
+// Variant-specific classes
+const variantClasses: Record<string, string> = {
+  primary: 'bg-theme-primary hover:bg-theme-primary-hover text-white',
+  secondary: 'bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-900 dark:text-white',
+  outline: 'border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-900 dark:text-white',
+  ghost: 'hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-900 dark:text-white',
+  destructive: 'bg-error hover:bg-red-600 text-white',
+};
+
+// Disabled state classes
+const disabledClasses = disabled ? 'opacity-50 cursor-not-allowed' : '';
+
+// Full width class
+const widthClass = fullWidth ? 'w-full' : '';
+
+// Combine all classes
+const buttonClasses = [
+  baseClasses,
+  sizeClasses[size],
+  variantClasses[variant],
+  disabledClasses,
+  widthClass,
+  className,
+].filter(Boolean).join(' ');
+
+---
+
+<button
+  type={type}
+  class={buttonClasses}
+  disabled={disabled}
+  {...rest}
+>
+  {icon && iconPosition === 'left' && (
+    <i class={`ti ${icon}`}></i>
+  )}
+  
+  {hasSlotContent && (
+    <span><slot /></span>
+  )}
+  
+  {icon && iconPosition === 'right' && (
+    <i class={`ti ${icon}`}></i>
+  )}
+</button>
+

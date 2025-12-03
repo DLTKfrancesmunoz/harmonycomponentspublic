@@ -1,63 +1,207 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
-import CodeBlock from '../../components/CodeBlock.astro';
+import PropsTable from '../../components/PropsTable.astro';
 import ExampleSection from '../../components/ExampleSection.astro';
+import ProgressBar from '../../components/ui/ProgressBar.astro';
+
+const props = [
+  { name: 'value', type: 'number', default: '0', description: 'Current progress value (0-100)' },
+  { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Bar height' },
+  { name: 'variant', type: "'default' | 'success' | 'warning' | 'error'", default: "'default'", description: 'Color variant' },
+  { name: 'showLabel', type: 'boolean', default: 'false', description: 'Show percentage label' },
+];
 ---
 
 <DocsLayout title="Progress Bar" description="Linear progress indicators.">
   <article class="space-y-12">
     <header class="border-b border-slate-200 dark:border-slate-800 pb-8">
-      <h1 class="font-display text-4xl font-bold text-slate-900 dark:text-white mb-4">Progress Bar</h1>
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="font-display text-4xl font-bold text-slate-900 dark:text-white">Progress Bar</h1>
+        <span class="text-xs px-2 py-1 rounded-full border bg-success/10 text-success border-success/30">stable</span>
+      </div>
       <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl">
         Progress bars show the completion status of a task or process.
       </p>
     </header>
 
-    <ExampleSection title="Progress Variants" description="Different progress states.">
-      <div class="space-y-6 max-w-md">
-        <div>
-          <div class="flex justify-between text-sm mb-1">
-            <span class="text-slate-600 dark:text-slate-400">Progress</span>
-            <span class="text-slate-900 dark:text-white">45%</span>
+    <nav class="flex gap-4 text-sm">
+      <a href="#examples" class="text-theme-primary hover:underline flex items-center gap-1"><i class="ti ti-eye"></i> Examples</a>
+      <a href="#props" class="text-theme-primary hover:underline flex items-center gap-1"><i class="ti ti-list"></i> Props</a>
+      <a href="#usage" class="text-theme-primary hover:underline flex items-center gap-1"><i class="ti ti-book"></i> Usage</a>
+      <a href="#accessibility" class="text-theme-primary hover:underline flex items-center gap-1"><i class="ti ti-accessible"></i> Accessibility</a>
+    </nav>
+
+    <section id="examples" class="space-y-8">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Examples</h2>
+
+      <ExampleSection title="Basic Progress" description="Simple progress bar with different values.">
+        <div class="space-y-4 max-w-md">
+          <ProgressBar value={25} />
+          <ProgressBar value={50} />
+          <ProgressBar value={75} />
+          <ProgressBar value={100} />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="With Labels" description="Progress bars showing percentage values.">
+        <div class="space-y-6 max-w-md">
+          <ProgressBar value={33} showLabel />
+          <ProgressBar value={67} showLabel />
+          <ProgressBar value={100} showLabel />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Color Variants" description="Different colors for different states.">
+        <div class="space-y-6 max-w-md">
+          <div>
+            <div class="text-sm text-slate-600 dark:text-slate-400 mb-1">Default (Primary)</div>
+            <ProgressBar value={60} variant="default" />
           </div>
-          <div class="h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
-            <div class="h-full bg-theme-primary rounded-full" style="width: 45%"></div>
+          <div>
+            <div class="text-sm text-slate-600 dark:text-slate-400 mb-1">Success</div>
+            <ProgressBar value={100} variant="success" />
+          </div>
+          <div>
+            <div class="text-sm text-slate-600 dark:text-slate-400 mb-1">Warning</div>
+            <ProgressBar value={80} variant="warning" />
+          </div>
+          <div>
+            <div class="text-sm text-slate-600 dark:text-slate-400 mb-1">Error</div>
+            <ProgressBar value={25} variant="error" />
           </div>
         </div>
-        <div>
-          <div class="flex justify-between text-sm mb-1">
-            <span class="text-slate-600 dark:text-slate-400">Complete</span>
-            <span class="text-success">100%</span>
+      </ExampleSection>
+
+      <ExampleSection title="Sizes" description="Three height options for different contexts.">
+        <div class="space-y-6 max-w-md">
+          <div>
+            <div class="text-sm text-slate-600 dark:text-slate-400 mb-1">Small (h-1)</div>
+            <ProgressBar value={60} size="sm" />
           </div>
-          <div class="h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
-            <div class="h-full bg-success rounded-full w-full"></div>
+          <div>
+            <div class="text-sm text-slate-600 dark:text-slate-400 mb-1">Medium (h-2)</div>
+            <ProgressBar value={60} size="md" />
+          </div>
+          <div>
+            <div class="text-sm text-slate-600 dark:text-slate-400 mb-1">Large (h-3)</div>
+            <ProgressBar value={60} size="lg" />
           </div>
         </div>
-        <div>
-          <div class="flex justify-between text-sm mb-1">
-            <span class="text-slate-600 dark:text-slate-400">Warning</span>
-            <span class="text-warning">80%</span>
+      </ExampleSection>
+
+      <ExampleSection title="Upload Progress" description="Common use case for file uploads.">
+        <div class="max-w-md p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-charcoal">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-lg bg-theme-primary/10 flex items-center justify-center">
+              <i class="ti ti-file text-theme-primary"></i>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-medium text-slate-900 dark:text-white truncate">document.pdf</p>
+              <p class="text-xs text-slate-500">2.4 MB</p>
+            </div>
+            <span class="text-sm font-medium text-theme-primary">73%</span>
           </div>
-          <div class="h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
-            <div class="h-full bg-warning rounded-full" style="width: 80%"></div>
+          <ProgressBar value={73} size="sm" />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Step Progress" description="Progress through a multi-step process.">
+        <div class="max-w-md">
+          <div class="flex justify-between text-xs text-slate-500 mb-2">
+            <span>Step 2 of 4</span>
+            <span>50% complete</span>
           </div>
+          <ProgressBar value={50} size="lg" />
+          <div class="flex justify-between mt-2">
+            <span class="text-xs text-theme-primary font-medium">Details</span>
+            <span class="text-xs text-theme-primary font-medium">Payment</span>
+            <span class="text-xs text-slate-400">Review</span>
+            <span class="text-xs text-slate-400">Confirm</span>
+          </div>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Status Indicators" description="Using variants to indicate task status.">
+        <div class="space-y-4 max-w-md">
+          <div class="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-charcoal">
+            <div class="flex justify-between text-sm mb-2">
+              <span class="text-slate-600 dark:text-slate-400">Storage Used</span>
+              <span class="text-slate-900 dark:text-white font-medium">8.2 GB / 10 GB</span>
+            </div>
+            <ProgressBar value={82} variant="warning" size="sm" />
+            <p class="text-xs text-warning mt-1">Running low on storage</p>
+          </div>
+          <div class="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-charcoal">
+            <div class="flex justify-between text-sm mb-2">
+              <span class="text-slate-600 dark:text-slate-400">API Calls</span>
+              <span class="text-slate-900 dark:text-white font-medium">950 / 1000</span>
+            </div>
+            <ProgressBar value={95} variant="error" size="sm" />
+            <p class="text-xs text-error mt-1">Approaching limit</p>
+          </div>
+          <div class="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-charcoal">
+            <div class="flex justify-between text-sm mb-2">
+              <span class="text-slate-600 dark:text-slate-400">Tasks Completed</span>
+              <span class="text-slate-900 dark:text-white font-medium">12 / 12</span>
+            </div>
+            <ProgressBar value={100} variant="success" size="sm" />
+            <p class="text-xs text-success mt-1">All tasks complete!</p>
+          </div>
+        </div>
+      </ExampleSection>
+    </section>
+
+    <section id="props">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Props</h2>
+      <PropsTable props={props} />
+    </section>
+
+    <section id="usage">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Usage Guidelines</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="p-6 rounded-lg border border-success/30 bg-success/5">
+          <h3 class="font-semibold text-success mb-3 flex items-center gap-2"><i class="ti ti-check"></i> Do</h3>
+          <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+            <li>• Use for determinate progress (known completion)</li>
+            <li>• Show numerical values when helpful</li>
+            <li>• Use appropriate variants for status</li>
+            <li>• Keep progress bars visible until complete</li>
+          </ul>
+        </div>
+        <div class="p-6 rounded-lg border border-error/30 bg-error/5">
+          <h3 class="font-semibold text-error mb-3 flex items-center gap-2"><i class="ti ti-x"></i> Don't</h3>
+          <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+            <li>• Use for unknown duration (use spinner instead)</li>
+            <li>• Let progress go backwards unexpectedly</li>
+            <li>• Show stale or inaccurate progress</li>
+            <li>• Stack multiple progress bars</li>
+          </ul>
         </div>
       </div>
-    </ExampleSection>
+    </section>
 
-    <CodeBlock 
-      language="html"
-      filename="progress-bar.html"
-      code={`<div>
-  <div class="flex justify-between text-sm mb-1">
-    <span class="text-slate-600 dark:text-slate-400">Progress</span>
-    <span class="text-slate-900 dark:text-white">45%</span>
-  </div>
-  <div class="h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
-    <div class="h-full bg-theme-primary rounded-full" style="width: 45%"></div>
-  </div>
-</div>`}
-    />
+    <section id="accessibility">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Accessibility</h2>
+      <div class="space-y-4">
+        <div class="p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-surface/50">
+          <h3 class="font-semibold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+            <i class="ti ti-accessible text-theme-primary"></i>
+            ARIA Progressbar
+          </h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400">
+            The ProgressBar includes <code>role="progressbar"</code>, <code>aria-valuenow</code>, <code>aria-valuemin</code>, and <code>aria-valuemax</code> for screen readers.
+          </p>
+        </div>
+        <div class="p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-surface/50">
+          <h3 class="font-semibold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+            <i class="ti ti-palette text-theme-primary"></i>
+            Color & Text
+          </h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400">
+            Don't rely on color alone. Use <code>showLabel</code> or add text context to communicate progress to all users.
+          </p>
+        </div>
+      </div>
+    </section>
   </article>
 </DocsLayout>
-

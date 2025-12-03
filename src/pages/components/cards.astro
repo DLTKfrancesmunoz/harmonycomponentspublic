@@ -1,14 +1,14 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
-import CodeBlock from '../../components/CodeBlock.astro';
 import PropsTable from '../../components/PropsTable.astro';
 import ExampleSection from '../../components/ExampleSection.astro';
+import Card from '../../components/ui/Card.astro';
 
 const props = [
-  { name: 'variant', type: "'default' | 'elevated' | 'outlined' | 'interactive' | 'top-border'", default: "'default'", description: 'Card style variant' },
+  { name: 'variant', type: "'default' | 'elevated' | 'outlined' | 'interactive' | 'topBorder'", default: "'default'", description: 'Card style variant' },
   { name: 'padding', type: "'none' | 'sm' | 'md' | 'lg'", default: "'md'", description: 'Internal padding' },
   { name: 'href', type: 'string', default: '—', description: 'Makes card a link (interactive)' },
-  { name: 'borderColor', type: 'string', default: 'theme-primary', description: 'Top border color for top-border variant' },
+  { name: 'borderColor', type: 'string', default: 'theme-primary', description: 'Top border color for topBorder variant' },
 ];
 ---
 
@@ -36,29 +36,18 @@ const props = [
 
       <ExampleSection title="Basic Card" description="Simple card with title and content.">
         <div class="max-w-sm">
-          <div class="p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-charcoal">
+          <Card>
             <h3 class="font-semibold text-slate-900 dark:text-white mb-2">Card Title</h3>
             <p class="text-sm text-slate-600 dark:text-slate-400">
               This is a basic card with some example content. Cards are great for grouping related information.
             </p>
-          </div>
+          </Card>
         </div>
       </ExampleSection>
 
-      <CodeBlock 
-        language="html"
-        filename="card-basic.html"
-        code={`<div class="p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-charcoal">
-  <h3 class="font-semibold text-slate-900 dark:text-white mb-2">Card Title</h3>
-  <p class="text-sm text-slate-600 dark:text-slate-400">
-    This is a basic card with some example content.
-  </p>
-</div>`}
-      />
-
       <ExampleSection title="Card with Icon" description="Card with leading icon.">
         <div class="max-w-sm">
-          <div class="p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-charcoal">
+          <Card>
             <div class="w-10 h-10 rounded-lg bg-theme-primary/10 flex items-center justify-center mb-4">
               <i class="ti ti-chart-bar text-xl text-theme-primary"></i>
             </div>
@@ -66,13 +55,13 @@ const props = [
             <p class="text-sm text-slate-600 dark:text-slate-400">
               View detailed analytics and insights about your project performance.
             </p>
-          </div>
+          </Card>
         </div>
       </ExampleSection>
 
       <ExampleSection title="Interactive Card" description="Clickable card with hover effects.">
         <div class="grid sm:grid-cols-2 gap-4 max-w-2xl">
-          <a href="#" class="group p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-charcoal hover:border-theme-primary dark:hover:border-theme-primary hover:shadow-md transition-all">
+          <Card variant="interactive" href="#">
             <div class="w-10 h-10 rounded-lg bg-theme-primary/10 flex items-center justify-center mb-4 group-hover:bg-theme-primary/20 transition-colors">
               <i class="ti ti-folder text-xl text-theme-primary"></i>
             </div>
@@ -80,8 +69,8 @@ const props = [
             <p class="text-sm text-slate-600 dark:text-slate-400">
               Manage and organize your projects.
             </p>
-          </a>
-          <a href="#" class="group p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-charcoal hover:border-theme-primary dark:hover:border-theme-primary hover:shadow-md transition-all">
+          </Card>
+          <Card variant="interactive" href="#">
             <div class="w-10 h-10 rounded-lg bg-theme-primary/10 flex items-center justify-center mb-4 group-hover:bg-theme-primary/20 transition-colors">
               <i class="ti ti-users text-xl text-theme-primary"></i>
             </div>
@@ -89,38 +78,24 @@ const props = [
             <p class="text-sm text-slate-600 dark:text-slate-400">
               Collaborate with your team members.
             </p>
-          </a>
+          </Card>
         </div>
       </ExampleSection>
 
-      <CodeBlock 
-        language="html"
-        filename="card-interactive.html"
-        code={`<a href="#" class="group p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-charcoal hover:border-theme-primary dark:hover:border-theme-primary hover:shadow-md transition-all">
-  <div class="w-10 h-10 rounded-lg bg-theme-primary/10 flex items-center justify-center mb-4 group-hover:bg-theme-primary/20 transition-colors">
-    <i class="ti ti-folder text-xl text-theme-primary"></i>
-  </div>
-  <h3 class="font-semibold text-slate-900 dark:text-white mb-2 group-hover:text-theme-primary transition-colors">Projects</h3>
-  <p class="text-sm text-slate-600 dark:text-slate-400">
-    Manage and organize your projects.
-  </p>
-</a>`}
-      />
-
       <ExampleSection title="Elevated Card" description="Card with shadow for emphasis.">
         <div class="max-w-sm">
-          <div class="p-6 rounded-xl bg-white dark:bg-charcoal shadow-lg">
+          <Card variant="elevated">
             <h3 class="font-semibold text-slate-900 dark:text-white mb-2">Featured Card</h3>
             <p class="text-sm text-slate-600 dark:text-slate-400">
               This elevated card uses shadow instead of border for a floating effect.
             </p>
-          </div>
+          </Card>
         </div>
       </ExampleSection>
 
       <ExampleSection title="Top Border Card" description="Card with 6px theme-colored top border accent. Used for App Panels in CP.">
         <div class="max-w-md">
-          <div class="rounded-lg border border-slate-200 dark:border-slate-700 border-t-[6px] border-t-theme-primary bg-white dark:bg-charcoal overflow-hidden">
+          <Card variant="topBorder" padding="none">
             <div class="p-4 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between bg-slate-50 dark:bg-slate-800/50">
               <h3 class="font-semibold text-slate-900 dark:text-white text-sm">App Panel Title</h3>
               <div class="flex items-center gap-2">
@@ -133,34 +108,13 @@ const props = [
                 The 6px top border in the theme primary color provides visual hierarchy and branding for App Panel cards.
               </p>
             </div>
-          </div>
+          </Card>
         </div>
       </ExampleSection>
 
-      <CodeBlock 
-        language="html"
-        filename="card-top-border.html"
-        code={`<!-- Top Border Card (App Panel style) -->
-<div class="rounded-lg border border-slate-200 dark:border-slate-700 
-            border-t-[6px] border-t-theme-primary 
-            bg-white dark:bg-charcoal overflow-hidden">
-  <div class="p-4 border-b border-slate-200 dark:border-slate-700 
-              flex items-center justify-between bg-slate-50 dark:bg-slate-800/50">
-    <h3 class="font-semibold text-slate-900 dark:text-white text-sm">Panel Title</h3>
-    <div class="flex items-center gap-2">
-      <button class="btn-primary px-2 py-1 text-xs">New</button>
-      <button class="btn-secondary px-2 py-1 text-xs">Copy</button>
-    </div>
-  </div>
-  <div class="p-4">
-    <!-- Content -->
-  </div>
-</div>`}
-      />
-
       <ExampleSection title="Card with Actions" description="Card with header and action buttons.">
         <div class="max-w-sm">
-          <div class="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-charcoal overflow-hidden">
+          <Card padding="none">
             <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
               <h3 class="font-semibold text-slate-900 dark:text-white">Card Header</h3>
               <button class="text-slate-400 hover:text-slate-600 dark:hover:text-white">
@@ -180,7 +134,57 @@ const props = [
                 Cancel
               </button>
             </div>
-          </div>
+          </Card>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Padding Variations" description="Cards with different padding sizes.">
+        <div class="grid sm:grid-cols-4 gap-4">
+          <Card padding="none">
+            <div class="p-2 text-center">
+              <span class="text-xs text-slate-500">none</span>
+            </div>
+          </Card>
+          <Card padding="sm">
+            <div class="text-center">
+              <span class="text-xs text-slate-500">sm (p-4)</span>
+            </div>
+          </Card>
+          <Card padding="md">
+            <div class="text-center">
+              <span class="text-xs text-slate-500">md (p-6)</span>
+            </div>
+          </Card>
+          <Card padding="lg">
+            <div class="text-center">
+              <span class="text-xs text-slate-500">lg (p-8)</span>
+            </div>
+          </Card>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="All Variants" description="Overview of all card style variants.">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <Card variant="default">
+            <h4 class="font-semibold text-slate-900 dark:text-white mb-1">Default</h4>
+            <p class="text-xs text-slate-500">Border with background</p>
+          </Card>
+          <Card variant="elevated">
+            <h4 class="font-semibold text-slate-900 dark:text-white mb-1">Elevated</h4>
+            <p class="text-xs text-slate-500">Shadow, no border</p>
+          </Card>
+          <Card variant="outlined">
+            <h4 class="font-semibold text-slate-900 dark:text-white mb-1">Outlined</h4>
+            <p class="text-xs text-slate-500">2px border, transparent bg</p>
+          </Card>
+          <Card variant="interactive" href="#">
+            <h4 class="font-semibold text-slate-900 dark:text-white mb-1 group-hover:text-theme-primary transition-colors">Interactive</h4>
+            <p class="text-xs text-slate-500">Hover effects, clickable</p>
+          </Card>
+          <Card variant="topBorder">
+            <h4 class="font-semibold text-slate-900 dark:text-white mb-1">Top Border</h4>
+            <p class="text-xs text-slate-500">6px theme accent top</p>
+          </Card>
         </div>
       </ExampleSection>
     </section>
@@ -223,7 +227,7 @@ const props = [
             Interactive Cards
           </h3>
           <p class="text-sm text-slate-600 dark:text-slate-400">
-            Use <code>&lt;a&gt;</code> elements for clickable cards to ensure keyboard navigation and screen reader support.
+            Use the <code>href</code> prop to make cards into proper links for keyboard navigation and screen reader support.
           </p>
         </div>
         <div class="p-4 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-surface/50">
@@ -239,4 +243,3 @@ const props = [
     </section>
   </article>
 </DocsLayout>
-
