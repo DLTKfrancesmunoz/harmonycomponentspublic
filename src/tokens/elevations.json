@@ -8,14 +8,16 @@
     "none": {
       "value": "none",
       "css": "none",
-      "tailwind": "shadow-none",
+      "cssVar": "--shadow-none",
+      "cssClass": "shadow-none",
       "level": 0,
       "description": "No shadow, ground level"
     },
     "sm": {
       "value": "0 1px 2px 0 rgb(15 23 42 / 0.05)",
       "css": "0 1px 2px 0 rgb(15 23 42 / 0.05)",
-      "tailwind": "shadow-sm",
+      "cssVar": "--shadow-sm",
+      "cssClass": "shadow-sm",
       "level": 1,
       "description": "Subtle elevation for buttons and small elements",
       "usage": ["Buttons", "Inputs", "Small cards"]
@@ -23,7 +25,8 @@
     "default": {
       "value": "0 1px 3px 0 rgb(15 23 42 / 0.1), 0 1px 2px -1px rgb(15 23 42 / 0.1)",
       "css": "0 1px 3px 0 rgb(15 23 42 / 0.1), 0 1px 2px -1px rgb(15 23 42 / 0.1)",
-      "tailwind": "shadow",
+      "cssVar": "--shadow-md",
+      "cssClass": "shadow-md",
       "level": 1,
       "description": "Default elevation for cards and containers",
       "usage": ["Cards", "Dropdowns", "Tooltips"]
@@ -31,7 +34,8 @@
     "md": {
       "value": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
       "css": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
-      "tailwind": "shadow-md",
+      "cssVar": "--shadow-md",
+      "cssClass": "shadow-md",
       "level": 2,
       "description": "Medium elevation for floating elements",
       "usage": ["Floating menus", "Popovers"]
@@ -39,7 +43,8 @@
     "lg": {
       "value": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)",
       "css": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)",
-      "tailwind": "shadow-lg",
+      "cssVar": "--shadow-lg",
+      "cssClass": "shadow-lg",
       "level": 3,
       "description": "High elevation for prominent elements",
       "usage": ["Modals", "Dialogs", "Notifications"]
@@ -47,7 +52,8 @@
     "xl": {
       "value": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
       "css": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
-      "tailwind": "shadow-xl",
+      "cssVar": "--shadow-xl",
+      "cssClass": "shadow-xl",
       "level": 4,
       "description": "Extra high elevation for overlays",
       "usage": ["Full-screen modals", "Image lightboxes"]
@@ -55,7 +61,8 @@
     "2xl": {
       "value": "0 25px 50px -12px rgb(15 23 42 / 0.25)",
       "css": "0 25px 50px -12px rgb(15 23 42 / 0.25)",
-      "tailwind": "shadow-2xl",
+      "cssVar": "--shadow-2xl",
+      "cssClass": "shadow-2xl",
       "level": 5,
       "description": "Maximum elevation for dramatic effect",
       "usage": ["Hero images", "Featured content"]
@@ -97,25 +104,21 @@
 
   "borders": {
     "default": {
-      "class": "border border-slate-200 dark:border-slate-800",
+      "cssClass": "border",
       "description": "Standard border for cards and containers"
     },
     "strong": {
-      "class": "border-2 border-slate-200 dark:border-slate-800",
+      "cssClass": "border-2",
       "description": "Thicker border for emphasis"
     },
-    "ring": {
-      "class": "ring-1 ring-slate-200 dark:ring-slate-800",
-      "description": "Focus ring style border"
-    },
     "focusRing": {
-      "class": "ring-2 ring-theme-primary",
+      "css": "0 0 0 3px var(--theme-primary-light)",
       "description": "Focus state indicator"
     }
   },
 
   "componentDefaults": {
-    "button": "shadow-sm hover:shadow-md",
+    "button": "shadow-sm",
     "card": "shadow-sm",
     "cardElevated": "shadow-lg",
     "dropdown": "shadow-lg",
@@ -123,4 +126,3 @@
     "tooltip": "shadow-md"
   }
 }
-

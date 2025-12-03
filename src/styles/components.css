@@ -264,6 +264,68 @@
 }
 
 /* ===========================================
+   FORM GROUP
+   =========================================== */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1-5);
+  margin-bottom: var(--space-4);
+}
+
+.form-group__label {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--text-primary);
+}
+
+.form-group__helper {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+.form-group__error {
+  font-size: var(--text-xs);
+  color: var(--color-error);
+}
+
+/* Checkbox/Radio Group */
+.checkbox-group,
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.checkbox-group--horizontal,
+.radio-group--horizontal {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+/* Fieldset Group */
+.fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.fieldset__legend {
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
+  margin-bottom: var(--space-3);
+}
+
+.fieldset__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* ===========================================
    CHECKBOX
    =========================================== */
 
@@ -935,6 +997,42 @@
   border-bottom-color: var(--text-primary);
 }
 
+.tooltip__content--left {
+  bottom: auto;
+  top: 50%;
+  left: auto;
+  right: 100%;
+  transform: translateY(-50%);
+  margin-bottom: 0;
+  margin-right: var(--space-2);
+}
+
+.tooltip__content--left::after {
+  top: 50%;
+  left: 100%;
+  transform: translateY(-50%);
+  border: 6px solid transparent;
+  border-left-color: var(--text-primary);
+}
+
+.tooltip__content--right {
+  bottom: auto;
+  top: 50%;
+  left: 100%;
+  transform: translateY(-50%);
+  margin-bottom: 0;
+  margin-left: var(--space-2);
+}
+
+.tooltip__content--right::after {
+  top: 50%;
+  left: auto;
+  right: 100%;
+  transform: translateY(-50%);
+  border: 6px solid transparent;
+  border-right-color: var(--text-primary);
+}
+
 /* ===========================================
    DIALOG / MODAL
    =========================================== */
@@ -1420,6 +1518,41 @@
   background-color: var(--card-bg);
   padding: 2px 6px;
   border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+}
+
+/* ===========================================
+   CP THEME - COMPACT INPUT HEIGHTS (20px)
+   =========================================== */
+
+.theme-cp .input,
+.theme-cp .date-input {
+  height: 20px;
+  padding: 0 var(--space-2);
+  font-size: var(--text-xs);
+}
+
+.theme-cp .select,
+.theme-cp .dropdown__trigger {
+  height: 20px;
+  padding: 0 var(--space-6) 0 var(--space-2);
+  font-size: var(--text-xs);
+}
+
+.theme-cp .stepper__input {
+  height: 20px;
+  width: 40px;
+  font-size: var(--text-xs);
+}
+
+.theme-cp .stepper__btn {
+  width: 20px;
+  font-size: var(--text-xs);
+}
+
+.theme-cp .textarea {
+  min-height: 60px;
+  padding: var(--space-2);
   font-size: var(--text-xs);
 }
 

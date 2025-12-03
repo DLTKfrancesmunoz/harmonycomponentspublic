@@ -7,7 +7,7 @@
 
 export interface Props {
   text: string;
-  position?: 'top' | 'bottom';
+  position?: 'top' | 'bottom' | 'left' | 'right';
   class?: string;
 }
 
@@ -20,6 +20,8 @@ const {
 const contentClasses = [
   'tooltip__content',
   position === 'bottom' && 'tooltip__content--bottom',
+  position === 'left' && 'tooltip__content--left',
+  position === 'right' && 'tooltip__content--right',
 ].filter(Boolean).join(' ');
 
 const classes = ['tooltip', className].filter(Boolean).join(' ');

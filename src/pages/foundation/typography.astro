@@ -3,90 +3,262 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
 import ExampleSection from '../../components/ExampleSection.astro';
 ---
 
-<DocsLayout title="Typography" description="Typography system with fonts, sizes, and text styles.">
+<DocsLayout title="Typography" description="Typography system with Display, Heading, Body, and supporting text styles.">
   <article class="space-y-12">
     <header class="page-header page-header--compact">
       <h1 class="page-header__title page-header__title--sm">Typography</h1>
       <p class="page-header__description">
-        A comprehensive typography system with three font families, consistent sizing, and text styles for all content types.
+        A comprehensive typography system based on roles and scale, not HTML tags. 
+        Display styles for hero content, Headings for hierarchy, Body for content, and supporting styles for labels and captions.
       </p>
     </header>
 
-    <section class="space-y-8">
+    <nav class="article-nav">
+      <a href="#display" class="article-nav__link"><i class="ti ti-typography"></i> Display</a>
+      <a href="#headings" class="article-nav__link"><i class="ti ti-heading"></i> Headings</a>
+      <a href="#body" class="article-nav__link"><i class="ti ti-align-left"></i> Body</a>
+      <a href="#supporting" class="article-nav__link"><i class="ti ti-tag"></i> Supporting</a>
+      <a href="#fonts" class="article-nav__link"><i class="ti ti-text-size"></i> Fonts</a>
+    </nav>
+
+    <!-- Display Scale -->
+    <section id="display" class="space-y-8">
+      <h2 class="section__title">Display</h2>
+      <p class="text-secondary text-sm">Large, bold text for hero sections, marketing headlines, and high-impact moments.</p>
+
+      <ExampleSection title="Display XL" description="60px / 3.75rem - Hero headlines, landing pages">
+        <p class="text-display-xl text-primary">The quick brown fox</p>
+      </ExampleSection>
+
+      <ExampleSection title="Display L" description="48px / 3rem - Section heroes, major announcements">
+        <p class="text-display-l text-primary">The quick brown fox jumps</p>
+      </ExampleSection>
+
+      <ExampleSection title="Display M" description="36px / 2.25rem - Feature highlights, card heroes">
+        <p class="text-display-m text-primary">The quick brown fox jumps over</p>
+      </ExampleSection>
+    </section>
+
+    <!-- Headings Scale -->
+    <section id="headings" class="space-y-8">
+      <h2 class="section__title">Headings</h2>
+      <p class="text-secondary text-sm">Semantic hierarchy for page structure. Use based on content importance, not visual size.</p>
+
+      <ExampleSection title="Heading XL" description="30px / 1.875rem - Page titles, primary sections">
+        <p class="text-heading-xl text-primary">Heading Extra Large</p>
+      </ExampleSection>
+
+      <ExampleSection title="Heading L" description="24px / 1.5rem - Major sections, card titles">
+        <p class="text-heading-l text-primary">Heading Large</p>
+      </ExampleSection>
+
+      <ExampleSection title="Heading M" description="20px / 1.25rem - Subsections, modal titles">
+        <p class="text-heading-m text-primary">Heading Medium</p>
+      </ExampleSection>
+
+      <ExampleSection title="Heading S" description="18px / 1.125rem - Minor sections, group labels">
+        <p class="text-heading-s text-primary">Heading Small</p>
+      </ExampleSection>
+    </section>
+
+    <!-- Body Scale -->
+    <section id="body" class="space-y-8">
+      <h2 class="section__title">Body</h2>
+      <p class="text-secondary text-sm">Primary content text for readability and comprehension.</p>
+
+      <ExampleSection title="Body Default" description="16px / 1rem - Primary content, paragraphs">
+        <p class="text-body-default text-secondary">
+          The quick brown fox jumps over the lazy dog. This is standard body text used for 
+          paragraphs, descriptions, and general content throughout the interface. It's optimized 
+          for readability at various screen sizes.
+        </p>
+      </ExampleSection>
+
+      <ExampleSection title="Body Emphasized" description="16px / 1rem (semibold) - Important content, lead paragraphs">
+        <p class="text-body-emphasized text-primary">
+          The quick brown fox jumps over the lazy dog. This emphasized body text draws attention 
+          to key information while maintaining readability for longer passages.
+        </p>
+      </ExampleSection>
+    </section>
+
+    <!-- Supporting Scale -->
+    <section id="supporting" class="space-y-8">
+      <h2 class="section__title">Supporting Styles</h2>
+      <p class="text-secondary text-sm">Smaller text for labels, captions, and supplementary information.</p>
+
+      <ExampleSection title="Label" description="14px / 0.875rem - Form labels, navigation items">
+        <p class="text-label text-primary">Form Field Label</p>
+      </ExampleSection>
+
+      <ExampleSection title="Caption" description="12px / 0.75rem - Help text, timestamps, metadata">
+        <p class="text-caption text-muted">Last updated 2 hours ago • 5 min read</p>
+      </ExampleSection>
+
+      <ExampleSection title="Overline" description="10px / 0.625rem - Category tags, section labels">
+        <p class="text-overline text-muted">FEATURED ARTICLE</p>
+      </ExampleSection>
+    </section>
+
+    <!-- Font Families -->
+    <section id="fonts" class="space-y-8">
       <h2 class="section__title">Font Families</h2>
 
-      <ExampleSection title="Display Font (Lexend)" description="Used for headings and display text.">
-        <div class="space-y-4">
-          <h1 class="font-display text-4xl font-bold text-primary">Heading 1</h1>
-          <h2 class="font-display text-2xl font-bold text-primary">Heading 2</h2>
-          <h3 class="font-display text-xl font-semibold text-primary">Heading 3</h3>
+      <ExampleSection title="Lexend (Display)" description="Used for Display and Heading styles">
+        <div class="space-y-3">
+          <p class="font-display text-2xl font-bold text-primary">ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
+          <p class="font-display text-2xl font-bold text-primary">abcdefghijklmnopqrstuvwxyz</p>
+          <p class="font-display text-2xl font-bold text-primary">0123456789</p>
         </div>
       </ExampleSection>
 
-      <ExampleSection title="Body Font (Figtree)" description="Used for body text and UI elements.">
-        <div class="space-y-4">
-          <p class="text-base text-secondary">This is regular body text using Figtree. It's optimized for readability and works well at various sizes.</p>
-          <p class="text-sm text-secondary">Smaller text for secondary content and descriptions.</p>
-          <p class="text-xs text-muted">Caption text for labels and helper content.</p>
+      <ExampleSection title="Figtree (Body)" description="Used for Body text and UI elements">
+        <div class="space-y-3">
+          <p class="font-sans text-lg text-primary">ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
+          <p class="font-sans text-lg text-primary">abcdefghijklmnopqrstuvwxyz</p>
+          <p class="font-sans text-lg text-primary">0123456789</p>
         </div>
       </ExampleSection>
 
-      <ExampleSection title="Monospace Font (JetBrains Mono)" description="Used for code and technical content.">
-        <div class="space-y-4">
-          <code class="text-sm font-mono text-secondary">const greeting = "Hello, World!";</code>
-          <pre class="text-sm font-mono text-secondary bg-elevated p-4 rounded-lg overflow-x-auto">function example() {'{'}
+      <ExampleSection title="JetBrains Mono (Code)" description="Used for code and technical content">
+        <div class="space-y-3">
+          <code class="font-mono text-sm text-primary">const greeting = "Hello, World!";</code>
+          <pre class="font-mono text-sm bg-elevated p-4 rounded-lg overflow-x-auto text-primary">function example() {'{'}
   return true;
 {'}'}</pre>
         </div>
       </ExampleSection>
     </section>
 
+    <!-- Type Scale Reference -->
     <section class="space-y-6">
-      <h2 class="section__title">Type Scale</h2>
-      <div class="space-y-4">
-        <div class="flex items-baseline gap-4">
-          <span class="text-xs text-muted w-16">xs</span>
-          <span class="text-xs text-primary">12px / 0.75rem</span>
-        </div>
-        <div class="flex items-baseline gap-4">
-          <span class="text-xs text-muted w-16">sm</span>
-          <span class="text-sm text-primary">14px / 0.875rem</span>
-        </div>
-        <div class="flex items-baseline gap-4">
-          <span class="text-xs text-muted w-16">base</span>
-          <span class="text-base text-primary">16px / 1rem</span>
-        </div>
-        <div class="flex items-baseline gap-4">
-          <span class="text-xs text-muted w-16">lg</span>
-          <span class="text-lg text-primary">18px / 1.125rem</span>
-        </div>
-        <div class="flex items-baseline gap-4">
-          <span class="text-xs text-muted w-16">xl</span>
-          <span class="text-xl text-primary">20px / 1.25rem</span>
-        </div>
-        <div class="flex items-baseline gap-4">
-          <span class="text-xs text-muted w-16">2xl</span>
-          <span class="text-2xl text-primary">24px / 1.5rem</span>
-        </div>
-        <div class="flex items-baseline gap-4">
-          <span class="text-xs text-muted w-16">3xl</span>
-          <span class="text-3xl text-primary">30px / 1.875rem</span>
-        </div>
-        <div class="flex items-baseline gap-4">
-          <span class="text-xs text-muted w-16">4xl</span>
-          <span class="text-4xl text-primary">36px / 2.25rem</span>
+      <h2 class="section__title">Type Scale Reference</h2>
+      <div class="card">
+        <div class="card__body">
+          <table class="props-table">
+            <thead>
+              <tr>
+                <th>Style</th>
+                <th>Size</th>
+                <th>Weight</th>
+                <th>Line Height</th>
+                <th>Font</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>Display XL</code></td>
+                <td>60px / 3.75rem</td>
+                <td>Bold (700)</td>
+                <td>1.25</td>
+                <td>Lexend</td>
+              </tr>
+              <tr>
+                <td><code>Display L</code></td>
+                <td>48px / 3rem</td>
+                <td>Bold (700)</td>
+                <td>1.25</td>
+                <td>Lexend</td>
+              </tr>
+              <tr>
+                <td><code>Display M</code></td>
+                <td>36px / 2.25rem</td>
+                <td>Bold (700)</td>
+                <td>1.25</td>
+                <td>Lexend</td>
+              </tr>
+              <tr>
+                <td><code>Heading XL</code></td>
+                <td>30px / 1.875rem</td>
+                <td>Semibold (600)</td>
+                <td>1.375</td>
+                <td>Lexend</td>
+              </tr>
+              <tr>
+                <td><code>Heading L</code></td>
+                <td>24px / 1.5rem</td>
+                <td>Semibold (600)</td>
+                <td>1.375</td>
+                <td>Lexend</td>
+              </tr>
+              <tr>
+                <td><code>Heading M</code></td>
+                <td>20px / 1.25rem</td>
+                <td>Semibold (600)</td>
+                <td>1.375</td>
+                <td>Lexend</td>
+              </tr>
+              <tr>
+                <td><code>Heading S</code></td>
+                <td>18px / 1.125rem</td>
+                <td>Medium (500)</td>
+                <td>1.375</td>
+                <td>Lexend</td>
+              </tr>
+              <tr>
+                <td><code>Body Default</code></td>
+                <td>16px / 1rem</td>
+                <td>Normal (400)</td>
+                <td>1.5</td>
+                <td>Figtree</td>
+              </tr>
+              <tr>
+                <td><code>Body Emphasized</code></td>
+                <td>16px / 1rem</td>
+                <td>Semibold (600)</td>
+                <td>1.5</td>
+                <td>Figtree</td>
+              </tr>
+              <tr>
+                <td><code>Label</code></td>
+                <td>14px / 0.875rem</td>
+                <td>Medium (500)</td>
+                <td>1.5</td>
+                <td>Figtree</td>
+              </tr>
+              <tr>
+                <td><code>Caption</code></td>
+                <td>12px / 0.75rem</td>
+                <td>Normal (400)</td>
+                <td>1.5</td>
+                <td>Figtree</td>
+              </tr>
+              <tr>
+                <td><code>Overline</code></td>
+                <td>10px / 0.625rem</td>
+                <td>Semibold (600)</td>
+                <td>1.5</td>
+                <td>Figtree</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </section>
 
-    <section class="space-y-6">
-      <h2 class="section__title">Font Weights</h2>
-      <div class="space-y-4">
-        <p class="font-light text-primary">Light (300)</p>
-        <p class="font-normal text-primary">Normal (400)</p>
-        <p class="font-medium text-primary">Medium (500)</p>
-        <p class="font-semibold text-primary">Semibold (600)</p>
-        <p class="font-bold text-primary">Bold (700)</p>
+    <!-- Usage Guidelines -->
+    <section class="space-y-4">
+      <h2 class="section__title">Usage Guidelines</h2>
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <i class="ti ti-bulb a11y-card__title-icon"></i>
+          Separate Visuals from Semantics
+        </h3>
+        <p class="a11y-card__text">
+          Choose text styles based on their visual role (Display, Heading, Body), not HTML tags. 
+          A dashboard title might be the semantic H1 but use Heading M visually. A hero headline 
+          might use Display XL but be an H2 semantically.
+        </p>
+      </div>
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <i class="ti ti-accessible a11y-card__title-icon"></i>
+          Accessibility
+        </h3>
+        <p class="a11y-card__text">
+          Ensure proper heading hierarchy in HTML (H1 → H2 → H3) regardless of visual styling. 
+          Screen readers navigate by heading structure, not visual appearance.
+        </p>
       </div>
     </section>
   </article>

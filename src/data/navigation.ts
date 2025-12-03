@@ -46,7 +46,7 @@ export const navigation: NavSection[] = [
       { title: 'Dropdowns', href: '/components/dropdowns', icon: 'ti-select' },
       { title: 'Date Picker', href: '/components/date-picker', icon: 'ti-calendar' },
       { title: 'Inputs', href: '/components/inputs', icon: 'ti-forms' },
-      { title: 'Labels', href: '/components/labels', icon: 'ti-text' },
+      { title: 'Labels', href: '/components/labels', icon: 'ti-tag' },
       { title: 'Links', href: '/components/links', icon: 'ti-link' },
       { title: 'List Menu', href: '/components/list-menu', icon: 'ti-list' },
       { title: 'Progress Bar', href: '/components/progress-bar', icon: 'ti-progress' },

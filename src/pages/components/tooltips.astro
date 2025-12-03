@@ -7,7 +7,7 @@ import Button from '../../components/ui/Button.astro';
 
 const props = [
   { name: 'text', type: 'string', default: '—', description: 'Tooltip text content' },
-  { name: 'position', type: "'top' | 'bottom'", default: "'top'", description: 'Tooltip position' },
+  { name: 'position', type: "'top' | 'bottom' | 'left' | 'right'", default: "'top'", description: 'Tooltip position' },
 ];
 ---
 
@@ -39,13 +39,19 @@ const props = [
         </div>
       </ExampleSection>
 
-      <ExampleSection title="Positions" description="Tooltips can appear above or below.">
-        <div class="flex gap-4">
+      <ExampleSection title="Positions" description="Tooltips can appear in any direction.">
+        <div class="flex flex-wrap gap-6 items-center justify-center p-8">
           <Tooltip text="Appears on top" position="top">
             <Button variant="outline">Top</Button>
           </Tooltip>
           <Tooltip text="Appears on bottom" position="bottom">
             <Button variant="outline">Bottom</Button>
+          </Tooltip>
+          <Tooltip text="Appears on left" position="left">
+            <Button variant="outline">Left</Button>
+          </Tooltip>
+          <Tooltip text="Appears on right" position="right">
+            <Button variant="outline">Right</Button>
           </Tooltip>
         </div>
       </ExampleSection>
