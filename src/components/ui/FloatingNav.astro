@@ -1,0 +1,69 @@
+---
+/**
+ * FloatingNav Component
+ * 
+ * A CP-specific floating navigation toolbar that hangs below the header.
+ * Contains action buttons (Execute, Actions, Refresh, Save), a divider, and pin icon.
+ * 
+ * @prop {boolean} showExecute - Whether to show the Execute button (default: true)
+ * @prop {boolean} saveDisabled - Whether the Save button is disabled (default: false)
+ * @prop {string} variant - 'full' for all buttons or 'compact' for fewer buttons (default: 'full')
+ */
+
+interface Props {
+  showExecute?: boolean;
+  saveDisabled?: boolean;
+  variant?: 'full' | 'compact';
+}
+
+const { 
+  showExecute = true, 
+  saveDisabled = false,
+  variant = 'full'
+} = Astro.props;
+---
+
+<div class="floating-nav">
+  <div class="floating-nav__toolbar">
+    <!-- Action Buttons Group -->
+    <div class="floating-nav__buttons">
+      {showExecute && variant === 'full' && (
+        <button class="floating-nav__btn floating-nav__btn--secondary" type="button">
+          Execute
+        </button>
+      )}
+      
+      <button class="floating-nav__btn floating-nav__btn--secondary floating-nav__btn--dropdown" type="button">
+        <span class="floating-nav__btn-text">Actions</span>
+        <i class="ti ti-chevron-down floating-nav__btn-chevron"></i>
+      </button>
+      
+      <button class="floating-nav__btn floating-nav__btn--secondary floating-nav__btn--icon-dropdown" type="button">
+        <i class="ti ti-refresh floating-nav__btn-icon"></i>
+        <i class="ti ti-chevron-down floating-nav__btn-chevron"></i>
+      </button>
+      
+      <button 
+        class:list={[
+          "floating-nav__btn",
+          "floating-nav__btn--dropdown",
+          saveDisabled ? "floating-nav__btn--disabled" : "floating-nav__btn--primary"
+        ]}
+        type="button"
+        disabled={saveDisabled}
+      >
+        <span class="floating-nav__btn-text">Save</span>
+        <i class="ti ti-chevron-down floating-nav__btn-chevron"></i>
+      </button>
+    </div>
+    
+    <!-- Divider -->
+    <div class="floating-nav__divider"></div>
+    
+    <!-- Pin Icon -->
+    <button class="floating-nav__pin" type="button" aria-label="Pin navigation">
+      <i class="ti ti-pin floating-nav__pin-icon"></i>
+    </button>
+  </div>
+</div>
+

@@ -1,0 +1,238 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import ExampleSection from '../../components/ExampleSection.astro';
+---
+
+<DocsLayout title="Tables" description="Data table components and patterns for displaying structured information.">
+  <article class="space-y-12">
+    <header class="page-header page-header--compact">
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="page-header__title page-header__title--sm">Tables</h1>
+      </div>
+      <p class="page-header__description">
+        Tables are used to organize and display data efficiently. They allow users to scan, compare, and analyze information quickly.
+      </p>
+    </header>
+
+    <section class="space-y-6">
+      <h2 class="section__title">Basic Table</h2>
+      
+      <ExampleSection title="Default Table" description="A simple table with headers and data rows.">
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-border-color">
+                <th class="text-left py-3 px-4 font-medium text-secondary bg-elevated-bg">Project ID</th>
+                <th class="text-left py-3 px-4 font-medium text-secondary bg-elevated-bg">Name</th>
+                <th class="text-left py-3 px-4 font-medium text-secondary bg-elevated-bg">Status</th>
+                <th class="text-right py-3 px-4 font-medium text-secondary bg-elevated-bg">Budget</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-border-light hover:bg-hover-bg transition-colors">
+                <td class="py-3 px-4 text-primary">PRJ-001</td>
+                <td class="py-3 px-4 text-primary">Website Redesign</td>
+                <td class="py-3 px-4">
+                  <span class="badge badge--success">Active</span>
+                </td>
+                <td class="py-3 px-4 text-right text-primary">$25,000</td>
+              </tr>
+              <tr class="border-b border-border-light hover:bg-hover-bg transition-colors">
+                <td class="py-3 px-4 text-primary">PRJ-002</td>
+                <td class="py-3 px-4 text-primary">Mobile App Development</td>
+                <td class="py-3 px-4">
+                  <span class="badge badge--warning">In Progress</span>
+                </td>
+                <td class="py-3 px-4 text-right text-primary">$150,000</td>
+              </tr>
+              <tr class="border-b border-border-light hover:bg-hover-bg transition-colors">
+                <td class="py-3 px-4 text-primary">PRJ-003</td>
+                <td class="py-3 px-4 text-primary">Database Migration</td>
+                <td class="py-3 px-4">
+                  <span class="badge badge--default">Pending</span>
+                </td>
+                <td class="py-3 px-4 text-right text-primary">$45,000</td>
+              </tr>
+              <tr class="hover:bg-hover-bg transition-colors">
+                <td class="py-3 px-4 text-primary">PRJ-004</td>
+                <td class="py-3 px-4 text-primary">Security Audit</td>
+                <td class="py-3 px-4">
+                  <span class="badge badge--info">Review</span>
+                </td>
+                <td class="py-3 px-4 text-right text-primary">$12,500</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ExampleSection>
+    </section>
+
+    <section class="space-y-6">
+      <h2 class="section__title">Table with Actions</h2>
+      
+      <ExampleSection title="Interactive Table" description="Table with row actions and selection.">
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-border-color">
+                <th class="w-10 py-3 px-4 bg-elevated-bg">
+                  <input type="checkbox" class="rounded border-border-color">
+                </th>
+                <th class="text-left py-3 px-4 font-medium text-secondary bg-elevated-bg">Employee</th>
+                <th class="text-left py-3 px-4 font-medium text-secondary bg-elevated-bg">Department</th>
+                <th class="text-left py-3 px-4 font-medium text-secondary bg-elevated-bg">Role</th>
+                <th class="text-right py-3 px-4 font-medium text-secondary bg-elevated-bg">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-border-light hover:bg-hover-bg transition-colors">
+                <td class="py-3 px-4">
+                  <input type="checkbox" class="rounded border-border-color">
+                </td>
+                <td class="py-3 px-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-theme-primary-light flex items-center justify-center">
+                      <span class="text-xs font-medium text-theme-primary">JD</span>
+                    </div>
+                    <div>
+                      <div class="font-medium text-primary">John Doe</div>
+                      <div class="text-xs text-muted">john.doe@company.com</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3 px-4 text-primary">Engineering</td>
+                <td class="py-3 px-4 text-primary">Senior Developer</td>
+                <td class="py-3 px-4 text-right">
+                  <button class="icon-btn">
+                    <i class="ti ti-dots-vertical icon-btn__icon"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr class="border-b border-border-light hover:bg-hover-bg transition-colors">
+                <td class="py-3 px-4">
+                  <input type="checkbox" class="rounded border-border-color">
+                </td>
+                <td class="py-3 px-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-theme-primary-light flex items-center justify-center">
+                      <span class="text-xs font-medium text-theme-primary">JS</span>
+                    </div>
+                    <div>
+                      <div class="font-medium text-primary">Jane Smith</div>
+                      <div class="text-xs text-muted">jane.smith@company.com</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3 px-4 text-primary">Design</td>
+                <td class="py-3 px-4 text-primary">UX Lead</td>
+                <td class="py-3 px-4 text-right">
+                  <button class="icon-btn">
+                    <i class="ti ti-dots-vertical icon-btn__icon"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr class="hover:bg-hover-bg transition-colors">
+                <td class="py-3 px-4">
+                  <input type="checkbox" class="rounded border-border-color">
+                </td>
+                <td class="py-3 px-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-theme-primary-light flex items-center justify-center">
+                      <span class="text-xs font-medium text-theme-primary">MJ</span>
+                    </div>
+                    <div>
+                      <div class="font-medium text-primary">Mike Johnson</div>
+                      <div class="text-xs text-muted">mike.j@company.com</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-3 px-4 text-primary">Marketing</td>
+                <td class="py-3 px-4 text-primary">Manager</td>
+                <td class="py-3 px-4 text-right">
+                  <button class="icon-btn">
+                    <i class="ti ti-dots-vertical icon-btn__icon"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ExampleSection>
+    </section>
+
+    <section class="space-y-6">
+      <h2 class="section__title">Striped Table</h2>
+      
+      <ExampleSection title="Alternating Rows" description="Table with alternating row background colors for easier scanning.">
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-border-color">
+                <th class="text-left py-3 px-4 font-medium text-secondary bg-elevated-bg">Code</th>
+                <th class="text-left py-3 px-4 font-medium text-secondary bg-elevated-bg">Description</th>
+                <th class="text-right py-3 px-4 font-medium text-secondary bg-elevated-bg">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="bg-card">
+                <td class="py-3 px-4 text-primary font-mono">ACC-1001</td>
+                <td class="py-3 px-4 text-primary">Operating Expenses</td>
+                <td class="py-3 px-4 text-right text-primary">$12,450.00</td>
+              </tr>
+              <tr class="bg-elevated-bg">
+                <td class="py-3 px-4 text-primary font-mono">ACC-1002</td>
+                <td class="py-3 px-4 text-primary">Equipment Purchase</td>
+                <td class="py-3 px-4 text-right text-primary">$8,750.00</td>
+              </tr>
+              <tr class="bg-card">
+                <td class="py-3 px-4 text-primary font-mono">ACC-1003</td>
+                <td class="py-3 px-4 text-primary">Travel & Entertainment</td>
+                <td class="py-3 px-4 text-right text-primary">$3,200.00</td>
+              </tr>
+              <tr class="bg-elevated-bg">
+                <td class="py-3 px-4 text-primary font-mono">ACC-1004</td>
+                <td class="py-3 px-4 text-primary">Software Licenses</td>
+                <td class="py-3 px-4 text-right text-primary">$15,600.00</td>
+              </tr>
+              <tr class="bg-card font-semibold" style="background-color: var(--table-total-bg);">
+                <td class="py-3 px-4 text-primary" colspan="2">Total</td>
+                <td class="py-3 px-4 text-right text-primary">$40,000.00</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ExampleSection>
+    </section>
+
+    <section class="space-y-6">
+      <h2 class="section__title">Usage Guidelines</h2>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <i class="ti ti-info-circle a11y-card__title-icon"></i>
+          Best Practices
+        </h3>
+        <div class="a11y-card__text space-y-2">
+          <ul class="list-disc list-inside space-y-1 text-sm">
+            <li>Use tables only for tabular data, not for layout purposes</li>
+            <li>Keep column headers concise and descriptive</li>
+            <li>Align numerical data to the right for easy comparison</li>
+            <li>Use zebra striping for tables with many rows</li>
+            <li>Provide sorting and filtering for large data sets</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <i class="ti ti-accessible a11y-card__title-icon"></i>
+          Accessibility
+        </h3>
+        <p class="a11y-card__text">
+          Use proper <code>&lt;table&gt;</code>, <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, <code>&lt;th&gt;</code>, and <code>&lt;td&gt;</code> elements. Include <code>scope</code> attributes on header cells and provide a caption or <code>aria-label</code> for the table's purpose.
+        </p>
+      </div>
+    </section>
+  </article>
+</DocsLayout>
+

@@ -1,9 +1,10 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
 import ExampleSection from '../../components/ExampleSection.astro';
+import FloatingNav from '../../components/ui/FloatingNav.astro';
 ---
 
-<DocsLayout title="Floating Nav" description="CP-specific floating navigation component.">
+<DocsLayout title="Floating Nav" description="CP-specific floating navigation component for quick access to common actions.">
   <article class="space-y-12">
     <header class="page-header page-header--compact">
       <div class="flex items-center gap-3 mb-4">
@@ -11,49 +12,134 @@ import ExampleSection from '../../components/ExampleSection.astro';
         <span class="badge badge--primary">CP Only</span>
       </div>
       <p class="page-header__description">
-        A floating navigation component specific to the Costpoint (CP) theme for quick access to common actions.
+        A floating navigation toolbar component specific to the Costpoint (CP) theme. It appears below the header and provides quick access to common actions like Execute, Actions menu, Refresh, and Save.
       </p>
     </header>
 
     <section class="space-y-6">
       <h2 class="section__title">Examples</h2>
       
-      <ExampleSection title="Floating Action Bar" description="Fixed action bar for quick access.">
-        <div class="relative h-64 border rounded-lg bg-page overflow-hidden">
-          <div class="p-4">
-            <p class="text-secondary">Content area. The floating nav appears at the bottom.</p>
+      <ExampleSection title="Full Floating Nav" description="Complete toolbar with all action buttons: Execute, Actions dropdown, Refresh dropdown, and Save button.">
+        <div class="relative pt-0 pb-8 bg-page border-t border-border-color overflow-visible">
+          <!-- Floating Nav positioned at top center -->
+          <div class="flex justify-center">
+            <FloatingNav variant="full" />
           </div>
           
-          <!-- Floating Nav -->
-          <div class="absolute bottom-4 left-1/2 -translate-x-1/2">
-            <div class="flex items-center gap-2 bg-card border rounded-full shadow-lg px-4 py-2">
-              <button class="icon-btn"><i class="ti ti-home icon-btn__icon"></i></button>
-              <button class="icon-btn"><i class="ti ti-search icon-btn__icon"></i></button>
-              <button class="icon-btn"><i class="ti ti-plus icon-btn__icon"></i></button>
-              <button class="icon-btn"><i class="ti ti-bell icon-btn__icon"></i></button>
-              <button class="icon-btn"><i class="ti ti-user icon-btn__icon"></i></button>
-            </div>
+          <div class="mt-8 px-6">
+            <p class="text-secondary text-sm">
+              The floating nav toolbar drops down from the header with rounded bottom corners. 
+              It contains action buttons for common operations on the current page/form.
+            </p>
           </div>
         </div>
       </ExampleSection>
 
-      <ExampleSection title="Side Floating Nav" description="Floating nav on the side of the screen.">
-        <div class="relative h-64 border rounded-lg bg-page overflow-hidden">
-          <div class="p-4">
-            <p class="text-secondary">Content area. The floating nav appears on the right side.</p>
+      <ExampleSection title="Floating Nav with Disabled Save" description="Toolbar showing disabled Save state when no changes have been made.">
+        <div class="relative pt-0 pb-8 bg-page border-t border-border-color overflow-visible">
+          <!-- Floating Nav positioned at top center -->
+          <div class="flex justify-center">
+            <FloatingNav variant="compact" showExecute={false} saveDisabled={true} />
           </div>
           
-          <!-- Side Floating Nav -->
-          <div class="absolute right-4 top-1/2 -translate-y-1/2">
-            <div class="flex flex-col gap-2 bg-card border rounded-xl shadow-lg p-2">
-              <button class="icon-btn"><i class="ti ti-home icon-btn__icon"></i></button>
-              <button class="icon-btn"><i class="ti ti-folder icon-btn__icon"></i></button>
-              <button class="icon-btn"><i class="ti ti-settings icon-btn__icon"></i></button>
-              <button class="icon-btn"><i class="ti ti-help icon-btn__icon"></i></button>
-            </div>
+          <div class="mt-8 px-6">
+            <p class="text-secondary text-sm">
+              When there are no unsaved changes, the Save button appears in a disabled state 
+              with gray styling to indicate that saving is not currently available.
+            </p>
           </div>
         </div>
       </ExampleSection>
+
+      <ExampleSection title="Standalone Buttons" description="Individual button styles used in the floating nav.">
+        <div class="p-6 bg-card rounded-lg border space-y-4">
+          <div class="flex flex-wrap items-center gap-3">
+            <button class="floating-nav__btn floating-nav__btn--secondary" type="button">
+              Execute
+            </button>
+            
+            <button class="floating-nav__btn floating-nav__btn--secondary floating-nav__btn--dropdown" type="button">
+              <span class="floating-nav__btn-text">Actions</span>
+              <i class="ti ti-chevron-down floating-nav__btn-chevron"></i>
+            </button>
+            
+            <button class="floating-nav__btn floating-nav__btn--secondary floating-nav__btn--icon-dropdown" type="button">
+              <i class="ti ti-refresh floating-nav__btn-icon"></i>
+              <i class="ti ti-chevron-down floating-nav__btn-chevron"></i>
+            </button>
+            
+            <button class="floating-nav__btn floating-nav__btn--primary floating-nav__btn--dropdown" type="button">
+              <span class="floating-nav__btn-text">Save</span>
+              <i class="ti ti-chevron-down floating-nav__btn-chevron"></i>
+            </button>
+            
+            <button class="floating-nav__btn floating-nav__btn--disabled floating-nav__btn--dropdown" type="button" disabled>
+              <span class="floating-nav__btn-text">Save</span>
+              <i class="ti ti-chevron-down floating-nav__btn-chevron"></i>
+            </button>
+          </div>
+          
+          <p class="text-xs text-muted">
+            From left to right: Execute (secondary), Actions dropdown (secondary), Refresh icon dropdown (secondary), Save (primary), Save (disabled)
+          </p>
+        </div>
+      </ExampleSection>
+    </section>
+
+    <section class="space-y-6">
+      <h2 class="section__title">Component Structure</h2>
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <i class="ti ti-code a11y-card__title-icon"></i>
+          Anatomy
+        </h3>
+        <div class="a11y-card__text space-y-2">
+          <p>The floating nav consists of:</p>
+          <ul class="list-disc list-inside space-y-1 text-sm">
+            <li><code>floating-nav</code> - Container with shadow and rounded bottom corners</li>
+            <li><code>floating-nav__toolbar</code> - Horizontal flex container</li>
+            <li><code>floating-nav__buttons</code> - Group of action buttons</li>
+            <li><code>floating-nav__btn</code> - Individual buttons with variants (secondary, primary, disabled)</li>
+            <li><code>floating-nav__divider</code> - Vertical separator</li>
+            <li><code>floating-nav__pin</code> - Pin/unpin toggle icon</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="space-y-6">
+      <h2 class="section__title">Button Variants</h2>
+      <div class="grid gap-4 md:grid-cols-3">
+        <div class="a11y-card">
+          <h3 class="a11y-card__title">
+            <i class="ti ti-square a11y-card__title-icon"></i>
+            Secondary
+          </h3>
+          <p class="a11y-card__text">
+            Outlined style with <code>#254e7a</code> border and text. Used for Execute, Actions, and Refresh buttons.
+          </p>
+        </div>
+        
+        <div class="a11y-card">
+          <h3 class="a11y-card__title">
+            <i class="ti ti-square-filled a11y-card__title-icon" style="color: #ff507b;"></i>
+            Primary
+          </h3>
+          <p class="a11y-card__text">
+            Filled pink style with <code>#ff507b</code> background. Used for the active Save button.
+          </p>
+        </div>
+        
+        <div class="a11y-card">
+          <h3 class="a11y-card__title">
+            <i class="ti ti-square a11y-card__title-icon" style="color: #bfc6d4;"></i>
+            Disabled
+          </h3>
+          <p class="a11y-card__text">
+            Gray filled style with <code>#e0e4eb</code> background. Used when Save has no pending changes.
+          </p>
+        </div>
+      </div>
     </section>
 
     <section class="space-y-6">
@@ -64,7 +150,30 @@ import ExampleSection from '../../components/ExampleSection.astro';
           CP Theme Only
         </h3>
         <p class="a11y-card__text">
-          This component is specific to the Costpoint (CP) theme. It will only appear in the navigation when the CP theme is active.
+          This component is specific to the Costpoint (CP) theme. It will only appear in the navigation when the CP theme is active. The floating nav is typically positioned absolutely below the header, centered horizontally on the page.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <i class="ti ti-pin a11y-card__title-icon"></i>
+          Pin Functionality
+        </h3>
+        <p class="a11y-card__text">
+          The pin icon allows users to pin the floating nav so it remains visible. When unpinned, the nav may auto-hide based on user interaction or scroll behavior (implementation-dependent).
+        </p>
+      </div>
+    </section>
+
+    <section class="space-y-6">
+      <h2 class="section__title">Accessibility</h2>
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <i class="ti ti-accessible a11y-card__title-icon"></i>
+          Keyboard Navigation
+        </h3>
+        <p class="a11y-card__text">
+          All buttons in the floating nav are keyboard accessible. Use <kbd>Tab</kbd> to navigate between buttons and <kbd>Enter</kbd> or <kbd>Space</kbd> to activate them. Dropdown buttons should expand their menus on activation.
         </p>
       </div>
     </section>

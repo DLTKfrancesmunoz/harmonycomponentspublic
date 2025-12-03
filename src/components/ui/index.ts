@@ -15,6 +15,7 @@ export { default as Chip } from './Chip.astro';
 export { default as DateInput } from './DateInput.astro';
 export { default as Dialog } from './Dialog.astro';
 export { default as Dropdown } from './Dropdown.astro';
+export { default as FloatingNav } from './FloatingNav.astro';
 export { default as Input } from './Input.astro';
 export { default as Label } from './Label.astro';
 export { default as Link } from './Link.astro';

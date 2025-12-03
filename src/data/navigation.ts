@@ -34,6 +34,8 @@ export const navigation: NavSection[] = [
     title: 'Components',
     items: [
       { title: 'Accordion', href: '/components/accordion', icon: 'ti-chevron-down' },
+      { title: 'Icons', href: '/components/icons', icon: 'ti-icons' },
+      { title: 'Tables', href: '/components/tables', icon: 'ti-table' },
       { title: 'Alerts', href: '/components/alerts', icon: 'ti-alert-circle' },
       { title: 'Badges', href: '/components/badges', icon: 'ti-badge' },
       { title: 'Buttons', href: '/components/buttons', icon: 'ti-hand-click' },
