@@ -1,9 +1,10 @@
 ---
 /**
  * Button Component
- * 
+ *
  * Interactive button with multiple variants, sizes, and states.
  */
+import Icon from './Icon.astro';
 
 export interface Props {
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'destructive';
@@ -11,7 +12,7 @@ export interface Props {
   disabled?: boolean;
   loading?: boolean;
   loadingText?: string;
-  icon?: string;
+  icon?: string; // Heroicon name (e.g., "plus", "arrow-right")
   iconPosition?: 'left' | 'right';
   type?: 'button' | 'submit' | 'reset';
   fullWidth?: boolean;
@@ -32,6 +33,14 @@ const {
   class: className = '',
   ...rest
 } = Astro.props;
+
+// Map button size to icon size
+const iconSizeMap = {
+  sm: 'sm', // 16px
+  md: 'sm', // 16px
+  lg: 'md', // 20px
+} as const;
+const iconSize = iconSizeMap[size];
 
 // Check if there's slot content (text)
 const hasSlotContent = Astro.slots.has('default');
@@ -67,11 +76,11 @@ const classes = [
   ) : (
     <>
       {icon && iconPosition === 'left' && (
-        <i class={`ti ${icon}`}></i>
+        <Icon name={icon} size={iconSize} />
       )}
       <slot />
       {icon && iconPosition === 'right' && (
-        <i class={`ti ${icon}`}></i>
+        <Icon name={icon} size={iconSize} />
       )}
     </>
   )}

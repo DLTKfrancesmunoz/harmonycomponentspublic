@@ -4,6 +4,7 @@ import PropsTable from '../../components/PropsTable.astro';
 import ExampleSection from '../../components/ExampleSection.astro';
 import Button from '../../components/ui/Button.astro';
 import ButtonGroup from '../../components/ui/ButtonGroup.astro';
+import Icon from '../../components/ui/Icon.astro';
 
 const props = [
   { name: 'class', type: 'string', default: '—', description: 'Additional CSS classes' },
@@ -23,8 +24,8 @@ const props = [
     </header>
 
     <nav class="article-nav">
-      <a href="#examples" class="article-nav__link"><i class="ti ti-eye"></i> Examples</a>
-      <a href="#props" class="article-nav__link"><i class="ti ti-list"></i> Props</a>
+      <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
+      <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
     </nav>
 
     <section id="examples" class="space-y-8">
@@ -40,9 +41,9 @@ const props = [
 
       <ExampleSection title="With Icons" description="Button group with icon buttons.">
         <ButtonGroup>
-          <Button variant="outline" icon="ti-bold" class="btn--icon-md" aria-label="Bold" />
-          <Button variant="outline" icon="ti-italic" class="btn--icon-md" aria-label="Italic" />
-          <Button variant="outline" icon="ti-underline" class="btn--icon-md" aria-label="Underline" />
+          <Button variant="outline" icon="bold" class="btn--icon-md" aria-label="Bold" />
+          <Button variant="outline" icon="italic" class="btn--icon-md" aria-label="Italic" />
+          <Button variant="outline" icon="underline" class="btn--icon-md" aria-label="Underline" />
         </ButtonGroup>
       </ExampleSection>
 

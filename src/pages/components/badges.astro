@@ -3,6 +3,7 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
 import PropsTable from '../../components/PropsTable.astro';
 import ExampleSection from '../../components/ExampleSection.astro';
 import Badge from '../../components/ui/Badge.astro';
+import Icon from '../../components/ui/Icon.astro';
 
 const props = [
   { name: 'variant', type: "'default' | 'primary' | 'success' | 'warning' | 'error' | 'info'", default: "'default'", description: 'Badge style variant' },
@@ -23,8 +24,8 @@ const props = [
     </header>
 
     <nav class="article-nav">
-      <a href="#examples" class="article-nav__link"><i class="ti ti-eye"></i> Examples</a>
-      <a href="#props" class="article-nav__link"><i class="ti ti-list"></i> Props</a>
+      <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
+      <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
     </nav>
 
     <section id="examples" class="space-y-8">
@@ -43,10 +44,10 @@ const props = [
 
       <ExampleSection title="With Icons" description="Badges with leading icons.">
         <div class="flex flex-wrap gap-3">
-          <Badge variant="success" icon="ti-check">Approved</Badge>
-          <Badge variant="warning" icon="ti-clock">Pending</Badge>
-          <Badge variant="error" icon="ti-x">Rejected</Badge>
-          <Badge variant="info" icon="ti-info-circle">Info</Badge>
+          <Badge variant="success" icon="check">Approved</Badge>
+          <Badge variant="warning" icon="clock">Pending</Badge>
+          <Badge variant="error" icon="x-mark">Rejected</Badge>
+          <Badge variant="info" icon="information-circle">Info</Badge>
         </div>
       </ExampleSection>
     </section>

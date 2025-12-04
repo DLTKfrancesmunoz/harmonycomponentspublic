@@ -1,13 +1,14 @@
 ---
 /**
  * Badge Component
- * 
+ *
  * Small status indicator or label.
  */
+import Icon from './Icon.astro';
 
 export interface Props {
   variant?: 'default' | 'primary' | 'success' | 'warning' | 'error' | 'info';
-  icon?: string;
+  icon?: string; // Heroicon name (e.g., "check", "x-mark")
   class?: string;
 }
 
@@ -25,6 +26,6 @@ const classes = [
 ---
 
 <span class={classes}>
-  {icon && <i class={`ti ${icon}`}></i>}
+  {icon && <Icon name={icon} size="xs" />}
   <slot />
 </span>

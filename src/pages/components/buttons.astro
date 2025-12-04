@@ -3,12 +3,13 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
 import PropsTable from '../../components/PropsTable.astro';
 import ExampleSection from '../../components/ExampleSection.astro';
 import Button from '../../components/ui/Button.astro';
+import Icon from '../../components/ui/Icon.astro';
 
 const props = [
   { name: 'variant', type: "'primary' | 'secondary' | 'outline' | 'ghost' | 'destructive'", default: "'primary'", description: 'Visual style of the button' },
   { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size of the button' },
   { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables the button' },
-  { name: 'icon', type: 'string', default: '—', description: 'Tabler icon class (e.g., ti-plus)' },
+  { name: 'icon', type: 'string', default: '—', description: 'Heroicon name (e.g., "plus", "arrow-right")' },
   { name: 'iconPosition', type: "'left' | 'right'", default: "'left'", description: 'Position of the icon relative to text' },
   { name: 'fullWidth', type: 'boolean', default: 'false', description: 'Makes button full width' },
 ];
@@ -27,10 +28,10 @@ const props = [
     </header>
 
     <nav class="article-nav">
-      <a href="#examples" class="article-nav__link"><i class="ti ti-eye"></i> Examples</a>
-      <a href="#props" class="article-nav__link"><i class="ti ti-list"></i> Props</a>
-      <a href="#usage" class="article-nav__link"><i class="ti ti-book"></i> Usage</a>
-      <a href="#accessibility" class="article-nav__link"><i class="ti ti-accessible"></i> Accessibility</a>
+      <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
+      <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+      <a href="#usage" class="article-nav__link"><Icon name="book-open" size="sm" /> Usage</a>
+      <a href="#accessibility" class="article-nav__link"><Icon name="check-badge" size="sm" /> Accessibility</a>
     </nav>
 
     <section id="examples" class="space-y-8">
@@ -56,21 +57,21 @@ const props = [
 
       <ExampleSection title="With Icons" description="Buttons can include icons for visual reinforcement.">
         <div class="flex flex-wrap gap-4">
-          <Button icon="ti-plus">Add Item</Button>
-          <Button icon="ti-arrow-right" iconPosition="right">Continue</Button>
-          <Button icon="ti-download">Download</Button>
-          <Button variant="secondary" icon="ti-edit">Edit</Button>
-          <Button variant="outline" icon="ti-share">Share</Button>
+          <Button icon="plus">Add Item</Button>
+          <Button icon="arrow-right" iconPosition="right">Continue</Button>
+          <Button icon="arrow-down-tray">Download</Button>
+          <Button variant="secondary" icon="pencil">Edit</Button>
+          <Button variant="outline" icon="share">Share</Button>
         </div>
       </ExampleSection>
 
       <ExampleSection title="Icon Only" description="Compact buttons with just an icon.">
         <div class="flex flex-wrap gap-4">
-          <Button icon="ti-plus" size="md" class="btn--icon-md" aria-label="Add item" />
-          <Button variant="secondary" icon="ti-edit" size="md" class="btn--icon-md" aria-label="Edit" />
-          <Button variant="outline" icon="ti-settings" size="md" class="btn--icon-md" aria-label="Settings" />
-          <Button variant="ghost" icon="ti-dots-vertical" size="md" class="btn--icon-md" aria-label="More options" />
-          <Button variant="destructive" icon="ti-trash" size="md" class="btn--icon-md" aria-label="Delete" />
+          <Button icon="plus" size="md" class="btn--icon-md" aria-label="Add item" />
+          <Button variant="secondary" icon="pencil" size="md" class="btn--icon-md" aria-label="Edit" />
+          <Button variant="outline" icon="cog-6-tooth" size="md" class="btn--icon-md" aria-label="Settings" />
+          <Button variant="ghost" icon="ellipsis-vertical" size="md" class="btn--icon-md" aria-label="More options" />
+          <Button variant="destructive" icon="trash" size="md" class="btn--icon-md" aria-label="Delete" />
         </div>
       </ExampleSection>
 
@@ -104,12 +105,12 @@ const props = [
             <Button variant="ghost">Cancel</Button>
           </div>
           <div class="flex gap-3">
-            <Button variant="destructive" icon="ti-trash">Delete</Button>
+            <Button variant="destructive" icon="trash">Delete</Button>
             <Button variant="outline">Cancel</Button>
           </div>
           <div class="flex gap-3">
-            <Button variant="primary" icon="ti-check">Confirm</Button>
-            <Button variant="secondary" icon="ti-x">Reject</Button>
+            <Button variant="primary" icon="check">Confirm</Button>
+            <Button variant="secondary" icon="x-mark">Reject</Button>
           </div>
         </div>
       </ExampleSection>
@@ -138,7 +139,7 @@ const props = [
         <div class="guidelines">
           <div class="guideline-card guideline-card--do">
             <h3 class="guideline-card__header">
-              <i class="ti ti-check"></i> Do
+              <Icon name="check" size="sm" /> Do
             </h3>
             <ul class="guideline-card__list">
               <li>• Use clear, action-oriented labels</li>
@@ -150,7 +151,7 @@ const props = [
           </div>
           <div class="guideline-card guideline-card--dont">
             <h3 class="guideline-card__header">
-              <i class="ti ti-x"></i> Don't
+              <Icon name="x-mark" size="sm" /> Don't
             </h3>
             <ul class="guideline-card__list">
               <li>• Use vague labels like "Click Here"</li>
@@ -169,7 +170,7 @@ const props = [
       
       <div class="a11y-card">
         <h3 class="a11y-card__title">
-          <i class="ti ti-keyboard a11y-card__title-icon"></i>
+          <Icon name="keyboard" size="sm" />
           Keyboard Navigation
         </h3>
         <p class="a11y-card__text">
@@ -178,7 +179,7 @@ const props = [
       </div>
       <div class="a11y-card">
         <h3 class="a11y-card__title">
-          <i class="ti ti-eye a11y-card__title-icon"></i>
+          <Icon name="eye" size="sm" />
           Icon-Only Buttons
         </h3>
         <p class="a11y-card__text">
@@ -187,7 +188,7 @@ const props = [
       </div>
       <div class="a11y-card">
         <h3 class="a11y-card__title">
-          <i class="ti ti-focus-2 a11y-card__title-icon"></i>
+          <Icon name="cursor-arrow-rays" size="sm" />
           Focus States
         </h3>
         <p class="a11y-card__text">
@@ -196,7 +197,7 @@ const props = [
       </div>
       <div class="a11y-card">
         <h3 class="a11y-card__title">
-          <i class="ti ti-ban a11y-card__title-icon"></i>
+          <Icon name="no-symbol" size="sm" />
           Disabled State
         </h3>
         <p class="a11y-card__text">

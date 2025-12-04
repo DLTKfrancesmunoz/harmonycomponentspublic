@@ -1,6 +1,8 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
 import ExampleSection from '../../components/ExampleSection.astro';
+import Icon from '../../components/ui/Icon.astro';
+import ListMenu from '../../components/ui/ListMenu.astro';
 ---
 
 <DocsLayout title="List Menu" description="Vertical list menu for navigation.">
@@ -16,7 +18,7 @@ import ExampleSection from '../../components/ExampleSection.astro';
     </header>
 
     <nav class="article-nav">
-      <a href="#examples" class="article-nav__link"><i class="ti ti-eye"></i> Examples</a>
+      <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
     </nav>
 
     <section id="examples" class="space-y-8">
@@ -24,47 +26,28 @@ import ExampleSection from '../../components/ExampleSection.astro';
 
       <ExampleSection title="Basic List Menu" description="Standard navigation menu.">
         <div class="max-w-xs">
-          <div class="list-menu">
-            <button class="list-menu__item is-active">
-              <i class="ti ti-home list-menu__item-icon"></i>
-              Dashboard
-            </button>
-            <button class="list-menu__item">
-              <i class="ti ti-user list-menu__item-icon"></i>
-              Profile
-            </button>
-            <button class="list-menu__item">
-              <i class="ti ti-settings list-menu__item-icon"></i>
-              Settings
-            </button>
-            <button class="list-menu__item">
-              <i class="ti ti-logout list-menu__item-icon"></i>
-              Logout
-            </button>
-          </div>
+          <ListMenu
+            items={[
+              { icon: 'home', label: 'Dashboard', active: true },
+              { icon: 'user', label: 'Profile' },
+              { icon: 'cog-6-tooth', label: 'Settings' },
+              { icon: 'arrow-right-on-rectangle', label: 'Logout' },
+            ]}
+          />
         </div>
       </ExampleSection>
 
       <ExampleSection title="With Links" description="Menu as navigation links.">
         <div class="max-w-xs">
-          <nav class="list-menu">
-            <a href="#" class="list-menu__item is-active">
-              <i class="ti ti-file list-menu__item-icon"></i>
-              Documents
-            </a>
-            <a href="#" class="list-menu__item">
-              <i class="ti ti-photo list-menu__item-icon"></i>
-              Images
-            </a>
-            <a href="#" class="list-menu__item">
-              <i class="ti ti-movie list-menu__item-icon"></i>
-              Videos
-            </a>
-            <a href="#" class="list-menu__item">
-              <i class="ti ti-music list-menu__item-icon"></i>
-              Audio
-            </a>
-          </nav>
+          <ListMenu
+            as="link"
+            items={[
+              { icon: 'document', label: 'Documents', href: '#', active: true },
+              { icon: 'photo', label: 'Images', href: '#' },
+              { icon: 'film', label: 'Videos', href: '#' },
+              { icon: 'musical-note', label: 'Audio', href: '#' },
+            ]}
+          />
         </div>
       </ExampleSection>
     </section>

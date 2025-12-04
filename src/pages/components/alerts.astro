@@ -3,6 +3,7 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
 import PropsTable from '../../components/PropsTable.astro';
 import ExampleSection from '../../components/ExampleSection.astro';
 import Alert from '../../components/ui/Alert.astro';
+import Icon from '../../components/ui/Icon.astro';
 
 const props = [
   { name: 'variant', type: "'info' | 'success' | 'warning' | 'error'", default: "'info'", description: 'Alert style variant' },
@@ -25,9 +26,9 @@ const props = [
     </header>
 
     <nav class="article-nav">
-      <a href="#examples" class="article-nav__link"><i class="ti ti-eye"></i> Examples</a>
-      <a href="#props" class="article-nav__link"><i class="ti ti-list"></i> Props</a>
-      <a href="#accessibility" class="article-nav__link"><i class="ti ti-accessible"></i> Accessibility</a>
+      <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
+      <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+      <a href="#accessibility" class="article-nav__link"><Icon name="check-badge" size="sm" /> Accessibility</a>
     </nav>
 
     <section id="examples" class="space-y-8">
@@ -75,7 +76,7 @@ const props = [
       <h2 class="section__title">Accessibility</h2>
       <div class="a11y-card">
         <h3 class="a11y-card__title">
-          <i class="ti ti-alert-circle a11y-card__title-icon"></i>
+          <Icon name="exclamation-circle" size="sm" />
           Role
         </h3>
         <p class="a11y-card__text">

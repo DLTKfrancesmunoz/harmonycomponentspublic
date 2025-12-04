@@ -4,6 +4,7 @@ import PropsTable from '../../components/PropsTable.astro';
 import ExampleSection from '../../components/ExampleSection.astro';
 import Tooltip from '../../components/ui/Tooltip.astro';
 import Button from '../../components/ui/Button.astro';
+import Icon from '../../components/ui/Icon.astro';
 
 const props = [
   { name: 'text', type: 'string', default: '—', description: 'Tooltip text content' },
@@ -24,8 +25,8 @@ const props = [
     </header>
 
     <nav class="article-nav">
-      <a href="#examples" class="article-nav__link"><i class="ti ti-eye"></i> Examples</a>
-      <a href="#props" class="article-nav__link"><i class="ti ti-list"></i> Props</a>
+      <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
+      <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
     </nav>
 
     <section id="examples" class="space-y-8">
@@ -60,7 +61,7 @@ const props = [
         <div class="flex items-center gap-4">
           <Tooltip text="Icon button info">
             <button class="icon-btn">
-              <i class="ti ti-info-circle icon-btn__icon"></i>
+              <Icon name="information-circle" size="md" class="icon-btn__icon" />
             </button>
           </Tooltip>
           <Tooltip text="More information about this text">
