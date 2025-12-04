@@ -858,7 +858,7 @@
 }
 
 .card--primary {
-  border-top: 6px solid var(--theme-primary);
+  border-top: 4px solid var(--theme-primary);
 }
 
 .card__header {
@@ -886,6 +886,75 @@
   padding: var(--space-4) var(--space-6);
   border-top: 1px solid var(--border-color);
   background-color: var(--elevated-bg);
+}
+
+/* Card Header Variant (colored header bar) */
+.card__header--colored {
+  height: 48px;
+  background-color: var(--theme-primary);
+  padding: 0 var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top-left-radius: var(--radius-xl);
+  border-top-right-radius: var(--radius-xl);
+}
+
+/* Make all text and icons white in colored header */
+.card__header--colored,
+.card__header--colored div,
+.card__header--colored span,
+.card__header--colored p {
+  color: var(--text-inverse);
+}
+
+.card__header--colored svg,
+.card__header--colored :global(svg) {
+  color: var(--text-inverse);
+  stroke: currentColor;
+}
+
+.card__header--colored .card__header-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  flex: 1;
+}
+
+.card__header--colored .card__header-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: var(--font-semibold);
+  line-height: var(--space-6);
+  color: var(--text-inverse);
+  margin: 0;
+}
+
+.card__header--colored .card__header-subtitle {
+  font-family: var(--font-display);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--text-inverse);
+  opacity: 0.9;
+  margin: 0;
+}
+
+.card__header--colored .card__header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.card__header--colored .card__header-actions svg,
+.card__header--colored .card__header-actions :global(svg) {
+  color: var(--text-inverse);
+  stroke: currentColor;
+}
+
+/* Adjust body padding when header variant is used */
+.card--with-header .card__body {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
 /* ===========================================
