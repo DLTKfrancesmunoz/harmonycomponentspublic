@@ -13,6 +13,10 @@ export interface Props {
   disabled?: boolean;
   label?: string;
   value?: string;
+  warning?: boolean;
+  error?: boolean;
+  warningMessage?: string;
+  errorMessage?: string;
   class?: string;
   [key: string]: any;
 }
@@ -24,32 +28,55 @@ const {
   disabled = false,
   label,
   value,
+  warning = false,
+  error = false,
+  warningMessage,
+  errorMessage,
   class: className = '',
   ...rest
 } = Astro.props;
 
 const checkboxId = id || `checkbox-${Math.random().toString(36).substr(2, 9)}`;
+const messageId = error && errorMessage ? `${checkboxId}-error` : warning && warningMessage ? `${checkboxId}-warning` : undefined;
 
 const classes = [
   'checkbox',
   disabled && 'checkbox--disabled',
+  warning && 'checkbox--warning',
+  error && 'checkbox--error',
   className,
 ].filter(Boolean).join(' ');
 ---
 
-<label class={classes}>
-  <input
-    type="checkbox"
-    name={name}
-    id={checkboxId}
-    checked={checked}
-    disabled={disabled}
-    value={value}
-    class="checkbox__input"
-    {...rest}
-  />
-  <span class="checkbox__box">
-    <Icon name="check" class="checkbox__icon" />
-  </span>
-  {label && <span class="checkbox__label">{label}</span>}
-</label>
+<div class="checkbox-wrapper">
+  <label class={classes}>
+    <input
+      type="checkbox"
+      name={name}
+      id={checkboxId}
+      checked={checked}
+      disabled={disabled}
+      value={value}
+      class="checkbox__input"
+      aria-invalid={error ? 'true' : undefined}
+      aria-describedby={messageId}
+      {...rest}
+    />
+    <span class="checkbox__box">
+      <Icon name="check" class="checkbox__icon" />
+    </span>
+    {label && <span class="checkbox__label">{label}</span>}
+  </label>
+  {error && errorMessage && (
+    <p id={messageId} class="checkbox-wrapper__error">
+      <Icon name="exclamation-circle" size="sm" class="checkbox-wrapper__error-icon" />
+      {errorMessage}
+    </p>
+  )}
+  {!error && warning && warningMessage && (
+    <p id={messageId} class="checkbox-wrapper__warning">
+      <Icon name="exclamation-triangle" size="sm" class="checkbox-wrapper__warning-icon" />
+      {warningMessage}
+    </p>
+  )}
+</div>

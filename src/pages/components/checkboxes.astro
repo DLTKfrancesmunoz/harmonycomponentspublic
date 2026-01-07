@@ -9,6 +9,10 @@ const props = [
   { name: 'label', type: 'string', default: '—', description: 'Checkbox label text' },
   { name: 'checked', type: 'boolean', default: 'false', description: 'Checked state' },
   { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables the checkbox' },
+  { name: 'warning', type: 'boolean', default: 'false', description: 'Shows warning state' },
+  { name: 'error', type: 'boolean', default: 'false', description: 'Shows error state' },
+  { name: 'warningMessage', type: 'string', default: '—', description: 'Warning message text displayed below checkbox' },
+  { name: 'errorMessage', type: 'string', default: '—', description: 'Error message text displayed below checkbox' },
   { name: 'name', type: 'string', default: '—', description: 'Checkbox name attribute' },
   { name: 'id', type: 'string', default: '—', description: 'Checkbox id attribute' },
   { name: 'value', type: 'string', default: '—', description: 'Checkbox value' },
@@ -82,6 +86,23 @@ const props = [
           <Checkbox label="Option D" name="inline-d" />
         </div>
       </ExampleSection>
+
+      <ExampleSection title="State Variants" description="Warning and error states for validation and important status information.">
+        <div class="flex flex-col gap-6">
+          <div class="flex flex-col gap-3">
+            <h4 class="text-sm font-semibold text-primary">Warning States</h4>
+            <Checkbox label="Unchecked with warning" name="warning-unchecked" warning warningMessage="This action may have unintended consequences" />
+            <Checkbox label="Checked with warning" name="warning-checked" checked warning warningMessage="Review this selection carefully" />
+            <Checkbox label="Disabled warning" name="warning-disabled" disabled warning warningMessage="This option is currently unavailable" />
+          </div>
+          <div class="flex flex-col gap-3">
+            <h4 class="text-sm font-semibold text-primary">Error States</h4>
+            <Checkbox label="Unchecked with error" name="error-unchecked" error errorMessage="This field is required" />
+            <Checkbox label="Checked with error" name="error-checked" checked error errorMessage="This selection is invalid" />
+            <Checkbox label="Disabled error" name="error-disabled" disabled error errorMessage="Cannot select this option" />
+          </div>
+        </div>
+      </ExampleSection>
     </section>
 
     <section id="props">
@@ -99,6 +120,9 @@ const props = [
             <li>• Provide clear, concise labels</li>
             <li>• Group related options together</li>
             <li>• Use for binary on/off choices</li>
+            <li>• Use error state for validation failures</li>
+            <li>• Use warning state for cautionary information</li>
+            <li>• Provide helpful message text with warning/error states</li>
           </ul>
         </div>
         <div class="guideline-card guideline-card--dont">
@@ -108,6 +132,8 @@ const props = [
             <li>• Have checkboxes without labels</li>
             <li>• Use negative phrasing</li>
             <li>• Pre-check options unexpectedly</li>
+            <li>• Use error state for warnings (use warning state instead)</li>
+            <li>• Show error/warning states without helpful messages</li>
           </ul>
         </div>
       </div>
@@ -131,6 +157,15 @@ const props = [
         </h3>
         <p class="a11y-card__text">
           Checkboxes are togglable with <kbd>Space</kbd> key and navigable with <kbd>Tab</kbd>.
+        </p>
+      </div>
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="check-badge" size="sm" />
+          Error States
+        </h3>
+        <p class="a11y-card__text">
+          When the <code>error</code> prop is set, the checkbox automatically includes <code>aria-invalid="true"</code> and error messages are associated via <code>aria-describedby</code> for screen reader users.
         </p>
       </div>
     </section>
