@@ -1,0 +1,250 @@
+---
+import ShellHeader from './ShellHeader.astro';
+import ShellFooter from './ShellFooter.astro';
+import CPLeftSidebar from './CPLeftSidebar.astro';
+import CPRightSidebar from './CPRightSidebar.astro';
+import FloatingNav from './FloatingNav.astro';
+
+interface Tab {
+  id: string;
+  label: string;
+  active?: boolean;
+  href?: string;
+}
+
+interface Props {
+  // Header props (passed to ShellHeader)
+  productName?: string;
+  logoSrc?: string;
+  companyName?: string;
+  showCompanyPicker?: boolean;
+
+  // CP-specific props
+  showFloatingNav?: boolean;
+  floatingNavVariant?: 'full' | 'compact';
+  showExecute?: boolean;
+  saveDisabled?: boolean;
+
+  // Standard theme props
+  tabs?: Tab[];
+  showMoreTabs?: boolean;
+  moreCount?: number;
+  overflowTabs?: Tab[];
+  showAddTab?: boolean;
+  footerVariant?: 'default' | 'compact';
+
+  // General
+  class?: string;
+}
+
+const {
+  productName = 'Harmony',
+  logoSrc = '/logos/CPVPLogo.svg',
+  companyName = 'Company name',
+  showCompanyPicker = true,
+  showFloatingNav = true,
+  floatingNavVariant = 'full',
+  showExecute = true,
+  saveDisabled = false,
+  tabs = [],
+  showMoreTabs = false,
+  moreCount = 0,
+  overflowTabs = [],
+  showAddTab = true,
+  footerVariant = 'default',
+  class: className = ''
+} = Astro.props;
+---
+
+<div class={`shell-layout ${className}`}>
+  <!-- CP Layout (visible only when theme-cp) -->
+  <div class="shell-layout__cp theme-cp-only">
+    <ShellHeader
+      productName={productName}
+      logoSrc={logoSrc}
+      companyName={companyName}
+      showCompanyPicker={showCompanyPicker}
+      class="shell-layout__header"
+    />
+
+    {showFloatingNav && (
+      <div class="shell-layout__floating-nav-wrap">
+        <FloatingNav
+          variant={floatingNavVariant}
+          showExecute={showExecute}
+          saveDisabled={saveDisabled}
+          class="shell-layout__floating-nav"
+        />
+      </div>
+    )}
+
+    <CPLeftSidebar class="shell-layout__left-sidebar" />
+    <CPRightSidebar class="shell-layout__right-sidebar" />
+
+    <main class="shell-layout__main">
+      <slot />
+    </main>
+  </div>
+
+  <!-- Standard Layout (visible for VP, PPM, Maconomy themes) -->
+  <div class="shell-layout__standard theme-standard-only">
+    <ShellHeader
+      productName={productName}
+      logoSrc={logoSrc}
+      companyName={companyName}
+      showCompanyPicker={showCompanyPicker}
+      class="shell-layout__header"
+    />
+
+    <main class="shell-layout__main">
+      <slot />
+    </main>
+
+    <ShellFooter
+      tabs={tabs}
+      showMore={showMoreTabs}
+      moreCount={moreCount}
+      overflowTabs={overflowTabs}
+      showAddTab={showAddTab}
+      variant={footerVariant}
+      class="shell-layout__footer"
+    />
+  </div>
+</div>
+
+<style>
+  /* Base Layout Container */
+  .shell-layout {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  /* ========================================
+     CP LAYOUT (Costpoint Theme)
+     ======================================== */
+  .shell-layout__cp {
+    position: relative;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 56px 1fr;
+    grid-template-columns: 1fr;
+    overflow: hidden;
+  }
+
+  /* Header - Fixed at top */
+  .shell-layout__cp .shell-layout__header {
+    grid-row: 1;
+    grid-column: 1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+  }
+
+  /* Floating Nav - Centered below header */
+  .shell-layout__floating-nav-wrap {
+    position: fixed;
+    top: 56px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 40;
+    pointer-events: none;
+  }
+
+  .shell-layout__floating-nav {
+    pointer-events: auto;
+  }
+
+  /* Left Sidebar - Fixed left edge, vertically centered */
+  .shell-layout__cp .shell-layout__left-sidebar {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 45;
+  }
+
+  /* Right Sidebar - Fixed right edge, vertically centered */
+  .shell-layout__cp .shell-layout__right-sidebar {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 45;
+  }
+
+  /* Main Content - Scrollable area with padding for sidebars */
+  .shell-layout__cp .shell-layout__main {
+    grid-row: 2;
+    grid-column: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 88px 52px 24px 52px; /* top accounts for header + floating nav */
+  }
+
+  /* ========================================
+     STANDARD LAYOUT (VP, PPM, Maconomy)
+     ======================================== */
+  .shell-layout__standard {
+    position: relative;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 56px 1fr 48px;
+    grid-template-columns: 1fr;
+    overflow: hidden;
+  }
+
+  /* Header - Grid row 1 */
+  .shell-layout__standard .shell-layout__header {
+    grid-row: 1;
+    grid-column: 1;
+    z-index: 50;
+  }
+
+  /* Main Content - Grid row 2, scrollable */
+  .shell-layout__standard .shell-layout__main {
+    grid-row: 2;
+    grid-column: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 24px 89px;
+  }
+
+  /* Footer - Grid row 3 */
+  .shell-layout__standard .shell-layout__footer {
+    grid-row: 3;
+    grid-column: 1;
+    z-index: 40;
+  }
+
+  /* ========================================
+     RESPONSIVE BEHAVIOR
+     ======================================== */
+  @media (max-width: 768px) {
+    /* CP Theme: Hide sidebars on mobile */
+    .shell-layout__cp .shell-layout__left-sidebar,
+    .shell-layout__cp .shell-layout__right-sidebar {
+      display: none;
+    }
+
+    /* CP Theme: Adjust main content padding without sidebars */
+    .shell-layout__cp .shell-layout__main {
+      padding: 88px 16px 24px 16px;
+    }
+
+    /* Standard Theme: Reduce padding on mobile */
+    .shell-layout__standard .shell-layout__main {
+      padding: 16px;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    /* Standard Theme: Reduce side padding on tablets */
+    .shell-layout__standard .shell-layout__main {
+      padding: 24px 32px;
+    }
+  }
+</style>

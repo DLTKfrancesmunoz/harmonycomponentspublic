@@ -1,0 +1,324 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import ExampleSection from '../../components/ExampleSection.astro';
+import Icon from '../../components/ui/Icon.astro';
+
+// Hero Icons Outline - All icons organized by category
+const iconCategories = {
+  'Navigation & Arrows': [
+    'arrow-down', 'arrow-down-circle', 'arrow-down-left', 'arrow-down-on-square', 'arrow-down-on-square-stack',
+    'arrow-down-right', 'arrow-down-tray', 'arrow-left', 'arrow-left-circle', 'arrow-left-end-on-rectangle',
+    'arrow-left-start-on-rectangle', 'arrow-long-down', 'arrow-long-left', 'arrow-long-right', 'arrow-long-up',
+    'arrow-path', 'arrow-path-rounded-square', 'arrow-right', 'arrow-right-circle', 'arrow-right-end-on-rectangle',
+    'arrow-right-start-on-rectangle', 'arrow-top-right-on-square', 'arrow-trending-down', 'arrow-trending-up',
+    'arrow-up', 'arrow-up-circle', 'arrow-up-left', 'arrow-up-on-square', 'arrow-up-on-square-stack',
+    'arrow-up-right', 'arrow-up-tray', 'arrow-uturn-down', 'arrow-uturn-left', 'arrow-uturn-right', 'arrow-uturn-up',
+    'arrows-pointing-in', 'arrows-pointing-out', 'arrows-right-left', 'arrows-up-down',
+    'chevron-double-down', 'chevron-double-left', 'chevron-double-right', 'chevron-double-up',
+    'chevron-down', 'chevron-left', 'chevron-right', 'chevron-up', 'chevron-up-down',
+    'home', 'home-modern'
+  ],
+  'Actions': [
+    'plus', 'plus-circle', 'minus', 'minus-circle', 'x-mark', 'x-circle',
+    'check', 'check-circle', 'check-badge',
+    'pencil', 'pencil-square', 'trash',
+    'archive-box', 'archive-box-arrow-down', 'archive-box-x-mark',
+    'clipboard', 'clipboard-document', 'clipboard-document-check', 'clipboard-document-list',
+    'cloud-arrow-down', 'cloud-arrow-up',
+    'link', 'paper-clip', 'scissors', 'share',
+    'magnifying-glass', 'magnifying-glass-circle', 'magnifying-glass-minus', 'magnifying-glass-plus',
+    'funnel', 'adjustments-horizontal', 'adjustments-vertical',
+    'bars-arrow-down', 'bars-arrow-up', 'queue-list',
+    'power', 'bolt', 'bolt-slash'
+  ],
+  'Interface & Layout': [
+    'bars-2', 'bars-3', 'bars-3-bottom-left', 'bars-3-bottom-right', 'bars-3-center-left', 'bars-4',
+    'squares-2x2', 'squares-plus', 'square-2-stack', 'square-3-stack-3d',
+    'rectangle-group', 'rectangle-stack', 'view-columns', 'table-cells',
+    'cog', 'cog-6-tooth', 'cog-8-tooth',
+    'ellipsis-horizontal', 'ellipsis-horizontal-circle', 'ellipsis-vertical',
+    'window', 'viewfinder-circle',
+    'cursor-arrow-rays', 'cursor-arrow-ripple',
+    'swatch', 'paint-brush', 'eye-dropper'
+  ],
+  'Communication': [
+    'envelope', 'envelope-open', 'inbox', 'inbox-arrow-down', 'inbox-stack',
+    'chat-bubble-bottom-center', 'chat-bubble-bottom-center-text', 'chat-bubble-left',
+    'chat-bubble-left-ellipsis', 'chat-bubble-left-right', 'chat-bubble-oval-left', 'chat-bubble-oval-left-ellipsis',
+    'phone', 'phone-arrow-down-left', 'phone-arrow-up-right', 'phone-x-mark',
+    'bell', 'bell-alert', 'bell-slash', 'bell-snooze',
+    'megaphone', 'paper-airplane', 'at-symbol', 'hashtag', 'rss',
+    'language', 'globe-alt', 'globe-americas', 'globe-asia-australia', 'globe-europe-africa'
+  ],
+  'Media & Files': [
+    'photo', 'camera', 'film', 'video-camera', 'video-camera-slash',
+    'microphone', 'speaker-wave', 'speaker-x-mark', 'musical-note', 'radio',
+    'play', 'play-circle', 'play-pause', 'pause', 'pause-circle', 'stop', 'stop-circle',
+    'forward', 'backward',
+    'document', 'document-arrow-down', 'document-arrow-up', 'document-chart-bar',
+    'document-check', 'document-duplicate', 'document-magnifying-glass',
+    'document-minus', 'document-plus', 'document-text',
+    'folder', 'folder-arrow-down', 'folder-minus', 'folder-open', 'folder-plus',
+    'gif', 'qr-code'
+  ],
+  'Users & People': [
+    'user', 'user-circle', 'user-group', 'user-minus', 'user-plus', 'users',
+    'identification', 'finger-print',
+    'hand-raised', 'hand-thumb-down', 'hand-thumb-up',
+    'face-frown', 'face-smile', 'heart'
+  ],
+  'Objects & Things': [
+    'academic-cap', 'beaker', 'book-open', 'bookmark', 'bookmark-slash', 'bookmark-square',
+    'briefcase', 'building-library', 'building-office', 'building-office-2', 'building-storefront',
+    'cake', 'calculator', 'calendar', 'calendar-days',
+    'clock', 'credit-card', 'cube', 'cube-transparent',
+    'gift', 'gift-top', 'key', 'light-bulb', 'lifebuoy',
+    'lock-closed', 'lock-open', 'map', 'map-pin',
+    'newspaper', 'printer', 'puzzle-piece',
+    'scale', 'server', 'server-stack', 'shopping-bag', 'shopping-cart',
+    'star', 'sun', 'moon', 'sparkles', 'fire', 'flag',
+    'tag', 'ticket', 'trophy', 'truck', 'tv', 'wallet', 'wrench', 'wrench-screwdriver'
+  ],
+  'Status & Feedback': [
+    'exclamation-circle', 'exclamation-triangle',
+    'information-circle', 'question-mark-circle', 'no-symbol',
+    'shield-check', 'shield-exclamation',
+    'eye', 'eye-slash',
+    'signal', 'signal-slash', 'wifi',
+    'battery-0', 'battery-50', 'battery-100',
+    'bug-ant', 'code-bracket', 'code-bracket-square', 'command-line',
+    'cpu-chip', 'circle-stack', 'variable'
+  ],
+  'Currency': [
+    'banknotes', 'currency-bangladeshi', 'currency-dollar', 'currency-euro',
+    'currency-pound', 'currency-rupee', 'currency-yen',
+    'receipt-percent', 'receipt-refund'
+  ],
+  'Devices': [
+    'computer-desktop', 'device-phone-mobile', 'device-tablet',
+    'presentation-chart-bar', 'presentation-chart-line',
+    'chart-bar', 'chart-bar-square', 'chart-pie'
+  ]
+};
+
+// Calculate total icons
+const totalIcons = Object.values(iconCategories).flat().length;
+
+// Custom Icons - Domain-specific icons from /public folder
+const customIconCategories = {
+  'Project & Resource Management': [
+    'gantt-chart', 'ms-project', 'template', 'tree',
+    'Contract', 'Report', 'Resource'
+  ],
+  'Risk Management': [
+    'Risk Shield', 'riskcategories', 'riskhandelingstrategies',
+    'riskresponsetype', 'riskstatuses', 'mitigationplan',
+    'impacttypes', 'bullseye', 'history'
+  ],
+  'Docking & Window Management': [
+    'dock-center', 'dock-right', 'dock', 'undock',
+    'minimize', 'restore', 'window-plain', 'two-columns', 'orientation'
+  ],
+  'Interactions & Actions': [
+    'drag', 'pin', 'pinned', 'related', 'upload-download', 'swap'
+  ],
+  'File Types & Data': [
+    'API Schema', 'Network Graph', 'png', 'oracle'
+  ],
+  'Media': ['mic-slash'],
+  'Multiview & Layout': ['multiview-disable', 'open-apps'],
+  'Other': ['keyboard', 'Dela D in dark circle 1']
+};
+
+const totalCustomIcons = Object.values(customIconCategories).flat().length;
+---
+
+<DocsLayout title="Icons" description="Icon system using Hero Icons (Outline) as the primary library.">
+  <article class="space-y-12">
+    <header class="page-header page-header--compact">
+      <h1 class="page-header__title page-header__title--sm">Icons</h1>
+      <p class="page-header__description">
+        The Harmony Design System uses <strong>Hero Icons (Outline)</strong> as the primary icon library.
+      </p>
+    </header>
+
+    <!-- Usage -->
+    <section class="space-y-6">
+      <h2 class="section__title">Usage</h2>
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">Icon Component</h3>
+        <div class="a11y-card__text">
+          <pre class="bg-card p-4 rounded-lg text-sm overflow-x-auto"><code>&lt;Icon name="arrow-down" /&gt;
+&lt;Icon name="check-circle" size="lg" /&gt;</code></pre>
+        </div>
+      </div>
+      
+      <ExampleSection title="Icon Sizes" description="Available size variants">
+        <div class="flex items-center gap-8 p-6 bg-card rounded-lg border">
+          <div class="flex flex-col items-center gap-2">
+            <Icon name="home" size="xs" />
+            <span class="text-xs text-muted">xs (12px)</span>
+          </div>
+          <div class="flex flex-col items-center gap-2">
+            <Icon name="home" size="sm" />
+            <span class="text-xs text-muted">sm (16px)</span>
+          </div>
+          <div class="flex flex-col items-center gap-2">
+            <Icon name="home" size="md" />
+            <span class="text-xs text-muted">md (20px)</span>
+          </div>
+          <div class="flex flex-col items-center gap-2">
+            <Icon name="home" size="lg" />
+            <span class="text-xs text-muted">lg (24px)</span>
+          </div>
+          <div class="flex flex-col items-center gap-2">
+            <Icon name="home" size="xl" />
+            <span class="text-xs text-muted">xl (32px)</span>
+          </div>
+        </div>
+      </ExampleSection>
+    </section>
+
+    <!-- Icon Selection Guide -->
+    <section class="space-y-6">
+      <h2 class="section__title">Icon Selection Guide</h2>
+
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">Icon Hierarchy for Application Development</h3>
+        <div class="a11y-card__text">
+          <p>When building applications with this design system, follow this priority order:</p>
+          <ol class="list-decimal pl-5 space-y-3 mt-4">
+            <li>
+              <strong>Check Heroicons First</strong> - 284 outline icons for common UI needs
+              <br />
+              <code class="text-xs">&lt;Icon name="home" /&gt;</code>
+            </li>
+            <li>
+              <strong>Use Tabler Icons as Fallback</strong> - 4,600+ icons when Heroicons doesn't have what you need
+              <br />
+              <code class="text-xs">&lt;i class="ti ti-brand-github"&gt;&lt;/i&gt;</code>
+              <br />
+              <a href="https://tabler.io/icons" target="_blank" class="link text-xs">Browse Tabler Icons →</a>
+            </li>
+            <li>
+              <strong>Custom Icons for Domain-Specific Needs</strong> - Project management, risk management, etc.
+              <br />
+              <code class="text-xs">&lt;Icon name="gantt-chart" /&gt;</code>
+            </li>
+          </ol>
+          <p class="mt-4 text-sm text-secondary">
+            <strong>Note:</strong> This design system documentation uses only Heroicons and Custom icons for consistency.
+            Tabler is available as a developer tool when needed.
+          </p>
+        </div>
+      </div>
+
+      <ExampleSection title="Heroicons (Primary)" description="Via Icon component - 284 icons">
+        <div class="flex gap-4 p-6 bg-card rounded-lg border">
+          <Icon name="home" size="lg" />
+          <Icon name="user" size="lg" />
+          <Icon name="cog" size="lg" />
+        </div>
+        <pre class="bg-card p-4 rounded-lg text-sm mt-4 overflow-x-auto"><code>&lt;Icon name="home" /&gt;
+&lt;Icon name="user" size="md" /&gt;</code></pre>
+      </ExampleSection>
+
+      <ExampleSection title="Tabler Icons (Secondary Fallback)" description="Via CSS classes - 4,600+ icons">
+        <div class="flex gap-4 p-6 bg-card rounded-lg border">
+          <Icon name="code-bracket" size="sm" text-2xl />
+          <i class="ti ti-database text-2xl"></i>
+          <i class="ti ti-terminal text-2xl"></i>
+        </div>
+        <pre class="bg-card p-4 rounded-lg text-sm mt-4 overflow-x-auto"><code>&lt;i class="ti ti-brand-github"&gt;&lt;/i&gt;
+&lt;i class="ti ti-database"&gt;&lt;/i&gt;</code></pre>
+        <p class="text-sm text-secondary mt-2">
+          Tabler icons require the Tabler web font. Browse all icons at <a href="https://tabler.io/icons" target="_blank" class="link">tabler.io/icons</a>
+        </p>
+      </ExampleSection>
+
+      <ExampleSection title="Custom Icons (Tertiary)" description="Domain-specific project icons">
+        <div class="flex gap-4 p-6 bg-card rounded-lg border">
+          <Icon name="gantt-chart" size="lg" />
+          <Icon name="Risk Shield" size="lg" />
+          <Icon name="dock-center" size="lg" />
+        </div>
+        <pre class="bg-card p-4 rounded-lg text-sm mt-4 overflow-x-auto"><code>&lt;Icon name="gantt-chart" /&gt;
+&lt;Icon name="Risk Shield" /&gt;</code></pre>
+      </ExampleSection>
+    </section>
+
+    <!-- Hero Icons Section -->
+    <section class="space-y-6">
+      <h2 class="section__title">Hero Icons - Outline (24x24)</h2>
+      <p class="text-secondary mb-6">
+        All {totalIcons} outline icons from <a href="https://heroicons.com/" target="_blank" class="link">heroicons.com</a>. 
+      </p>
+      
+      {Object.entries(iconCategories).map(([category, icons]) => (
+        <ExampleSection title={category} description={`${icons.length} icons`}>
+          <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-2">
+            {icons.map((icon) => (
+              <div class="flex flex-col items-center gap-1 p-2 rounded-lg hover:bg-hover-bg transition-colors cursor-pointer group" title={icon}>
+                <div class="text-secondary group-hover:text-theme-primary transition-colors">
+                  <Icon name={icon} size="lg" />
+                </div>
+                <span class="text-[9px] text-muted text-center truncate w-full">{icon}</span>
+              </div>
+            ))}
+          </div>
+        </ExampleSection>
+      ))}
+    </section>
+
+    <!-- Custom Icons Section -->
+    <section class="space-y-6">
+      <h2 class="section__title">Custom Icons</h2>
+      <p class="text-secondary mb-6">
+        {totalCustomIcons} domain-specific icons for project management, risk management, and specialized UI features.
+        These icons extend Heroicons with project-specific needs.
+      </p>
+
+      {Object.entries(customIconCategories).map(([category, icons]) => (
+        <ExampleSection title={category} description={`${icons.length} icons`}>
+          <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-2">
+            {icons.map((icon) => (
+              <div class="flex flex-col items-center gap-1 p-2 rounded-lg hover:bg-hover-bg transition-colors cursor-pointer group" title={icon}>
+                <div class="text-secondary group-hover:text-theme-primary transition-colors">
+                  <Icon name={icon} size="lg" />
+                </div>
+                <span class="text-[9px] text-muted text-center truncate w-full">{icon}</span>
+              </div>
+            ))}
+          </div>
+        </ExampleSection>
+      ))}
+    </section>
+
+    <!-- Accessibility -->
+    <section class="space-y-6">
+      <h2 class="section__title">Accessibility</h2>
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <div style="width: 20px; height: 20px; flex-shrink: 0;">
+            <Icon name="eye" size="md" />
+          </div>
+          Icon Accessibility
+        </h3>
+        <div class="a11y-card__text">
+          <p class="mb-4">
+            All icons (Heroicons, Tabler, and Custom) include <code>aria-hidden="true"</code> by default.
+            When using icons without text labels, add an <code>aria-label</code> to the parent button or link
+            for screen reader users.
+          </p>
+          <pre class="bg-card p-4 rounded-lg text-sm overflow-x-auto"><code>&lt;button aria-label="Edit document"&gt;
+  &lt;Icon name="pencil" /&gt;
+&lt;/button&gt;
+
+&lt;button aria-label="Delete item"&gt;
+  &lt;Icon name="trash" /&gt;
+&lt;/button&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+  </article>
+</DocsLayout>

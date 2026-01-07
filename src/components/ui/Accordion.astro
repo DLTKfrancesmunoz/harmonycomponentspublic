@@ -1,0 +1,90 @@
+---
+/**
+ * Accordion Component
+ *
+ * Collapsible content sections.
+ */
+import Icon from './Icon.astro';
+
+export interface AccordionItem {
+  title: string;
+  content: string;
+  defaultOpen?: boolean;
+}
+
+export interface Props {
+  items: AccordionItem[];
+  allowMultiple?: boolean;
+  class?: string;
+}
+
+const {
+  items,
+  allowMultiple = false,
+  class: className = '',
+} = Astro.props;
+
+const accordionId = `accordion-${Math.random().toString(36).substr(2, 9)}`;
+const classes = ['accordion', className].filter(Boolean).join(' ');
+---
+
+<div class={classes} data-accordion data-allow-multiple={allowMultiple}>
+  {items.map((item, index) => (
+    <div class={`accordion__item ${item.defaultOpen ? 'is-open' : ''}`} data-accordion-item>
+      <button
+        type="button"
+        class="accordion__trigger"
+        aria-expanded={item.defaultOpen ? 'true' : 'false'}
+        aria-controls={`${accordionId}-panel-${index}`}
+      >
+        {item.title}
+        <Icon name="chevron-down" class="accordion__icon" />
+      </button>
+      <div 
+        class="accordion__content" 
+        id={`${accordionId}-panel-${index}`}
+        role="region"
+      >
+        {item.content}
+      </div>
+    </div>
+  ))}
+</div>
+
+<script>
+  function initAccordions() {
+    document.querySelectorAll('[data-accordion]').forEach((accordion) => {
+      if (accordion.hasAttribute('data-init')) return;
+      accordion.setAttribute('data-init', 'true');
+      
+      const allowMultiple = accordion.hasAttribute('data-allow-multiple');
+      const items = accordion.querySelectorAll('[data-accordion-item]');
+      
+      items.forEach((item) => {
+        const trigger = item.querySelector('.accordion__trigger');
+        
+        trigger?.addEventListener('click', () => {
+          const isOpen = item.classList.contains('is-open');
+          
+          if (!allowMultiple) {
+            items.forEach((i) => {
+              i.classList.remove('is-open');
+              i.querySelector('.accordion__trigger')?.setAttribute('aria-expanded', 'false');
+            });
+          }
+          
+          if (!isOpen) {
+            item.classList.add('is-open');
+            trigger.setAttribute('aria-expanded', 'true');
+          } else {
+            item.classList.remove('is-open');
+            trigger.setAttribute('aria-expanded', 'false');
+          }
+        });
+      });
+    });
+  }
+  
+  initAccordions();
+  document.addEventListener('astro:page-load', initAccordions);
+</script>

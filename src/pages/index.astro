@@ -1,0 +1,89 @@
+---
+import DocsLayout from '../layouts/DocsLayout.astro';
+import { navigation } from '../data/navigation';
+import Icon from '../components/ui/Icon.astro';
+---
+
+<DocsLayout title="Overview" description="A complete design system with foundation elements, shell layout components, and production-ready UI components.">
+  <!-- HERO SECTION -->
+  <header class="page-header">
+    <div class="page-header__badge">
+      <span class="badge badge--primary">v1.0.0</span>
+    </div>
+    <h1 class="page-header__title">
+      Design<br>System
+    </h1>
+    <p class="page-header__description">
+      A complete design system with foundation elements, shell layout components, and 25 production-ready UI components. 
+      Built with accessibility, performance, and flexibility in mind.
+    </p>
+    <div class="page-header__meta">
+      <div class="page-header__meta-item">
+        <Icon name="check" size="sm" class="page-header__meta-icon" />
+        Dark & Light Themes
+      </div>
+      <div class="page-header__meta-item">
+        <Icon name="check" size="sm" class="page-header__meta-icon" />
+        Foundation System
+      </div>
+      <div class="page-header__meta-item">
+        <Icon name="check" size="sm" class="page-header__meta-icon" />
+        Shell Layout
+      </div>
+      <div class="page-header__meta-item">
+        <Icon name="check" size="sm" class="page-header__meta-icon" />
+        25 Components
+      </div>
+    </div>
+  </header>
+
+  <!-- Quick Start -->
+  <section class="section">
+    <h2 class="section__title">Quick Start</h2>
+    <div class="card-grid card-grid--3">
+      <a href="/foundation/colors" class="quick-card">
+        <div class="quick-card__icon-wrap">
+          <Icon name="paint-brush" size="sm" class="quick-card__icon" />
+        </div>
+        <h3 class="quick-card__title">Foundation</h3>
+        <p class="quick-card__desc">Colors, typography, spacing, and elevation tokens.</p>
+      </a>
+      
+      <a href="/shell/layout" class="quick-card">
+        <div class="quick-card__icon-wrap">
+          <Icon name="squares-2x2" size="sm" class="quick-card__icon" />
+        </div>
+        <h3 class="quick-card__title">Shell Layout</h3>
+        <p class="quick-card__desc">Headers, sidebars, footers, and page content areas.</p>
+      </a>
+      
+      <a href="/components/buttons" class="quick-card">
+        <div class="quick-card__icon-wrap">
+          <Icon name="cube" size="sm" class="quick-card__icon" />
+        </div>
+        <h3 class="quick-card__title">Components</h3>
+        <p class="quick-card__desc">25 production-ready UI components with variants.</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- All Sections -->
+  {navigation.map((section) => (
+    <section class="section">
+      <h2 class="section__title">
+        <span class="section__title-bar"></span>
+        {section.title}
+      </h2>
+      <div class="card-grid card-grid--sm">
+        {section.items.map((item) => (
+          <a href={item.href} class="nav-card">
+            <div class="nav-card__icon-wrap">
+              <i class={`ti ${item.icon} nav-card__icon`}></i>
+            </div>
+            <span class="nav-card__title">{item.title}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  ))}
+</DocsLayout>

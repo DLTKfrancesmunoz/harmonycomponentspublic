@@ -1,0 +1,36 @@
+---
+import '../../styles/global.css';
+import Avatar from '../../components/ui/Avatar.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script is:inline>
+      (function() {
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const savedColorTheme = localStorage.getItem('colorTheme') || 'cp';
+        if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+        document.documentElement.classList.add('theme-' + savedColorTheme);
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Avatar Preview</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { height: 100%; width: 100%; }
+      body { padding: 48px; display: flex; flex-wrap: wrap; gap: 24px; align-items: center; }
+    </style>
+  </head>
+  <body>
+    <Avatar size="sm" />
+    <Avatar size="md" />
+    <Avatar size="lg" />
+    <Avatar size="sm" src="/Header Avatar.svg" />
+    <Avatar size="md" src="/Header Avatar.svg" />
+    <Avatar size="lg" src="/Header Avatar.svg" />
+  </body>
+</html>
+

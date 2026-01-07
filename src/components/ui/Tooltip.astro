@@ -1,0 +1,33 @@
+---
+/**
+ * Tooltip Component
+ * 
+ * Informational popup on hover.
+ */
+
+export interface Props {
+  text: string;
+  position?: 'top' | 'bottom' | 'left' | 'right';
+  class?: string;
+}
+
+const {
+  text,
+  position = 'top',
+  class: className = '',
+} = Astro.props;
+
+const contentClasses = [
+  'tooltip__content',
+  position === 'bottom' && 'tooltip__content--bottom',
+  position === 'left' && 'tooltip__content--left',
+  position === 'right' && 'tooltip__content--right',
+].filter(Boolean).join(' ');
+
+const classes = ['tooltip', className].filter(Boolean).join(' ');
+---
+
+<span class={classes}>
+  <slot />
+  <span class={contentClasses}>{text}</span>
+</span>

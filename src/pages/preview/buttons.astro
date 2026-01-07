@@ -1,0 +1,57 @@
+---
+import '../../styles/global.css';
+import Button from '../../components/ui/Button.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script is:inline>
+      (function() {
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const savedColorTheme = localStorage.getItem('colorTheme') || 'cp';
+        if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+        document.documentElement.classList.add('theme-' + savedColorTheme);
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buttons Preview</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <style>
+      html, body { 
+        height: 100%; 
+        width: 100%; 
+        margin: 0;
+        padding: 0;
+      }
+      body { 
+        padding: 48px; 
+        display: flex; 
+        flex-direction: column; 
+        gap: 24px; 
+        box-sizing: border-box;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center;">
+      <Button variant="primary">Primary</Button>
+      <Button variant="secondary">Secondary</Button>
+      <Button variant="outline">Outline</Button>
+      <Button variant="ghost">Ghost</Button>
+      <Button variant="destructive">Destructive</Button>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center;">
+      <Button size="sm">Small</Button>
+      <Button size="md">Medium</Button>
+      <Button size="lg">Large</Button>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center;">
+      <Button icon="plus">Add Item</Button>
+      <Button icon="arrow-right" iconPosition="right">Continue</Button>
+      <Button disabled>Disabled</Button>
+    </div>
+  </body>
+</html>
+

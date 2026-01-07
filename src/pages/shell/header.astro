@@ -1,0 +1,217 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import ExampleSection from '../../components/ExampleSection.astro';
+import Icon from '../../components/ui/Icon.astro';
+import Avatar from '../../components/ui/Avatar.astro';
+import { themeConfig } from '../../data/theme-config';
+---
+
+<DocsLayout title="Header" description="Application header component with company selection and gradient border.">
+  <article class="space-y-12">
+    <header class="page-header page-header--compact">
+      <h1 class="page-header__title page-header__title--sm">Shell Header</h1>
+      <p class="page-header__description">
+        The header provides navigation, branding, company selection, and user profile at the top of the application. Features dynamic gradient border based on company selection.
+      </p>
+    </header>
+
+    <section class="space-y-6">
+      <h2 class="section__title">Header with Company Dropdown</h2>
+
+      <ExampleSection title="CP Header" description="Header with company dropdown, gradient border, and user avatar.">
+        <div style="min-height: 200px; position: relative;">
+          <header class="header demo-header" style="position: relative;">
+            <!-- Left: Brand -->
+            <div class="header__brand">
+              <a href="#" class="header__brand-link">
+                <img src="/logos/CPVPLogo.svg" alt="Logo" class="header__logo" />
+                <span class="header__title">Costpoint</span>
+              </a>
+            </div>
+
+            <!-- Right: Company dropdown + Avatar -->
+            <div class="header__actions">
+              <!-- Company Dropdown -->
+              <div class="company-picker" id="demo-company-picker">
+                <button id="demo-company-picker-btn" class="company-picker__btn">
+                  <span id="demo-company-indicator" class="company-picker__indicator" style="background-color: #FF507B;"></span>
+                  <span id="demo-company-name" class="company-picker__name">Acme Corporation</span>
+                  <Icon name="chevron-down" size="sm" class="company-picker__chevron" />
+                </button>
+                <div id="demo-company-picker-menu" class="company-picker__menu">
+                  <!-- Dynamically populated via JavaScript -->
+                </div>
+              </div>
+
+              <div class="divider"></div>
+
+              <!-- User Avatar -->
+              <Avatar size="sm" />
+            </div>
+
+            <!-- Gradient Border (outside, at bottom of header) -->
+            <div id="demo-header-gradient" class="header__gradient" style="background: linear-gradient(to right, #FF507B05, #FF507B 50%, #FF507B05);"></div>
+          </header>
+        </div>
+      </ExampleSection>
+    </section>
+
+    <section class="space-y-6">
+      <h2 class="section__title">Header Elements</h2>
+      <div class="guidelines">
+        <div class="guideline-card guideline-card--do">
+          <h3 class="guideline-card__header"><Icon name="check" size="sm" /> Include</h3>
+          <ul class="guideline-card__list">
+            <li>• Logo or brand mark</li>
+            <li>• Product name (Figtree Medium)</li>
+            <li>• Company dropdown with colored indicator</li>
+            <li>• User avatar</li>
+            <li>• Gradient border matching company color</li>
+          </ul>
+        </div>
+        <div class="guideline-card guideline-card--dont">
+          <h3 class="guideline-card__header"><Icon name="x-mark" size="sm" /> Avoid</h3>
+          <ul class="guideline-card__list">
+            <li>• Too many action buttons</li>
+            <li>• Long company names (use truncation)</li>
+            <li>• Excessive height</li>
+            <li>• Static borders without gradient</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="space-y-6">
+      <h2 class="section__title">Implementation Notes</h2>
+      <div class="space-y-4">
+        <div class="card">
+          <div class="card__body">
+            <h3 class="text-heading-s text-primary mb-2">Gradient Border</h3>
+            <p class="text-sm text-secondary">
+              The gradient border fades at the edges (opacity 0.02) and is solid in the center (50%). The 6px height creates a subtle visual accent that changes with company selection.
+            </p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__body">
+            <h3 class="text-heading-s text-primary mb-2">Company Dropdown</h3>
+            <p class="text-sm text-secondary">
+              Each company has a colored circle indicator that matches its gradient color. The dropdown is populated from the theme configuration and supports multiple companies per product.
+            </p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__body">
+            <h3 class="text-heading-s text-primary mb-2">Avatar Component</h3>
+            <p class="text-sm text-secondary">
+              The avatar uses the theme primary color for its background and displays a white user icon. Available in sm (32px), md (40px), and lg (48px) sizes.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </article>
+</DocsLayout>
+
+<script>
+  // Demo company picker management for the header example
+  const demoCompanyPickerBtn = document.getElementById('demo-company-picker-btn');
+  const demoCompanyPickerMenu = document.getElementById('demo-company-picker-menu');
+  const demoCompanyIndicator = document.getElementById('demo-company-indicator');
+  const demoCompanyNameEl = document.getElementById('demo-company-name');
+  const demoHeaderGradient = document.getElementById('demo-header-gradient');
+
+  // Use CP companies for demo
+  const demoCompanies = [
+    { id: 'acme-corp', name: 'Acme Corporation', gradientColor: '#FF507B' },
+    { id: 'tech-industries', name: 'Tech Industries', gradientColor: '#1D8DFF' },
+    { id: 'global-services', name: 'Global Services', gradientColor: '#1D8DFF' }
+  ];
+
+  let selectedDemoCompany = 'acme-corp';
+
+  // Toggle dropdown
+  demoCompanyPickerBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    demoCompanyPickerMenu?.classList.toggle('company-picker__menu--open');
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', () => {
+    demoCompanyPickerMenu?.classList.remove('company-picker__menu--open');
+  });
+
+  // Render demo company menu
+  function renderDemoCompanyMenu() {
+    if (!demoCompanyPickerMenu) return;
+
+    demoCompanyPickerMenu.innerHTML = demoCompanies.map(company => `
+      <button class="company-picker__option ${company.id === selectedDemoCompany ? 'company-picker__option--selected' : ''}"
+              data-company-id="${company.id}">
+        <span class="company-picker__option-indicator" style="background-color: ${company.gradientColor};"></span>
+        <span class="company-picker__option-name">${company.name}</span>
+      </button>
+    `).join('');
+
+    // Add click handlers
+    demoCompanyPickerMenu.querySelectorAll('.company-picker__option').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const companyId = (e.currentTarget as HTMLElement).dataset.companyId;
+        if (companyId) {
+          selectedDemoCompany = companyId;
+          updateDemoCompany();
+          demoCompanyPickerMenu.classList.remove('company-picker__menu--open');
+        }
+      });
+    });
+  }
+
+  // Update demo company display and gradient
+  function updateDemoCompany() {
+    const company = demoCompanies.find(c => c.id === selectedDemoCompany);
+    if (!company) return;
+
+    // Update company name
+    if (demoCompanyNameEl) {
+      demoCompanyNameEl.textContent = company.name;
+    }
+
+    // Update indicator color
+    if (demoCompanyIndicator) {
+      demoCompanyIndicator.style.backgroundColor = company.gradientColor;
+    }
+
+    // Update gradient border
+    if (demoHeaderGradient) {
+      const gradientColor = company.gradientColor;
+      demoHeaderGradient.style.background = `
+        linear-gradient(
+          to right,
+          ${gradientColor}05,
+          ${gradientColor} 50%,
+          ${gradientColor}05
+        )
+      `;
+    }
+
+    // Update selected state in menu
+    renderDemoCompanyMenu();
+  }
+
+  // Initialize demo
+  renderDemoCompanyMenu();
+</script>
+
+<style>
+  .demo-header {
+    height: 56px;
+    background-color: var(--nav-bg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--space-6);
+    gap: var(--space-6);
+  }
+</style>

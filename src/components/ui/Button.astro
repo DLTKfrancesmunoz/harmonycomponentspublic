@@ -1,0 +1,94 @@
+---
+/**
+ * Button Component
+ *
+ * Interactive button with multiple variants, sizes, and states.
+ */
+import Icon from './Icon.astro';
+
+export interface Props {
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'outline' | 'ghost' | 'destructive';
+  buttonType?: 'theme' | 'pageHeader';
+  size?: 'xs' | 'sm' | 'md' | 'lg';
+  orientation?: 'horizontal' | 'vertical';
+  disabled?: boolean;
+  loading?: boolean;
+  loadingText?: string;
+  icon?: string; // Heroicon name (e.g., "plus", "arrow-right")
+  iconPosition?: 'left' | 'right';
+  type?: 'button' | 'submit' | 'reset';
+  fullWidth?: boolean;
+  class?: string;
+  [key: string]: any;
+}
+
+const {
+  variant = 'primary',
+  buttonType = 'theme',
+  size = 'md',
+  orientation = 'horizontal',
+  disabled = false,
+  loading = false,
+  loadingText,
+  icon,
+  iconPosition = 'left',
+  type = 'button',
+  fullWidth = false,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+// Map button size to icon size
+const iconSizeMap = {
+  xs: 'xs', // 12px
+  sm: 'sm', // 16px
+  md: 'sm', // 16px
+  lg: 'md', // 20px
+} as const;
+const iconSize = iconSizeMap[size];
+
+// Check if there's slot content (text)
+const hasSlotContent = Astro.slots.has('default');
+const isIconOnly = icon && !hasSlotContent && !loading;
+
+// Build class list
+const classes = [
+  'btn',
+  `btn--${variant}`,
+  buttonType === 'pageHeader' && 'btn--page-header',
+  isIconOnly ? `btn--icon-${size}` : `btn--${size}`,
+  orientation === 'vertical' && 'btn--vertical',
+  disabled && 'btn--disabled',
+  loading && 'btn--loading',
+  fullWidth && 'btn--full',
+  className,
+].filter(Boolean).join(' ');
+---
+
+<button
+  type={type}
+  class={classes}
+  disabled={disabled || loading}
+  aria-busy={loading ? 'true' : undefined}
+  {...rest}
+>
+  {loading ? (
+    <>
+      <svg class="btn__spinner" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
+      {loadingText && <span>{loadingText}</span>}
+    </>
+  ) : (
+    <>
+      {icon && iconPosition === 'left' && (
+        <Icon name={icon} size={iconSize} />
+      )}
+      <slot />
+      {icon && iconPosition === 'right' && (
+        <Icon name={icon} size={iconSize} />
+      )}
+    </>
+  )}
+</button>

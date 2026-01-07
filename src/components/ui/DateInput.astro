@@ -1,0 +1,48 @@
+---
+/**
+ * DateInput Component
+ * 
+ * Input for date and time values.
+ */
+
+export interface Props {
+  type?: 'date' | 'time' | 'datetime-local' | 'month' | 'week';
+  value?: string;
+  name?: string;
+  id?: string;
+  disabled?: boolean;
+  min?: string;
+  max?: string;
+  required?: boolean;
+  class?: string;
+  [key: string]: any;
+}
+
+const {
+  type = 'date',
+  value,
+  name,
+  id,
+  disabled = false,
+  min,
+  max,
+  required = false,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+const classes = ['date-input', className].filter(Boolean).join(' ');
+---
+
+<input
+  type={type}
+  value={value}
+  name={name}
+  id={id}
+  disabled={disabled}
+  min={min}
+  max={max}
+  required={required}
+  class={classes}
+  {...rest}
+/>

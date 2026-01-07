@@ -1,0 +1,70 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import PropsTable from '../../components/PropsTable.astro';
+import ExampleSection from '../../components/ExampleSection.astro';
+import Accordion from '../../components/ui/Accordion.astro';
+import Icon from '../../components/ui/Icon.astro';
+
+const props = [
+  { name: 'items', type: 'AccordionItem[]', default: '[]', description: 'Array of accordion items with title and content' },
+  { name: 'allowMultiple', type: 'boolean', default: 'false', description: 'Allow multiple items to be open' },
+];
+
+const basicItems = [
+  { title: 'What is this design system?', content: 'This is a comprehensive design system built with accessibility, performance, and flexibility in mind. It includes foundation elements, shell layout components, and 25 production-ready UI components.' },
+  { title: 'How do I get started?', content: 'Start by exploring the Foundation section to understand our design tokens. Then check out the Shell Layout for page structure, and finally browse the Components for ready-to-use UI elements.' },
+  { title: 'Is it accessible?', content: 'Yes! All components are built with accessibility as a priority. They include proper ARIA attributes, keyboard navigation, and follow WCAG guidelines.' },
+];
+
+const faqItems = [
+  { title: 'Can I customize the colors?', content: 'Absolutely! The design system uses CSS custom properties (variables) for all colors. You can override them in your project to match your brand.', defaultOpen: true },
+  { title: 'What browsers are supported?', content: 'We support all modern browsers including Chrome, Firefox, Safari, and Edge. IE11 is not supported.' },
+  { title: 'Can I use this commercially?', content: 'Yes, this design system is available for commercial use. Please check the license for specific terms.' },
+];
+---
+
+<DocsLayout title="Accordion" description="Accordion components for collapsible content sections.">
+  <article class="space-y-12">
+    <header class="page-header page-header--compact">
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="page-header__title page-header__title--sm">Accordion</h1>
+        <span class="badge badge--success">stable</span>
+      </div>
+      <p class="page-header__description">
+        Accordions organize content into collapsible sections, helping users navigate large amounts of information.
+      </p>
+    </header>
+
+    <nav class="article-nav">
+      <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
+      <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+    </nav>
+
+    <section id="examples" class="space-y-8">
+      <h2 class="section__title">Examples</h2>
+
+      <ExampleSection title="Basic Accordion" description="Standard accordion with single item open.">
+        <div class="max-w-2xl">
+          <Accordion items={basicItems} />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="With Default Open" description="Accordion with an item open by default.">
+        <div class="max-w-2xl">
+          <Accordion items={faqItems} />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Allow Multiple" description="Multiple items can be open simultaneously.">
+        <div class="max-w-2xl">
+          <Accordion items={basicItems} allowMultiple />
+        </div>
+      </ExampleSection>
+    </section>
+
+    <section id="props">
+      <h2 class="section__title">Props</h2>
+      <PropsTable props={props} />
+    </section>
+  </article>
+</DocsLayout>

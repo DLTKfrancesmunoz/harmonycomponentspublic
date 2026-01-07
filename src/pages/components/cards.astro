@@ -1,0 +1,144 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import PropsTable from '../../components/PropsTable.astro';
+import ExampleSection from '../../components/ExampleSection.astro';
+import Card from '../../components/ui/Card.astro';
+import Button from '../../components/ui/Button.astro';
+import Icon from '../../components/ui/Icon.astro';
+
+const props = [
+  { name: 'elevated', type: 'boolean', default: 'false', description: 'Adds shadow elevation' },
+  { name: 'interactive', type: 'boolean', default: 'false', description: 'Adds hover effects for clickable cards' },
+  { name: 'primary', type: 'boolean', default: 'false', description: 'Adds 6px top border in theme primary color' },
+];
+---
+
+<DocsLayout title="Cards" description="Card components for containing related content.">
+  <article class="space-y-12">
+    <header class="page-header page-header--compact">
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="page-header__title page-header__title--sm">Cards</h1>
+        <span class="badge badge--success">stable</span>
+      </div>
+      <p class="page-header__description">
+        Cards contain content and actions about a single subject. They're a flexible container for grouping related information.
+      </p>
+    </header>
+
+    <nav class="article-nav">
+      <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
+      <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+    </nav>
+
+    <section id="examples" class="space-y-8">
+      <h2 class="section__title">Examples</h2>
+
+      <ExampleSection title="Basic Card" description="Simple card with content.">
+        <div class="max-w-md">
+          <Card>
+            <div class="card__body">
+              <h3 class="text-lg font-semibold text-primary mb-2">Card Title</h3>
+              <p class="text-sm text-secondary">
+                This is a basic card with some content. Cards are great for grouping related information together.
+              </p>
+            </div>
+          </Card>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Card with Header" description="Card with distinct header section.">
+        <div class="max-w-md">
+          <Card>
+            <div class="card__header">
+              <h3 class="card__title">Card Title</h3>
+              <p class="card__subtitle">Subtitle or description</p>
+            </div>
+            <div class="card__body">
+              <p class="text-sm text-secondary">
+                Card body content goes here. You can add any content you need.
+              </p>
+            </div>
+            <div class="card__footer">
+              <div class="flex gap-2">
+                <Button size="sm" variant="primary">Save</Button>
+                <Button size="sm" variant="ghost">Cancel</Button>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Elevated Card" description="Card with shadow for more emphasis.">
+        <div class="max-w-md">
+          <Card elevated>
+            <div class="card__body">
+              <h3 class="text-lg font-semibold text-primary mb-2">Elevated Card</h3>
+              <p class="text-sm text-secondary">
+                This card has a shadow to make it stand out from the page background.
+              </p>
+            </div>
+          </Card>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Interactive Card" description="Clickable card with hover effects.">
+        <div class="grid sm:grid-cols-2 gap-4 max-w-2xl">
+          <Card interactive>
+            <div class="card__body">
+              <h3 class="text-lg font-semibold text-primary mb-2">Click Me</h3>
+              <p class="text-sm text-secondary">This card has hover effects and is clickable.</p>
+            </div>
+          </Card>
+          <Card interactive>
+            <div class="card__body">
+              <h3 class="text-lg font-semibold text-primary mb-2">Click Me Too</h3>
+              <p class="text-sm text-secondary">Another interactive card example.</p>
+            </div>
+          </Card>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Primary Border Card" description="Card with theme primary color top border for emphasis.">
+        <div class="max-w-md">
+          <Card primary>
+            <div class="card__body">
+              <h3 class="text-lg font-semibold text-primary mb-2">Featured Card</h3>
+              <p class="text-sm text-secondary">
+                This card has a prominent 6px top border in the theme primary color to draw attention.
+              </p>
+            </div>
+          </Card>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection
+        title="Primary Border + Other Variants"
+        description="Primary border works with other card variants."
+      >
+        <div class="grid sm:grid-cols-2 gap-4 max-w-2xl">
+          <Card primary elevated>
+            <div class="card__body">
+              <h3 class="text-lg font-semibold text-primary mb-2">Primary + Elevated</h3>
+              <p class="text-sm text-secondary">
+                Combines the primary border with elevation shadow.
+              </p>
+            </div>
+          </Card>
+          <Card primary interactive>
+            <div class="card__body">
+              <h3 class="text-lg font-semibold text-primary mb-2">Primary + Interactive</h3>
+              <p class="text-sm text-secondary">
+                Combines the primary border with hover effects.
+              </p>
+            </div>
+          </Card>
+        </div>
+      </ExampleSection>
+    </section>
+
+    <section id="props">
+      <h2 class="section__title">Props</h2>
+      <PropsTable props={props} />
+    </section>
+  </article>
+</DocsLayout>

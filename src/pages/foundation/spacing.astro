@@ -1,0 +1,154 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="Spacing" description="Consistent spacing scale based on a 4px grid.">
+  <article class="space-y-12">
+    <header class="page-header page-header--compact">
+      <h1 class="page-header__title page-header__title--sm">Spacing</h1>
+      <p class="page-header__description">
+        A consistent spacing scale based on a 4px grid system for margins, padding, and gaps.
+      </p>
+    </header>
+
+    <section class="space-y-6">
+      <h2 class="section__title">Spacing Scale</h2>
+      <div class="space-y-3">
+        {[
+          { name: '0', value: '0px' },
+          { name: '0.5', value: '2px' },
+          { name: '1', value: '4px' },
+          { name: '1.5', value: '6px' },
+          { name: '2', value: '8px' },
+          { name: '3', value: '12px' },
+          { name: '4', value: '16px' },
+          { name: '5', value: '20px' },
+          { name: '6', value: '24px' },
+          { name: '8', value: '32px' },
+          { name: '10', value: '40px' },
+          { name: '12', value: '48px' },
+          { name: '16', value: '64px' },
+          { name: '20', value: '80px' },
+          { name: '24', value: '96px' },
+        ].map(space => (
+          <div class="flex items-center gap-4">
+            <span class="text-sm text-muted w-12">{space.name}</span>
+            <div class="bg-theme" style={`width: ${space.value}; height: 24px;`}></div>
+            <span class="text-sm text-secondary">{space.value}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="space-y-6">
+      <h2 class="section__title">Usage Patterns</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="card">
+          <div class="card__body">
+            <h3 class="text-lg font-semibold text-primary mb-3">Tight (4-8px)</h3>
+            <p class="text-sm text-secondary">Icon + text, compact lists, inline elements</p>
+            <div class="mt-4 flex items-center gap-2 text-primary">
+              <i class="ti ti-star"></i>
+              <span>Example with gap-2</span>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__body">
+            <h3 class="text-lg font-semibold text-primary mb-3">Default (12-16px)</h3>
+            <p class="text-sm text-secondary">Form elements, card content, button groups</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__body">
+            <h3 class="text-lg font-semibold text-primary mb-3">Relaxed (24-32px)</h3>
+            <p class="text-sm text-secondary">Section spacing, page sections</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__body">
+            <h3 class="text-lg font-semibold text-primary mb-3">Loose (48-64px)</h3>
+            <p class="text-sm text-secondary">Major sections, hero areas</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="space-y-6">
+      <h2 class="section__title">Border Radius</h2>
+      <p class="text-sm text-secondary mb-4">
+        Border radius values using a numbered naming convention (e.g., radius-04, radius-12, radius-100).
+      </p>
+      <div class="grid md:grid-cols-3 lg:grid-cols-6 gap-6">
+        {[
+          { name: 'radius-04', value: '4px' },
+          { name: 'radius-08', value: '8px' },
+          { name: 'radius-12', value: '12px' },
+          { name: 'radius-16', value: '16px' },
+          { name: 'radius-24', value: '24px' },
+          { name: 'radius-100', value: '9999px' },
+        ].map(radius => (
+          <div class="space-y-3 text-center">
+            <div 
+              class="h-16 w-16 mx-auto bg-theme border border-theme" 
+              style={`border-radius: ${radius.value};`}
+            ></div>
+            <div>
+              <div class="text-sm font-medium text-primary">{radius.name}</div>
+              <div class="text-xs font-mono text-muted">{radius.value}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="space-y-4">
+      <h2 class="section__title">CSS Variables</h2>
+      <div class="card">
+        <div class="card__body">
+          <table class="props-table">
+            <thead>
+              <tr>
+                <th>Variable</th>
+                <th>Value</th>
+                <th>Usage</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>--radius-04</code></td>
+                <td>4px</td>
+                <td>Small elements, badges</td>
+              </tr>
+              <tr>
+                <td><code>--radius-08</code></td>
+                <td>8px</td>
+                <td>Buttons, inputs, cards</td>
+              </tr>
+              <tr>
+                <td><code>--radius-12</code></td>
+                <td>12px</td>
+                <td>Modals, larger cards</td>
+              </tr>
+              <tr>
+                <td><code>--radius-16</code></td>
+                <td>16px</td>
+                <td>Large containers</td>
+              </tr>
+              <tr>
+                <td><code>--radius-24</code></td>
+                <td>24px</td>
+                <td>Extra large elements</td>
+              </tr>
+              <tr>
+                <td><code>--radius-100</code></td>
+                <td>9999px</td>
+                <td>Pills, circular elements</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </article>
+</DocsLayout>

@@ -1,0 +1,41 @@
+---
+/**
+ * Link Component
+ *
+ * Styled anchor element.
+ */
+import Icon from './Icon.astro';
+
+export interface Props {
+  href: string;
+  external?: boolean;
+  muted?: boolean;
+  class?: string;
+  [key: string]: any;
+}
+
+const {
+  href,
+  external = false,
+  muted = false,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+const classes = [
+  'link',
+  muted && 'link--muted',
+  className,
+].filter(Boolean).join(' ');
+---
+
+<a
+  href={href}
+  class={classes}
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noopener noreferrer' : undefined}
+  {...rest}
+>
+  <slot />
+  {external && <Icon name="arrow-top-right-on-square" class="ml-1" size="xs" />}
+</a>

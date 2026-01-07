@@ -1,0 +1,281 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import PropsTable from '../../components/PropsTable.astro';
+import ExampleSection from '../../components/ExampleSection.astro';
+import Button from '../../components/ui/Button.astro';
+import Icon from '../../components/ui/Icon.astro';
+
+const props = [
+  { name: 'variant', type: "'primary' | 'secondary' | 'tertiary' | 'outline' | 'ghost' | 'destructive'", default: "'primary'", description: 'Visual style of the button' },
+  { name: 'buttonType', type: "'theme' | 'pageHeader'", default: "'theme'", description: 'Button type: theme buttons use primary color shades, page header buttons use dark blue' },
+  { name: 'size', type: "'xs' | 'sm' | 'md' | 'lg'", default: "'md'", description: 'Size of the button' },
+  { name: 'orientation', type: "'horizontal' | 'vertical'", default: "'horizontal'", description: 'Button layout orientation' },
+  { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables the button' },
+  { name: 'icon', type: 'string', default: '—', description: 'Heroicon name (e.g., "plus", "arrow-right")' },
+  { name: 'iconPosition', type: "'left' | 'right'", default: "'left'", description: 'Position of the icon relative to text' },
+  { name: 'fullWidth', type: 'boolean', default: 'false', description: 'Makes button full width' },
+];
+---
+
+<DocsLayout title="Buttons" description="Interactive button components with multiple variants, sizes, and states.">
+  <article class="space-y-12">
+    <header class="page-header page-header--compact">
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="page-header__title page-header__title--sm">Buttons</h1>
+        <span class="badge badge--success">stable</span>
+      </div>
+      <p class="page-header__description">
+        Buttons trigger actions and events. Use different variants to communicate the importance and nature of the action.
+      </p>
+    </header>
+
+    <nav class="article-nav">
+      <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
+      <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+      <a href="#usage" class="article-nav__link"><Icon name="book-open" size="sm" /> Usage</a>
+      <a href="#accessibility" class="article-nav__link"><Icon name="check-badge" size="sm" /> Accessibility</a>
+    </nav>
+
+    <section id="examples" class="space-y-8">
+      <h2 class="section__title">Examples</h2>
+
+      <ExampleSection title="Button Types" description="Theme buttons (default) use primary color shades. Page header buttons use a dark blue color scheme.">
+        <div class="space-y-6">
+          <div>
+            <h4 class="text-sm font-semibold mb-3">Theme Buttons (Default)</h4>
+            <div class="flex flex-wrap gap-4">
+              <Button variant="primary" buttonType="theme">Primary</Button>
+              <Button variant="secondary" buttonType="theme">Secondary</Button>
+              <Button variant="tertiary" buttonType="theme">Tertiary</Button>
+            </div>
+          </div>
+          <div>
+            <h4 class="text-sm font-semibold mb-3">Page Header Buttons</h4>
+            <div class="flex flex-wrap gap-4">
+              <Button variant="primary" buttonType="pageHeader">Primary</Button>
+              <Button variant="secondary" buttonType="pageHeader">Secondary</Button>
+              <Button variant="tertiary" buttonType="pageHeader">Tertiary</Button>
+            </div>
+          </div>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Variants" description="The main action styles for buttons (Theme buttons shown).">
+        <div class="flex flex-wrap gap-4">
+          <Button variant="primary">Primary</Button>
+          <Button variant="secondary">Secondary</Button>
+          <Button variant="tertiary">Tertiary</Button>
+          <Button variant="outline">Outline</Button>
+          <Button variant="ghost">Ghost</Button>
+          <Button variant="destructive">Destructive</Button>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Sizes" description="Four size options to fit different contexts.">
+        <div class="flex flex-wrap items-center gap-4">
+          <Button size="xs">XSmall</Button>
+          <Button size="sm">Small</Button>
+          <Button size="md">Medium</Button>
+          <Button size="lg">Large</Button>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="With Icons" description="Buttons can include icons for visual reinforcement.">
+        <div class="flex flex-wrap gap-4">
+          <Button icon="plus">Add Item</Button>
+          <Button icon="arrow-right" iconPosition="right">Continue</Button>
+          <Button icon="arrow-down-tray">Download</Button>
+          <Button variant="secondary" icon="pencil">Edit</Button>
+          <Button variant="outline" icon="share">Share</Button>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Icon Only" description="Compact buttons with just an icon.">
+        <div class="flex flex-wrap items-center gap-4">
+          <Button icon="plus" size="xs" aria-label="Add item" />
+          <Button icon="plus" size="sm" aria-label="Add item" />
+          <Button icon="plus" size="md" aria-label="Add item" />
+          <Button icon="plus" size="lg" aria-label="Add item" />
+        </div>
+        <div class="flex flex-wrap gap-4 mt-4">
+          <Button variant="secondary" icon="pencil" size="md" aria-label="Edit" />
+          <Button variant="tertiary" icon="cog-6-tooth" size="md" aria-label="Settings" />
+          <Button variant="outline" icon="share" size="md" aria-label="Share" />
+          <Button variant="ghost" icon="ellipsis-vertical" size="md" aria-label="More options" />
+          <Button variant="destructive" icon="trash" size="md" aria-label="Delete" />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="States" description="All button variants support multiple states: default, hover, pressed (active), focused, and disabled.">
+        <div class="space-y-6">
+          <div>
+            <h4 class="text-sm font-semibold mb-3">Theme Buttons - States</h4>
+            <div class="flex flex-wrap gap-4">
+              <Button variant="primary">Default</Button>
+              <Button variant="primary" disabled>Disabled</Button>
+              <Button variant="secondary">Default</Button>
+              <Button variant="secondary" disabled>Disabled</Button>
+              <Button variant="tertiary">Default</Button>
+              <Button variant="tertiary" disabled>Disabled</Button>
+            </div>
+            <p class="text-xs text-secondary mt-2">Hover, pressed, and focused states are shown on interaction.</p>
+          </div>
+          <div>
+            <h4 class="text-sm font-semibold mb-3">Page Header Buttons - States</h4>
+            <div class="flex flex-wrap gap-4">
+              <Button variant="primary" buttonType="pageHeader">Default</Button>
+              <Button variant="primary" buttonType="pageHeader" disabled>Disabled</Button>
+              <Button variant="secondary" buttonType="pageHeader">Default</Button>
+              <Button variant="secondary" buttonType="pageHeader" disabled>Disabled</Button>
+              <Button variant="tertiary" buttonType="pageHeader">Default</Button>
+              <Button variant="tertiary" buttonType="pageHeader" disabled>Disabled</Button>
+            </div>
+            <p class="text-xs text-secondary mt-2">Hover, pressed, and focused states are shown on interaction.</p>
+          </div>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Loading State" description="Buttons with loading spinner.">
+        <div class="flex flex-wrap gap-4">
+          <Button loading loadingText="Loading...">Submit</Button>
+          <Button variant="secondary" loading loadingText="Processing">Process</Button>
+          <Button variant="outline" loading loadingText="Saving...">Save</Button>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Full Width" description="Buttons that span the full container width.">
+        <div class="max-w-sm space-y-3">
+          <Button fullWidth>Full Width Primary</Button>
+          <Button variant="outline" fullWidth>Full Width Outline</Button>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Vertical Orientation" description="Buttons with vertical layout for icons and text.">
+        <div class="flex flex-wrap gap-4">
+          <Button variant="primary" orientation="vertical" icon="arrow-up">Up</Button>
+          <Button variant="secondary" orientation="vertical" icon="arrow-down">Down</Button>
+          <Button variant="tertiary" orientation="vertical" icon="arrow-left">Left</Button>
+          <Button variant="outline" orientation="vertical" icon="arrow-right">Right</Button>
+        </div>
+        <div class="flex flex-wrap gap-4 mt-4">
+          <Button variant="primary" buttonType="pageHeader" orientation="vertical" icon="arrow-up">Up</Button>
+          <Button variant="secondary" buttonType="pageHeader" orientation="vertical" icon="arrow-down">Down</Button>
+          <Button variant="tertiary" buttonType="pageHeader" orientation="vertical" icon="arrow-left">Left</Button>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Button Combinations" description="Common button patterns.">
+        <div class="space-y-4">
+          <div class="flex gap-3">
+            <Button variant="primary">Save Changes</Button>
+            <Button variant="ghost">Cancel</Button>
+          </div>
+          <div class="flex gap-3">
+            <Button variant="destructive" icon="trash">Delete</Button>
+            <Button variant="outline">Cancel</Button>
+          </div>
+          <div class="flex gap-3">
+            <Button variant="primary" icon="check">Confirm</Button>
+            <Button variant="secondary" icon="x-mark">Reject</Button>
+          </div>
+        </div>
+      </ExampleSection>
+    </section>
+
+    <section id="props">
+      <h2 class="section__title">Props</h2>
+      <PropsTable props={props} />
+    </section>
+
+    <section id="usage">
+      <h2 class="section__title">Usage Guidelines</h2>
+      
+      <div class="space-y-6">
+        <div>
+          <h3 class="text-lg font-semibold text-primary mb-2">When to Use Each Button Type</h3>
+          <ul class="space-y-2 text-sm text-secondary mb-4">
+            <li>• <strong>Theme Buttons:</strong> Use for general UI actions throughout the application. These use darker shades of the theme primary color to maintain visual hierarchy.</li>
+            <li>• <strong>Page Header Buttons:</strong> Use specifically in page headers and navigation areas. These use a dark blue color scheme (#043852) for consistency in header contexts.</li>
+          </ul>
+          <h3 class="text-lg font-semibold text-primary mb-2">When to Use Each Variant</h3>
+          <ul class="space-y-2 text-sm text-secondary">
+            <li>• <strong>Primary:</strong> Main call-to-action, one per section</li>
+            <li>• <strong>Secondary:</strong> Alternative actions, less prominent</li>
+            <li>• <strong>Tertiary:</strong> Subtle actions with theme-primary text color</li>
+            <li>• <strong>Outline:</strong> Secondary actions that need visibility</li>
+            <li>• <strong>Ghost:</strong> Minimal actions, toolbar buttons</li>
+            <li>• <strong>Destructive:</strong> Delete, remove, or irreversible actions</li>
+          </ul>
+        </div>
+
+        <div class="guidelines">
+          <div class="guideline-card guideline-card--do">
+            <h3 class="guideline-card__header">
+              <Icon name="check" size="sm" /> Do
+            </h3>
+            <ul class="guideline-card__list">
+              <li>• Use clear, action-oriented labels</li>
+              <li>• Limit primary buttons per view</li>
+              <li>• Provide visual feedback on interaction</li>
+              <li>• Use icons to reinforce meaning</li>
+              <li>• Maintain consistent sizing in groups</li>
+            </ul>
+          </div>
+          <div class="guideline-card guideline-card--dont">
+            <h3 class="guideline-card__header">
+              <Icon name="x-mark" size="sm" /> Don't
+            </h3>
+            <ul class="guideline-card__list">
+              <li>• Use vague labels like "Click Here"</li>
+              <li>• Disable buttons without explanation</li>
+              <li>• Mix too many variants in one area</li>
+              <li>• Use destructive style for safe actions</li>
+              <li>• Rely solely on color for meaning</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="accessibility" class="space-y-4">
+      <h2 class="section__title">Accessibility</h2>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="keyboard" size="sm" />
+          Keyboard Navigation
+        </h3>
+        <p class="a11y-card__text">
+          All buttons are focusable and can be activated with <kbd>Enter</kbd> or <kbd>Space</kbd>.
+        </p>
+      </div>
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="eye" size="sm" />
+          Icon-Only Buttons
+        </h3>
+        <p class="a11y-card__text">
+          Always include <code>aria-label</code> for icon-only buttons to provide context for screen readers.
+        </p>
+      </div>
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="cursor-arrow-rays" size="sm" />
+          Focus States
+        </h3>
+        <p class="a11y-card__text">
+          Buttons include visible focus indicators that meet WCAG 2.1 requirements for contrast.
+        </p>
+      </div>
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="no-symbol" size="sm" />
+          Disabled State
+        </h3>
+        <p class="a11y-card__text">
+          Disabled buttons are marked with <code>disabled</code> attribute. Explain why buttons are disabled via tooltip or adjacent text.
+        </p>
+      </div>
+    </section>
+  </article>
+</DocsLayout>

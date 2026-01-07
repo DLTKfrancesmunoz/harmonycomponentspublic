@@ -1,0 +1,118 @@
+---
+/**
+ * StepperInput Component
+ *
+ * Number input with increment/decrement buttons.
+ */
+import Icon from './Icon.astro';
+
+export interface Props {
+  value?: number;
+  min?: number;
+  max?: number;
+  step?: number;
+  name?: string;
+  id?: string;
+  disabled?: boolean;
+  class?: string;
+  [key: string]: any;
+}
+
+const {
+  value = 0,
+  min,
+  max,
+  step = 1,
+  name,
+  id,
+  disabled = false,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+const stepperId = id || `stepper-${Math.random().toString(36).substr(2, 9)}`;
+const classes = ['stepper', className].filter(Boolean).join(' ');
+---
+
+<div class={classes} data-stepper>
+  <button
+    type="button"
+    class="stepper__btn"
+    data-stepper-decrement
+    disabled={disabled || (min !== undefined && value <= min)}
+    aria-label="Decrease"
+  >
+    <Icon name="minus" />
+  </button>
+  <input
+    type="number"
+    value={value}
+    min={min}
+    max={max}
+    step={step}
+    name={name}
+    id={stepperId}
+    disabled={disabled}
+    class="stepper__input"
+    {...rest}
+  />
+  <button
+    type="button"
+    class="stepper__btn"
+    data-stepper-increment
+    disabled={disabled || (max !== undefined && value >= max)}
+    aria-label="Increase"
+  >
+    <Icon name="plus" />
+  </button>
+</div>
+
+<script>
+  function initSteppers() {
+    document.querySelectorAll('[data-stepper]').forEach((stepper) => {
+      if (stepper.hasAttribute('data-init')) return;
+      stepper.setAttribute('data-init', 'true');
+      
+      const input = stepper.querySelector('.stepper__input') as HTMLInputElement;
+      const decrementBtn = stepper.querySelector('[data-stepper-decrement]') as HTMLButtonElement;
+      const incrementBtn = stepper.querySelector('[data-stepper-increment]') as HTMLButtonElement;
+      
+      if (!input || !decrementBtn || !incrementBtn) return;
+      
+      const step = parseFloat(input.step) || 1;
+      const min = input.min ? parseFloat(input.min) : undefined;
+      const max = input.max ? parseFloat(input.max) : undefined;
+      
+      function updateButtons() {
+        const val = parseFloat(input.value) || 0;
+        decrementBtn.disabled = input.disabled || (min !== undefined && val <= min);
+        incrementBtn.disabled = input.disabled || (max !== undefined && val >= max);
+      }
+      
+      decrementBtn.addEventListener('click', () => {
+        const val = parseFloat(input.value) || 0;
+        const newVal = val - step;
+        if (min === undefined || newVal >= min) {
+          input.value = newVal.toString();
+          input.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+        updateButtons();
+      });
+      
+      incrementBtn.addEventListener('click', () => {
+        const val = parseFloat(input.value) || 0;
+        const newVal = val + step;
+        if (max === undefined || newVal <= max) {
+          input.value = newVal.toString();
+          input.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+        updateButtons();
+      });
+      
+      input.addEventListener('input', updateButtons);
+    });
+  }
+  
+  initSteppers();
+  document.addEventListener('astro:page-load', initSteppers);
+</script>

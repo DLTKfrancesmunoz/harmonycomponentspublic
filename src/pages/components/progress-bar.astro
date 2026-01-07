@@ -1,0 +1,75 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import PropsTable from '../../components/PropsTable.astro';
+import ExampleSection from '../../components/ExampleSection.astro';
+import ProgressBar from '../../components/ui/ProgressBar.astro';
+import Icon from '../../components/ui/Icon.astro';
+
+const props = [
+  { name: 'value', type: 'number', default: '0', description: 'Current progress value' },
+  { name: 'max', type: 'number', default: '100', description: 'Maximum value' },
+  { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Progress bar height' },
+  { name: 'variant', type: "'default' | 'success' | 'warning' | 'error'", default: "'default'", description: 'Color variant' },
+  { name: 'showLabel', type: 'boolean', default: 'false', description: 'Show percentage label' },
+];
+---
+
+<DocsLayout title="Progress Bar" description="Progress bar components for showing completion status.">
+  <article class="space-y-12">
+    <header class="page-header page-header--compact">
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="page-header__title page-header__title--sm">Progress Bar</h1>
+        <span class="badge badge--success">stable</span>
+      </div>
+      <p class="page-header__description">
+        Progress bars indicate the completion status of a task or process.
+      </p>
+    </header>
+
+    <nav class="article-nav">
+      <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
+      <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+    </nav>
+
+    <section id="examples" class="space-y-8">
+      <h2 class="section__title">Examples</h2>
+
+      <ExampleSection title="Basic Progress" description="Standard progress bars.">
+        <div class="space-y-4 max-w-md">
+          <ProgressBar value={25} />
+          <ProgressBar value={50} />
+          <ProgressBar value={75} />
+          <ProgressBar value={100} />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Sizes" description="Different progress bar sizes.">
+        <div class="space-y-4 max-w-md">
+          <ProgressBar value={60} size="sm" />
+          <ProgressBar value={60} size="md" />
+          <ProgressBar value={60} size="lg" />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Variants" description="Different color variants.">
+        <div class="space-y-4 max-w-md">
+          <ProgressBar value={75} />
+          <ProgressBar value={75} variant="success" />
+          <ProgressBar value={75} variant="warning" />
+          <ProgressBar value={75} variant="error" />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="With Label" description="Progress bar with percentage label.">
+        <div class="space-y-4 max-w-md">
+          <ProgressBar value={42} showLabel />
+        </div>
+      </ExampleSection>
+    </section>
+
+    <section id="props">
+      <h2 class="section__title">Props</h2>
+      <PropsTable props={props} />
+    </section>
+  </article>
+</DocsLayout>

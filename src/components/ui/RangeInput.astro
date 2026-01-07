@@ -1,0 +1,91 @@
+---
+/**
+ * RangeInput Component
+ * 
+ * Slider for selecting a value within a range.
+ */
+
+export interface Props {
+  value?: number;
+  min?: number;
+  max?: number;
+  step?: number;
+  name?: string;
+  id?: string;
+  disabled?: boolean;
+  showPercent?: boolean;
+  prefix?: string;
+  suffix?: string;
+  class?: string;
+  [key: string]: any;
+}
+
+const {
+  value = 50,
+  min = 0,
+  max = 100,
+  step = 1,
+  name,
+  id,
+  disabled = false,
+  showPercent = false,
+  prefix = '',
+  suffix = '',
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+const rangeId = id || `range-${Math.random().toString(36).substr(2, 9)}`;
+const displayValue = showPercent 
+  ? `${prefix}${Math.round((value - min) / (max - min) * 100)}%${suffix}` 
+  : `${prefix}${value}${suffix}`;
+
+const classes = ['range-wrap', className].filter(Boolean).join(' ');
+---
+
+<div class={classes}>
+  <input
+    type="range"
+    id={rangeId}
+    name={name}
+    value={value}
+    min={min}
+    max={max}
+    step={step}
+    disabled={disabled}
+    class="range"
+    data-show-percent={showPercent ? 'true' : undefined}
+    data-prefix={prefix || undefined}
+    data-suffix={suffix || undefined}
+    {...rest}
+  />
+  <span class="range-value" data-for={rangeId}>
+    {displayValue}
+  </span>
+</div>
+
+<script>
+  function initRanges() {
+    document.querySelectorAll('.range').forEach((el) => {
+      const input = el as HTMLInputElement;
+      const val = document.querySelector(`.range-value[data-for="${input.id}"]`);
+      if (!val || input.hasAttribute('data-init')) return;
+      input.setAttribute('data-init', '1');
+      
+      const update = () => {
+        const v = parseFloat(input.value);
+        const mn = parseFloat(input.min) || 0;
+        const mx = parseFloat(input.max) || 100;
+        const pct = input.dataset.showPercent === 'true';
+        const pre = input.dataset.prefix || '';
+        const suf = input.dataset.suffix || '';
+        val.textContent = pct ? `${pre}${Math.round((v - mn) / (mx - mn) * 100)}%${suf}` : `${pre}${v}${suf}`;
+      };
+      
+      input.addEventListener('input', update);
+    });
+  }
+  
+  initRanges();
+  document.addEventListener('astro:page-load', initRanges);
+</script>

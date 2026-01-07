@@ -1,0 +1,54 @@
+---
+/**
+ * RadioButton Component
+ * 
+ * Radio input for single selection from a group.
+ */
+
+export interface Props {
+  name: string;
+  id?: string;
+  checked?: boolean;
+  disabled?: boolean;
+  label?: string;
+  value: string;
+  class?: string;
+  [key: string]: any;
+}
+
+const {
+  name,
+  id,
+  checked = false,
+  disabled = false,
+  label,
+  value,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+const radioId = id || `radio-${Math.random().toString(36).substr(2, 9)}`;
+
+const classes = [
+  'radio',
+  disabled && 'radio--disabled',
+  className,
+].filter(Boolean).join(' ');
+---
+
+<label class={classes}>
+  <input
+    type="radio"
+    name={name}
+    id={radioId}
+    checked={checked}
+    disabled={disabled}
+    value={value}
+    class="radio__input"
+    {...rest}
+  />
+  <span class="radio__circle">
+    <span class="radio__dot"></span>
+  </span>
+  {label && <span class="radio__label">{label}</span>}
+</label>

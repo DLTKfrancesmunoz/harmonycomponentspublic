@@ -1,0 +1,55 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import ExampleSection from '../../components/ExampleSection.astro';
+import Icon from '../../components/ui/Icon.astro';
+import ListMenu from '../../components/ui/ListMenu.astro';
+---
+
+<DocsLayout title="List Menu" description="Vertical list menu for navigation.">
+  <article class="space-y-12">
+    <header class="page-header page-header--compact">
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="page-header__title page-header__title--sm">List Menu</h1>
+        <span class="badge badge--success">stable</span>
+      </div>
+      <p class="page-header__description">
+        List menus display a vertical list of interactive items for navigation or selection.
+      </p>
+    </header>
+
+    <nav class="article-nav">
+      <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
+    </nav>
+
+    <section id="examples" class="space-y-8">
+      <h2 class="section__title">Examples</h2>
+
+      <ExampleSection title="Basic List Menu" description="Standard navigation menu.">
+        <div class="max-w-xs">
+          <ListMenu
+            items={[
+              { icon: 'home', label: 'Dashboard', active: true },
+              { icon: 'user', label: 'Profile' },
+              { icon: 'cog-6-tooth', label: 'Settings' },
+              { icon: 'arrow-right-on-rectangle', label: 'Logout' },
+            ]}
+          />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="With Links" description="Menu as navigation links.">
+        <div class="max-w-xs">
+          <ListMenu
+            as="link"
+            items={[
+              { icon: 'document', label: 'Documents', href: '#', active: true },
+              { icon: 'photo', label: 'Images', href: '#' },
+              { icon: 'film', label: 'Videos', href: '#' },
+              { icon: 'musical-note', label: 'Audio', href: '#' },
+            ]}
+          />
+        </div>
+      </ExampleSection>
+    </section>
+  </article>
+</DocsLayout>

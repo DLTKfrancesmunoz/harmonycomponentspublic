@@ -1,0 +1,55 @@
+---
+/**
+ * Checkbox Component
+ *
+ * Checkbox input for boolean selections.
+ */
+import Icon from './Icon.astro';
+
+export interface Props {
+  name?: string;
+  id?: string;
+  checked?: boolean;
+  disabled?: boolean;
+  label?: string;
+  value?: string;
+  class?: string;
+  [key: string]: any;
+}
+
+const {
+  name,
+  id,
+  checked = false,
+  disabled = false,
+  label,
+  value,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+const checkboxId = id || `checkbox-${Math.random().toString(36).substr(2, 9)}`;
+
+const classes = [
+  'checkbox',
+  disabled && 'checkbox--disabled',
+  className,
+].filter(Boolean).join(' ');
+---
+
+<label class={classes}>
+  <input
+    type="checkbox"
+    name={name}
+    id={checkboxId}
+    checked={checked}
+    disabled={disabled}
+    value={value}
+    class="checkbox__input"
+    {...rest}
+  />
+  <span class="checkbox__box">
+    <Icon name="check" class="checkbox__icon" />
+  </span>
+  {label && <span class="checkbox__label">{label}</span>}
+</label>

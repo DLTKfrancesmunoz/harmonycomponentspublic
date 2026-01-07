@@ -1,0 +1,73 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import Icon from '../../components/ui/Icon.astro';
+import PropsTable from '../../components/PropsTable.astro';
+import Icon from '../../components/ui/Icon.astro';
+import ExampleSection from '../../components/ExampleSection.astro';
+import Icon from '../../components/ui/Icon.astro';
+import Dialog from '../../components/ui/Dialog.astro';
+import Icon from '../../components/ui/Icon.astro';
+import Button from '../../components/ui/Button.astro';
+import Icon from '../../components/ui/Icon.astro';
+
+const props = [
+  { name: 'id', type: 'string', default: '—', description: 'Unique dialog id (required)' },
+  { name: 'title', type: 'string', default: '—', description: 'Dialog title' },
+];
+---
+
+<DocsLayout title="Dialogs" description="Dialog/modal components for focused interactions.">
+  <article class="space-y-12">
+    <header class="page-header page-header--compact">
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="page-header__title page-header__title--sm">Dialogs</h1>
+        <span class="badge badge--success">stable</span>
+      </div>
+      <p class="page-header__description">
+        Dialogs (modals) focus user attention on important information or actions that require immediate response.
+      </p>
+    </header>
+
+    <nav class="article-nav">
+      <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
+      <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+    </nav>
+
+    <section id="examples" class="space-y-8">
+      <h2 class="section__title">Examples</h2>
+
+      <ExampleSection title="Basic Dialog" description="Click to open a dialog.">
+        <Button onclick="openDialog('basic-dialog')">Open Dialog</Button>
+        
+        <Dialog id="basic-dialog" title="Dialog Title">
+          <p class="text-secondary">
+            This is a basic dialog with some content. You can add any content here including forms, images, or other components.
+          </p>
+          <div slot="footer">
+            <Button variant="ghost" onclick="closeDialog('basic-dialog')">Cancel</Button>
+            <Button onclick="closeDialog('basic-dialog')">Confirm</Button>
+          </div>
+        </Dialog>
+      </ExampleSection>
+
+      <ExampleSection title="Confirmation Dialog" description="Dialog for confirming actions.">
+        <Button variant="destructive" onclick="openDialog('confirm-dialog')">Delete Item</Button>
+        
+        <Dialog id="confirm-dialog" title="Delete Item?">
+          <p class="text-secondary">
+            Are you sure you want to delete this item? This action cannot be undone.
+          </p>
+          <div slot="footer">
+            <Button variant="ghost" onclick="closeDialog('confirm-dialog')">Cancel</Button>
+            <Button variant="destructive" onclick="closeDialog('confirm-dialog')">Delete</Button>
+          </div>
+        </Dialog>
+      </ExampleSection>
+    </section>
+
+    <section id="props">
+      <h2 class="section__title">Props</h2>
+      <PropsTable props={props} />
+    </section>
+  </article>
+</DocsLayout>

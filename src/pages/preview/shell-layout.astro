@@ -1,0 +1,79 @@
+---
+/**
+ * Standalone Preview Page for ShellLayout
+ * 
+ * View the component in isolation without documentation.
+ * Access at: /preview/shell-layout
+ */
+import '../../styles/global.css';
+import ShellLayout from '../../components/ui/ShellLayout.astro';
+import Card from '../../components/ui/Card.astro';
+
+const sampleTabs = [
+  { id: '1', label: 'Dashboard', active: true },
+  { id: '2', label: 'Projects', active: false },
+  { id: '3', label: 'Reports', active: false },
+  { id: '4', label: 'Settings', active: false },
+];
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script is:inline>
+      // Immediately apply saved theme to prevent flash
+      (function() {
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const savedColorTheme = localStorage.getItem('colorTheme') || 'cp';
+        if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+        document.documentElement.classList.add('theme-' + savedColorTheme);
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ShellLayout Preview</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      html, body {
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <ShellLayout
+      productName="Harmony"
+      logoSrc="/logos/CPVPLogo.svg"
+      companyName="Acme Corporation"
+      showCompanyPicker={true}
+      showFloatingNav={true}
+      floatingNavVariant="full"
+      showExecute={true}
+      saveDisabled={false}
+      tabs={sampleTabs}
+      showMoreTabs={false}
+      showAddTab={true}
+      footerVariant="default"
+    >
+      <div style="max-width: 1200px; margin: 0 auto; padding: 24px;">
+        <Card primary>
+          <div style="padding: 24px;">
+            <h2 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 8px;">Page Content Area</h2>
+            <p style="color: var(--text-secondary, #666);">
+              This is where your application content lives. The shell provides the structure,
+              and you provide the content.
+            </p>
+          </div>
+        </Card>
+      </div>
+    </ShellLayout>
+  </body>
+</html>
+

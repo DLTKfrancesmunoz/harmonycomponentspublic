@@ -1,0 +1,353 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import ExampleSection from '../../components/ExampleSection.astro';
+import ShellLayout from '../../components/ui/ShellLayout.astro';
+import Card from '../../components/ui/Card.astro';
+import Icon from '../../components/ui/Icon.astro';
+
+const sampleTabs = [
+  { id: '1', label: 'Dashboard', active: true },
+  { id: '2', label: 'Projects', active: false },
+  { id: '3', label: 'Reports', active: false },
+  { id: '4', label: 'Settings', active: false },
+];
+---
+
+<DocsLayout
+  title="Shell Layout"
+  description="Orchestrator pattern that combines header, navigation, sidebars, and content areas into a complete application shell that adapts to different themes."
+>
+  <article class="space-y-12">
+    <header class="page-header page-header--compact">
+      <div class="flex gap-3 items-center mb-4">
+        <span class="badge badge--primary">Pattern Component</span>
+        <span class="badge badge--secondary">Theme Adaptive</span>
+      </div>
+      <h1 class="page-header__title page-header__title--sm">Shell Layout</h1>
+      <p class="page-header__description">
+        The Shell Layout is an orchestrator component that brings together all shell pieces
+        (header, navigation, sidebars, footer) into a cohesive application structure. It automatically
+        adapts to different themes, making it the perfect starting point for building applications
+        in the Harmony Design System.
+      </p>
+    </header>
+
+    <section class="space-y-6">
+      <div>
+        <h2 class="section__title">Live Interactive Demo</h2>
+        <p class="text-secondary">
+          Switch themes using the picker in the top header to see how the shell layout adapts.
+          CP theme includes a floating navigation and no footer, while VP/PPM/Maconomy themes
+          include a footer and no floating navigation.
+        </p>
+      </div>
+
+      <ExampleSection title="Full Shell Layout">
+        <div class="shell-demo-container">
+          <ShellLayout
+            productName="Harmony"
+            logoSrc="/logos/CPVPLogo.svg"
+            companyName="Acme Corporation"
+            showCompanyPicker={true}
+            showFloatingNav={true}
+            floatingNavVariant="full"
+            showExecute={true}
+            saveDisabled={false}
+            tabs={sampleTabs}
+            showMoreTabs={false}
+            showAddTab={true}
+            footerVariant="default"
+          >
+            <div class="shell-demo-content">
+              <Card primary>
+                <div class="p-6">
+                  <h2 class="text-xl font-semibold mb-2">Page Content Area</h2>
+                  <p class="text-secondary">
+                    This is where your application content lives. The shell provides the structure,
+                    and you provide the content. Scroll down to see more.
+                  </p>
+                </div>
+              </Card>
+
+              <div class="demo-spacing"></div>
+
+              <Card primary>
+                <div class="p-6">
+                  <h3 class="font-semibold mb-3">Theme Adaptation</h3>
+                  <p class="text-sm text-secondary mb-3">
+                    The shell automatically detects the current theme and renders
+                    the appropriate layout structure.
+                  </p>
+                  <ul class="text-sm text-secondary space-y-2">
+                    <li>• <strong>CP:</strong> Floating nav toolbar with collapsible sidebars</li>
+                    <li>• <strong>VP/PPM/Maconomy:</strong> Tab-based footer navigation</li>
+                  </ul>
+                </div>
+              </Card>
+
+              <div class="demo-spacing"></div>
+
+              <Card primary>
+                <div class="p-6">
+                  <h3 class="font-semibold mb-3">Interactive Demo</h3>
+                  <p class="text-sm text-secondary">
+                    Switch themes using the picker in the top header. Notice how the sidebars and
+                    navigation stay fixed while this content area scrolls independently.
+                  </p>
+                </div>
+              </Card>
+            </div>
+          </ShellLayout>
+        </div>
+      </ExampleSection>
+    </section>
+
+    <section class="space-y-6">
+      <div>
+        <h2 class="section__title">Theme-Specific Layouts</h2>
+        <p class="text-secondary">
+          Each theme has its own navigation paradigm optimized for its user workflows.
+        </p>
+      </div>
+
+      <div class="space-y-4">
+        <details class="details-card">
+          <summary class="details-card__summary">
+            <span class="badge badge--cp mr-3">CP</span>
+            <span class="font-semibold">Costpoint Layout</span>
+          </summary>
+          <div class="details-card__content">
+            <div class="space-y-4">
+              <div>
+                <h4 class="font-semibold mb-2">Structure</h4>
+                <ul class="text-sm text-secondary space-y-1">
+                  <li>• Fixed header at top (56px height)</li>
+                  <li>• Floating navigation toolbar below header</li>
+                  <li>• Left sidebar (collapsible, vertically centered)</li>
+                  <li>• Right sidebar (collapsible, vertically centered)</li>
+                  <li>• Scrollable main content area</li>
+                  <li>• <strong>No footer</strong> - navigation is handled by floating nav and sidebars</li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="font-semibold mb-2">Key Features</h4>
+                <ul class="text-sm text-secondary space-y-1">
+                  <li>• Floating toolbar provides quick access to Execute, Actions, Refresh, and Save</li>
+                  <li>• Sidebars expand on hover to show full labels</li>
+                  <li>• Optimized for data entry and complex workflows</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <details class="details-card">
+          <summary class="details-card__summary">
+            <span class="badge badge--vp mr-3">VP</span>
+            <span class="font-semibold">Vantagepoint Layout</span>
+          </summary>
+          <div class="details-card__content">
+            <div class="space-y-4">
+              <div>
+                <h4 class="font-semibold mb-2">Structure</h4>
+                <ul class="text-sm text-secondary space-y-1">
+                  <li>• Fixed header at top (56px height)</li>
+                  <li>• Scrollable main content area</li>
+                  <li>• Fixed footer with tab navigation (48px height)</li>
+                  <li>• <strong>No floating nav</strong> - uses footer for navigation</li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="font-semibold mb-2">Key Features</h4>
+                <ul class="text-sm text-secondary space-y-1">
+                  <li>• Tab-based footer for managing multiple open views</li>
+                  <li>• Consistent with VP's document-centric workflow</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <details class="details-card">
+          <summary class="details-card__summary">
+            <span class="badge badge--ppm mr-3">PPM</span>
+            <span class="font-semibold">PPM Layout</span>
+          </summary>
+          <div class="details-card__content">
+            <div class="space-y-4">
+              <div>
+                <h4 class="font-semibold mb-2">Structure</h4>
+                <ul class="text-sm text-secondary space-y-1">
+                  <li>• Same structure as VP theme</li>
+                  <li>• Fixed header, content, and footer</li>
+                  <li>• Styled with PPM's primary color (#1D8DFF)</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <details class="details-card">
+          <summary class="details-card__summary">
+            <span class="badge badge--maconomy mr-3">Maconomy</span>
+            <span class="font-semibold">Maconomy Layout</span>
+          </summary>
+          <div class="details-card__content">
+            <div class="space-y-4">
+              <div>
+                <h4 class="font-semibold mb-2">Structure</h4>
+                <ul class="text-sm text-secondary space-y-1">
+                  <li>• Same structure as VP/PPM themes</li>
+                  <li>• Fixed header, content, and footer</li>
+                  <li>• Styled with Maconomy's primary color (#1D8DFF)</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="space-y-6">
+      <div>
+        <h2 class="section__title">Usage Guidelines</h2>
+        <p class="text-secondary">When and how to use the Shell Layout pattern.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <Card elevated>
+          <div class="p-4">
+            <div class="flex items-start gap-3">
+              <span class="text-2xl">✓</span>
+              <div>
+                <h3 class="font-semibold mb-2 text-success">Do Use For</h3>
+                <ul class="text-sm space-y-1">
+                  <li>• Full application shells</li>
+                  <li>• Multi-page applications</li>
+                  <li>• Complex workflows needing persistent navigation</li>
+                  <li>• Applications that need to adapt to all themes</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </Card>
+
+        <Card elevated>
+          <div class="p-4">
+            <div class="flex items-start gap-3">
+              <span class="text-2xl">✗</span>
+              <div>
+                <h3 class="font-semibold mb-2 text-error">Don't Use For</h3>
+                <ul class="text-sm space-y-1">
+                  <li>• Single-page focused applications</li>
+                  <li>• Marketing/landing pages</li>
+                  <li>• Embedded widgets or components</li>
+                  <li>• Documentation sites (use DocsLayout)</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </Card>
+      </div>
+    </section>
+
+    <section class="space-y-6">
+      <div>
+        <h2 class="section__title">Shell Components</h2>
+        <p class="text-secondary">
+          The Shell Layout orchestrates these individual components. Click to view detailed documentation.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <a href="/shell/header" class="nav-card">
+          <div class="nav-card__icon-wrap">
+            <Icon name="rectangle-group" size="sm" class="nav-card__icon" />
+          </div>
+          <span class="nav-card__title">Header</span>
+        </a>
+
+        <a href="/shell/footer" class="nav-card">
+          <div class="nav-card__icon-wrap">
+            <Icon name="window" size="sm" class="nav-card__icon" />
+          </div>
+          <span class="nav-card__title">Footer</span>
+        </a>
+
+        <a href="/cp/floating-nav" class="nav-card">
+          <div class="nav-card__icon-wrap">
+            <Icon name="squares-2x2" size="sm" class="nav-card__icon" />
+          </div>
+          <span class="nav-card__title">Floating Nav</span>
+        </a>
+
+        <a href="/shell/left-sidebar" class="nav-card">
+          <div class="nav-card__icon-wrap">
+            <Icon name="bars-3" size="sm" class="nav-card__icon" />
+          </div>
+          <span class="nav-card__title">Left Sidebar</span>
+        </a>
+
+        <a href="/shell/right-sidebar" class="nav-card">
+          <div class="nav-card__icon-wrap">
+            <Icon name="ellipsis-vertical" size="sm" class="nav-card__icon" />
+          </div>
+          <span class="nav-card__title">Right Sidebar</span>
+        </a>
+      </div>
+    </section>
+  </article>
+</DocsLayout>
+
+<style>
+  .shell-demo-container {
+    height: 700px;
+    width: 100%;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    background: var(--page-bg);
+    position: relative;
+    /* Create a new containing block for fixed-position children */
+    transform: translateZ(0);
+    isolation: isolate;
+  }
+
+  .shell-demo-content {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .demo-spacing {
+    height: 24px;
+  }
+
+  .details-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  .details-card__summary {
+    padding: 16px;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    transition: background 0.2s;
+  }
+
+  .details-card__summary:hover {
+    background: var(--hover-bg);
+  }
+
+  .details-card__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .details-card__content {
+    padding: 0 16px 16px 16px;
+    border-top: 1px solid var(--border-color);
+  }
+</style>

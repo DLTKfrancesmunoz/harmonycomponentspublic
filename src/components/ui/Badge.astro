@@ -1,0 +1,31 @@
+---
+/**
+ * Badge Component
+ *
+ * Small status indicator or label.
+ */
+import Icon from './Icon.astro';
+
+export interface Props {
+  variant?: 'default' | 'primary' | 'success' | 'warning' | 'error' | 'info' | 'orange' | 'pink' | 'disabled';
+  icon?: string; // Heroicon name (e.g., "check", "x-mark")
+  class?: string;
+}
+
+const {
+  variant = 'default',
+  icon,
+  class: className = '',
+} = Astro.props;
+
+const classes = [
+  'badge',
+  `badge--${variant}`,
+  className,
+].filter(Boolean).join(' ');
+---
+
+<span class={classes}>
+  {icon && <Icon name={icon} size="xs" />}
+  <slot />
+</span>

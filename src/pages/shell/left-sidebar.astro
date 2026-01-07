@@ -1,0 +1,141 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import ExampleSection from '../../components/ExampleSection.astro';
+import CPLeftSidebar from '../../components/ui/CPLeftSidebar.astro';
+import Icon from '../../components/ui/Icon.astro';
+---
+
+<DocsLayout title="Left Sidebar" description="CP left navigation sidebar docked to the left edge of the screen.">
+  <article class="space-y-12">
+    <header class="page-header page-header--compact">
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="page-header__title page-header__title--sm">Left Sidebar</h1>
+        <span class="badge badge--primary">CP Shell</span>
+      </div>
+      <p class="page-header__description">
+        A collapsible left navigation sidebar that is docked to the left edge of the screen. Shows only icons when collapsed, expands on hover to reveal icon + text labels.
+      </p>
+    </header>
+
+    <section class="space-y-6">
+      <h2 class="section__title">Live Demo</h2>
+      
+      <ExampleSection title="Left Sidebar - Collapsed/Expanded" description="Hover over the sidebar to see it expand with labels.">
+        <div class="cp-sidebar-demo">
+          <div class="cp-sidebar-demo__sidebar">
+            <CPLeftSidebar />
+          </div>
+          
+          <div class="cp-sidebar-demo__content">
+            <p class="text-secondary text-sm">
+              The left sidebar is docked to the left edge. Hover over it to see the expanded state with labels.
+            </p>
+            <p class="text-secondary text-sm mt-4">
+              <strong>Section 1 - Main Navigation:</strong>
+            </p>
+            <ul class="list-disc list-inside text-sm text-secondary mt-2 space-y-1">
+              <li>Welcome screen</li>
+              <li>Dashboard</li>
+              <li>My menu</li>
+              <li>Recent</li>
+            </ul>
+            <p class="text-secondary text-sm mt-4">
+              <strong>Section 2 - Application Modules:</strong>
+            </p>
+            <ul class="list-disc list-inside text-sm text-secondary mt-2 space-y-1">
+              <li>Search</li>
+              <li>Command Center</li>
+              <li>Accounting</li>
+              <li>Planning</li>
+              <li>Capture & contracts</li>
+              <li>Projects</li>
+              <li>Materials</li>
+              <li>Time & expense</li>
+              <li>People</li>
+              <li>Reports</li>
+              <li>Admin</li>
+            </ul>
+          </div>
+        </div>
+      </ExampleSection>
+    </section>
+
+    <section class="space-y-6">
+      <h2 class="section__title">Behavior</h2>
+      <div class="grid gap-4 md:grid-cols-2">
+        <div class="a11y-card">
+          <h3 class="a11y-card__title">
+            <Icon name="arrows-right-left" size="sm" class="a11y-card__title-icon" />
+            Collapsible
+          </h3>
+          <p class="a11y-card__text">
+            Collapsed by default showing only icons (~52px width). Expands on hover to reveal labels (~220px width).
+          </p>
+        </div>
+        
+        <div class="a11y-card">
+          <h3 class="a11y-card__title">
+            <Icon name="squares-2x2" size="sm" class="a11y-card__title-icon" />
+            Fixed Position
+          </h3>
+          <p class="a11y-card__text">
+            Docked to the left edge of the viewport, vertically centered. Stays in place while content scrolls.
+          </p>
+        </div>
+        
+        <div class="a11y-card">
+          <h3 class="a11y-card__title">
+            <Icon name="squares-plus" size="sm" class="a11y-card__title-icon" />
+            Two Sections
+          </h3>
+          <p class="a11y-card__text">
+            Organized into two distinct sections: main navigation (4 items) and application modules (11 items).
+          </p>
+        </div>
+        
+        <div class="a11y-card">
+          <h3 class="a11y-card__title">
+            <Icon name="arrow-right" size="sm" class="a11y-card__title-icon" />
+            Smooth Animation
+          </h3>
+          <p class="a11y-card__text">
+            CSS transitions provide smooth expand/collapse animation with 200ms duration.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="space-y-6">
+      <h2 class="section__title">Styling</h2>
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="paint-brush" size="sm" class="a11y-card__title-icon" />
+          Visual Properties
+        </h3>
+        <div class="a11y-card__text space-y-2">
+          <ul class="list-disc list-inside space-y-1 text-sm">
+            <li><strong>Background:</strong> <code>#fcfdff</code></li>
+            <li><strong>Border:</strong> <code>#ffffff</code> (white)</li>
+            <li><strong>Border Radius:</strong> 12px (top-right and bottom-right only)</li>
+            <li><strong>Shadow:</strong> <code>0px 12px 40px rgba(16, 24, 64, 0.24)</code></li>
+            <li><strong>Icon Color:</strong> <code>#373f4e</code></li>
+            <li><strong>Hover Background:</strong> <code>rgba(55, 63, 78, 0.08)</code></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="space-y-6">
+      <h2 class="section__title">Accessibility</h2>
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="hand-raised" size="sm" class="a11y-card__title-icon" />
+          Keyboard Navigation
+        </h3>
+        <p class="a11y-card__text">
+          All navigation items are keyboard accessible. Use <kbd>Tab</kbd> to navigate between items and <kbd>Enter</kbd> to activate them.
+        </p>
+      </div>
+    </section>
+  </article>
+</DocsLayout>

@@ -1,0 +1,108 @@
+---
+/**
+ * Search Component
+ * 
+ * Search functionality for navigation items.
+ */
+
+import { navigation } from '../data/navigation';
+
+// Flatten all items for search
+const allItems = navigation.flatMap(section => 
+  section.items.map(item => ({
+    ...item,
+    section: section.title
+  }))
+);
+---
+
+<div class="search-container">
+  <script define:vars={{ allItems }}>
+    window.searchData = allItems;
+  </script>
+</div>
+
+<script>
+  const searchInput = document.getElementById('search-input');
+  const searchResults = document.getElementById('search-results');
+  
+  if (searchInput && searchResults) {
+    const searchData = (window as any).searchData || [];
+    
+    searchInput.addEventListener('input', (e) => {
+      const query = (e.target as HTMLInputElement).value.toLowerCase().trim();
+      
+      if (query.length < 2) {
+        searchResults.classList.remove('is-open');
+        return;
+      }
+      
+      const results = searchData.filter((item: any) => 
+        item.title.toLowerCase().includes(query) ||
+        item.section.toLowerCase().includes(query)
+      );
+      
+      if (results.length === 0) {
+        searchResults.innerHTML = `
+          <div class="search__no-results">
+            No results found for "${query}"
+          </div>
+        `;
+      } else {
+        searchResults.innerHTML = results.map((item: any) => `
+          <a href="${item.href}" class="search__result-item">
+            <div class="search__result-title">${item.title}</div>
+            <div class="search__result-section">${item.section}</div>
+          </a>
+        `).join('');
+      }
+      
+      searchResults.classList.add('is-open');
+    });
+    
+    // Close on click outside
+    document.addEventListener('click', (e) => {
+      if (!searchInput.contains(e.target as Node) && !searchResults.contains(e.target as Node)) {
+        searchResults.classList.remove('is-open');
+      }
+    });
+    
+    // Close on escape
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        searchResults.classList.remove('is-open');
+        searchInput.blur();
+      }
+    });
+  }
+</script>
+
+<style>
+  .search__no-results {
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+  
+  .search__result-item {
+    display: block;
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--text-sm);
+    text-decoration: none;
+    transition: background-color var(--transition-fast);
+  }
+  
+  .search__result-item:hover {
+    background-color: var(--hover-bg);
+  }
+  
+  .search__result-title {
+    font-weight: var(--font-medium);
+    color: var(--text-primary);
+  }
+  
+  .search__result-section {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+  }
+</style>

@@ -1,0 +1,137 @@
+{
+  "$schema": "https://harmony-ds.com/tokens/elevations.schema.json",
+  "name": "Harmony Design System Elevations",
+  "version": "1.0.0",
+  "description": "A layered shadow system that creates depth and visual hierarchy",
+
+  "shadows": {
+    "none": {
+      "value": "none",
+      "css": "none",
+      "cssVar": "--shadow-none",
+      "cssClass": "shadow-none",
+      "level": 0,
+      "description": "No shadow, ground level"
+    },
+    "sm": {
+      "value": "0 1px 2px 0 rgb(15 23 42 / 0.05)",
+      "css": "0 1px 2px 0 rgb(15 23 42 / 0.05)",
+      "cssVar": "--shadow-sm",
+      "cssClass": "shadow-sm",
+      "level": 1,
+      "description": "Subtle elevation for buttons and small elements",
+      "usage": ["Buttons", "Inputs", "Small cards"]
+    },
+    "default": {
+      "value": "0 1px 3px 0 rgb(15 23 42 / 0.1), 0 1px 2px -1px rgb(15 23 42 / 0.1)",
+      "css": "0 1px 3px 0 rgb(15 23 42 / 0.1), 0 1px 2px -1px rgb(15 23 42 / 0.1)",
+      "cssVar": "--shadow-md",
+      "cssClass": "shadow-md",
+      "level": 1,
+      "description": "Default elevation for cards and containers",
+      "usage": ["Cards", "Dropdowns", "Tooltips"]
+    },
+    "md": {
+      "value": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+      "css": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+      "cssVar": "--shadow-md",
+      "cssClass": "shadow-md",
+      "level": 2,
+      "description": "Medium elevation for floating elements",
+      "usage": ["Floating menus", "Popovers"]
+    },
+    "lg": {
+      "value": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)",
+      "css": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)",
+      "cssVar": "--shadow-lg",
+      "cssClass": "shadow-lg",
+      "level": 3,
+      "description": "High elevation for prominent elements",
+      "usage": ["Modals", "Dialogs", "Notifications"]
+    },
+    "xl": {
+      "value": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+      "css": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+      "cssVar": "--shadow-xl",
+      "cssClass": "shadow-xl",
+      "level": 4,
+      "description": "Extra high elevation for overlays",
+      "usage": ["Full-screen modals", "Image lightboxes"]
+    },
+    "2xl": {
+      "value": "0 25px 50px -12px rgb(15 23 42 / 0.25)",
+      "css": "0 25px 50px -12px rgb(15 23 42 / 0.25)",
+      "cssVar": "--shadow-2xl",
+      "cssClass": "shadow-2xl",
+      "level": 5,
+      "description": "Maximum elevation for dramatic effect",
+      "usage": ["Hero images", "Featured content"]
+    },
+    "elevation-2": {
+      "value": "0px 3px 6px 0px rgba(16, 24, 64, 0.12)",
+      "css": "0px 3px 6px 0px rgba(16, 24, 64, 0.12)",
+      "cssVar": "--shadow-elevation-2",
+      "cssClass": "shadow-elevation-2",
+      "level": 2,
+      "description": "Elevation 2 shadow for enhanced alerts and elevated elements",
+      "usage": ["Enhanced alerts", "Elevated containers"]
+    }
+  },
+
+  "hierarchy": [
+    {
+      "level": 0,
+      "name": "Ground Level",
+      "shadow": "none",
+      "description": "Page background, no shadow"
+    },
+    {
+      "level": 1,
+      "name": "Raised",
+      "shadow": "shadow-sm",
+      "description": "Cards, containers, buttons"
+    },
+    {
+      "level": 2,
+      "name": "Floating",
+      "shadow": "shadow-md",
+      "description": "Dropdowns, menus, popovers"
+    },
+    {
+      "level": 3,
+      "name": "Overlay",
+      "shadow": "shadow-lg",
+      "description": "Modals, dialogs"
+    },
+    {
+      "level": 4,
+      "name": "Prominent",
+      "shadow": "shadow-xl",
+      "description": "Focus elements, highlighted content"
+    }
+  ],
+
+  "borders": {
+    "default": {
+      "cssClass": "border",
+      "description": "Standard border for cards and containers"
+    },
+    "strong": {
+      "cssClass": "border-2",
+      "description": "Thicker border for emphasis"
+    },
+    "focusRing": {
+      "css": "0 0 0 3px var(--theme-primary-light)",
+      "description": "Focus state indicator"
+    }
+  },
+
+  "componentDefaults": {
+    "button": "shadow-sm",
+    "card": "shadow-sm",
+    "cardElevated": "shadow-lg",
+    "dropdown": "shadow-lg",
+    "modal": "shadow-xl",
+    "tooltip": "shadow-md"
+  }
+}

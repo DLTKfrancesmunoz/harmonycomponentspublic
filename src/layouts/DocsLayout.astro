@@ -1,0 +1,362 @@
+---
+import '../styles/global.css';
+import { navigation, componentCount } from '../data/navigation';
+import { themeConfig } from '../data/theme-config';
+import Icon from '../components/ui/Icon.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+const currentPath = Astro.url.pathname;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script is:inline>
+    // Immediately apply saved theme to prevent flash
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      const savedColorTheme = localStorage.getItem('colorTheme') || 'cp';
+      if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+      document.documentElement.classList.add('theme-' + savedColorTheme);
+    })();
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title} | Design System</title>
+  <meta name="description" content={description || 'Design System Documentation'}>
+  
+  <!-- Heroicons - Icon library used throughout components -->
+  <!-- See: https://heroicons.com/ -->
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+</head>
+
+<body>
+  <div class="page-wrapper">
+    <!-- TOP HEADER -->
+    <header class="header">
+      <!-- Brand / Left -->
+      <div class="header__brand">
+        <a href="/" class="header__brand-link">
+          <img id="header-logo" src="/logos/CPVPLogo.svg" alt="Logo" class="header__logo" />
+          <h1 class="header__title">
+            Harmony <span id="header-product-name" class="header__title-product">CP</span> <span class="header__title-suffix">Design System</span>
+          </h1>
+        </a>
+      </div>
+      
+      <!-- Center - Search -->
+      <div class="header__center">
+        <div class="search">
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Search components..."
+            class="search__input"
+          >
+          <Icon name="magnifying-glass" size="sm" class="search__icon" />
+          <kbd class="search__kbd">⌘K</kbd>
+
+          <!-- Search Results Dropdown -->
+          <div id="search-results" class="search__results"></div>
+        </div>
+      </div>
+
+      <!-- Right Actions -->
+      <div class="header__actions">
+        <!-- Theme Switcher -->
+        <div class="theme-picker">
+          <button id="theme-picker-btn" class="theme-picker__btn">
+            <Icon name="swatch" size="sm" class="theme-picker__btn-icon" />
+            <span id="current-theme-name" class="theme-picker__btn-text">CP</span>
+            <Icon name="chevron-down" size="xs" class="theme-picker__btn-chevron" />
+          </button>
+          
+          <div id="theme-picker-menu" class="theme-picker__menu">
+            <button data-theme="cp" class="theme-picker__option">
+              <span class="theme-picker__option-name">CP</span>
+              <span class="theme-picker__option-swatch" style="background: #1D8DFF"></span>
+            </button>
+            <button data-theme="vp" class="theme-picker__option">
+              <span class="theme-picker__option-name">VP</span>
+              <span class="theme-picker__option-swatch" style="background: #1D8DFF"></span>
+            </button>
+            <button data-theme="ppm" class="theme-picker__option">
+              <span class="theme-picker__option-name">PPM</span>
+              <span class="theme-picker__option-swatch" style="background: #1D8DFF"></span>
+            </button>
+            <button data-theme="maconomy" class="theme-picker__option">
+              <span class="theme-picker__option-name">Maconomy</span>
+              <span class="theme-picker__option-swatch" style="background: #1D8DFF"></span>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Theme Toggle -->
+        <button id="theme-toggle" class="icon-btn">
+          <Icon name="sun" size="sm" class="icon-btn__icon sun-icon" />
+          <Icon name="moon" size="sm" class="icon-btn__icon moon-icon hidden" />
+        </button>
+
+        <div class="divider"></div>
+
+        <a href="https://github.com" target="_blank" class="icon-btn">
+          <Icon name="code-bracket" size="sm" class="icon-btn__icon" />
+        </a>
+      </div>
+    </header>
+    
+    <!-- CONTENT WRAPPER -->
+    <div class="content-wrapper">
+      <!-- LEFT SIDEBAR -->
+      <aside class="sidebar">
+        <div class="sidebar__header">
+          <div class="sidebar__label">Navigation</div>
+          <div class="sidebar__stats">
+            <Icon name="squares-plus" size="sm" class="sidebar__stats-icon" />
+            {componentCount} Sections
+          </div>
+        </div>
+
+        <nav class="nav">
+          {navigation.map((section) => (
+            <>
+              <div class="nav__section-title">
+                {section.title}
+              </div>
+              {section.items.map((item) => (
+                <a
+                  href={item.href}
+                  class={`nav__item ${currentPath === item.href || currentPath === item.href + '/' ? 'is-active' : ''}`}
+                >
+                  <Icon name={item.icon} size="sm" class="nav__item-icon" />
+                  {item.title}
+                </a>
+              ))}
+            </>
+          ))}
+          
+          <!-- Theme-specific components section (dynamically populated) -->
+          <div id="theme-specific-nav"></div>
+        </nav>
+        
+        <div class="sidebar__footer">
+          <div class="sidebar__progress">
+            <div class="sidebar__progress-header">
+              <span class="sidebar__progress-label">Coverage</span>
+              <span class="sidebar__progress-value">100%</span>
+            </div>
+            <div class="sidebar__progress-bar">
+              <div class="sidebar__progress-fill" style="width: 100%"></div>
+            </div>
+          </div>
+        </div>
+      </aside>
+      
+      <!-- MAIN CONTENT -->
+      <main class="main">
+        <div class="main__inner">
+          <slot />
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script define:vars={{ themeConfig, currentPath }}>
+    // Theme-specific component configuration (made global for access from other scripts)
+    window.themeComponentConfig = themeConfig;
+    window.currentPagePath = currentPath;
+    
+    // Function to render theme-specific navigation (made global)
+    window.renderThemeSpecificNav = function(themeName) {
+      const themeNav = document.getElementById('theme-specific-nav');
+      if (!themeNav) return;
+      
+      const config = window.themeComponentConfig[themeName];
+      if (!config || !config.components || config.components.length === 0) {
+        themeNav.innerHTML = '';
+        return;
+      }
+      
+      const sectionTitle = `${config.name} Components`;
+      let html = `
+        <div class="nav__section-title">
+          ${sectionTitle}
+        </div>
+      `;
+      
+      config.components.forEach(item => {
+        const isActive = window.currentPagePath === item.href || window.currentPagePath === item.href + '/';
+        const activeClass = isActive ? 'is-active' : '';
+        
+        html += `
+          <a href="${item.href}" class="nav__item ${activeClass}">
+            <i class="ti ${item.icon} nav__item-icon"></i>
+            ${item.title}
+          </a>
+        `;
+      });
+      
+      themeNav.innerHTML = html;
+    };
+  </script>
+
+  <script>
+    // Theme Toggle (Dark/Light Mode)
+    const themeToggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+    const sunIcon = document.querySelector('.sun-icon');
+    const moonIcon = document.querySelector('.moon-icon');
+    
+    // Function to update icon visibility
+    function updateThemeIcons() {
+      const isDark = html.classList.contains('dark');
+      if (sunIcon && moonIcon) {
+        sunIcon.classList.toggle('hidden', isDark);
+        moonIcon.classList.toggle('hidden', !isDark);
+      }
+    }
+    
+    // Check for saved dark/light mode preference or default to dark
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    html.classList.toggle('dark', savedTheme === 'dark');
+    updateThemeIcons();
+    
+    // Color Theme Switching
+    const themePickerBtn = document.getElementById('theme-picker-btn');
+    const themePickerMenu = document.getElementById('theme-picker-menu');
+    const themeOptions = document.querySelectorAll('.theme-picker__option');
+    const currentThemeName = document.getElementById('current-theme-name');
+    const headerLogo = document.getElementById('header-logo') as HTMLImageElement;
+    
+    // Logo mapping for each theme
+    const logoMap: Record<string, string> = {
+      cp: '/logos/CPVPLogo.svg',
+      vp: '/logos/CPVPLogo.svg',
+      ppm: '/logos/PPMLogo.svg',
+      maconomy: '/logos/MacLogo.svg'
+    };
+    
+    // Load saved color theme or default to 'cp'
+    const savedColorTheme = localStorage.getItem('colorTheme') || 'cp';
+    html.classList.forEach(cls => {
+      if (cls.startsWith('theme-')) {
+        html.classList.remove(cls);
+      }
+    });
+    html.classList.add(`theme-${savedColorTheme}`);
+    if (currentThemeName) {
+      currentThemeName.textContent = savedColorTheme.toUpperCase();
+    }
+    
+    // Update header product name on initial load
+    const headerProductName = document.getElementById('header-product-name');
+    if (headerProductName && window.themeComponentConfig) {
+      const themeConfigData = window.themeComponentConfig[savedColorTheme];
+      if (themeConfigData) {
+        headerProductName.textContent = themeConfigData.name;
+      }
+    }
+    
+    // Update header logo on initial load
+    if (headerLogo && logoMap[savedColorTheme]) {
+      headerLogo.src = logoMap[savedColorTheme];
+    }
+    
+    // Render theme-specific nav for initial load
+    if (typeof window.renderThemeSpecificNav === 'function') {
+      window.renderThemeSpecificNav(savedColorTheme);
+    }
+    
+    // Toggle theme picker dropdown
+    themePickerBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      themePickerMenu?.classList.toggle('is-open');
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+      if (themePickerBtn && themePickerMenu && !themePickerBtn.contains(e.target as Node) && !themePickerMenu.contains(e.target as Node)) {
+        themePickerMenu.classList.remove('is-open');
+      }
+    });
+    
+    // Handle theme selection
+    themeOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        const newTheme = (option as HTMLElement).dataset.theme;
+        
+        // Remove old theme classes
+        html.classList.forEach(cls => {
+          if (cls.startsWith('theme-')) {
+            html.classList.remove(cls);
+          }
+        });
+        
+        // Add new theme class
+        html.classList.add(`theme-${newTheme}`);
+        localStorage.setItem('colorTheme', newTheme || 'cp');
+        if (currentThemeName) {
+          currentThemeName.textContent = (newTheme || 'cp').toUpperCase();
+        }
+        
+        // Update header product name
+        const headerProductName = document.getElementById('header-product-name');
+        if (headerProductName && window.themeComponentConfig) {
+          const themeConfigData = window.themeComponentConfig[newTheme || 'cp'];
+          if (themeConfigData) {
+            headerProductName.textContent = themeConfigData.name;
+          }
+        }
+        
+        // Update header logo
+        if (headerLogo && logoMap[newTheme || 'cp']) {
+          headerLogo.src = logoMap[newTheme || 'cp'];
+        }
+        
+        themePickerMenu?.classList.remove('is-open');
+        
+        // Check if current page is theme-specific and redirect if needed
+        const currentPath = window.location.pathname;
+        const themePathMatch = currentPath.match(/^\/(cp|vp|ppm|maconomy)\//);
+        
+        if (themePathMatch) {
+          const pageTheme = themePathMatch[1];
+          // If we switched away from the theme this page belongs to, redirect home
+          if (pageTheme !== newTheme) {
+            window.location.href = '/';
+            return;
+          }
+        }
+        
+        // Update theme-specific navigation
+        if (typeof window.renderThemeSpecificNav === 'function') {
+          window.renderThemeSpecificNav(newTheme || 'cp');
+        }
+      });
+    });
+    
+    // Toggle dark/light mode
+    themeToggle?.addEventListener('click', () => {
+      html.classList.toggle('dark');
+      const newTheme = html.classList.contains('dark') ? 'dark' : 'light';
+      localStorage.setItem('theme', newTheme);
+      updateThemeIcons();
+    });
+    
+    // Keyboard shortcut for search
+    document.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        document.getElementById('search-input')?.focus();
+      }
+    });
+  </script>
+</body>
+</html>

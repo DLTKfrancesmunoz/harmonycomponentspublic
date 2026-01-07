@@ -1,0 +1,59 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import PropsTable from '../../components/PropsTable.astro';
+import ExampleSection from '../../components/ExampleSection.astro';
+import Link from '../../components/ui/Link.astro';
+import Icon from '../../components/ui/Icon.astro';
+
+const props = [
+  { name: 'href', type: 'string', default: '—', description: 'Link URL' },
+  { name: 'external', type: 'boolean', default: 'false', description: 'Opens in new tab with external icon' },
+  { name: 'muted', type: 'boolean', default: 'false', description: 'Use muted color style' },
+];
+---
+
+<DocsLayout title="Links" description="Link components for navigation.">
+  <article class="space-y-12">
+    <header class="page-header page-header--compact">
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="page-header__title page-header__title--sm">Links</h1>
+        <span class="badge badge--success">stable</span>
+      </div>
+      <p class="page-header__description">
+        Links allow users to navigate to other pages or external resources.
+      </p>
+    </header>
+
+    <nav class="article-nav">
+      <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
+      <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+    </nav>
+
+    <section id="examples" class="space-y-8">
+      <h2 class="section__title">Examples</h2>
+
+      <ExampleSection title="Basic Link" description="Standard link styling.">
+        <p class="text-secondary">
+          Visit our <Link href="#">documentation</Link> for more information.
+        </p>
+      </ExampleSection>
+
+      <ExampleSection title="External Link" description="Link that opens in a new tab.">
+        <p class="text-secondary">
+          Check out <Link href="https://github.com" external>GitHub</Link> for the source code.
+        </p>
+      </ExampleSection>
+
+      <ExampleSection title="Muted Link" description="Less prominent link style.">
+        <p class="text-secondary">
+          <Link href="#" muted>Privacy Policy</Link> · <Link href="#" muted>Terms of Service</Link>
+        </p>
+      </ExampleSection>
+    </section>
+
+    <section id="props">
+      <h2 class="section__title">Props</h2>
+      <PropsTable props={props} />
+    </section>
+  </article>
+</DocsLayout>

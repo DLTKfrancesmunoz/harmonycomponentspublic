@@ -1,0 +1,138 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import PropsTable from '../../components/PropsTable.astro';
+import ExampleSection from '../../components/ExampleSection.astro';
+import Checkbox from '../../components/ui/Checkbox.astro';
+import Icon from '../../components/ui/Icon.astro';
+
+const props = [
+  { name: 'label', type: 'string', default: '—', description: 'Checkbox label text' },
+  { name: 'checked', type: 'boolean', default: 'false', description: 'Checked state' },
+  { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables the checkbox' },
+  { name: 'name', type: 'string', default: '—', description: 'Checkbox name attribute' },
+  { name: 'id', type: 'string', default: '—', description: 'Checkbox id attribute' },
+  { name: 'value', type: 'string', default: '—', description: 'Checkbox value' },
+];
+---
+
+<DocsLayout title="Checkboxes" description="Checkbox components for multiple selection inputs.">
+  <article class="space-y-12">
+    <header class="page-header page-header--compact">
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="page-header__title page-header__title--sm">Checkboxes</h1>
+        <span class="badge badge--success">stable</span>
+      </div>
+      <p class="page-header__description">
+        Checkboxes allow users to select one or more items from a set, or toggle a single option on/off.
+      </p>
+    </header>
+
+    <nav class="article-nav">
+      <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
+      <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+      <a href="#usage" class="article-nav__link"><Icon name="book-open" size="sm" /> Usage</a>
+      <a href="#accessibility" class="article-nav__link"><Icon name="check-badge" size="sm" /> Accessibility</a>
+    </nav>
+
+    <section id="examples" class="space-y-8">
+      <h2 class="section__title">Examples</h2>
+
+      <ExampleSection title="Basic Checkbox" description="Standard checkbox with label.">
+        <div class="flex flex-col gap-3">
+          <Checkbox label="Option 1" name="basic-1" />
+          <Checkbox label="Option 2 (checked)" name="basic-2" checked />
+          <Checkbox label="Option 3" name="basic-3" />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="States" description="Different checkbox states.">
+        <div class="flex flex-col gap-3">
+          <Checkbox label="Unchecked" name="state-unchecked" />
+          <Checkbox label="Checked" name="state-checked" checked />
+          <Checkbox label="Disabled" name="state-disabled" disabled />
+          <Checkbox label="Checked & Disabled" name="state-checked-disabled" checked disabled />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Without Labels" description="Checkboxes can be used without labels for compact layouts.">
+        <div class="flex items-center gap-4">
+          <Checkbox name="no-label-1" />
+          <Checkbox name="no-label-2" checked />
+          <Checkbox name="no-label-3" disabled />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="In a Form Group" description="Multiple checkboxes with a group label.">
+        <fieldset class="flex flex-col gap-4">
+          <legend class="text-sm font-semibold text-primary mb-2">Notification Preferences</legend>
+          <div class="flex flex-col gap-3 pl-4">
+            <Checkbox label="Email notifications" name="notif-email" checked />
+            <Checkbox label="SMS notifications" name="notif-sms" />
+            <Checkbox label="Push notifications" name="notif-push" checked />
+            <Checkbox label="Marketing emails" name="notif-marketing" />
+          </div>
+        </fieldset>
+      </ExampleSection>
+
+      <ExampleSection title="Inline Layout" description="Checkboxes arranged horizontally.">
+        <div class="flex flex-wrap items-center gap-6">
+          <Checkbox label="Option A" name="inline-a" />
+          <Checkbox label="Option B" name="inline-b" checked />
+          <Checkbox label="Option C" name="inline-c" />
+          <Checkbox label="Option D" name="inline-d" />
+        </div>
+      </ExampleSection>
+    </section>
+
+    <section id="props">
+      <h2 class="section__title">Props</h2>
+      <PropsTable props={props} />
+    </section>
+
+    <section id="usage">
+      <h2 class="section__title">Usage Guidelines</h2>
+      <div class="guidelines">
+        <div class="guideline-card guideline-card--do">
+          <h3 class="guideline-card__header"><Icon name="check" size="sm" /> Do</h3>
+          <ul class="guideline-card__list">
+            <li>• Use for multiple selections</li>
+            <li>• Provide clear, concise labels</li>
+            <li>• Group related options together</li>
+            <li>• Use for binary on/off choices</li>
+          </ul>
+        </div>
+        <div class="guideline-card guideline-card--dont">
+          <h3 class="guideline-card__header"><Icon name="x-mark" size="sm" /> Don't</h3>
+          <ul class="guideline-card__list">
+            <li>• Use for mutually exclusive options (use radio buttons)</li>
+            <li>• Have checkboxes without labels</li>
+            <li>• Use negative phrasing</li>
+            <li>• Pre-check options unexpectedly</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="accessibility" class="space-y-4">
+      <h2 class="section__title">Accessibility</h2>
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="tag" size="sm" />
+          Labels
+        </h3>
+        <p class="a11y-card__text">
+          The Checkbox component automatically wraps the input in a <code>&lt;label&gt;</code> element, ensuring proper association.
+        </p>
+      </div>
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="keyboard" size="sm" />
+          Keyboard
+        </h3>
+        <p class="a11y-card__text">
+          Checkboxes are togglable with <kbd>Space</kbd> key and navigable with <kbd>Tab</kbd>.
+        </p>
+      </div>
+    </section>
+  </article>
+</DocsLayout>

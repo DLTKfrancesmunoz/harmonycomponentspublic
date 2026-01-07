@@ -1,0 +1,56 @@
+---
+import '../../styles/global.css';
+import Icon from '../../components/ui/Icon.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script is:inline>
+      (function() {
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const savedColorTheme = localStorage.getItem('colorTheme') || 'cp';
+        if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+        document.documentElement.classList.add('theme-' + savedColorTheme);
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tab Strip Preview</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { height: 100%; width: 100%; }
+      body { padding: 48px; display: flex; flex-direction: column; gap: 24px; }
+    </style>
+  </head>
+  <body>
+    <div>
+      <div class="tabs">
+        <button class="tab is-active">Overview</button>
+        <button class="tab">Features</button>
+        <button class="tab">Pricing</button>
+        <button class="tab">Reviews</button>
+      </div>
+      <div class="tab-panel is-active">
+        <p class="text-secondary">
+          This is the overview content. Click other tabs to switch views.
+        </p>
+      </div>
+    </div>
+    <div>
+      <div class="tabs">
+        <button class="tab is-active">
+          <Icon name="home" size="sm" class="mr-1" /> Home
+        </button>
+        <button class="tab">
+          <Icon name="user" size="sm" class="mr-1" /> Profile
+        </button>
+        <button class="tab">
+          <Icon name="cog-6-tooth" size="sm" class="mr-1" /> Settings
+        </button>
+      </div>
+    </div>
+  </body>
+</html>
+

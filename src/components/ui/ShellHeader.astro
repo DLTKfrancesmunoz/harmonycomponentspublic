@@ -1,0 +1,54 @@
+---
+import Icon from './Icon.astro';
+import Avatar from './Avatar.astro';
+
+interface Props {
+  productName?: string;
+  logoSrc?: string;
+  companyName?: string;
+  showCompanyPicker?: boolean;
+  class?: string;
+}
+
+const {
+  productName = 'Harmony',
+  logoSrc = '/logos/CPVPLogo.svg',
+  companyName = 'Company name',
+  showCompanyPicker = true,
+  class: className = ''
+} = Astro.props;
+---
+
+<header class={`header ${className}`}>
+  <!-- Left: Brand -->
+  <div class="header__brand">
+    <a href="/" class="header__brand-link">
+      <img src={logoSrc} alt="Logo" class="header__logo" />
+      <span class="header__title">{productName}</span>
+    </a>
+  </div>
+
+  <!-- Right: Company dropdown + Avatar -->
+  <div class="header__actions">
+    {showCompanyPicker && (
+      <>
+        <!-- Company Picker -->
+        <div class="company-picker">
+          <button class="company-picker__btn">
+            <span class="company-picker__indicator"></span>
+            <span class="company-picker__name">{companyName}</span>
+            <Icon name="chevron-down" size="sm" class="company-picker__chevron" />
+          </button>
+        </div>
+
+        <div class="divider"></div>
+      </>
+    )}
+
+    <!-- User Avatar -->
+    <Avatar size="sm" />
+  </div>
+
+  <!-- Gradient Border -->
+  <div class="header__gradient"></div>
+</header>

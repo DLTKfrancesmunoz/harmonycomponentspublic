@@ -1,0 +1,73 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import PropsTable from '../../components/PropsTable.astro';
+import ExampleSection from '../../components/ExampleSection.astro';
+import Toggle from '../../components/ui/Toggle.astro';
+import Icon from '../../components/ui/Icon.astro';
+
+const props = [
+  { name: 'checked', type: 'boolean', default: 'false', description: 'Toggle state' },
+  { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables the toggle' },
+  { name: 'label', type: 'string', default: '—', description: 'Label text' },
+  { name: 'size', type: "'sm' | 'md'", default: "'md'", description: 'Toggle size' },
+];
+---
+
+<DocsLayout title="Toggle Switches" description="Toggle switch components for on/off states.">
+  <article class="space-y-12">
+    <header class="page-header page-header--compact">
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="page-header__title page-header__title--sm">Toggle Switches</h1>
+        <span class="badge badge--success">stable</span>
+      </div>
+      <p class="page-header__description">
+        Toggle switches are used for binary on/off settings where the effect is immediate.
+      </p>
+    </header>
+
+    <nav class="article-nav">
+      <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
+      <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+    </nav>
+
+    <section id="examples" class="space-y-8">
+      <h2 class="section__title">Examples</h2>
+
+      <ExampleSection title="Basic Toggle" description="Standard toggle switch.">
+        <div class="flex flex-col gap-4">
+          <Toggle label="Enable notifications" />
+          <Toggle label="Dark mode" checked />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="States" description="Different toggle states.">
+        <div class="flex flex-col gap-4">
+          <Toggle label="Unchecked" />
+          <Toggle label="Checked" checked />
+          <Toggle label="Disabled" disabled />
+          <Toggle label="Checked & Disabled" checked disabled />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Sizes" description="Different toggle sizes.">
+        <div class="flex items-center gap-6">
+          <Toggle size="sm" label="Small" />
+          <Toggle size="md" label="Medium" />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Without Label" description="Toggle without visible label.">
+        <div class="flex items-center gap-4">
+          <Toggle />
+          <Toggle checked />
+          <Toggle disabled />
+        </div>
+      </ExampleSection>
+    </section>
+
+    <section id="props">
+      <h2 class="section__title">Props</h2>
+      <PropsTable props={props} />
+    </section>
+  </article>
+</DocsLayout>

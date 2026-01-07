@@ -1,0 +1,98 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import ExampleSection from '../../components/ExampleSection.astro';
+import Input from '../../components/ui/Input.astro';
+import Label from '../../components/ui/Label.astro';
+import DateInput from '../../components/ui/DateInput.astro';
+import StepperInput from '../../components/ui/StepperInput.astro';
+import RangeInput from '../../components/ui/RangeInput.astro';
+import Icon from '../../components/ui/Icon.astro';
+---
+
+<DocsLayout title="Specialty Inputs" description="Specialized input components for specific data types.">
+  <article class="space-y-12">
+    <header class="page-header page-header--compact">
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="page-header__title page-header__title--sm">Specialty Inputs</h1>
+        <span class="badge badge--success">stable</span>
+      </div>
+      <p class="page-header__description">
+        Specialized input types for numbers, URLs, currency, dates, and other formatted data.
+      </p>
+    </header>
+
+    <nav class="article-nav">
+      <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
+    </nav>
+
+    <section id="examples" class="space-y-8">
+      <h2 class="section__title">Examples</h2>
+
+      <ExampleSection title="Number Input" description="Input for numeric values.">
+        <div class="space-y-4 max-w-sm">
+          <div class="space-y-2">
+            <Label for="number-basic">Quantity</Label>
+            <Input type="number" id="number-basic" placeholder="0" />
+          </div>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Stepper Input" description="Number input with increment/decrement buttons.">
+        <div class="space-y-4 max-w-xs">
+          <div class="space-y-2">
+            <Label>Quantity</Label>
+            <StepperInput value={1} min={0} max={99} />
+          </div>
+          <div class="space-y-2">
+            <Label>Step by 5</Label>
+            <StepperInput value={10} step={5} min={0} max={100} />
+          </div>
+          <div class="space-y-2">
+            <Label>Disabled</Label>
+            <StepperInput value={5} disabled />
+          </div>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Range Input" description="Slider for selecting a value within a range.">
+        <div class="space-y-6 max-w-sm">
+          <div class="space-y-2">
+            <Label>Volume</Label>
+            <RangeInput value={75} showPercent />
+          </div>
+          <div class="space-y-2">
+            <Label>Price Range</Label>
+            <RangeInput value={100} min={0} max={200} prefix="$" />
+          </div>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Date and Time" description="Inputs for date and time values.">
+        <div class="grid sm:grid-cols-2 gap-4 max-w-md">
+          <div class="space-y-2">
+            <Label for="date-input">Date</Label>
+            <DateInput id="date-input" />
+          </div>
+          <div class="space-y-2">
+            <Label for="time-input">Time</Label>
+            <DateInput type="time" id="time-input" />
+          </div>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="URL Input" description="Input for website URLs.">
+        <div class="space-y-2 max-w-sm">
+          <Label for="url-input">Website URL</Label>
+          <Input type="url" id="url-input" icon="link" placeholder="https://example.com" />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Phone Input" description="Input for phone numbers.">
+        <div class="space-y-2 max-w-sm">
+          <Label for="phone-input">Phone Number</Label>
+          <Input type="tel" id="phone-input" icon="phone" placeholder="(555) 555-5555" />
+        </div>
+      </ExampleSection>
+    </section>
+  </article>
+</DocsLayout>

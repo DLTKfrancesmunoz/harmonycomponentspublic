@@ -1,0 +1,45 @@
+---
+import '../../styles/global.css';
+import Alert from '../../components/ui/Alert.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script is:inline>
+      (function() {
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const savedColorTheme = localStorage.getItem('colorTheme') || 'cp';
+        if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+        document.documentElement.classList.add('theme-' + savedColorTheme);
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alerts Preview</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { height: 100%; width: 100%; }
+      body { padding: 48px; display: flex; flex-direction: column; gap: 16px; max-width: 800px; }
+    </style>
+  </head>
+  <body>
+    <Alert variant="info" title="Information">
+      This is an informational message for the user.
+    </Alert>
+    <Alert variant="success" title="Success">
+      Your changes have been saved successfully.
+    </Alert>
+    <Alert variant="warning" title="Warning">
+      Please review the changes before proceeding.
+    </Alert>
+    <Alert variant="error" title="Error">
+      Something went wrong. Please try again.
+    </Alert>
+    <Alert variant="info" title="Dismissible Alert" dismissible>
+      Click the X button to dismiss this alert.
+    </Alert>
+  </body>
+</html>
+

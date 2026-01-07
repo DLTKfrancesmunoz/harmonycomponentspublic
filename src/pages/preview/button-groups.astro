@@ -1,0 +1,41 @@
+---
+import '../../styles/global.css';
+import ButtonGroup from '../../components/ui/ButtonGroup.astro';
+import Button from '../../components/ui/Button.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script is:inline>
+      (function() {
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const savedColorTheme = localStorage.getItem('colorTheme') || 'cp';
+        if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+        document.documentElement.classList.add('theme-' + savedColorTheme);
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Button Groups Preview</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { height: 100%; width: 100%; }
+      body { padding: 48px; display: flex; flex-direction: column; gap: 24px; }
+    </style>
+  </head>
+  <body>
+    <ButtonGroup>
+      <Button variant="outline">Left</Button>
+      <Button variant="outline">Middle</Button>
+      <Button variant="outline">Right</Button>
+    </ButtonGroup>
+    <ButtonGroup>
+      <Button variant="outline" icon="bold" class="btn--icon-md" aria-label="Bold" />
+      <Button variant="outline" icon="italic" class="btn--icon-md" aria-label="Italic" />
+      <Button variant="outline" icon="underline" class="btn--icon-md" aria-label="Underline" />
+    </ButtonGroup>
+  </body>
+</html>
+

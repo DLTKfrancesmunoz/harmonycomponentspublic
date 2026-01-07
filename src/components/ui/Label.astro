@@ -1,0 +1,32 @@
+---
+/**
+ * Label Component
+ * 
+ * Form label for inputs and other form elements.
+ */
+
+export interface Props {
+  for?: string;
+  required?: boolean;
+  helper?: string;
+  class?: string;
+}
+
+const {
+  for: htmlFor,
+  required = false,
+  helper,
+  class: className = '',
+} = Astro.props;
+
+const classes = [
+  'label',
+  required && 'label--required',
+  className,
+].filter(Boolean).join(' ');
+---
+
+<label for={htmlFor} class={classes}>
+  <slot />
+  {helper && <span class="label__helper"> ({helper})</span>}
+</label>

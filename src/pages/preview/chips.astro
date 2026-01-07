@@ -1,0 +1,37 @@
+---
+import '../../styles/global.css';
+import Chip from '../../components/ui/Chip.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script is:inline>
+      (function() {
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const savedColorTheme = localStorage.getItem('colorTheme') || 'cp';
+        if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+        document.documentElement.classList.add('theme-' + savedColorTheme);
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chips Preview</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { height: 100%; width: 100%; }
+      body { padding: 48px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    </style>
+  </head>
+  <body>
+    <Chip>Default Chip</Chip>
+    <Chip variant="primary">Primary</Chip>
+    <Chip variant="secondary">Secondary</Chip>
+    <Chip variant="success">Success</Chip>
+    <Chip variant="warning">Warning</Chip>
+    <Chip variant="error">Error</Chip>
+    <Chip dismissible>Dismissible</Chip>
+  </body>
+</html>
+

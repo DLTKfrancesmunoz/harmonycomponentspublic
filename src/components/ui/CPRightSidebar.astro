@@ -1,0 +1,82 @@
+---
+/**
+ * CPRightSidebar Component
+ *
+ * A CP-specific right navigation sidebar that is docked to the right edge of the screen.
+ * Shows only icons when collapsed, expands on hover to show text labels + icon.
+ *
+ * @prop {string} class - Additional CSS classes to apply
+ */
+import Icon from './Icon.astro';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+
+// Section 1: AI and quick actions
+const section1Items = [
+  { icon: 'dela-ai', label: 'Dela AI', isCustom: true },
+  { icon: 'bell', label: 'Notifications' },
+  { icon: 'arrow-up-tray', label: 'Files' },
+];
+
+// Section 2: Document actions
+const section2Items = [
+  { icon: 'printer', label: 'Print' },
+  { icon: 'view-columns', label: 'Layout Options' },
+];
+
+// Section 3: Settings and help
+const section3Items = [
+  { icon: 'microphone-slash', label: 'Microphone' },
+  { icon: 'signal-slash', label: 'Offline' },
+  { icon: 'command-line', label: 'Keyboard Shortcuts' },
+  { icon: 'question-mark-circle', label: 'Help' },
+];
+---
+
+<nav class:list={['cp-right-sidebar', className]}>
+  <!-- Section 1: AI and Quick Actions -->
+  <div class="cp-right-sidebar__section">
+    {section1Items.map((item) => (
+      <a href="#" class="cp-right-sidebar__item">
+        <span class="cp-right-sidebar__label">{item.label}</span>
+        <span class="cp-right-sidebar__icon">
+          {item.isCustom ? (
+            <img src="/logos/DelaD.svg" alt="Dela AI" class="cp-right-sidebar__dela-logo" />
+          ) : (
+            <Icon name={item.icon} />
+          )}
+        </span>
+      </a>
+    ))}
+  </div>
+
+  <!-- Section 2: Document Actions -->
+  <div class="cp-right-sidebar__section">
+    {section2Items.map((item) => (
+      <a href="#" class="cp-right-sidebar__item">
+        <span class="cp-right-sidebar__label">{item.label}</span>
+        <span class="cp-right-sidebar__icon">
+          <Icon name={item.icon} />
+        </span>
+      </a>
+    ))}
+  </div>
+
+  <!-- Section 3: Settings and Help -->
+  <div class="cp-right-sidebar__section">
+    {section3Items.map((item) => (
+      <a href="#" class="cp-right-sidebar__item">
+        <span class="cp-right-sidebar__label">{item.label}</span>
+        <span class="cp-right-sidebar__icon">
+          <Icon name={item.icon} />
+        </span>
+      </a>
+    ))}
+  </div>
+</nav>
+
+

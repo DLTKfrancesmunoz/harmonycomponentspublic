@@ -1,0 +1,50 @@
+---
+import '../../styles/global.css';
+import Card from '../../components/ui/Card.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script is:inline>
+      (function() {
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const savedColorTheme = localStorage.getItem('colorTheme') || 'cp';
+        if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+        document.documentElement.classList.add('theme-' + savedColorTheme);
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scrollbar Preview</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { height: 100%; width: 100%; }
+      body { padding: 48px; display: flex; flex-direction: column; gap: 24px; }
+    </style>
+  </head>
+  <body>
+    <Card class="max-w-md">
+      <div class="card__body overflow-y-auto" style="max-height: 200px;">
+        <p class="text-secondary mb-4">Scroll down to see more content...</p>
+        <p class="text-secondary mb-4">The scrollbar is styled to match the current theme. It's thin and unobtrusive, but becomes more visible on hover.</p>
+        <p class="text-secondary mb-4">Custom scrollbars improve the visual consistency of your application and provide a more polished look.</p>
+        <p class="text-secondary mb-4">This works in all modern browsers including Chrome, Firefox, Safari, and Edge.</p>
+        <p class="text-secondary mb-4">Firefox uses the scrollbar-width and scrollbar-color properties.</p>
+        <p class="text-secondary">WebKit browsers use custom pseudo-elements for scrollbar styling.</p>
+      </div>
+    </Card>
+    <Card class="max-w-md">
+      <div class="card__body overflow-x-auto">
+        <div class="flex gap-4" style="width: 800px;">
+          <div class="flex-shrink-0 w-48 h-24 bg-elevated rounded-lg flex items-center justify-center text-secondary">Item 1</div>
+          <div class="flex-shrink-0 w-48 h-24 bg-elevated rounded-lg flex items-center justify-center text-secondary">Item 2</div>
+          <div class="flex-shrink-0 w-48 h-24 bg-elevated rounded-lg flex items-center justify-center text-secondary">Item 3</div>
+          <div class="flex-shrink-0 w-48 h-24 bg-elevated rounded-lg flex items-center justify-center text-secondary">Item 4</div>
+        </div>
+      </div>
+    </Card>
+  </body>
+</html>
+

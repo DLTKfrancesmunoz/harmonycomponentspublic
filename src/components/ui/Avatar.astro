@@ -1,0 +1,25 @@
+---
+/**
+ * Avatar Component
+ *
+ * Square avatar with 8px rounded corners, colored background, and user icon
+ */
+import Icon from './Icon.astro';
+
+interface Props {
+  size?: 'sm' | 'md' | 'lg';
+  class?: string;
+}
+
+const { size = 'md', class: className = '' } = Astro.props;
+
+const iconSizes = {
+  sm: 'sm',  // 16px icon in 32px circle
+  md: 'md',  // 20px icon in 40px circle
+  lg: 'lg'   // 24px icon in 48px circle
+};
+---
+
+<div class={`avatar avatar--${size} ${className}`}>
+  <Icon name="user" size={iconSizes[size]} class="avatar__icon" />
+</div>

@@ -1,0 +1,165 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import PropsTable from '../../components/PropsTable.astro';
+import ExampleSection from '../../components/ExampleSection.astro';
+import Alert from '../../components/ui/Alert.astro';
+import Icon from '../../components/ui/Icon.astro';
+
+const props = [
+  { name: 'variant', type: "'info' | 'success' | 'warning' | 'error'", default: "'info'", description: 'Alert type and color' },
+  { name: 'style', type: "'default' | 'enhanced'", default: "'default'", description: 'Alert style variant' },
+  { name: 'title', type: 'string', default: '—', description: 'Alert title' },
+  { name: 'dismissible', type: 'boolean', default: 'false', description: 'Show close button' },
+  { name: 'icon', type: 'string', default: '—', description: 'Custom icon class' },
+  { name: 'primaryButton', type: '{ text: string, href?: string, onClick?: string }', default: '—', description: 'Primary action button (enhanced variant only)' },
+  { name: 'secondaryButton', type: '{ text: string, href?: string, onClick?: string }', default: '—', description: 'Secondary action button (enhanced variant only)' },
+  { name: 'linkText', type: 'string', default: '—', description: 'Link text (enhanced variant only)' },
+  { name: 'linkHref', type: 'string', default: '—', description: 'Link URL (enhanced variant only)' },
+  { name: 'progressValue', type: 'number', default: '—', description: 'Progress value 0-100 for countdown bar (enhanced variant only)' },
+];
+---
+
+<DocsLayout title="Alerts" description="Alert components for displaying important messages.">
+  <article class="space-y-12">
+    <header class="page-header page-header--compact">
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="page-header__title page-header__title--sm">Alerts</h1>
+        <span class="badge badge--success">stable</span>
+      </div>
+      <p class="page-header__description">
+        Alerts display important messages that require user attention. Use different variants to communicate severity.
+      </p>
+    </header>
+
+    <nav class="article-nav">
+      <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
+      <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+      <a href="#accessibility" class="article-nav__link"><Icon name="check-badge" size="sm" /> Accessibility</a>
+    </nav>
+
+    <section id="examples" class="space-y-8">
+      <h2 class="section__title">Examples</h2>
+
+      <ExampleSection title="Variants" description="Different alert styles for various contexts.">
+        <div class="space-y-4">
+          <Alert variant="info" title="Information">
+            This is an informational message for the user.
+          </Alert>
+          <Alert variant="success" title="Success">
+            Your changes have been saved successfully.
+          </Alert>
+          <Alert variant="warning" title="Warning">
+            Please review the changes before proceeding.
+          </Alert>
+          <Alert variant="error" title="Error">
+            Something went wrong. Please try again.
+          </Alert>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Dismissible" description="Alerts that can be closed by the user.">
+        <div class="space-y-4">
+          <Alert variant="info" title="Dismissible Alert" dismissible>
+            Click the X button to dismiss this alert.
+          </Alert>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Without Title" description="Simpler alerts without a title.">
+        <div class="space-y-4">
+          <Alert variant="info">A simple informational message.</Alert>
+          <Alert variant="success">Operation completed successfully.</Alert>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Enhanced Variant" description="Enhanced alerts with left border, shadow, and support for actions.">
+        <div class="space-y-4">
+          <Alert 
+            variant="success" 
+            style="enhanced" 
+            title="Alert Title"
+            dismissible
+          >
+            Alert Description
+          </Alert>
+          <Alert 
+            variant="warning" 
+            style="enhanced" 
+            title="Warning Alert"
+            dismissible
+          >
+            This is a warning message with enhanced styling.
+          </Alert>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Enhanced with Actions" description="Enhanced alerts with buttons and links.">
+        <div class="space-y-4">
+          <Alert 
+            variant="success" 
+            style="enhanced" 
+            title="Success Alert"
+            primaryButton={{ text: 'Button Text' }}
+            secondaryButton={{ text: 'Button Text' }}
+            linkText="Link Text"
+            linkHref="#"
+            dismissible
+          >
+            This alert includes primary and secondary buttons, plus a link.
+          </Alert>
+          <Alert 
+            variant="info" 
+            style="enhanced" 
+            title="Information Alert"
+            linkText="Learn more"
+            linkHref="#"
+            dismissible
+          >
+            This alert includes only a link action.
+          </Alert>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Enhanced with Progress" description="Enhanced alerts with progress bar for countdown or status.">
+        <div class="space-y-4">
+          <Alert 
+            variant="success" 
+            style="enhanced" 
+            title="Progress Alert"
+            progressValue={75}
+            dismissible
+          >
+            This alert shows a progress bar indicating 75% completion.
+          </Alert>
+          <Alert 
+            variant="warning" 
+            style="enhanced" 
+            title="Countdown Alert"
+            progressValue={45}
+            dismissible
+          >
+            This alert shows a progress bar at 45%.
+          </Alert>
+        </div>
+      </ExampleSection>
+    </section>
+
+    <section id="props">
+      <h2 class="section__title">Props</h2>
+      <PropsTable props={props} />
+    </section>
+
+    <section id="accessibility" class="space-y-4">
+      <h2 class="section__title">Accessibility</h2>
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="exclamation-circle" size="sm" />
+          Role
+        </h3>
+        <p class="a11y-card__text">
+          Alerts use <code>role="alert"</code> to announce important messages to screen readers.
+        </p>
+      </div>
+    </section>
+  </article>
+</DocsLayout>

@@ -1,0 +1,303 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import ExampleSection from '../../components/ExampleSection.astro';
+import ShellFooter from '../../components/ui/ShellFooter.astro';
+import Icon from '../../components/ui/Icon.astro';
+---
+
+<DocsLayout title="Shell Footer" description="A bottom tab bar for workspace navigation.">
+  <article class="space-y-12">
+    <header class="page-header page-header--compact">
+      <h1 class="page-header__title page-header__title--sm">Shell Footer</h1>
+      <p class="page-header__description">
+        A bottom tab bar for workspace navigation, similar to browser tabs at the bottom of the shell layout. Provides quick access to multiple workspaces or contexts within the application.
+      </p>
+    </header>
+
+    <!-- Product Availability Section -->
+    <section class="space-y-6">
+      <h2 class="section__title">Product Availability</h2>
+
+      <div class="a11y-card a11y-card--warning">
+        <h3 class="a11y-card__title">
+          <Icon name="x-circle" size="sm" class="a11y-card__title-icon" />
+          Important: CP Does Not Use Shell Footer
+        </h3>
+        <p class="a11y-card__text">
+          The Costpoint (CP) theme does not use the Shell Footer component. Instead, CP uses the <a href="/cp/floating-nav" class="link">Floating Nav</a> component which appears below the header with action buttons (Execute, Actions, Refresh, and Save).
+        </p>
+      </div>
+    </section>
+
+    <!-- Examples Section -->
+    <section class="space-y-6">
+      <h2 class="section__title">Examples</h2>
+
+      <ExampleSection title="Default Tab Bar" description="Multiple workspace tabs with one active tab indicated by a blue underline.">
+        <div class="border overflow-hidden">
+          <ShellFooter
+            tabs={[
+              { id: '1', label: 'Tab 1', active: true },
+              { id: '2', label: 'Tab 2' },
+              { id: '3', label: 'Tab 3' },
+              { id: '4', label: 'Tab 4' },
+              { id: '5', label: 'Tab 5' },
+              { id: '6', label: 'Tab 6' },
+            ]}
+            showAddTab={true}
+          />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="With More Dropdown" description="When there are too many tabs, overflow tabs are accessible via the 'More' dropdown.">
+        <div class="border">
+          <ShellFooter
+            tabs={[
+              { id: '1', label: 'Tab 1', active: true },
+              { id: '2', label: 'Tab 2' },
+              { id: '3', label: 'Tab 3' },
+              { id: '4', label: 'Tab 4' },
+            ]}
+            showMore={true}
+            moreCount={4}
+            overflowTabs={[
+              { id: '5', label: 'Tab 5' },
+              { id: '6', label: 'Tab 6' },
+              { id: '7', label: 'Tab 7' },
+              { id: '8', label: 'Tab 8' },
+            ]}
+            showAddTab={true}
+          />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Compact Variant" description="A more condensed version with reduced height and padding.">
+        <div class="border overflow-hidden">
+          <ShellFooter
+            tabs={[
+              { id: '1', label: 'Workspace 1', active: true },
+              { id: '2', label: 'Workspace 2' },
+              { id: '3', label: 'Workspace 3' },
+              { id: '4', label: 'Workspace 4' },
+            ]}
+            variant="compact"
+            showAddTab={false}
+          />
+        </div>
+      </ExampleSection>
+    </section>
+
+    <!-- Behavior Section -->
+    <section class="space-y-6">
+      <h2 class="section__title">Behavior</h2>
+      <div class="grid gap-4 md:grid-cols-2">
+        <div class="a11y-card">
+          <h3 class="a11y-card__title">
+            <Icon name="cursor-arrow-ripple" size="sm" class="a11y-card__title-icon" />
+            Tab Selection
+          </h3>
+          <p class="a11y-card__text">
+            Click or tap on a tab to activate it. The active tab displays a blue underline indicator at the bottom. Only one tab can be active at a time.
+          </p>
+        </div>
+
+        <div class="a11y-card">
+          <h3 class="a11y-card__title">
+            <Icon name="ellipsis-horizontal" size="sm" class="a11y-card__title-icon" />
+            Overflow Handling
+          </h3>
+          <p class="a11y-card__text">
+            When there are more tabs than can fit in the viewport, additional tabs are accessible through the "More" dropdown button which displays the count of hidden tabs.
+          </p>
+        </div>
+
+        <div class="a11y-card">
+          <h3 class="a11y-card__title">
+            <Icon name="plus" size="sm" class="a11y-card__title-icon" />
+            Add Tab
+          </h3>
+          <p class="a11y-card__text">
+            The "Add Tab" button appears at the far right of the tab bar, allowing users to create new workspace tabs. This button can be hidden via the showAddTab prop.
+          </p>
+        </div>
+
+        <div class="a11y-card">
+          <h3 class="a11y-card__title">
+            <Icon name="arrows-pointing-in" size="sm" class="a11y-card__title-icon" />
+            Fixed Position
+          </h3>
+          <p class="a11y-card__text">
+            The shell footer is docked at the bottom of the application shell, remaining visible as users navigate through different views within a workspace.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Visual Elements Section -->
+    <section class="space-y-6">
+      <h2 class="section__title">Visual Elements</h2>
+      <div class="space-y-4">
+        <div class="card">
+          <div class="card__body">
+            <h3 class="text-heading-s text-primary mb-2">Active Tab Indicator</h3>
+            <p class="text-sm text-secondary">
+              The active tab is highlighted with a 3px blue underline using the theme's primary color. This provides clear visual feedback about which workspace is currently active.
+            </p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__body">
+            <h3 class="text-heading-s text-primary mb-2">Tab Styling</h3>
+            <p class="text-sm text-secondary">
+              Tabs use Figtree Medium font at 14px (0.875rem) with secondary text color. On hover, tabs display a subtle background color and the text brightens to primary color.
+            </p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__body">
+            <h3 class="text-heading-s text-primary mb-2">Spacing & Layout</h3>
+            <p class="text-sm text-secondary">
+              The footer has a fixed height of 48px with horizontal padding. Tabs are spaced evenly with gap spacing between them, and each tab has internal padding of 16px on left and right.
+            </p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__body">
+            <h3 class="text-heading-s text-primary mb-2">Theme Integration</h3>
+            <p class="text-sm text-secondary">
+              The footer uses <code>var(--nav-bg)</code> for the background color, matching the navigation theme. Border top uses <code>var(--border-color)</code> to separate from content above.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Implementation Notes Section -->
+    <section class="space-y-6">
+      <h2 class="section__title">Implementation Notes</h2>
+      <div class="space-y-4">
+        <div class="card">
+          <div class="card__body">
+            <h3 class="text-heading-s text-primary mb-2">Tab Navigation</h3>
+            <p class="text-sm text-secondary mb-3">
+              Tabs represent different workspaces or contexts within the application. When a user clicks a tab, it should switch the main content area to display that workspace's content. Tabs can use either <code>href</code> for navigation or button behavior for dynamic switching.
+            </p>
+            <p class="text-sm text-muted">
+              Example: In a project management tool, tabs might represent different projects or dashboards that the user has open.
+            </p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__body">
+            <h3 class="text-heading-s text-primary mb-2">Overflow Behavior</h3>
+            <p class="text-sm text-secondary mb-3">
+              The "More" dropdown appears when <code>showMore={true}</code> is set and displays the number of hidden tabs via <code>moreCount</code>. This prevents the tab bar from becoming cluttered when users have many workspaces open.
+            </p>
+            <p class="text-sm text-muted">
+              Recommendation: Implement logic to automatically show "More" when tabs exceed viewport width, typically around 8-10 visible tabs.
+            </p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__body">
+            <h3 class="text-heading-s text-primary mb-2">Component Props</h3>
+            <p class="text-sm text-secondary mb-3">
+              The ShellFooter component accepts several props for customization:
+            </p>
+            <ul class="text-sm text-secondary space-y-2 list-disc list-inside">
+              <li><code>tabs</code>: Array of tab objects with id, label, active, and optional href</li>
+              <li><code>showMore</code>: Boolean to display the More dropdown (default: false)</li>
+              <li><code>moreCount</code>: Number displayed in More button (default: 0)</li>
+              <li><code>showAddTab</code>: Boolean to show Add Tab button (default: true)</li>
+              <li><code>variant</code>: 'default' or 'compact' for different sizes</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__body">
+            <h3 class="text-heading-s text-primary mb-2">CP Alternative: Floating Nav</h3>
+            <p class="text-sm text-secondary mb-3">
+              Instead of the Shell Footer, the Costpoint (CP) theme uses the <a href="/cp/floating-nav" class="link">Floating Nav</a> component. This floating toolbar appears below the header and contains action buttons (Execute, Actions, Refresh, Save) rather than workspace tabs.
+            </p>
+            <p class="text-sm text-muted">
+              The Floating Nav serves a different purpose - providing quick access to common actions on the current page, rather than navigating between workspaces.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Accessibility Section -->
+    <section class="space-y-6">
+      <h2 class="section__title">Accessibility</h2>
+      <div class="grid gap-4 md:grid-cols-2">
+        <div class="a11y-card">
+          <h3 class="a11y-card__title">
+            <Icon name="hand-raised" size="sm" class="a11y-card__title-icon" />
+            Keyboard Navigation
+          </h3>
+          <p class="a11y-card__text">
+            Use <kbd>Tab</kbd> to move focus between tabs. Press <kbd>Enter</kbd> or <kbd>Space</kbd> to activate a focused tab. Arrow keys can be used to move between tabs within the tablist.
+          </p>
+        </div>
+
+        <div class="a11y-card">
+          <h3 class="a11y-card__title">
+            <Icon name="chat-bubble-left-right" size="sm" class="a11y-card__title-icon" />
+            ARIA Labels
+          </h3>
+          <p class="a11y-card__text">
+            The component uses proper ARIA roles and attributes: <code>role="tablist"</code> on the nav, <code>role="tab"</code> on each tab, and <code>aria-selected</code> to indicate the active tab.
+          </p>
+        </div>
+
+        <div class="a11y-card">
+          <h3 class="a11y-card__title">
+            <Icon name="eye" size="sm" class="a11y-card__title-icon" />
+            Screen Reader Support
+          </h3>
+          <p class="a11y-card__text">
+            Screen readers announce "Workspace tabs" when entering the footer, the active state of each tab, and descriptive labels for the More and Add Tab buttons.
+          </p>
+        </div>
+
+        <div class="a11y-card">
+          <h3 class="a11y-card__title">
+            <Icon name="cursor-arrow-rays" size="sm" class="a11y-card__title-icon" />
+            Focus Indicators
+          </h3>
+          <p class="a11y-card__text">
+            Tabs display a visible focus outline when navigated via keyboard. The focus style uses a 2px outline in the primary color to ensure sufficient contrast.
+          </p>
+        </div>
+      </div>
+    </section>
+  </article>
+</DocsLayout>
+
+<script>
+  // Demo: Listen for shell footer dropdown events
+  document.addEventListener('shell-footer:select-tab', (e) => {
+    console.log('Tab selected from dropdown:', e.detail.tabId);
+    // In a real application, you would handle tab selection here
+    // For example: navigate to a different workspace, update state, etc.
+  });
+
+  document.addEventListener('shell-footer:close-tab', (e) => {
+    console.log('Close individual tab:', e.detail.tabId);
+    // In a real application, you would handle closing the individual tab here
+    // For example: remove tab from state, close workspace, etc.
+  });
+
+  document.addEventListener('shell-footer:close-all', () => {
+    console.log('Close all tabs requested');
+    // In a real application, you would handle closing all tabs here
+    // For example: clear all open workspaces, show confirmation dialog, etc.
+  });
+</script>

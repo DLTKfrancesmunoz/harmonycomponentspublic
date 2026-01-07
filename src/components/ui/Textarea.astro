@@ -1,0 +1,44 @@
+---
+/**
+ * Textarea Component
+ * 
+ * Multi-line text input for longer content.
+ */
+
+export interface Props {
+  placeholder?: string;
+  value?: string;
+  name?: string;
+  id?: string;
+  disabled?: boolean;
+  rows?: number;
+  required?: boolean;
+  class?: string;
+  [key: string]: any;
+}
+
+const {
+  placeholder,
+  value,
+  name,
+  id,
+  disabled = false,
+  rows = 4,
+  required = false,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+const classes = ['textarea', className].filter(Boolean).join(' ');
+---
+
+<textarea
+  placeholder={placeholder}
+  name={name}
+  id={id}
+  disabled={disabled}
+  rows={rows}
+  required={required}
+  class={classes}
+  {...rest}
+>{value}</textarea>

@@ -1,0 +1,48 @@
+---
+/**
+ * ComponentDoc Component
+ *
+ * Documentation template for component pages.
+ */
+import Icon from './ui/Icon.astro';
+
+interface Props {
+  name: string;
+  description: string;
+  status?: 'stable' | 'beta' | 'deprecated';
+}
+
+const { name, description, status = 'stable' } = Astro.props;
+---
+
+<article class="space-y-12">
+  <!-- Header -->
+  <header class="page-header page-header--compact">
+    <div class="flex items-center gap-3 mb-4">
+      <h1 class="page-header__title page-header__title--sm">{name}</h1>
+      <span class={`badge badge--${status === 'stable' ? 'success' : status === 'beta' ? 'warning' : 'error'}`}>
+        {status}
+      </span>
+    </div>
+    <p class="page-header__description">{description}</p>
+  </header>
+
+  <!-- Quick Links -->
+  <nav class="article-nav">
+    <a href="#examples" class="article-nav__link">
+      <Icon name="eye" size="sm" /> Examples
+    </a>
+    <a href="#props" class="article-nav__link">
+      <Icon name="list-bullet" size="sm" /> Props
+    </a>
+    <a href="#usage" class="article-nav__link">
+      <Icon name="book-open" size="sm" /> Usage
+    </a>
+    <a href="#accessibility" class="article-nav__link">
+      <Icon name="heart" size="sm" /> Accessibility
+    </a>
+  </nav>
+
+  <!-- Content slots -->
+  <slot />
+</article>

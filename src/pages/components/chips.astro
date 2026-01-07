@@ -1,0 +1,241 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import PropsTable from '../../components/PropsTable.astro';
+import ExampleSection from '../../components/ExampleSection.astro';
+import Chip from '../../components/ui/Chip.astro';
+import Icon from '../../components/ui/Icon.astro';
+
+const props = [
+  { name: 'size', type: '"sm" | "md" | "lg"', default: '"md"', description: 'Chip size' },
+  { name: 'variant', type: '"fill" | "outline"', default: '"fill"', description: 'Visual style variant' },
+  { name: 'state', type: '"enabled" | "disabled" | "hover" | "focused" | "pressed"', default: '"enabled"', description: 'Interactive state' },
+  { name: 'type', type: '"chip" | "horiz-dots" | "vert-dots" | "overflow"', default: '"chip"', description: 'Chip type/content' },
+  { name: 'overflowCount', type: 'number', default: '10', description: 'Number to display for overflow type' },
+  { name: 'selected', type: 'boolean', default: 'false', description: 'Selected state (legacy, maps to fill variant)' },
+  { name: 'removable', type: 'boolean', default: 'false', description: 'Shows remove button' },
+  { name: 'icon', type: 'string', default: '—', description: 'Leading icon class' },
+  { name: 'class', type: 'string', default: '—', description: 'Additional CSS classes' },
+];
+---
+
+<DocsLayout title="Chips" description="Chip components for tags and filters.">
+  <article class="space-y-12">
+    <header class="page-header page-header--compact">
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="page-header__title page-header__title--sm">Chips</h1>
+        <span class="badge badge--success">stable</span>
+      </div>
+      <p class="page-header__description">
+        Chips are compact elements that represent tags, filters, or small pieces of information.
+      </p>
+    </header>
+
+    <nav class="article-nav">
+      <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
+      <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+    </nav>
+
+    <section id="examples" class="space-y-8">
+      <h2 class="section__title">Examples</h2>
+
+      <ExampleSection title="Sizes" description="Chips come in three sizes: Small (16px), Medium (24px), and Large (32px).">
+        <div class="flex flex-wrap items-center gap-4">
+          <div class="flex flex-col gap-2">
+            <span class="text-xs text-secondary mb-1">Small</span>
+            <Chip size="sm">Chip Text</Chip>
+          </div>
+          <div class="flex flex-col gap-2">
+            <span class="text-xs text-secondary mb-1">Medium</span>
+            <Chip size="md">Chip Text</Chip>
+          </div>
+          <div class="flex flex-col gap-2">
+            <span class="text-xs text-secondary mb-1">Large</span>
+            <Chip size="lg">Chip Text</Chip>
+          </div>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Variants - Fill" description="Filled chips with solid background using the primary theme color.">
+        <div class="flex flex-wrap gap-2">
+          <Chip variant="fill" size="sm">Small</Chip>
+          <Chip variant="fill" size="md">Medium</Chip>
+          <Chip variant="fill" size="lg">Large</Chip>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Variants - Outline" description="Outlined chips with transparent background and primary color border.">
+        <div class="flex flex-wrap gap-2">
+          <Chip variant="outline" size="sm">Small</Chip>
+          <Chip variant="outline" size="md">Medium</Chip>
+          <Chip variant="outline" size="lg">Large</Chip>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="States - Enabled" description="Default enabled state for chips.">
+        <div class="flex flex-wrap gap-2">
+          <Chip variant="fill" state="enabled">Fill Enabled</Chip>
+          <Chip variant="outline" state="enabled">Outline Enabled</Chip>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="States - Hover" description="Hover state styling (shown for demonstration).">
+        <div class="flex flex-wrap gap-2">
+          <Chip variant="fill" state="hover">Fill Hover</Chip>
+          <Chip variant="outline" state="hover">Outline Hover</Chip>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="States - Focused" description="Focused state with focus ring indicator.">
+        <div class="flex flex-wrap gap-2">
+          <Chip variant="fill" state="focused">Fill Focused</Chip>
+          <Chip variant="outline" state="focused">Outline Focused</Chip>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="States - Pressed" description="Pressed/active state styling.">
+        <div class="flex flex-wrap gap-2">
+          <Chip variant="fill" state="pressed">Fill Pressed</Chip>
+          <Chip variant="outline" state="pressed">Outline Pressed</Chip>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="States - Disabled" description="Disabled state for non-interactive chips.">
+        <div class="flex flex-wrap gap-2">
+          <Chip variant="fill" state="disabled">Fill Disabled</Chip>
+          <Chip variant="outline" state="disabled">Outline Disabled</Chip>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Types - Text Chips" description="Standard text chips with customizable content.">
+        <div class="flex flex-wrap gap-2">
+          <Chip size="sm">Small Text</Chip>
+          <Chip size="md">Medium Text</Chip>
+          <Chip size="lg">Large Text</Chip>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Types - Horizontal Dots" description="Chips with horizontal ellipsis dots for menu actions.">
+        <div class="flex flex-wrap gap-2">
+          <Chip type="horiz-dots" size="sm" variant="fill" />
+          <Chip type="horiz-dots" size="md" variant="fill" />
+          <Chip type="horiz-dots" size="lg" variant="fill" />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Types - Vertical Dots" description="Chips with vertical ellipsis dots for menu actions.">
+        <div class="flex flex-wrap gap-2">
+          <Chip type="vert-dots" size="sm" variant="fill" />
+          <Chip type="vert-dots" size="md" variant="fill" />
+          <Chip type="vert-dots" size="lg" variant="fill" />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Types - Overflow" description="Chips showing overflow count (e.g., +10 for additional items).">
+        <div class="flex flex-wrap gap-2">
+          <Chip type="overflow" size="sm" variant="fill" overflowCount={10} />
+          <Chip type="overflow" size="md" variant="fill" overflowCount={10} />
+          <Chip type="overflow" size="lg" variant="fill" overflowCount={10} />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="With Icons" description="Chips with leading icons.">
+        <div class="flex flex-wrap gap-2">
+          <Chip icon="user" size="sm">John Doe</Chip>
+          <Chip icon="tag" size="md">Featured</Chip>
+          <Chip icon="calendar" size="lg">Today</Chip>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Removable Chips" description="Chips that can be removed with a close button.">
+        <div class="flex flex-wrap gap-2">
+          <Chip removable size="sm">React</Chip>
+          <Chip removable size="md">TypeScript</Chip>
+          <Chip removable size="lg">CSS</Chip>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Legacy - Selected State" description="Legacy selected prop (backward compatibility).">
+        <div class="flex flex-wrap gap-2">
+          <Chip>All</Chip>
+          <Chip selected>Active</Chip>
+          <Chip>Completed</Chip>
+          <Chip>Archived</Chip>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="All Variants Grid" description="Complete overview of all chip variants organized by size, style, and state.">
+        <div class="space-y-6">
+          <div>
+            <h4 class="text-sm font-medium mb-3">Fill Variant</h4>
+            <div class="grid grid-cols-3 gap-4">
+              <div class="space-y-2">
+                <div class="text-xs text-secondary">Small</div>
+                <div class="flex flex-col gap-2">
+                  <Chip variant="fill" size="sm" state="enabled">Enabled</Chip>
+                  <Chip variant="fill" size="sm" state="hover">Hover</Chip>
+                  <Chip variant="fill" size="sm" state="focused">Focused</Chip>
+                  <Chip variant="fill" size="sm" state="disabled">Disabled</Chip>
+                </div>
+              </div>
+              <div class="space-y-2">
+                <div class="text-xs text-secondary">Medium</div>
+                <div class="flex flex-col gap-2">
+                  <Chip variant="fill" size="md" state="enabled">Enabled</Chip>
+                  <Chip variant="fill" size="md" state="hover">Hover</Chip>
+                  <Chip variant="fill" size="md" state="focused">Focused</Chip>
+                  <Chip variant="fill" size="md" state="disabled">Disabled</Chip>
+                </div>
+              </div>
+              <div class="space-y-2">
+                <div class="text-xs text-secondary">Large</div>
+                <div class="flex flex-col gap-2">
+                  <Chip variant="fill" size="lg" state="enabled">Enabled</Chip>
+                  <Chip variant="fill" size="lg" state="hover">Hover</Chip>
+                  <Chip variant="fill" size="lg" state="focused">Focused</Chip>
+                  <Chip variant="fill" size="lg" state="disabled">Disabled</Chip>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h4 class="text-sm font-medium mb-3">Outline Variant</h4>
+            <div class="grid grid-cols-3 gap-4">
+              <div class="space-y-2">
+                <div class="text-xs text-secondary">Small</div>
+                <div class="flex flex-col gap-2">
+                  <Chip variant="outline" size="sm" state="enabled">Enabled</Chip>
+                  <Chip variant="outline" size="sm" state="hover">Hover</Chip>
+                  <Chip variant="outline" size="sm" state="focused">Focused</Chip>
+                  <Chip variant="outline" size="sm" state="disabled">Disabled</Chip>
+                </div>
+              </div>
+              <div class="space-y-2">
+                <div class="text-xs text-secondary">Medium</div>
+                <div class="flex flex-col gap-2">
+                  <Chip variant="outline" size="md" state="enabled">Enabled</Chip>
+                  <Chip variant="outline" size="md" state="hover">Hover</Chip>
+                  <Chip variant="outline" size="md" state="focused">Focused</Chip>
+                  <Chip variant="outline" size="md" state="disabled">Disabled</Chip>
+                </div>
+              </div>
+              <div class="space-y-2">
+                <div class="text-xs text-secondary">Large</div>
+                <div class="flex flex-col gap-2">
+                  <Chip variant="outline" size="lg" state="enabled">Enabled</Chip>
+                  <Chip variant="outline" size="lg" state="hover">Hover</Chip>
+                  <Chip variant="outline" size="lg" state="focused">Focused</Chip>
+                  <Chip variant="outline" size="lg" state="disabled">Disabled</Chip>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ExampleSection>
+    </section>
+
+    <section id="props">
+      <h2 class="section__title">Props</h2>
+      <PropsTable props={props} />
+    </section>
+  </article>
+</DocsLayout>

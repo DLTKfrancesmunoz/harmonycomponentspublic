@@ -1,0 +1,43 @@
+---
+import '../../styles/global.css';
+import DateInput from '../../components/ui/DateInput.astro';
+import Label from '../../components/ui/Label.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script is:inline>
+      (function() {
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const savedColorTheme = localStorage.getItem('colorTheme') || 'cp';
+        if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+        document.documentElement.classList.add('theme-' + savedColorTheme);
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Date Picker Preview</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { height: 100%; width: 100%; }
+      body { padding: 48px; display: flex; flex-direction: column; gap: 24px; max-width: 400px; }
+    </style>
+  </head>
+  <body>
+    <div>
+      <Label for="date-basic">Select Date</Label>
+      <DateInput id="date-basic" />
+    </div>
+    <div>
+      <Label for="time-basic">Select Time</Label>
+      <DateInput id="time-basic" type="time" />
+    </div>
+    <div>
+      <Label for="datetime-basic">Date & Time</Label>
+      <DateInput id="datetime-basic" type="datetime-local" />
+    </div>
+  </body>
+</html>
+

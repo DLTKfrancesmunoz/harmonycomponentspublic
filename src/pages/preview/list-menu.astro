@@ -1,0 +1,38 @@
+---
+import '../../styles/global.css';
+import ListMenu from '../../components/ui/ListMenu.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script is:inline>
+      (function() {
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const savedColorTheme = localStorage.getItem('colorTheme') || 'cp';
+        if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+        document.documentElement.classList.add('theme-' + savedColorTheme);
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>List Menu Preview</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { height: 100%; width: 100%; }
+      body { padding: 48px; display: flex; flex-direction: column; gap: 24px; max-width: 300px; }
+    </style>
+  </head>
+  <body>
+    <ListMenu
+      items={[
+        { icon: 'home', label: 'Dashboard', active: true },
+        { icon: 'user', label: 'Profile' },
+        { icon: 'cog-6-tooth', label: 'Settings' },
+        { icon: 'arrow-right-on-rectangle', label: 'Logout' },
+      ]}
+    />
+  </body>
+</html>
+

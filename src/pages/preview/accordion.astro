@@ -1,0 +1,39 @@
+---
+import '../../styles/global.css';
+import Accordion from '../../components/ui/Accordion.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script is:inline>
+      (function() {
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const savedColorTheme = localStorage.getItem('colorTheme') || 'cp';
+        if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+        document.documentElement.classList.add('theme-' + savedColorTheme);
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Accordion Preview</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { height: 100%; width: 100%; }
+      body { padding: 48px; display: flex; flex-direction: column; gap: 16px; max-width: 600px; }
+    </style>
+  </head>
+  <body>
+    <Accordion title="Accordion Item 1">
+      <p class="text-secondary">This is the content for the first accordion item.</p>
+    </Accordion>
+    <Accordion title="Accordion Item 2" open>
+      <p class="text-secondary">This accordion item is open by default.</p>
+    </Accordion>
+    <Accordion title="Accordion Item 3">
+      <p class="text-secondary">This is the content for the third accordion item.</p>
+    </Accordion>
+  </body>
+</html>
+

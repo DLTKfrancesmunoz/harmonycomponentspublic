@@ -1,0 +1,125 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import PropsTable from '../../components/PropsTable.astro';
+import ExampleSection from '../../components/ExampleSection.astro';
+import NotificationBadge from '../../components/ui/NotificationBadge.astro';
+import Icon from '../../components/ui/Icon.astro';
+
+const props = [
+  { name: 'type', type: "'dot' | 'number' | 'overflow'", default: "'number'", description: 'Badge content type' },
+  { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Badge size' },
+  { name: 'variant', type: "'error' | 'primary'", default: "'primary'", description: 'Badge color variant (error = red, primary = blue)' },
+  { name: 'value', type: 'string | number', default: '1', description: 'Content value for number or overflow badges' },
+  { name: 'border', type: 'boolean', default: 'false', description: 'Show white border' },
+];
+---
+
+<DocsLayout title="Notification Badges" description="Small notification indicators for dots, numbers, or overflow text (e.g., '99+').">
+  <article class="space-y-12">
+    <header class="page-header page-header--compact">
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="page-header__title page-header__title--sm">Notification Badges</h1>
+        <span class="badge badge--success">stable</span>
+      </div>
+      <p class="page-header__description">
+        Notification badges are small indicators used to display notification counts as dots, numbers, or overflow text (e.g., "99+").
+      </p>
+    </header>
+
+    <nav class="article-nav">
+      <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
+      <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+    </nav>
+
+    <section id="examples" class="space-y-8">
+      <h2 class="section__title">Examples</h2>
+
+      <ExampleSection title="Dot Badges" description="Simple circular dot indicators.">
+        <div class="flex flex-wrap items-center gap-4">
+          <div class="flex flex-col gap-2">
+            <span class="text-sm text-muted">Primary (Blue)</span>
+            <div class="flex flex-wrap items-center gap-3">
+              <NotificationBadge type="dot" variant="primary" size="sm" />
+              <NotificationBadge type="dot" variant="primary" size="md" />
+              <NotificationBadge type="dot" variant="primary" size="lg" />
+              <NotificationBadge type="dot" variant="primary" size="sm" border />
+              <NotificationBadge type="dot" variant="primary" size="md" border />
+              <NotificationBadge type="dot" variant="primary" size="lg" border />
+            </div>
+          </div>
+          <div class="flex flex-col gap-2">
+            <span class="text-sm text-muted">Error (Red)</span>
+            <div class="flex flex-wrap items-center gap-3">
+              <NotificationBadge type="dot" variant="error" size="sm" />
+              <NotificationBadge type="dot" variant="error" size="md" />
+              <NotificationBadge type="dot" variant="error" size="lg" />
+              <NotificationBadge type="dot" variant="error" size="sm" border />
+              <NotificationBadge type="dot" variant="error" size="md" border />
+              <NotificationBadge type="dot" variant="error" size="lg" border />
+            </div>
+          </div>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Number Badges" description="Badges displaying specific counts.">
+        <div class="flex flex-wrap items-center gap-4">
+          <div class="flex flex-col gap-2">
+            <span class="text-sm text-muted">Primary (Blue)</span>
+            <div class="flex flex-wrap items-center gap-3">
+              <NotificationBadge type="number" value="1" variant="primary" size="sm" />
+              <NotificationBadge type="number" value="1" variant="primary" size="md" />
+              <NotificationBadge type="number" value="1" variant="primary" size="lg" />
+              <NotificationBadge type="number" value="1" variant="primary" size="sm" border />
+              <NotificationBadge type="number" value="1" variant="primary" size="md" border />
+              <NotificationBadge type="number" value="1" variant="primary" size="lg" border />
+            </div>
+          </div>
+          <div class="flex flex-col gap-2">
+            <span class="text-sm text-muted">Error (Red)</span>
+            <div class="flex flex-wrap items-center gap-3">
+              <NotificationBadge type="number" value="5" variant="error" size="sm" />
+              <NotificationBadge type="number" value="5" variant="error" size="md" />
+              <NotificationBadge type="number" value="5" variant="error" size="lg" />
+              <NotificationBadge type="number" value="5" variant="error" size="sm" border />
+              <NotificationBadge type="number" value="5" variant="error" size="md" border />
+              <NotificationBadge type="number" value="5" variant="error" size="lg" border />
+            </div>
+          </div>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Overflow Badges" description="Badges for counts exceeding a threshold (e.g., '99+').">
+        <div class="flex flex-wrap items-center gap-4">
+          <div class="flex flex-col gap-2">
+            <span class="text-sm text-muted">Primary (Blue)</span>
+            <div class="flex flex-wrap items-center gap-3">
+              <NotificationBadge type="overflow" value="99+" variant="primary" size="sm" />
+              <NotificationBadge type="overflow" value="99+" variant="primary" size="md" />
+              <NotificationBadge type="overflow" value="99+" variant="primary" size="lg" />
+              <NotificationBadge type="overflow" value="99+" variant="primary" size="sm" border />
+              <NotificationBadge type="overflow" value="99+" variant="primary" size="md" border />
+              <NotificationBadge type="overflow" value="99+" variant="primary" size="lg" border />
+            </div>
+          </div>
+          <div class="flex flex-col gap-2">
+            <span class="text-sm text-muted">Error (Red)</span>
+            <div class="flex flex-wrap items-center gap-3">
+              <NotificationBadge type="overflow" value="99+" variant="error" size="sm" />
+              <NotificationBadge type="overflow" value="99+" variant="error" size="md" />
+              <NotificationBadge type="overflow" value="99+" variant="error" size="lg" />
+              <NotificationBadge type="overflow" value="99+" variant="error" size="sm" border />
+              <NotificationBadge type="overflow" value="99+" variant="error" size="md" border />
+              <NotificationBadge type="overflow" value="99+" variant="error" size="lg" border />
+            </div>
+          </div>
+        </div>
+      </ExampleSection>
+    </section>
+
+    <section id="props">
+      <h2 class="section__title">Props</h2>
+      <PropsTable props={props} />
+    </section>
+  </article>
+</DocsLayout>
+

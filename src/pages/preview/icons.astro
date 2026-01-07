@@ -1,0 +1,39 @@
+---
+import '../../styles/global.css';
+import Icon from '../../components/ui/Icon.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script is:inline>
+      (function() {
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const savedColorTheme = localStorage.getItem('colorTheme') || 'cp';
+        if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+        document.documentElement.classList.add('theme-' + savedColorTheme);
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Icons Preview</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { height: 100%; width: 100%; }
+      body { padding: 48px; display: flex; flex-wrap: wrap; gap: 24px; align-items: center; }
+    </style>
+  </head>
+  <body>
+    <Icon name="home" size="sm" />
+    <Icon name="user" size="md" />
+    <Icon name="cog-6-tooth" size="lg" />
+    <Icon name="heart" size="sm" />
+    <Icon name="star" size="md" />
+    <Icon name="bell" size="lg" />
+    <Icon name="magnifying-glass" size="sm" />
+    <Icon name="plus" size="md" />
+    <Icon name="trash" size="lg" />
+  </body>
+</html>
+

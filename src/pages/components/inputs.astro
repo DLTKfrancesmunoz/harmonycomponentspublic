@@ -1,0 +1,203 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import PropsTable from '../../components/PropsTable.astro';
+import ExampleSection from '../../components/ExampleSection.astro';
+import Input from '../../components/ui/Input.astro';
+import Textarea from '../../components/ui/Textarea.astro';
+import Label from '../../components/ui/Label.astro';
+import Button from '../../components/ui/Button.astro';
+import Icon from '../../components/ui/Icon.astro';
+
+const props = [
+  { name: 'type', type: "'text' | 'email' | 'password' | 'number' | 'url' | 'search' | 'tel'", default: "'text'", description: 'Input type' },
+  { name: 'placeholder', type: 'string', default: '—', description: 'Placeholder text' },
+  { name: 'value', type: 'string', default: '—', description: 'Input value' },
+  { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables the input' },
+  { name: 'error', type: 'boolean', default: 'false', description: 'Shows error state' },
+  { name: 'errorMessage', type: 'string', default: '—', description: 'Error message to display' },
+  { name: 'icon', type: 'string', default: '—', description: 'Leading icon class (e.g., ti-search)' },
+  { name: 'required', type: 'boolean', default: 'false', description: 'Makes the input required' },
+];
+
+const textareaProps = [
+  { name: 'placeholder', type: 'string', default: '—', description: 'Placeholder text' },
+  { name: 'value', type: 'string', default: '—', description: 'Textarea value' },
+  { name: 'rows', type: 'number', default: '4', description: 'Number of visible rows' },
+  { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables the textarea' },
+];
+---
+
+<DocsLayout title="Inputs" description="Form input components for collecting user data.">
+  <article class="space-y-12">
+    <header class="page-header page-header--compact">
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="page-header__title page-header__title--sm">Inputs</h1>
+        <span class="badge badge--success">stable</span>
+      </div>
+      <p class="page-header__description">
+        Text inputs allow users to enter and edit text. They're used in forms, search fields, and anywhere text input is needed.
+      </p>
+    </header>
+
+    <nav class="article-nav">
+      <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
+      <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+      <a href="#usage" class="article-nav__link"><Icon name="book-open" size="sm" /> Usage</a>
+      <a href="#accessibility" class="article-nav__link"><Icon name="check-badge" size="sm" /> Accessibility</a>
+    </nav>
+
+    <section id="examples" class="space-y-8">
+      <h2 class="section__title">Examples</h2>
+
+      <ExampleSection title="Basic Input" description="Standard text input with label.">
+        <div class="max-w-sm space-y-2">
+          <Label for="email-basic">Email</Label>
+          <Input type="email" id="email-basic" placeholder="you@example.com" />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Input Types" description="Different input types for various data.">
+        <div class="max-w-sm space-y-4">
+          <div class="space-y-2">
+            <Label for="text-input">Text</Label>
+            <Input type="text" id="text-input" placeholder="Enter text..." />
+          </div>
+          <div class="space-y-2">
+            <Label for="email-input">Email</Label>
+            <Input type="email" id="email-input" placeholder="you@example.com" />
+          </div>
+          <div class="space-y-2">
+            <Label for="password-input">Password</Label>
+            <Input type="password" id="password-input" placeholder="Enter password" />
+          </div>
+          <div class="space-y-2">
+            <Label for="number-input">Number</Label>
+            <Input type="number" id="number-input" placeholder="0" />
+          </div>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="With Icon" description="Input with leading icon for context.">
+        <div class="max-w-sm space-y-4">
+          <div class="space-y-2">
+            <Label for="search-input">Search</Label>
+            <Input icon="magnifying-glass" id="search-input" placeholder="Search..." />
+          </div>
+          <div class="space-y-2">
+            <Label for="email-icon">Email</Label>
+            <Input icon="envelope" type="email" id="email-icon" placeholder="you@example.com" />
+          </div>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="States" description="Different input states for feedback.">
+        <div class="max-w-sm space-y-4">
+          <div class="space-y-2">
+            <Label for="default-state">Default</Label>
+            <Input id="default-state" placeholder="Default state" />
+          </div>
+          <div class="space-y-2">
+            <Label for="disabled-state">Disabled</Label>
+            <Input id="disabled-state" disabled value="Disabled input" />
+          </div>
+          <div class="space-y-2">
+            <Label for="error-state">Error</Label>
+            <Input id="error-state" error errorMessage="Please enter a valid value" value="Invalid value" />
+          </div>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Textarea" description="Multi-line text input.">
+        <div class="max-w-sm space-y-4">
+          <div class="space-y-2">
+            <Label for="textarea-basic">Description</Label>
+            <Textarea id="textarea-basic" placeholder="Enter your message..." />
+          </div>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Form Example" description="Complete form with inputs and labels.">
+        <div class="max-w-md card">
+          <div class="card__body">
+            <h3 class="text-lg font-semibold text-primary mb-4">Contact Form</h3>
+            <form class="space-y-4">
+              <div class="grid sm:grid-cols-2 gap-4">
+                <div class="space-y-2">
+                  <Label for="first-name" required>First Name</Label>
+                  <Input id="first-name" placeholder="John" required />
+                </div>
+                <div class="space-y-2">
+                  <Label for="last-name" required>Last Name</Label>
+                  <Input id="last-name" placeholder="Doe" required />
+                </div>
+              </div>
+              <div class="space-y-2">
+                <Label for="contact-email" required>Email</Label>
+                <Input icon="envelope" type="email" id="contact-email" placeholder="john@example.com" required />
+              </div>
+              <div class="space-y-2">
+                <Label for="message" required>Message</Label>
+                <Textarea id="message" rows={4} placeholder="How can we help you?" required />
+              </div>
+              <Button fullWidth>Send Message</Button>
+            </form>
+          </div>
+        </div>
+      </ExampleSection>
+    </section>
+
+    <section id="props">
+      <h2 class="section__title">Input Props</h2>
+      <PropsTable props={props} />
+      
+      <h2 class="section__title mt-8">Textarea Props</h2>
+      <PropsTable props={textareaProps} />
+    </section>
+
+    <section id="usage">
+      <h2 class="section__title">Usage Guidelines</h2>
+      <div class="guidelines">
+        <div class="guideline-card guideline-card--do">
+          <h3 class="guideline-card__header"><Icon name="check" size="sm" /> Do</h3>
+          <ul class="guideline-card__list">
+            <li>• Always use labels with inputs</li>
+            <li>• Provide helpful placeholder text</li>
+            <li>• Show validation feedback inline</li>
+            <li>• Use appropriate input types</li>
+          </ul>
+        </div>
+        <div class="guideline-card guideline-card--dont">
+          <h3 class="guideline-card__header"><Icon name="x-mark" size="sm" /> Don't</h3>
+          <ul class="guideline-card__list">
+            <li>• Use placeholder as label</li>
+            <li>• Hide error messages</li>
+            <li>• Disable without explanation</li>
+            <li>• Use generic error messages</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="accessibility" class="space-y-4">
+      <h2 class="section__title">Accessibility</h2>
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="tag" size="sm" />
+          Labels
+        </h3>
+        <p class="a11y-card__text">
+          Always associate labels with inputs using the <code>for</code> attribute. The Label component handles this automatically.
+        </p>
+      </div>
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="exclamation-circle" size="sm" />
+          Error Announcements
+        </h3>
+        <p class="a11y-card__text">
+          Error messages are automatically associated with inputs via <code>aria-describedby</code>. Use the <code>errorMessage</code> prop for clear feedback.
+        </p>
+      </div>
+    </section>
+  </article>
+</DocsLayout>

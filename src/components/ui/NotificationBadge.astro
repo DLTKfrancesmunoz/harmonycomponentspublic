@@ -1,0 +1,46 @@
+---
+/**
+ * NotificationBadge Component
+ *
+ * Small notification indicator for dots, numbers, or overflow text (e.g., "99+").
+ * Used for notification counts and status indicators.
+ */
+export interface Props {
+  type?: 'dot' | 'number' | 'overflow';
+  size?: 'sm' | 'md' | 'lg';
+  variant?: 'error' | 'primary';
+  value?: string | number;
+  border?: boolean;
+  class?: string;
+}
+
+const {
+  type = 'number',
+  size = 'md',
+  variant = 'primary',
+  value = 1,
+  border = false,
+  class: className = '',
+} = Astro.props;
+
+const classes = [
+  'notification-badge',
+  `notification-badge--${type}`,
+  `notification-badge--${size}`,
+  `notification-badge--${variant}`,
+  border && 'notification-badge--border',
+  className,
+].filter(Boolean).join(' ');
+
+// For dot type, we don't need value
+const displayValue = type === 'dot' ? '' : String(value);
+---
+
+{type === 'dot' ? (
+  <span class={classes} aria-label="Notification indicator"></span>
+) : (
+  <span class={classes} aria-label={`${displayValue} notifications`}>
+    {displayValue}
+  </span>
+)}
+

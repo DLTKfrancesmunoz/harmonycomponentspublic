@@ -1,0 +1,21 @@
+---
+/**
+ * ButtonGroup Component
+ * 
+ * Group of related buttons displayed together.
+ */
+
+export interface Props {
+  class?: string;
+}
+
+const {
+  class: className = '',
+} = Astro.props;
+
+const classes = ['btn-group', className].filter(Boolean).join(' ');
+---
+
+<div class={classes} role="group">
+  <slot />
+</div>

@@ -1,0 +1,87 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import Icon from '../../components/ui/Icon.astro';
+import PropsTable from '../../components/PropsTable.astro';
+import Icon from '../../components/ui/Icon.astro';
+import ExampleSection from '../../components/ExampleSection.astro';
+import Icon from '../../components/ui/Icon.astro';
+import DateInput from '../../components/ui/DateInput.astro';
+import Icon from '../../components/ui/Icon.astro';
+import Label from '../../components/ui/Label.astro';
+import Icon from '../../components/ui/Icon.astro';
+
+const props = [
+  { name: 'type', type: "'date' | 'time' | 'datetime-local' | 'month' | 'week'", default: "'date'", description: 'Input type' },
+  { name: 'value', type: 'string', default: '—', description: 'Current value' },
+  { name: 'min', type: 'string', default: '—', description: 'Minimum date/time' },
+  { name: 'max', type: 'string', default: '—', description: 'Maximum date/time' },
+  { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables the input' },
+];
+---
+
+<DocsLayout title="Date Picker" description="Date and time input components.">
+  <article class="space-y-12">
+    <header class="page-header page-header--compact">
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="page-header__title page-header__title--sm">Date Picker</h1>
+        <span class="badge badge--success">stable</span>
+      </div>
+      <p class="page-header__description">
+        Date pickers allow users to select dates and times using native browser controls.
+      </p>
+    </header>
+
+    <nav class="article-nav">
+      <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
+      <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+    </nav>
+
+    <section id="examples" class="space-y-8">
+      <h2 class="section__title">Examples</h2>
+
+      <ExampleSection title="Date Input" description="Standard date picker.">
+        <div class="max-w-sm space-y-2">
+          <Label for="date-basic">Select Date</Label>
+          <DateInput id="date-basic" />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Time Input" description="Time picker.">
+        <div class="max-w-sm space-y-2">
+          <Label for="time-basic">Select Time</Label>
+          <DateInput type="time" id="time-basic" />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Date and Time" description="Combined date and time picker.">
+        <div class="max-w-sm space-y-2">
+          <Label for="datetime-basic">Select Date & Time</Label>
+          <DateInput type="datetime-local" id="datetime-basic" />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="With Constraints" description="Date picker with min/max limits.">
+        <div class="max-w-sm space-y-2">
+          <Label for="date-constrained">Select Date (Next 30 days)</Label>
+          <DateInput 
+            id="date-constrained" 
+            min={new Date().toISOString().split('T')[0]}
+            max={new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]}
+          />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Disabled" description="Disabled date picker.">
+        <div class="max-w-sm space-y-2">
+          <Label for="date-disabled">Select Date (Disabled)</Label>
+          <DateInput id="date-disabled" disabled value="2024-01-15" />
+        </div>
+      </ExampleSection>
+    </section>
+
+    <section id="props">
+      <h2 class="section__title">Props</h2>
+      <PropsTable props={props} />
+    </section>
+  </article>
+</DocsLayout>

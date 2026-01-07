@@ -1,0 +1,49 @@
+---
+import '../../styles/global.css';
+import StepperInput from '../../components/ui/StepperInput.astro';
+import RangeInput from '../../components/ui/RangeInput.astro';
+import Input from '../../components/ui/Input.astro';
+import Label from '../../components/ui/Label.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script is:inline>
+      (function() {
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const savedColorTheme = localStorage.getItem('colorTheme') || 'cp';
+        if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+        document.documentElement.classList.add('theme-' + savedColorTheme);
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Specialty Inputs Preview</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { height: 100%; width: 100%; }
+      body { padding: 48px; display: flex; flex-direction: column; gap: 24px; max-width: 400px; }
+    </style>
+  </head>
+  <body>
+    <div>
+      <Label>Quantity</Label>
+      <StepperInput value={1} min={0} max={99} />
+    </div>
+    <div>
+      <Label>Step by 5</Label>
+      <StepperInput value={10} step={5} min={0} max={100} />
+    </div>
+    <div>
+      <Label>Range Input</Label>
+      <RangeInput value={50} min={0} max={100} />
+    </div>
+    <div>
+      <Label>Number Input</Label>
+      <Input type="number" placeholder="0" />
+    </div>
+  </body>
+</html>
+

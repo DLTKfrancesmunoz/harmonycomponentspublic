@@ -1,0 +1,79 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import PropsTable from '../../components/PropsTable.astro';
+import ExampleSection from '../../components/ExampleSection.astro';
+import Dropdown from '../../components/ui/Dropdown.astro';
+import Label from '../../components/ui/Label.astro';
+import Icon from '../../components/ui/Icon.astro';
+
+const props = [
+  { name: 'options', type: 'Option[]', default: '[]', description: 'Array of options with value and label' },
+  { name: 'value', type: 'string', default: '—', description: 'Selected value' },
+  { name: 'placeholder', type: 'string', default: "'Select an option'", description: 'Placeholder text' },
+  { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables the dropdown' },
+];
+
+const countries = [
+  { value: 'us', label: 'United States' },
+  { value: 'ca', label: 'Canada' },
+  { value: 'uk', label: 'United Kingdom' },
+  { value: 'de', label: 'Germany' },
+  { value: 'fr', label: 'France' },
+];
+
+const priorities = [
+  { value: 'low', label: 'Low' },
+  { value: 'medium', label: 'Medium' },
+  { value: 'high', label: 'High' },
+  { value: 'urgent', label: 'Urgent' },
+];
+---
+
+<DocsLayout title="Dropdowns" description="Dropdown select components for choosing from options.">
+  <article class="space-y-12">
+    <header class="page-header page-header--compact">
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="page-header__title page-header__title--sm">Dropdowns</h1>
+        <span class="badge badge--success">stable</span>
+      </div>
+      <p class="page-header__description">
+        Dropdowns allow users to select an option from a list. They're useful when space is limited or options exceed 5 items.
+      </p>
+    </header>
+
+    <nav class="article-nav">
+      <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
+      <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+    </nav>
+
+    <section id="examples" class="space-y-8">
+      <h2 class="section__title">Examples</h2>
+
+      <ExampleSection title="Basic Dropdown" description="Standard dropdown with options.">
+        <div class="max-w-sm space-y-2">
+          <Label>Country</Label>
+          <Dropdown options={countries} placeholder="Select a country" />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="With Pre-selected Value" description="Dropdown with a default selection.">
+        <div class="max-w-sm space-y-2">
+          <Label>Priority</Label>
+          <Dropdown options={priorities} value="medium" />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Disabled" description="Disabled dropdown state.">
+        <div class="max-w-sm space-y-2">
+          <Label>Country (Disabled)</Label>
+          <Dropdown options={countries} value="us" disabled />
+        </div>
+      </ExampleSection>
+    </section>
+
+    <section id="props">
+      <h2 class="section__title">Props</h2>
+      <PropsTable props={props} />
+    </section>
+  </article>
+</DocsLayout>

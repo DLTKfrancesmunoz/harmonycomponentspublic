@@ -1,0 +1,55 @@
+---
+import '../../styles/global.css';
+import Card from '../../components/ui/Card.astro';
+import Button from '../../components/ui/Button.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script is:inline>
+      (function() {
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const savedColorTheme = localStorage.getItem('colorTheme') || 'cp';
+        if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+        document.documentElement.classList.add('theme-' + savedColorTheme);
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cards Preview</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { height: 100%; width: 100%; }
+      body { padding: 48px; display: flex; flex-direction: column; gap: 24px; max-width: 600px; }
+    </style>
+  </head>
+  <body>
+    <Card>
+      <div class="card__body">
+        <h3 class="text-lg font-semibold text-primary mb-2">Basic Card</h3>
+        <p class="text-sm text-secondary">
+          This is a basic card with some content. Cards are great for grouping related information together.
+        </p>
+      </div>
+    </Card>
+    <Card elevated>
+      <div class="card__body">
+        <h3 class="text-lg font-semibold text-primary mb-2">Elevated Card</h3>
+        <p class="text-sm text-secondary">
+          This card has elevation with a shadow for more visual prominence.
+        </p>
+      </div>
+    </Card>
+    <Card primary>
+      <div class="card__body">
+        <h3 class="text-lg font-semibold text-primary mb-2">Primary Card</h3>
+        <p class="text-sm text-secondary">
+          This card has a primary colored top border to draw attention.
+        </p>
+      </div>
+    </Card>
+  </body>
+</html>
+

@@ -1,0 +1,63 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import PropsTable from '../../components/PropsTable.astro';
+import ExampleSection from '../../components/ExampleSection.astro';
+import Label from '../../components/ui/Label.astro';
+import Input from '../../components/ui/Input.astro';
+import Icon from '../../components/ui/Icon.astro';
+
+const props = [
+  { name: 'for', type: 'string', default: '—', description: 'Associated input id' },
+  { name: 'required', type: 'boolean', default: 'false', description: 'Shows required indicator' },
+  { name: 'helper', type: 'string', default: '—', description: 'Helper text in parentheses' },
+];
+---
+
+<DocsLayout title="Labels" description="Label components for form inputs.">
+  <article class="space-y-12">
+    <header class="page-header page-header--compact">
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="page-header__title page-header__title--sm">Labels</h1>
+        <span class="badge badge--success">stable</span>
+      </div>
+      <p class="page-header__description">
+        Labels identify form inputs and provide context for users.
+      </p>
+    </header>
+
+    <nav class="article-nav">
+      <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
+      <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+    </nav>
+
+    <section id="examples" class="space-y-8">
+      <h2 class="section__title">Examples</h2>
+
+      <ExampleSection title="Basic Label" description="Standard label for inputs.">
+        <div class="max-w-sm space-y-2">
+          <Label for="name">Full Name</Label>
+          <Input id="name" placeholder="Enter your name" />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Required Label" description="Label with required indicator.">
+        <div class="max-w-sm space-y-2">
+          <Label for="email" required>Email Address</Label>
+          <Input id="email" type="email" placeholder="you@example.com" />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="With Helper Text" description="Label with additional context.">
+        <div class="max-w-sm space-y-2">
+          <Label for="phone" helper="optional">Phone Number</Label>
+          <Input id="phone" type="tel" placeholder="(555) 555-5555" />
+        </div>
+      </ExampleSection>
+    </section>
+
+    <section id="props">
+      <h2 class="section__title">Props</h2>
+      <PropsTable props={props} />
+    </section>
+  </article>
+</DocsLayout>

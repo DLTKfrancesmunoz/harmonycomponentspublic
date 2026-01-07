@@ -1,0 +1,975 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import ExampleSection from '../../components/ExampleSection.astro';
+import Card from '../../components/ui/Card.astro';
+import Icon from '../../components/ui/Icon.astro';
+---
+
+<DocsLayout title="Shell Page Content" description="Main content area structure and patterns for the shell layout.">
+  <article class="space-y-12">
+    <!-- Page Header -->
+    <header class="page-header page-header--compact">
+      <h1 class="page-header__title page-header__title--sm">Shell Page Content</h1>
+      <p class="page-header__description">
+        The page content area is the main workspace where primary content and interactions occur within the shell layout.
+        Positioned between the header and footer, and to the right of any sidebars, this region houses forms, data tables,
+        dashboards, and other page-specific content using cards as the primary organizational pattern.
+      </p>
+    </header>
+
+    <!-- Overview Section -->
+    <section class="space-y-6">
+      <h2 class="section__title">Overview</h2>
+
+      <div class="card">
+        <div class="card__body">
+          <h3 class="font-semibold text-primary mb-2">The Central Content Region</h3>
+          <p class="text-sm text-secondary mb-4">
+            The page content area serves as the central workspace of the shell layout. It's where users interact
+            with application features, view data, complete tasks, and manage their work. This area uses a card-based
+            design pattern to organize information into logical, scannable sections.
+          </p>
+          <ul class="list-disc list-inside text-sm text-secondary space-y-1">
+            <li>Central region positioned between shell header (top) and shell footer (bottom)</li>
+            <li>Appears to the right of left sidebar and left of right sidebar (when present)</li>
+            <li>Houses primary application content: forms, tables, dashboards, reports</li>
+            <li>Uses cards with optional accent borders to organize and highlight content</li>
+            <li>Dedicated background color (--page-bg) provides contrast with navigation elements</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Examples Section -->
+    <section class="space-y-6">
+      <h2 class="section__title">Examples</h2>
+
+      <ExampleSection
+        title="Single Card Layout"
+        description="Default layout with a single card containing page content. This is the most common pattern for focused content like forms or detailed views."
+      >
+        <div class="p-6 bg-page rounded-lg">
+          <Card class="max-w-3xl mx-auto">
+            <div class="space-y-6">
+              <div>
+                <h3 class="text-lg font-semibold text-primary mb-2">Project Overview</h3>
+                <p class="text-sm text-secondary">
+                  Review and manage your project details, timeline, and team members. All key information
+                  is organized in a single, easy-to-scan card format.
+                </p>
+              </div>
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <p class="text-xs font-medium text-secondary mb-1">Project Name</p>
+                  <p class="text-sm text-primary">Website Redesign</p>
+                </div>
+                <div>
+                  <p class="text-xs font-medium text-secondary mb-1">Status</p>
+                  <p class="text-sm text-primary">In Progress</p>
+                </div>
+                <div>
+                  <p class="text-xs font-medium text-secondary mb-1">Start Date</p>
+                  <p class="text-sm text-primary">January 15, 2024</p>
+                </div>
+                <div>
+                  <p class="text-xs font-medium text-secondary mb-1">Team Size</p>
+                  <p class="text-sm text-primary">8 members</p>
+                </div>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection
+        title="Card with Accent Border"
+        description="Featured card with 4px primary color top border to draw attention to important content. Use sparingly to highlight key information or primary actions."
+      >
+        <div class="p-6 bg-page rounded-lg">
+          <div class="grid gap-4 max-w-3xl mx-auto">
+            <Card primary>
+              <div class="space-y-4">
+                <div>
+                  <h3 class="text-lg font-semibold text-primary mb-2">Featured Project</h3>
+                  <p class="text-sm text-secondary">
+                    This project requires immediate attention. The primary accent border indicates priority status.
+                  </p>
+                </div>
+                <div class="flex gap-2">
+                  <button class="btn btn--primary btn--sm">View Details</button>
+                  <button class="btn btn--outline btn--sm">Dismiss</button>
+                </div>
+              </div>
+            </Card>
+            <Card>
+              <div>
+                <h3 class="text-base font-semibold text-primary mb-2">Standard Project</h3>
+                <p class="text-sm text-secondary">Regular card without accent border for standard content.</p>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection
+        title="Multiple Card Grid"
+        description="Responsive grid layout organizing related content into multiple cards. Cards stack vertically on mobile and expand to 2-3 columns on larger screens."
+      >
+        <div class="p-6 bg-page rounded-lg">
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <Card primary>
+              <div>
+                <h3 class="text-base font-semibold text-primary mb-2">Card Title 1</h3>
+                <p class="text-sm text-secondary">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.
+                </p>
+              </div>
+            </Card>
+            <Card primary>
+              <div>
+                <h3 class="text-base font-semibold text-primary mb-2">Card Title 2</h3>
+                <p class="text-sm text-secondary">
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.
+                </p>
+              </div>
+            </Card>
+            <Card primary>
+              <div>
+                <h3 class="text-base font-semibold text-primary mb-2">Card Title 3</h3>
+                <p class="text-sm text-secondary">
+                  Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.
+                </p>
+              </div>
+            </Card>
+            <Card>
+              <div>
+                <h3 class="text-base font-semibold text-primary mb-2">Card Title 4</h3>
+                <p class="text-sm text-secondary">
+                  Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.
+                </p>
+              </div>
+            </Card>
+            <Card>
+              <div>
+                <h3 class="text-base font-semibold text-primary mb-2">Card Title 5</h3>
+                <p class="text-sm text-secondary">
+                  Mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error.
+                </p>
+              </div>
+            </Card>
+            <Card>
+              <div>
+                <h3 class="text-base font-semibold text-primary mb-2">Card Title 6</h3>
+                <p class="text-sm text-secondary">
+                  Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.
+                </p>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection
+        title="Card with Header"
+        description="Card with colored header bar containing title and action icons. Perfect for pages with header controls like settings panels or detailed views."
+      >
+        <div class="p-6 bg-page rounded-lg">
+          <Card withHeader class="max-w-3xl mx-auto">
+            <div slot="header" class="flex items-center gap-2 flex-1">
+              <Icon name="chart-bar" size="sm" />
+              <span class="font-semibold text-lg">Dashboard</span>
+            </div>
+            <Icon name="ellipsis-vertical" size="sm" slot="header-actions" />
+            <Icon name="arrow-top-right-on-square" size="sm" slot="header-actions" />
+            <Icon name="x-mark" size="sm" slot="header-actions" />
+
+            <div class="space-y-6">
+              <div>
+                <h4 class="text-base font-semibold text-primary mb-3">Key Metrics</h4>
+                <div class="grid grid-cols-2 gap-4">
+                  <div class="p-3 bg-elevated rounded-lg">
+                    <p class="text-xs text-secondary mb-1">Total Projects</p>
+                    <p class="text-2xl font-bold text-primary">24</p>
+                  </div>
+                  <div class="p-3 bg-elevated rounded-lg">
+                    <p class="text-xs text-secondary mb-1">Active Tasks</p>
+                    <p class="text-2xl font-bold text-primary">156</p>
+                  </div>
+                  <div class="p-3 bg-elevated rounded-lg">
+                    <p class="text-xs text-secondary mb-1">Completed</p>
+                    <p class="text-2xl font-bold text-primary">89</p>
+                  </div>
+                  <div class="p-3 bg-elevated rounded-lg">
+                    <p class="text-xs text-secondary mb-1">Team Members</p>
+                    <p class="text-2xl font-bold text-primary">12</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection
+        title="Full Page Layout"
+        description="Complete page structure with page header, description, and multiple card sections. This demonstrates a real-world page content layout."
+      >
+        <div class="p-6 bg-page rounded-lg">
+          <div class="max-w-5xl mx-auto space-y-6">
+            <!-- Page Title Section -->
+            <div class="border-b pb-4">
+              <h1 class="text-2xl font-bold text-primary mb-2">Projects Dashboard</h1>
+              <p class="text-secondary">Manage and track all your active projects in one place.</p>
+            </div>
+
+            <!-- Featured Project -->
+            <Card primary>
+              <div class="space-y-4">
+                <div>
+                  <h3 class="text-lg font-semibold text-primary mb-2">High Priority Project</h3>
+                  <p class="text-sm text-secondary">This project requires immediate attention and has an upcoming deadline.</p>
+                </div>
+                <div class="flex gap-2">
+                  <button class="btn btn--primary btn--sm">View Project</button>
+                  <button class="btn btn--outline btn--sm">Update Status</button>
+                </div>
+              </div>
+            </Card>
+
+            <!-- Project Grid -->
+            <div>
+              <h2 class="text-lg font-semibold text-primary mb-4">All Projects</h2>
+              <div class="grid md:grid-cols-2 gap-4">
+                <Card>
+                  <div>
+                    <h4 class="text-base font-semibold text-primary mb-2">Website Redesign</h4>
+                    <p class="text-sm text-secondary mb-3">In Progress • 12 tasks remaining</p>
+                    <div class="w-full bg-elevated h-2 rounded-full">
+                      <div class="bg-primary h-2 rounded-full" style="width: 65%"></div>
+                    </div>
+                  </div>
+                </Card>
+                <Card>
+                  <div>
+                    <h4 class="text-base font-semibold text-primary mb-2">Mobile App Launch</h4>
+                    <p class="text-sm text-secondary mb-3">Planning • 8 tasks remaining</p>
+                    <div class="w-full bg-elevated h-2 rounded-full">
+                      <div class="bg-primary h-2 rounded-full" style="width: 30%"></div>
+                    </div>
+                  </div>
+                </Card>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ExampleSection>
+    </section>
+
+    <!-- Card Variants Section -->
+    <section class="space-y-6">
+      <h2 class="section__title">Card Variants</h2>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <!-- Default Card -->
+        <div class="card">
+          <div class="card__body">
+            <div class="flex items-start gap-3 mb-3">
+              <div class="p-2 bg-elevated rounded">
+                <Icon name="document-text" size="sm" class="text-primary" />
+              </div>
+              <div>
+                <h3 class="font-semibold text-primary">Default Card</h3>
+                <p class="text-xs text-secondary">No additional props needed</p>
+              </div>
+            </div>
+            <p class="text-sm text-secondary mb-2">
+              Standard card with border, rounded corners, and card background. Use for general content without special emphasis.
+            </p>
+            <code class="text-xs bg-elevated p-2 rounded block">&lt;Card&gt;...&lt;/Card&gt;</code>
+          </div>
+        </div>
+
+        <!-- Primary Accent Card -->
+        <div class="card">
+          <div class="card__body">
+            <div class="flex items-start gap-3 mb-3">
+              <div class="p-2 bg-elevated rounded">
+                <Icon name="star" size="sm" class="text-primary" />
+              </div>
+              <div>
+                <h3 class="font-semibold text-primary">Primary Accent Card</h3>
+                <p class="text-xs text-secondary">primary={true}</p>
+              </div>
+            </div>
+            <p class="text-sm text-secondary mb-2">
+              Adds 4px top border in theme primary color. Use to highlight featured content or important information.
+            </p>
+            <code class="text-xs bg-elevated p-2 rounded block">&lt;Card primary&gt;...&lt;/Card&gt;</code>
+          </div>
+        </div>
+
+        <!-- Elevated Card -->
+        <div class="card">
+          <div class="card__body">
+            <div class="flex items-start gap-3 mb-3">
+              <div class="p-2 bg-elevated rounded">
+                <Icon name="arrow-up-circle" size="sm" class="text-primary" />
+              </div>
+              <div>
+                <h3 class="font-semibold text-primary">Elevated Card</h3>
+                <p class="text-xs text-secondary">elevated={true}</p>
+              </div>
+            </div>
+            <p class="text-sm text-secondary mb-2">
+              Adds shadow for depth. Useful when page background and card background have low contrast.
+            </p>
+            <code class="text-xs bg-elevated p-2 rounded block">&lt;Card elevated&gt;...&lt;/Card&gt;</code>
+          </div>
+        </div>
+
+        <!-- Interactive Card -->
+        <div class="card">
+          <div class="card__body">
+            <div class="flex items-start gap-3 mb-3">
+              <div class="p-2 bg-elevated rounded">
+                <Icon name="cursor-arrow-ripple" size="sm" class="text-primary" />
+              </div>
+              <div>
+                <h3 class="font-semibold text-primary">Interactive Card</h3>
+                <p class="text-xs text-secondary">interactive={true}</p>
+              </div>
+            </div>
+            <p class="text-sm text-secondary mb-2">
+              Adds hover effects and cursor pointer. Use for clickable cards that navigate or expand content.
+            </p>
+            <code class="text-xs bg-elevated p-2 rounded block">&lt;Card interactive&gt;...&lt;/Card&gt;</code>
+          </div>
+        </div>
+
+        <!-- Card with Header -->
+        <div class="card">
+          <div class="card__body">
+            <div class="flex items-start gap-3 mb-3">
+              <div class="p-2 bg-elevated rounded">
+                <Icon name="rectangle-stack" size="sm" class="text-primary" />
+              </div>
+              <div>
+                <h3 class="font-semibold text-primary">Card with Header</h3>
+                <p class="text-xs text-secondary">withHeader={true}</p>
+              </div>
+            </div>
+            <p class="text-sm text-secondary mb-2">
+              Displays 48px colored header bar with title, subtitle, and action icons. Ideal for pages requiring header controls.
+            </p>
+            <code class="text-xs bg-elevated p-2 rounded block">&lt;Card withHeader headerTitle="Title"&gt;...&lt;/Card&gt;</code>
+          </div>
+        </div>
+
+        <!-- Combined Variants -->
+        <div class="card">
+          <div class="card__body">
+            <div class="flex items-start gap-3 mb-3">
+              <div class="p-2 bg-elevated rounded">
+                <Icon name="squares-plus" size="sm" class="text-primary" />
+              </div>
+              <div>
+                <h3 class="font-semibold text-primary">Combined Variants</h3>
+                <p class="text-xs text-secondary">Multiple props</p>
+              </div>
+            </div>
+            <p class="text-sm text-secondary mb-2">
+              Variants can be combined for enhanced effects. For example, a primary card can also be elevated or interactive.
+            </p>
+            <code class="text-xs bg-elevated p-2 rounded block">&lt;Card primary elevated&gt;...&lt;/Card&gt;</code>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Layout & Spacing Section -->
+    <section class="space-y-6">
+      <h2 class="section__title">Layout & Spacing</h2>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="card">
+          <div class="card__body">
+            <div class="flex items-start gap-3 mb-3">
+              <Icon name="squares-plus" size="sm" class="text-primary" />
+              <h3 class="font-semibold text-primary">Container Structure</h3>
+            </div>
+            <p class="text-sm text-secondary mb-3">
+              Page content should use proper semantic structure with <code class="text-xs bg-elevated px-1 py-0.5 rounded">&lt;article&gt;</code> wrapper
+              and <code class="text-xs bg-elevated px-1 py-0.5 rounded">&lt;section&gt;</code> elements. Use <code class="text-xs bg-elevated px-1 py-0.5 rounded">space-y-12</code>
+              between major sections for consistent vertical rhythm.
+            </p>
+            <div class="text-xs bg-elevated p-3 rounded font-mono">
+              &lt;article class="space-y-12"&gt;<br />
+              &nbsp;&nbsp;&lt;section&gt;...&lt;/section&gt;<br />
+              &lt;/article&gt;
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__body">
+            <div class="flex items-start gap-3 mb-3">
+              <Icon name="arrows-pointing-out" size="sm" class="text-primary" />
+              <h3 class="font-semibold text-primary">Padding & Margins</h3>
+            </div>
+            <p class="text-sm text-secondary mb-3">
+              Page content typically has padding from edges (p-6 or p-8). Cards use their own internal padding through
+              <code class="text-xs bg-elevated px-1 py-0.5 rounded">card__body</code> which has 24px (var(--space-6)) padding by default.
+            </p>
+            <ul class="text-sm text-secondary space-y-1 list-disc list-inside">
+              <li>Page wrapper: p-6 or p-8</li>
+              <li>Card body: var(--space-6)</li>
+              <li>Between sections: space-y-6 or space-y-8</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__body">
+            <div class="flex items-start gap-3 mb-3">
+              <Icon name="swatch" size="sm" class="text-primary" />
+              <h3 class="font-semibold text-primary">Background Colors</h3>
+            </div>
+            <p class="text-sm text-secondary mb-3">
+              Page content area uses <code class="text-xs bg-elevated px-1 py-0.5 rounded">var(--page-bg)</code>, while cards
+              use <code class="text-xs bg-elevated px-1 py-0.5 rounded">var(--card-bg)</code>. This creates visual hierarchy and
+              separates content from container.
+            </p>
+            <div class="space-y-2 text-xs">
+              <div class="flex items-center gap-2">
+                <div class="w-4 h-4 rounded border" style="background-color: var(--page-bg)"></div>
+                <span class="text-secondary">Page background</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="w-4 h-4 rounded border" style="background-color: var(--card-bg)"></div>
+                <span class="text-secondary">Card background</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__body">
+            <div class="flex items-start gap-3 mb-3">
+              <Icon name="arrows-right-left" size="sm" class="text-primary" />
+              <h3 class="font-semibold text-primary">Max Width</h3>
+            </div>
+            <p class="text-sm text-secondary mb-3">
+              For readability on very wide screens, consider using max-width constraints like <code class="text-xs bg-elevated px-1 py-0.5 rounded">max-w-7xl</code>
+              or similar. Center with <code class="text-xs bg-elevated px-1 py-0.5 rounded">mx-auto</code> when needed.
+            </p>
+            <div class="text-xs bg-elevated p-3 rounded font-mono">
+              &lt;div class="max-w-5xl mx-auto"&gt;<br />
+              &nbsp;&nbsp;&lt;Card&gt;...&lt;/Card&gt;<br />
+              &lt;/div&gt;
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content Patterns Section -->
+    <section class="space-y-6">
+      <h2 class="section__title">Content Patterns</h2>
+
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="a11y-card">
+          <h3 class="a11y-card__title">
+            <Icon name="document-text" size="sm" class="a11y-card__title-icon" />
+            Page Headers
+          </h3>
+          <p class="a11y-card__text">
+            Start content areas with clear page headers containing title (h1) and description.
+            Use border-b to separate from content below. Keep titles concise and descriptive.
+          </p>
+        </div>
+
+        <div class="a11y-card">
+          <h3 class="a11y-card__title">
+            <Icon name="squares-2x2" size="sm" class="a11y-card__title-icon" />
+            Card Organization
+          </h3>
+          <p class="a11y-card__text">
+            Group related content within cards. Use card__header, card__body, and card__footer for structure.
+            Each card should represent one concept or task group.
+          </p>
+        </div>
+
+        <div class="a11y-card">
+          <h3 class="a11y-card__title">
+            <Icon name="view-columns" size="sm" class="a11y-card__title-icon" />
+            Responsive Grids
+          </h3>
+          <p class="a11y-card__text">
+            Use responsive grid layouts (grid md:grid-cols-2 lg:grid-cols-3) to organize multiple cards.
+            Cards automatically stack vertically on mobile devices.
+          </p>
+        </div>
+
+        <div class="a11y-card">
+          <h3 class="a11y-card__title">
+            <Icon name="arrows-up-down" size="sm" class="a11y-card__title-icon" />
+            Vertical Spacing
+          </h3>
+          <p class="a11y-card__text">
+            Maintain consistent spacing between sections using space-y-6 or space-y-8 utility classes.
+            Use space-y-12 for major section breaks.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Behavior Section -->
+    <section class="space-y-6">
+      <h2 class="section__title">Behavior</h2>
+
+      <div class="grid gap-4 md:grid-cols-2">
+        <div class="a11y-card">
+          <h3 class="a11y-card__title">
+            <Icon name="arrows-up-down" size="sm" class="a11y-card__title-icon" />
+            Scrolling
+          </h3>
+          <p class="a11y-card__text">
+            The page content area is scrollable when content exceeds viewport height. Shell header and
+            footer remain fixed, providing consistent navigation access.
+          </p>
+        </div>
+
+        <div class="a11y-card">
+          <h3 class="a11y-card__title">
+            <Icon name="device-phone-mobile" size="sm" class="a11y-card__title-icon" />
+            Responsive Layout
+          </h3>
+          <p class="a11y-card__text">
+            Card grids automatically stack on mobile devices. Use responsive utilities (md:, lg:) for
+            breakpoint control. Test layouts at different screen sizes.
+          </p>
+        </div>
+
+        <div class="a11y-card">
+          <h3 class="a11y-card__title">
+            <Icon name="arrow-path" size="sm" class="a11y-card__title-icon" />
+            Loading States
+          </h3>
+          <p class="a11y-card__text">
+            During data fetching, display skeleton loaders or spinners within cards to maintain layout
+            stability and provide visual feedback to users.
+          </p>
+        </div>
+
+        <div class="a11y-card">
+          <h3 class="a11y-card__title">
+            <Icon name="document-magnifying-glass" size="sm" class="a11y-card__title-icon" />
+            Empty States
+          </h3>
+          <p class="a11y-card__text">
+            When no content exists, display helpful empty state messages with clear actions to add content.
+            Use icons and concise copy to guide users.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Header Variant Details Section -->
+    <section class="space-y-6">
+      <h2 class="section__title">Header Variant Details</h2>
+
+      <div class="space-y-6">
+        <div class="card">
+          <div class="card__body">
+            <h3 class="font-semibold text-primary mb-3">When to Use Header Variant</h3>
+            <p class="text-sm text-secondary mb-4">
+              The header variant displays a 48px colored bar at the top of the card with title, optional subtitle,
+              and action icons. Use this variant when:
+            </p>
+            <ul class="list-disc list-inside text-sm text-secondary space-y-2">
+              <li>The card represents a distinct section or module with its own controls</li>
+              <li>You need quick access actions (close, expand, settings) in the header</li>
+              <li>The card functions as a widget or dashboard component</li>
+              <li>You want to visually separate the card's identity from its content</li>
+              <li>The page contains multiple cards that need clear visual distinction</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__body">
+            <h3 class="font-semibold text-primary mb-3">Header Structure</h3>
+            <p class="text-sm text-secondary mb-3">The header variant supports three main elements:</p>
+            <div class="space-y-3 text-sm">
+              <div class="flex gap-3">
+                <div class="flex-shrink-0">
+                  <div class="w-8 h-8 rounded bg-primary/10 flex items-center justify-center">
+                    <span class="text-primary font-bold text-xs">1</span>
+                  </div>
+                </div>
+                <div>
+                  <p class="font-semibold text-primary mb-1">Title (Required)</p>
+                  <p class="text-secondary">20px semibold text in white. Displays the card's primary heading.</p>
+                  <code class="text-xs bg-elevated px-2 py-1 rounded mt-1 inline-block">headerTitle="Dashboard"</code>
+                </div>
+              </div>
+              <div class="flex gap-3">
+                <div class="flex-shrink-0">
+                  <div class="w-8 h-8 rounded bg-primary/10 flex items-center justify-center">
+                    <span class="text-primary font-bold text-xs">2</span>
+                  </div>
+                </div>
+                <div>
+                  <p class="font-semibold text-primary mb-1">Subtitle (Optional)</p>
+                  <p class="text-secondary">14px regular text in white (90% opacity). Provides additional context.</p>
+                  <code class="text-xs bg-elevated px-2 py-1 rounded mt-1 inline-block">headerSubtitle="Overview"</code>
+                </div>
+              </div>
+              <div class="flex gap-3">
+                <div class="flex-shrink-0">
+                  <div class="w-8 h-8 rounded bg-primary/10 flex items-center justify-center">
+                    <span class="text-primary font-bold text-xs">3</span>
+                  </div>
+                </div>
+                <div>
+                  <p class="font-semibold text-primary mb-1">Actions (Optional)</p>
+                  <p class="text-secondary">Hero icons displayed in white. Use header-actions slot for icon buttons.</p>
+                  <code class="text-xs bg-elevated px-2 py-1 rounded mt-1 inline-block">slot="header-actions"</code>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__body">
+            <h3 class="font-semibold text-primary mb-3">Code Examples</h3>
+            <div class="space-y-4">
+              <div>
+                <p class="text-sm font-medium text-primary mb-2">Basic Header with Title Only</p>
+                <div class="text-xs bg-elevated p-3 rounded font-mono">
+                  &lt;Card withHeader headerTitle="Dashboard"&gt;<br />
+                  &nbsp;&nbsp;&lt;div&gt;Card content goes here&lt;/div&gt;<br />
+                  &lt;/Card&gt;
+                </div>
+              </div>
+              <div>
+                <p class="text-sm font-medium text-primary mb-2">Header with Title, Subtitle, and Actions</p>
+                <div class="text-xs bg-elevated p-3 rounded font-mono">
+                  &lt;Card withHeader headerTitle="Dashboard" headerSubtitle="Overview"&gt;<br />
+                  &nbsp;&nbsp;&lt;Icon name="ellipsis-vertical" size="sm" slot="header-actions" /&gt;<br />
+                  &nbsp;&nbsp;&lt;Icon name="x-mark" size="sm" slot="header-actions" /&gt;<br />
+                  &nbsp;&nbsp;&lt;div&gt;Card content goes here&lt;/div&gt;<br />
+                  &lt;/Card&gt;
+                </div>
+              </div>
+              <div>
+                <p class="text-sm font-medium text-primary mb-2">Custom Header Slot</p>
+                <div class="text-xs bg-elevated p-3 rounded font-mono">
+                  &lt;Card withHeader&gt;<br />
+                  &nbsp;&nbsp;&lt;div slot="header"&gt;<br />
+                  &nbsp;&nbsp;&nbsp;&nbsp;&lt;h3&gt;Custom Header Content&lt;/h3&gt;<br />
+                  &nbsp;&nbsp;&lt;/div&gt;<br />
+                  &nbsp;&nbsp;&lt;div&gt;Card content goes here&lt;/div&gt;<br />
+                  &lt;/Card&gt;
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Implementation Notes Section -->
+    <section class="space-y-6">
+      <h2 class="section__title">Implementation Notes</h2>
+
+      <div class="space-y-4">
+        <div class="card">
+          <div class="card__body">
+            <h3 class="font-semibold text-primary mb-3">
+              <Icon name="code-bracket" size="sm" class="inline mr-2" />
+              Basic Structure
+            </h3>
+            <p class="text-sm text-secondary mb-3">
+              Page content uses semantic HTML with article and section elements for proper document structure.
+            </p>
+            <div class="text-xs bg-elevated p-4 rounded font-mono">
+              &lt;article class="space-y-12"&gt;<br />
+              &nbsp;&nbsp;&lt;header class="page-header"&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;Page Title&lt;/h1&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Description&lt;/p&gt;<br />
+              &nbsp;&nbsp;&lt;/header&gt;<br />
+              <br />
+              &nbsp;&nbsp;&lt;section class="space-y-6"&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;h2 class="section__title"&gt;Section Title&lt;/h2&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;Card&gt;...&lt;/Card&gt;<br />
+              &nbsp;&nbsp;&lt;/section&gt;<br />
+              &lt;/article&gt;
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__body">
+            <h3 class="font-semibold text-primary mb-3">
+              <Icon name="view-columns" size="sm" class="inline mr-2" />
+              Card Grid Patterns
+            </h3>
+            <p class="text-sm text-secondary mb-3">Common grid layouts for organizing multiple cards:</p>
+            <div class="space-y-3 text-xs">
+              <div>
+                <p class="text-sm font-medium text-primary mb-1">Two Column Grid</p>
+                <div class="bg-elevated p-3 rounded font-mono">
+                  &lt;div class="grid md:grid-cols-2 gap-4"&gt;<br />
+                  &nbsp;&nbsp;&lt;Card&gt;...&lt;/Card&gt;<br />
+                  &nbsp;&nbsp;&lt;Card&gt;...&lt;/Card&gt;<br />
+                  &lt;/div&gt;
+                </div>
+              </div>
+              <div>
+                <p class="text-sm font-medium text-primary mb-1">Three Column Grid</p>
+                <div class="bg-elevated p-3 rounded font-mono">
+                  &lt;div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4"&gt;<br />
+                  &nbsp;&nbsp;&lt;Card&gt;...&lt;/Card&gt;<br />
+                  &nbsp;&nbsp;&lt;Card&gt;...&lt;/Card&gt;<br />
+                  &nbsp;&nbsp;&lt;Card&gt;...&lt;/Card&gt;<br />
+                  &lt;/div&gt;
+                </div>
+              </div>
+              <div>
+                <p class="text-sm font-medium text-primary mb-1">Mixed Width Grid</p>
+                <div class="bg-elevated p-3 rounded font-mono">
+                  &lt;div class="grid grid-cols-1 md:grid-cols-3 gap-4"&gt;<br />
+                  &nbsp;&nbsp;&lt;Card class="md:col-span-2"&gt;...&lt;/Card&gt;<br />
+                  &nbsp;&nbsp;&lt;Card&gt;...&lt;/Card&gt;<br />
+                  &lt;/div&gt;
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__body">
+            <h3 class="font-semibold text-primary mb-3">
+              <Icon name="document-text" size="sm" class="inline mr-2" />
+              Semantic HTML
+            </h3>
+            <p class="text-sm text-secondary mb-3">Use proper HTML5 elements for better SEO and accessibility:</p>
+            <ul class="list-disc list-inside text-sm text-secondary space-y-1">
+              <li><code class="text-xs bg-elevated px-1 py-0.5 rounded">&lt;article&gt;</code> - Wrap main content area</li>
+              <li><code class="text-xs bg-elevated px-1 py-0.5 rounded">&lt;section&gt;</code> - Major content divisions</li>
+              <li><code class="text-xs bg-elevated px-1 py-0.5 rounded">&lt;header&gt;</code> - Page/section headers</li>
+              <li><code class="text-xs bg-elevated px-1 py-0.5 rounded">&lt;h1&gt;-&lt;h6&gt;</code> - Maintain heading hierarchy</li>
+              <li><code class="text-xs bg-elevated px-1 py-0.5 rounded">&lt;footer&gt;</code> - Section footers when needed</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__body">
+            <h3 class="font-semibold text-primary mb-3">
+              <Icon name="swatch" size="sm" class="inline mr-2" />
+              CSS Variables
+            </h3>
+            <p class="text-sm text-secondary mb-3">Key CSS variables used in page content and cards:</p>
+            <div class="space-y-2 text-xs">
+              <div class="flex justify-between items-center p-2 bg-elevated rounded">
+                <span class="font-mono">--page-bg</span>
+                <span class="text-secondary">Page background color</span>
+              </div>
+              <div class="flex justify-between items-center p-2 bg-elevated rounded">
+                <span class="font-mono">--card-bg</span>
+                <span class="text-secondary">Card background color</span>
+              </div>
+              <div class="flex justify-between items-center p-2 bg-elevated rounded">
+                <span class="font-mono">--border-color</span>
+                <span class="text-secondary">Card borders</span>
+              </div>
+              <div class="flex justify-between items-center p-2 bg-elevated rounded">
+                <span class="font-mono">--theme-primary</span>
+                <span class="text-secondary">Primary accent color</span>
+              </div>
+              <div class="flex justify-between items-center p-2 bg-elevated rounded">
+                <span class="font-mono">--space-6</span>
+                <span class="text-secondary">Standard spacing (24px)</span>
+              </div>
+              <div class="flex justify-between items-center p-2 bg-elevated rounded">
+                <span class="font-mono">--radius-xl</span>
+                <span class="text-secondary">Card border radius (16px)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__body">
+            <h3 class="font-semibold text-primary mb-3">
+              <Icon name="bolt" size="sm" class="inline mr-2" />
+              Performance Tips
+            </h3>
+            <ul class="list-disc list-inside text-sm text-secondary space-y-2">
+              <li>Lazy load images within cards for faster initial page load</li>
+              <li>Virtualize long lists when displaying many cards (50+)</li>
+              <li>Use skeleton loaders during data fetching to maintain layout stability</li>
+              <li>Avoid deeply nested card structures (3+ levels) that can impact performance</li>
+              <li>Implement infinite scroll or pagination for very long content</li>
+              <li>Consider code-splitting for heavy components loaded in cards</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Best Practices Section -->
+    <section class="space-y-6">
+      <h2 class="section__title">Best Practices</h2>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="guideline-card guideline-card--do">
+          <h3 class="guideline-card__title">
+            <Icon name="check-circle" size="sm" />
+            Do
+          </h3>
+          <ul class="guideline-card__list">
+            <li>Use consistent spacing between sections (space-y-6, space-y-8)</li>
+            <li>Group related content within individual cards</li>
+            <li>Provide clear section headers with descriptive titles</li>
+            <li>Use primary accent cards sparingly to maintain emphasis</li>
+            <li>Maintain proper heading hierarchy (h1 → h2 → h3)</li>
+            <li>Keep page headers concise and action-oriented</li>
+            <li>Test responsive layouts at different screen sizes</li>
+            <li>Use semantic HTML elements for better accessibility</li>
+          </ul>
+        </div>
+
+        <div class="guideline-card guideline-card--dont">
+          <h3 class="guideline-card__title">
+            <Icon name="x-circle" size="sm" />
+            Don't
+          </h3>
+          <ul class="guideline-card__list">
+            <li>Don't overcrowd cards with too much content</li>
+            <li>Don't use too many accent cards (loses emphasis)</li>
+            <li>Don't forget to implement responsive breakpoints</li>
+            <li>Don't mix multiple visual patterns inconsistently</li>
+            <li>Don't skip page headers - they provide context</li>
+            <li>Don't create overly deep nesting (3+ card levels)</li>
+            <li>Don't use interactive cards without clear affordances</li>
+            <li>Don't ignore empty and loading states</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Accessibility Section -->
+    <section class="space-y-6">
+      <h2 class="section__title">Accessibility</h2>
+
+      <div class="grid gap-4 md:grid-cols-2">
+        <div class="a11y-card">
+          <h3 class="a11y-card__title">
+            <Icon name="document-text" size="sm" class="a11y-card__title-icon" />
+            Semantic Structure
+          </h3>
+          <p class="a11y-card__text">
+            Use proper heading hierarchy (h1 → h2 → h3). Each page should have one h1. Section titles use h2.
+            Screen readers rely on this structure for navigation. Cards should use article or section elements when
+            representing standalone content.
+          </p>
+        </div>
+
+        <div class="a11y-card">
+          <h3 class="a11y-card__title">
+            <Icon name="hand-raised" size="sm" class="a11y-card__title-icon" />
+            Keyboard Navigation
+          </h3>
+          <p class="a11y-card__text">
+            Ensure all interactive elements within cards are keyboard accessible. Use Tab to navigate between elements,
+            Enter or Space to activate. Interactive cards should have visible focus indicators and clear hover states.
+          </p>
+        </div>
+
+        <div class="a11y-card">
+          <h3 class="a11y-card__title">
+            <Icon name="eye" size="sm" class="a11y-card__title-icon" />
+            Color Contrast
+          </h3>
+          <p class="a11y-card__text">
+            Maintain WCAG AA contrast ratios (4.5:1 for normal text, 3:1 for large text). Card borders and backgrounds
+            should have sufficient contrast. Test with dark mode enabled. Primary accent borders provide visual emphasis
+            that doesn't rely solely on color.
+          </p>
+        </div>
+
+        <div class="a11y-card">
+          <h3 class="a11y-card__title">
+            <Icon name="chat-bubble-left-right" size="sm" class="a11y-card__title-icon" />
+            Descriptive Labels
+          </h3>
+          <p class="a11y-card__text">
+            Use descriptive aria-label attributes for icon-only buttons within cards. Ensure card actions clearly
+            communicate their purpose to screen reader users. Header action icons should have accessible names
+            (e.g., "Close", "Expand", "Settings").
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Components Section -->
+    <section class="space-y-6">
+      <h2 class="section__title">Related Components</h2>
+
+      <div class="grid md:grid-cols-3 gap-4">
+        <a href="/components/cards" class="card card--interactive">
+          <div class="card__body">
+            <Icon name="rectangle-stack" size="md" class="text-primary mb-3" />
+            <h3 class="font-semibold text-primary mb-2">Card Component</h3>
+            <p class="text-sm text-secondary">Full card component documentation with all props and examples</p>
+          </div>
+        </a>
+
+        <a href="/shell/layout" class="card card--interactive">
+          <div class="card__body">
+            <Icon name="view-columns" size="md" class="text-primary mb-3" />
+            <h3 class="font-semibold text-primary mb-2">Shell Layout</h3>
+            <p class="text-sm text-secondary">Complete shell layout structure and component organization</p>
+          </div>
+        </a>
+
+        <a href="/shell/header" class="card card--interactive">
+          <div class="card__body">
+            <Icon name="bars-3" size="md" class="text-primary mb-3" />
+            <h3 class="font-semibold text-primary mb-2">Shell Header</h3>
+            <p class="text-sm text-secondary">Application header with company selection and gradient border</p>
+          </div>
+        </a>
+
+        <a href="/components/buttons" class="card card--interactive">
+          <div class="card__body">
+            <Icon name="cursor-arrow-ripple" size="md" class="text-primary mb-3" />
+            <h3 class="font-semibold text-primary mb-2">Button Component</h3>
+            <p class="text-sm text-secondary">Button styles often used in card footers and actions</p>
+          </div>
+        </a>
+
+        <a href="/shell/footer" class="card card--interactive">
+          <div class="card__body">
+            <Icon name="bars-3-bottom-left" size="md" class="text-primary mb-3" />
+            <h3 class="font-semibold text-primary mb-2">Shell Footer</h3>
+            <p class="text-sm text-secondary">Bottom tab bar for workspace navigation</p>
+          </div>
+        </a>
+
+        <a href="/components/icons" class="card card--interactive">
+          <div class="card__body">
+            <Icon name="sparkles" size="md" class="text-primary mb-3" />
+            <h3 class="font-semibold text-primary mb-2">Icon Component</h3>
+            <p class="text-sm text-secondary">Hero icons used throughout cards and headers</p>
+          </div>
+        </a>
+      </div>
+    </section>
+  </article>
+</DocsLayout>

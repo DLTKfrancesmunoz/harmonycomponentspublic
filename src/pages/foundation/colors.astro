@@ -1,0 +1,343 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+import Icon from '../../components/ui/Icon.astro';
+
+// Dark mode colors (default)
+const darkModeColors = [
+  { name: 'Obsidian', value: '#09090b', usage: 'Primary background' },
+  { name: 'Charcoal', value: '#18181b', usage: 'Elevated surfaces' },
+  { name: 'Void', value: '#000000', usage: 'Deepest background level' },
+  { name: 'Surface', value: '#0a0a0a', usage: 'Primary surface background' },
+  { name: 'Panel', value: '#111111', usage: 'Elevated panels, cards' },
+  { name: 'Border', value: '#222222', usage: 'Border color' },
+  { name: 'Dim', value: '#444444', usage: 'Subtle dividers, disabled states' },
+  { name: 'Muted', value: '#525252', usage: 'Secondary text, icons' },
+  { name: 'Text', value: '#e5e5e5', usage: 'Primary text' },
+];
+
+// Light mode colors (default)
+const lightModeColors = [
+  { name: 'White', value: '#ffffff', usage: 'Primary surfaces, cards' },
+  { name: 'Page Background', value: '#EDF0F6', usage: 'Main page background' },
+  { name: 'Concrete', value: '#f4f4f5', usage: 'Subtle backgrounds' },
+  { name: 'Slate 50', value: '#f8fafc', usage: 'Lightest surface' },
+  { name: 'Slate 100', value: '#f1f5f9', usage: 'Hover states, inputs' },
+  { name: 'Slate 200', value: '#e2e8f0', usage: 'Borders, dividers' },
+  { name: 'Slate 300', value: '#cbd5e1', usage: 'Disabled states' },
+  { name: 'Slate 600', value: '#475569', usage: 'Secondary text' },
+  { name: 'Slate 900', value: '#0f172a', usage: 'Primary text' },
+];
+
+// CP Semi-Dark colors (CP dark mode)
+const cpSemiDarkColors = [
+  { name: 'Links', value: '#ADD0FF', usage: 'Text links' },
+  { name: 'Page Background', value: '#1F252E', usage: 'Main page background' },
+  { name: 'Cell Background', value: '#212935', usage: 'Table cells, content areas' },
+  { name: 'Card Background', value: '#37424D', usage: 'Cards, containers, elevated surfaces' },
+  { name: 'Navigation Background', value: '#333D47', usage: 'Sidebar, header, navigation' },
+  { name: 'Input Disabled', value: '#333D47', usage: 'Disabled inputs, dimmed cells' },
+  { name: 'Table Total Rows', value: '#223A52', usage: 'Table totals, summary rows' },
+  { name: 'Border', value: '#2D3748', usage: 'Borders, dividers' },
+  { name: 'Hover', value: '#3D4A5C', usage: 'Hover states' },
+  { name: 'Title Text', value: '#E9ECEF', usage: 'Primary text, titles' },
+  { name: 'Secondary Text', value: '#A0AEC0', usage: 'Secondary text, labels' },
+  { name: 'Muted Text', value: '#6B7280', usage: 'Muted text, placeholders' },
+];
+
+// CP Semi-Light colors (CP light mode)
+const cpSemiLightColors = [
+  { name: 'Links', value: '#3A70A6', usage: 'Text links' },
+  { name: 'Page Background', value: '#E2E4E9', usage: 'Main page background' },
+  { name: 'Card Background', value: '#F7F8FA', usage: 'Cards, containers' },
+  { name: 'Navigation Background', value: '#FCFDFF', usage: 'Sidebar, header, navigation' },
+  { name: 'Input Background', value: '#FFFFFF', usage: 'Input fields, table cells' },
+  { name: 'Input Disabled', value: '#EAEAEA', usage: 'Disabled inputs, dimmed cells' },
+  { name: 'Table Total Rows', value: '#F0F3BE', usage: 'Table totals, summary rows' },
+  { name: 'Border', value: '#CBD5E1', usage: 'Borders, dividers' },
+  { name: 'Hover', value: '#E5E7EB', usage: 'Hover states' },
+  { name: 'Title Text', value: '#373F4E', usage: 'Primary text, titles' },
+  { name: 'Secondary Text', value: '#64748B', usage: 'Secondary text, labels' },
+  { name: 'Muted Text', value: '#94A3B8', usage: 'Muted text, placeholders' },
+];
+
+// Shared colors (both modes)
+const semanticColors = [
+  { name: 'Success', value: '#52BD94', usage: 'Success states, confirmations' },
+  { name: 'Warning', value: '#FFB020', usage: 'Warning states, cautions' },
+  { name: 'Error', value: '#D14343', usage: 'Error states, destructive actions' },
+  { name: 'Info', value: '#3366FF', usage: 'Informational states' },
+];
+---
+
+<DocsLayout title="Colors" description="The foundational color palette for the design system.">
+  <article class="space-y-12">
+    <!-- Header -->
+    <header class="page-header page-header--compact">
+      <h1 class="page-header__title page-header__title--sm">Color System</h1>
+      <p class="page-header__description">
+        A comprehensive color palette designed for both dark and light themes, with semantic colors for consistent communication.
+      </p>
+      <!-- Theme indicator -->
+      <div id="theme-indicator" class="mt-4 badge badge--default">
+        <span id="indicator-dark" class="hidden items-center gap-2">
+          <Icon name="moon" size="sm" /> <span id="dark-mode-label">Showing Dark Mode Colors</span>
+        </span>
+        <span id="indicator-light" class="flex items-center gap-2">
+          <Icon name="sun" size="sm" /> <span id="light-mode-label">Showing Light Mode Colors</span>
+        </span>
+      </div>
+    </header>
+
+    <!-- DARK MODE COLORS -->
+    <section id="default-dark-palette" class="hidden">
+      <h2 class="text-sm font-mono text-muted uppercase tracking-widest mb-6">Dark Mode Palette</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        {darkModeColors.map((color) => (
+          <div class="space-y-3">
+            <div class="h-20 rounded-lg border" style={`background-color: ${color.value}; border-color: var(--border-color);`}></div>
+            <div>
+              <div class="text-sm font-medium text-primary">{color.name}</div>
+              <div class="text-xs font-mono text-muted">{color.value}</div>
+            </div>
+            <p class="text-xs text-secondary">{color.usage}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- LIGHT MODE COLORS -->
+    <section id="default-light-palette">
+      <h2 class="text-sm font-mono text-muted uppercase tracking-widest mb-6">Light Mode Palette</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        {lightModeColors.map((color) => (
+          <div class="space-y-3">
+            <div class="h-20 rounded-lg border" style={`background-color: ${color.value}; border-color: var(--border-color);`}></div>
+            <div>
+              <div class="text-sm font-medium text-primary">{color.name}</div>
+              <div class="text-xs font-mono text-muted">{color.value}</div>
+            </div>
+            <p class="text-xs text-secondary">{color.usage}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- CP SEMI-DARK COLORS -->
+    <section id="cp-semi-dark-palette" class="hidden">
+      <div class="flex items-center gap-3 mb-6">
+        <h2 class="text-sm font-mono text-muted uppercase tracking-widest">CP Semi-Dark Palette</h2>
+        <span class="badge badge--primary">CP Only</span>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {cpSemiDarkColors.map((color) => (
+          <div class="space-y-3">
+            <div class="h-20 rounded-lg border" style={`background-color: ${color.value}; border-color: var(--border-color);`}></div>
+            <div>
+              <div class="text-sm font-medium text-primary">{color.name}</div>
+              <div class="text-xs font-mono text-muted">{color.value}</div>
+            </div>
+            <p class="text-xs text-secondary">{color.usage}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- CP SEMI-LIGHT COLORS -->
+    <section id="cp-semi-light-palette" class="hidden">
+      <div class="flex items-center gap-3 mb-6">
+        <h2 class="text-sm font-mono text-muted uppercase tracking-widest">CP Semi-Light Palette</h2>
+        <span class="badge badge--primary">CP Only</span>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {cpSemiLightColors.map((color) => (
+          <div class="space-y-3">
+            <div class="h-20 rounded-lg border" style={`background-color: ${color.value}; border-color: var(--border-color);`}></div>
+            <div>
+              <div class="text-sm font-medium text-primary">{color.name}</div>
+              <div class="text-xs font-mono text-muted">{color.value}</div>
+            </div>
+            <p class="text-xs text-secondary">{color.usage}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- SHARED: Semantic Colors -->
+    <section>
+      <h2 class="text-sm font-mono text-muted uppercase tracking-widest mb-6">Semantic Colors</h2>
+      <p class="text-sm text-secondary mb-6">
+        These colors are used in both light and dark modes for consistent meaning.
+      </p>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {semanticColors.map((color) => (
+          <div class="space-y-3">
+            <div class="h-24 rounded-lg" style={`background-color: ${color.value};`}></div>
+            <div>
+              <div class="text-sm font-medium text-primary">{color.name}</div>
+              <div class="text-xs font-mono text-muted">{color.value}</div>
+            </div>
+            <p class="text-xs text-secondary">{color.usage}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- SHARED: Accent Colors -->
+    <section>
+      <h2 class="text-sm font-mono text-muted uppercase tracking-widest mb-6">Accent Colors</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <!-- Theme Primary -->
+        <div class="space-y-3">
+          <div class="h-24 rounded-lg bg-theme"></div>
+          <div>
+            <div class="text-sm font-medium text-primary">Theme Primary</div>
+            <div id="theme-primary-value" class="text-xs font-mono text-muted">#1D8DFF</div>
+          </div>
+          <p class="text-xs text-secondary">Primary brand color, buttons, CTA</p>
+        </div>
+        <!-- Acid -->
+        <div class="space-y-3">
+          <div class="h-24 rounded-lg" style="background-color: #ccff00;"></div>
+          <div>
+            <div class="text-sm font-medium text-primary">Acid</div>
+            <div class="text-xs font-mono text-muted">#ccff00</div>
+          </div>
+          <p class="text-xs text-secondary">Highlight, special emphasis</p>
+        </div>
+        <!-- Accent -->
+        <div class="space-y-3">
+          <div class="h-24 rounded-lg" style="background-color: #043852;"></div>
+          <div>
+            <div class="text-sm font-medium text-primary">Accent</div>
+            <div class="text-xs font-mono text-muted">#043852</div>
+          </div>
+          <p class="text-xs text-secondary">Secondary accent color</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Accessibility -->
+    <section id="accessibility" class="space-y-4">
+      <h2 class="section__title">Accessibility</h2>
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="hand-raised" size="sm" class="a11y-card__title-icon" />
+          Contrast Ratios
+        </h3>
+        <p class="a11y-card__text">
+          All color combinations meet WCAG AA standards. Primary text on backgrounds maintains a minimum 4.5:1 contrast ratio, 
+          while large text maintains 3:1. Interactive elements have clear focus states.
+        </p>
+      </div>
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="eye" size="sm" class="a11y-card__title-icon" />
+          Color Blindness
+        </h3>
+        <p class="a11y-card__text">
+          Semantic colors are designed to be distinguishable for users with color vision deficiencies. 
+          Always pair color with icons or text labels for critical information.
+        </p>
+      </div>
+    </section>
+  </article>
+
+  <script>
+    // Theme Primary hex values for each theme/mode combination
+    const themePrimaryColors = {
+      cp: { light: '#1D8DFF', dark: '#59ACFF' },
+      vp: { light: '#1D8DFF', dark: '#59ACFF' },
+      ppm: { light: '#1D8DFF', dark: '#59ACFF' },
+      maconomy: { light: '#1D8DFF', dark: '#59ACFF' }
+    };
+    
+    // Toggle color palettes based on active theme
+    function updateColorPalettes() {
+      const html = document.documentElement;
+      const isDark = html.classList.contains('dark');
+      const isCPTheme = html.classList.contains('theme-cp');
+      const isVPTheme = html.classList.contains('theme-vp');
+      const isPPMTheme = html.classList.contains('theme-ppm');
+      const isMaconomyTheme = html.classList.contains('theme-maconomy');
+      
+      // Determine current theme
+      let currentTheme = 'cp';
+      if (isVPTheme) currentTheme = 'vp';
+      else if (isPPMTheme) currentTheme = 'ppm';
+      else if (isMaconomyTheme) currentTheme = 'maconomy';
+      
+      // Get palette sections
+      const defaultDarkPalette = document.getElementById('default-dark-palette');
+      const defaultLightPalette = document.getElementById('default-light-palette');
+      const cpSemiDarkPalette = document.getElementById('cp-semi-dark-palette');
+      const cpSemiLightPalette = document.getElementById('cp-semi-light-palette');
+      
+      // Get labels and theme primary value
+      const darkModeLabel = document.getElementById('dark-mode-label');
+      const lightModeLabel = document.getElementById('light-mode-label');
+      const themePrimaryValue = document.getElementById('theme-primary-value');
+      const indicatorDark = document.getElementById('indicator-dark');
+      const indicatorLight = document.getElementById('indicator-light');
+      
+      // Update Theme Primary hex value
+      if (themePrimaryValue && themePrimaryColors[currentTheme]) {
+        const hexValue = isDark 
+          ? themePrimaryColors[currentTheme].dark 
+          : themePrimaryColors[currentTheme].light;
+        themePrimaryValue.textContent = hexValue;
+      }
+      
+      // Update indicator visibility
+      if (indicatorDark && indicatorLight) {
+        indicatorDark.classList.toggle('hidden', !isDark);
+        indicatorDark.classList.toggle('flex', isDark);
+        indicatorLight.classList.toggle('hidden', isDark);
+        indicatorLight.classList.toggle('flex', !isDark);
+      }
+      
+      // Hide all palettes first
+      defaultDarkPalette?.classList.add('hidden');
+      defaultLightPalette?.classList.add('hidden');
+      cpSemiDarkPalette?.classList.add('hidden');
+      cpSemiLightPalette?.classList.add('hidden');
+      
+      if (isCPTheme) {
+        // CP theme - show Semi-Dark/Semi-Light palettes
+        if (isDark) {
+          cpSemiDarkPalette?.classList.remove('hidden');
+          if (darkModeLabel) darkModeLabel.textContent = 'Showing CP Semi-Dark Colors';
+        } else {
+          cpSemiLightPalette?.classList.remove('hidden');
+          if (lightModeLabel) lightModeLabel.textContent = 'Showing CP Semi-Light Colors';
+        }
+      } else {
+        // Non-CP themes - show default Dark/Light palettes
+        if (isDark) {
+          defaultDarkPalette?.classList.remove('hidden');
+          if (darkModeLabel) darkModeLabel.textContent = 'Showing Dark Mode Colors';
+        } else {
+          defaultLightPalette?.classList.remove('hidden');
+          if (lightModeLabel) lightModeLabel.textContent = 'Showing Light Mode Colors';
+        }
+      }
+    }
+    
+    // Run on initial load
+    updateColorPalettes();
+    
+    // Watch for theme changes using MutationObserver
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class') {
+          updateColorPalettes();
+        }
+      });
+    });
+    
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+  </script>
+</DocsLayout>

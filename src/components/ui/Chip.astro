@@ -1,0 +1,85 @@
+---
+/**
+ * Chip Component
+ *
+ * Compact element for tags, filters, or selections.
+ * Supports multiple sizes, styles, states, and types.
+ */
+import Icon from './Icon.astro';
+
+export interface Props {
+  // New props
+  size?: 'sm' | 'md' | 'lg';
+  variant?: 'fill' | 'outline';
+  state?: 'enabled' | 'disabled' | 'hover' | 'focused' | 'pressed';
+  type?: 'chip' | 'horiz-dots' | 'vert-dots' | 'overflow';
+  overflowCount?: number;
+  // Legacy props (backward compatibility)
+  selected?: boolean;
+  removable?: boolean;
+  icon?: string;
+  class?: string;
+}
+
+const {
+  size = 'md',
+  variant = 'fill',
+  state = 'enabled',
+  type = 'chip',
+  overflowCount,
+  // Legacy props
+  selected = false,
+  removable = false,
+  icon,
+  class: className = '',
+} = Astro.props;
+
+// Build class list
+const classes = [
+  'chip',
+  `chip--${size}`,
+  `chip--${variant}`,
+  `chip--${state}`,
+  type !== 'chip' && `chip--${type}`,
+  // Legacy support: selected maps to fill variant with primary styling
+  selected && 'chip--selected',
+  className,
+].filter(Boolean).join(' ');
+
+// Determine icon size based on chip size
+const iconSize = size === 'sm' ? 'xs' : size === 'md' ? 'sm' : 'md';
+---
+
+<span class={classes}>
+  {type === 'horiz-dots' ? (
+    <span class="chip__dots chip__dots--horiz" aria-label="More options">
+      <svg viewBox="0 0 18 4" fill="none" xmlns="http://www.w3.org/2000/svg" class="chip__dots-svg">
+        <circle cx="2" cy="2" r="1.5" fill="currentColor"/>
+        <circle cx="9" cy="2" r="1.5" fill="currentColor"/>
+        <circle cx="16" cy="2" r="1.5" fill="currentColor"/>
+      </svg>
+    </span>
+  ) : type === 'vert-dots' ? (
+    <span class="chip__dots chip__dots--vert" aria-label="More options">
+      <svg viewBox="0 0 4 18" fill="none" xmlns="http://www.w3.org/2000/svg" class="chip__dots-svg">
+        <circle cx="2" cy="2" r="1.5" fill="currentColor"/>
+        <circle cx="2" cy="9" r="1.5" fill="currentColor"/>
+        <circle cx="2" cy="16" r="1.5" fill="currentColor"/>
+      </svg>
+    </span>
+  ) : (
+    <>
+      {icon && <Icon name={icon} size={iconSize} />}
+      {type === 'overflow' ? (
+        <span class="chip__overflow-text">+{overflowCount ?? 10}</span>
+      ) : (
+        <slot />
+      )}
+      {removable && (
+        <button type="button" class="chip__remove" aria-label="Remove">
+          <Icon name="x-mark" size={iconSize} />
+        </button>
+      )}
+    </>
+  )}
+</span>

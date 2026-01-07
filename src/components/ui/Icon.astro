@@ -1,0 +1,120 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+
+interface Props {
+  name: string;
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  class?: string;
+  variant?: 'outline' | 'solid';
+}
+
+const { name, size = 'md', class: className = '', variant = 'outline' } = Astro.props;
+
+// Size mapping - using explicit pixel dimensions
+const sizeDimensions: Record<string, { width: number; height: number }> = {
+  xs: { width: 12, height: 12 },
+  sm: { width: 16, height: 16 },
+  md: { width: 20, height: 20 },
+  lg: { width: 24, height: 24 },
+  xl: { width: 32, height: 32 },
+};
+
+// Load Hero Icon SVG from heroicons package
+let svgContent = '';
+let isCustomIcon = false;
+let isFilledIcon = false;
+let customViewBox = '0 0 24 24';
+let useComplexSvg = false;
+
+try {
+  const heroiconsPath = path.join(process.cwd(), 'node_modules', 'heroicons', '24', variant, `${name}.svg`);
+  const svgFile = fs.readFileSync(heroiconsPath, 'utf-8');
+  // Extract just the inner content (path elements)
+  const pathMatch = svgFile.match(/<svg[^>]*>([\s\S]*?)<\/svg>/);
+  if (pathMatch) {
+    svgContent = pathMatch[1].trim();
+  }
+} catch (e) {
+  // Heroicon not found, try loading custom SVG from public folder
+  if (!svgContent) {
+    try {
+      const customPath = path.join(process.cwd(), 'public', `${name}.svg`);
+      const customSvg = fs.readFileSync(customPath, 'utf-8');
+
+      // Extract viewBox from original SVG
+      const viewBoxMatch = customSvg.match(/viewBox="([^"]*)"/);
+      if (viewBoxMatch) {
+        customViewBox = viewBoxMatch[1];
+      }
+
+      // Extract inner content
+      const pathMatch = customSvg.match(/<svg[^>]*>([\s\S]*?)<\/svg>/);
+      if (pathMatch) {
+        isCustomIcon = true;
+        const innerContent = pathMatch[1].trim();
+
+        // Check if this is a complex SVG (has gradients, patterns, or non-standard viewBox)
+        const hasGradients = /url\(#[^)]+\)/.test(innerContent);
+        const isNonStandardViewBox = customViewBox !== '0 0 24 24';
+        useComplexSvg = hasGradients || isNonStandardViewBox;
+
+        if (useComplexSvg) {
+          // For complex SVGs, preserve them as-is
+          svgContent = innerContent;
+        } else {
+          // Detect if this is a filled icon (has fill with hex color but no stroke)
+          const hasFill = /fill="(#[0-9A-Fa-f]{6}|#[0-9A-Fa-f]{3})"/i.test(innerContent);
+          const hasStroke = /stroke="(#[0-9A-Fa-f]{6}|#[0-9A-Fa-f]{3})"/i.test(innerContent);
+          isFilledIcon = hasFill && !hasStroke;
+
+          // Preserve <defs> content as-is (clip-paths, masks, etc. need original colors)
+          const defsMatch = innerContent.match(/(<defs>[\s\S]*?<\/defs>)/);
+          const defsContent = defsMatch ? defsMatch[1] : '';
+          const contentWithoutDefs = innerContent.replace(/(<defs>[\s\S]*?<\/defs>)/, '');
+
+          // Process only the non-defs content
+          const processedContent = contentWithoutDefs
+            // Replace stroke colors with currentColor
+            .replace(/stroke="(#[0-9A-Fa-f]{6}|#[0-9A-Fa-f]{3})"/gi, 'stroke="currentColor"')
+            // Replace fill colors with currentColor
+            .replace(/fill="(#[0-9A-Fa-f]{6}|#[0-9A-Fa-f]{3})"/gi, 'fill="currentColor"')
+            .trim();
+
+          // Recombine with defs
+          svgContent = processedContent + (defsContent ? '\n' + defsContent : '');
+        }
+      }
+    } catch (customError) {
+      // Neither heroicon nor custom icon found
+      console.warn(`Icon "${name}" not found in heroicons or custom icons`);
+    }
+  }
+}
+
+const dimensions = sizeDimensions[size] || sizeDimensions.md;
+---
+
+{svgContent ? (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill={useComplexSvg ? 'none' : (isFilledIcon ? 'currentColor' : 'none')}
+    viewBox={customViewBox}
+    stroke-width={useComplexSvg ? undefined : (isFilledIcon ? undefined : '1.5')}
+    stroke={useComplexSvg ? undefined : (isFilledIcon ? 'none' : 'currentColor')}
+    width={dimensions.width}
+    height={dimensions.height}
+    class={className}
+    aria-hidden="true"
+    data-icon={name}
+    set:html={svgContent}
+  />
+) : (
+  <span
+    style={`width: ${dimensions.width}px; height: ${dimensions.height}px; display: inline-flex; align-items: center; justify-content: center; background-color: #fee; color: #c00; font-size: 8px; border-radius: 2px;`}
+    class={className}
+    title={`Icon "${name}" not found`}
+  >
+    ?
+  </span>
+)}

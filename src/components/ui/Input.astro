@@ -1,0 +1,75 @@
+---
+/**
+ * Input Component
+ *
+ * Text input for collecting user data with various states.
+ */
+import Icon from './Icon.astro';
+
+export interface Props {
+  type?: 'text' | 'email' | 'password' | 'number' | 'url' | 'search' | 'tel';
+  placeholder?: string;
+  value?: string;
+  name?: string;
+  id?: string;
+  disabled?: boolean;
+  error?: boolean;
+  errorMessage?: string;
+  icon?: string; // Heroicon name (e.g., "magnifying-glass", "envelope")
+  required?: boolean;
+  class?: string;
+  [key: string]: any;
+}
+
+const {
+  type = 'text',
+  placeholder,
+  value,
+  name,
+  id,
+  disabled = false,
+  error = false,
+  errorMessage,
+  icon,
+  required = false,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+// Build class list
+const inputClasses = [
+  'input',
+  icon && 'input--with-icon',
+  error && 'input--error',
+  className,
+].filter(Boolean).join(' ');
+---
+
+<div class="input-wrapper">
+  {icon && (
+    <Icon name={icon} size="sm" class="input-wrapper__icon" />
+  )}
+  
+  <input
+    type={type}
+    placeholder={placeholder}
+    value={value}
+    name={name}
+    id={id}
+    disabled={disabled}
+    required={required}
+    class={inputClasses}
+    aria-invalid={error ? 'true' : undefined}
+    aria-describedby={error && errorMessage ? `${id || name}-error` : undefined}
+    {...rest}
+  />
+  
+  {error && errorMessage && (
+    <p 
+      id={`${id || name}-error`}
+      class="input-wrapper__error"
+    >
+      {errorMessage}
+    </p>
+  )}
+</div>

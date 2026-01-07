@@ -1,0 +1,53 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import ExampleSection from '../../components/ExampleSection.astro';
+import Icon from '../../components/ui/Icon.astro';
+---
+
+<DocsLayout title="Scrollbar" description="Custom styled scrollbar for containers.">
+  <article class="space-y-12">
+    <header class="page-header page-header--compact">
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="page-header__title page-header__title--sm">Scrollbar</h1>
+        <span class="badge badge--success">stable</span>
+      </div>
+      <p class="page-header__description">
+        Custom scrollbar styling that adapts to light and dark themes.
+      </p>
+    </header>
+
+    <nav class="article-nav">
+      <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
+    </nav>
+
+    <section id="examples" class="space-y-8">
+      <h2 class="section__title">Examples</h2>
+
+      <ExampleSection title="Vertical Scrollbar" description="Container with custom vertical scrollbar.">
+        <div class="card max-w-md">
+          <div class="card__body overflow-y-auto" style="max-height: 200px;">
+            <p class="text-secondary mb-4">Scroll down to see more content...</p>
+            <p class="text-secondary mb-4">The scrollbar is styled to match the current theme. It's thin and unobtrusive, but becomes more visible on hover.</p>
+            <p class="text-secondary mb-4">Custom scrollbars improve the visual consistency of your application and provide a more polished look.</p>
+            <p class="text-secondary mb-4">This works in all modern browsers including Chrome, Firefox, Safari, and Edge.</p>
+            <p class="text-secondary mb-4">Firefox uses the scrollbar-width and scrollbar-color properties.</p>
+            <p class="text-secondary">WebKit browsers use custom pseudo-elements for scrollbar styling.</p>
+          </div>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Horizontal Scrollbar" description="Container with horizontal scrollbar.">
+        <div class="card max-w-md">
+          <div class="card__body overflow-x-auto">
+            <div class="flex gap-4" style="width: 800px;">
+              <div class="flex-shrink-0 w-48 h-24 bg-elevated rounded-lg flex items-center justify-center text-secondary">Item 1</div>
+              <div class="flex-shrink-0 w-48 h-24 bg-elevated rounded-lg flex items-center justify-center text-secondary">Item 2</div>
+              <div class="flex-shrink-0 w-48 h-24 bg-elevated rounded-lg flex items-center justify-center text-secondary">Item 3</div>
+              <div class="flex-shrink-0 w-48 h-24 bg-elevated rounded-lg flex items-center justify-center text-secondary">Item 4</div>
+            </div>
+          </div>
+        </div>
+      </ExampleSection>
+    </section>
+  </article>
+</DocsLayout>

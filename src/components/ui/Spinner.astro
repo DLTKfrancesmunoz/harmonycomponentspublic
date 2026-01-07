@@ -1,0 +1,27 @@
+---
+/**
+ * Spinner Component
+ * 
+ * Loading indicator.
+ */
+
+export interface Props {
+  size?: 'sm' | 'md' | 'lg';
+  class?: string;
+}
+
+const {
+  size = 'md',
+  class: className = '',
+} = Astro.props;
+
+const classes = [
+  'spinner',
+  size !== 'md' && `spinner--${size}`,
+  className,
+].filter(Boolean).join(' ');
+---
+
+<div class={classes} role="status" aria-label="Loading">
+  <span class="sr-only">Loading...</span>
+</div>

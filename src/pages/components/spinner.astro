@@ -1,0 +1,64 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import PropsTable from '../../components/PropsTable.astro';
+import ExampleSection from '../../components/ExampleSection.astro';
+import Spinner from '../../components/ui/Spinner.astro';
+import Icon from '../../components/ui/Icon.astro';
+
+const props = [
+  { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Spinner size' },
+];
+---
+
+<DocsLayout title="Spinner" description="Loading spinner components for indicating progress.">
+  <article class="space-y-12">
+    <header class="page-header page-header--compact">
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="page-header__title page-header__title--sm">Spinner</h1>
+        <span class="badge badge--success">stable</span>
+      </div>
+      <p class="page-header__description">
+        Spinners indicate that content is loading or an action is being processed.
+      </p>
+    </header>
+
+    <nav class="article-nav">
+      <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
+      <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+    </nav>
+
+    <section id="examples" class="space-y-8">
+      <h2 class="section__title">Examples</h2>
+
+      <ExampleSection title="Sizes" description="Different spinner sizes.">
+        <div class="flex items-center gap-6">
+          <Spinner size="sm" />
+          <Spinner size="md" />
+          <Spinner size="lg" />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="In Context" description="Spinners in common use cases.">
+        <div class="space-y-4">
+          <div class="flex items-center gap-3">
+            <Spinner size="sm" />
+            <span class="text-sm text-secondary">Loading...</span>
+          </div>
+          <div class="card max-w-sm">
+            <div class="card__body flex items-center justify-center py-8">
+              <div class="text-center">
+                <Spinner size="lg" />
+                <p class="mt-4 text-sm text-secondary">Loading content...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ExampleSection>
+    </section>
+
+    <section id="props">
+      <h2 class="section__title">Props</h2>
+      <PropsTable props={props} />
+    </section>
+  </article>
+</DocsLayout>

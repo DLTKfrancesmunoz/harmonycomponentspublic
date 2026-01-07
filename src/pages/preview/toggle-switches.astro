@@ -1,0 +1,43 @@
+---
+import '../../styles/global.css';
+import Toggle from '../../components/ui/Toggle.astro';
+import Label from '../../components/ui/Label.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script is:inline>
+      (function() {
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const savedColorTheme = localStorage.getItem('colorTheme') || 'cp';
+        if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+        document.documentElement.classList.add('theme-' + savedColorTheme);
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Toggle Switches Preview</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { height: 100%; width: 100%; }
+      body { padding: 48px; display: flex; flex-direction: column; gap: 16px; }
+    </style>
+  </head>
+  <body>
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <Toggle id="toggle1" checked />
+      <Label for="toggle1">Toggle ON</Label>
+    </div>
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <Toggle id="toggle2" />
+      <Label for="toggle2">Toggle OFF</Label>
+    </div>
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <Toggle id="toggle3" disabled />
+      <Label for="toggle3">Disabled toggle</Label>
+    </div>
+  </body>
+</html>
+

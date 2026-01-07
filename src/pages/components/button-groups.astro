@@ -1,0 +1,64 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import PropsTable from '../../components/PropsTable.astro';
+import ExampleSection from '../../components/ExampleSection.astro';
+import Button from '../../components/ui/Button.astro';
+import ButtonGroup from '../../components/ui/ButtonGroup.astro';
+import Icon from '../../components/ui/Icon.astro';
+
+const props = [
+  { name: 'class', type: 'string', default: '—', description: 'Additional CSS classes' },
+];
+---
+
+<DocsLayout title="Button Groups" description="Button group components for related actions.">
+  <article class="space-y-12">
+    <header class="page-header page-header--compact">
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="page-header__title page-header__title--sm">Button Groups</h1>
+        <span class="badge badge--success">stable</span>
+      </div>
+      <p class="page-header__description">
+        Button groups combine related buttons into a single visual unit.
+      </p>
+    </header>
+
+    <nav class="article-nav">
+      <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
+      <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+    </nav>
+
+    <section id="examples" class="space-y-8">
+      <h2 class="section__title">Examples</h2>
+
+      <ExampleSection title="Basic Button Group" description="Grouped buttons for related actions.">
+        <ButtonGroup>
+          <Button variant="outline">Left</Button>
+          <Button variant="outline">Middle</Button>
+          <Button variant="outline">Right</Button>
+        </ButtonGroup>
+      </ExampleSection>
+
+      <ExampleSection title="With Icons" description="Button group with icon buttons.">
+        <ButtonGroup>
+          <Button variant="outline" icon="bold" class="btn--icon-md" aria-label="Bold" />
+          <Button variant="outline" icon="italic" class="btn--icon-md" aria-label="Italic" />
+          <Button variant="outline" icon="underline" class="btn--icon-md" aria-label="Underline" />
+        </ButtonGroup>
+      </ExampleSection>
+
+      <ExampleSection title="Toggle Example" description="Button group used as a toggle.">
+        <ButtonGroup>
+          <Button variant="primary">Day</Button>
+          <Button variant="outline">Week</Button>
+          <Button variant="outline">Month</Button>
+        </ButtonGroup>
+      </ExampleSection>
+    </section>
+
+    <section id="props">
+      <h2 class="section__title">Props</h2>
+      <PropsTable props={props} />
+    </section>
+  </article>
+</DocsLayout>

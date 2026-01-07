@@ -1,0 +1,79 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import PropsTable from '../../components/PropsTable.astro';
+import ExampleSection from '../../components/ExampleSection.astro';
+import Tooltip from '../../components/ui/Tooltip.astro';
+import Button from '../../components/ui/Button.astro';
+import Icon from '../../components/ui/Icon.astro';
+
+const props = [
+  { name: 'text', type: 'string', default: '—', description: 'Tooltip text content' },
+  { name: 'position', type: "'top' | 'bottom' | 'left' | 'right'", default: "'top'", description: 'Tooltip position' },
+];
+---
+
+<DocsLayout title="Tooltips" description="Tooltip components for additional information on hover.">
+  <article class="space-y-12">
+    <header class="page-header page-header--compact">
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="page-header__title page-header__title--sm">Tooltips</h1>
+        <span class="badge badge--success">stable</span>
+      </div>
+      <p class="page-header__description">
+        Tooltips display informative text when users hover over an element.
+      </p>
+    </header>
+
+    <nav class="article-nav">
+      <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
+      <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+    </nav>
+
+    <section id="examples" class="space-y-8">
+      <h2 class="section__title">Examples</h2>
+
+      <ExampleSection title="Basic Tooltip" description="Hover to see the tooltip.">
+        <div class="flex gap-4">
+          <Tooltip text="This is a tooltip">
+            <Button variant="outline">Hover me</Button>
+          </Tooltip>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Positions" description="Tooltips can appear in any direction.">
+        <div class="flex flex-wrap gap-6 items-center justify-center p-8">
+          <Tooltip text="Appears on top" position="top">
+            <Button variant="outline">Top</Button>
+          </Tooltip>
+          <Tooltip text="Appears on bottom" position="bottom">
+            <Button variant="outline">Bottom</Button>
+          </Tooltip>
+          <Tooltip text="Appears on left" position="left">
+            <Button variant="outline">Left</Button>
+          </Tooltip>
+          <Tooltip text="Appears on right" position="right">
+            <Button variant="outline">Right</Button>
+          </Tooltip>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="On Different Elements" description="Tooltips work on any element.">
+        <div class="flex items-center gap-4">
+          <Tooltip text="Icon button info">
+            <button class="icon-btn">
+              <Icon name="information-circle" size="md" class="icon-btn__icon" />
+            </button>
+          </Tooltip>
+          <Tooltip text="More information about this text">
+            <span class="text-theme cursor-help underline decoration-dotted">Hover for info</span>
+          </Tooltip>
+        </div>
+      </ExampleSection>
+    </section>
+
+    <section id="props">
+      <h2 class="section__title">Props</h2>
+      <PropsTable props={props} />
+    </section>
+  </article>
+</DocsLayout>

@@ -1,0 +1,68 @@
+---
+import '../../styles/global.css';
+import Badge from '../../components/ui/Badge.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script is:inline>
+      (function() {
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const savedColorTheme = localStorage.getItem('colorTheme') || 'cp';
+        if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+        document.documentElement.classList.add('theme-' + savedColorTheme);
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tables Preview</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { height: 100%; width: 100%; }
+      body { padding: 48px; }
+    </style>
+  </head>
+  <body>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="border-b border-border-color">
+            <th class="text-left py-3 px-4 font-medium text-secondary bg-elevated-bg">Project ID</th>
+            <th class="text-left py-3 px-4 font-medium text-secondary bg-elevated-bg">Name</th>
+            <th class="text-left py-3 px-4 font-medium text-secondary bg-elevated-bg">Status</th>
+            <th class="text-right py-3 px-4 font-medium text-secondary bg-elevated-bg">Budget</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-border-light hover:bg-hover-bg transition-colors">
+            <td class="py-3 px-4 text-primary">PRJ-001</td>
+            <td class="py-3 px-4 text-primary">Website Redesign</td>
+            <td class="py-3 px-4">
+              <Badge variant="success">Active</Badge>
+            </td>
+            <td class="py-3 px-4 text-right text-primary">$25,000</td>
+          </tr>
+          <tr class="border-b border-border-light hover:bg-hover-bg transition-colors">
+            <td class="py-3 px-4 text-primary">PRJ-002</td>
+            <td class="py-3 px-4 text-primary">Mobile App Development</td>
+            <td class="py-3 px-4">
+              <Badge variant="warning">In Progress</Badge>
+            </td>
+            <td class="py-3 px-4 text-right text-primary">$150,000</td>
+          </tr>
+          <tr class="border-b border-border-light hover:bg-hover-bg transition-colors">
+            <td class="py-3 px-4 text-primary">PRJ-003</td>
+            <td class="py-3 px-4 text-primary">Marketing Campaign</td>
+            <td class="py-3 px-4">
+              <Badge variant="error">On Hold</Badge>
+            </td>
+            <td class="py-3 px-4 text-right text-primary">$50,000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
+

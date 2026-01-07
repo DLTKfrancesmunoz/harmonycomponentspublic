@@ -1,0 +1,52 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import Icon from '../../components/ui/Icon.astro';
+import ExampleSection from '../../components/ExampleSection.astro';
+import Icon from '../../components/ui/Icon.astro';
+import RadioButton from '../../components/ui/RadioButton.astro';
+import Icon from '../../components/ui/Icon.astro';
+---
+
+<DocsLayout title="Radio Groups" description="Groups of radio buttons for single selection.">
+  <article class="space-y-12">
+    <header class="page-header page-header--compact">
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="page-header__title page-header__title--sm">Radio Groups</h1>
+        <span class="badge badge--success">stable</span>
+      </div>
+      <p class="page-header__description">
+        Radio groups allow users to select a single option from a set of mutually exclusive choices.
+      </p>
+    </header>
+
+    <nav class="article-nav">
+      <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
+    </nav>
+
+    <section id="examples" class="space-y-8">
+      <h2 class="section__title">Examples</h2>
+
+      <ExampleSection title="Basic Group" description="Standard radio group.">
+        <fieldset class="space-y-4">
+          <legend class="text-sm font-semibold text-primary mb-2">Shipping Method</legend>
+          <div class="flex flex-col gap-3 pl-2">
+            <RadioButton name="shipping" value="standard" label="Standard (5-7 days)" checked />
+            <RadioButton name="shipping" value="express" label="Express (2-3 days)" />
+            <RadioButton name="shipping" value="overnight" label="Overnight (Next day)" />
+          </div>
+        </fieldset>
+      </ExampleSection>
+
+      <ExampleSection title="Inline Group" description="Radio buttons arranged horizontally.">
+        <fieldset>
+          <legend class="text-sm font-semibold text-primary mb-3">Select Plan</legend>
+          <div class="flex flex-wrap gap-6">
+            <RadioButton name="plan" value="free" label="Free" />
+            <RadioButton name="plan" value="pro" label="Pro" checked />
+            <RadioButton name="plan" value="enterprise" label="Enterprise" />
+          </div>
+        </fieldset>
+      </ExampleSection>
+    </section>
+  </article>
+</DocsLayout>

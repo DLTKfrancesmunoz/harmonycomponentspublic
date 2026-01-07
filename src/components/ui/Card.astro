@@ -1,0 +1,64 @@
+---
+/**
+ * Card Component
+ *
+ * Container for grouped content with optional header and footer.
+ */
+
+import Icon from './Icon.astro';
+
+export interface Props {
+  elevated?: boolean;
+  interactive?: boolean;
+  primary?: boolean;
+  withHeader?: boolean;
+  headerTitle?: string;
+  headerSubtitle?: string;
+  class?: string;
+}
+
+const {
+  elevated = false,
+  interactive = false,
+  primary = false,
+  withHeader = false,
+  headerTitle = '',
+  headerSubtitle = '',
+  class: className = '',
+} = Astro.props;
+
+const classes = [
+  'card',
+  elevated && 'card--elevated',
+  interactive && 'card--interactive',
+  primary && 'card--primary',
+  withHeader && 'card--with-header',
+  className,
+].filter(Boolean).join(' ');
+---
+
+<div class={classes}>
+  {(withHeader || Astro.slots.has('header')) && (
+    <div class="card__header card__header--colored">
+      <slot name="header">
+        <div class="card__header-content">
+          {headerTitle && <h2 class="card__header-title">{headerTitle}</h2>}
+          {headerSubtitle && <p class="card__header-subtitle">{headerSubtitle}</p>}
+        </div>
+      </slot>
+      {Astro.slots.has('header-actions') && (
+        <div class="card__header-actions">
+          <slot name="header-actions" />
+        </div>
+      )}
+    </div>
+  )}
+  <div class="card__body">
+    <slot />
+  </div>
+  {Astro.slots.has('footer') && (
+    <div class="card__footer">
+      <slot name="footer" />
+    </div>
+  )}
+</div>

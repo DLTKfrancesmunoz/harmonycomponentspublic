@@ -1,0 +1,41 @@
+---
+/**
+ * ProgressBar Component
+ * 
+ * Visual indicator of progress or completion.
+ */
+
+export interface Props {
+  value: number;
+  max?: number;
+  size?: 'sm' | 'md' | 'lg';
+  variant?: 'default' | 'success' | 'warning' | 'error';
+  showLabel?: boolean;
+  class?: string;
+}
+
+const {
+  value,
+  max = 100,
+  size = 'md',
+  variant = 'default',
+  showLabel = false,
+  class: className = '',
+} = Astro.props;
+
+const percentage = Math.min(Math.max((value / max) * 100, 0), 100);
+
+const classes = [
+  'progress',
+  size !== 'md' && `progress--${size}`,
+  variant !== 'default' && `progress--${variant}`,
+  className,
+].filter(Boolean).join(' ');
+---
+
+<div class={classes} role="progressbar" aria-valuenow={value} aria-valuemin={0} aria-valuemax={max}>
+  <div class="progress__bar" style={`width: ${percentage}%`}></div>
+</div>
+{showLabel && (
+  <span class="text-sm text-secondary mt-1">{Math.round(percentage)}%</span>
+)}

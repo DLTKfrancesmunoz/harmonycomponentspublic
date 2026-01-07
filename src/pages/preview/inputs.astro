@@ -1,0 +1,56 @@
+---
+import '../../styles/global.css';
+import Input from '../../components/ui/Input.astro';
+import Textarea from '../../components/ui/Textarea.astro';
+import Label from '../../components/ui/Label.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script is:inline>
+      (function() {
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const savedColorTheme = localStorage.getItem('colorTheme') || 'cp';
+        if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+        document.documentElement.classList.add('theme-' + savedColorTheme);
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inputs Preview</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { height: 100%; width: 100%; }
+      body { padding: 48px; display: flex; flex-direction: column; gap: 24px; max-width: 600px; }
+    </style>
+  </head>
+  <body>
+    <div>
+      <Label>Text Input</Label>
+      <Input type="text" placeholder="Enter text..." />
+    </div>
+    <div>
+      <Label>Email Input</Label>
+      <Input type="email" placeholder="email@example.com" />
+    </div>
+    <div>
+      <Label>Password Input</Label>
+      <Input type="password" placeholder="Enter password" />
+    </div>
+    <div>
+      <Label>Input with Error</Label>
+      <Input type="text" error errorMessage="This field is required" />
+    </div>
+    <div>
+      <Label>Disabled Input</Label>
+      <Input type="text" placeholder="Disabled" disabled />
+    </div>
+    <div>
+      <Label>Textarea</Label>
+      <Textarea placeholder="Enter your message..." rows="4" />
+    </div>
+  </body>
+</html>
+

@@ -1,0 +1,125 @@
+---
+/**
+ * Dropdown Component
+ *
+ * Dropdown select menu with custom styling.
+ */
+import Icon from './Icon.astro';
+
+export interface Option {
+  value: string;
+  label: string;
+  disabled?: boolean;
+}
+
+export interface Props {
+  options: Option[];
+  value?: string;
+  placeholder?: string;
+  name?: string;
+  id?: string;
+  disabled?: boolean;
+  class?: string;
+  [key: string]: any;
+}
+
+const {
+  options,
+  value,
+  placeholder = 'Select an option',
+  name,
+  id,
+  disabled = false,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+const dropdownId = id || `dropdown-${Math.random().toString(36).substr(2, 9)}`;
+const selectedOption = options.find(opt => opt.value === value);
+
+const classes = ['dropdown', className].filter(Boolean).join(' ');
+---
+
+<div class={classes} data-dropdown id={dropdownId}>
+  <button
+    type="button"
+    class="dropdown__trigger"
+    disabled={disabled}
+    aria-haspopup="listbox"
+    aria-expanded="false"
+  >
+    <span class="dropdown__value">
+      {selectedOption ? selectedOption.label : placeholder}
+    </span>
+    <Icon name="chevron-down" class="dropdown__chevron" />
+  </button>
+  
+  <div class="dropdown__menu" role="listbox">
+    {options.map((option) => (
+      <button
+        type="button"
+        class={`dropdown__item ${option.value === value ? 'is-selected' : ''} ${option.disabled ? 'dropdown__item--disabled' : ''}`}
+        data-value={option.value}
+        disabled={option.disabled}
+        role="option"
+        aria-selected={option.value === value}
+      >
+        {option.label}
+      </button>
+    ))}
+  </div>
+  
+  <input type="hidden" name={name} value={value || ''} />
+</div>
+
+<script>
+  function initDropdowns() {
+    document.querySelectorAll('[data-dropdown]').forEach((dropdown) => {
+      if (dropdown.hasAttribute('data-init')) return;
+      dropdown.setAttribute('data-init', 'true');
+      
+      const trigger = dropdown.querySelector('.dropdown__trigger');
+      const menu = dropdown.querySelector('.dropdown__menu');
+      const items = dropdown.querySelectorAll('.dropdown__item');
+      const hiddenInput = dropdown.querySelector('input[type="hidden"]');
+      const valueDisplay = dropdown.querySelector('.dropdown__value');
+      
+      trigger?.addEventListener('click', () => {
+        dropdown.classList.toggle('is-open');
+        trigger.setAttribute('aria-expanded', dropdown.classList.contains('is-open').toString());
+      });
+      
+      items.forEach((item) => {
+        item.addEventListener('click', () => {
+          const value = (item as HTMLElement).dataset.value;
+          const label = item.textContent?.trim();
+          
+          // Update hidden input
+          if (hiddenInput) (hiddenInput as HTMLInputElement).value = value || '';
+          
+          // Update display
+          if (valueDisplay) valueDisplay.textContent = label || '';
+          
+          // Update selected state
+          items.forEach(i => i.classList.remove('is-selected'));
+          item.classList.add('is-selected');
+          
+          // Close dropdown
+          dropdown.classList.remove('is-open');
+          trigger?.setAttribute('aria-expanded', 'false');
+        });
+      });
+      
+      // Close on outside click
+      document.addEventListener('click', (e) => {
+        if (!dropdown.contains(e.target as Node)) {
+          dropdown.classList.remove('is-open');
+          trigger?.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+  }
+  
+  initDropdowns();
+  document.addEventListener('astro:page-load', initDropdowns);
+</script>

@@ -1,0 +1,45 @@
+---
+/**
+ * ListMenu Component
+ *
+ * Vertical list menu for navigation or selection.
+ * Displays a list of interactive items with optional icons.
+ *
+ * @prop {MenuItem[]} items - Array of menu items
+ * @prop {string} as - Element type: 'button' or 'link' (default: 'button')
+ * @prop {string} class - Additional CSS classes
+ */
+import Icon from './Icon.astro';
+
+export interface MenuItem {
+  icon?: string; // Heroicon name
+  label: string;
+  href?: string;
+  active?: boolean;
+}
+
+export interface Props {
+  items: MenuItem[];
+  as?: 'button' | 'link';
+  class?: string;
+}
+
+const { items, as = 'button', class: className = '' } = Astro.props;
+---
+
+<div class:list={['list-menu', className]}>
+  {items.map((item) => {
+    const Element = as === 'link' ? 'a' : 'button';
+    const itemProps = as === 'link' ? { href: item.href || '#' } : { type: 'button' };
+
+    return (
+      <Element
+        {...itemProps}
+        class:list={['list-menu__item', item.active && 'is-active']}
+      >
+        {item.icon && <Icon name={item.icon} size="md" class="list-menu__item-icon" />}
+        {item.label}
+      </Element>
+    );
+  })}
+</div>

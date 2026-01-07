@@ -1,0 +1,46 @@
+---
+import '../../styles/global.css';
+import RadioButton from '../../components/ui/RadioButton.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script is:inline>
+      (function() {
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const savedColorTheme = localStorage.getItem('colorTheme') || 'cp';
+        if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+        document.documentElement.classList.add('theme-' + savedColorTheme);
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Radio Groups Preview</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { height: 100%; width: 100%; }
+      body { padding: 48px; display: flex; flex-direction: column; gap: 24px; }
+    </style>
+  </head>
+  <body>
+    <fieldset class="space-y-4">
+      <legend class="text-sm font-semibold text-primary mb-2">Shipping Method</legend>
+      <div class="flex flex-col gap-3 pl-2">
+        <RadioButton name="shipping" value="standard" label="Standard (5-7 days)" checked />
+        <RadioButton name="shipping" value="express" label="Express (2-3 days)" />
+        <RadioButton name="shipping" value="overnight" label="Overnight (Next day)" />
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend class="text-sm font-semibold text-primary mb-3">Select Plan</legend>
+      <div class="flex flex-wrap gap-6">
+        <RadioButton name="plan" value="free" label="Free" />
+        <RadioButton name="plan" value="pro" label="Pro" checked />
+        <RadioButton name="plan" value="enterprise" label="Enterprise" />
+      </div>
+    </fieldset>
+  </body>
+</html>
+

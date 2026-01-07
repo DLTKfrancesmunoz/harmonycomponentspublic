@@ -1,0 +1,144 @@
+---
+/**
+ * Alert Component
+ *
+ * Notification message with different severity levels.
+ */
+import Icon from './Icon.astro';
+import Button from './Button.astro';
+import ProgressBar from './ProgressBar.astro';
+
+export interface Props {
+  variant?: 'info' | 'success' | 'warning' | 'error';
+  style?: 'default' | 'enhanced';
+  title?: string;
+  dismissible?: boolean;
+  icon?: string;
+  primaryButton?: { text: string; href?: string; onClick?: string };
+  secondaryButton?: { text: string; href?: string; onClick?: string };
+  linkText?: string;
+  linkHref?: string;
+  progressValue?: number;
+  class?: string;
+}
+
+const {
+  variant = 'info',
+  style = 'default',
+  title,
+  dismissible = false,
+  icon,
+  primaryButton,
+  secondaryButton,
+  linkText,
+  linkHref,
+  progressValue,
+  class: className = '',
+} = Astro.props;
+
+// Default icons for each variant
+const defaultIcons: Record<string, string> = {
+  info: 'information-circle',
+  success: 'check-circle',
+  warning: 'exclamation-triangle',
+  error: 'exclamation-circle',
+};
+
+const alertIcon = icon || defaultIcons[variant];
+
+const hasActions = primaryButton || secondaryButton || (linkText && linkHref);
+
+const classes = [
+  'alert',
+  `alert--${variant}`,
+  style === 'enhanced' && 'alert--enhanced',
+  className,
+].filter(Boolean).join(' ');
+---
+
+<div class={classes} role="alert">
+  {style === 'enhanced' && (
+    <div class="alert__border"></div>
+  )}
+  {style === 'enhanced' ? (
+    <div class="alert__content">
+      <div class="alert__inner">
+        <Icon name={alertIcon} class="alert__icon" />
+        <div class="alert__text">
+          {title && <div class="alert__title">{title}</div>}
+          <div class="alert__message">
+            <slot />
+          </div>
+        </div>
+        {dismissible && (
+          <button type="button" class="alert__close" aria-label="Dismiss">
+            <Icon name="x-mark" />
+          </button>
+        )}
+      </div>
+      {hasActions && (
+        <div class="alert__actions">
+          {(primaryButton || secondaryButton) && (
+            <div class="alert__buttons">
+              {primaryButton && (
+                <Button
+                  variant="primary"
+                  buttonType="pageHeader"
+                  size="xs"
+                  href={primaryButton.href}
+                  onClick={primaryButton.onClick}
+                >
+                  {primaryButton.text}
+                </Button>
+              )}
+              {secondaryButton && (
+                <Button
+                  variant="secondary"
+                  buttonType="pageHeader"
+                  size="xs"
+                  href={secondaryButton.href}
+                  onClick={secondaryButton.onClick}
+                >
+                  {secondaryButton.text}
+                </Button>
+              )}
+            </div>
+          )}
+          {linkText && linkHref && (
+            <a href={linkHref} class="alert__link">
+              {linkText}
+            </a>
+          )}
+        </div>
+      )}
+      {progressValue !== undefined && (
+        <div class="alert__progress">
+          <ProgressBar value={progressValue} size="sm" variant={variant} />
+        </div>
+      )}
+    </div>
+  ) : (
+    <>
+      <Icon name={alertIcon} class="alert__icon" />
+      <div class="alert__content">
+        {title && <div class="alert__title">{title}</div>}
+        <div class="alert__message">
+          <slot />
+        </div>
+      </div>
+      {dismissible && (
+        <button type="button" class="alert__close" aria-label="Dismiss">
+          <Icon name="x-mark" />
+        </button>
+      )}
+    </>
+  )}
+</div>
+
+<script>
+  document.querySelectorAll('.alert__close').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      btn.closest('.alert')?.remove();
+    });
+  });
+</script>

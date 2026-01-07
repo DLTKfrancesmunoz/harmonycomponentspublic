@@ -1,0 +1,39 @@
+---
+import '../../styles/global.css';
+import Dropdown from '../../components/ui/Dropdown.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script is:inline>
+      (function() {
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const savedColorTheme = localStorage.getItem('colorTheme') || 'cp';
+        if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+        document.documentElement.classList.add('theme-' + savedColorTheme);
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dropdowns Preview</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { height: 100%; width: 100%; }
+      body { padding: 48px; display: flex; flex-direction: column; gap: 24px; }
+    </style>
+  </head>
+  <body>
+    <Dropdown label="Select an option" id="dropdown1">
+      <option value="1">Option 1</option>
+      <option value="2">Option 2</option>
+      <option value="3">Option 3</option>
+    </Dropdown>
+    <Dropdown label="Disabled dropdown" id="dropdown2" disabled>
+      <option value="1">Option 1</option>
+      <option value="2">Option 2</option>
+    </Dropdown>
+  </body>
+</html>
+

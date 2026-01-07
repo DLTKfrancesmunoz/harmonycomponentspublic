@@ -1,0 +1,41 @@
+---
+import '../../styles/global.css';
+import ShellFooter from '../../components/ui/ShellFooter.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script is:inline>
+      (function() {
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const savedColorTheme = localStorage.getItem('colorTheme') || 'cp';
+        if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+        document.documentElement.classList.add('theme-' + savedColorTheme);
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shell Footer Preview</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { height: 100%; width: 100%; }
+      body { padding: 0; display: flex; flex-direction: column; }
+      .spacer { flex: 1; }
+    </style>
+  </head>
+  <body>
+    <div class="spacer"></div>
+    <ShellFooter
+      tabs={[
+        { id: '1', label: 'Dashboard', active: true },
+        { id: '2', label: 'Projects' },
+        { id: '3', label: 'Reports' },
+        { id: '4', label: 'Settings' },
+      ]}
+      showAddTab={true}
+    />
+  </body>
+</html>
+

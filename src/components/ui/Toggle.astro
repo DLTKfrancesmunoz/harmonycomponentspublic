@@ -1,0 +1,54 @@
+---
+/**
+ * Toggle Component
+ * 
+ * Toggle switch for boolean on/off states.
+ */
+
+export interface Props {
+  name?: string;
+  id?: string;
+  checked?: boolean;
+  disabled?: boolean;
+  label?: string;
+  size?: 'sm' | 'md';
+  class?: string;
+  [key: string]: any;
+}
+
+const {
+  name,
+  id,
+  checked = false,
+  disabled = false,
+  label,
+  size = 'md',
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+const toggleId = id || `toggle-${Math.random().toString(36).substr(2, 9)}`;
+
+const classes = [
+  'toggle',
+  size === 'sm' && 'toggle--sm',
+  disabled && 'toggle--disabled',
+  className,
+].filter(Boolean).join(' ');
+---
+
+<label class={classes}>
+  <input
+    type="checkbox"
+    name={name}
+    id={toggleId}
+    checked={checked}
+    disabled={disabled}
+    class="toggle__input"
+    {...rest}
+  />
+  <span class="toggle__track">
+    <span class="toggle__thumb"></span>
+  </span>
+  {label && <span class="toggle__label">{label}</span>}
+</label>
