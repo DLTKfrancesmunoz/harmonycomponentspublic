@@ -25,15 +25,24 @@ import Dropdown from '../../components/ui/Dropdown.astro';
     </style>
   </head>
   <body>
-    <Dropdown label="Select an option" id="dropdown1">
-      <option value="1">Option 1</option>
-      <option value="2">Option 2</option>
-      <option value="3">Option 3</option>
-    </Dropdown>
-    <Dropdown label="Disabled dropdown" id="dropdown2" disabled>
-      <option value="1">Option 1</option>
-      <option value="2">Option 2</option>
-    </Dropdown>
+    <Dropdown 
+      options={[
+        { value: '1', label: 'Option 1' },
+        { value: '2', label: 'Option 2' },
+        { value: '3', label: 'Option 3' }
+      ]}
+      placeholder="Select an option"
+      id="dropdown1"
+    />
+    <Dropdown 
+      options={[
+        { value: '1', label: 'Option 1' },
+        { value: '2', label: 'Option 2' }
+      ]}
+      placeholder="Disabled dropdown"
+      id="dropdown2"
+      disabled
+    />
   </body>
 </html>
 

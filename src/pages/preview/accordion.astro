@@ -25,15 +25,11 @@ import Accordion from '../../components/ui/Accordion.astro';
     </style>
   </head>
   <body>
-    <Accordion title="Accordion Item 1">
-      <p class="text-secondary">This is the content for the first accordion item.</p>
-    </Accordion>
-    <Accordion title="Accordion Item 2" open>
-      <p class="text-secondary">This accordion item is open by default.</p>
-    </Accordion>
-    <Accordion title="Accordion Item 3">
-      <p class="text-secondary">This is the content for the third accordion item.</p>
-    </Accordion>
+    <Accordion items={[
+      { title: 'Accordion Item 1', content: 'This is the content for the first accordion item.' },
+      { title: 'Accordion Item 2', content: 'This accordion item is open by default.', defaultOpen: true },
+      { title: 'Accordion Item 3', content: 'This is the content for the third accordion item.' }
+    ]} />
   </body>
 </html>
 
