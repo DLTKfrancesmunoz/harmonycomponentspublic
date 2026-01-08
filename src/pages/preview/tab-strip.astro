@@ -1,6 +1,6 @@
 ---
 import '../../styles/global.css';
-import Icon from '../../components/ui/Icon.astro';
+import TabStrip from '../../components/ui/TabStrip.astro';
 ---
 
 <!DOCTYPE html>
@@ -26,30 +26,39 @@ import Icon from '../../components/ui/Icon.astro';
   </head>
   <body>
     <div>
-      <div class="tabs">
-        <button class="tab is-active">Overview</button>
-        <button class="tab">Features</button>
-        <button class="tab">Pricing</button>
-        <button class="tab">Reviews</button>
-      </div>
+      <TabStrip
+        tabs={[
+          { id: '1', label: 'Overview', active: true },
+          { id: '2', label: 'Features' },
+          { id: '3', label: 'Pricing' },
+          { id: '4', label: 'Reviews' },
+        ]}
+      />
       <div class="tab-panel is-active">
         <p class="text-secondary">
           This is the overview content. Click other tabs to switch views.
         </p>
       </div>
     </div>
+
     <div>
-      <div class="tabs">
-        <button class="tab is-active">
-          <Icon name="home" size="sm" class="mr-1" /> Home
-        </button>
-        <button class="tab">
-          <Icon name="user" size="sm" class="mr-1" /> Profile
-        </button>
-        <button class="tab">
-          <Icon name="cog-6-tooth" size="sm" class="mr-1" /> Settings
-        </button>
-      </div>
+      <TabStrip
+        tabs={[
+          { id: '1', label: 'Home', icon: 'home', iconPosition: 'left', active: true },
+          { id: '2', label: 'Profile', icon: 'user', iconPosition: 'left' },
+          { id: '3', label: 'Settings', icon: 'cog-6-tooth', iconPosition: 'left' },
+        ]}
+      />
+    </div>
+
+    <div>
+      <TabStrip
+        tabs={[
+          { id: '1', label: 'Home', icon: 'home', iconPosition: 'top', active: true },
+          { id: '2', label: 'Profile', icon: 'user', iconPosition: 'top' },
+          { id: '3', label: 'Settings', icon: 'cog-6-tooth', iconPosition: 'top' },
+        ]}
+      />
     </div>
   </body>
 </html>

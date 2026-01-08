@@ -2550,44 +2550,7 @@
 /* ===========================================
    TABS
    =========================================== */
-
-.tabs {
-  display: flex;
-  border-bottom: 1px solid var(--border-color);
-  gap: var(--space-1);
-}
-
-.tab {
-  padding: var(--space-3) var(--space-4);
-  font-size: var(--text-sm);
-  font-weight: var(--font-medium);
-  color: var(--text-secondary);
-  border: none;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -1px;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  background: transparent;
-  text-decoration: none;
-  font-family: var(--font-sans);
-}
-
-.tab:hover {
-  color: var(--text-primary);
-}
-
-.tab.is-active {
-  color: var(--theme-primary);
-  border-bottom: 4px solid var(--theme-primary);
-  margin-bottom: -3px;
-}
-
-.tab:disabled,
-.tab--disabled {
-  color: var(--text-muted);
-  cursor: not-allowed;
-  opacity: 0.6;
-}
+/* Tab styles moved to TabStrip.astro component for proper scoping */
 
 .tab-panel {
   display: none;
@@ -2596,41 +2559,6 @@
 
 .tab-panel.is-active {
   display: block;
-}
-
-/* Tab icon positioning variants */
-.tab--icon-left {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-}
-
-.tab--icon-right {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  flex-direction: row-reverse;
-}
-
-.tab--icon-top {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-1);
-}
-
-.tab__icon {
-  flex-shrink: 0;
-}
-
-.tab__icon-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.tab__label {
-  white-space: nowrap;
 }
 
 /* ===========================================

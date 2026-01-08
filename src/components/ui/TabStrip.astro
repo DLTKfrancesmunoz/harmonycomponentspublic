@@ -216,7 +216,8 @@ const componentId = `tabstrip-${Math.random().toString(36).substr(2, 9)}`;
     flex: 1;
     gap: var(--space-1);
     min-width: 0;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: visible;
   }
 
   .tabstrip__add {
@@ -340,6 +341,38 @@ const componentId = `tabstrip-${Math.random().toString(36).substr(2, 9)}`;
     color: var(--text-primary);
   }
 
+  /* Tab base and active styles */
+  .tab {
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    color: var(--text-secondary);
+    border: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    background: transparent;
+    text-decoration: none;
+    font-family: var(--font-sans);
+  }
+
+  .tab:hover {
+    color: var(--text-primary);
+  }
+
+  .tab.is-active {
+    color: var(--theme-primary);
+    border-bottom: 4px solid var(--theme-primary);
+  }
+
+  .tab:disabled,
+  .tab--disabled {
+    color: var(--text-muted);
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
   /* Icon positioning variants */
   .tab--icon-top {
     flex-direction: column;
@@ -362,6 +395,20 @@ const componentId = `tabstrip-${Math.random().toString(36).substr(2, 9)}`;
 
   .tab--icon-right {
     flex-direction: row-reverse;
+  }
+
+  .tab__icon {
+    flex-shrink: 0;
+  }
+
+  .tab__icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tab__label {
+    white-space: nowrap;
   }
 
   /* Compact variant */
