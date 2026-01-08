@@ -36,6 +36,7 @@ const props = [
     <nav class="article-nav">
       <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
       <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+      <a href="#accessibility" class="article-nav__link"><Icon name="check-badge" size="sm" /> Accessibility</a>
     </nav>
 
     <section id="examples" class="space-y-8">
@@ -87,6 +88,50 @@ const props = [
     <section id="props">
       <h2 class="section__title">Props</h2>
       <PropsTable props={props} />
+    </section>
+
+    <section id="accessibility" class="space-y-4">
+      <h2 class="section__title">Accessibility</h2>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="tag" size="sm" />
+          Labels
+        </h3>
+        <p class="a11y-card__text">
+          The RadioButton component automatically wraps the input in a <code>&lt;label&gt;</code> element, ensuring proper association between the label and radio button.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="keyboard" size="sm" />
+          Keyboard Navigation
+        </h3>
+        <p class="a11y-card__text">
+          Radio buttons are navigable with <kbd>Tab</kbd> and selectable with <kbd>Space</kbd>. Arrow keys can be used to navigate between radio buttons in the same group.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="tag" size="sm" />
+          Group Association
+        </h3>
+        <p class="a11y-card__text">
+          All radio buttons in a group must share the same <code>name</code> attribute. This ensures proper grouping and that only one option can be selected at a time.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="check-badge" size="sm" />
+          Error States
+        </h3>
+        <p class="a11y-card__text">
+          When the <code>error</code> prop is set, the radio button automatically includes <code>aria-invalid="true"</code> and error messages are associated via <code>aria-describedby</code> for screen reader users.
+        </p>
+      </div>
     </section>
   </article>
 </DocsLayout>

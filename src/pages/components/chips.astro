@@ -33,6 +33,7 @@ const props = [
     <nav class="article-nav">
       <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
       <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+      <a href="#accessibility" class="article-nav__link"><Icon name="check-badge" size="sm" /> Accessibility</a>
     </nav>
 
     <section id="examples" class="space-y-8">
@@ -236,6 +237,50 @@ const props = [
     <section id="props">
       <h2 class="section__title">Props</h2>
       <PropsTable props={props} />
+    </section>
+
+    <section id="accessibility" class="space-y-4">
+      <h2 class="section__title">Accessibility</h2>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="keyboard" size="sm" />
+          Keyboard Navigation
+        </h3>
+        <p class="a11y-card__text">
+          Interactive chips (those with click handlers) are keyboard accessible. Use <kbd>Tab</kbd> to navigate to chips and <kbd>Enter</kbd> or <kbd>Space</kbd> to activate them.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="cursor-arrow-rays" size="sm" />
+          Focus States
+        </h3>
+        <p class="a11y-card__text">
+          Chips include visible focus indicators when in the <code>focused</code> state. Focus indicators meet WCAG 2.1 requirements for contrast and visibility.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="tag" size="sm" />
+          Removable Chips
+        </h3>
+        <p class="a11y-card__text">
+          When chips are removable, the remove button should include an <code>aria-label</code> (e.g., "Remove [chip label]") to provide context for screen reader users.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="eye" size="sm" />
+          Screen Reader Support
+        </h3>
+        <p class="a11y-card__text">
+          Chip text content is announced by screen readers. For icon-only chips (dots, overflow), ensure appropriate <code>aria-label</code> attributes are provided.
+        </p>
+      </div>
     </section>
   </article>
 </DocsLayout>

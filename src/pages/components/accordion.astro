@@ -38,6 +38,7 @@ const faqItems = [
     <nav class="article-nav">
       <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
       <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+      <a href="#accessibility" class="article-nav__link"><Icon name="check-badge" size="sm" /> Accessibility</a>
     </nav>
 
     <section id="examples" class="space-y-8">
@@ -65,6 +66,46 @@ const faqItems = [
     <section id="props">
       <h2 class="section__title">Props</h2>
       <PropsTable props={props} />
+    </section>
+
+    <section id="accessibility" class="space-y-4">
+      <h2 class="section__title">Accessibility</h2>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="keyboard" size="sm" />
+          Keyboard Navigation
+        </h3>
+        <p class="a11y-card__text">
+          Accordion headers are fully keyboard accessible. Use <kbd>Tab</kbd> to navigate to accordion items, and <kbd>Enter</kbd> or <kbd>Space</kbd> to toggle expansion.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="tag" size="sm" />
+          ARIA Attributes
+        </h3>
+        <p class="a11y-card__text">
+          The Accordion component uses proper ARIA attributes:
+        </p>
+        <ul class="a11y-card__text" style="list-style: disc; padding-left: 1.5rem; margin-top: 0.5rem;">
+          <li><code>role="button"</code> on accordion headers</li>
+          <li><code>aria-expanded</code> indicates open/closed state</li>
+          <li><code>aria-controls</code> associates headers with content panels</li>
+          <li><code>aria-disabled</code> for disabled items (if applicable)</li>
+        </ul>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="eye" size="sm" />
+          Screen Reader Support
+        </h3>
+        <p class="a11y-card__text">
+          Screen readers announce the accordion header text, expansion state, and content when expanded. The relationship between headers and their content is clearly communicated.
+        </p>
+      </div>
     </section>
   </article>
 </DocsLayout>

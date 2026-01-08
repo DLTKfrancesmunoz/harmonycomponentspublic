@@ -27,6 +27,7 @@ const props = [
     <nav class="article-nav">
       <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
       <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+      <a href="#accessibility" class="article-nav__link"><Icon name="check-badge" size="sm" /> Accessibility</a>
     </nav>
 
     <section id="examples" class="space-y-8">
@@ -54,6 +55,50 @@ const props = [
     <section id="props">
       <h2 class="section__title">Props</h2>
       <PropsTable props={props} />
+    </section>
+
+    <section id="accessibility" class="space-y-4">
+      <h2 class="section__title">Accessibility</h2>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="tag" size="sm" />
+          Semantic HTML
+        </h3>
+        <p class="a11y-card__text">
+          Links use semantic <code>&lt;a&gt;</code> elements, ensuring proper navigation behavior and screen reader support. External links automatically include an icon and <code>aria-label</code> indicating they open in a new tab.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="keyboard" size="sm" />
+          Keyboard Navigation
+        </h3>
+        <p class="a11y-card__text">
+          All links are keyboard accessible. Use <kbd>Tab</kbd> to navigate to links and <kbd>Enter</kbd> to activate them. Links have visible focus indicators.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="eye" size="sm" />
+          External Links
+        </h3>
+        <p class="a11y-card__text">
+          When the <code>external</code> prop is used, links include an icon and screen readers announce that the link opens in a new tab. This helps users understand the navigation behavior.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="cursor-arrow-rays" size="sm" />
+          Focus Indicators
+        </h3>
+        <p class="a11y-card__text">
+          Links include visible focus indicators that meet WCAG 2.1 requirements. Focus is clearly visible when navigating with keyboard.
+        </p>
+      </div>
     </section>
   </article>
 </DocsLayout>

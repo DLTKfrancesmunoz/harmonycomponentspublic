@@ -26,6 +26,7 @@ const props = [
     <nav class="article-nav">
       <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
       <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+      <a href="#accessibility" class="article-nav__link"><Icon name="check-badge" size="sm" /> Accessibility</a>
     </nav>
 
     <section id="examples" class="space-y-8">
@@ -58,6 +59,40 @@ const props = [
     <section id="props">
       <h2 class="section__title">Props</h2>
       <PropsTable props={props} />
+    </section>
+
+    <section id="accessibility" class="space-y-4">
+      <h2 class="section__title">Accessibility</h2>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="eye" size="sm" />
+          Semantic HTML
+        </h3>
+        <p class="a11y-card__text">
+          Badges use semantic <code>&lt;span&gt;</code> elements and are typically decorative. When badges convey important information, ensure they are associated with their related content using appropriate ARIA attributes or proximity.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="cursor-arrow-rays" size="sm" />
+          Color Contrast
+        </h3>
+        <p class="a11y-card__text">
+          All badge variants meet WCAG 2.1 AA contrast requirements. Text and background colors provide sufficient contrast for readability.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="tag" size="sm" />
+          Icon Badges
+        </h3>
+        <p class="a11y-card__text">
+          When badges contain only icons, ensure the parent element or badge itself includes <code>aria-label</code> or <code>aria-labelledby</code> to provide context for screen readers.
+        </p>
+      </div>
     </section>
   </article>
 </DocsLayout>

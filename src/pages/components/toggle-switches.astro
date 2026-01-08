@@ -28,6 +28,7 @@ const props = [
     <nav class="article-nav">
       <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
       <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+      <a href="#accessibility" class="article-nav__link"><Icon name="check-badge" size="sm" /> Accessibility</a>
     </nav>
 
     <section id="examples" class="space-y-8">
@@ -68,6 +69,60 @@ const props = [
     <section id="props">
       <h2 class="section__title">Props</h2>
       <PropsTable props={props} />
+    </section>
+
+    <section id="accessibility" class="space-y-4">
+      <h2 class="section__title">Accessibility</h2>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="tag" size="sm" />
+          Labels
+        </h3>
+        <p class="a11y-card__text">
+          The Toggle component automatically associates labels with the toggle switch. When a <code>label</code> prop is provided, it is properly linked to the input element for screen reader support.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="keyboard" size="sm" />
+          Keyboard Navigation
+        </h3>
+        <p class="a11y-card__text">
+          Toggle switches are keyboard accessible. Use <kbd>Tab</kbd> to navigate to toggles and <kbd>Space</kbd> to toggle the state.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="tag" size="sm" />
+          ARIA Attributes
+        </h3>
+        <p class="a11y-card__text">
+          Toggles use <code>role="switch"</code> and include <code>aria-checked</code> to indicate the current state. The label is associated using <code>aria-labelledby</code>.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="eye" size="sm" />
+          Screen Reader Support
+        </h3>
+        <p class="a11y-card__text">
+          Screen readers announce the toggle label and current state (on/off). State changes are announced when toggles are activated.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="no-symbol" size="sm" />
+          Disabled State
+        </h3>
+        <p class="a11y-card__text">
+          Disabled toggles are marked with the <code>disabled</code> attribute and are not focusable. Screen readers announce them as disabled.
+        </p>
+      </div>
     </section>
   </article>
 </DocsLayout>

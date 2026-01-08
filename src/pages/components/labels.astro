@@ -28,6 +28,7 @@ const props = [
     <nav class="article-nav">
       <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
       <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+      <a href="#accessibility" class="article-nav__link"><Icon name="check-badge" size="sm" /> Accessibility</a>
     </nav>
 
     <section id="examples" class="space-y-8">
@@ -58,6 +59,50 @@ const props = [
     <section id="props">
       <h2 class="section__title">Props</h2>
       <PropsTable props={props} />
+    </section>
+
+    <section id="accessibility" class="space-y-4">
+      <h2 class="section__title">Accessibility</h2>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="tag" size="sm" />
+          Label Association
+        </h3>
+        <p class="a11y-card__text">
+          Always use the <code>for</code> prop to associate labels with their corresponding form inputs. This ensures screen readers can identify which label belongs to which input.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="exclamation-circle" size="sm" />
+          Required Indicators
+        </h3>
+        <p class="a11y-card__text">
+          When using the <code>required</code> prop, the label visually indicates required fields. Ensure the associated input also has the <code>required</code> attribute for proper form validation and screen reader announcements.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="eye" size="sm" />
+          Screen Reader Support
+        </h3>
+        <p class="a11y-card__text">
+          Screen readers announce label text when associated inputs receive focus. Helper text (via the <code>helper</code> prop) is also announced to provide additional context.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="tag" size="sm" />
+          Semantic HTML
+        </h3>
+        <p class="a11y-card__text">
+          Labels use semantic <code>&lt;label&gt;</code> elements, which provide the proper relationship with form controls and enable clicking the label to focus the associated input.
+        </p>
+      </div>
     </section>
   </article>
 </DocsLayout>

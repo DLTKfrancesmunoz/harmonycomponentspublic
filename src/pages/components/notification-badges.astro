@@ -29,6 +29,7 @@ const props = [
     <nav class="article-nav">
       <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
       <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+      <a href="#accessibility" class="article-nav__link"><Icon name="check-badge" size="sm" /> Accessibility</a>
     </nav>
 
     <section id="examples" class="space-y-8">
@@ -119,6 +120,50 @@ const props = [
     <section id="props">
       <h2 class="section__title">Props</h2>
       <PropsTable props={props} />
+    </section>
+
+    <section id="accessibility" class="space-y-4">
+      <h2 class="section__title">Accessibility</h2>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="tag" size="sm" />
+          ARIA Labels
+        </h3>
+        <p class="a11y-card__text">
+          Notification badges should include <code>aria-label</code> attributes to provide context for screen readers. For example, "5 unread notifications" or "New message indicator".
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="eye" size="sm" />
+          Screen Reader Support
+        </h3>
+        <p class="a11y-card__text">
+          Screen readers announce badge content when properly labeled. For number badges, the count is announced. For dot badges, ensure an <code>aria-label</code> describes what the indicator represents.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="cursor-arrow-rays" size="sm" />
+          Color Contrast
+        </h3>
+        <p class="a11y-card__text">
+          All notification badge variants meet WCAG 2.1 AA contrast requirements. Text and background colors provide sufficient contrast for readability, especially for number and overflow badges.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="tag" size="sm" />
+          Live Regions
+        </h3>
+        <p class="a11y-card__text">
+          When badge counts update dynamically, consider using <code>aria-live="polite"</code> or <code>aria-live="assertive"</code> to announce changes to screen reader users, depending on the urgency of the update.
+        </p>
+      </div>
     </section>
   </article>
 </DocsLayout>

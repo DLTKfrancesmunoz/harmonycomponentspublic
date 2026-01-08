@@ -25,6 +25,7 @@ const props = [
     <nav class="article-nav">
       <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
       <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+      <a href="#accessibility" class="article-nav__link"><Icon name="check-badge" size="sm" /> Accessibility</a>
     </nav>
 
     <section id="examples" class="space-y-8">
@@ -59,6 +60,40 @@ const props = [
     <section id="props">
       <h2 class="section__title">Props</h2>
       <PropsTable props={props} />
+    </section>
+
+    <section id="accessibility" class="space-y-4">
+      <h2 class="section__title">Accessibility</h2>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="tag" size="sm" />
+          ARIA Attributes
+        </h3>
+        <p class="a11y-card__text">
+          Spinners use <code>role="status"</code> and <code>aria-label</code> to indicate loading state to screen readers. The spinner is announced as a live region so users are informed when content is loading.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="eye" size="sm" />
+          Screen Reader Support
+        </h3>
+        <p class="a11y-card__text">
+          Screen readers announce loading states. Provide descriptive <code>aria-label</code> text (e.g., "Loading content" or "Processing request") to give context about what is loading.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="exclamation-circle" size="sm" />
+          Animation Preferences
+        </h3>
+        <p class="a11y-card__text">
+          The spinner respects user preferences for reduced motion. When <code>prefers-reduced-motion</code> is enabled, animations are minimized or removed to accommodate users with motion sensitivity.
+        </p>
+      </div>
     </section>
   </article>
 </DocsLayout>

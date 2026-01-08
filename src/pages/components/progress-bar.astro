@@ -29,6 +29,7 @@ const props = [
     <nav class="article-nav">
       <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
       <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+      <a href="#accessibility" class="article-nav__link"><Icon name="check-badge" size="sm" /> Accessibility</a>
     </nav>
 
     <section id="examples" class="space-y-8">
@@ -70,6 +71,50 @@ const props = [
     <section id="props">
       <h2 class="section__title">Props</h2>
       <PropsTable props={props} />
+    </section>
+
+    <section id="accessibility" class="space-y-4">
+      <h2 class="section__title">Accessibility</h2>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="tag" size="sm" />
+          ARIA Attributes
+        </h3>
+        <p class="a11y-card__text">
+          Progress bars use <code>role="progressbar"</code> with <code>aria-valuenow</code>, <code>aria-valuemin</code>, and <code>aria-valuemax</code> attributes to communicate progress to screen readers.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="eye" size="sm" />
+          Screen Reader Support
+        </h3>
+        <p class="a11y-card__text">
+          Screen readers announce the current progress value and percentage. When <code>showLabel</code> is enabled, the percentage is also visually displayed for all users.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="cursor-arrow-rays" size="sm" />
+          Color Contrast
+        </h3>
+        <p class="a11y-card__text">
+          All progress bar variants meet WCAG 2.1 AA contrast requirements. The progress indicator has sufficient contrast against the background for visibility.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="tag" size="sm" />
+          Labels
+        </h3>
+        <p class="a11y-card__text">
+          Provide an <code>aria-label</code> or associated label text to describe what the progress bar represents (e.g., "Upload progress" or "Form completion").
+        </p>
+      </div>
     </section>
   </article>
 </DocsLayout>

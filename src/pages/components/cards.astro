@@ -28,6 +28,7 @@ const props = [
     <nav class="article-nav">
       <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
       <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+      <a href="#accessibility" class="article-nav__link"><Icon name="check-badge" size="sm" /> Accessibility</a>
     </nav>
 
     <section id="examples" class="space-y-8">
@@ -139,6 +140,50 @@ const props = [
     <section id="props">
       <h2 class="section__title">Props</h2>
       <PropsTable props={props} />
+    </section>
+
+    <section id="accessibility" class="space-y-4">
+      <h2 class="section__title">Accessibility</h2>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="tag" size="sm" />
+          Semantic Structure
+        </h3>
+        <p class="a11y-card__text">
+          Cards use semantic HTML structure with proper heading hierarchy. Use <code>card__header</code>, <code>card__body</code>, and <code>card__footer</code> classes to organize content logically.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="keyboard" size="sm" />
+          Interactive Cards
+        </h3>
+        <p class="a11y-card__text">
+          When using the <code>interactive</code> prop, ensure cards are keyboard accessible. Use proper focus management and provide clear indication of clickable areas. Consider using <code>role="button"</code> or wrapping content in a <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code> element.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="cursor-arrow-rays" size="sm" />
+          Focus Indicators
+        </h3>
+        <p class="a11y-card__text">
+          Interactive cards include visible focus indicators that meet WCAG 2.1 requirements. Ensure focus is clearly visible when navigating with keyboard.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="eye" size="sm" />
+          Screen Reader Support
+        </h3>
+        <p class="a11y-card__text">
+          Use proper heading levels within cards to help screen reader users understand content hierarchy. Ensure card titles are descriptive and provide context for the card's content.
+        </p>
+      </div>
     </section>
   </article>
 </DocsLayout>

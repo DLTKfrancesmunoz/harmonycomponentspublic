@@ -32,6 +32,7 @@ const props = [
     <nav class="article-nav">
       <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
       <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+      <a href="#accessibility" class="article-nav__link"><Icon name="check-badge" size="sm" /> Accessibility</a>
     </nav>
 
     <section id="examples" class="space-y-8">
@@ -109,6 +110,50 @@ const props = [
     <section id="props">
       <h2 class="section__title">Props</h2>
       <PropsTable props={props} />
+    </section>
+
+    <section id="accessibility" class="space-y-4">
+      <h2 class="section__title">Accessibility</h2>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="tag" size="sm" />
+          Fieldset and Legend
+        </h3>
+        <p class="a11y-card__text">
+          The CheckboxGroup component uses <code>&lt;fieldset&gt;</code> and <code>&lt;legend&gt;</code> elements to group related checkboxes. This provides semantic structure and helps screen readers understand the relationship between checkboxes.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="keyboard" size="sm" />
+          Keyboard Navigation
+        </h3>
+        <p class="a11y-card__text">
+          All checkboxes in the group are keyboard accessible. Use <kbd>Tab</kbd> to navigate between checkboxes and <kbd>Space</kbd> to toggle selection.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="check-badge" size="sm" />
+          Error and Warning States
+        </h3>
+        <p class="a11y-card__text">
+          When <code>error</code> or <code>warning</code> props are set, the group and all child checkboxes display the appropriate state. Error/warning messages are associated via <code>aria-describedby</code> and announced to screen readers.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="eye" size="sm" />
+          Screen Reader Support
+        </h3>
+        <p class="a11y-card__text">
+          Screen readers announce the group legend, individual checkbox labels, and their checked state. Error and warning messages are clearly communicated when present.
+        </p>
+      </div>
     </section>
   </article>
 </DocsLayout>

@@ -1,8 +1,19 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
+import PropsTable from '../../components/PropsTable.astro';
 import ExampleSection from '../../components/ExampleSection.astro';
 import TabStrip from '../../components/ui/TabStrip.astro';
 import Icon from '../../components/ui/Icon.astro';
+
+const props = [
+  { name: 'tabs', type: 'Tab[]', default: '[]', description: 'Array of tab objects with id, label, and optional icon, iconPosition, active, disabled, href' },
+  { name: 'showAddTab', type: 'boolean', default: 'false', description: 'Whether to show "Add Tab" button' },
+  { name: 'addTabLabel', type: 'string', default: "'Add Tab'", description: 'Label for Add Tab button' },
+  { name: 'overflowMode', type: "'auto' | 'manual' | 'none'", default: "'auto'", description: 'Overflow handling mode: auto (automatic), manual (use overflowTabs), or none' },
+  { name: 'overflowTabs', type: 'Tab[]', default: '[]', description: 'Manual override for overflow tabs (used when overflowMode is "manual")' },
+  { name: 'variant', type: "'default' | 'compact'", default: "'default'", description: 'Visual variant: default or compact (reduced height/padding)' },
+  { name: 'class', type: 'string', default: '—', description: 'Additional CSS classes' },
+];
 ---
 
 <DocsLayout title="Tab Strip" description="Tab components for organizing content.">
@@ -19,6 +30,8 @@ import Icon from '../../components/ui/Icon.astro';
 
     <nav class="article-nav">
       <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
+      <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+      <a href="#accessibility" class="article-nav__link"><Icon name="check-badge" size="sm" /> Accessibility</a>
     </nav>
 
     <section id="examples" class="space-y-8">
@@ -183,6 +196,70 @@ import Icon from '../../components/ui/Icon.astro';
           />
         </div>
       </ExampleSection>
+    </section>
+
+    <section id="props">
+      <h2 class="section__title">Props</h2>
+      <PropsTable props={props} />
+    </section>
+
+    <section id="accessibility" class="space-y-4">
+      <h2 class="section__title">Accessibility</h2>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="keyboard" size="sm" />
+          Keyboard Navigation
+        </h3>
+        <p class="a11y-card__text">
+          Tabs support full keyboard navigation:
+        </p>
+        <ul class="a11y-card__text" style="list-style: disc; padding-left: 1.5rem; margin-top: 0.5rem;">
+          <li><kbd>Tab</kbd> - Navigate to tab strip</li>
+          <li><kbd>Arrow Left/Right</kbd> - Navigate between tabs</li>
+          <li><kbd>Home</kbd> / <kbd>End</kbd> - Jump to first/last tab</li>
+          <li><kbd>Enter</kbd> or <kbd>Space</kbd> - Activate selected tab</li>
+          <li><kbd>Escape</kbd> - Close overflow dropdown if open</li>
+        </ul>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="tag" size="sm" />
+          ARIA Attributes
+        </h3>
+        <p class="a11y-card__text">
+          The TabStrip component includes proper ARIA attributes:
+        </p>
+        <ul class="a11y-card__text" style="list-style: disc; padding-left: 1.5rem; margin-top: 0.5rem;">
+          <li><code>role="tablist"</code> on the container</li>
+          <li><code>role="tab"</code> on each tab button</li>
+          <li><code>aria-selected</code> indicates the active tab</li>
+          <li><code>aria-disabled</code> for disabled tabs</li>
+          <li><code>aria-controls</code> associates tabs with their panels</li>
+          <li><code>aria-label</code> for icon-only or overflow buttons</li>
+        </ul>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="eye" size="sm" />
+          Screen Reader Support
+        </h3>
+        <p class="a11y-card__text">
+          Screen readers announce tab labels, active state, and navigation instructions. The active tab is clearly indicated, and disabled tabs are announced as unavailable.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="cursor-arrow-rays" size="sm" />
+          Focus Management
+        </h3>
+        <p class="a11y-card__text">
+          Focus indicators are visible on all interactive elements. When a tab is activated, focus moves to the corresponding tab panel content. The overflow dropdown properly manages focus when opened.
+        </p>
+      </div>
     </section>
   </article>
 </DocsLayout>

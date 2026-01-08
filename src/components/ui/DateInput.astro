@@ -353,11 +353,8 @@ const displayValue = formatDisplayValue(value, type, locale);
       
       // Set trigger ID on popup
       popup.setAttribute('data-trigger-id', inputId);
-      
-      // Helper function to position popup (DRY principle)
-      const positionPopup = (window as any).positionPickerPopup;
 
-      // Toggle picker on input/icon click - direct DOM manipulation (no global functions)
+      // Toggle picker on input/icon click - simple class toggle like Dropdown
       const togglePicker = (e: Event) => {
         if (inputEl.disabled) return;
         e.stopPropagation(); // CRITICAL: Prevents race with click outside handler
@@ -374,13 +371,8 @@ const displayValue = formatDisplayValue(value, type, locale);
             if (p !== popup) p.classList.remove('is-open');
           });
 
-          // Open this popup
+          // Open this popup - CSS handles positioning automatically!
           popup.classList.add('is-open');
-
-          // Position popup using helper
-          if (positionPopup) {
-            positionPopup(popup, inputEl);
-          }
         }
       };
 

@@ -47,6 +47,7 @@ const priorities = [
     <nav class="article-nav">
       <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
       <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+      <a href="#accessibility" class="article-nav__link"><Icon name="check-badge" size="sm" /> Accessibility</a>
     </nav>
 
     <section id="examples" class="space-y-8">
@@ -99,6 +100,64 @@ const priorities = [
     <section id="props">
       <h2 class="section__title">Props</h2>
       <PropsTable props={props} />
+    </section>
+
+    <section id="accessibility" class="space-y-4">
+      <h2 class="section__title">Accessibility</h2>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="tag" size="sm" />
+          Labels
+        </h3>
+        <p class="a11y-card__text">
+          Always associate labels with dropdowns using the <code>label</code> prop or a separate <code>Label</code> component with the <code>for</code> attribute. This ensures screen readers can identify the dropdown's purpose.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="keyboard" size="sm" />
+          Keyboard Navigation
+        </h3>
+        <p class="a11y-card__text">
+          Dropdowns support full keyboard navigation:
+        </p>
+        <ul class="a11y-card__text" style="list-style: disc; padding-left: 1.5rem; margin-top: 0.5rem;">
+          <li><kbd>Tab</kbd> - Navigate to/from dropdown</li>
+          <li><kbd>Enter</kbd> or <kbd>Space</kbd> - Open dropdown menu</li>
+          <li><kbd>Arrow Up/Down</kbd> - Navigate options</li>
+          <li><kbd>Enter</kbd> - Select option</li>
+          <li><kbd>Escape</kbd> - Close dropdown</li>
+        </ul>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="tag" size="sm" />
+          ARIA Attributes
+        </h3>
+        <p class="a11y-card__text">
+          The Dropdown component includes proper ARIA attributes:
+        </p>
+        <ul class="a11y-card__text" style="list-style: disc; padding-left: 1.5rem; margin-top: 0.5rem;">
+          <li><code>role="combobox"</code> on the dropdown trigger</li>
+          <li><code>aria-expanded</code> indicates open/closed state</li>
+          <li><code>aria-haspopup="listbox"</code> indicates a popup menu</li>
+          <li><code>aria-controls</code> associates trigger with menu</li>
+          <li><code>aria-label</code> or <code>aria-labelledby</code> for accessible name</li>
+        </ul>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="no-symbol" size="sm" />
+          Disabled State
+        </h3>
+        <p class="a11y-card__text">
+          Disabled dropdowns are marked with the <code>disabled</code> attribute and are not focusable. Screen readers announce them as disabled.
+        </p>
+      </div>
     </section>
   </article>
 </DocsLayout>

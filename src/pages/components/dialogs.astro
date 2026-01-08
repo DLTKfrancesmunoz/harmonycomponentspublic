@@ -34,6 +34,7 @@ const props = [
     <nav class="article-nav">
       <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
       <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+      <a href="#accessibility" class="article-nav__link"><Icon name="check-badge" size="sm" /> Accessibility</a>
     </nav>
 
     <section id="examples" class="space-y-8">
@@ -113,6 +114,56 @@ const props = [
     <section id="props">
       <h2 class="section__title">Props</h2>
       <PropsTable props={props} />
+    </section>
+
+    <section id="accessibility" class="space-y-4">
+      <h2 class="section__title">Accessibility</h2>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="tag" size="sm" />
+          ARIA Roles
+        </h3>
+        <p class="a11y-card__text">
+          Dialogs use <code>role="dialog"</code> and include <code>aria-modal="true"</code> to indicate modal behavior. The dialog title is associated using <code>aria-labelledby</code>.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="keyboard" size="sm" />
+          Keyboard Navigation
+        </h3>
+        <p class="a11y-card__text">
+          Dialogs support standard keyboard interactions:
+        </p>
+        <ul class="a11y-card__text" style="list-style: disc; padding-left: 1.5rem; margin-top: 0.5rem;">
+          <li><kbd>Tab</kbd> - Navigate between focusable elements</li>
+          <li><kbd>Shift+Tab</kbd> - Navigate backwards</li>
+          <li><kbd>Escape</kbd> - Close the dialog</li>
+          <li>Focus is trapped within the dialog when open</li>
+        </ul>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="cursor-arrow-rays" size="sm" />
+          Focus Management
+        </h3>
+        <p class="a11y-card__text">
+          When a dialog opens, focus moves to the first focusable element (typically the close button or first input). When closed, focus returns to the element that triggered the dialog. Focus is trapped within the dialog to prevent users from interacting with background content.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="eye" size="sm" />
+          Screen Reader Support
+        </h3>
+        <p class="a11y-card__text">
+          Screen readers announce the dialog title and content when opened. The dialog's modal nature is communicated, and users are informed that background content is not available while the dialog is open.
+        </p>
+      </div>
     </section>
   </article>
 </DocsLayout>

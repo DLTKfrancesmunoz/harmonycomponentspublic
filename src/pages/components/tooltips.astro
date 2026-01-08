@@ -9,6 +9,7 @@ import Icon from '../../components/ui/Icon.astro';
 const props = [
   { name: 'text', type: 'string', default: '—', description: 'Tooltip text content' },
   { name: 'position', type: "'top' | 'bottom' | 'left' | 'right'", default: "'top'", description: 'Tooltip position' },
+  { name: 'cornerVariant', type: "'top' | 'bottom' | 'left' | 'right'", default: '—', description: 'Corner variant - makes the specified side\'s corners sharp (0 border-radius) while other corners remain rounded' },
 ];
 ---
 
@@ -27,6 +28,7 @@ const props = [
     <nav class="article-nav">
       <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
       <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+      <a href="#accessibility" class="article-nav__link"><Icon name="check-badge" size="sm" /> Accessibility</a>
     </nav>
 
     <section id="examples" class="space-y-8">
@@ -69,11 +71,72 @@ const props = [
           </Tooltip>
         </div>
       </ExampleSection>
+
+      <ExampleSection title="Corner Variants" description="Corner variants make one side's corners sharp while keeping the other corners rounded.">
+        <div class="flex flex-wrap gap-6 items-center justify-center p-8">
+          <Tooltip text="Top corners sharp" cornerVariant="top" position="top">
+            <Button variant="outline">Top Corner</Button>
+          </Tooltip>
+          <Tooltip text="Bottom corners sharp" cornerVariant="bottom" position="bottom">
+            <Button variant="outline">Bottom Corner</Button>
+          </Tooltip>
+          <Tooltip text="Left corners sharp" cornerVariant="left" position="left">
+            <Button variant="outline">Left Corner</Button>
+          </Tooltip>
+          <Tooltip text="Right corners sharp" cornerVariant="right" position="right">
+            <Button variant="outline">Right Corner</Button>
+          </Tooltip>
+        </div>
+      </ExampleSection>
     </section>
 
     <section id="props">
       <h2 class="section__title">Props</h2>
       <PropsTable props={props} />
+    </section>
+
+    <section id="accessibility" class="space-y-4">
+      <h2 class="section__title">Accessibility</h2>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="tag" size="sm" />
+          ARIA Attributes
+        </h3>
+        <p class="a11y-card__text">
+          Tooltips use <code>role="tooltip"</code> and are associated with their trigger element using <code>aria-describedby</code>. This ensures screen readers announce tooltip content when the trigger receives focus.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="keyboard" size="sm" />
+          Keyboard Access
+        </h3>
+        <p class="a11y-card__text">
+          Tooltips appear on hover for mouse users and on focus for keyboard users. When a tooltip trigger receives keyboard focus, the tooltip is displayed to provide context.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="eye" size="sm" />
+          Screen Reader Support
+        </h3>
+        <p class="a11y-card__text">
+          Screen readers announce tooltip content when the associated element receives focus. Tooltips should supplement, not replace, accessible labels on interactive elements.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="exclamation-circle" size="sm" />
+          Important Information
+        </h3>
+        <p class="a11y-card__text">
+          Do not rely solely on tooltips for critical information. Important details should be visible in the UI or provided through accessible labels, as tooltips may not be discovered by all users.
+        </p>
+      </div>
     </section>
   </article>
 </DocsLayout>

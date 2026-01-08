@@ -2335,6 +2335,43 @@
   border-right-color: var(--text-primary);
 }
 
+/* Corner Variants - One sharp corner, three rounded corners */
+/* Hide arrow when corner variant is used */
+.tooltip__content--corner-top::after,
+.tooltip__content--corner-bottom::after,
+.tooltip__content--corner-left::after,
+.tooltip__content--corner-right::after {
+  display: none;
+}
+
+.tooltip__content--corner-top {
+  border-top-left-radius: 0;
+  border-top-right-radius: var(--radius-md);
+  border-bottom-left-radius: var(--radius-md);
+  border-bottom-right-radius: var(--radius-md);
+}
+
+.tooltip__content--corner-bottom {
+  border-top-left-radius: var(--radius-md);
+  border-top-right-radius: var(--radius-md);
+  border-bottom-left-radius: var(--radius-md);
+  border-bottom-right-radius: 0;
+}
+
+.tooltip__content--corner-left {
+  border-top-left-radius: var(--radius-md);
+  border-top-right-radius: var(--radius-md);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: var(--radius-md);
+}
+
+.tooltip__content--corner-right {
+  border-top-left-radius: var(--radius-md);
+  border-top-right-radius: 0;
+  border-bottom-left-radius: var(--radius-md);
+  border-bottom-right-radius: var(--radius-md);
+}
+
 /* ===========================================
    DIALOG / MODAL
    =========================================== */
@@ -2693,7 +2730,9 @@
 
 .picker-popup {
   display: none;
-  position: fixed;
+  position: absolute;
+  top: calc(100% + var(--space-2));
+  left: 0;
   background-color: var(--card-bg);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
@@ -2702,12 +2741,10 @@
   z-index: var(--z-popover);
   min-width: 280px;
   max-width: 320px;
-  visibility: hidden;
 }
 
 .picker-popup.is-open {
   display: block;
-  visibility: visible;
 }
 
 .picker-popup__header {

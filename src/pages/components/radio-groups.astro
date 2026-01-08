@@ -33,6 +33,7 @@ const props = [
     <nav class="article-nav">
       <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
       <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+      <a href="#accessibility" class="article-nav__link"><Icon name="check-badge" size="sm" /> Accessibility</a>
     </nav>
 
     <section id="examples" class="space-y-8">
@@ -108,6 +109,50 @@ const props = [
     <section id="props">
       <h2 class="section__title">Props</h2>
       <PropsTable props={props} />
+    </section>
+
+    <section id="accessibility" class="space-y-4">
+      <h2 class="section__title">Accessibility</h2>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="tag" size="sm" />
+          Fieldset and Legend
+        </h3>
+        <p class="a11y-card__text">
+          The RadioGroup component uses <code>&lt;fieldset&gt;</code> and <code>&lt;legend&gt;</code> elements to group related radio buttons. This provides semantic structure and helps screen readers understand the relationship between options.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="keyboard" size="sm" />
+          Keyboard Navigation
+        </h3>
+        <p class="a11y-card__text">
+          Radio buttons in a group are keyboard accessible. Use <kbd>Tab</kbd> to navigate to the group, then <kbd>Arrow Up/Down</kbd> or <kbd>Arrow Left/Right</kbd> to move between options. <kbd>Space</kbd> selects the focused option.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="tag" size="sm" />
+          Group Association
+        </h3>
+        <p class="a11y-card__text">
+          All radio buttons in a group must share the same <code>name</code> attribute. The RadioGroup component ensures this by requiring a <code>name</code> prop that is applied to all child radio buttons.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="check-badge" size="sm" />
+          Error and Warning States
+        </h3>
+        <p class="a11y-card__text">
+          When <code>error</code> or <code>warning</code> props are set, the group and all child radio buttons display the appropriate state. Error/warning messages are associated via <code>aria-describedby</code> and announced to screen readers.
+        </p>
+      </div>
     </section>
   </article>
 </DocsLayout>
