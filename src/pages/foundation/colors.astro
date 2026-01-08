@@ -47,6 +47,15 @@ const cpSemiDarkColors = Object.entries(colors.themes.cp.palette.dark).map(([key
   cssVar: colorMetadata[key]?.cssVar || ''
 }));
 
+// Dynamically generate VP/PPM/Maconomy dark colors (they all use the same dark palette)
+const vpPpmMaconomyDarkColors = Object.entries(colors.themes.vp.palette.dark).map(([key, value]) => ({
+  key,
+  name: formatColorName(key),
+  value,
+  usage: colorMetadata[key]?.usage || '',
+  cssVar: colorMetadata[key]?.cssVar || ''
+}));
+
 // Semantic colors - will be updated dynamically based on theme mode
 const semanticColorKeys = ['success', 'warning', 'error', 'info'] as const;
 const getSemanticColors = (isDark: boolean) => {
@@ -108,7 +117,7 @@ const getSemanticColors = (isDark: boolean) => {
         <span class="badge badge--primary">CP Dark Mode Only</span>
       </div>
       <p class="text-sm text-secondary mb-6">
-        Used by CP theme in dark mode. Other themes do not have a dark mode palette.
+        Used by CP theme in dark mode.
       </p>
       <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {cpSemiDarkColors.map((color, index) => (
@@ -120,6 +129,32 @@ const getSemanticColors = (isDark: boolean) => {
             <div>
               <div class="text-sm font-medium text-primary">{color.name}</div>
               <div class="text-xs font-mono text-muted cp-dark-value">{color.value}</div>
+            </div>
+            <p class="text-xs text-secondary">{color.usage}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- VP/PPM/MACONOMY DARK COLORS (VP, PPM, Maconomy dark mode) -->
+    <section id="vp-ppm-maconomy-dark-palette" class="hidden">
+      <div class="flex items-center gap-3 mb-6">
+        <h2 class="text-sm font-mono text-muted uppercase tracking-widest">Dark Mode Palette</h2>
+        <span class="badge badge--primary">VP, PPM, Maconomy Dark Mode</span>
+      </div>
+      <p class="text-sm text-secondary mb-6">
+        Used by VP, PPM, and Maconomy themes in dark mode.
+      </p>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {vpPpmMaconomyDarkColors.map((color, index) => (
+          <div class="space-y-3" data-color-key={color.key}>
+            <div class="h-20 rounded-lg border vp-ppm-maconomy-dark-swatch"
+                 data-css-var={color.cssVar}
+                 data-color-key={color.key}
+                 style={`background-color: ${color.value}; border-color: var(--border-color);`}></div>
+            <div>
+              <div class="text-sm font-medium text-primary">{color.name}</div>
+              <div class="text-xs font-mono text-muted vp-ppm-maconomy-dark-value">{color.value}</div>
             </div>
             <p class="text-xs text-secondary">{color.usage}</p>
           </div>
@@ -226,14 +261,21 @@ const getSemanticColors = (isDark: boolean) => {
       const html = document.documentElement;
       const isDark = html.classList.contains('dark');
       const isCPTheme = html.classList.contains('theme-cp');
+      const isVPTheme = html.classList.contains('theme-vp');
+      const isPPMTheme = html.classList.contains('theme-ppm');
+      const isMaconomyTheme = html.classList.contains('theme-maconomy');
+      const isVPOrPPMOrMaconomy = isVPTheme || isPPMTheme || isMaconomyTheme;
 
       const semiLightPalette = document.getElementById('semi-light-palette');
       const cpSemiDarkPalette = document.getElementById('cp-semi-dark-palette');
+      const vpPpmMaconomyDarkPalette = document.getElementById('vp-ppm-maconomy-dark-palette');
+      const semiLightDescription = document.getElementById('semi-light-description');
 
       // Toggle visibility based on theme and mode
       if (isDark && isCPTheme) {
         semiLightPalette?.classList.add('hidden');
         cpSemiDarkPalette?.classList.remove('hidden');
+        vpPpmMaconomyDarkPalette?.classList.add('hidden');
 
         // Update CP dark palette values by reading CSS variables
         document.querySelectorAll('.cp-dark-swatch').forEach(swatch => {
@@ -251,9 +293,31 @@ const getSemanticColors = (isDark: boolean) => {
             }
           }
         });
+      } else if (isDark && isVPOrPPMOrMaconomy) {
+        semiLightPalette?.classList.add('hidden');
+        cpSemiDarkPalette?.classList.add('hidden');
+        vpPpmMaconomyDarkPalette?.classList.remove('hidden');
+
+        // Update VP/PPM/Maconomy dark palette values by reading CSS variables
+        document.querySelectorAll('.vp-ppm-maconomy-dark-swatch').forEach(swatch => {
+          const cssVar = swatch.getAttribute('data-css-var');
+
+          if (cssVar) {
+            const hexValue = getCSSVariableHex(cssVar);
+            if (hexValue) {
+              swatch.style.backgroundColor = hexValue;
+
+              // Find and update the corresponding value text
+              const container = swatch.parentElement;
+              const valueEl = container?.querySelector('.vp-ppm-maconomy-dark-value');
+              if (valueEl) valueEl.textContent = hexValue;
+            }
+          }
+        });
       } else {
         semiLightPalette?.classList.remove('hidden');
         cpSemiDarkPalette?.classList.add('hidden');
+        vpPpmMaconomyDarkPalette?.classList.add('hidden');
 
         // Update semi-light palette values by reading CSS variables
         document.querySelectorAll('.semi-light-swatch').forEach(swatch => {
@@ -310,8 +374,8 @@ const getSemanticColors = (isDark: boolean) => {
 
         if (isCPTheme) {
           if (darkModeLabel) darkModeLabel.textContent = 'Showing CP Semi-Dark Colors';
-        } else {
-          if (lightModeLabel) lightModeLabel.textContent = 'Showing Semi-Light Colors (Dark mode not available for this theme)';
+        } else if (isVPOrPPMOrMaconomy) {
+          if (darkModeLabel) darkModeLabel.textContent = 'Showing Dark Mode Colors';
         }
       } else {
         indicatorDark?.classList.add('hidden');
