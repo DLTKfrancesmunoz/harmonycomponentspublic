@@ -1,5 +1,20 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
+import { spacing } from '../../tokens/index.ts';
+
+// Build spacing scale array from tokens
+const spacingScale = Object.entries(spacing.scale).map(([name, data]) => ({
+  name,
+  value: data.value,
+  cssVar: data.cssVar
+}));
+
+// Build border radius array from tokens
+const borderRadiusScale = Object.entries(spacing.borderRadius).map(([name, data]) => ({
+  name,
+  value: data.value,
+  cssVar: data.cssVar
+}));
 ---
 
 <DocsLayout title="Spacing" description="Consistent spacing scale based on a 4px grid.">
@@ -14,27 +29,12 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
     <section class="space-y-6">
       <h2 class="section__title">Spacing Scale</h2>
       <div class="space-y-3">
-        {[
-          { name: '0', value: '0px' },
-          { name: '0.5', value: '2px' },
-          { name: '1', value: '4px' },
-          { name: '1.5', value: '6px' },
-          { name: '2', value: '8px' },
-          { name: '3', value: '12px' },
-          { name: '4', value: '16px' },
-          { name: '5', value: '20px' },
-          { name: '6', value: '24px' },
-          { name: '8', value: '32px' },
-          { name: '10', value: '40px' },
-          { name: '12', value: '48px' },
-          { name: '16', value: '64px' },
-          { name: '20', value: '80px' },
-          { name: '24', value: '96px' },
-        ].map(space => (
+        {spacingScale.map(space => (
           <div class="flex items-center gap-4">
             <span class="text-sm text-muted w-12">{space.name}</span>
             <div class="bg-theme" style={`width: ${space.value}; height: 24px;`}></div>
             <span class="text-sm text-secondary">{space.value}</span>
+            <span class="text-xs font-mono text-muted ml-auto">{space.cssVar}</span>
           </div>
         ))}
       </div>
@@ -80,14 +80,7 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
         Border radius values using a numbered naming convention (e.g., radius-04, radius-12, radius-100).
       </p>
       <div class="grid md:grid-cols-3 lg:grid-cols-6 gap-6">
-        {[
-          { name: 'radius-04', value: '4px' },
-          { name: 'radius-08', value: '8px' },
-          { name: 'radius-12', value: '12px' },
-          { name: 'radius-16', value: '16px' },
-          { name: 'radius-24', value: '24px' },
-          { name: 'radius-100', value: '9999px' },
-        ].map(radius => (
+        {borderRadiusScale.map(radius => (
           <div class="space-y-3 text-center">
             <div 
               class="h-16 w-16 mx-auto bg-theme border border-theme" 
@@ -96,6 +89,7 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
             <div>
               <div class="text-sm font-medium text-primary">{radius.name}</div>
               <div class="text-xs font-mono text-muted">{radius.value}</div>
+              <div class="text-xs font-mono text-muted mt-1">{radius.cssVar}</div>
             </div>
           </div>
         ))}
@@ -111,40 +105,15 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
               <tr>
                 <th>Variable</th>
                 <th>Value</th>
-                <th>Usage</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td><code>--radius-04</code></td>
-                <td>4px</td>
-                <td>Small elements, badges</td>
-              </tr>
-              <tr>
-                <td><code>--radius-08</code></td>
-                <td>8px</td>
-                <td>Buttons, inputs, cards</td>
-              </tr>
-              <tr>
-                <td><code>--radius-12</code></td>
-                <td>12px</td>
-                <td>Modals, larger cards</td>
-              </tr>
-              <tr>
-                <td><code>--radius-16</code></td>
-                <td>16px</td>
-                <td>Large containers</td>
-              </tr>
-              <tr>
-                <td><code>--radius-24</code></td>
-                <td>24px</td>
-                <td>Extra large elements</td>
-              </tr>
-              <tr>
-                <td><code>--radius-100</code></td>
-                <td>9999px</td>
-                <td>Pills, circular elements</td>
-              </tr>
+              {borderRadiusScale.map(radius => (
+                <tr>
+                  <td><code>{radius.cssVar}</code></td>
+                  <td>{radius.value}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
