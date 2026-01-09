@@ -2,7 +2,7 @@
 import ShellHeader from './ShellHeader.astro';
 import ShellFooter from './ShellFooter.astro';
 import LeftSidebar from './LeftSidebar.astro';
-import CPRightSidebar from './CPRightSidebar.astro';
+import RightSidebar from './RightSidebar.astro';
 import FloatingNav from './FloatingNav.astro';
 
 interface Tab {
@@ -36,6 +36,9 @@ interface Props {
   // Left sidebar props
   leftSidebarVariant?: 'cp' | 'vp' | 'ppm' | 'maconomy';
 
+  // Right sidebar props
+  rightSidebarVariant?: 'cp' | 'vp' | 'ppm' | 'maconomy';
+
   // General
   class?: string;
 }
@@ -56,6 +59,7 @@ const {
   showAddTab = true,
   footerVariant = 'default',
   leftSidebarVariant,
+  rightSidebarVariant,
   class: className = ''
 } = Astro.props;
 ---
@@ -83,7 +87,7 @@ const {
     )}
 
     <LeftSidebar variant={leftSidebarVariant || 'cp'} class="shell-layout__left-sidebar" />
-    <CPRightSidebar class="shell-layout__right-sidebar" />
+    <RightSidebar variant={rightSidebarVariant || 'cp'} class="shell-layout__right-sidebar" />
 
     <main class="shell-layout__main">
       <slot />
@@ -104,6 +108,12 @@ const {
     <LeftSidebar 
       variant={leftSidebarVariant || 'vp'} 
       class="shell-layout__left-sidebar shell-layout__left-sidebar--standard" 
+    />
+
+    <!-- Right Sidebar for VP/PPM/Maconomy themes (auto-detected via CSS) -->
+    <RightSidebar 
+      variant={rightSidebarVariant || 'vp'} 
+      class="shell-layout__right-sidebar shell-layout__right-sidebar--standard" 
     />
 
     <main class="shell-layout__main">
@@ -168,12 +178,10 @@ const {
     pointer-events: auto;
   }
 
-  /* Left Sidebar - Fixed left edge, vertically centered */
+  /* Left Sidebar - Fixed left edge, 8px gap from header (positioning handled in components.css) */
   .shell-layout__cp .shell-layout__left-sidebar {
     position: fixed;
     left: 0;
-    top: 50%;
-    transform: translateY(-50%);
     z-index: var(--z-45);
   }
 
@@ -214,10 +222,17 @@ const {
     z-index: var(--z-50);
   }
 
-  /* Left Sidebar - Fixed left edge, vertically centered (for VP/PPM/Maconomy) */
+  /* Left Sidebar - Fixed left edge, 8px gap from header (positioning handled in components.css) */
   .shell-layout__standard .shell-layout__left-sidebar {
     position: fixed;
     left: 0;
+    z-index: var(--z-45);
+  }
+
+  /* Right Sidebar - Fixed right edge, vertically centered (for VP/PPM/Maconomy) */
+  .shell-layout__standard .shell-layout__right-sidebar {
+    position: fixed;
+    right: 0;
     top: 50%;
     transform: translateY(-50%);
     z-index: var(--z-45);
@@ -249,8 +264,9 @@ const {
       display: none;
     }
 
-    /* Standard Theme: Hide left sidebar on mobile */
-    .shell-layout__standard .shell-layout__left-sidebar {
+    /* Standard Theme: Hide sidebars on mobile */
+    .shell-layout__standard .shell-layout__left-sidebar,
+    .shell-layout__standard .shell-layout__right-sidebar {
       display: none;
     }
 

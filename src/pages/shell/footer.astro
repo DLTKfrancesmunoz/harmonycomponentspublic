@@ -282,22 +282,27 @@ import Icon from '../../components/ui/Icon.astro';
 </DocsLayout>
 
 <script>
-  // Demo: Listen for shell footer dropdown events
-  document.addEventListener('shell-footer:select-tab', (e) => {
-    console.log('Tab selected from dropdown:', e.detail.tabId);
+  // Demo: Listen for TabStrip events (used by ShellFooter)
+  document.addEventListener('tab-strip:tab-selected', (e) => {
+    console.log('Tab selected:', e.detail.tabId);
     // In a real application, you would handle tab selection here
     // For example: navigate to a different workspace, update state, etc.
   });
 
-  document.addEventListener('shell-footer:close-tab', (e) => {
+  document.addEventListener('tab-strip:close-tab', (e) => {
     console.log('Close individual tab:', e.detail.tabId);
     // In a real application, you would handle closing the individual tab here
     // For example: remove tab from state, close workspace, etc.
   });
 
-  document.addEventListener('shell-footer:close-all', () => {
-    console.log('Close all tabs requested');
-    // In a real application, you would handle closing all tabs here
-    // For example: clear all open workspaces, show confirmation dialog, etc.
+  document.addEventListener('tab-strip:add-tab', () => {
+    console.log('Add tab requested');
+    // In a real application, you would handle adding a new tab here
+    // For example: open new workspace dialog, create new tab, etc.
+  });
+
+  document.addEventListener('tab-strip:open-new-window', (e) => {
+    console.log('Open tab in new window:', e.detail.tabId);
+    // In a real application, you would handle opening tab in new window here
   });
 </script>

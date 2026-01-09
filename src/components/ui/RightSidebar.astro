@@ -1,0 +1,320 @@
+---
+/**
+ * RightSidebar Component
+ *
+ * A unified right navigation sidebar that supports multiple themes (cp, vp, ppm, maconomy).
+ * Shows only icons when collapsed, expands on hover to show text labels + icons.
+ * Supports configurable sections and icons per theme.
+ * All themes start with the CP DelaD.svg logo as the first icon.
+ *
+ * @prop {string} variant - Theme variant: 'cp' | 'vp' | 'ppm' | 'maconomy'
+ * @prop {Array} sections - Optional custom sections configuration
+ * @prop {string} class - Additional CSS classes to apply
+ */
+import Icon from './Icon.astro';
+
+interface NavItem {
+  icon?: string;
+  label: string;
+  href?: string;
+  isCustom?: boolean; // For DelaD.svg logo
+  customSrc?: string; // Path to custom icon
+}
+
+interface Section {
+  items: NavItem[];
+}
+
+interface Props {
+  variant?: 'cp' | 'vp' | 'ppm' | 'maconomy';
+  sections?: Section[];
+  class?: string;
+}
+
+const { variant = 'cp', sections, class: className = '' } = Astro.props;
+
+// Default CP configuration (3 sections)
+const cpSections: Section[] = [
+  {
+    items: [
+      { label: 'Dela AI', isCustom: true, customSrc: '/logos/DelaD.svg' },
+      { icon: 'bell', label: 'Notifications' },
+      { icon: 'arrow-up-tray', label: 'Files' },
+    ],
+  },
+  {
+    items: [
+      { icon: 'printer', label: 'Print' },
+      { icon: 'view-columns', label: 'Layout Options' },
+    ],
+  },
+  {
+    items: [
+      { icon: 'microphone-slash', label: 'Microphone' },
+      { icon: 'signal-slash', label: 'Offline' },
+      { icon: 'command-line', label: 'Keyboard Shortcuts' },
+      { icon: 'question-mark-circle', label: 'Help' },
+    ],
+  },
+];
+
+// Default PPM configuration (3 sections) - ALL start with DelaD.svg
+const ppmSections: Section[] = [
+  {
+    items: [
+      { label: 'Dela AI', isCustom: true, customSrc: '/logos/DelaD.svg' },
+      { icon: 'pencil-square', label: 'Edit' },
+      { icon: 'magnifying-glass', label: 'Search' },
+      { icon: 'ellipsis-horizontal-circle', label: 'Actions' },
+      { icon: 'related', label: 'Related' },
+      { icon: 'template', label: 'Templates' },
+      { icon: 'cloud-arrow-up', label: 'Upload' },
+      { icon: 'cloud-arrow-down', label: 'Download' },
+    ],
+  },
+  {
+    items: [
+      { icon: 'bell', label: 'Notifications' },
+      { icon: 'question-mark-circle', label: 'Help' },
+      { icon: 'share', label: 'Share' },
+    ],
+  },
+  {
+    items: [
+      { icon: 'globe-alt', label: 'Accessibility' },
+      { icon: 'language', label: 'Language' },
+      { icon: 'moon', label: 'Dark Mode' },
+    ],
+  },
+];
+
+// Default VP configuration (3 sections - same as PPM for now)
+const vpSections: Section[] = [
+  {
+    items: [
+      { label: 'Dela AI', isCustom: true, customSrc: '/logos/DelaD.svg' },
+      { icon: 'pencil-square', label: 'Edit' },
+      { icon: 'magnifying-glass', label: 'Search' },
+      { icon: 'ellipsis-horizontal-circle', label: 'Actions' },
+      { icon: 'related', label: 'Related' },
+      { icon: 'template', label: 'Templates' },
+      { icon: 'cloud-arrow-up', label: 'Upload' },
+      { icon: 'cloud-arrow-down', label: 'Download' },
+    ],
+  },
+  {
+    items: [
+      { icon: 'bell', label: 'Notifications' },
+      { icon: 'question-mark-circle', label: 'Help' },
+      { icon: 'share', label: 'Share' },
+    ],
+  },
+  {
+    items: [
+      { icon: 'globe-alt', label: 'Accessibility' },
+      { icon: 'language', label: 'Language' },
+      { icon: 'moon', label: 'Dark Mode' },
+    ],
+  },
+];
+
+// Default Maconomy configuration (3 sections - same as PPM for now)
+const maconomySections: Section[] = [
+  {
+    items: [
+      { label: 'Dela AI', isCustom: true, customSrc: '/logos/DelaD.svg' },
+      { icon: 'pencil-square', label: 'Edit' },
+      { icon: 'magnifying-glass', label: 'Search' },
+      { icon: 'ellipsis-horizontal-circle', label: 'Actions' },
+      { icon: 'related', label: 'Related' },
+      { icon: 'template', label: 'Templates' },
+      { icon: 'cloud-arrow-up', label: 'Upload' },
+      { icon: 'cloud-arrow-down', label: 'Download' },
+    ],
+  },
+  {
+    items: [
+      { icon: 'bell', label: 'Notifications' },
+      { icon: 'question-mark-circle', label: 'Help' },
+      { icon: 'share', label: 'Share' },
+    ],
+  },
+  {
+    items: [
+      { icon: 'globe-alt', label: 'Accessibility' },
+      { icon: 'language', label: 'Language' },
+      { icon: 'moon', label: 'Dark Mode' },
+    ],
+  },
+];
+
+// Get sections based on variant or use provided sections
+const getSections = (): Section[] => {
+  if (sections) return sections;
+  
+  switch (variant) {
+    case 'cp':
+      return cpSections;
+    case 'ppm':
+      return ppmSections;
+    case 'vp':
+      return vpSections;
+    case 'maconomy':
+      return maconomySections;
+    default:
+      return cpSections;
+  }
+};
+
+const sidebarSections = getSections();
+
+// If custom sections are provided, only render those
+// Otherwise, render all variants and use CSS to show/hide based on theme
+const shouldRenderAllVariants = !sections;
+---
+
+<nav class:list={['right-sidebar', `right-sidebar--${variant}`, className]} data-variant={variant}>
+  {shouldRenderAllVariants ? (
+    <>
+      <!-- CP Variant (3 sections) -->
+      <div class="right-sidebar__variant right-sidebar__variant--cp">
+        {cpSections.map((section, sectionIndex) => (
+          <div class="right-sidebar__section">
+            {section.items.map((item) => (
+              <a 
+                href={item.href || '#'} 
+                class="right-sidebar__item"
+              >
+                <span class="right-sidebar__label">{item.label}</span>
+                <span class="right-sidebar__icon">
+                  {item.isCustom && item.customSrc ? (
+                    <img src={item.customSrc} alt={item.label} class="right-sidebar__dela-logo" />
+                  ) : item.icon ? (
+                    <Icon name={item.icon} />
+                  ) : null}
+                </span>
+              </a>
+            ))}
+          </div>
+        ))}
+      </div>
+
+      <!-- VP Variant (3 sections) -->
+      <div class="right-sidebar__variant right-sidebar__variant--vp">
+        {vpSections.map((section, sectionIndex) => (
+          <div class="right-sidebar__section">
+            {section.items.map((item) => (
+              <a 
+                href={item.href || '#'} 
+                class="right-sidebar__item"
+              >
+                <span class="right-sidebar__label">{item.label}</span>
+                <span class="right-sidebar__icon">
+                  {item.isCustom && item.customSrc ? (
+                    <img src={item.customSrc} alt={item.label} class="right-sidebar__dela-logo" />
+                  ) : item.icon ? (
+                    <Icon name={item.icon} />
+                  ) : null}
+                </span>
+              </a>
+            ))}
+          </div>
+        ))}
+      </div>
+
+      <!-- PPM Variant (3 sections) -->
+      <div class="right-sidebar__variant right-sidebar__variant--ppm">
+        {ppmSections.map((section, sectionIndex) => (
+          <div class="right-sidebar__section">
+            {section.items.map((item) => (
+              <a 
+                href={item.href || '#'} 
+                class="right-sidebar__item"
+              >
+                <span class="right-sidebar__label">{item.label}</span>
+                <span class="right-sidebar__icon">
+                  {item.isCustom && item.customSrc ? (
+                    <img src={item.customSrc} alt={item.label} class="right-sidebar__dela-logo" />
+                  ) : item.icon ? (
+                    <Icon name={item.icon} />
+                  ) : null}
+                </span>
+              </a>
+            ))}
+          </div>
+        ))}
+      </div>
+
+      <!-- Maconomy Variant (3 sections) -->
+      <div class="right-sidebar__variant right-sidebar__variant--maconomy">
+        {maconomySections.map((section, sectionIndex) => (
+          <div class="right-sidebar__section">
+            {section.items.map((item) => (
+              <a 
+                href={item.href || '#'} 
+                class="right-sidebar__item"
+              >
+                <span class="right-sidebar__label">{item.label}</span>
+                <span class="right-sidebar__icon">
+                  {item.isCustom && item.customSrc ? (
+                    <img src={item.customSrc} alt={item.label} class="right-sidebar__dela-logo" />
+                  ) : item.icon ? (
+                    <Icon name={item.icon} />
+                  ) : null}
+                </span>
+              </a>
+            ))}
+          </div>
+        ))}
+      </div>
+    </>
+  ) : (
+    // Custom sections provided - render only those
+    sidebarSections.map((section, sectionIndex) => (
+      <div class="right-sidebar__section">
+        {section.items.map((item) => (
+          <a 
+            href={item.href || '#'} 
+            class="right-sidebar__item"
+          >
+            <span class="right-sidebar__label">{item.label}</span>
+            <span class="right-sidebar__icon">
+              {item.isCustom && item.customSrc ? (
+                <img src={item.customSrc} alt={item.label} class="right-sidebar__dela-logo" />
+              ) : item.icon ? (
+                <Icon name={item.icon} />
+              ) : null}
+            </span>
+          </a>
+        ))}
+      </div>
+    ))
+  )}
+</nav>
+
+<style>
+  /* Hide all variants by default */
+  .right-sidebar__variant {
+    display: none;
+  }
+
+  /* Show CP variant when CP theme is active */
+  html.theme-cp .right-sidebar__variant--cp {
+    display: contents;
+  }
+
+  /* Show VP variant when VP theme is active */
+  html.theme-vp .right-sidebar__variant--vp {
+    display: contents;
+  }
+
+  /* Show PPM variant when PPM theme is active */
+  html.theme-ppm .right-sidebar__variant--ppm {
+    display: contents;
+  }
+
+  /* Show Maconomy variant when Maconomy theme is active */
+  html.theme-maconomy .right-sidebar__variant--maconomy {
+    display: contents;
+  }
+</style>

@@ -1,59 +1,57 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
 import ExampleSection from '../../components/ExampleSection.astro';
-import CPRightSidebar from '../../components/ui/CPRightSidebar.astro';
+import RightSidebar from '../../components/ui/RightSidebar.astro';
 import Icon from '../../components/ui/Icon.astro';
 ---
 
-<DocsLayout title="Right Sidebar" description="CP right navigation sidebar docked to the right edge of the screen.">
+<DocsLayout title="Right Sidebar" description="Unified right navigation sidebar that supports all themes (CP, VP, PPM, Maconomy). Docked to the right edge of the screen, shows only icons when collapsed, expands on hover to reveal text labels + icons. All themes start with the DelaD.svg logo.">
   <article class="space-y-12">
     <header class="page-header page-header--compact">
       <div class="flex items-center gap-3 mb-4">
         <h1 class="page-header__title page-header__title--sm">Right Sidebar</h1>
-        <span class="badge badge--primary">CP Shell</span>
+        <span class="badge badge--primary">Shell Component</span>
+        <span class="badge badge--secondary">Theme Adaptive</span>
       </div>
       <p class="page-header__description">
-        A collapsible right navigation sidebar that is docked to the right edge of the screen. Shows only icons when collapsed, expands on hover to reveal text labels + icon.
+        A unified collapsible right navigation sidebar that supports all Harmony themes. The sidebar adapts its icons and sections based on the theme variant. All themes include the DelaD.svg logo as the first icon, followed by theme-specific navigation items organized into three sections.
       </p>
     </header>
 
     <section class="space-y-6">
-      <h2 class="section__title">Live Demo</h2>
+      <div>
+        <h2 class="section__title">Live Demo</h2>
+        <p class="text-secondary">
+          Switch themes using the picker in the top header to see how the right sidebar adapts. The sidebar automatically shows the correct icons and sections based on the current theme. All themes start with the DelaD.svg logo.
+        </p>
+      </div>
       
-      <ExampleSection title="Right Sidebar - Collapsed/Expanded" description="Hover over the sidebar to see it expand with labels.">
+      <ExampleSection title="Right Sidebar - Theme Adaptive" description="Hover over the sidebar to see it expand with labels. Switch themes to see different icon sets and section configurations.">
         <div class="cp-sidebar-demo">
           <div class="cp-sidebar-demo__content">
             <p class="text-secondary text-sm">
               The right sidebar is docked to the right edge. Hover over it to see the expanded state with labels.
             </p>
             <p class="text-secondary text-sm mt-4">
-              <strong>Section 1 - AI & Quick Actions:</strong>
+              <strong>CP Theme (3 sections):</strong>
             </p>
             <ul class="list-disc list-inside text-sm text-secondary mt-2 space-y-1">
-              <li>Dela AI</li>
-              <li>Notifications</li>
-              <li>Files</li>
+              <li><strong>Section 1:</strong> Dela AI, Notifications, Files</li>
+              <li><strong>Section 2:</strong> Print, Layout Options</li>
+              <li><strong>Section 3:</strong> Microphone, Offline, Keyboard Shortcuts, Help</li>
             </ul>
             <p class="text-secondary text-sm mt-4">
-              <strong>Section 2 - Document Actions:</strong>
+              <strong>VP/PPM/Maconomy Themes (3 sections):</strong>
             </p>
             <ul class="list-disc list-inside text-sm text-secondary mt-2 space-y-1">
-              <li>Print</li>
-              <li>Layout Options</li>
-            </ul>
-            <p class="text-secondary text-sm mt-4">
-              <strong>Section 3 - Settings & Help:</strong>
-            </p>
-            <ul class="list-disc list-inside text-sm text-secondary mt-2 space-y-1">
-              <li>Microphone</li>
-              <li>Offline</li>
-              <li>Keyboard Shortcuts</li>
-              <li>Help</li>
+              <li><strong>Section 1:</strong> Dela AI (DelaD.svg), Edit, Search, Actions, Related, Templates, Upload, Download</li>
+              <li><strong>Section 2:</strong> Notifications, Help, Share</li>
+              <li><strong>Section 3:</strong> Accessibility, Language, Dark Mode</li>
             </ul>
           </div>
           
           <div class="cp-sidebar-demo__sidebar">
-            <CPRightSidebar />
+            <RightSidebar variant="cp" />
           </div>
         </div>
       </ExampleSection>
@@ -88,7 +86,7 @@ import Icon from '../../components/ui/Icon.astro';
             Three Sections
           </h3>
           <p class="a11y-card__text">
-            Organized into three sections: AI/quick actions (3 items), document actions (2 items), settings/help (4 items).
+            All themes organize items into three sections. CP theme has different items per section compared to VP/PPM/Maconomy themes.
           </p>
         </div>
         
@@ -98,8 +96,71 @@ import Icon from '../../components/ui/Icon.astro';
             Dela AI Integration
           </h3>
           <p class="a11y-card__text">
-            Features the Dela AI logo as the primary action, providing quick access to AI assistance.
+            All themes feature the DelaD.svg logo as the first icon, providing consistent access to AI assistance across all themes.
           </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="space-y-6">
+      <h2 class="section__title">Theme Variants</h2>
+      <div class="grid gap-4 md:grid-cols-2">
+        <div class="a11y-card">
+          <h3 class="a11y-card__title">
+            <span class="badge badge--cp mr-2">CP</span>
+            Costpoint Theme
+          </h3>
+          <div class="a11y-card__text space-y-2">
+            <p class="text-sm"><strong>3 Sections:</strong></p>
+            <ul class="list-disc list-inside space-y-1 text-sm">
+              <li>AI & Quick Actions (Dela AI, Notifications, Files)</li>
+              <li>Document Actions (Print, Layout Options)</li>
+              <li>Settings & Help (Microphone, Offline, Keyboard Shortcuts, Help)</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="a11y-card">
+          <h3 class="a11y-card__title">
+            <span class="badge badge--ppm mr-2">PPM</span>
+            PPM Theme
+          </h3>
+          <div class="a11y-card__text space-y-2">
+            <p class="text-sm"><strong>3 Sections:</strong></p>
+            <ul class="list-disc list-inside space-y-1 text-sm">
+              <li>Actions (Dela AI, Edit, Search, Actions, Related, Templates, Upload, Download)</li>
+              <li>Notifications & Help (Notifications, Help, Share)</li>
+              <li>Settings (Accessibility, Language, Dark Mode)</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="a11y-card">
+          <h3 class="a11y-card__title">
+            <span class="badge badge--vp mr-2">VP</span>
+            Vantagepoint Theme
+          </h3>
+          <div class="a11y-card__text space-y-2">
+            <p class="text-sm"><strong>3 Sections:</strong></p>
+            <ul class="list-disc list-inside space-y-1 text-sm">
+              <li>Same structure as PPM theme</li>
+              <li>All themes start with DelaD.svg logo</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="a11y-card">
+          <h3 class="a11y-card__title">
+            <span class="badge badge--maconomy mr-2">Maconomy</span>
+            Maconomy Theme
+          </h3>
+          <div class="a11y-card__text space-y-2">
+            <p class="text-sm"><strong>3 Sections:</strong></p>
+            <ul class="list-disc list-inside space-y-1 text-sm">
+              <li>Same structure as PPM theme</li>
+              <li>All themes start with DelaD.svg logo</li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
@@ -113,12 +174,14 @@ import Icon from '../../components/ui/Icon.astro';
         </h3>
         <div class="a11y-card__text space-y-2">
           <ul class="list-disc list-inside space-y-1 text-sm">
-            <li><strong>Background:</strong> <code>#fcfdff</code></li>
-            <li><strong>Border:</strong> <code>#ffffff</code> (white)</li>
+            <li><strong>Background:</strong> Uses theme-specific <code>--nav-bg</code> design token</li>
+            <li><strong>Border:</strong> Uses theme-specific <code>--border-color</code> design token</li>
             <li><strong>Border Radius:</strong> 12px (top-left and bottom-left only)</li>
-            <li><strong>Shadow:</strong> Multi-layered elevation shadow</li>
-            <li><strong>Icon Color:</strong> <code>#373f4e</code></li>
-            <li><strong>Hover Background:</strong> <code>rgba(55, 63, 78, 0.08)</code></li>
+            <li><strong>Shadow:</strong> Multi-layered elevation shadow (theme-aware)</li>
+            <li><strong>Icon Color:</strong> Uses theme-specific <code>--text-primary</code> design token</li>
+            <li><strong>Hover Background:</strong> Uses theme-specific <code>--hover-bg</code> design token</li>
+            <li><strong>Layout:</strong> Right-aligned (labels on left, icons on right)</li>
+            <li><strong>Dela Logo:</strong> 36px circular logo, appears first in all themes</li>
           </ul>
         </div>
       </div>

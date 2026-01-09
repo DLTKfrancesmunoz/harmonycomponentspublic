@@ -4050,6 +4050,13 @@ html.theme-cp.dark .cp-left-sidebar__item:hover {
   overflow: visible;
 }
 
+/* Override positioning when inside shell layout - 8px gap from header */
+.shell-layout__cp .shell-layout__left-sidebar,
+.shell-layout__standard .shell-layout__left-sidebar {
+  top: calc(var(--shell-header-height) + var(--space-2));
+  transform: none;
+}
+
 .left-sidebar:hover {
   width: 220px;
 }
@@ -4256,6 +4263,124 @@ html.theme-cp.dark .cp-right-sidebar__item:hover {
 }
 
 /* ===========================================
+   UNIFIED RIGHT SIDEBAR (All Themes)
+   =========================================== */
+
+.right-sidebar {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: var(--z-sticky);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 52px;
+  transition: width 0.2s ease;
+  overflow: visible;
+}
+
+.right-sidebar:hover {
+  width: 220px;
+}
+
+.right-sidebar__section {
+  background-color: var(--nav-bg);
+  border: 1px solid var(--border-color);
+  border-right: none;
+  border-radius: var(--radius-12) 0 0 var(--radius-12);
+  box-shadow: 
+    0px 0px 24.52px 0px rgba(166, 166, 166, 0.13),
+    0px 19.87px 14.36px 0px rgba(166, 166, 166, 0.12),
+    0px 11.806px 7.81px 0px rgba(166, 166, 166, 0.11),
+    0px 6.13px 3.984px 0px rgba(166, 166, 166, 0.1),
+    0px 2.497px 1.998px 0px rgba(166, 166, 166, 0.1),
+    0px 0.568px 0.965px 0px rgba(166, 166, 166, 0.09);
+  padding: var(--space-3) var(--space-2);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-2);
+  overflow: visible;
+}
+
+.right-sidebar__item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  padding: var(--space-1-5);
+  border-radius: var(--radius-08);
+  text-decoration: none;
+  color: var(--text-primary);
+  white-space: nowrap;
+  width: 100%;
+  transition: background-color var(--transition-fast);
+}
+
+.right-sidebar__item:hover {
+  background-color: var(--hover-bg);
+  text-decoration: none;
+}
+
+.right-sidebar__icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.right-sidebar__icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.right-sidebar__dela-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.right-sidebar__label {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: var(--font-normal);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+  flex: 1;
+  text-align: right;
+}
+
+.right-sidebar:hover .right-sidebar__label {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Dark mode adjustments for all themes */
+html.dark .right-sidebar__section {
+  box-shadow: 
+    0px 0px 24.52px 0px rgba(0, 0, 0, 0.4),
+    0px 19.87px 14.36px 0px rgba(0, 0, 0, 0.3),
+    0px 11.806px 7.81px 0px rgba(0, 0, 0, 0.3),
+    0px 6.13px 3.984px 0px rgba(0, 0, 0, 0.2),
+    0px 2.497px 1.998px 0px rgba(0, 0, 0, 0.2),
+    0px 0.568px 0.965px 0px rgba(0, 0, 0, 0.2);
+}
+
+html.dark .right-sidebar__item:hover {
+  background-color: var(--hover-bg);
+}
+
+/* Backward compatibility: CP-specific styles also apply to unified component */
+.cp-right-sidebar,
+.right-sidebar--cp {
+  /* Inherits all base .right-sidebar styles */
+}
+
+/* ===========================================
    CP SIDEBAR DEMO CONTAINER (Documentation)
    =========================================== */
 
@@ -4293,7 +4418,8 @@ html.theme-cp.dark .cp-right-sidebar__item:hover {
   height: auto;
 }
 
-.cp-sidebar-demo .cp-right-sidebar {
+.cp-sidebar-demo .cp-right-sidebar,
+.cp-sidebar-demo .right-sidebar {
   position: absolute;
   right: 0;
   top: 50%;

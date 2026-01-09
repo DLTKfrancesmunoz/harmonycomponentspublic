@@ -12,14 +12,7 @@
  * @prop {boolean} showAddTab - Whether to show "Add Tab" button (default: true)
  * @prop {string} variant - 'default' | 'compact' (default: 'default')
  */
-import Icon from './Icon.astro';
-
-interface Tab {
-  id: string;
-  label: string;
-  active?: boolean;
-  href?: string;
-}
+import TabStrip, { type Tab } from './TabStrip.astro';
 
 interface Props {
   tabs: Tab[];
@@ -38,115 +31,20 @@ const {
   showAddTab = true,
   variant = 'default'
 } = Astro.props;
+
+// Determine overflow mode based on showMore prop
+const overflowMode = showMore && overflowTabs.length > 0 ? 'manual' : 'none';
 ---
 
 <div class="shell-footer" data-variant={variant}>
-  <nav role="tablist" aria-label="Workspace tabs">
-    <div class="tabs shell-footer__tabs">
-      {tabs.map((tab) => (
-        tab.href ? (
-          <a
-            href={tab.href}
-            role="tab"
-            aria-selected={tab.active ? 'true' : 'false'}
-            class:list={[
-              "tab",
-              tab.active && "is-active"
-            ]}
-            tabindex={tab.active ? 0 : -1}
-          >
-            {tab.label}
-          </a>
-        ) : (
-          <button
-            type="button"
-            role="tab"
-            aria-selected={tab.active ? 'true' : 'false'}
-            class:list={[
-              "tab",
-              tab.active && "is-active"
-            ]}
-            tabindex={tab.active ? 0 : -1}
-          >
-            {tab.label}
-          </button>
-        )
-      ))}
-
-      {showMore && (
-        <div class="shell-footer__more-wrapper" data-shell-footer-dropdown>
-          <button
-            type="button"
-            class="tab shell-footer__more"
-            aria-label={`Show ${moreCount} more tabs`}
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            <span>More ({moreCount})</span>
-            <Icon name="ellipsis-horizontal" size="sm" />
-          </button>
-
-          {overflowTabs && overflowTabs.length > 0 && (
-            <div class="shell-footer-dropdown" role="menu" aria-label="Overflow tabs menu">
-              <div class="shell-footer-dropdown__section">
-                {overflowTabs.map((tab) => (
-                  <div
-                    class={`shell-footer-dropdown__item ${tab.active ? 'is-active' : ''}`}
-                    role="menuitem"
-                  >
-                    <button
-                      type="button"
-                      class="shell-footer-dropdown__item-label"
-                      data-tab-id={tab.id}
-                      data-action="select-tab"
-                    >
-                      {tab.label}
-                    </button>
-                    <button
-                      type="button"
-                      class="shell-footer-dropdown__close-btn"
-                      data-tab-id={tab.id}
-                      data-action="close-tab"
-                      aria-label={`Close ${tab.label}`}
-                    >
-                      <Icon name="x-mark" size="sm" />
-                    </button>
-                  </div>
-                ))}
-              </div>
-
-              <div class="shell-footer-dropdown__separator"></div>
-
-              <div
-                class="shell-footer-dropdown__item shell-footer-dropdown__item--action"
-                role="menuitem"
-              >
-                <button
-                  type="button"
-                  class="shell-footer-dropdown__item-label"
-                  data-action="close-all"
-                >
-                  Close All
-                </button>
-                <Icon name="x-mark" size="sm" class="shell-footer-dropdown__action-icon" />
-              </div>
-            </div>
-          )}
-        </div>
-      )}
-
-      {showAddTab && (
-        <button
-          type="button"
-          class="tab shell-footer__add"
-          aria-label="Add new tab"
-        >
-          <Icon name="plus" size="sm" />
-          <span>Add Tab</span>
-        </button>
-      )}
-    </div>
-  </nav>
+  <TabStrip
+    tabs={tabs}
+    showAddTab={showAddTab}
+    overflowMode={overflowMode}
+    overflowTabs={overflowTabs}
+    variant={variant}
+    class="shell-footer__tabstrip"
+  />
 </div>
 
 <style>
@@ -156,260 +54,56 @@ const {
     height: var(--shell-footer-height-default);
     width: 100%;
     padding: 0 var(--space-4);
-  }
-
-  .shell-footer nav {
-    height: 100%;
     display: flex;
     align-items: center;
   }
 
-  .shell-footer__tabs {
-    gap: var(--space-1);
-  }
-
-  .shell-footer .tab {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
+  /* Remove base underline from TabStrip container */
+  .shell-footer :global(.tabstrip__container) {
     border-bottom: none;
   }
 
-  .shell-footer .tab.is-active {
-    border-bottom: none;
+  /* Override TabStrip tab colors with higher specificity */
+  /* Target all tab elements within shell-footer context */
+  .shell-footer :global(.tabstrip) :global(.tabstrip__tabs) :global(.tab),
+  .shell-footer :global(.tabstrip) :global(.tabstrip__add.tab),
+  .shell-footer :global(.tabstrip) :global(.tabstrip__more.tab) {
+    color: var(--text-inverse);
+    border-bottom: 2px solid transparent;
   }
 
-  .shell-footer__more,
-  .shell-footer__add {
-    margin-left: var(--space-2);
+  /* Active tab - theme primary color with underline */
+  .shell-footer :global(.tabstrip) :global(.tabstrip__tabs) :global(.tab.is-active),
+  .shell-footer :global(.tabstrip) :global(.tabstrip__add.tab.is-active),
+  .shell-footer :global(.tabstrip) :global(.tabstrip__more.tab.is-active) {
+    color: var(--theme-primary);
+    border-bottom: 4px solid var(--theme-primary);
   }
 
-  .shell-footer__add {
-    margin-left: auto;
+  /* Hover state for non-active tabs - background and maintain white text */
+  .shell-footer :global(.tabstrip) :global(.tabstrip__tabs) :global(.tab:hover:not(.is-active)),
+  .shell-footer :global(.tabstrip) :global(.tabstrip__add.tab:hover:not(.is-active)),
+  .shell-footer :global(.tabstrip) :global(.tabstrip__more.tab:hover:not(.is-active)) {
+    color: var(--text-inverse);
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-sm);
+    margin-top: var(--space-1);
+    margin-bottom: var(--space-1);
+    padding-top: calc(var(--space-3) - var(--space-1));
+    padding-bottom: calc(var(--space-3) - var(--space-1));
+  }
+
+  /* Hover state for active tab - maintain primary color and underline */
+  .shell-footer :global(.tabstrip) :global(.tabstrip__tabs) :global(.tab.is-active:hover),
+  .shell-footer :global(.tabstrip) :global(.tabstrip__add.tab.is-active:hover),
+  .shell-footer :global(.tabstrip) :global(.tabstrip__more.tab.is-active:hover) {
+    color: var(--theme-primary);
+    border-bottom: 4px solid var(--theme-primary);
   }
 
   /* Compact variant */
   .shell-footer[data-variant="compact"] {
     height: var(--shell-footer-height-compact);
   }
-
-  .shell-footer[data-variant="compact"] .tab {
-    padding: 0 var(--space-3);
-    font-size: var(--text-13);
-  }
-
-  .shell-footer .tabs {
-    border-bottom: none;
-  }
-
-  /* Dropdown container */
-  .shell-footer__more-wrapper {
-    position: relative;
-    display: inline-block;
-    margin-left: var(--space-2);
-  }
-
-  /* Dropdown menu - opens upward */
-  .shell-footer-dropdown {
-    display: none;
-    position: absolute;
-    bottom: 100%;
-    left: 0;
-    margin-bottom: var(--space-2);
-    min-width: var(--dropdown-min-width);
-    background-color: var(--card-bg);
-    border: var(--border-width-thin) solid var(--border-color);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-dropdown);
-    padding: var(--space-1) 0;
-    z-index: var(--z-dropdown);
-    max-height: var(--dropdown-max-height);
-    overflow-y: auto;
-  }
-
-  .shell-footer__more-wrapper[aria-expanded="true"] .shell-footer-dropdown {
-    display: block;
-  }
-
-  /* Menu items */
-  .shell-footer-dropdown__item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding: var(--space-2) var(--space-4);
-    font-size: var(--text-sm);
-    color: var(--text-primary);
-    transition: background-color var(--transition-fast);
-  }
-
-  .shell-footer-dropdown__item:hover {
-    background-color: var(--hover-bg);
-  }
-
-  .shell-footer-dropdown__item.is-active {
-    background-color: var(--primary-bg);
-  }
-
-  .shell-footer-dropdown__item.is-active .shell-footer-dropdown__item-label {
-    color: var(--primary);
-  }
-
-  /* Item label button */
-  .shell-footer-dropdown__item-label {
-    flex: 1;
-    text-align: left;
-    padding: 0;
-    border: none;
-    background: transparent;
-    color: inherit;
-    font-size: inherit;
-    cursor: pointer;
-  }
-
-  /* Close button */
-  .shell-footer-dropdown__close-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: var(--space-1);
-    border: none;
-    background: transparent;
-    color: var(--text-secondary);
-    cursor: pointer;
-    border-radius: var(--radius-sm);
-    transition: all var(--transition-fast);
-  }
-
-  .shell-footer-dropdown__close-btn:hover {
-    background-color: var(--hover-bg);
-    color: var(--text-primary);
-  }
-
-  /* Separator */
-  .shell-footer-dropdown__separator {
-    height: var(--border-width-thin);
-    background-color: var(--border-color);
-    margin: var(--space-1) 0;
-  }
-
-  /* Close All action */
-  .shell-footer-dropdown__item--action {
-    font-weight: var(--font-medium);
-  }
-
-  .shell-footer-dropdown__item--action:hover {
-    background-color: var(--error-bg);
-  }
-
-  .shell-footer-dropdown__item--action:hover .shell-footer-dropdown__item-label,
-  .shell-footer-dropdown__item--action:hover .shell-footer-dropdown__action-icon {
-    color: var(--color-error);
-  }
-
-  .shell-footer-dropdown__action-icon {
-    color: var(--text-secondary);
-  }
-
-  /* Compact variant adjustments */
-  .shell-footer[data-variant="compact"] .shell-footer-dropdown__item {
-    padding: var(--space-1-5) var(--space-3);
-    font-size: var(--text-xs);
-  }
 </style>
 
-<script>
-  function initShellFooterDropdowns() {
-    document.querySelectorAll('[data-shell-footer-dropdown]').forEach((wrapper) => {
-      // Prevent double initialization
-      if (wrapper.hasAttribute('data-init')) return;
-      wrapper.setAttribute('data-init', 'true');
-
-      const button = wrapper.querySelector('.shell-footer__more');
-      const menuItems = Array.from(wrapper.querySelectorAll('[data-action]'));
-      let currentFocusIndex = -1;
-
-      // Toggle dropdown
-      button?.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const isOpen = wrapper.getAttribute('aria-expanded') === 'true';
-        const newState = (!isOpen).toString();
-        wrapper.setAttribute('aria-expanded', newState);
-        button.setAttribute('aria-expanded', newState);
-
-        if (!isOpen) {
-          currentFocusIndex = -1;
-        }
-      });
-
-      // Handle menu item clicks
-      menuItems.forEach((item) => {
-        item.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const action = item.dataset.action;
-
-          if (action === 'select-tab') {
-            const tabId = item.dataset.tabId;
-            wrapper.dispatchEvent(new CustomEvent('shell-footer:select-tab', {
-              bubbles: true,
-              detail: { tabId }
-            }));
-          } else if (action === 'close-tab') {
-            const tabId = item.dataset.tabId;
-            wrapper.dispatchEvent(new CustomEvent('shell-footer:close-tab', {
-              bubbles: true,
-              detail: { tabId }
-            }));
-          } else if (action === 'close-all') {
-            wrapper.dispatchEvent(new CustomEvent('shell-footer:close-all', {
-              bubbles: true
-            }));
-          }
-
-          // Close dropdown
-          wrapper.setAttribute('aria-expanded', 'false');
-          button?.setAttribute('aria-expanded', 'false');
-        });
-      });
-
-      // Close on outside click
-      document.addEventListener('click', (e) => {
-        if (!wrapper.contains(e.target as Node)) {
-          wrapper.setAttribute('aria-expanded', 'false');
-          button?.setAttribute('aria-expanded', 'false');
-        }
-      });
-
-      // Keyboard navigation
-      wrapper.addEventListener('keydown', (e) => {
-        const isOpen = wrapper.getAttribute('aria-expanded') === 'true';
-
-        if (e.key === 'Escape' && isOpen) {
-          e.preventDefault();
-          wrapper.setAttribute('aria-expanded', 'false');
-          button?.setAttribute('aria-expanded', 'false');
-          button?.focus();
-        } else if (isOpen && ['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(e.key)) {
-          e.preventDefault();
-
-          if (e.key === 'ArrowDown') {
-            currentFocusIndex = (currentFocusIndex + 1) % menuItems.length;
-          } else if (e.key === 'ArrowUp') {
-            currentFocusIndex = currentFocusIndex <= 0 ? menuItems.length - 1 : currentFocusIndex - 1;
-          } else if (e.key === 'Home') {
-            currentFocusIndex = 0;
-          } else if (e.key === 'End') {
-            currentFocusIndex = menuItems.length - 1;
-          }
-
-          menuItems[currentFocusIndex]?.focus();
-        }
-      });
-    });
-  }
-
-  // Initialize on load and after Astro page transitions
-  initShellFooterDropdowns();
-  document.addEventListener('astro:page-load', initShellFooterDropdowns);
-</script>
