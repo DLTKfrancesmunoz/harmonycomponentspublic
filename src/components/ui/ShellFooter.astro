@@ -34,14 +34,28 @@ const {
 
 // Determine overflow mode based on showMore prop
 const overflowMode = showMore && overflowTabs.length > 0 ? 'manual' : 'none';
+
+// Add pin icon to active tabs (preserve existing icons for non-active tabs)
+const tabsWithPinIcon = tabs.map(tab => ({
+  ...tab,
+  icon: tab.active ? 'pin' : (tab.icon || undefined),
+  iconPosition: tab.active ? 'left' : (tab.iconPosition || (tab.icon ? 'left' : undefined))
+}));
+
+// Add pin icon to active overflow tabs (preserve existing icons for non-active tabs)
+const overflowTabsWithPinIcon = overflowTabs.map(tab => ({
+  ...tab,
+  icon: tab.active ? 'pin' : (tab.icon || undefined),
+  iconPosition: tab.active ? 'left' : (tab.iconPosition || (tab.icon ? 'left' : undefined))
+}));
 ---
 
 <div class="shell-footer" data-variant={variant}>
   <TabStrip
-    tabs={tabs}
+    tabs={tabsWithPinIcon}
     showAddTab={showAddTab}
     overflowMode={overflowMode}
-    overflowTabs={overflowTabs}
+    overflowTabs={overflowTabsWithPinIcon}
     variant={variant}
     class="shell-footer__tabstrip"
   />
@@ -93,12 +107,18 @@ const overflowMode = showMore && overflowTabs.length > 0 ? 'manual' : 'none';
     padding-bottom: calc(var(--space-3) - var(--space-1));
   }
 
-  /* Hover state for active tab - maintain primary color and underline */
+  /* Hover state for active tab - background and maintain primary color and underline */
   .shell-footer :global(.tabstrip) :global(.tabstrip__tabs) :global(.tab.is-active:hover),
   .shell-footer :global(.tabstrip) :global(.tabstrip__add.tab.is-active:hover),
   .shell-footer :global(.tabstrip) :global(.tabstrip__more.tab.is-active:hover) {
     color: var(--theme-primary);
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-sm);
     border-bottom: 4px solid var(--theme-primary);
+    margin-top: var(--space-1);
+    margin-bottom: var(--space-1);
+    padding-top: calc(var(--space-3) - var(--space-1));
+    padding-bottom: calc(var(--space-3) - var(--space-1));
   }
 
   /* Compact variant */
