@@ -11,12 +11,16 @@
  * @prop {string} class - Additional CSS classes to apply
  */
 import Icon from './Icon.astro';
+import Tooltip from './Tooltip.astro';
 
 interface NavItem {
   icon: string;
   label: string;
   href?: string;
   active?: boolean;
+  panelTitle?: string; // Panel title when item is clicked (defaults to label)
+  panelIcon?: string; // Panel icon when item is clicked (defaults to item icon)
+  panelContentId?: string; // Content identifier for contextual content
 }
 
 interface Section {
@@ -150,17 +154,30 @@ const shouldRenderAllVariants = !sections;
       <div class="left-sidebar__variant left-sidebar__variant--cp">
         {cpSections.map((section, sectionIndex) => (
           <div class="left-sidebar__section">
-            {section.items.map((item) => (
-              <a 
-                href={item.href || '#'} 
-                class:list={['left-sidebar__item', { 'left-sidebar__item--active': item.active }]}
-              >
-                <span class="left-sidebar__icon">
-                  <Icon name={item.icon} />
-                </span>
-                <span class="left-sidebar__label">{item.label}</span>
-              </a>
-            ))}
+            {section.items.map((item) => {
+              const panelTitle = item.panelTitle || item.label;
+              const panelIcon = item.panelIcon || item.icon;
+              const itemId = `left-sidebar-item-${sectionIndex}-${section.items.indexOf(item)}`;
+              
+              return (
+                <a 
+                  href={item.href || '#'} 
+                  class:list={['left-sidebar__item', { 'left-sidebar__item--active': item.active }]}
+                  data-panel-title={panelTitle}
+                  data-panel-icon={panelIcon}
+                  data-panel-content-id={item.panelContentId}
+                  data-item-id={itemId}
+                  data-left-sidebar-item
+                >
+                  <Tooltip text={item.label} position="right" class="left-sidebar__item-tooltip">
+                    <span class="left-sidebar__icon">
+                      <Icon name={item.icon} />
+                    </span>
+                  </Tooltip>
+                  <span class="left-sidebar__label">{item.label}</span>
+                </a>
+              );
+            })}
           </div>
         ))}
       </div>
@@ -169,17 +186,30 @@ const shouldRenderAllVariants = !sections;
       <div class="left-sidebar__variant left-sidebar__variant--vp">
         {vpSections.map((section, sectionIndex) => (
           <div class="left-sidebar__section">
-            {section.items.map((item) => (
-              <a 
-                href={item.href || '#'} 
-                class:list={['left-sidebar__item', { 'left-sidebar__item--active': item.active }]}
-              >
-                <span class="left-sidebar__icon">
-                  <Icon name={item.icon} />
-                </span>
-                <span class="left-sidebar__label">{item.label}</span>
-              </a>
-            ))}
+            {section.items.map((item) => {
+              const panelTitle = item.panelTitle || item.label;
+              const panelIcon = item.panelIcon || item.icon;
+              const itemId = `left-sidebar-item-${sectionIndex}-${section.items.indexOf(item)}`;
+              
+              return (
+                <a 
+                  href={item.href || '#'} 
+                  class:list={['left-sidebar__item', { 'left-sidebar__item--active': item.active }]}
+                  data-panel-title={panelTitle}
+                  data-panel-icon={panelIcon}
+                  data-panel-content-id={item.panelContentId}
+                  data-item-id={itemId}
+                  data-left-sidebar-item
+                >
+                  <Tooltip text={item.label} position="right" class="left-sidebar__item-tooltip">
+                    <span class="left-sidebar__icon">
+                      <Icon name={item.icon} />
+                    </span>
+                  </Tooltip>
+                  <span class="left-sidebar__label">{item.label}</span>
+                </a>
+              );
+            })}
           </div>
         ))}
       </div>
@@ -188,17 +218,30 @@ const shouldRenderAllVariants = !sections;
       <div class="left-sidebar__variant left-sidebar__variant--ppm">
         {ppmSections.map((section, sectionIndex) => (
           <div class="left-sidebar__section">
-            {section.items.map((item) => (
-              <a 
-                href={item.href || '#'} 
-                class:list={['left-sidebar__item', { 'left-sidebar__item--active': item.active }]}
-              >
-                <span class="left-sidebar__icon">
-                  <Icon name={item.icon} />
-                </span>
-                <span class="left-sidebar__label">{item.label}</span>
-              </a>
-            ))}
+            {section.items.map((item) => {
+              const panelTitle = item.panelTitle || item.label;
+              const panelIcon = item.panelIcon || item.icon;
+              const itemId = `left-sidebar-item-${sectionIndex}-${section.items.indexOf(item)}`;
+              
+              return (
+                <a 
+                  href={item.href || '#'} 
+                  class:list={['left-sidebar__item', { 'left-sidebar__item--active': item.active }]}
+                  data-panel-title={panelTitle}
+                  data-panel-icon={panelIcon}
+                  data-panel-content-id={item.panelContentId}
+                  data-item-id={itemId}
+                  data-left-sidebar-item
+                >
+                  <Tooltip text={item.label} position="right" class="left-sidebar__item-tooltip">
+                    <span class="left-sidebar__icon">
+                      <Icon name={item.icon} />
+                    </span>
+                  </Tooltip>
+                  <span class="left-sidebar__label">{item.label}</span>
+                </a>
+              );
+            })}
           </div>
         ))}
       </div>
@@ -207,17 +250,30 @@ const shouldRenderAllVariants = !sections;
       <div class="left-sidebar__variant left-sidebar__variant--maconomy">
         {maconomySections.map((section, sectionIndex) => (
           <div class="left-sidebar__section">
-            {section.items.map((item) => (
-              <a 
-                href={item.href || '#'} 
-                class:list={['left-sidebar__item', { 'left-sidebar__item--active': item.active }]}
-              >
-                <span class="left-sidebar__icon">
-                  <Icon name={item.icon} />
-                </span>
-                <span class="left-sidebar__label">{item.label}</span>
-              </a>
-            ))}
+            {section.items.map((item) => {
+              const panelTitle = item.panelTitle || item.label;
+              const panelIcon = item.panelIcon || item.icon;
+              const itemId = `left-sidebar-item-${sectionIndex}-${section.items.indexOf(item)}`;
+              
+              return (
+                <a 
+                  href={item.href || '#'} 
+                  class:list={['left-sidebar__item', { 'left-sidebar__item--active': item.active }]}
+                  data-panel-title={panelTitle}
+                  data-panel-icon={panelIcon}
+                  data-panel-content-id={item.panelContentId}
+                  data-item-id={itemId}
+                  data-left-sidebar-item
+                >
+                  <Tooltip text={item.label} position="right" class="left-sidebar__item-tooltip">
+                    <span class="left-sidebar__icon">
+                      <Icon name={item.icon} />
+                    </span>
+                  </Tooltip>
+                  <span class="left-sidebar__label">{item.label}</span>
+                </a>
+              );
+            })}
           </div>
         ))}
       </div>
@@ -226,17 +282,30 @@ const shouldRenderAllVariants = !sections;
     // Custom sections provided - render only those
     sidebarSections.map((section, sectionIndex) => (
       <div class="left-sidebar__section">
-        {section.items.map((item) => (
-          <a 
-            href={item.href || '#'} 
-            class:list={['left-sidebar__item', { 'left-sidebar__item--active': item.active }]}
-          >
-            <span class="left-sidebar__icon">
-              <Icon name={item.icon} />
-            </span>
-            <span class="left-sidebar__label">{item.label}</span>
-          </a>
-        ))}
+        {section.items.map((item) => {
+          const panelTitle = item.panelTitle || item.label;
+          const panelIcon = item.panelIcon || item.icon;
+          const itemId = `left-sidebar-item-${sectionIndex}-${section.items.indexOf(item)}`;
+          
+          return (
+            <a 
+              href={item.href || '#'} 
+              class:list={['left-sidebar__item', { 'left-sidebar__item--active': item.active }]}
+              data-panel-title={panelTitle}
+              data-panel-icon={panelIcon}
+              data-panel-content-id={item.panelContentId}
+              data-item-id={itemId}
+              data-left-sidebar-item
+            >
+              <Tooltip text={item.label} position="right" class="left-sidebar__item-tooltip">
+                <span class="left-sidebar__icon">
+                  <Icon name={item.icon} />
+                </span>
+              </Tooltip>
+              <span class="left-sidebar__label">{item.label}</span>
+            </a>
+          );
+        })}
       </div>
     ))
   )}
@@ -268,3 +337,136 @@ const shouldRenderAllVariants = !sections;
     display: contents;
   }
 </style>
+
+<script>
+  // Left sidebar panel functionality
+  (function() {
+    function initLeftSidebarPanel() {
+      const leftSidebar = document.querySelector('.left-sidebar') as HTMLElement | null;
+      if (!leftSidebar) return;
+
+      const panelItems = leftSidebar.querySelectorAll('[data-left-sidebar-item]');
+      const leftPanel = document.querySelector('.shell-panel--left') as HTMLElement | null;
+
+      // Handle item clicks
+      panelItems.forEach((item) => {
+        const link = item as HTMLAnchorElement;
+        
+        link.addEventListener('click', (e) => {
+          // Only handle if item has panel configuration
+          if (!link.dataset.panelTitle) {
+            return; // Let default link behavior happen
+          }
+
+          e.preventDefault();
+
+          const title = link.dataset.panelTitle || '';
+          const icon = link.dataset.panelIcon || '';
+          const contentId = link.dataset.panelContentId;
+
+          // Update panel dynamically
+          if (leftPanel) {
+            // Update title
+            const titleElement = leftPanel.querySelector('.shell-panel__title') as HTMLElement | null;
+            if (titleElement) {
+              titleElement.textContent = title;
+            }
+
+            // Update icon - find the icon container and update the icon
+            const iconContainer = leftPanel.querySelector('[data-panel-icon-container]') as HTMLElement | null;
+            if (iconContainer) {
+              // Find existing icon SVG or Icon element
+              const existingIcon = iconContainer.querySelector('svg, [data-panel-icon]');
+              if (existingIcon) {
+                existingIcon.remove();
+              }
+              
+              // Try to find and clone icon from the clicked item
+              const sourceIcon = link.querySelector('.left-sidebar__icon svg') as HTMLElement | null;
+              if (sourceIcon) {
+                const clonedIcon = sourceIcon.cloneNode(true) as HTMLElement;
+                // Ensure proper sizing for panel header
+                if (clonedIcon.tagName === 'SVG') {
+                  clonedIcon.setAttribute('width', '20');
+                  clonedIcon.setAttribute('height', '20');
+                }
+                clonedIcon.setAttribute('data-panel-icon', icon || '');
+                iconContainer.appendChild(clonedIcon);
+                // Show the icon container
+                iconContainer.style.display = 'flex';
+              } else if (icon) {
+                // If no source icon found but we have an icon name, set data attribute
+                iconContainer.setAttribute('data-icon-name', icon);
+                iconContainer.style.display = 'flex';
+              } else {
+                // Hide icon container if no icon
+                iconContainer.style.display = 'none';
+              }
+            }
+
+            // Update content if needed
+            if (contentId) {
+              leftPanel.setAttribute('data-panel-content-id', contentId);
+            }
+
+            // Add default demo content if content area is empty
+            const contentArea = leftPanel.querySelector('.shell-panel__content') as HTMLElement | null;
+            if (contentArea && !contentArea.hasChildNodes()) {
+              contentArea.innerHTML = `
+                <div style="padding: var(--space-4);">
+                  <p style="color: var(--text-secondary); margin-bottom: var(--space-4);">
+                    Panel content for: <strong>${title}</strong>
+                  </p>
+                  <p style="color: var(--text-secondary); font-size: var(--text-sm);">
+                    This is contextual content that would be specific to the "${title}" menu item.
+                    In a real application, this content would be dynamically loaded based on the selected item.
+                  </p>
+                </div>
+              `;
+            }
+
+            // Open panel
+            leftPanel.classList.add('shell-panel--open');
+            leftPanel.setAttribute('data-open', 'true');
+
+            // Set sidebar state
+            leftSidebar.setAttribute('data-panel-open', 'true');
+
+            // Set active item - clear both data-active and active class
+            panelItems.forEach((i) => {
+              i.removeAttribute('data-active');
+              i.classList.remove('left-sidebar__item--active');
+            });
+            link.setAttribute('data-active', 'true');
+            link.classList.remove('left-sidebar__item--active'); // Remove class-based active if present
+          }
+        });
+      });
+
+      // Handle panel close - listen for close events
+      const closeButtons = document.querySelectorAll('[data-panel-close]');
+      closeButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const panel = btn.closest('.shell-panel--left') as HTMLElement | null;
+          if (panel && panel.classList.contains('shell-panel--open')) {
+            // Close panel
+            panel.classList.remove('shell-panel--open');
+            panel.setAttribute('data-open', 'false');
+
+            // Clear sidebar state
+            leftSidebar.removeAttribute('data-panel-open');
+
+            // Clear active item - clear both data-active and active class
+            panelItems.forEach((i) => {
+              i.removeAttribute('data-active');
+              i.classList.remove('left-sidebar__item--active');
+            });
+          }
+        });
+      });
+    }
+
+    initLeftSidebarPanel();
+    document.addEventListener('astro:page-load', initLeftSidebarPanel);
+  })();
+</script>

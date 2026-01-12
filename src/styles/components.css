@@ -4152,6 +4152,91 @@ html.dark .left-sidebar__item:hover {
   background-color: var(--hover-bg);
 }
 
+/* ===========================================
+   LEFT SIDEBAR PANEL FUNCTIONALITY
+   =========================================== */
+
+/* Visual unity - remove borders/elevation when panel open */
+.left-sidebar[data-panel-open="true"] .left-sidebar__section {
+  box-shadow: none;
+  border: none;
+  background-color: transparent;
+  border-radius: 0;
+}
+
+/* Prevent hover expansion when panel is open ONLY */
+.left-sidebar[data-panel-open="true"]:hover {
+  width: 52px; /* Stay collapsed when panel is open */
+}
+
+/* Hide labels when panel is open */
+.left-sidebar[data-panel-open="true"] .left-sidebar__label {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Hide tooltips by default when panel is not open */
+.left-sidebar:not([data-panel-open="true"]) .left-sidebar__item-tooltip .tooltip__content {
+  display: none;
+}
+
+/* Show tooltips when panel is open and item is hovered */
+.left-sidebar[data-panel-open="true"] .left-sidebar__item-tooltip .tooltip__content {
+  display: block;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.left-sidebar[data-panel-open="true"] .left-sidebar__item:hover .left-sidebar__item-tooltip .tooltip__content {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Ensure tooltip wrapper maintains positioning context for tooltip */
+.left-sidebar__item-tooltip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1; /* Create stacking context for tooltip */
+}
+
+.left-sidebar__item-tooltip .tooltip__content {
+  z-index: var(--z-tooltip);
+}
+
+/* Ensure tooltips appear above panel when panel is open */
+/* Tooltips are inside sidebar (z-index 45/47) which is above panel (z-index 44/46) */
+/* Tooltip content needs high z-index to appear above panel content */
+.shell-layout:has(.shell-panel--left.shell-panel--open) .left-sidebar__item-tooltip .tooltip__content {
+  z-index: 1000; /* High z-index to ensure tooltips appear above panel content */
+}
+
+/* Hide class-based active state when panel is open - only show data-active */
+.left-sidebar[data-panel-open="true"] .left-sidebar__item--active:not([data-active="true"]) {
+  background-color: transparent;
+  color: inherit;
+}
+
+.left-sidebar[data-panel-open="true"] .left-sidebar__item--active:not([data-active="true"]) .left-sidebar__icon {
+  color: inherit;
+}
+
+/* Active item styling when panel is open - only for data-active */
+.left-sidebar[data-panel-open="true"] .left-sidebar__item[data-active="true"] {
+  background-color: var(--theme-primary);
+  color: var(--text-inverse);
+}
+
+.left-sidebar[data-panel-open="true"] .left-sidebar__item[data-active="true"] .left-sidebar__icon {
+  color: var(--text-inverse);
+}
+
+.left-sidebar[data-panel-open="true"] .left-sidebar__item[data-active="true"]:hover {
+  background-color: var(--theme-primary-hover);
+}
+
 /* Backward compatibility: CP-specific styles also apply to unified component */
 .cp-left-sidebar,
 .left-sidebar--cp {
@@ -4546,6 +4631,13 @@ html.dark .right-sidebar__item:hover {
 .shell-layout__left-sidebar,
 .shell-layout__right-sidebar {
   z-index: 45; /* Higher than panel (44) so icons appear on top */
+  isolation: isolate; /* Create new stacking context to ensure tooltips appear above panel */
+}
+
+/* Ensure left sidebar is above panel when open (narrow only - full-width handled separately) */
+.shell-layout:has(.shell-panel--left.shell-panel--open:not(.shell-panel--full)) .shell-layout__left-sidebar {
+  z-index: 45; /* Sidebar is above panel (44) */
+  overflow: visible; /* Ensure tooltips are not clipped */
 }
 
 .shell-layout__floating-nav-wrap {
@@ -4649,6 +4741,17 @@ html.dark .right-sidebar__item:hover {
   z-index: 47; /* Higher than full-width panel (46) so icons stay on top */
 }
 
+/* Full-width left panel goes over right sidebar */
+.shell-layout .shell-panel--left.shell-panel--full {
+  z-index: 46; /* Higher than right sidebar (45) so panel goes over right sidebar */
+}
+
+/* Left sidebar icons stay on top when panel is full-width - higher specificity for full-width */
+.shell-layout:has(.shell-panel--left.shell-panel--full.shell-panel--open) .shell-layout__left-sidebar {
+  z-index: 47; /* Higher than full-width panel (46) so icons and tooltips stay on top */
+  overflow: visible; /* Ensure tooltips are not clipped */
+}
+
 .shell-panel--narrow,
 .shell-panel--full {
   transition: width var(--transition-base);
@@ -4719,6 +4822,11 @@ div.shell-panel__header.shell-panel__header--theme,
 
 .shell-panel--left .shell-panel__header--default {
   border-radius: 0 var(--radius-16) 0 0;
+}
+
+/* Left panel header padding to avoid overlap with sidebar icons */
+.shell-layout .shell-panel--left .shell-panel__header {
+  padding-left: calc(52px + var(--space-4)); /* Sidebar width (52px) + spacing (16px) */
 }
 
 .shell-panel__header--default .shell-panel__title {
@@ -4839,6 +4947,11 @@ div.shell-panel__header.shell-panel__header--theme,
   border-radius: 0 0 var(--radius-16) 0;
 }
 
+/* Scrollbar positioning for left panel - padding to right of sidebar icons */
+.shell-layout .shell-panel--left .shell-panel__content {
+  padding-left: calc(52px + var(--space-4)); /* Sidebar width (52px) + spacing (16px) */
+}
+
 /* Scrollbar styling */
 .shell-panel__content::-webkit-scrollbar {
   width: var(--space-2);
@@ -4859,7 +4972,7 @@ div.shell-panel__header.shell-panel__header--theme,
 
 /* Adjust positioning when inside shell layout */
 .shell-layout .shell-panel--left {
-  left: var(--shell-layout-padding-side-default);
+  left: 0; /* Extend panel to left edge - icons appear on top via z-index */
   top: calc(var(--shell-header-height) + calc(var(--space-2-5) / 2)); /* 5px spacing from header */
   bottom: calc(var(--shell-footer-height-default) + calc(var(--space-2-5) / 2)); /* 5px spacing from footer */
 }
@@ -4875,7 +4988,7 @@ div.shell-panel__header.shell-panel__header--theme,
 }
 
 .shell-layout .shell-panel--left.shell-panel--open {
-  visibility: visible !important;
+  visibility: visible;
 }
 
 /* Ensure panel is hidden when closed, even with shell-layout positioning */
@@ -4885,8 +4998,8 @@ div.shell-panel__header.shell-panel__header--theme,
 }
 
 .shell-layout .shell-panel--left:not(.shell-panel--open) {
-  transform: translateX(-100%) !important;
-  visibility: hidden !important;
+  transform: translateX(-100%);
+  visibility: hidden;
 }
 
 /* Footer variant support - when footer is not present */
