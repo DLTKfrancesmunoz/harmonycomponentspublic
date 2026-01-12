@@ -3,8 +3,101 @@
   "name": "Harmony Design System Components",
   "version": "1.0.0",
   "description": "Component definitions with props, variants, and CSS class mappings",
-
   "components": {
+    "Accordion": {
+      "description": "Accordion component",
+      "props": {
+        "items": {
+          "type": "AccordionItem[]",
+          "description": null
+        },
+        "allowMultiple": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "false"
+        },
+        "class": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        }
+      }
+    },
+    "Alert": {
+      "description": "Alert component",
+      "props": {
+        "variant": {
+          "type": "'info' | 'success' | 'warning' | 'error'",
+          "description": null,
+          "optional": true,
+          "default": "info"
+        },
+        "style": {
+          "type": "'default' | 'enhanced'",
+          "description": null,
+          "optional": true,
+          "default": "default"
+        },
+        "title": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "dismissible": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "false"
+        },
+        "icon": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "primaryButton": {
+          "type": "{ text: string; href?: string; onClick?: string",
+          "description": null,
+          "optional": true
+        }
+      }
+    },
+    "Avatar": {
+      "description": "Avatar component",
+      "props": {
+        "size": {
+          "type": "'sm' | 'md' | 'lg'",
+          "optional": true,
+          "description": null
+        },
+        "class": {
+          "type": "string",
+          "optional": true,
+          "description": null
+        }
+      }
+    },
+    "Badge": {
+      "description": "Badge component",
+      "props": {
+        "variant": {
+          "type": "'default' | 'primary' | 'success' | 'warning' | 'error' | 'info' | 'orange' | 'pink' | 'disabled'",
+          "description": null,
+          "optional": true,
+          "default": "default"
+        },
+        "icon": {
+          "type": "string",
+          "description": "Heroicon name (e.g., \"check\", \"x-mark\")",
+          "optional": true
+        },
+        "class": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        }
+      }
+    },
     "Button": {
       "description": "Interactive button component for triggering actions",
       "props": {
@@ -13,6 +106,12 @@
           "options": ["primary", "secondary", "tertiary", "outline", "ghost", "destructive"],
           "default": "primary",
           "description": "Visual style of the button"
+        },
+        "buttonType": {
+          "type": "string",
+          "options": ["theme", "pageHeader"],
+          "default": "theme",
+          "description": "Button type: theme buttons use primary color shades, page header buttons use dark blue"
         },
         "size": {
           "type": "string",
@@ -31,483 +130,1406 @@
           "default": false,
           "description": "Disables the button"
         },
+        "loading": {
+          "type": "boolean",
+          "default": false,
+          "description": "Shows loading spinner"
+        },
+        "loadingText": {
+          "type": "string",
+          "description": "Text to display while loading"
+        },
         "icon": {
           "type": "string",
-          "description": "Tabler icon class (e.g., ti-plus)"
+          "description": "Heroicon name (e.g., \"plus\", \"arrow-right\")"
         },
         "iconPosition": {
           "type": "string",
           "options": ["left", "right"],
           "default": "left",
           "description": "Position of icon relative to text"
-        }
-      },
-      "variants": {
-        "primary": {
-          "classes": "bg-theme-primary hover:bg-theme-primary-hover text-white"
         },
-        "secondary": {
-          "classes": "bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-900 dark:text-white"
-        },
-        "outline": {
-          "classes": "border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-900 dark:text-white"
-        },
-        "ghost": {
-          "classes": "hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-900 dark:text-white"
-        },
-        "destructive": {
-          "classes": "bg-error hover:bg-red-600 text-white"
-        }
-      },
-      "sizes": {
-        "xs": {
-          "classes": "px-2 py-0.5 text-xs gap-1"
-        },
-        "sm": {
-          "classes": "px-3 py-1.5 text-sm gap-1.5"
-        },
-        "md": {
-          "classes": "px-4 py-2 gap-2"
-        },
-        "lg": {
-          "classes": "px-6 py-3 text-lg gap-2"
-        }
-      },
-      "baseClasses": "rounded-lg font-medium transition-colors inline-flex items-center justify-center",
-      "disabledClasses": "opacity-50 cursor-not-allowed"
-    },
-
-    "Card": {
-      "description": "Container for grouping related content",
-      "props": {
-        "variant": {
-          "type": "string",
-          "options": ["default", "elevated", "outlined", "interactive", "topBorder"],
-          "default": "default",
-          "description": "Card style variant"
-        },
-        "padding": {
-          "type": "string",
-          "options": ["none", "sm", "md", "lg"],
-          "default": "md",
-          "description": "Internal padding"
-        }
-      },
-      "variants": {
-        "default": {
-          "classes": "border border-slate-200 dark:border-slate-800 bg-white dark:bg-charcoal"
-        },
-        "elevated": {
-          "classes": "bg-white dark:bg-charcoal shadow-lg"
-        },
-        "outlined": {
-          "classes": "border-2 border-slate-200 dark:border-slate-700 bg-transparent"
-        },
-        "interactive": {
-          "classes": "border border-slate-200 dark:border-slate-800 bg-white dark:bg-charcoal hover:border-theme-primary dark:hover:border-theme-primary hover:shadow-md transition-all cursor-pointer"
-        },
-        "topBorder": {
-          "classes": "border border-slate-200 dark:border-slate-700 border-t-[6px] border-t-theme-primary bg-white dark:bg-charcoal"
-        }
-      },
-      "paddings": {
-        "none": { "classes": "p-0" },
-        "sm": { "classes": "p-4" },
-        "md": { "classes": "p-6" },
-        "lg": { "classes": "p-8" }
-      },
-      "baseClasses": "rounded-xl overflow-hidden"
-    },
-
-    "Input": {
-      "description": "Text input for collecting user data",
-      "props": {
         "type": {
           "type": "string",
-          "options": ["text", "email", "password", "number", "url", "search", "tel"],
-          "default": "text",
-          "description": "Input type"
+          "options": ["button", "submit", "reset"],
+          "default": "button",
+          "description": "Button HTML type attribute"
+        },
+        "fullWidth": {
+          "type": "boolean",
+          "default": false,
+          "description": "Makes button full width"
+        },
+        "class": {
+          "type": "string",
+          "description": "Additional CSS classes"
+        }
+      }
+    },
+    "ButtonGroup": {
+      "description": "ButtonGroup component",
+      "props": {
+        "variant": {
+          "type": "'default' | 'outline'",
+          "description": null,
+          "optional": true,
+          "default": "default"
+        },
+        "size": {
+          "type": "'sm' | 'md' | 'lg'",
+          "description": null,
+          "optional": true,
+          "default": "md"
+        },
+        "orientation": {
+          "type": "'horizontal' | 'vertical'",
+          "description": null,
+          "optional": true,
+          "default": "horizontal"
+        },
+        "class": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        }
+      }
+    },
+    "Card": {
+      "description": "Card component",
+      "props": {
+        "elevated": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "false"
+        },
+        "interactive": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "false"
+        },
+        "primary": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "false"
+        },
+        "withHeader": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "false"
+        },
+        "headerTitle": {
+          "type": "string",
+          "description": null,
+          "optional": true,
+          "default": ""
+        },
+        "headerSubtitle": {
+          "type": "string",
+          "description": null,
+          "optional": true,
+          "default": ""
+        },
+        "class": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        }
+      }
+    },
+    "Checkbox": {
+      "description": "Checkbox component",
+      "props": {
+        "name": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "id": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "checked": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "false"
         },
         "disabled": {
           "type": "boolean",
-          "default": false,
-          "description": "Disables the input"
+          "description": null,
+          "optional": true,
+          "default": "false"
+        },
+        "label": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "value": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "warning": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "false"
         },
         "error": {
           "type": "boolean",
-          "default": false,
-          "description": "Shows error state"
+          "description": null,
+          "optional": true,
+          "default": "false"
+        },
+        "warningMessage": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "errorMessage": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "class": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "key": {
+          "type": "string]: any",
+          "description": null
+        }
+      }
+    },
+    "CheckboxGroup": {
+      "description": "CheckboxGroup component",
+      "props": {
+        "legend": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "error": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "false"
+        },
+        "warning": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "false"
+        },
+        "errorMessage": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "warningMessage": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "orientation": {
+          "type": "'vertical' | 'horizontal'",
+          "description": null,
+          "optional": true,
+          "default": "vertical"
+        },
+        "class": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        }
+      }
+    },
+    "Chip": {
+      "description": "Chip component",
+      "props": {
+        "size": {
+          "type": "'sm' | 'md' | 'lg'",
+          "description": null,
+          "optional": true,
+          "default": "md"
+        },
+        "variant": {
+          "type": "'fill' | 'outline'",
+          "description": null,
+          "optional": true,
+          "default": "fill"
+        },
+        "state": {
+          "type": "'enabled' | 'disabled' | 'hover' | 'focused' | 'pressed'",
+          "description": null,
+          "optional": true,
+          "default": "enabled"
+        },
+        "type": {
+          "type": "'chip' | 'horiz-dots' | 'vert-dots' | 'overflow'",
+          "description": null,
+          "optional": true,
+          "default": "chip"
+        },
+        "overflowCount": {
+          "type": "number",
+          "description": null,
+          "optional": true
+        },
+        "selected": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "false"
+        },
+        "removable": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "false"
         },
         "icon": {
           "type": "string",
-          "description": "Leading icon class"
+          "description": null,
+          "optional": true
         },
-        "placeholder": {
+        "class": {
           "type": "string",
-          "description": "Placeholder text"
+          "description": null,
+          "optional": true
         }
-      },
-      "states": {
-        "default": {
-          "classes": "border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white"
-        },
-        "focus": {
-          "classes": "focus:outline-none focus:ring-2 focus:ring-theme-primary focus:border-transparent"
-        },
-        "error": {
-          "classes": "border-2 border-error focus:ring-error/50"
-        },
-        "disabled": {
-          "classes": "border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-800 text-slate-500 cursor-not-allowed"
-        }
-      },
-      "baseClasses": "w-full px-4 py-2 rounded-lg placeholder-slate-400 transition-shadow"
+      }
     },
-
-    "Badge": {
-      "description": "Small visual indicator for status or labels",
+    "DateInput": {
+      "description": "DateInput component",
       "props": {
-        "variant": {
+        "type": {
+          "type": "'date' | 'time' | 'datetime-local' | 'month' | 'week'",
+          "description": null,
+          "optional": true,
+          "default": "date"
+        },
+        "value": {
           "type": "string",
-          "options": ["default", "primary", "success", "warning", "error", "info"],
-          "default": "default",
-          "description": "Badge color variant"
+          "description": null,
+          "optional": true
         },
-        "style": {
+        "name": {
           "type": "string",
-          "options": ["subtle", "solid", "outline"],
-          "default": "subtle",
-          "description": "Badge visual style"
+          "description": null,
+          "optional": true
         },
-        "size": {
+        "id": {
           "type": "string",
-          "options": ["sm", "md"],
-          "default": "md",
-          "description": "Badge size"
-        }
-      },
-      "variants": {
-        "default": {
-          "subtle": "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300",
-          "solid": "bg-slate-600 text-white",
-          "outline": "border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300"
-        },
-        "primary": {
-          "subtle": "bg-theme-primary/10 text-theme-primary",
-          "solid": "bg-theme-primary text-white",
-          "outline": "border border-theme-primary text-theme-primary"
-        },
-        "success": {
-          "subtle": "bg-success/10 text-success",
-          "solid": "bg-success text-white",
-          "outline": "border border-success text-success"
-        },
-        "warning": {
-          "subtle": "bg-warning/10 text-warning",
-          "solid": "bg-warning text-white",
-          "outline": "border border-warning text-warning"
-        },
-        "error": {
-          "subtle": "bg-error/10 text-error",
-          "solid": "bg-error text-white",
-          "outline": "border border-error text-error"
-        },
-        "info": {
-          "subtle": "bg-info/10 text-info",
-          "solid": "bg-info text-white",
-          "outline": "border border-info text-info"
-        }
-      },
-      "sizes": {
-        "sm": { "classes": "px-2 py-0.5 text-[10px]" },
-        "md": { "classes": "px-2.5 py-1 text-xs" }
-      },
-      "baseClasses": "font-medium rounded-full inline-flex items-center"
-    },
-
-    "Alert": {
-      "description": "Display important messages and notifications",
-      "props": {
-        "variant": {
-          "type": "string",
-          "options": ["success", "warning", "error", "info"],
-          "default": "info",
-          "description": "Alert type and color"
-        },
-        "style": {
-          "type": "string",
-          "options": ["default", "enhanced"],
-          "default": "default",
-          "description": "Alert style variant"
-        },
-        "title": {
-          "type": "string",
-          "description": "Optional title text"
-        },
-        "dismissible": {
-          "type": "boolean",
-          "default": false,
-          "description": "Show close button"
-        },
-        "primaryButton": {
-          "type": "object",
-          "description": "Primary action button configuration"
-        },
-        "secondaryButton": {
-          "type": "object",
-          "description": "Secondary action button configuration"
-        },
-        "linkText": {
-          "type": "string",
-          "description": "Link text for enhanced variant"
-        },
-        "linkHref": {
-          "type": "string",
-          "description": "Link URL for enhanced variant"
-        },
-        "progressValue": {
-          "type": "number",
-          "description": "Progress value (0-100) for countdown bar in enhanced variant"
-        }
-      },
-      "variants": {
-        "success": {
-          "classes": "bg-success/10 border-success/30",
-          "icon": "ti-circle-check",
-          "textClass": "text-success"
-        },
-        "warning": {
-          "classes": "bg-warning/10 border-warning/30",
-          "icon": "ti-alert-triangle",
-          "textClass": "text-warning"
-        },
-        "error": {
-          "classes": "bg-error/10 border-error/30",
-          "icon": "ti-circle-x",
-          "textClass": "text-error"
-        },
-        "info": {
-          "classes": "bg-info/10 border-info/30",
-          "icon": "ti-info-circle",
-          "textClass": "text-info"
-        }
-      },
-      "styles": {
-        "default": {
-          "classes": "flex items-start gap-3 p-4 rounded-lg border"
-        },
-        "enhanced": {
-          "classes": "relative flex border-none rounded-lg shadow-md bg-card"
-        }
-      },
-      "baseClasses": "flex items-start gap-3 p-4 rounded-lg border"
-    },
-
-    "Checkbox": {
-      "description": "Selection control for binary choices",
-      "props": {
-        "checked": {
-          "type": "boolean",
-          "default": false,
-          "description": "Checked state"
+          "description": null,
+          "optional": true
         },
         "disabled": {
           "type": "boolean",
-          "default": false,
-          "description": "Disables the checkbox"
+          "description": null,
+          "optional": true,
+          "default": "false"
         },
-        "error": {
+        "min": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "max": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "required": {
           "type": "boolean",
-          "default": false,
-          "description": "Shows error state"
+          "description": null,
+          "optional": true,
+          "default": "false"
         },
         "label": {
           "type": "string",
-          "description": "Label text"
-        }
-      },
-      "baseClasses": "w-4 h-4 rounded border-slate-300 dark:border-slate-600 text-theme-primary focus:ring-theme-primary focus:ring-offset-0"
-    },
-
-    "Dropdown": {
-      "description": "Select menu for single option selection",
-      "props": {
-        "options": {
-          "type": "array",
-          "description": "Array of options",
-          "required": true
-        },
-        "placeholder": {
-          "type": "string",
-          "default": "Select...",
-          "description": "Placeholder text"
-        },
-        "disabled": {
-          "type": "boolean",
-          "default": false,
-          "description": "Disables the dropdown"
-        },
-        "label": {
-          "type": "string",
-          "description": "Label text for the dropdown"
+          "description": null,
+          "optional": true
         },
         "labelVariant": {
+          "type": "'inline' | 'stacked'",
+          "description": null,
+          "optional": true
+        },
+        "labelFor": {
           "type": "string",
-          "options": ["inline", "stacked"],
-          "default": "stacked",
-          "description": "Label alignment variant - inline (left) or stacked (top)"
+          "description": null,
+          "optional": true
+        },
+        "timeFormat": {
+          "type": "'12' | '24'",
+          "description": null,
+          "optional": true,
+          "default": "24"
+        },
+        "locale": {
+          "type": "string",
+          "description": null,
+          "optional": true,
+          "default": "en-US"
+        },
+        "class": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "key": {
+          "type": "string]: any",
+          "description": null
         }
-      },
-      "tokens": {
-        "minWidth": {
-          "value": "180px",
-          "cssVar": "--dropdown-min-width",
-          "description": "Minimum width of dropdown trigger"
-        },
-        "height": {
-          "value": "40px",
-          "cssVar": "--dropdown-height",
-          "description": "Height of dropdown trigger"
-        },
-        "heightCp": {
-          "value": "20px",
-          "cssVar": "--dropdown-height-cp",
-          "description": "Height of dropdown trigger in CP theme"
-        },
-        "menuMaxHeight": {
-          "value": "300px",
-          "cssVar": "--dropdown-menu-max-height",
-          "description": "Maximum height of dropdown menu"
-        }
-      },
-      "baseClasses": "w-full px-4 py-2 border border-slate-300 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-theme-primary"
+      }
     },
-
-    "Spinner": {
-      "description": "Loading indicator",
+    "DatePicker": {
+      "description": "DatePicker component",
       "props": {
-        "size": {
+        "value": {
           "type": "string",
-          "options": ["sm", "md", "lg"],
-          "default": "md",
-          "description": "Spinner size"
-        }
-      },
-      "sizes": {
-        "sm": { "classes": "w-4 h-4" },
-        "md": { "classes": "w-6 h-6" },
-        "lg": { "classes": "w-8 h-8" }
-      },
-      "baseClasses": "animate-spin text-theme-primary"
-    },
-
-    "Tooltip": {
-      "description": "Contextual information on hover",
-      "props": {
-        "position": {
-          "type": "string",
-          "options": ["top", "bottom", "left", "right"],
-          "default": "top",
-          "description": "Tooltip position"
+          "description": "ISO date string (YYYY-MM-DD)",
+          "optional": true
         },
-        "cornerVariant": {
+        "min": {
           "type": "string",
-          "options": ["top", "bottom", "left", "right"],
-          "description": "Corner variant - makes the specified side's corners sharp (0 border-radius) while other corners remain rounded"
+          "description": "ISO date string",
+          "optional": true
         },
-        "content": {
+        "max": {
           "type": "string",
-          "required": true,
-          "description": "Tooltip text content"
-        }
-      },
-      "baseClasses": "absolute z-50 px-2 py-1 text-xs font-medium text-white bg-slate-900 dark:bg-slate-700 rounded shadow-md"
-    },
-
-    "Dialog": {
-      "description": "Modal dialog for focused interactions",
-      "props": {
-        "open": {
+          "description": "ISO date string",
+          "optional": true
+        },
+        "disabled": {
           "type": "boolean",
-          "default": false,
-          "description": "Controls visibility"
+          "description": null,
+          "optional": true,
+          "default": "false"
         },
-        "size": {
+        "locale": {
           "type": "string",
-          "options": ["sm", "md", "lg", "xl", "full"],
-          "default": "md",
-          "description": "Dialog width"
+          "description": null,
+          "optional": true,
+          "default": "en-US"
+        },
+        "id": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "class": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        }
+      }
+    },
+    "DateTimePicker": {
+      "description": "DateTimePicker component",
+      "props": {
+        "value": {
+          "type": "string",
+          "description": "ISO datetime string (YYYY-MM-DDTHH:MM)",
+          "optional": true
+        },
+        "min": {
+          "type": "string",
+          "description": "ISO datetime string",
+          "optional": true
+        },
+        "max": {
+          "type": "string",
+          "description": "ISO datetime string",
+          "optional": true
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "false"
+        },
+        "timeFormat": {
+          "type": "'12' | '24'",
+          "description": null,
+          "optional": true,
+          "default": "24"
+        },
+        "locale": {
+          "type": "string",
+          "description": null,
+          "optional": true,
+          "default": "en-US"
+        },
+        "id": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "class": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        }
+      }
+    },
+    "Dialog": {
+      "description": "Dialog component",
+      "props": {
+        "id": {
+          "type": "string",
+          "description": null
         },
         "title": {
           "type": "string",
-          "description": "Dialog title"
+          "description": null
+        },
+        "class": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "buttonAlignment": {
+          "type": "'left' | 'right'",
+          "description": null,
+          "optional": true,
+          "default": "left"
+        },
+        "headerVariant": {
+          "type": "'default' | 'primary'",
+          "description": null,
+          "optional": true,
+          "default": "default"
         }
-      },
-      "sizes": {
-        "sm": { "classes": "max-w-sm" },
-        "md": { "classes": "max-w-md" },
-        "lg": { "classes": "max-w-lg" },
-        "xl": { "classes": "max-w-xl" },
-        "full": { "classes": "max-w-full mx-4" }
-      },
-      "baseClasses": "w-full bg-white dark:bg-charcoal rounded-xl shadow-xl"
+      }
     },
-
+    "Dropdown": {
+      "description": "Dropdown component",
+      "props": {
+        "options": {
+          "type": "Option[]",
+          "description": null
+        },
+        "value": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "placeholder": {
+          "type": "string",
+          "description": null,
+          "optional": true,
+          "default": "Select an option"
+        },
+        "name": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "id": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "false"
+        },
+        "class": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "label": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "labelVariant": {
+          "type": "'inline' | 'stacked'",
+          "description": null,
+          "optional": true
+        },
+        "labelFor": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "key": {
+          "type": "string]: any",
+          "description": null
+        }
+      }
+    },
+    "Input": {
+      "description": "Input component",
+      "props": {
+        "type": {
+          "type": "'text' | 'email' | 'password' | 'number' | 'url' | 'search' | 'tel'",
+          "description": null,
+          "optional": true,
+          "default": "text"
+        },
+        "placeholder": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "value": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "name": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "id": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "false"
+        },
+        "error": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "false"
+        },
+        "errorMessage": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "icon": {
+          "type": "string",
+          "description": "Heroicon name (e.g., \"magnifying-glass\", \"envelope\")",
+          "optional": true
+        },
+        "required": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "false"
+        },
+        "label": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "labelVariant": {
+          "type": "'inline' | 'stacked'",
+          "description": null,
+          "optional": true
+        },
+        "labelFor": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "class": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "key": {
+          "type": "string]: any",
+          "description": null
+        }
+      }
+    },
+    "Label": {
+      "description": "Label component",
+      "props": {
+        "for": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "required": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "false"
+        },
+        "helper": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "class": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        }
+      }
+    },
+    "Link": {
+      "description": "Link component",
+      "props": {
+        "href": {
+          "type": "string",
+          "description": null
+        },
+        "external": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "false"
+        },
+        "muted": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "false"
+        },
+        "class": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "key": {
+          "type": "string]: any",
+          "description": null
+        }
+      }
+    },
+    "ListMenu": {
+      "description": "ListMenu component",
+      "props": {
+        "items": {
+          "type": "MenuItem[]",
+          "description": null
+        },
+        "as": {
+          "type": "'button' | 'link'",
+          "description": null,
+          "optional": true,
+          "default": "button"
+        },
+        "variant": {
+          "type": "'default' | 'no-borders'",
+          "description": null,
+          "optional": true,
+          "default": "default"
+        },
+        "class": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        }
+      }
+    },
+    "MonthPicker": {
+      "description": "MonthPicker component",
+      "props": {
+        "value": {
+          "type": "string",
+          "description": "ISO month string (YYYY-MM)",
+          "optional": true
+        },
+        "min": {
+          "type": "string",
+          "description": "ISO month string",
+          "optional": true
+        },
+        "max": {
+          "type": "string",
+          "description": "ISO month string",
+          "optional": true
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "false"
+        },
+        "locale": {
+          "type": "string",
+          "description": null,
+          "optional": true,
+          "default": "en-US"
+        },
+        "id": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "class": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        }
+      }
+    },
+    "NotificationBadge": {
+      "description": "NotificationBadge component",
+      "props": {
+        "type": {
+          "type": "'dot' | 'number' | 'overflow'",
+          "description": null,
+          "optional": true,
+          "default": "number"
+        },
+        "size": {
+          "type": "'sm' | 'md' | 'lg'",
+          "description": null,
+          "optional": true,
+          "default": "md"
+        },
+        "variant": {
+          "type": "'error' | 'primary'",
+          "description": null,
+          "optional": true,
+          "default": "primary"
+        },
+        "value": {
+          "type": "string | number",
+          "description": null,
+          "optional": true,
+          "default": "1"
+        },
+        "border": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "false"
+        },
+        "class": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        }
+      }
+    },
+    "PickerPopup": {
+      "description": "PickerPopup component",
+      "props": {
+        "id": {
+          "type": "string",
+          "description": null
+        },
+        "triggerId": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "class": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "title": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        }
+      }
+    },
     "ProgressBar": {
-      "description": "Visual indicator of progress or completion",
+      "description": "ProgressBar component",
       "props": {
         "value": {
           "type": "number",
-          "default": 0,
-          "description": "Current progress value (0-100)"
+          "description": null
+        },
+        "max": {
+          "type": "number",
+          "description": null,
+          "optional": true,
+          "default": "100"
         },
         "size": {
-          "type": "string",
-          "options": ["sm", "md", "lg"],
-          "default": "md",
-          "description": "Bar height"
+          "type": "'sm' | 'md' | 'lg'",
+          "description": null,
+          "optional": true,
+          "default": "md"
         },
         "variant": {
+          "type": "'default' | 'success' | 'warning' | 'error'",
+          "description": null,
+          "optional": true,
+          "default": "default"
+        },
+        "showLabel": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "false"
+        },
+        "class": {
           "type": "string",
-          "options": ["default", "success", "warning", "error"],
-          "default": "default",
-          "description": "Color variant"
+          "description": null,
+          "optional": true
         }
-      },
-      "sizes": {
-        "sm": { "classes": "h-1" },
-        "md": { "classes": "h-2" },
-        "lg": { "classes": "h-3" }
-      },
-      "baseClasses": "w-full bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden"
+      }
     },
-
-    "Toggle": {
-      "description": "Switch control for on/off states",
+    "RadioButton": {
+      "description": "RadioButton component",
       "props": {
+        "name": {
+          "type": "string",
+          "description": null
+        },
+        "id": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
         "checked": {
           "type": "boolean",
-          "default": false,
-          "description": "Toggle state"
+          "description": null,
+          "optional": true,
+          "default": "false"
         },
         "disabled": {
           "type": "boolean",
-          "default": false,
-          "description": "Disables the toggle"
+          "description": null,
+          "optional": true,
+          "default": "false"
+        },
+        "label": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "value": {
+          "type": "string",
+          "description": null
+        },
+        "warning": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "false"
+        },
+        "error": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "false"
+        },
+        "warningMessage": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "errorMessage": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "class": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "key": {
+          "type": "string]: any",
+          "description": null
+        }
+      }
+    },
+    "RadioGroup": {
+      "description": "RadioGroup component",
+      "props": {
+        "name": {
+          "type": "string",
+          "description": null
+        },
+        "legend": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "error": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "false"
+        },
+        "warning": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "false"
+        },
+        "errorMessage": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "warningMessage": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "orientation": {
+          "type": "'vertical' | 'horizontal'",
+          "description": null,
+          "optional": true,
+          "default": "vertical"
+        },
+        "class": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        }
+      }
+    },
+    "RangeInput": {
+      "description": "RangeInput component",
+      "props": {
+        "value": {
+          "type": "number",
+          "description": null,
+          "optional": true,
+          "default": "50"
+        },
+        "min": {
+          "type": "number",
+          "description": null,
+          "optional": true,
+          "default": "0"
+        },
+        "max": {
+          "type": "number",
+          "description": null,
+          "optional": true,
+          "default": "100"
+        },
+        "step": {
+          "type": "number",
+          "description": null,
+          "optional": true,
+          "default": "1"
+        },
+        "name": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "id": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "false"
+        },
+        "showPercent": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "false"
+        },
+        "prefix": {
+          "type": "string",
+          "description": null,
+          "optional": true,
+          "default": ""
+        },
+        "suffix": {
+          "type": "string",
+          "description": null,
+          "optional": true,
+          "default": ""
+        },
+        "label": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "labelVariant": {
+          "type": "'inline' | 'stacked'",
+          "description": null,
+          "optional": true
+        },
+        "labelFor": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "class": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "key": {
+          "type": "string]: any",
+          "description": null
+        }
+      }
+    },
+    "ShellPageHeader": {
+      "description": "ShellPageHeader component",
+      "props": {
+        "title": {
+          "type": "string",
+          "description": null
+        },
+        "subtitle": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "primaryButton": {
+          "type": "ButtonConfig",
+          "description": null,
+          "optional": true
+        },
+        "outlineButton1": {
+          "type": "ButtonConfig",
+          "description": null,
+          "optional": true
+        },
+        "outlineButton2": {
+          "type": "ButtonConfig",
+          "description": null,
+          "optional": true
+        },
+        "outlineButton3": {
+          "type": "ButtonConfig",
+          "description": null,
+          "optional": true
+        },
+        "class": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        }
+      }
+    },
+    "Spinner": {
+      "description": "Spinner component",
+      "props": {
+        "size": {
+          "type": "'sm' | 'md' | 'lg'",
+          "description": null,
+          "optional": true,
+          "default": "md"
+        },
+        "class": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        }
+      }
+    },
+    "StepperInput": {
+      "description": "StepperInput component",
+      "props": {
+        "value": {
+          "type": "number",
+          "description": null,
+          "optional": true,
+          "default": "0"
+        },
+        "min": {
+          "type": "number",
+          "description": null,
+          "optional": true
+        },
+        "max": {
+          "type": "number",
+          "description": null,
+          "optional": true
+        },
+        "step": {
+          "type": "number",
+          "description": null,
+          "optional": true,
+          "default": "1"
+        },
+        "name": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "id": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "false"
+        },
+        "label": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "labelVariant": {
+          "type": "'inline' | 'stacked'",
+          "description": null,
+          "optional": true
+        },
+        "labelFor": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "class": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "key": {
+          "type": "string]: any",
+          "description": null
+        }
+      }
+    },
+    "Textarea": {
+      "description": "Textarea component",
+      "props": {
+        "placeholder": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "value": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "name": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "id": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "false"
+        },
+        "rows": {
+          "type": "number",
+          "description": null,
+          "optional": true,
+          "default": "4"
+        },
+        "required": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "false"
+        },
+        "label": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "labelVariant": {
+          "type": "'inline' | 'stacked'",
+          "description": null,
+          "optional": true
+        },
+        "labelFor": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "class": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "key": {
+          "type": "string]: any",
+          "description": null
+        }
+      }
+    },
+    "TimePicker": {
+      "description": "TimePicker component",
+      "props": {
+        "value": {
+          "type": "string",
+          "description": "Time string (HH:MM or HH:MM:SS)",
+          "optional": true
+        },
+        "min": {
+          "type": "string",
+          "description": "Time string",
+          "optional": true
+        },
+        "max": {
+          "type": "string",
+          "description": "Time string",
+          "optional": true
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "false"
+        },
+        "format": {
+          "type": "'12' | '24'",
+          "description": "12 or 24 hour format",
+          "optional": true,
+          "default": "24"
+        },
+        "step": {
+          "type": "number",
+          "description": "Minutes step (default: 1)",
+          "optional": true,
+          "default": "1"
+        },
+        "id": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "class": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        }
+      }
+    },
+    "Toggle": {
+      "description": "Toggle component",
+      "props": {
+        "name": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "id": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "checked": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "false"
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "false"
+        },
+        "label": {
+          "type": "string",
+          "description": null,
+          "optional": true
         },
         "size": {
+          "type": "'sm' | 'md'",
+          "description": null,
+          "optional": true,
+          "default": "md"
+        },
+        "class": {
           "type": "string",
-          "options": ["sm", "md"],
-          "default": "md",
-          "description": "Toggle size"
+          "description": null,
+          "optional": true
+        },
+        "key": {
+          "type": "string]: any",
+          "description": null
         }
-      },
-      "sizes": {
-        "sm": { "track": "w-8 h-4", "thumb": "w-3 h-3" },
-        "md": { "track": "w-11 h-6", "thumb": "w-5 h-5" }
-      },
-      "baseClasses": "relative inline-flex shrink-0 cursor-pointer rounded-full transition-colors"
+      }
+    },
+    "Tooltip": {
+      "description": "Tooltip component",
+      "props": {
+        "text": {
+          "type": "string",
+          "description": null
+        },
+        "position": {
+          "type": "'top' | 'bottom' | 'left' | 'right'",
+          "description": null,
+          "optional": true,
+          "default": "top"
+        },
+        "cornerVariant": {
+          "type": "'top' | 'bottom' | 'left' | 'right'",
+          "description": null,
+          "optional": true
+        },
+        "class": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        }
+      }
+    },
+    "WeekPicker": {
+      "description": "WeekPicker component",
+      "props": {
+        "value": {
+          "type": "string",
+          "description": "ISO week string (YYYY-Www)",
+          "optional": true
+        },
+        "min": {
+          "type": "string",
+          "description": "ISO week string",
+          "optional": true
+        },
+        "max": {
+          "type": "string",
+          "description": "ISO week string",
+          "optional": true
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "false"
+        },
+        "locale": {
+          "type": "string",
+          "description": null,
+          "optional": true,
+          "default": "en-US"
+        },
+        "id": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "class": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        }
+      }
     }
   }
 }
-

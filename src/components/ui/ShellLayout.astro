@@ -4,6 +4,8 @@ import ShellFooter from './ShellFooter.astro';
 import LeftSidebar from './LeftSidebar.astro';
 import RightSidebar from './RightSidebar.astro';
 import FloatingNav from './FloatingNav.astro';
+import ShellPageHeader from './ShellPageHeader.astro';
+import ShellPanel from './ShellPanel.astro';
 
 interface Tab {
   id: string;
@@ -12,12 +14,32 @@ interface Tab {
   href?: string;
 }
 
+interface ButtonConfig {
+  text: string;
+  icon?: string;
+  href?: string;
+}
+
+interface PanelConfig {
+  side: 'left' | 'right';
+  open: boolean;
+  title: string;
+  titleIcon?: string;
+  headerVariant?: 'theme' | 'default';
+  width?: 'narrow' | 'full';
+  showClose?: boolean;
+  showPopout?: boolean;
+  id?: string;
+  class?: string;
+}
+
 interface Props {
   // Header props (passed to ShellHeader)
   productName?: string;
   logoSrc?: string;
   companyName?: string;
   showCompanyPicker?: boolean;
+  companyColor?: string;
 
   // CP-specific props
   showFloatingNav?: boolean;
@@ -39,6 +61,18 @@ interface Props {
   // Right sidebar props
   rightSidebarVariant?: 'cp' | 'vp' | 'ppm' | 'maconomy';
 
+  // Page header props
+  pageHeaderTitle?: string;
+  pageHeaderSubtitle?: string;
+  pageHeaderPrimaryButton?: ButtonConfig;
+  pageHeaderOutlineButton1?: ButtonConfig;
+  pageHeaderOutlineButton2?: ButtonConfig;
+  pageHeaderOutlineButton3?: ButtonConfig;
+
+  // Panel props
+  leftPanel?: PanelConfig;
+  rightPanel?: PanelConfig;
+
   // General
   class?: string;
 }
@@ -48,7 +82,8 @@ const {
   logoSrc = '/logos/CPVPLogo.svg',
   companyName = 'Company name',
   showCompanyPicker = true,
-  showFloatingNav = true,
+  companyColor,
+  showFloatingNav,
   floatingNavVariant = 'full',
   showExecute = true,
   saveDisabled = false,
@@ -60,75 +95,169 @@ const {
   footerVariant = 'default',
   leftSidebarVariant,
   rightSidebarVariant,
+  pageHeaderTitle,
+  pageHeaderSubtitle,
+  pageHeaderPrimaryButton,
+  pageHeaderOutlineButton1,
+  pageHeaderOutlineButton2,
+  pageHeaderOutlineButton3,
+  leftPanel,
+  rightPanel,
   class: className = ''
 } = Astro.props;
+
+// Determine if page header should be shown
+const showPageHeader = pageHeaderTitle !== undefined;
+
+// Compute effective values - props override theme detection
+// Check if key props are explicitly provided
+// Note: tabs has default [], so we check if it was explicitly set by checking if it's not the default
+// For theme detection, we want to use it unless ALL key props are explicitly set
+const hasExplicitFloatingNav = showFloatingNav !== undefined;
+const hasExplicitSidebarVariant = leftSidebarVariant !== undefined;
+// If tabs.length > 0, it's explicitly set. If it's empty, we can't tell if it was explicitly empty or default
+// So we'll use theme detection if sidebar variant or floating nav aren't set
+
+// Determine if we should use theme detection
+// Use theme detection if sidebar variant or floating nav aren't explicitly set
+// OR if tabs is empty (could be default or explicit)
+const useThemeDetection = !hasExplicitFloatingNav || !hasExplicitSidebarVariant;
+
+// For initial render, use props if provided, otherwise defaults
+// Theme detection script will update these at runtime if needed
+const effectiveLeftSidebarVariant = leftSidebarVariant || 'cp';
+const effectiveRightSidebarVariant = rightSidebarVariant || 'cp';
+
+// Determine if footer should be shown
+// If tabs has items, show footer
+// If using theme detection and tabs is empty, default to false (CP theme - no footer)
+// Script will update this based on detected theme
+const hasFooter = useThemeDetection ? false : tabs.length > 0;
+
+// Determine if floating nav should be shown
+// If explicitly set, use that value
+// Otherwise, theme detection will handle it (defaults to true for CP, false for others)
+const effectiveShowFloatingNav = hasExplicitFloatingNav ? showFloatingNav : true;
+
+// Determine if CP variant (for spacing)
+const isCPVariant = effectiveLeftSidebarVariant === 'cp';
 ---
 
-<div class={`shell-layout ${className}`}>
-  <!-- CP Layout (visible only when theme-cp) -->
-  <div class="shell-layout__cp theme-cp-only">
+<div 
+  class={`shell-layout ${className}`}
+  data-cp-variant={isCPVariant}
+  data-use-theme-detection={useThemeDetection}
+>
+  <div 
+    class="shell-layout__container"
+    data-has-footer={String(hasFooter)}
+    data-has-floating-nav={String(effectiveShowFloatingNav)}
+  >
     <ShellHeader
       productName={productName}
       logoSrc={logoSrc}
       companyName={companyName}
       showCompanyPicker={showCompanyPicker}
+      companyColor={companyColor}
       class="shell-layout__header"
     />
 
-    {showFloatingNav && (
+    {useThemeDetection ? (
       <div class="shell-layout__floating-nav-wrap">
         <FloatingNav
           variant={floatingNavVariant}
           showExecute={showExecute}
           saveDisabled={saveDisabled}
-          class="shell-layout__floating-nav"
         />
       </div>
+    ) : (
+      effectiveShowFloatingNav && (
+        <div class="shell-layout__floating-nav-wrap">
+          <FloatingNav
+            variant={floatingNavVariant}
+            showExecute={showExecute}
+            saveDisabled={saveDisabled}
+          />
+        </div>
+      )
     )}
 
-    <LeftSidebar variant={leftSidebarVariant || 'cp'} class="shell-layout__left-sidebar" />
-    <RightSidebar variant={rightSidebarVariant || 'cp'} class="shell-layout__right-sidebar" />
-
-    <main class="shell-layout__main">
-      <slot />
-    </main>
-  </div>
-
-  <!-- Standard Layout (visible for VP, PPM, Maconomy themes) -->
-  <div class="shell-layout__standard theme-standard-only">
-    <ShellHeader
-      productName={productName}
-      logoSrc={logoSrc}
-      companyName={companyName}
-      showCompanyPicker={showCompanyPicker}
-      class="shell-layout__header"
-    />
-
-    <!-- Left Sidebar for VP/PPM/Maconomy themes (auto-detected via CSS) -->
     <LeftSidebar 
-      variant={leftSidebarVariant || 'vp'} 
-      class="shell-layout__left-sidebar shell-layout__left-sidebar--standard" 
+      variant={effectiveLeftSidebarVariant} 
+      class="shell-layout__left-sidebar" 
+    />
+    <RightSidebar 
+      variant={effectiveRightSidebarVariant} 
+      class="shell-layout__right-sidebar" 
     />
 
-    <!-- Right Sidebar for VP/PPM/Maconomy themes (auto-detected via CSS) -->
-    <RightSidebar 
-      variant={rightSidebarVariant || 'vp'} 
-      class="shell-layout__right-sidebar shell-layout__right-sidebar--standard" 
-    />
+    {/* Right Panel - rendered when rightPanel prop is provided */}
+    {rightPanel && (
+      <ShellPanel
+        side={rightPanel.side}
+        open={rightPanel.open}
+        title={rightPanel.title}
+        titleIcon={rightPanel.titleIcon}
+        headerVariant={rightPanel.headerVariant}
+        width={rightPanel.width}
+        showClose={rightPanel.showClose}
+        showPopout={rightPanel.showPopout}
+        id={rightPanel.id || 'right-panel'}
+        class="shell-layout__right-panel"
+      />
+    )}
+
+    {/* Left Panel - rendered when leftPanel prop is provided */}
+    {leftPanel && (
+      <ShellPanel
+        side={leftPanel.side}
+        open={leftPanel.open}
+        title={leftPanel.title}
+        titleIcon={leftPanel.titleIcon}
+        headerVariant={leftPanel.headerVariant}
+        width={leftPanel.width}
+        showClose={leftPanel.showClose}
+        showPopout={leftPanel.showPopout}
+        id={leftPanel.id || 'left-panel'}
+        class="shell-layout__left-panel"
+      />
+    )}
 
     <main class="shell-layout__main">
+      {showPageHeader && (
+        <ShellPageHeader
+          title={pageHeaderTitle!}
+          subtitle={pageHeaderSubtitle}
+          primaryButton={pageHeaderPrimaryButton}
+          outlineButton1={pageHeaderOutlineButton1}
+          outlineButton2={pageHeaderOutlineButton2}
+          outlineButton3={pageHeaderOutlineButton3}
+        />
+      )}
       <slot />
     </main>
 
-    <ShellFooter
-      tabs={tabs}
-      showMore={showMoreTabs}
-      moreCount={moreCount}
-      overflowTabs={overflowTabs}
-      showAddTab={showAddTab}
-      variant={footerVariant}
-      class="shell-layout__footer"
-    />
+    {useThemeDetection ? (
+      <ShellFooter
+        tabs={tabs}
+        showMore={showMoreTabs}
+        moreCount={moreCount}
+        overflowTabs={overflowTabs}
+        showAddTab={showAddTab}
+        variant={footerVariant}
+      />
+    ) : (
+      hasFooter && (
+        <ShellFooter
+          tabs={tabs}
+          showMore={showMoreTabs}
+          moreCount={moreCount}
+          overflowTabs={overflowTabs}
+          showAddTab={showAddTab}
+          variant={footerVariant}
+        />
+      )
+    )}
   </div>
 </div>
 
@@ -141,20 +270,26 @@ const {
     overflow: hidden;
   }
 
-  /* ========================================
-     CP LAYOUT (Costpoint Theme)
-     ======================================== */
-  .shell-layout__cp {
+  /* Unified Layout Container */
+  .shell-layout__container {
     position: relative;
     height: 100vh;
     display: grid;
-    grid-template-rows: var(--shell-header-height) 1fr;
     grid-template-columns: 1fr;
     overflow: hidden;
   }
 
+  /* Dynamic grid rows based on footer presence */
+  .shell-layout__container[data-has-footer="true"] {
+    grid-template-rows: var(--shell-header-height) 1fr var(--shell-footer-height-default);
+  }
+
+  .shell-layout__container[data-has-footer="false"] {
+    grid-template-rows: var(--shell-header-height) 1fr;
+  }
+
   /* Header - Fixed at top */
-  .shell-layout__cp .shell-layout__header {
+  .shell-layout__header {
     grid-row: 1;
     grid-column: 1;
     position: fixed;
@@ -174,19 +309,19 @@ const {
     pointer-events: none;
   }
 
-  .shell-layout__floating-nav {
+  .shell-layout__floating-nav-wrap > * {
     pointer-events: auto;
   }
 
-  /* Left Sidebar - Fixed left edge, 8px gap from header (positioning handled in components.css) */
-  .shell-layout__cp .shell-layout__left-sidebar {
+  /* Left Sidebar - Fixed left edge (spacing handled in components.css based on variant) */
+  .shell-layout__left-sidebar {
     position: fixed;
     left: 0;
     z-index: var(--z-45);
   }
 
   /* Right Sidebar - Fixed right edge, vertically centered */
-  .shell-layout__cp .shell-layout__right-sidebar {
+  .shell-layout__right-sidebar {
     position: fixed;
     right: 0;
     top: 50%;
@@ -195,96 +330,170 @@ const {
   }
 
   /* Main Content - Scrollable area with padding for sidebars */
-  .shell-layout__cp .shell-layout__main {
+  .shell-layout__main {
     grid-row: 2;
     grid-column: 1;
     overflow-y: auto;
     overflow-x: hidden;
-    padding: var(--shell-layout-padding-top) var(--shell-layout-padding-side-default) var(--space-6) var(--shell-layout-padding-side-default);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    align-self: start;
   }
 
-  /* ========================================
-     STANDARD LAYOUT (VP, PPM, Maconomy)
-     ======================================== */
-  .shell-layout__standard {
-    position: relative;
-    height: 100vh;
-    display: grid;
-    grid-template-rows: var(--shell-header-height) 1fr var(--shell-footer-height-default);
-    grid-template-columns: 1fr;
-    overflow: hidden;
+  /* Page header spacing: 20px gap from top header */
+  /* When floating nav is shown, use larger padding to account for nav */
+  .shell-layout__container[data-has-floating-nav="true"] .shell-layout__main {
+    padding: var(--shell-layout-padding-top) calc(var(--shell-layout-padding-side-default) + 20px) var(--space-6) calc(var(--shell-layout-padding-side-default) + 20px);
   }
 
-  /* Header - Grid row 1 */
-  .shell-layout__standard .shell-layout__header {
-    grid-row: 1;
-    grid-column: 1;
-    z-index: var(--z-50);
-  }
-
-  /* Left Sidebar - Fixed left edge, 8px gap from header (positioning handled in components.css) */
-  .shell-layout__standard .shell-layout__left-sidebar {
-    position: fixed;
-    left: 0;
-    z-index: var(--z-45);
-  }
-
-  /* Right Sidebar - Fixed right edge, vertically centered (for VP/PPM/Maconomy) */
-  .shell-layout__standard .shell-layout__right-sidebar {
-    position: fixed;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: var(--z-45);
-  }
-
-  /* Main Content - Grid row 2, scrollable */
-  .shell-layout__standard .shell-layout__main {
-    grid-row: 2;
-    grid-column: 1;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding: var(--space-6) var(--shell-layout-padding-side-standard);
+  /* When floating nav is not shown, use 20px gap from header */
+  /* Header is fixed but grid row 1 reserves space, so main content in row 2 starts at header height */
+  /* We only need 20px padding-top to create the gap from the bottom of the header */
+  .shell-layout__container[data-has-floating-nav="false"] .shell-layout__main {
+    padding-top: 20px;
+    padding-right: calc(var(--shell-layout-padding-side-default) + 20px);
+    padding-bottom: var(--space-6);
+    padding-left: calc(var(--shell-layout-padding-side-default) + 20px);
   }
 
   /* Footer - Grid row 3 */
-  .shell-layout__standard .shell-layout__footer {
+  .shell-layout__footer {
     grid-row: 3;
     grid-column: 1;
     z-index: var(--z-40);
+  }
+
+  /* Hide footer when data-has-footer is false */
+  .shell-layout__container[data-has-footer="false"] .shell-layout__footer {
+    display: none;
+  }
+
+  /* Hide floating nav when data-has-floating-nav is false */
+  .shell-layout__container[data-has-floating-nav="false"] .shell-layout__floating-nav-wrap {
+    display: none;
   }
 
   /* ========================================
      RESPONSIVE BEHAVIOR
      ======================================== */
   @media (max-width: var(--breakpoint-md)) {
-    /* CP Theme: Hide sidebars on mobile */
-    .shell-layout__cp .shell-layout__left-sidebar,
-    .shell-layout__cp .shell-layout__right-sidebar {
+    /* Hide sidebars on mobile */
+    .shell-layout__left-sidebar,
+    .shell-layout__right-sidebar {
       display: none;
     }
 
-    /* Standard Theme: Hide sidebars on mobile */
-    .shell-layout__standard .shell-layout__left-sidebar,
-    .shell-layout__standard .shell-layout__right-sidebar {
-      display: none;
-    }
-
-    /* CP Theme: Adjust main content padding without sidebars */
-    .shell-layout__cp .shell-layout__main {
+    /* Adjust main content padding without sidebars */
+    .shell-layout__container[data-has-floating-nav="true"] .shell-layout__main {
       padding: var(--shell-layout-padding-top) var(--shell-layout-padding-side-mobile) var(--space-6) var(--shell-layout-padding-side-mobile);
     }
 
-    /* Standard Theme: Reduce padding on mobile */
-    .shell-layout__standard .shell-layout__main {
-      padding: var(--space-4);
+    .shell-layout__container[data-has-floating-nav="false"] .shell-layout__main {
+      padding: 20px var(--shell-layout-padding-side-mobile) var(--space-6) var(--shell-layout-padding-side-mobile);
     }
   }
 
   @media (max-width: var(--breakpoint-lg)) {
-    /* Standard Theme: Reduce side padding on tablets */
-    .shell-layout__standard .shell-layout__main {
-      padding: var(--space-6) var(--shell-layout-padding-side-tablet);
+    /* Reduce side padding on tablets */
+    .shell-layout__container[data-has-floating-nav="true"] .shell-layout__main {
+      padding: var(--shell-layout-padding-top) calc(var(--shell-layout-padding-side-tablet) + 20px) var(--space-6) calc(var(--shell-layout-padding-side-tablet) + 20px);
+    }
+
+    .shell-layout__container[data-has-floating-nav="false"] .shell-layout__main {
+      padding: 20px calc(var(--shell-layout-padding-side-tablet) + 20px) var(--space-6) calc(var(--shell-layout-padding-side-tablet) + 20px);
     }
   }
 </style>
+
+<script>
+  // Theme detection and dynamic layout updates
+  (function() {
+    const shellLayout = document.querySelector('.shell-layout[data-use-theme-detection="true"]') as HTMLElement | null;
+    if (!shellLayout) return; // Only run if theme detection is enabled
+
+    function detectTheme(): 'cp' | 'vp' | 'ppm' | 'maconomy' | null {
+      const html = document.documentElement;
+      if (html.classList.contains('theme-cp')) return 'cp';
+      if (html.classList.contains('theme-vp')) return 'vp';
+      if (html.classList.contains('theme-ppm')) return 'ppm';
+      if (html.classList.contains('theme-maconomy')) return 'maconomy';
+      return null;
+    }
+
+    // Theme to product name and logo mapping
+    const themeProductMap: Record<string, { name: string; logo: string }> = {
+      cp: { name: 'Costpoint', logo: '/logos/CPVPLogo.svg' },
+      vp: { name: 'Vantagepoint', logo: '/logos/CPVPLogo.svg' },
+      ppm: { name: 'Project Performance Management', logo: '/logos/PPMLogo.svg' },
+      maconomy: { name: 'Maconomy', logo: '/logos/MacLogo.svg' }
+    };
+
+    function updateLayout() {
+      const theme = detectTheme();
+      if (!theme || !shellLayout) return;
+
+      // Update sidebar variants by updating the variant prop on the component
+      // The LeftSidebar and RightSidebar components will handle the rendering
+      const leftSidebar = shellLayout.querySelector('.shell-layout__left-sidebar') as HTMLElement | null;
+      const rightSidebar = shellLayout.querySelector('.shell-layout__right-sidebar') as HTMLElement | null;
+      
+      // Update sidebar variant classes if they exist
+      if (leftSidebar) {
+        // Remove all variant classes
+        leftSidebar.classList.remove('left-sidebar--cp', 'left-sidebar--vp', 'left-sidebar--ppm', 'left-sidebar--maconomy');
+        // Add current variant class
+        leftSidebar.classList.add(`left-sidebar--${theme}`);
+      }
+      
+      if (rightSidebar) {
+        rightSidebar.classList.remove('right-sidebar--cp', 'right-sidebar--vp', 'right-sidebar--ppm', 'right-sidebar--maconomy');
+        rightSidebar.classList.add(`right-sidebar--${theme}`);
+      }
+
+      // Update layout based on theme
+      const isCP = theme === 'cp';
+      const hasFooter = !isCP; // CP has no footer, others do
+      const showFloatingNav = isCP; // CP has floating nav, others don't
+
+      const container = shellLayout.querySelector('.shell-layout__container') as HTMLElement | null;
+      if (container) {
+        container.setAttribute('data-has-footer', String(hasFooter));
+        container.setAttribute('data-has-floating-nav', String(showFloatingNav));
+      }
+      shellLayout.setAttribute('data-cp-variant', String(isCP));
+
+      // Update header product name and logo based on theme
+      const header = shellLayout.querySelector('.shell-layout__header') as HTMLElement | null;
+      if (header) {
+        const productInfo = themeProductMap[theme];
+        if (productInfo) {
+          // Update logo
+          const logoImg = header.querySelector('.header__logo') as HTMLImageElement | null;
+          if (logoImg) {
+            logoImg.src = productInfo.logo;
+          }
+          
+          // Update product name
+          const productNameSpan = header.querySelector('.header__title') as HTMLElement | null;
+          if (productNameSpan) {
+            productNameSpan.textContent = productInfo.name;
+          }
+        }
+      }
+    }
+
+    // Initial update
+    updateLayout();
+
+    // Watch for theme changes
+    const observer = new MutationObserver(() => {
+      updateLayout();
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+  })();
+</script>

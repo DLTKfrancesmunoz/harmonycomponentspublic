@@ -1,0 +1,220 @@
+---
+/**
+ * ShellPanel Component (Shell Contextual Drawer)
+ *
+ * A slide-out panel that extends from the left or right sidebar when navigation items are clicked.
+ * Supports two header variants (theme-primary or default) and two width modes (narrow or full).
+ * The panel overlays content and maintains icon positions in the sidebar.
+ *
+ * @prop {string} side - Which side the panel slides from: 'left' | 'right'
+ * @prop {boolean} open - Whether panel is open
+ * @prop {string} title - Header title text
+ * @prop {string} titleIcon - Optional icon name for header
+ * @prop {string} headerVariant - Header style variant: 'theme' | 'default' (default: 'theme')
+ * @prop {string} width - Panel width mode: 'narrow' | 'full' (default: 'narrow')
+ * @prop {boolean} showClose - Show close button (default: true)
+ * @prop {boolean} showPopout - Show popout/detach button (default: true, only for theme header)
+ * @prop {string} class - Additional CSS classes to apply
+ */
+import Icon from './Icon.astro';
+
+export interface Props {
+  side: 'left' | 'right';
+  open: boolean;
+  title: string;
+  titleIcon?: string;
+  headerVariant?: 'theme' | 'default';
+  width?: 'narrow' | 'full';
+  showClose?: boolean;
+  showPopout?: boolean;
+  id?: string;
+  class?: string;
+}
+
+const {
+  side,
+  open,
+  title,
+  titleIcon,
+  headerVariant = 'theme',
+  width = 'narrow',
+  showClose = true,
+  showPopout = true,
+  id,
+  class: className = '',
+} = Astro.props;
+
+// Ensure headerVariant is explicitly 'theme' or 'default'
+const finalHeaderVariant = headerVariant === 'theme' ? 'theme' : 'default';
+
+const panelClasses = [
+  'shell-panel',
+  `shell-panel--${side}`,
+  `shell-panel--${width}`,
+  { 'shell-panel--open': open },
+  className,
+].filter(Boolean);
+
+const headerClasses = [
+  'shell-panel__header',
+  `shell-panel__header--${finalHeaderVariant}`,
+].filter(Boolean);
+---
+
+<div id={id} class:list={panelClasses} data-side={side} data-open={open} data-width={width}>
+  <div 
+    class:list={headerClasses}
+    data-header-variant={finalHeaderVariant}
+  >
+    <div class="shell-panel__header-content">
+      <span class="shell-panel__header-icon" data-panel-icon-container>
+        {titleIcon && (
+          <Icon name={titleIcon} size="md" data-panel-icon={titleIcon} />
+        )}
+      </span>
+      <h2 class="shell-panel__title">{title}</h2>
+      <div class="shell-panel__actions">
+        <button
+          type="button"
+          class="shell-panel__action shell-panel__action--toggle-width"
+          aria-label="Toggle panel width"
+          data-panel-toggle-width
+        >
+          <Icon name="arrows-pointing-out" size="md" class="shell-panel__icon-maximize" />
+          <Icon name="arrows-pointing-in" size="md" class="shell-panel__icon-minimize" />
+        </button>
+        {showPopout && (
+          <button
+            type="button"
+            class="shell-panel__action shell-panel__action--popout"
+            aria-label="Pop out panel"
+            data-panel-popout
+          >
+            <Icon name="arrow-top-right-on-square" size="md" />
+          </button>
+        )}
+        {showClose && (
+          <button
+            type="button"
+            class="shell-panel__action shell-panel__action--close"
+            aria-label="Close panel"
+            data-panel-close
+          >
+            <Icon name="x-mark" size="lg" />
+          </button>
+        )}
+      </div>
+    </div>
+  </div>
+  <div class="shell-panel__content">
+    <slot />
+  </div>
+</div>
+
+
+<script>
+  function initShellPanel() {
+    // Close button handlers
+    document.querySelectorAll('[data-panel-close]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const panel = btn.closest('.shell-panel') as HTMLElement | null;
+        if (panel) {
+          panel.classList.remove('shell-panel--open');
+          panel.setAttribute('data-open', 'false');
+          
+          // Coordinate with sidebar state
+          const isRightPanel = panel.classList.contains('shell-panel--right');
+          if (isRightPanel) {
+            const rightSidebar = document.querySelector('.right-sidebar') as HTMLElement | null;
+            if (rightSidebar) {
+              rightSidebar.removeAttribute('data-panel-open');
+              // Clear active items
+              rightSidebar.querySelectorAll('[data-right-sidebar-item]').forEach((item) => {
+                item.removeAttribute('data-active');
+              });
+            }
+          }
+        }
+      });
+    });
+
+    // Popout button handlers (future implementation)
+    document.querySelectorAll('[data-panel-popout]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        // TODO: Implement popout/detach functionality
+        console.log('Popout functionality to be implemented');
+      });
+    });
+
+    // Toggle width button handlers
+    document.querySelectorAll('[data-panel-toggle-width]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const panel = btn.closest('.shell-panel');
+        if (panel) {
+          const isFull = panel.classList.contains('shell-panel--full');
+          if (isFull) {
+            // Switch to narrow
+            panel.classList.remove('shell-panel--full');
+            panel.classList.add('shell-panel--narrow');
+            panel.setAttribute('data-width', 'narrow');
+          } else {
+            // Switch to full
+            panel.classList.remove('shell-panel--narrow');
+            panel.classList.add('shell-panel--full');
+            panel.setAttribute('data-width', 'full');
+          }
+        }
+      });
+    });
+  }
+
+  // Global function to update panel title and icon dynamically
+  (window as any).updateShellPanel = function(panelSelector: string, title: string, icon?: string) {
+    const panel = document.querySelector(panelSelector) as HTMLElement | null;
+    if (!panel) return;
+
+    // Update title
+    const titleElement = panel.querySelector('.shell-panel__title') as HTMLElement | null;
+    if (titleElement) {
+      titleElement.textContent = title;
+    }
+
+    // Update icon
+    if (icon) {
+      const iconContainer = panel.querySelector('[data-panel-icon-container]') as HTMLElement | null;
+      if (iconContainer) {
+        // Remove existing icon
+        const existingIcon = iconContainer.querySelector('[data-panel-icon]');
+        if (existingIcon) {
+          existingIcon.remove();
+        }
+        // Create new icon element (simplified - would need proper Icon component rendering)
+        // For now, we'll use a data attribute approach
+        iconContainer.setAttribute('data-icon-name', icon);
+        // The icon will be rendered via CSS or we'll need to inject SVG
+        // This is a limitation - we may need to pre-render all possible icons
+      }
+    }
+  };
+
+  // Global function to open panel
+  (window as any).openShellPanel = function(panelSelector: string) {
+    const panel = document.querySelector(panelSelector) as HTMLElement | null;
+    if (panel) {
+      panel.classList.add('shell-panel--open');
+      panel.setAttribute('data-open', 'true');
+    }
+  };
+
+  // Global function to close panel
+  (window as any).closeShellPanel = function(panelSelector: string) {
+    const panel = document.querySelector(panelSelector) as HTMLElement | null;
+    if (panel) {
+      panel.classList.remove('shell-panel--open');
+      panel.setAttribute('data-open', 'false');
+    }
+  };
+
+  initShellPanel();
+  document.addEventListener('astro:page-load', initShellPanel);
+</script>

@@ -25,9 +25,11 @@ export const navigation: NavSection[] = [
       { title: 'Shell Layout', href: '/shell/layout', icon: 'view-columns' },
       { title: 'Shell Header', href: '/shell/header', icon: 'bars-3' },
       { title: 'Shell Footer', href: '/shell/footer', icon: 'bars-3-bottom-left' },
+      { title: 'Page Header', href: '/shell/page-header', icon: 'document-text' },
       { title: 'Page Content', href: '/shell/page-content', icon: 'document-text' },
       { title: 'Left Sidebar', href: '/shell/left-sidebar', icon: 'bars-3-bottom-left' },
       { title: 'Right Sidebar', href: '/shell/right-sidebar', icon: 'bars-3-bottom-right' },
+      { title: 'Shell Panel', href: '/shell/panel', icon: 'window' },
     ],
   },
   {

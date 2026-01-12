@@ -1,0 +1,210 @@
+---
+import '../../styles/global.css';
+import ShellPanel from '../../components/ui/ShellPanel.astro';
+import Card from '../../components/ui/Card.astro';
+import Button from '../../components/ui/Button.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script is:inline>
+      (function() {
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const savedColorTheme = localStorage.getItem('colorTheme') || 'cp';
+        if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+        document.documentElement.classList.add('theme-' + savedColorTheme);
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shell Panel Preview</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <style>
+      * { 
+        margin: 0; 
+        padding: 0; 
+        box-sizing: border-box; 
+      }
+      html, body { 
+        height: 100%; 
+        width: 100%; 
+        overflow: hidden;
+      }
+      body { 
+        background-color: var(--page-bg);
+        position: relative;
+      }
+      .preview-container {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-6);
+        padding: var(--space-6);
+        overflow-y: auto;
+      }
+      .preview-section {
+        position: relative;
+        min-height: 600px;
+        background-color: var(--elevated-bg);
+        border-radius: var(--radius-lg);
+        padding: var(--space-6);
+      }
+      .preview-content {
+        position: relative;
+        z-index: 1;
+        margin-bottom: var(--space-4);
+      }
+      .toggle-buttons {
+        display: flex;
+        gap: var(--space-2);
+        margin-bottom: var(--space-4);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="preview-container">
+      <h1 style="font-size: var(--text-3xl); font-weight: var(--font-bold); color: var(--text-primary); margin-bottom: var(--space-6);">
+        Shell Panel Preview
+      </h1>
+
+      <!-- Panel with Theme Header -->
+      <div class="preview-section">
+        <h2 style="font-size: var(--text-xl); font-weight: var(--font-semibold); margin-bottom: var(--space-4); color: var(--text-primary);">
+          Panel with Theme Header (Right Side)
+        </h2>
+        <div class="preview-content">
+          <p style="color: var(--text-secondary); margin-bottom: var(--space-4);">
+            This panel slides from the right with a theme-primary header background. The header should show the theme-primary color (blue for CP theme).
+          </p>
+          <div class="toggle-buttons">
+            <Button 
+              id="toggle-theme-panel"
+              variant="primary"
+              size="sm"
+            >
+              Toggle Panel
+            </Button>
+          </div>
+        </div>
+        
+        <ShellPanel
+          side="right"
+          open={true}
+          title="Drawer Title"
+          titleIcon="ellipsis-horizontal-circle"
+          headerVariant="theme"
+          width="narrow"
+          id="theme-panel"
+        >
+          <div>
+            <p style="color: var(--text-secondary); margin-bottom: var(--space-4);">
+              Panel content goes here. This is a narrow panel (596px) with a theme-primary header.
+            </p>
+            <Card>
+              <p style="margin-bottom: var(--space-2);"><strong>Features:</strong></p>
+              <ul style="list-style: disc; list-style-position: inside; color: var(--text-secondary);">
+                <li>Theme-primary header background (should be blue for CP theme)</li>
+                <li>White text and icons</li>
+                <li>Popout and close buttons</li>
+                <li>Scrollable content area</li>
+                <li>Proper padding and spacing using design tokens</li>
+              </ul>
+            </Card>
+          </div>
+        </ShellPanel>
+      </div>
+
+      <!-- Panel with Default Header -->
+      <div class="preview-section">
+        <h2 style="font-size: var(--text-xl); font-weight: var(--font-semibold); margin-bottom: var(--space-4); color: var(--text-primary);">
+          Panel with Default Header (Right Side)
+        </h2>
+        <div class="preview-content">
+          <p style="color: var(--text-secondary); margin-bottom: var(--space-4);">
+            This panel uses the default header variant with elevated background (no theme color).
+          </p>
+          <div class="toggle-buttons">
+            <Button 
+              id="toggle-default-panel"
+              variant="primary"
+              size="sm"
+            >
+              Toggle Panel
+            </Button>
+          </div>
+        </div>
+        
+        <ShellPanel
+          side="right"
+          open={true}
+          title="Drawer Title"
+          titleIcon="ellipsis-horizontal-circle"
+          headerVariant="default"
+          width="narrow"
+          id="default-panel"
+        >
+          <div>
+            <p style="color: var(--text-secondary); margin-bottom: var(--space-4);">
+              This panel uses the default header variant with elevated background and normal text color.
+            </p>
+            <Card>
+              <p style="margin-bottom: var(--space-2);"><strong>Features:</strong></p>
+              <ul style="list-style: disc; list-style-position: inside; color: var(--text-secondary);">
+                <li>Elevated background header (no theme color)</li>
+                <li>Normal text color</li>
+                <li>Popout and close buttons</li>
+                <li>Clean, minimal appearance</li>
+              </ul>
+            </Card>
+          </div>
+        </ShellPanel>
+      </div>
+    </div>
+
+    <script>
+      // Panel state management
+      let themePanelOpen = true;
+      let defaultPanelOpen = true;
+
+      function togglePanel(panelId, isOpen) {
+        const panel = document.getElementById(panelId);
+        if (panel) {
+          if (isOpen) {
+            panel.classList.add('shell-panel--open');
+            panel.setAttribute('data-open', 'true');
+          } else {
+            panel.classList.remove('shell-panel--open');
+            panel.setAttribute('data-open', 'false');
+          }
+        }
+      }
+
+      function initPanelToggles() {
+        // Theme panel toggle
+        const themeToggle = document.getElementById('toggle-theme-panel');
+        if (themeToggle) {
+          themeToggle.addEventListener('click', () => {
+            themePanelOpen = !themePanelOpen;
+            togglePanel('theme-panel', themePanelOpen);
+          });
+        }
+
+        // Default panel toggle
+        const defaultToggle = document.getElementById('toggle-default-panel');
+        if (defaultToggle) {
+          defaultToggle.addEventListener('click', () => {
+            defaultPanelOpen = !defaultPanelOpen;
+            togglePanel('default-panel', defaultPanelOpen);
+          });
+        }
+      }
+
+      // Initialize on page load
+      initPanelToggles();
+      document.addEventListener('astro:page-load', initPanelToggles);
+    </script>
+  </body>
+</html>

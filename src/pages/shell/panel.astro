@@ -1,0 +1,331 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import PropsTable from '../../components/PropsTable.astro';
+import ExampleSection from '../../components/ExampleSection.astro';
+import ShellPanel from '../../components/ui/ShellPanel.astro';
+import Icon from '../../components/ui/Icon.astro';
+import Card from '../../components/ui/Card.astro';
+import Button from '../../components/ui/Button.astro';
+
+const props = [
+  { name: 'side', type: "'left' | 'right'", default: '—', description: 'Which side the panel slides from' },
+  { name: 'open', type: 'boolean', default: '—', description: 'Whether panel is open' },
+  { name: 'title', type: 'string', default: '—', description: 'Header title text' },
+  { name: 'titleIcon', type: 'string', default: '—', description: 'Optional icon name for header' },
+  { name: 'headerVariant', type: "'theme' | 'default'", default: "'theme'", description: 'Header style variant' },
+  { name: 'width', type: "'narrow' | 'full'", default: "'narrow'", description: 'Panel width mode' },
+  { name: 'showClose', type: 'boolean', default: 'true', description: 'Show close button' },
+  { name: 'showPopout', type: 'boolean', default: 'true', description: 'Show popout/detach button (only for theme header)' },
+  { name: 'id', type: 'string', default: '—', description: 'Optional ID for the panel element' },
+  { name: 'class', type: 'string', default: '—', description: 'Additional CSS classes to apply' },
+];
+---
+
+<DocsLayout title="Shell Panel" description="A contextual drawer panel that slides out from the left or right sidebar when navigation items are clicked. Supports two header variants (theme-primary or default) and two width modes (narrow or full). The panel overlays content and maintains icon positions in the sidebar.">
+  <article class="space-y-12">
+    <header class="page-header page-header--compact">
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="page-header__title page-header__title--sm">Shell Panel</h1>
+        <span class="badge badge--primary">Shell Component</span>
+        <span class="badge badge--secondary">Contextual Drawer</span>
+      </div>
+      <p class="page-header__description">
+        A slide-out panel component that extends from the left or right sidebar when navigation items are clicked. The panel supports dynamic content, two header variants, and two width modes. It overlays content while maintaining the sidebar icon positions.
+      </p>
+    </header>
+
+    <nav class="article-nav">
+      <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
+      <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+      <a href="#usage" class="article-nav__link"><Icon name="book-open" size="sm" /> Usage</a>
+      <a href="#accessibility" class="article-nav__link"><Icon name="check-badge" size="sm" /> Accessibility</a>
+    </nav>
+
+    <section id="examples" class="space-y-8">
+      <h2 class="section__title">Examples</h2>
+
+      <ExampleSection title="Left Side - Theme Header" description="Panel sliding from the left with theme-primary header background.">
+        <div class="panel-demo-container">
+          <div class="panel-demo-content">
+            <p class="text-secondary text-sm">
+              This panel slides from the left side with a theme-primary header. The panel includes a maximize/minimize toggle button in the header.
+            </p>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onclick="window.openShellPanel('#demo-panel-left-theme')"
+              style="margin-top: var(--space-2);"
+            >
+              Open Panel
+            </Button>
+          </div>
+          <ShellPanel
+            side="left"
+            open={true}
+            title="Actions Toolbar"
+            titleIcon="ellipsis-horizontal-circle"
+            headerVariant="theme"
+            width="narrow"
+            id="demo-panel-left-theme"
+          >
+            <div style="padding: var(--space-4);">
+              <p class="text-secondary">Panel content goes here. This is a narrow panel with a theme header.</p>
+              <Card style="margin-top: var(--space-4);">
+                <div class="card__body">
+                  <p>You can add any content inside the panel slot.</p>
+                </div>
+              </Card>
+            </div>
+          </ShellPanel>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Right Side - Default Header" description="Panel sliding from the right with default header (elevated background with bottom border).">
+        <div class="panel-demo-container">
+          <div class="panel-demo-content">
+            <p class="text-secondary text-sm">
+              This panel slides from the right side with a default header. The default header has an elevated background and bottom border separator.
+            </p>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onclick="window.openShellPanel('#demo-panel-right-default')"
+              style="margin-top: var(--space-2);"
+            >
+              Open Panel
+            </Button>
+          </div>
+          <ShellPanel
+            side="right"
+            open={true}
+            title="Settings"
+            headerVariant="default"
+            width="narrow"
+            showPopout={false}
+            id="demo-panel-right-default"
+          >
+            <div style="padding: var(--space-4);">
+              <p class="text-secondary">This panel uses the default header variant with elevated background and bottom border separator.</p>
+            </div>
+          </ShellPanel>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Full Width Mode" description="Panel with full viewport width. Use the maximize/minimize button in the header to toggle between narrow and full width.">
+        <div class="panel-demo-container panel-demo-container--full">
+          <div class="panel-demo-content">
+            <p class="text-secondary text-sm">
+              This is a full-width panel (100vw) for displaying more content. Click the minimize button in the header to collapse it back to narrow width.
+            </p>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onclick="window.openShellPanel('#demo-panel-full')"
+              style="margin-top: var(--space-2);"
+            >
+              Open Panel
+            </Button>
+          </div>
+          <ShellPanel
+            side="left"
+            open={true}
+            title="Command Center"
+            titleIcon="squares-plus"
+            headerVariant="theme"
+            width="full"
+            id="demo-panel-full"
+          >
+            <div style="padding: var(--space-4);">
+              <p class="text-secondary">This is a full-width panel (100vw) for displaying more content. Click the minimize button in the header to collapse it back to narrow width.</p>
+            </div>
+          </ShellPanel>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Panel with Icon" description="Panel header can include an optional icon for visual reinforcement.">
+        <div class="panel-demo-container">
+          <div class="panel-demo-content">
+            <p class="text-secondary text-sm">
+              The panel header supports an optional icon that appears before the title text.
+            </p>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onclick="window.openShellPanel('#demo-panel-with-icon')"
+              style="margin-top: var(--space-2);"
+            >
+              Open Panel
+            </Button>
+          </div>
+          <ShellPanel
+            side="left"
+            open={true}
+            title="Notifications"
+            titleIcon="bell"
+            headerVariant="theme"
+            width="narrow"
+            id="demo-panel-with-icon"
+          >
+            <div style="padding: var(--space-4);">
+              <p class="text-secondary">Panel with an icon in the header.</p>
+            </div>
+          </ShellPanel>
+        </div>
+      </ExampleSection>
+    </section>
+
+    <section id="props">
+      <h2 class="section__title">Props</h2>
+      <PropsTable props={props} />
+    </section>
+
+    <section id="usage">
+      <h2 class="section__title">Usage Guidelines</h2>
+      
+      <div class="space-y-6">
+        <div>
+          <h3 class="text-lg font-semibold text-primary mb-2">When to Use</h3>
+          <ul class="space-y-2 text-sm text-secondary mb-4">
+            <li>• <strong>Contextual Actions:</strong> Use panels to provide contextual actions and tools related to the current view or selection</li>
+            <li>• <strong>Secondary Content:</strong> Display supplementary information, settings, or details without navigating away from the main content</li>
+            <li>• <strong>Forms and Inputs:</strong> Use panels for forms, filters, or input dialogs that need to be accessible but not always visible</li>
+            <li>• <strong>Command Centers:</strong> Full-width panels are ideal for complex interfaces like command centers or dashboards</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-semibold text-primary mb-2">Header Variants</h3>
+          <ul class="space-y-2 text-sm text-secondary">
+            <li>• <strong>Theme Header:</strong> Use for primary actions and prominent content panels. Features theme-primary background with white text and includes popout button.</li>
+            <li>• <strong>Default Header:</strong> Use for secondary panels, settings, or less prominent content. Features elevated background with primary text and bottom border separator.</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-semibold text-primary mb-2">Width Modes</h3>
+          <ul class="space-y-2 text-sm text-secondary">
+            <li>• <strong>Narrow (596px):</strong> Standard width for most use cases. Good for forms, lists, and detail views. Maintains good readability.</li>
+            <li>• <strong>Full (100vw):</strong> Use for complex content that requires more horizontal space. Ideal for data tables, wide forms, and dashboards. Users can toggle between narrow and full width using the maximize/minimize button.</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-semibold text-primary mb-2">Panel Positioning</h3>
+          <ul class="space-y-2 text-sm text-secondary">
+            <li>• <strong>Left Side:</strong> Use when the panel content relates to navigation or primary actions</li>
+            <li>• <strong>Right Side:</strong> Use for secondary actions, settings, or supplementary information</li>
+          </ul>
+        </div>
+
+        <div class="guidelines">
+          <div class="guideline-card guideline-card--do">
+            <h3 class="guideline-card__header">
+              <Icon name="check" size="sm" /> Do
+            </h3>
+            <ul class="guideline-card__list">
+              <li>• Keep panel content focused and relevant to the current context</li>
+              <li>• Use theme header for primary actions and important content</li>
+              <li>• Provide clear titles that describe the panel's purpose</li>
+              <li>• Use icons in headers to reinforce meaning</li>
+              <li>• Allow users to toggle between narrow and full width when appropriate</li>
+            </ul>
+          </div>
+          <div class="guideline-card guideline-card--dont">
+            <h3 class="guideline-card__header">
+              <Icon name="x-mark" size="sm" /> Don't
+            </h3>
+            <ul class="guideline-card__list">
+              <li>• Overload panels with too much content - use full width mode if needed</li>
+              <li>• Use panels for critical information that must always be visible</li>
+              <li>• Nest panels within other panels</li>
+              <li>• Use default header for primary actions</li>
+              <li>• Forget to provide keyboard-accessible close actions</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="accessibility" class="space-y-4">
+      <h2 class="section__title">Accessibility</h2>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="keyboard" size="sm" />
+          Keyboard Navigation
+        </h3>
+        <p class="a11y-card__text">
+          All action buttons (maximize/minimize, popout, close) are keyboard accessible. Use <kbd>Tab</kbd> to navigate between buttons and <kbd>Enter</kbd> or <kbd>Space</kbd> to activate them. Focus management ensures proper tab order when the panel is open.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="cursor-arrow-rays" size="sm" />
+          Focus Management
+        </h3>
+        <p class="a11y-card__text">
+          When a panel opens, focus should move to the panel content. When closing, focus should return to the element that triggered the panel. Ensure proper focus trapping within the panel when it's open.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="eye" size="sm" />
+          Screen Reader Support
+        </h3>
+        <p class="a11y-card__text">
+          Panel headers use semantic heading elements (<code>&lt;h2&gt;</code>) for proper screen reader navigation. All action buttons include descriptive <code>aria-label</code> attributes. Panel state (open/closed) should be communicated to assistive technologies.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="arrows-pointing-out" size="sm" />
+          Escape Key
+        </h3>
+        <p class="a11y-card__text">
+          Panels should close when the <kbd>Escape</kbd> key is pressed, providing a quick way to dismiss the panel without using the mouse.
+        </p>
+      </div>
+    </section>
+  </article>
+</DocsLayout>
+
+<style>
+  .panel-demo-container {
+    position: relative;
+    min-height: 500px;
+    background-color: var(--page-bg);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .panel-demo-container--full {
+    min-height: 600px;
+    box-shadow: var(--shadow-xl);
+  }
+
+  .panel-demo-content {
+    position: relative;
+    z-index: 1;
+    margin-bottom: var(--space-4);
+  }
+
+  /* CRITICAL: Use :global() to override ShellPanel's fixed positioning */
+  .panel-demo-container :global(.shell-panel) {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: auto !important;
+    bottom: 0 !important;
+    z-index: 10 !important;
+  }
+
+  .panel-demo-container :global(.shell-panel--right) {
+    left: auto !important;
+    right: 0 !important;
+  }
+</style>

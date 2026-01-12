@@ -29,6 +29,8 @@ export { default as ProgressBar } from './ProgressBar.astro';
 export { default as RadioButton } from './RadioButton.astro';
 export { default as RangeInput } from './RangeInput.astro';
 export { default as Spinner } from './Spinner.astro';
+export { default as ShellPageHeader } from './ShellPageHeader.astro';
+export { default as ShellPanel } from './ShellPanel.astro';
 export { default as StepperInput } from './StepperInput.astro';
 export { default as TabStrip } from './TabStrip.astro';
 export { default as Textarea } from './Textarea.astro';

@@ -7,6 +7,7 @@ interface Props {
   logoSrc?: string;
   companyName?: string;
   showCompanyPicker?: boolean;
+  companyColor?: string;
   class?: string;
 }
 
@@ -15,6 +16,7 @@ const {
   logoSrc = '/logos/CPVPLogo.svg',
   companyName = 'Company name',
   showCompanyPicker = true,
+  companyColor,
   class: className = ''
 } = Astro.props;
 ---
@@ -34,11 +36,29 @@ const {
       <>
         <!-- Company Picker -->
         <div class="company-picker">
-          <button class="company-picker__btn">
-            <span class="company-picker__indicator"></span>
-            <span class="company-picker__name">{companyName}</span>
+          <button class="company-picker__btn" data-company-picker-btn>
+            <span 
+              class="company-picker__indicator"
+              data-company-indicator
+              style={companyColor ? `background-color: ${companyColor}` : undefined}
+            ></span>
+            <span class="company-picker__name" data-company-name>{companyName}</span>
             <Icon name="chevron-down" size="sm" class="company-picker__chevron" />
           </button>
+          <div class="company-picker__menu" data-company-picker-menu>
+            <button class="company-picker__option company-picker__option--selected" data-company-option data-company-id="acme-corp" data-company-color="#FF507B">
+              <span class="company-picker__option-indicator" style="background-color: #FF507B;"></span>
+              <span class="company-picker__option-name">Acme Corporation</span>
+            </button>
+            <button class="company-picker__option" data-company-option data-company-id="tech-industries" data-company-color="#0073E6">
+              <span class="company-picker__option-indicator" style="background-color: #0073E6;"></span>
+              <span class="company-picker__option-name">Tech Industries</span>
+            </button>
+            <button class="company-picker__option" data-company-option data-company-id="global-services" data-company-color="#0073E6">
+              <span class="company-picker__option-indicator" style="background-color: #0073E6;"></span>
+              <span class="company-picker__option-name">Global Services</span>
+            </button>
+          </div>
         </div>
 
         <div class="divider"></div>
@@ -50,5 +70,90 @@ const {
   </div>
 
   <!-- Gradient Border -->
-  <div class="header__gradient"></div>
+  <div 
+    class="header__gradient"
+    data-header-gradient
+    style={companyColor ? `background: linear-gradient(to right, ${companyColor}05, ${companyColor} 50%, ${companyColor}05)` : undefined}
+  ></div>
 </header>
+
+<script>
+  let outsideClickListenerAdded = false;
+  
+  function initCompanyPickers() {
+    document.querySelectorAll('[data-company-picker-btn]').forEach((pickerBtn) => {
+      // Skip if already initialized
+      if (pickerBtn.hasAttribute('data-init')) return;
+      pickerBtn.setAttribute('data-init', 'true');
+      
+      const pickerMenu = pickerBtn.parentElement?.querySelector('[data-company-picker-menu]');
+      if (!pickerMenu) return;
+      
+      // Find the header element that contains this picker
+      const header = pickerBtn.closest('.header');
+      if (!header) return;
+      
+      const companyIndicator = pickerBtn.querySelector('[data-company-indicator]') as HTMLElement;
+      const companyName = pickerBtn.querySelector('[data-company-name]') as HTMLElement;
+      const headerGradient = header.querySelector('[data-header-gradient]') as HTMLElement;
+      
+      // Toggle dropdown on button click
+      pickerBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        pickerMenu.classList.toggle('company-picker__menu--open');
+      });
+      
+      // Handle company selection
+      pickerMenu.querySelectorAll('[data-company-option]').forEach((option) => {
+        option.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const companyId = option.getAttribute('data-company-id');
+          const companyColor = option.getAttribute('data-company-color');
+          const optionName = option.querySelector('.company-picker__option-name')?.textContent;
+          
+          // Update selected state
+          pickerMenu.querySelectorAll('[data-company-option]').forEach(opt => {
+            opt.classList.remove('company-picker__option--selected');
+          });
+          option.classList.add('company-picker__option--selected');
+          
+          // Update display
+          if (companyName && optionName) {
+            companyName.textContent = optionName;
+          }
+          
+          // Update indicator color
+          if (companyIndicator && companyColor) {
+            companyIndicator.style.backgroundColor = companyColor;
+          }
+          
+          // Update gradient border
+          if (headerGradient && companyColor) {
+            headerGradient.style.background = `linear-gradient(to right, ${companyColor}05, ${companyColor} 50%, ${companyColor}05)`;
+          }
+          
+          // Close menu
+          pickerMenu.classList.remove('company-picker__menu--open');
+        });
+      });
+    });
+    
+    // Close dropdown when clicking outside (only one listener needed)
+    if (!outsideClickListenerAdded) {
+      outsideClickListenerAdded = true;
+      document.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        document.querySelectorAll('[data-company-picker-menu]').forEach((menu) => {
+          const btn = menu.parentElement?.querySelector('[data-company-picker-btn]');
+          if (btn && !btn.contains(target) && !menu.contains(target)) {
+            menu.classList.remove('company-picker__menu--open');
+          }
+        });
+      });
+    }
+  }
+  
+  // Initialize on page load
+  initCompanyPickers();
+  document.addEventListener('astro:page-load', initCompanyPickers);
+</script>

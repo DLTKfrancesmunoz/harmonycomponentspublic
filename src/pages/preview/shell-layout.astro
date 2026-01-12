@@ -52,6 +52,7 @@ const sampleTabs = [
       productName="Harmony"
       logoSrc="/logos/CPVPLogo.svg"
       companyName="Acme Corporation"
+      companyColor="#FF507B"
       showCompanyPicker={true}
       showFloatingNav={true}
       floatingNavVariant="full"
@@ -61,18 +62,21 @@ const sampleTabs = [
       showMoreTabs={false}
       showAddTab={true}
       footerVariant="default"
+      pageHeaderTitle="Shell Layout Preview"
+      pageHeaderSubtitle="Complete application structure with all shell components"
+      pageHeaderOutlineButton1={{ text: "Export", icon: "arrow-down-tray" }}
+      pageHeaderOutlineButton2={{ text: "Share", icon: "share" }}
+      pageHeaderPrimaryButton={{ text: "Save", icon: "check" }}
     >
-      <div style="width: 100%; padding-left: var(--space-5); padding-right: var(--space-5); padding-top: var(--space-6); padding-bottom: var(--space-6);">
-        <Card primary>
-          <div style="padding: var(--space-6);">
-            <h2 style="font-size: var(--heading-l); font-weight: var(--font-semibold); margin-bottom: var(--space-2);">Page Content Area</h2>
-            <p style="color: var(--text-secondary);">
-              This is where your application content lives. The shell provides the structure,
-              and you provide the content.
-            </p>
-          </div>
-        </Card>
-      </div>
+      <Card primary elevated>
+        <div class="card__body">
+          <h2 class="text-xl font-semibold mb-2">Page Content Area</h2>
+          <p class="text-secondary">
+            This is where your application content lives. The shell provides the structure,
+            and you provide the content.
+          </p>
+        </div>
+      </Card>
     </ShellLayout>
   </body>
 </html>

@@ -1,0 +1,460 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import ExampleSection from '../../components/ExampleSection.astro';
+import ShellPageHeader from '../../components/ui/ShellPageHeader.astro';
+import Card from '../../components/ui/Card.astro';
+import Icon from '../../components/ui/Icon.astro';
+import ShellLayout from '../../components/ui/ShellLayout.astro';
+---
+
+<DocsLayout title="Shell Page Header" description="Page header component that displays above page content cards with title, subtitle, and action buttons.">
+  <article class="space-y-12">
+    <header class="page-header page-header--compact">
+      <h1 class="page-header__title page-header__title--sm">Shell Page Header</h1>
+      <p class="page-header__description">
+        The Shell Page Header appears above page content cards in the shell layout. It displays a title and optional subtitle on the left, with up to 4 optional action buttons on the right (1 primary dark blue button and up to 3 outline variant buttons).
+      </p>
+    </header>
+
+    <!-- Overview Section -->
+    <section class="space-y-6">
+      <h2 class="section__title">Overview</h2>
+
+      <div class="card">
+        <div class="card__body">
+          <h3 class="font-semibold text-primary mb-2">Page-Level Header</h3>
+          <p class="text-sm text-secondary mb-4">
+            The Shell Page Header provides a consistent pattern for page titles and primary actions. It sits above the page content card, creating clear visual hierarchy and making key actions easily accessible.
+          </p>
+          <ul class="list-disc list-inside text-sm text-secondary space-y-1">
+            <li>Positioned above page content cards within the shell layout main area</li>
+            <li>Title and subtitle stacked on the left side</li>
+            <li>Up to 4 optional action buttons on the right (outline buttons first, then primary)</li>
+            <li>Uses dark blue page header button styles (#043852)</li>
+            <li>Responsive layout that stacks on mobile devices</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Examples Section -->
+    <section class="space-y-6">
+      <h2 class="section__title">Examples</h2>
+
+      <ExampleSection
+        title="Basic Header with Title Only"
+        description="Simple header with just a title. No subtitle or buttons."
+      >
+        <div class="p-6 bg-page rounded-lg">
+          <ShellPageHeader title="Project Details" />
+          <Card>
+            <div class="p-6">
+              <p class="text-sm text-secondary">Page content goes here...</p>
+            </div>
+          </Card>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection
+        title="Header with Title and Subtitle"
+        description="Header with both title and subtitle, but no action buttons."
+      >
+        <div class="p-6 bg-page rounded-lg">
+          <ShellPageHeader 
+            title="Project Settings"
+            subtitle="Configure project preferences and team access"
+          />
+          <Card>
+            <div class="p-6">
+              <p class="text-sm text-secondary">Page content goes here...</p>
+            </div>
+          </Card>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection
+        title="Header with Primary Button Only"
+        description="Header with title, subtitle, and a single primary action button."
+      >
+        <div class="p-6 bg-page rounded-lg">
+          <ShellPageHeader 
+            title="Create New Project"
+            subtitle="Set up a new project workspace"
+            primaryButton={{ text: "Create Project", icon: "plus" }}
+          />
+          <Card>
+            <div class="p-6">
+              <p class="text-sm text-secondary">Page content goes here...</p>
+            </div>
+          </Card>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection
+        title="Header with Primary and Outline Buttons"
+        description="Header with one primary button and multiple outline buttons. Outline buttons appear first, then the primary button."
+      >
+        <div class="p-6 bg-page rounded-lg">
+          <ShellPageHeader 
+            title="Edit Project"
+            subtitle="Update project details and settings"
+            outlineButton1={{ text: "Cancel", icon: "x-mark" }}
+            outlineButton2={{ text: "Reset", icon: "arrow-path" }}
+            primaryButton={{ text: "Save Changes", icon: "check" }}
+          />
+          <Card>
+            <div class="p-6">
+              <p class="text-sm text-secondary">Page content goes here...</p>
+            </div>
+          </Card>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection
+        title="Header with All Buttons"
+        description="Header with maximum configuration: title, subtitle, 3 outline buttons, and 1 primary button."
+      >
+        <div class="p-6 bg-page rounded-lg">
+          <ShellPageHeader 
+            title="Project Dashboard"
+            subtitle="View and manage project metrics and team activity"
+            outlineButton1={{ text: "Export", icon: "arrow-down-tray" }}
+            outlineButton2={{ text: "Share", icon: "share" }}
+            outlineButton3={{ text: "Settings", icon: "cog-6-tooth" }}
+            primaryButton={{ text: "New Task", icon: "plus" }}
+          />
+          <Card>
+            <div class="p-6">
+              <p class="text-sm text-secondary">Page content goes here...</p>
+            </div>
+          </Card>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection
+        title="In Shell Layout Context"
+        description="Shell Page Header used within the full shell layout pattern."
+      >
+        <div class="shell-demo-container" style="height: 500px;">
+          <ShellLayout
+            productName="Harmony"
+            logoSrc="/logos/CPVPLogo.svg"
+            companyName="Acme Corporation"
+            showCompanyPicker={true}
+            showFloatingNav={false}
+            tabs={[]}
+            showAddTab={false}
+          >
+            <ShellPageHeader 
+              title="Project Overview"
+              subtitle="Review project status and key metrics"
+              outlineButton1={{ text: "Export", icon: "arrow-down-tray" }}
+              outlineButton2={{ text: "Share", icon: "share" }}
+              primaryButton={{ text: "Edit Project", icon: "pencil" }}
+            />
+            <Card primary>
+              <div class="p-6">
+                <h3 class="text-lg font-semibold text-primary mb-2">Project Status</h3>
+                <p class="text-sm text-secondary">
+                  This card appears below the page header. The header provides context and actions for the page content.
+                </p>
+              </div>
+            </Card>
+          </ShellLayout>
+        </div>
+      </ExampleSection>
+    </section>
+
+    <!-- Props Section -->
+    <section class="space-y-6">
+      <h2 class="section__title">Props</h2>
+
+      <div class="card">
+        <div class="card__body">
+          <div class="overflow-x-auto">
+            <table class="props-table">
+              <thead>
+                <tr>
+                  <th>Prop</th>
+                  <th>Type</th>
+                  <th>Required</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>title</code></td>
+                  <td><code>string</code></td>
+                  <td>Yes</td>
+                  <td>Page title displayed on the left side</td>
+                </tr>
+                <tr>
+                  <td><code>subtitle</code></td>
+                  <td><code>string</code></td>
+                  <td>No</td>
+                  <td>Optional subtitle displayed below the title</td>
+                </tr>
+                <tr>
+                  <td><code>primaryButton</code></td>
+                  <td><code>ButtonConfig</code></td>
+                  <td>No</td>
+                  <td>Primary action button (solid dark blue). Appears rightmost.</td>
+                </tr>
+                <tr>
+                  <td><code>outlineButton1</code></td>
+                  <td><code>ButtonConfig</code></td>
+                  <td>No</td>
+                  <td>First outline button (appears before primary button)</td>
+                </tr>
+                <tr>
+                  <td><code>outlineButton2</code></td>
+                  <td><code>ButtonConfig</code></td>
+                  <td>No</td>
+                  <td>Second outline button</td>
+                </tr>
+                <tr>
+                  <td><code>outlineButton3</code></td>
+                  <td><code>ButtonConfig</code></td>
+                  <td>No</td>
+                  <td>Third outline button</td>
+                </tr>
+                <tr>
+                  <td><code>class</code></td>
+                  <td><code>string</code></td>
+                  <td>No</td>
+                  <td>Additional CSS classes</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card__body">
+          <h3 class="font-semibold text-primary mb-3">ButtonConfig Interface</h3>
+          <div class="text-sm text-secondary mb-3">
+            <p class="mb-2">Each button configuration object has the following properties:</p>
+            <ul class="list-disc list-inside space-y-1">
+              <li><code>text</code> (string, required) - Button label</li>
+              <li><code>icon</code> (string, optional) - Heroicon name (e.g., "plus", "check", "x-mark")</li>
+              <li><code>href</code> (string, optional) - URL for link buttons</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Usage Guidelines Section -->
+    <section class="space-y-6">
+      <h2 class="section__title">Usage Guidelines</h2>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="guideline-card guideline-card--do">
+          <h3 class="guideline-card__title">
+            <Icon name="check-circle" size="sm" />
+            Do
+          </h3>
+          <ul class="guideline-card__list">
+            <li>Use for page-level headers above content cards</li>
+            <li>Keep titles concise and descriptive</li>
+            <li>Use subtitle for additional context when needed</li>
+            <li>Place primary action (most important) as the rightmost button</li>
+            <li>Order outline buttons by importance (left to right)</li>
+            <li>Use icons to improve button recognition</li>
+            <li>Limit to 4 buttons total for clarity</li>
+          </ul>
+        </div>
+
+        <div class="guideline-card guideline-card--dont">
+          <h3 class="guideline-card__title">
+            <Icon name="x-circle" size="sm" />
+            Don't
+          </h3>
+          <ul class="guideline-card__list">
+            <li>Don't use for section headers within page content</li>
+            <li>Don't exceed 4 buttons (consider dropdown menus for more actions)</li>
+            <li>Don't use overly long titles or subtitles</li>
+            <li>Don't place primary button before outline buttons</li>
+            <li>Don't use for navigation or breadcrumbs</li>
+            <li>Don't mix button types (all should be page header style)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Implementation Notes Section -->
+    <section class="space-y-6">
+      <h2 class="section__title">Implementation Notes</h2>
+
+      <div class="space-y-4">
+        <div class="card">
+          <div class="card__body">
+            <h3 class="font-semibold text-primary mb-3">
+              <Icon name="code-bracket" size="sm" class="inline mr-2" />
+              Basic Usage
+            </h3>
+            <p class="text-sm text-secondary mb-3">
+              The Shell Page Header is used within the ShellLayout's main content area, above page content cards.
+            </p>
+            <div class="text-xs bg-elevated p-4 rounded font-mono">
+              &lt;ShellLayout&gt;<br />
+              &nbsp;&nbsp;&lt;ShellPageHeader<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;title="Page Title"<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;subtitle="Optional subtitle"<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;primaryButton=&#123;&#123; text: "Save", icon: "check" &#125;&#125;<br />
+              &nbsp;&nbsp;/&gt;<br />
+              &nbsp;&nbsp;&lt;Card&gt;...&lt;/Card&gt;<br />
+              &lt;/ShellLayout&gt;
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__body">
+            <h3 class="font-semibold text-primary mb-3">
+              <Icon name="swatch" size="sm" class="inline mr-2" />
+              Button Styling
+            </h3>
+            <p class="text-sm text-secondary mb-3">
+              All buttons use the page header button style with dark blue (#043852) colors:
+            </p>
+            <ul class="text-sm text-secondary space-y-2">
+              <li>• Primary button: Solid dark blue background with white text</li>
+              <li>• Outline buttons: Transparent background with dark blue border and text</li>
+              <li>• Both variants use <code class="text-xs bg-elevated px-1 py-0.5 rounded">buttonType="pageHeader"</code></li>
+              <li>• Standard button size is <code class="text-xs bg-elevated px-1 py-0.5 rounded">md</code> (40px height)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__body">
+            <h3 class="font-semibold text-primary mb-3">
+              <Icon name="arrows-pointing-out" size="sm" class="inline mr-2" />
+              Typography
+            </h3>
+            <p class="text-sm text-secondary mb-3">
+              The component uses design system typography tokens:
+            </p>
+            <ul class="text-sm text-secondary space-y-2">
+              <li>• Title: <code class="text-xs bg-elevated px-1 py-0.5 rounded">text-heading-l</code> (24px, semibold, Lexend font)</li>
+              <li>• Subtitle: <code class="text-xs bg-elevated px-1 py-0.5 rounded">text-base</code> (16px, normal, Figtree font)</li>
+              <li>• Title and subtitle are stacked vertically with appropriate spacing</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__body">
+            <h3 class="font-semibold text-primary mb-3">
+              <Icon name="device-phone-mobile" size="sm" class="inline mr-2" />
+              Responsive Behavior
+            </h3>
+            <p class="text-sm text-secondary mb-3">
+              On mobile devices (below md breakpoint), the layout adapts:
+            </p>
+            <ul class="text-sm text-secondary space-y-2">
+              <li>• Header switches to vertical layout (title/subtitle on top, buttons below)</li>
+              <li>• Buttons wrap to multiple lines if needed</li>
+              <li>• Buttons maintain minimum width for touch targets</li>
+              <li>• Spacing adjusts for smaller screens</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Accessibility Section -->
+    <section class="space-y-6">
+      <h2 class="section__title">Accessibility</h2>
+
+      <div class="grid gap-4 md:grid-cols-2">
+        <div class="a11y-card">
+          <h3 class="a11y-card__title">
+            <Icon name="document-text" size="sm" class="a11y-card__title-icon" />
+            Semantic HTML
+          </h3>
+          <p class="a11y-card__text">
+            The component uses a semantic <code>&lt;header&gt;</code> element with an <code>&lt;h1&gt;</code> for the title, ensuring proper document structure and heading hierarchy.
+          </p>
+        </div>
+
+        <div class="a11y-card">
+          <h3 class="a11y-card__title">
+            <Icon name="hand-raised" size="sm" class="a11y-card__title-icon" />
+            Keyboard Navigation
+          </h3>
+          <p class="a11y-card__text">
+            All buttons are fully keyboard accessible. Use Tab to navigate between buttons, and Enter or Space to activate. Focus indicators are provided for all interactive elements.
+          </p>
+        </div>
+
+        <div class="a11y-card">
+          <h3 class="a11y-card__title">
+            <Icon name="eye" size="sm" class="a11y-card__title-icon" />
+            Color Contrast
+          </h3>
+          <p class="a11y-card__text">
+            Button colors meet WCAG AA contrast requirements. The dark blue (#043852) provides sufficient contrast against white backgrounds for both text and borders.
+          </p>
+        </div>
+
+        <div class="a11y-card">
+          <h3 class="a11y-card__title">
+            <Icon name="chat-bubble-left-right" size="sm" class="a11y-card__title-icon" />
+            Button Labels
+          </h3>
+          <p class="a11y-card__text">
+            Buttons include both text labels and optional icons. Icons enhance recognition but don't replace text, ensuring screen reader compatibility.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related Components Section -->
+    <section class="space-y-6">
+      <h2 class="section__title">Related Components</h2>
+
+      <div class="grid md:grid-cols-3 gap-4">
+        <a href="/shell/layout" class="card card--interactive">
+          <div class="card__body">
+            <Icon name="view-columns" size="md" class="text-primary mb-3" />
+            <h3 class="font-semibold text-primary mb-2">Shell Layout</h3>
+            <p class="text-sm text-secondary">Complete shell layout structure where page headers are used</p>
+          </div>
+        </a>
+
+        <a href="/components/buttons" class="card card--interactive">
+          <div class="card__body">
+            <Icon name="cursor-arrow-ripple" size="md" class="text-primary mb-3" />
+            <h3 class="font-semibold text-primary mb-2">Button Component</h3>
+            <p class="text-sm text-secondary">Button component used in page headers with page header styling</p>
+          </div>
+        </a>
+
+        <a href="/shell/page-content" class="card card--interactive">
+          <div class="card__body">
+            <Icon name="rectangle-stack" size="md" class="text-primary mb-3" />
+            <h3 class="font-semibold text-primary mb-2">Shell Page Content</h3>
+            <p class="text-sm text-secondary">Page content cards that appear below the page header</p>
+          </div>
+        </a>
+      </div>
+    </section>
+  </article>
+</DocsLayout>
+
+<style>
+  .shell-demo-container {
+    height: 100vh;
+    width: 100%;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    background: var(--page-bg);
+    position: relative;
+    transform: translateZ(0);
+    isolation: isolate;
+  }
+</style>

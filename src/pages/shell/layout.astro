@@ -2,6 +2,7 @@
 import DocsLayout from '../../layouts/DocsLayout.astro';
 import ExampleSection from '../../components/ExampleSection.astro';
 import ShellLayout from '../../components/ui/ShellLayout.astro';
+import ShellPageHeader from '../../components/ui/ShellPageHeader.astro';
 import Card from '../../components/ui/Card.astro';
 import Icon from '../../components/ui/Icon.astro';
 
@@ -57,9 +58,12 @@ const sampleTabs = [
             showMoreTabs={false}
             showAddTab={true}
             footerVariant="default"
+            pageHeaderTitle="Shell Layout Demo"
+            pageHeaderSubtitle="Complete application structure with all shell components"
+            pageHeaderOutlineButton1={{ text: "Export", icon: "arrow-down-tray" }}
+            pageHeaderPrimaryButton={{ text: "Save", icon: "check" }}
           >
-            <div class="shell-demo-content">
-              <Card primary>
+            <Card primary>
                 <div class="p-6">
                   <h2 class="text-xl font-semibold mb-2">Page Content Area</h2>
                   <p class="text-secondary">
@@ -96,7 +100,6 @@ const sampleTabs = [
                   </p>
                 </div>
               </Card>
-            </div>
           </ShellLayout>
         </div>
       </ExampleSection>
@@ -300,6 +303,13 @@ const sampleTabs = [
           </div>
           <span class="nav-card__title">Right Sidebar</span>
         </a>
+
+        <a href="/shell/page-header" class="nav-card">
+          <div class="nav-card__icon-wrap">
+            <Icon name="document-text" size="sm" class="nav-card__icon" />
+          </div>
+          <span class="nav-card__title">Page Header</span>
+        </a>
       </div>
     </section>
   </article>
@@ -307,7 +317,7 @@ const sampleTabs = [
 
 <style>
   .shell-demo-container {
-    height: 700px;
+    height: 100vh;
     width: 100%;
     border: 1px solid var(--border-color);
     overflow: hidden;
@@ -317,11 +327,6 @@ const sampleTabs = [
     /* Create a new containing block for fixed-position children */
     transform: translateZ(0);
     isolation: isolate;
-  }
-
-  .shell-demo-content {
-    max-width: 1200px;
-    margin: 0 auto;
   }
 
   .demo-spacing {

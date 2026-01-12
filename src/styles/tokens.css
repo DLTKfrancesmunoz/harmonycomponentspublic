@@ -93,11 +93,13 @@
   --shell-footer-height-compact: 40px;
   --shell-layout-padding-top: 88px;
   --shell-layout-padding-side-default: 52px;
-  --shell-layout-padding-side-standard: 89px;
+  --shell-layout-padding-side-standard: 52px;
   --shell-layout-padding-side-tablet: 32px;
   --shell-layout-padding-side-mobile: 16px;
   --dropdown-min-width: 200px;
   --dropdown-max-height: 400px;
+  --panel-width-narrow: 596px;
+  --panel-width-full: 1300px;
   --border-width-thin: 1px;
   --border-width-medium: 3px;
 
@@ -169,6 +171,15 @@
 
   /* Focus Ring */
   --focus-ring-opacity: 0.32;
+  --focus-ring-primary: 0 0 0 3px var(--theme-primary-light), 0 0 0 4px var(--card-bg);
+  --focus-ring-page-header: 0 0 0 3px rgba(4, 56, 82, 0.32), 0 0 0 4px var(--card-bg);
+  --focus-ring-error: 0 0 0 1px var(--border-color), 0 0 0 3px var(--color-error-focus);
+  --focus-ring-error-checked: 0 0 0 2px var(--color-error), 0 0 0 3px var(--color-error-focus);
+  --focus-ring-warning: 0 0 0 1px var(--border-color), 0 0 0 3px var(--color-warning-focus);
+
+  /* Inset Shadows (Pressed States) */
+  --shadow-inset-sm: inset 0 1px 4px 0 rgba(0, 0, 0, 0.1);
+  --shadow-inset-md: inset 0 1px 4px 0 rgba(0, 0, 0, 0.2);
 
   /* Dialog Component Tokens */
   --overlay-backdrop-opacity: rgba(0, 0, 0, 0.5);
@@ -181,6 +192,28 @@
   --dropdown-height: 40px;
   --dropdown-height-cp: 20px;
   --dropdown-menu-max-height: 300px;
+  
+  /* Button Size Tokens */
+  --button-height-xs: 24px;
+  --button-height-sm: 32px;
+  --button-height-md: 40px;
+  --button-height-lg: 48px;
+
+  /* Avatar Size Tokens */
+  --avatar-size-sm: 32px;
+  --avatar-size-md: 40px;
+  --avatar-size-lg: 48px;
+
+  /* Badge Size Tokens */
+  --badge-height-sm: 19px;
+  --badge-height-md: 19px;
+  --badge-height-lg: 19px;
+  --badge-min-width-sm: 19px;
+  --badge-min-width-md: 19px;
+  --badge-min-width-lg: 32px;
+  --badge-dot-size-sm: 6px;
+  --badge-dot-size-md: 10px;
+  --badge-dot-size-lg: 15px;
   
   /* Icon Size Tokens */
   --icon-xs: 12px;
@@ -287,10 +320,10 @@ html.theme-cp {
   --theme-btn-primary-hover: #1D4A7A;
   --theme-btn-primary-disabled-bg: #e0e4eb;
   --theme-btn-primary-disabled-fg: #bfc6d4;
-  --theme-btn-secondary-stroke: #1D4A7A;
+  --theme-btn-secondary-stroke: var(--theme-primary);
   --theme-btn-secondary-hover-bg: #eaeff5;
-  --theme-btn-secondary-hover-fg: #1D4A7A;
-  --theme-btn-secondary-hover-stroke: #1D4A7A;
+  --theme-btn-secondary-hover-fg: var(--theme-primary);
+  --theme-btn-secondary-hover-stroke: var(--theme-primary);
   --theme-btn-secondary-disabled-fg: #e0e4eb;
   --theme-btn-tertiary-fg: var(--theme-primary);
   --theme-btn-tertiary-hover-bg: #eaeff5;
@@ -373,10 +406,10 @@ html.theme-cp.dark {
   --theme-btn-primary-hover: #3D6BA8;
   --theme-btn-primary-disabled-bg: #e0e4eb;
   --theme-btn-primary-disabled-fg: #bfc6d4;
-  --theme-btn-secondary-stroke: #3D6BA8;
+  --theme-btn-secondary-stroke: var(--theme-primary);
   --theme-btn-secondary-hover-bg: #eaeff5;
-  --theme-btn-secondary-hover-fg: #3D6BA8;
-  --theme-btn-secondary-hover-stroke: #3D6BA8;
+  --theme-btn-secondary-hover-fg: var(--theme-primary);
+  --theme-btn-secondary-hover-stroke: var(--theme-primary);
   --theme-btn-secondary-disabled-fg: #e0e4eb;
   --theme-btn-tertiary-fg: var(--theme-primary);
   --theme-btn-tertiary-hover-bg: #eaeff5;
@@ -457,10 +490,10 @@ html.theme-vp {
   --theme-btn-primary-hover: #1D4A7A;
   --theme-btn-primary-disabled-bg: #e0e4eb;
   --theme-btn-primary-disabled-fg: #bfc6d4;
-  --theme-btn-secondary-stroke: #1D4A7A;
+  --theme-btn-secondary-stroke: var(--theme-primary);
   --theme-btn-secondary-hover-bg: #eaeff5;
-  --theme-btn-secondary-hover-fg: #1D4A7A;
-  --theme-btn-secondary-hover-stroke: #1D4A7A;
+  --theme-btn-secondary-hover-fg: var(--theme-primary);
+  --theme-btn-secondary-hover-stroke: var(--theme-primary);
   --theme-btn-secondary-disabled-fg: #e0e4eb;
   --theme-btn-tertiary-fg: var(--theme-primary);
   --theme-btn-tertiary-hover-bg: #eaeff5;
@@ -541,10 +574,10 @@ html.theme-vp.dark {
   --theme-btn-primary-hover: #3D6BA8;
   --theme-btn-primary-disabled-bg: #e0e4eb;
   --theme-btn-primary-disabled-fg: #bfc6d4;
-  --theme-btn-secondary-stroke: #3D6BA8;
+  --theme-btn-secondary-stroke: var(--theme-primary);
   --theme-btn-secondary-hover-bg: #eaeff5;
-  --theme-btn-secondary-hover-fg: #3D6BA8;
-  --theme-btn-secondary-hover-stroke: #3D6BA8;
+  --theme-btn-secondary-hover-fg: var(--theme-primary);
+  --theme-btn-secondary-hover-stroke: var(--theme-primary);
   --theme-btn-secondary-disabled-fg: #e0e4eb;
   --theme-btn-tertiary-fg: var(--theme-primary);
   --theme-btn-tertiary-hover-bg: #eaeff5;
@@ -625,10 +658,10 @@ html.theme-ppm {
   --theme-btn-primary-hover: #1D4A7A;
   --theme-btn-primary-disabled-bg: #e0e4eb;
   --theme-btn-primary-disabled-fg: #bfc6d4;
-  --theme-btn-secondary-stroke: #1D4A7A;
+  --theme-btn-secondary-stroke: var(--theme-primary);
   --theme-btn-secondary-hover-bg: #eaeff5;
-  --theme-btn-secondary-hover-fg: #1D4A7A;
-  --theme-btn-secondary-hover-stroke: #1D4A7A;
+  --theme-btn-secondary-hover-fg: var(--theme-primary);
+  --theme-btn-secondary-hover-stroke: var(--theme-primary);
   --theme-btn-secondary-disabled-fg: #e0e4eb;
   --theme-btn-tertiary-fg: var(--theme-primary);
   --theme-btn-tertiary-hover-bg: #eaeff5;
@@ -709,10 +742,10 @@ html.theme-ppm.dark {
   --theme-btn-primary-hover: #3D6BA8;
   --theme-btn-primary-disabled-bg: #e0e4eb;
   --theme-btn-primary-disabled-fg: #bfc6d4;
-  --theme-btn-secondary-stroke: #3D6BA8;
+  --theme-btn-secondary-stroke: var(--theme-primary);
   --theme-btn-secondary-hover-bg: #eaeff5;
-  --theme-btn-secondary-hover-fg: #3D6BA8;
-  --theme-btn-secondary-hover-stroke: #3D6BA8;
+  --theme-btn-secondary-hover-fg: var(--theme-primary);
+  --theme-btn-secondary-hover-stroke: var(--theme-primary);
   --theme-btn-secondary-disabled-fg: #e0e4eb;
   --theme-btn-tertiary-fg: var(--theme-primary);
   --theme-btn-tertiary-hover-bg: #eaeff5;
@@ -793,10 +826,10 @@ html.theme-maconomy {
   --theme-btn-primary-hover: #1D4A7A;
   --theme-btn-primary-disabled-bg: #e0e4eb;
   --theme-btn-primary-disabled-fg: #bfc6d4;
-  --theme-btn-secondary-stroke: #1D4A7A;
+  --theme-btn-secondary-stroke: var(--theme-primary);
   --theme-btn-secondary-hover-bg: #eaeff5;
-  --theme-btn-secondary-hover-fg: #1D4A7A;
-  --theme-btn-secondary-hover-stroke: #1D4A7A;
+  --theme-btn-secondary-hover-fg: var(--theme-primary);
+  --theme-btn-secondary-hover-stroke: var(--theme-primary);
   --theme-btn-secondary-disabled-fg: #e0e4eb;
   --theme-btn-tertiary-fg: var(--theme-primary);
   --theme-btn-tertiary-hover-bg: #eaeff5;
@@ -877,10 +910,10 @@ html.theme-maconomy.dark {
   --theme-btn-primary-hover: #3D6BA8;
   --theme-btn-primary-disabled-bg: #e0e4eb;
   --theme-btn-primary-disabled-fg: #bfc6d4;
-  --theme-btn-secondary-stroke: #3D6BA8;
+  --theme-btn-secondary-stroke: var(--theme-primary);
   --theme-btn-secondary-hover-bg: #eaeff5;
-  --theme-btn-secondary-hover-fg: #3D6BA8;
-  --theme-btn-secondary-hover-stroke: #3D6BA8;
+  --theme-btn-secondary-hover-fg: var(--theme-primary);
+  --theme-btn-secondary-hover-stroke: var(--theme-primary);
   --theme-btn-secondary-disabled-fg: #e0e4eb;
   --theme-btn-tertiary-fg: var(--theme-primary);
   --theme-btn-tertiary-hover-bg: #eaeff5;

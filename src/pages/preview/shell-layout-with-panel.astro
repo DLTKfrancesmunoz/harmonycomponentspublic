@@ -1,0 +1,123 @@
+---
+/**
+ * Standalone Preview Page for ShellLayout with Panel Integration
+ * 
+ * View the component in isolation without documentation.
+ * Access at: /preview/shell-layout-with-panel
+ */
+import '../../styles/global.css';
+import ShellLayout from '../../components/ui/ShellLayout.astro';
+import Card from '../../components/ui/Card.astro';
+
+const sampleTabs = [
+  { id: '1', label: 'Dashboard', active: true },
+  { id: '2', label: 'Projects', active: false },
+  { id: '3', label: 'Reports', active: false },
+  { id: '4', label: 'Settings', active: false },
+];
+
+// Panel configurations (panels won't render yet, but props are ready)
+const leftPanelConfig = {
+  side: 'left' as const,
+  open: false,
+  title: 'Left Panel',
+  titleIcon: 'squares-2x2',
+  headerVariant: 'theme' as const,
+  width: 'narrow' as const,
+  showClose: true,
+  showPopout: true,
+  id: 'left-panel',
+};
+
+const rightPanelConfig = {
+  side: 'right' as const,
+  open: false,
+  title: 'Actions', // Default title - will be updated dynamically when items are clicked
+  titleIcon: 'ellipsis-horizontal-circle',
+  headerVariant: 'default' as const,
+  width: 'narrow' as const,
+  showClose: true,
+  showPopout: true,
+  id: 'right-panel',
+};
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script is:inline>
+      // Immediately apply saved theme to prevent flash
+      (function() {
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const savedColorTheme = localStorage.getItem('colorTheme') || 'ppm';
+        if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+        document.documentElement.classList.add('theme-' + savedColorTheme);
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shell Layout with Panel Preview</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      html, body {
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <ShellLayout
+      productName="Harmony"
+      logoSrc="/logos/CPVPLogo.svg"
+      companyName="Acme Corporation"
+      companyColor="#FF507B"
+      showCompanyPicker={true}
+      showFloatingNav={false}
+      tabs={sampleTabs}
+      showMoreTabs={false}
+      showAddTab={true}
+      footerVariant="default"
+      leftSidebarVariant="cp"
+      rightSidebarVariant="cp"
+      pageHeaderTitle="Shell Layout with Panel Preview"
+      pageHeaderSubtitle="Complete shell layout with header, sidebars, and footer (no floating nav)"
+      pageHeaderOutlineButton1={{ text: "Export", icon: "arrow-down-tray" }}
+      pageHeaderOutlineButton2={{ text: "Share", icon: "share" }}
+      pageHeaderPrimaryButton={{ text: "Save", icon: "check" }}
+      leftPanel={leftPanelConfig}
+      rightPanel={rightPanelConfig}
+    >
+      <Card primary elevated>
+        <div class="card__body">
+          <h2 class="text-xl font-semibold mb-2">Page Content Area</h2>
+          <p class="text-secondary mb-4">
+            This preview demonstrates the ShellLayout component with panel integration props.
+            The shell provides the structure with header, left sidebar, right sidebar, and footer.
+            Floating nav is disabled for this preview.
+          </p>
+          <p class="text-secondary">
+            Click any item in the right sidebar to open a contextual panel. The panel title and icon
+            will update dynamically based on which item you click. When the panel is open, hovering
+            over sidebar icons will show tooltips instead of expanding the sidebar.
+          </p>
+          <div class="mt-4 p-4 bg-card rounded-lg">
+            <h3 class="font-semibold mb-2">Panel States:</h3>
+            <ul class="list-disc list-inside space-y-1 text-sm text-secondary">
+              <li><strong>Default:</strong> Sidebar collapsed (icons only)</li>
+              <li><strong>Hover:</strong> Sidebar expands to show labels</li>
+              <li><strong>Panel Open:</strong> Panel slides in, sidebar stays collapsed</li>
+              <li><strong>Panel Open + Hover:</strong> Tooltips appear on icon hover</li>
+            </ul>
+          </div>
+        </div>
+      </Card>
+    </ShellLayout>
+  </body>
+</html>

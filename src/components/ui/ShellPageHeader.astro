@@ -1,0 +1,149 @@
+---
+/**
+ * Shell Page Header Component
+ *
+ * Header component that appears above page content cards in the shell layout.
+ * Displays title and subtitle on the left, with up to 4 optional action buttons on the right.
+ */
+import Button from './Button.astro';
+
+export interface ButtonConfig {
+  text: string;
+  icon?: string;
+  href?: string;
+}
+
+export interface Props {
+  title: string;
+  subtitle?: string;
+  primaryButton?: ButtonConfig;
+  outlineButton1?: ButtonConfig;
+  outlineButton2?: ButtonConfig;
+  outlineButton3?: ButtonConfig;
+  class?: string;
+}
+
+const {
+  title,
+  subtitle,
+  primaryButton,
+  outlineButton1,
+  outlineButton2,
+  outlineButton3,
+  class: className = '',
+} = Astro.props;
+
+// Collect all outline buttons in order
+const outlineButtons = [outlineButton1, outlineButton2, outlineButton3].filter(Boolean);
+---
+
+<header class={`shell-page-header ${className}`}>
+  <div class="shell-page-header__left">
+    <h1 class="shell-page-header__title">{title}</h1>
+    {subtitle && <p class="shell-page-header__subtitle">{subtitle}</p>}
+  </div>
+  
+  {(outlineButtons.length > 0 || primaryButton) && (
+    <div class="shell-page-header__actions">
+      {outlineButtons.map((button) => (
+        <Button
+          variant="secondary"
+          buttonType="pageHeader"
+          size="md"
+          icon={button.icon}
+          href={button.href}
+        >
+          {button.text}
+        </Button>
+      ))}
+      {primaryButton && (
+        <Button
+          variant="primary"
+          buttonType="pageHeader"
+          size="md"
+          icon={primaryButton.icon}
+          href={primaryButton.href}
+        >
+          {primaryButton.text}
+        </Button>
+      )}
+    </div>
+  )}
+</header>
+
+<style>
+  .shell-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-3) 0;
+    margin-bottom: var(--space-3);
+    gap: var(--space-4);
+  }
+
+  .shell-page-header__left {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    flex: 1;
+    min-width: 0;
+  }
+
+  .shell-page-header__title {
+    font-family: var(--font-display);
+    font-size: var(--heading-l);
+    font-weight: var(--font-semibold);
+    line-height: var(--leading-snug);
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .shell-page-header__subtitle {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: var(--font-normal);
+    line-height: var(--leading-normal);
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  .shell-page-header__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-shrink: 0;
+  }
+
+  /* Override outline button backgrounds to be transparent */
+  .shell-page-header__actions .btn--page-header.btn--secondary {
+    background-color: transparent;
+  }
+
+  .shell-page-header__actions .btn--page-header.btn--secondary:hover {
+    background-color: var(--page-header-btn-secondary-hover-bg);
+  }
+
+  .shell-page-header__actions .btn--page-header.btn--secondary:disabled,
+  .shell-page-header__actions .btn--page-header.btn--secondary.btn--disabled {
+    background-color: transparent;
+  }
+
+  /* Responsive behavior */
+  @media (max-width: var(--breakpoint-md)) {
+    .shell-page-header {
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--space-4);
+    }
+
+    .shell-page-header__actions {
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    .shell-page-header__actions .btn {
+      flex: 1;
+      min-width: 120px;
+    }
+  }
+</style>
