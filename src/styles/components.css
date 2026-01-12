@@ -4676,11 +4676,11 @@ html.dark .right-sidebar__item:hover {
    SHELL PANEL (Contextual Drawer)
    =========================================== */
 
-.shell-panel {
+.shell-layout .shell-panel {
   position: fixed;
   top: calc(var(--shell-header-height) + calc(var(--space-2-5) / 2)); /* 5px spacing from header */
   bottom: calc(var(--shell-footer-height-default) + calc(var(--space-2-5) / 2)); /* 5px spacing from footer */
-  z-index: 44; /* Lower than sidebar (45) so icons appear on top */
+  z-index: var(--z-44); /* Lower than sidebar (45) so icons appear on top */
   display: flex;
   flex-direction: column;
   background-color: var(--elevated-bg);
@@ -4691,40 +4691,36 @@ html.dark .right-sidebar__item:hover {
 }
 
 /* Panel positioning - Left side */
-.shell-panel--left {
+.shell-layout .shell-panel--left {
   left: 0;
   border-radius: 0 var(--radius-16) var(--radius-16) 0;
   transform: translateX(-100%);
   visibility: hidden;
 }
 
-.shell-panel--left.shell-panel--open {
+.shell-layout .shell-panel--left.shell-panel--open {
   transform: translateX(0);
   visibility: visible;
   pointer-events: auto;
 }
 
 /* Panel positioning - Right side */
-.shell-panel--right {
+.shell-layout .shell-panel--right {
   right: 0;
   border-radius: var(--radius-16) 0 0 var(--radius-16);
   transform: translateX(100%);
   visibility: hidden;
 }
 
-.shell-panel--right.shell-panel--open {
+.shell-layout .shell-panel--right.shell-panel--open {
   transform: translateX(0);
   visibility: visible;
   pointer-events: auto;
 }
 
 /* Width variants */
-.shell-panel--narrow {
+.shell-layout .shell-panel--narrow {
   width: var(--panel-width-narrow);
-}
-
-.shell-panel--full {
-  width: 100vw;
 }
 
 .shell-layout .shell-panel--full {
@@ -4733,27 +4729,27 @@ html.dark .right-sidebar__item:hover {
 
 /* When right panel is full-width, it should go over the left sidebar */
 .shell-layout .shell-panel--right.shell-panel--full {
-  z-index: 46; /* Higher than left sidebar (45) so panel goes over left sidebar */
+  z-index: var(--z-46); /* Higher than left sidebar (45) so panel goes over left sidebar */
 }
 
 /* Increase right sidebar z-index when right panel is full-width so icons stay on top */
 .shell-layout:has(.shell-panel--right.shell-panel--full) .shell-layout__right-sidebar {
-  z-index: 47; /* Higher than full-width panel (46) so icons stay on top */
+  z-index: var(--z-47); /* Higher than full-width panel (46) so icons stay on top */
 }
 
 /* Full-width left panel goes over right sidebar */
 .shell-layout .shell-panel--left.shell-panel--full {
-  z-index: 46; /* Higher than right sidebar (45) so panel goes over right sidebar */
+  z-index: var(--z-46); /* Higher than right sidebar (45) so panel goes over right sidebar */
 }
 
 /* Left sidebar icons stay on top when panel is full-width - higher specificity for full-width */
 .shell-layout:has(.shell-panel--left.shell-panel--full.shell-panel--open) .shell-layout__left-sidebar {
-  z-index: 47; /* Higher than full-width panel (46) so icons and tooltips stay on top */
+  z-index: var(--z-47); /* Higher than full-width panel (46) so icons and tooltips stay on top */
   overflow: visible; /* Ensure tooltips are not clipped */
 }
 
-.shell-panel--narrow,
-.shell-panel--full {
+.shell-layout .shell-panel--narrow,
+.shell-layout .shell-panel--full {
   transition: width var(--transition-base);
 }
 
@@ -4783,11 +4779,11 @@ div.shell-panel__header.shell-panel__header--theme,
   width: 100%;
 }
 
-.shell-panel--right .shell-panel__header--theme {
+.shell-layout .shell-panel--right .shell-panel__header--theme {
   border-radius: var(--radius-16) 0 0 0;
 }
 
-.shell-panel--left .shell-panel__header--theme {
+.shell-layout .shell-panel--left .shell-panel__header--theme {
   border-radius: 0 var(--radius-16) 0 0;
 }
 
@@ -4816,17 +4812,17 @@ div.shell-panel__header.shell-panel__header--theme,
   border-bottom: var(--border-width-thin) solid var(--border-color);
 }
 
-.shell-panel--right .shell-panel__header--default {
+.shell-layout .shell-panel--right .shell-panel__header--default {
   border-radius: var(--radius-16) 0 0 0;
 }
 
-.shell-panel--left .shell-panel__header--default {
+.shell-layout .shell-panel--left .shell-panel__header--default {
   border-radius: 0 var(--radius-16) 0 0;
 }
 
 /* Left panel header padding to avoid overlap with sidebar icons */
 .shell-layout .shell-panel--left .shell-panel__header {
-  padding-left: calc(52px + var(--space-4)); /* Sidebar width (52px) + spacing (16px) */
+  padding-left: calc(var(--sidebar-width) + var(--space-4)); /* Sidebar width + spacing */
 }
 
 /* Hide the border-bottom and create a new one that starts after the sidebar width */
@@ -4839,7 +4835,7 @@ div.shell-panel__header.shell-panel__header--theme,
 .shell-layout .shell-panel--left .shell-panel__header--default::after {
   content: '';
   position: absolute;
-  left: calc(52px + var(--space-4)); /* Start after sidebar + padding */
+  left: calc(var(--sidebar-width) + var(--space-4)); /* Start after sidebar + padding */
   right: 0;
   bottom: 0;
   height: var(--border-width-thin);
@@ -4919,14 +4915,14 @@ div.shell-panel__header.shell-panel__header--theme,
   transition: opacity var(--transition-fast), visibility var(--transition-fast);
 }
 
-.shell-panel--narrow .shell-panel__icon-minimize,
-.shell-panel--full .shell-panel__icon-maximize {
+.shell-layout .shell-panel--narrow .shell-panel__icon-minimize,
+.shell-layout .shell-panel--full .shell-panel__icon-maximize {
   opacity: 0;
   visibility: hidden;
 }
 
-.shell-panel--narrow .shell-panel__icon-maximize,
-.shell-panel--full .shell-panel__icon-minimize {
+.shell-layout .shell-panel--narrow .shell-panel__icon-maximize,
+.shell-layout .shell-panel--full .shell-panel__icon-minimize {
   opacity: 1;
   visibility: visible;
 }
@@ -4951,22 +4947,22 @@ div.shell-panel__header.shell-panel__header--theme,
   background-color: var(--elevated-bg);
 }
 
-.shell-panel--right .shell-panel__content {
+.shell-layout .shell-panel--right .shell-panel__content {
   border-radius: 0 0 0 var(--radius-16);
 }
 
 /* Ensure right panel scrollbar appears to the left of sidebar icons */
 .shell-layout .shell-panel--right .shell-panel__content {
-  padding-right: calc(52px + var(--space-4)); /* Sidebar width (52px) + spacing (16px) */
+  padding-right: calc(var(--sidebar-width) + var(--space-4)); /* Sidebar width + spacing */
 }
 
-.shell-panel--left .shell-panel__content {
+.shell-layout .shell-panel--left .shell-panel__content {
   border-radius: 0 0 var(--radius-16) 0;
 }
 
 /* Scrollbar positioning for left panel - padding to right of sidebar icons */
 .shell-layout .shell-panel--left .shell-panel__content {
-  padding-left: calc(52px + var(--space-4)); /* Sidebar width (52px) + spacing (16px) */
+  padding-left: calc(var(--sidebar-width) + var(--space-4)); /* Sidebar width + spacing */
 }
 
 /* Scrollbar styling */
@@ -4987,37 +4983,6 @@ div.shell-panel__header.shell-panel__header--theme,
   background-color: var(--text-secondary);
 }
 
-/* Adjust positioning when inside shell layout */
-.shell-layout .shell-panel--left {
-  left: 0; /* Extend panel to left edge - icons appear on top via z-index */
-  top: calc(var(--shell-header-height) + calc(var(--space-2-5) / 2)); /* 5px spacing from header */
-  bottom: calc(var(--shell-footer-height-default) + calc(var(--space-2-5) / 2)); /* 5px spacing from footer */
-}
-
-.shell-layout .shell-panel--right {
-  right: 0; /* Extend panel to right edge - icons appear on top via z-index */
-  top: calc(var(--shell-header-height) + calc(var(--space-2-5) / 2)); /* 5px spacing from header */
-  bottom: calc(var(--shell-footer-height-default) + calc(var(--space-2-5) / 2)); /* 5px spacing from footer */
-}
-
-.shell-layout .shell-panel--right.shell-panel--open {
-  visibility: visible !important;
-}
-
-.shell-layout .shell-panel--left.shell-panel--open {
-  visibility: visible;
-}
-
-/* Ensure panel is hidden when closed, even with shell-layout positioning */
-.shell-layout .shell-panel--right:not(.shell-panel--open) {
-  transform: translateX(100%) !important;
-  visibility: hidden !important;
-}
-
-.shell-layout .shell-panel--left:not(.shell-panel--open) {
-  transform: translateX(-100%);
-  visibility: hidden;
-}
 
 /* Footer variant support - when footer is not present */
 .shell-layout__container[data-has-footer="false"] .shell-panel {
@@ -5037,13 +5002,9 @@ div.shell-panel__header.shell-panel__header--theme,
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .shell-panel--narrow {
+  .shell-layout .shell-panel--narrow {
     width: calc(100vw - var(--shell-layout-padding-side-default));
     max-width: 100%;
-  }
-  
-  .shell-panel--full {
-    width: 100vw;
   }
   
   .shell-layout .shell-panel--full {
