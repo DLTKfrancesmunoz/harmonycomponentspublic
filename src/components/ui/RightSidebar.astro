@@ -459,6 +459,22 @@ const shouldRenderAllVariants = !sections;
               rightPanel.setAttribute('data-panel-content-id', contentId);
             }
 
+            // Add default demo content if content area is empty
+            const contentArea = rightPanel.querySelector('.shell-panel__content') as HTMLElement | null;
+            if (contentArea && !contentArea.hasChildNodes()) {
+              contentArea.innerHTML = `
+                <div style="padding: var(--space-4);">
+                  <p style="color: var(--text-secondary); margin-bottom: var(--space-4);">
+                    Panel content for: <strong>${title}</strong>
+                  </p>
+                  <p style="color: var(--text-secondary); font-size: var(--text-sm);">
+                    This is contextual content that would be specific to the "${title}" menu item.
+                    In a real application, this content would be dynamically loaded based on the selected item.
+                  </p>
+                </div>
+              `;
+            }
+
             // Open panel
             rightPanel.classList.add('shell-panel--open');
             rightPanel.setAttribute('data-open', 'true');
