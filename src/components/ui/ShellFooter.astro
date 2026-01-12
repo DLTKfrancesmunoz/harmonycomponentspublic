@@ -121,6 +121,20 @@ const overflowTabsWithPinIcon = overflowTabs.map(tab => ({
     padding-bottom: calc(var(--space-3) - var(--space-1));
   }
 
+  /* Dark mode override for non-active tabs - white text on dark background */
+  html.dark .shell-footer :global(.tabstrip) :global(.tabstrip__tabs) :global(.tab:not(.is-active)),
+  html.dark .shell-footer :global(.tabstrip) :global(.tabstrip__add.tab:not(.is-active)),
+  html.dark .shell-footer :global(.tabstrip) :global(.tabstrip__more.tab:not(.is-active)) {
+    color: var(--text-primary);
+  }
+
+  /* Dark mode hover state for non-active tabs - maintain white text */
+  html.dark .shell-footer :global(.tabstrip) :global(.tabstrip__tabs) :global(.tab:hover:not(.is-active)),
+  html.dark .shell-footer :global(.tabstrip) :global(.tabstrip__add.tab:hover:not(.is-active)),
+  html.dark .shell-footer :global(.tabstrip) :global(.tabstrip__more.tab:hover:not(.is-active)) {
+    color: var(--text-primary);
+  }
+
   /* Compact variant */
   .shell-footer[data-variant="compact"] {
     height: var(--shell-footer-height-compact);
