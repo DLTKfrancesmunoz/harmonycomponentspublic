@@ -45,12 +45,20 @@ import Button from '../../components/ui/Button.astro';
         padding: var(--space-6);
         overflow-y: auto;
       }
+      /* Shell-layout wrapper for previews - provides context for panel CSS */
+      .shell-layout {
+        /* Override shell-layout default styles for preview context */
+        height: auto;
+        overflow: visible;
+      }
       .preview-section {
         position: relative;
         min-height: 600px;
         background-color: var(--elevated-bg);
         border-radius: var(--radius-lg);
         padding: var(--space-6);
+        overflow: hidden;
+        isolation: isolate;
       }
       .preview-content {
         position: relative;
@@ -71,96 +79,100 @@ import Button from '../../components/ui/Button.astro';
       </h1>
 
       <!-- Panel with Theme Header -->
-      <div class="preview-section">
-        <h2 style="font-size: var(--text-xl); font-weight: var(--font-semibold); margin-bottom: var(--space-4); color: var(--text-primary);">
-          Panel with Theme Header (Right Side)
-        </h2>
-        <div class="preview-content">
-          <p style="color: var(--text-secondary); margin-bottom: var(--space-4);">
-            This panel slides from the right with a theme-primary header background. The header should show the theme-primary color (blue for CP theme).
-          </p>
-          <div class="toggle-buttons">
-            <Button 
-              id="toggle-theme-panel"
-              variant="primary"
-              size="sm"
-            >
-              Toggle Panel
-            </Button>
-          </div>
-        </div>
-        
-        <ShellPanel
-          side="right"
-          open={true}
-          title="Drawer Title"
-          titleIcon="ellipsis-horizontal-circle"
-          headerVariant="theme"
-          width="narrow"
-          id="theme-panel"
-        >
-          <div>
+      <div class="shell-layout" style="position: relative; height: auto; min-height: 600px;">
+        <div class="preview-section">
+          <h2 style="font-size: var(--text-xl); font-weight: var(--font-semibold); margin-bottom: var(--space-4); color: var(--text-primary);">
+            Panel with Theme Header (Right Side)
+          </h2>
+          <div class="preview-content">
             <p style="color: var(--text-secondary); margin-bottom: var(--space-4);">
-              Panel content goes here. This is a narrow panel (596px) with a theme-primary header.
+              This panel slides from the right with a theme-primary header background. The header should show the theme-primary color (blue for CP theme).
             </p>
-            <Card>
-              <p style="margin-bottom: var(--space-2);"><strong>Features:</strong></p>
-              <ul style="list-style: disc; list-style-position: inside; color: var(--text-secondary);">
-                <li>Theme-primary header background (should be blue for CP theme)</li>
-                <li>White text and icons</li>
-                <li>Popout and close buttons</li>
-                <li>Scrollable content area</li>
-                <li>Proper padding and spacing using design tokens</li>
-              </ul>
-            </Card>
+            <div class="toggle-buttons">
+              <Button 
+                id="toggle-theme-panel"
+                variant="primary"
+                size="sm"
+              >
+                Toggle Panel
+              </Button>
+            </div>
           </div>
-        </ShellPanel>
+          
+          <ShellPanel
+            side="right"
+            open={true}
+            title="Drawer Title"
+            titleIcon="ellipsis-horizontal-circle"
+            headerVariant="theme"
+            width="narrow"
+            id="theme-panel"
+          >
+            <div>
+              <p style="color: var(--text-secondary); margin-bottom: var(--space-4);">
+                Panel content goes here. This is a narrow panel (596px) with a theme-primary header.
+              </p>
+              <Card>
+                <p style="margin-bottom: var(--space-2);"><strong>Features:</strong></p>
+                <ul style="list-style: disc; list-style-position: inside; color: var(--text-secondary);">
+                  <li>Theme-primary header background (should be blue for CP theme)</li>
+                  <li>White text and icons</li>
+                  <li>Popout and close buttons</li>
+                  <li>Scrollable content area</li>
+                  <li>Proper padding and spacing using design tokens</li>
+                </ul>
+              </Card>
+            </div>
+          </ShellPanel>
+        </div>
       </div>
 
       <!-- Panel with Default Header -->
-      <div class="preview-section">
-        <h2 style="font-size: var(--text-xl); font-weight: var(--font-semibold); margin-bottom: var(--space-4); color: var(--text-primary);">
-          Panel with Default Header (Right Side)
-        </h2>
-        <div class="preview-content">
-          <p style="color: var(--text-secondary); margin-bottom: var(--space-4);">
-            This panel uses the default header variant with elevated background (no theme color).
-          </p>
-          <div class="toggle-buttons">
-            <Button 
-              id="toggle-default-panel"
-              variant="primary"
-              size="sm"
-            >
-              Toggle Panel
-            </Button>
-          </div>
-        </div>
-        
-        <ShellPanel
-          side="right"
-          open={true}
-          title="Drawer Title"
-          titleIcon="ellipsis-horizontal-circle"
-          headerVariant="default"
-          width="narrow"
-          id="default-panel"
-        >
-          <div>
+      <div class="shell-layout" style="position: relative; height: auto; min-height: 600px;">
+        <div class="preview-section">
+          <h2 style="font-size: var(--text-xl); font-weight: var(--font-semibold); margin-bottom: var(--space-4); color: var(--text-primary);">
+            Panel with Default Header (Right Side)
+          </h2>
+          <div class="preview-content">
             <p style="color: var(--text-secondary); margin-bottom: var(--space-4);">
-              This panel uses the default header variant with elevated background and normal text color.
+              This panel uses the default header variant with elevated background (no theme color).
             </p>
-            <Card>
-              <p style="margin-bottom: var(--space-2);"><strong>Features:</strong></p>
-              <ul style="list-style: disc; list-style-position: inside; color: var(--text-secondary);">
-                <li>Elevated background header (no theme color)</li>
-                <li>Normal text color</li>
-                <li>Popout and close buttons</li>
-                <li>Clean, minimal appearance</li>
-              </ul>
-            </Card>
+            <div class="toggle-buttons">
+              <Button 
+                id="toggle-default-panel"
+                variant="primary"
+                size="sm"
+              >
+                Toggle Panel
+              </Button>
+            </div>
           </div>
-        </ShellPanel>
+          
+          <ShellPanel
+            side="right"
+            open={true}
+            title="Drawer Title"
+            titleIcon="ellipsis-horizontal-circle"
+            headerVariant="default"
+            width="narrow"
+            id="default-panel"
+          >
+            <div>
+              <p style="color: var(--text-secondary); margin-bottom: var(--space-4);">
+                This panel uses the default header variant with elevated background and normal text color.
+              </p>
+              <Card>
+                <p style="margin-bottom: var(--space-2);"><strong>Features:</strong></p>
+                <ul style="list-style: disc; list-style-position: inside; color: var(--text-secondary);">
+                  <li>Elevated background header (no theme color)</li>
+                  <li>Normal text color</li>
+                  <li>Popout and close buttons</li>
+                  <li>Clean, minimal appearance</li>
+                </ul>
+              </Card>
+            </div>
+          </ShellPanel>
+        </div>
       </div>
     </div>
 

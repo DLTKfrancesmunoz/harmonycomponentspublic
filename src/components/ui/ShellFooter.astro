@@ -83,7 +83,7 @@ const overflowTabsWithPinIcon = overflowTabs.map(tab => ({
   .shell-footer :global(.tabstrip) :global(.tabstrip__add.tab),
   .shell-footer :global(.tabstrip) :global(.tabstrip__more.tab) {
     color: var(--text-inverse);
-    border-bottom: 2px solid transparent;
+    border-bottom: var(--border-width-standard) solid transparent;
   }
 
   /* Active tab - theme primary color with underline */
@@ -91,7 +91,7 @@ const overflowTabsWithPinIcon = overflowTabs.map(tab => ({
   .shell-footer :global(.tabstrip) :global(.tabstrip__add.tab.is-active),
   .shell-footer :global(.tabstrip) :global(.tabstrip__more.tab.is-active) {
     color: var(--theme-primary);
-    border-bottom: 4px solid var(--theme-primary);
+    border-bottom: var(--border-width-thick) solid var(--theme-primary);
   }
 
   /* Hover state for non-active tabs - background and maintain white text */
@@ -114,7 +114,7 @@ const overflowTabsWithPinIcon = overflowTabs.map(tab => ({
     color: var(--theme-primary);
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: var(--radius-sm);
-    border-bottom: 4px solid var(--theme-primary);
+    border-bottom: var(--border-width-thick) solid var(--theme-primary);
     margin-top: var(--space-1);
     margin-bottom: var(--space-1);
     padding-top: calc(var(--space-3) - var(--space-1));

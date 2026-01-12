@@ -45,131 +45,139 @@ const props = [
       <h2 class="section__title">Examples</h2>
 
       <ExampleSection title="Left Side - Theme Header" description="Panel sliding from the left with theme-primary header background.">
-        <div class="panel-demo-container">
-          <div class="panel-demo-content">
-            <p class="text-secondary text-sm">
-              This panel slides from the left side with a theme-primary header. The panel includes a maximize/minimize toggle button in the header.
-            </p>
-            <Button 
-              variant="outline" 
-              size="sm" 
-              onclick="window.openShellPanel('#demo-panel-left-theme')"
-              style="margin-top: var(--space-2);"
-            >
-              Open Panel
-            </Button>
-          </div>
-          <ShellPanel
-            side="left"
-            open={true}
-            title="Actions Toolbar"
-            titleIcon="ellipsis-horizontal-circle"
-            headerVariant="theme"
-            width="narrow"
-            id="demo-panel-left-theme"
-          >
-            <div style="padding: var(--space-4);">
-              <p class="text-secondary">Panel content goes here. This is a narrow panel with a theme header.</p>
-              <Card style="margin-top: var(--space-4);">
-                <div class="card__body">
-                  <p>You can add any content inside the panel slot.</p>
-                </div>
-              </Card>
+        <div class="shell-layout" style="position: relative; height: auto; min-height: 500px;">
+          <div class="panel-demo-container">
+            <div class="panel-demo-content">
+              <p class="text-secondary text-sm">
+                This panel slides from the left side with a theme-primary header. The panel includes a maximize/minimize toggle button in the header.
+              </p>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onclick="window.openShellPanel('#demo-panel-left-theme')"
+                style="margin-top: var(--space-2);"
+              >
+                Open Panel
+              </Button>
             </div>
-          </ShellPanel>
+            <ShellPanel
+              side="left"
+              open={true}
+              title="Actions Toolbar"
+              titleIcon="ellipsis-horizontal-circle"
+              headerVariant="theme"
+              width="narrow"
+              id="demo-panel-left-theme"
+            >
+              <div style="padding: var(--space-4);">
+                <p class="text-secondary">Panel content goes here. This is a narrow panel with a theme header.</p>
+                <Card style="margin-top: var(--space-4);">
+                  <div class="card__body">
+                    <p>You can add any content inside the panel slot.</p>
+                  </div>
+                </Card>
+              </div>
+            </ShellPanel>
+          </div>
         </div>
       </ExampleSection>
 
       <ExampleSection title="Right Side - Default Header" description="Panel sliding from the right with default header (elevated background with bottom border).">
-        <div class="panel-demo-container">
-          <div class="panel-demo-content">
-            <p class="text-secondary text-sm">
-              This panel slides from the right side with a default header. The default header has an elevated background and bottom border separator.
-            </p>
-            <Button 
-              variant="outline" 
-              size="sm" 
-              onclick="window.openShellPanel('#demo-panel-right-default')"
-              style="margin-top: var(--space-2);"
-            >
-              Open Panel
-            </Button>
-          </div>
-          <ShellPanel
-            side="right"
-            open={true}
-            title="Settings"
-            headerVariant="default"
-            width="narrow"
-            showPopout={false}
-            id="demo-panel-right-default"
-          >
-            <div style="padding: var(--space-4);">
-              <p class="text-secondary">This panel uses the default header variant with elevated background and bottom border separator.</p>
+        <div class="shell-layout" style="position: relative; height: auto; min-height: 500px;">
+          <div class="panel-demo-container">
+            <div class="panel-demo-content">
+              <p class="text-secondary text-sm">
+                This panel slides from the right side with a default header. The default header has an elevated background and bottom border separator.
+              </p>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onclick="window.openShellPanel('#demo-panel-right-default')"
+                style="margin-top: var(--space-2);"
+              >
+                Open Panel
+              </Button>
             </div>
-          </ShellPanel>
+            <ShellPanel
+              side="right"
+              open={true}
+              title="Settings"
+              headerVariant="default"
+              width="narrow"
+              showPopout={false}
+              id="demo-panel-right-default"
+            >
+              <div style="padding: var(--space-4);">
+                <p class="text-secondary">This panel uses the default header variant with elevated background and bottom border separator.</p>
+              </div>
+            </ShellPanel>
+          </div>
         </div>
       </ExampleSection>
 
       <ExampleSection title="Full Width Mode" description="Panel with full viewport width. Use the maximize/minimize button in the header to toggle between narrow and full width.">
-        <div class="panel-demo-container panel-demo-container--full">
-          <div class="panel-demo-content">
-            <p class="text-secondary text-sm">
-              This is a full-width panel (100vw) for displaying more content. Click the minimize button in the header to collapse it back to narrow width.
-            </p>
-            <Button 
-              variant="outline" 
-              size="sm" 
-              onclick="window.openShellPanel('#demo-panel-full')"
-              style="margin-top: var(--space-2);"
-            >
-              Open Panel
-            </Button>
-          </div>
-          <ShellPanel
-            side="left"
-            open={true}
-            title="Command Center"
-            titleIcon="squares-plus"
-            headerVariant="theme"
-            width="full"
-            id="demo-panel-full"
-          >
-            <div style="padding: var(--space-4);">
-              <p class="text-secondary">This is a full-width panel (100vw) for displaying more content. Click the minimize button in the header to collapse it back to narrow width.</p>
+        <div class="shell-layout" style="position: relative; height: auto; min-height: 600px;">
+          <div class="panel-demo-container panel-demo-container--full">
+            <div class="panel-demo-content">
+              <p class="text-secondary text-sm">
+                This is a full-width panel (100vw) for displaying more content. Click the minimize button in the header to collapse it back to narrow width.
+              </p>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onclick="window.openShellPanel('#demo-panel-full')"
+                style="margin-top: var(--space-2);"
+              >
+                Open Panel
+              </Button>
             </div>
-          </ShellPanel>
+            <ShellPanel
+              side="left"
+              open={true}
+              title="Command Center"
+              titleIcon="squares-plus"
+              headerVariant="theme"
+              width="full"
+              id="demo-panel-full"
+            >
+              <div style="padding: var(--space-4);">
+                <p class="text-secondary">This is a full-width panel (100vw) for displaying more content. Click the minimize button in the header to collapse it back to narrow width.</p>
+              </div>
+            </ShellPanel>
+          </div>
         </div>
       </ExampleSection>
 
       <ExampleSection title="Panel with Icon" description="Panel header can include an optional icon for visual reinforcement.">
-        <div class="panel-demo-container">
-          <div class="panel-demo-content">
-            <p class="text-secondary text-sm">
-              The panel header supports an optional icon that appears before the title text.
-            </p>
-            <Button 
-              variant="outline" 
-              size="sm" 
-              onclick="window.openShellPanel('#demo-panel-with-icon')"
-              style="margin-top: var(--space-2);"
-            >
-              Open Panel
-            </Button>
-          </div>
-          <ShellPanel
-            side="left"
-            open={true}
-            title="Notifications"
-            titleIcon="bell"
-            headerVariant="theme"
-            width="narrow"
-            id="demo-panel-with-icon"
-          >
-            <div style="padding: var(--space-4);">
-              <p class="text-secondary">Panel with an icon in the header.</p>
+        <div class="shell-layout" style="position: relative; height: auto; min-height: 500px;">
+          <div class="panel-demo-container">
+            <div class="panel-demo-content">
+              <p class="text-secondary text-sm">
+                The panel header supports an optional icon that appears before the title text.
+              </p>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onclick="window.openShellPanel('#demo-panel-with-icon')"
+                style="margin-top: var(--space-2);"
+              >
+                Open Panel
+              </Button>
             </div>
-          </ShellPanel>
+            <ShellPanel
+              side="left"
+              open={true}
+              title="Notifications"
+              titleIcon="bell"
+              headerVariant="theme"
+              width="narrow"
+              id="demo-panel-with-icon"
+            >
+              <div style="padding: var(--space-4);">
+                <p class="text-secondary">Panel with an icon in the header.</p>
+              </div>
+            </ShellPanel>
+          </div>
         </div>
       </ExampleSection>
     </section>
@@ -293,6 +301,13 @@ const props = [
 </DocsLayout>
 
 <style>
+  /* Shell-layout wrapper for demos - provides context for panel CSS */
+  .shell-layout {
+    /* Override shell-layout default styles for demo context */
+    height: auto;
+    overflow: visible;
+  }
+
   .panel-demo-container {
     position: relative;
     min-height: 500px;
@@ -314,7 +329,7 @@ const props = [
     margin-bottom: var(--space-4);
   }
 
-  /* CRITICAL: Use :global() to override ShellPanel's fixed positioning */
+  /* CRITICAL: Use :global() to override ShellPanel's fixed positioning for demo context */
   .panel-demo-container :global(.shell-panel) {
     position: absolute !important;
     top: 0 !important;

@@ -345,17 +345,17 @@ const isCPVariant = effectiveLeftSidebarVariant === 'cp';
   /* Page header spacing: 20px gap from top header */
   /* When floating nav is shown, use larger padding to account for nav */
   .shell-layout__container[data-has-floating-nav="true"] .shell-layout__main {
-    padding: var(--shell-layout-padding-top) calc(var(--shell-layout-padding-side-default) + 20px) var(--space-6) calc(var(--shell-layout-padding-side-default) + 20px);
+    padding: var(--shell-layout-padding-top) calc(var(--shell-layout-padding-side-default) + var(--space-5)) var(--space-6) calc(var(--shell-layout-padding-side-default) + var(--space-5));
   }
 
   /* When floating nav is not shown, use 20px gap from header */
   /* Header is fixed but grid row 1 reserves space, so main content in row 2 starts at header height */
   /* We only need 20px padding-top to create the gap from the bottom of the header */
   .shell-layout__container[data-has-floating-nav="false"] .shell-layout__main {
-    padding-top: 20px;
-    padding-right: calc(var(--shell-layout-padding-side-default) + 20px);
+    padding-top: var(--space-5);
+    padding-right: calc(var(--shell-layout-padding-side-default) + var(--space-5));
     padding-bottom: var(--space-6);
-    padding-left: calc(var(--shell-layout-padding-side-default) + 20px);
+    padding-left: calc(var(--shell-layout-padding-side-default) + var(--space-5));
   }
 
   /* Footer - Grid row 3 */
@@ -391,18 +391,18 @@ const isCPVariant = effectiveLeftSidebarVariant === 'cp';
     }
 
     .shell-layout__container[data-has-floating-nav="false"] .shell-layout__main {
-      padding: 20px var(--shell-layout-padding-side-mobile) var(--space-6) var(--shell-layout-padding-side-mobile);
+      padding: var(--space-5) var(--shell-layout-padding-side-mobile) var(--space-6) var(--shell-layout-padding-side-mobile);
     }
   }
 
   @media (max-width: var(--breakpoint-lg)) {
     /* Reduce side padding on tablets */
     .shell-layout__container[data-has-floating-nav="true"] .shell-layout__main {
-      padding: var(--shell-layout-padding-top) calc(var(--shell-layout-padding-side-tablet) + 20px) var(--space-6) calc(var(--shell-layout-padding-side-tablet) + 20px);
+      padding: var(--shell-layout-padding-top) calc(var(--shell-layout-padding-side-tablet) + var(--space-5)) var(--space-6) calc(var(--shell-layout-padding-side-tablet) + var(--space-5));
     }
 
     .shell-layout__container[data-has-floating-nav="false"] .shell-layout__main {
-      padding: 20px calc(var(--shell-layout-padding-side-tablet) + 20px) var(--space-6) calc(var(--shell-layout-padding-side-tablet) + 20px);
+      padding: var(--space-5) calc(var(--shell-layout-padding-side-tablet) + var(--space-5)) var(--space-6) calc(var(--shell-layout-padding-side-tablet) + var(--space-5));
     }
   }
 </style>
