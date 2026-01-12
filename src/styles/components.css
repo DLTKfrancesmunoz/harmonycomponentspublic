@@ -4829,6 +4829,23 @@ div.shell-panel__header.shell-panel__header--theme,
   padding-left: calc(52px + var(--space-4)); /* Sidebar width (52px) + spacing (16px) */
 }
 
+/* Hide the border-bottom and create a new one that starts after the sidebar width */
+.shell-layout .shell-panel--left .shell-panel__header--default {
+  border-bottom: none; /* Hide the original border */
+  position: relative;
+}
+
+/* Create border that starts after sidebar width */
+.shell-layout .shell-panel--left .shell-panel__header--default::after {
+  content: '';
+  position: absolute;
+  left: calc(52px + var(--space-4)); /* Start after sidebar + padding */
+  right: 0;
+  bottom: 0;
+  height: var(--border-width-thin);
+  background-color: var(--border-color);
+}
+
 .shell-panel__header--default .shell-panel__title {
   color: var(--text-primary);
 }
