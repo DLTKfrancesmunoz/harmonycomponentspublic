@@ -47,15 +47,15 @@ const {
           </button>
           <div class="company-picker__menu" data-company-picker-menu>
             <button class="company-picker__option company-picker__option--selected" data-company-option data-company-id="acme-corp" data-company-color="#FF507B">
-              <span class="company-picker__option-indicator" style="background-color: #FF507B;"></span>
+              <span class="company-picker__option-indicator company-picker__option-indicator--acme"></span>
               <span class="company-picker__option-name">Acme Corporation</span>
             </button>
             <button class="company-picker__option" data-company-option data-company-id="tech-industries" data-company-color="#0073E6">
-              <span class="company-picker__option-indicator" style="background-color: #0073E6;"></span>
+              <span class="company-picker__option-indicator company-picker__option-indicator--default"></span>
               <span class="company-picker__option-name">Tech Industries</span>
             </button>
             <button class="company-picker__option" data-company-option data-company-id="global-services" data-company-color="#0073E6">
-              <span class="company-picker__option-indicator" style="background-color: #0073E6;"></span>
+              <span class="company-picker__option-indicator company-picker__option-indicator--default"></span>
               <span class="company-picker__option-name">Global Services</span>
             </button>
           </div>
@@ -108,8 +108,10 @@ const {
         option.addEventListener('click', (e) => {
           e.stopPropagation();
           const companyId = option.getAttribute('data-company-id');
+          // Get color for gradient calculation (needs actual hex value)
           const companyColor = option.getAttribute('data-company-color');
           const optionName = option.querySelector('.company-picker__option-name')?.textContent;
+          const indicator = option.querySelector('.company-picker__option-indicator') as HTMLElement;
           
           // Update selected state
           pickerMenu.querySelectorAll('[data-company-option]').forEach(opt => {
@@ -122,12 +124,13 @@ const {
             companyName.textContent = optionName;
           }
           
-          // Update indicator color
-          if (companyIndicator && companyColor) {
-            companyIndicator.style.backgroundColor = companyColor;
+          // Update indicator color - use computed style from the indicator element to get resolved token value
+          if (companyIndicator && indicator) {
+            const computedColor = window.getComputedStyle(indicator).backgroundColor;
+            companyIndicator.style.backgroundColor = computedColor;
           }
           
-          // Update gradient border
+          // Update gradient border - need actual color value for gradient calculation
           if (headerGradient && companyColor) {
             headerGradient.style.background = `linear-gradient(to right, ${companyColor}05, ${companyColor} 50%, ${companyColor}05)`;
           }

@@ -440,7 +440,7 @@
   transform: translateY(-50%);
   color: var(--text-muted);
   pointer-events: none;
-  z-index: 1;
+  z-index: var(--z-10);
 }
 
 .input-wrapper__error {
@@ -1904,23 +1904,23 @@
 }
 
 .alert--info {
-  background-color: rgba(51, 102, 255, 0.1);
-  border-color: rgba(51, 102, 255, 0.3);
+  background-color: var(--color-info-light);
+  border-color: var(--color-info-border);
 }
 
 .alert--success {
-  background-color: rgba(82, 189, 148, 0.1);
-  border-color: rgba(82, 189, 148, 0.3);
+  background-color: var(--color-success-light);
+  border-color: var(--color-success-border);
 }
 
 .alert--warning {
-  background-color: rgba(255, 176, 32, 0.1);
-  border-color: rgba(255, 176, 32, 0.3);
+  background-color: var(--color-warning-light);
+  border-color: var(--color-warning-border);
 }
 
 .alert--error {
-  background-color: rgba(209, 67, 67, 0.1);
-  border-color: rgba(209, 67, 67, 0.3);
+  background-color: var(--color-error-light);
+  border-color: var(--color-error-border);
 }
 
 .alert__icon {
@@ -2095,10 +2095,11 @@
   border: 1px solid var(--border-color);
   border-radius: var(--radius-xl);
   overflow: hidden;
+  box-shadow: var(--shadow-sm);
 }
 
 .card--elevated {
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-lg);
 }
 
 .card--interactive {
@@ -2108,7 +2109,7 @@
 
 .card--interactive:hover {
   border-color: var(--theme-primary);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-lg);
 }
 
 .card--primary {
@@ -3754,8 +3755,8 @@
    =========================================== */
 
 .floating-nav {
-  background-color: #fcfdff;
-  border: 1px solid #e0e4eb;
+  background-color: var(--nav-bg);
+  border: 1px solid var(--border-color);
   border-top: none;
   border-radius: 0 0 var(--radius-16) var(--radius-16);
   box-shadow: var(--shadow-md);
@@ -3813,51 +3814,51 @@
 
 /* Secondary button variant (outlined) */
 .floating-nav__btn--secondary {
-  color: #254e7a;
-  border-color: #254e7a;
+  color: var(--floating-nav-btn-secondary);
+  border-color: var(--floating-nav-btn-secondary);
   background-color: transparent;
 }
 
 .floating-nav__btn--secondary:hover {
-  background-color: rgba(37, 78, 122, 0.08);
+  background-color: var(--floating-nav-btn-secondary-hover-bg);
 }
 
 .floating-nav__btn--secondary:active {
-  background-color: rgba(37, 78, 122, 0.12);
+  background-color: var(--floating-nav-btn-secondary-active-bg);
 }
 
 /* Primary button variant (filled - Save button) */
 .floating-nav__btn--primary {
-  color: #ffffff;
-  background-color: #ff507b;
-  border-color: #ff507b;
+  color: var(--floating-nav-btn-primary-fg);
+  background-color: var(--floating-nav-btn-primary);
+  border-color: var(--floating-nav-btn-primary);
 }
 
 .floating-nav__btn--primary:hover {
-  background-color: #e64570;
-  border-color: #e64570;
+  background-color: var(--floating-nav-btn-primary-hover);
+  border-color: var(--floating-nav-btn-primary-hover);
 }
 
 .floating-nav__btn--primary:active {
-  background-color: #cc3d63;
-  border-color: #cc3d63;
+  background-color: var(--floating-nav-btn-primary-active);
+  border-color: var(--floating-nav-btn-primary-active);
 }
 
 .floating-nav__btn--primary .floating-nav__btn-chevron {
-  color: #ffffff;
+  color: var(--floating-nav-btn-primary-fg);
 }
 
 /* Disabled button variant */
 .floating-nav__btn--disabled {
-  color: #bfc6d4;
-  background-color: #e0e4eb;
-  border-color: #e0e4eb;
+  color: var(--theme-btn-primary-disabled-fg);
+  background-color: var(--theme-btn-primary-disabled-bg);
+  border-color: var(--theme-btn-primary-disabled-bg);
   cursor: not-allowed;
   pointer-events: none;
 }
 
 .floating-nav__btn--disabled .floating-nav__btn-chevron {
-  color: #bfc6d4;
+  color: var(--theme-btn-primary-disabled-fg);
 }
 
 /* Icon-only dropdown button */
@@ -3873,7 +3874,7 @@
 .floating-nav__divider {
   width: 2px;
   height: 33px;
-  background-color: #bfc6d4;
+  background-color: var(--border-color);
   position: relative;
   flex-shrink: 0;
 }
@@ -3885,7 +3886,7 @@
   left: 0;
   right: 0;
   height: 2px;
-  background-color: #e0e4eb;
+  background-color: var(--border-light);
 }
 
 /* Pin button */
@@ -3899,12 +3900,12 @@
   border: none;
   cursor: pointer;
   padding: 0;
-  color: #525969;
+  color: var(--text-secondary);
   transition: color var(--transition-fast);
 }
 
 .floating-nav__pin:hover {
-  color: #373f4e;
+  color: var(--text-primary);
 }
 
 .floating-nav__pin-icon {
@@ -3914,44 +3915,44 @@
 
 /* Dark mode adjustments for CP theme */
 html.theme-cp.dark .floating-nav {
-  background-color: #333d47;
-  border-color: #4a5568;
+  background-color: var(--floating-nav-bg-dark);
+  border-color: var(--floating-nav-border-dark);
 }
 
 html.theme-cp.dark .floating-nav__btn--secondary {
-  color: #59acff;
-  border-color: #59acff;
+  color: var(--floating-nav-btn-secondary-dark);
+  border-color: var(--floating-nav-btn-secondary-dark);
 }
 
 html.theme-cp.dark .floating-nav__btn--secondary:hover {
-  background-color: rgba(89, 172, 255, 0.12);
+  background-color: var(--floating-nav-btn-secondary-hover-bg-dark);
 }
 
 html.theme-cp.dark .floating-nav__btn--primary {
-  background-color: #ff507b;
-  border-color: #ff507b;
+  background-color: var(--floating-nav-btn-primary);
+  border-color: var(--floating-nav-btn-primary);
 }
 
 html.theme-cp.dark .floating-nav__btn--disabled {
-  color: #6b7280;
-  background-color: #4a5568;
-  border-color: #4a5568;
+  color: var(--floating-nav-btn-disabled-fg-dark);
+  background-color: var(--floating-nav-btn-disabled-bg-dark);
+  border-color: var(--floating-nav-btn-disabled-bg-dark);
 }
 
 html.theme-cp.dark .floating-nav__divider {
-  background-color: #4a5568;
+  background-color: var(--floating-nav-divider-dark);
 }
 
 html.theme-cp.dark .floating-nav__divider::before {
-  background-color: #3d4a5c;
+  background-color: var(--floating-nav-divider-accent-dark);
 }
 
 html.theme-cp.dark .floating-nav__pin {
-  color: #a0aec0;
+  color: var(--floating-nav-pin-dark);
 }
 
 html.theme-cp.dark .floating-nav__pin:hover {
-  color: #e9ecef;
+  color: var(--floating-nav-pin-hover-dark);
 }
 
 /* ===========================================
@@ -3977,8 +3978,8 @@ html.theme-cp.dark .floating-nav__pin:hover {
 }
 
 .cp-left-sidebar__section {
-  background-color: #fcfdff;
-  border: 1px solid #ffffff;
+  background-color: var(--nav-bg);
+  border: 1px solid var(--cp-sidebar-section-border);
   border-left: none;
   border-radius: 0 var(--radius-12) var(--radius-12) 0;
   box-shadow: var(--shadow-xl);
@@ -3996,13 +3997,13 @@ html.theme-cp.dark .floating-nav__pin:hover {
   padding: var(--space-1-5);
   border-radius: var(--radius-08);
   text-decoration: none;
-  color: #373f4e;
+  color: var(--cp-sidebar-item-fg);
   white-space: nowrap;
   transition: background-color var(--transition-fast);
 }
 
 .cp-left-sidebar__item:hover {
-  background-color: rgba(55, 63, 78, 0.08);
+  background-color: var(--cp-sidebar-item-hover-bg);
   text-decoration: none;
 }
 
@@ -4036,16 +4037,16 @@ html.theme-cp.dark .floating-nav__pin:hover {
 
 /* Dark mode */
 html.theme-cp.dark .cp-left-sidebar__section {
-  background-color: #333d47;
-  border-color: #4a5568;
+  background-color: var(--cp-sidebar-section-bg-dark);
+  border-color: var(--cp-sidebar-section-border-dark);
 }
 
 html.theme-cp.dark .cp-left-sidebar__item {
-  color: #e9ecef;
+  color: var(--cp-sidebar-item-fg-dark);
 }
 
 html.theme-cp.dark .cp-left-sidebar__item:hover {
-  background-color: rgba(255, 255, 255, 0.08);
+  background-color: var(--cp-sidebar-item-hover-bg-dark);
 }
 
 /* ===========================================
@@ -4220,7 +4221,7 @@ html.dark .left-sidebar__item:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  z-index: 1; /* Create stacking context for tooltip */
+  z-index: var(--z-10); /* Create stacking context for tooltip */
 }
 
 .left-sidebar__item-tooltip .tooltip__content {
@@ -4231,7 +4232,7 @@ html.dark .left-sidebar__item:hover {
 /* Tooltips are inside sidebar (z-index 45/47) which is above panel (z-index 44/46) */
 /* Tooltip content needs high z-index to appear above panel content */
 .shell-layout:has(.shell-panel--left.shell-panel--open) .left-sidebar__item-tooltip .tooltip__content {
-  z-index: 1000; /* High z-index to ensure tooltips appear above panel content */
+  z-index: var(--z-tooltip); /* High z-index to ensure tooltips appear above panel content */
 }
 
 /* Hide class-based active state when panel is open - only show data-active */
@@ -4298,8 +4299,8 @@ html.dark .left-sidebar__item:hover {
 }
 
 .cp-right-sidebar__section {
-  background-color: #fcfdff;
-  border: 1px solid #ffffff;
+  background-color: var(--nav-bg);
+  border: 1px solid var(--cp-sidebar-section-border);
   border-right: none;
   border-radius: var(--radius-12) 0 0 var(--radius-12);
   box-shadow: var(--shadow-xl);
@@ -4319,14 +4320,14 @@ html.dark .left-sidebar__item:hover {
   padding: var(--space-1-5);
   border-radius: var(--radius-08);
   text-decoration: none;
-  color: #373f4e;
+  color: var(--cp-sidebar-item-fg);
   white-space: nowrap;
   width: 100%;
   transition: background-color var(--transition-fast);
 }
 
 .cp-right-sidebar__item:hover {
-  background-color: rgba(55, 63, 78, 0.08);
+  background-color: var(--cp-sidebar-item-hover-bg);
   text-decoration: none;
 }
 
@@ -4368,16 +4369,16 @@ html.dark .left-sidebar__item:hover {
 
 /* Dark mode */
 html.theme-cp.dark .cp-right-sidebar__section {
-  background-color: #333d47;
-  border-color: #4a5568;
+  background-color: var(--cp-sidebar-section-bg-dark);
+  border-color: var(--cp-sidebar-section-border-dark);
 }
 
 html.theme-cp.dark .cp-right-sidebar__item {
-  color: #e9ecef;
+  color: var(--cp-sidebar-item-fg-dark);
 }
 
 html.theme-cp.dark .cp-right-sidebar__item:hover {
-  background-color: rgba(255, 255, 255, 0.08);
+  background-color: var(--cp-sidebar-item-hover-bg-dark);
 }
 
 /* ===========================================
@@ -4570,7 +4571,7 @@ html.dark .right-sidebar__item:hover {
   align-items: center;
   padding: var(--space-4) 0;
   overflow: visible;
-  z-index: 10;
+  z-index: var(--z-10);
 }
 
 .cp-sidebar-demo__content {
@@ -4793,27 +4794,27 @@ html.dark .right-sidebar__item:hover {
 
 /* Z-index hierarchy for proper layering */
 .shell-layout__header {
-  z-index: 50;
+  z-index: var(--z-50);
 }
 
 .shell-layout__left-sidebar,
 .shell-layout__right-sidebar {
-  z-index: 45; /* Higher than panel (44) so icons appear on top */
+  z-index: var(--z-45); /* Higher than panel (44) so icons appear on top */
   isolation: isolate; /* Create new stacking context to ensure tooltips appear above panel */
 }
 
 /* Ensure left sidebar is above panel when open (narrow only - full-width handled separately) */
 .shell-layout:has(.shell-panel--left.shell-panel--open:not(.shell-panel--full)) .shell-layout__left-sidebar {
-  z-index: 45; /* Sidebar is above panel (44) */
+  z-index: var(--z-45); /* Sidebar is above panel (44) */
   overflow: visible; /* Ensure tooltips are not clipped */
 }
 
 .shell-layout__floating-nav-wrap {
-  z-index: 40;
+  z-index: var(--z-40);
 }
 
 .shell-layout__footer {
-  z-index: 40;
+  z-index: var(--z-40);
 }
 
 /* Smooth transitions for theme switching */
@@ -4973,7 +4974,7 @@ div.shell-panel__header.shell-panel__header--theme,
 
 /* Gradient header variant - applies when data-gradient-header="true" */
 .shell-panel__header[data-gradient-header="true"] {
-  background: linear-gradient(119deg, #8A33C2 17.59%, #423FE2 77.78%);
+  background: var(--gradient-dela);
   color: var(--text-inverse);
 }
 
@@ -4990,7 +4991,7 @@ div.shell-panel__header.shell-panel__header--theme,
 }
 
 .shell-panel__header[data-gradient-header="true"] .shell-panel__action:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--gradient-dela-hover-bg);
 }
 
 /* Default header variant */
