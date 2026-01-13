@@ -5,7 +5,11 @@
   "description": "Component definitions with props, variants, and CSS class mappings",
   "components": {
     "Accordion": {
-      "description": "Accordion component",
+      "description": "Accordion Component",
+      "filePath": "src/components/ui/Accordion.astro",
+      "dependencies": [
+        "Icon"
+      ],
       "props": {
         "items": {
           "type": "AccordionItem[]",
@@ -22,10 +26,55 @@
           "description": null,
           "optional": true
         }
+      },
+      "tokens": {
+        "base": {
+          "radius": [
+            {
+              "cssVar": "--radius-lg",
+              "mcpPath": "tokens.borderRadius.lg",
+              "value": "0.5rem",
+              "category": "radius"
+            }
+          ]
+        },
+        "themeAware": {
+          "colors": [
+            {
+              "cssVar": "--border-color",
+              "mcpPath": "tokens.colors.theme.borderColor",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#BFC6D4",
+                  "dark": "#5F6871"
+                },
+                "vp": {
+                  "light": "#BFC6D4",
+                  "dark": "#2A2D32"
+                },
+                "ppm": {
+                  "light": "#BFC6D4",
+                  "dark": "#2A2D32"
+                },
+                "maconomy": {
+                  "light": "#BFC6D4",
+                  "dark": "#2A2D32"
+                }
+              }
+            }
+          ]
+        }
       }
     },
     "Alert": {
-      "description": "Alert component",
+      "description": "Alert Component",
+      "filePath": "src/components/ui/Alert.astro",
+      "dependencies": [
+        "Icon",
+        "Button",
+        "ProgressBar"
+      ],
       "props": {
         "variant": {
           "type": "'info' | 'success' | 'warning' | 'error'",
@@ -60,10 +109,461 @@
           "description": null,
           "optional": true
         }
+      },
+      "tokens": {
+        "base": {
+          "spacing": [
+            {
+              "cssVar": "--space-3",
+              "mcpPath": "tokens.spacing.3",
+              "value": "12px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--space-4",
+              "mcpPath": "tokens.spacing.4",
+              "value": "16px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--space-2",
+              "mcpPath": "tokens.spacing.2",
+              "value": "8px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--space-5",
+              "mcpPath": "tokens.spacing.5",
+              "value": "20px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--space-1",
+              "mcpPath": "tokens.spacing.1",
+              "value": "4px",
+              "category": "spacing"
+            }
+          ],
+          "typography": [
+            {
+              "cssVar": "--text-base",
+              "mcpPath": "tokens.typography.fontSize.base",
+              "value": "1rem",
+              "category": "typography"
+            },
+            {
+              "cssVar": "--font-display",
+              "mcpPath": "tokens.typography.fontFamily.display",
+              "value": "'Lexend', sans-serif",
+              "category": "typography"
+            },
+            {
+              "cssVar": "--text-sm",
+              "mcpPath": "tokens.typography.fontSize.sm",
+              "value": "0.875rem",
+              "category": "typography"
+            },
+            {
+              "cssVar": "--font-medium",
+              "mcpPath": "tokens.typography.fontFamily.medium",
+              "value": "500",
+              "category": "typography"
+            },
+            {
+              "cssVar": "--font-normal",
+              "mcpPath": "tokens.typography.fontFamily.normal",
+              "value": "400",
+              "category": "typography"
+            }
+          ],
+          "elevations": [
+            {
+              "cssVar": "--shadow-md",
+              "mcpPath": "tokens.shadows.md",
+              "value": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+              "category": "elevations"
+            }
+          ],
+          "radius": [
+            {
+              "cssVar": "--radius-lg",
+              "mcpPath": "tokens.borderRadius.lg",
+              "value": "0.5rem",
+              "category": "radius"
+            },
+            {
+              "cssVar": "--radius-08",
+              "mcpPath": "tokens.borderRadius.08",
+              "value": "8px",
+              "category": "radius"
+            }
+          ],
+          "transitions": [
+            {
+              "cssVar": "--transition-fast",
+              "mcpPath": "tokens.transitions.fast",
+              "value": "150ms ease",
+              "category": "transitions"
+            }
+          ]
+        },
+        "themeAware": {
+          "colors": [
+            {
+              "cssVar": "--color-info-light",
+              "mcpPath": "tokens.colors.theme.infoLight",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "rgba(51, 102, 255, 0.1)",
+                  "dark": "rgba(0, 173, 253, 0.1)"
+                },
+                "vp": {
+                  "light": "rgba(51, 102, 255, 0.1)",
+                  "dark": "rgba(0, 173, 253, 0.1)"
+                },
+                "ppm": {
+                  "light": "rgba(51, 102, 255, 0.1)",
+                  "dark": "rgba(0, 173, 253, 0.1)"
+                },
+                "maconomy": {
+                  "light": "rgba(51, 102, 255, 0.1)",
+                  "dark": "rgba(0, 173, 253, 0.1)"
+                }
+              }
+            },
+            {
+              "cssVar": "--color-info-border",
+              "mcpPath": "tokens.colors.theme.infoBorder",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "rgba(51, 102, 255, 0.3)",
+                  "dark": "rgba(0, 173, 253, 0.3)"
+                },
+                "vp": {
+                  "light": "rgba(51, 102, 255, 0.3)",
+                  "dark": "rgba(0, 173, 253, 0.3)"
+                },
+                "ppm": {
+                  "light": "rgba(51, 102, 255, 0.3)",
+                  "dark": "rgba(0, 173, 253, 0.3)"
+                },
+                "maconomy": {
+                  "light": "rgba(51, 102, 255, 0.3)",
+                  "dark": "rgba(0, 173, 253, 0.3)"
+                }
+              }
+            },
+            {
+              "cssVar": "--color-success-light",
+              "mcpPath": "tokens.colors.theme.successLight",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "rgba(82, 189, 148, 0.1)",
+                  "dark": "rgba(0, 231, 142, 0.1)"
+                },
+                "vp": {
+                  "light": "rgba(82, 189, 148, 0.1)",
+                  "dark": "rgba(0, 231, 142, 0.1)"
+                },
+                "ppm": {
+                  "light": "rgba(82, 189, 148, 0.1)",
+                  "dark": "rgba(0, 231, 142, 0.1)"
+                },
+                "maconomy": {
+                  "light": "rgba(82, 189, 148, 0.1)",
+                  "dark": "rgba(0, 231, 142, 0.1)"
+                }
+              }
+            },
+            {
+              "cssVar": "--color-success-border",
+              "mcpPath": "tokens.colors.theme.successBorder",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "rgba(82, 189, 148, 0.3)",
+                  "dark": "rgba(0, 231, 142, 0.3)"
+                },
+                "vp": {
+                  "light": "rgba(82, 189, 148, 0.3)",
+                  "dark": "rgba(0, 231, 142, 0.3)"
+                },
+                "ppm": {
+                  "light": "rgba(82, 189, 148, 0.3)",
+                  "dark": "rgba(0, 231, 142, 0.3)"
+                },
+                "maconomy": {
+                  "light": "rgba(82, 189, 148, 0.3)",
+                  "dark": "rgba(0, 231, 142, 0.3)"
+                }
+              }
+            },
+            {
+              "cssVar": "--color-warning-light",
+              "mcpPath": "tokens.colors.theme.warningLight",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "rgba(255, 176, 32, 0.1)",
+                  "dark": "rgba(249, 175, 0, 0.1)"
+                },
+                "vp": {
+                  "light": "rgba(255, 176, 32, 0.1)",
+                  "dark": "rgba(249, 175, 0, 0.1)"
+                },
+                "ppm": {
+                  "light": "rgba(255, 176, 32, 0.1)",
+                  "dark": "rgba(249, 175, 0, 0.1)"
+                },
+                "maconomy": {
+                  "light": "rgba(255, 176, 32, 0.1)",
+                  "dark": "rgba(249, 175, 0, 0.1)"
+                }
+              }
+            },
+            {
+              "cssVar": "--color-warning-border",
+              "mcpPath": "tokens.colors.theme.warningBorder",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "rgba(255, 176, 32, 0.2)",
+                  "dark": "rgba(249, 175, 0, 0.2)"
+                },
+                "vp": {
+                  "light": "rgba(255, 176, 32, 0.2)",
+                  "dark": "rgba(249, 175, 0, 0.2)"
+                },
+                "ppm": {
+                  "light": "rgba(255, 176, 32, 0.2)",
+                  "dark": "rgba(249, 175, 0, 0.2)"
+                },
+                "maconomy": {
+                  "light": "rgba(255, 176, 32, 0.2)",
+                  "dark": "rgba(249, 175, 0, 0.2)"
+                }
+              }
+            },
+            {
+              "cssVar": "--color-error-light",
+              "mcpPath": "tokens.colors.theme.errorLight",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "rgba(209, 67, 67, 0.1)",
+                  "dark": "rgba(244, 98, 134, 0.1)"
+                },
+                "vp": {
+                  "light": "rgba(209, 67, 67, 0.1)",
+                  "dark": "rgba(244, 98, 134, 0.1)"
+                },
+                "ppm": {
+                  "light": "rgba(209, 67, 67, 0.1)",
+                  "dark": "rgba(244, 98, 134, 0.1)"
+                },
+                "maconomy": {
+                  "light": "rgba(209, 67, 67, 0.1)",
+                  "dark": "rgba(244, 98, 134, 0.1)"
+                }
+              }
+            },
+            {
+              "cssVar": "--color-error-border",
+              "mcpPath": "tokens.colors.theme.errorBorder",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "rgba(209, 67, 67, 0.2)",
+                  "dark": "rgba(244, 98, 134, 0.2)"
+                },
+                "vp": {
+                  "light": "rgba(209, 67, 67, 0.2)",
+                  "dark": "rgba(244, 98, 134, 0.2)"
+                },
+                "ppm": {
+                  "light": "rgba(209, 67, 67, 0.2)",
+                  "dark": "rgba(244, 98, 134, 0.2)"
+                },
+                "maconomy": {
+                  "light": "rgba(209, 67, 67, 0.2)",
+                  "dark": "rgba(244, 98, 134, 0.2)"
+                }
+              }
+            },
+            {
+              "cssVar": "--color-info",
+              "mcpPath": "tokens.colors.theme.info",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#3366FF",
+                  "dark": "#00ADFD"
+                },
+                "vp": {
+                  "light": "#3366FF",
+                  "dark": "#00ADFD"
+                },
+                "ppm": {
+                  "light": "#3366FF",
+                  "dark": "#00ADFD"
+                },
+                "maconomy": {
+                  "light": "#3366FF",
+                  "dark": "#00ADFD"
+                }
+              }
+            },
+            {
+              "cssVar": "--color-success",
+              "mcpPath": "tokens.colors.theme.success",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#52BD94",
+                  "dark": "#00E78E"
+                },
+                "vp": {
+                  "light": "#52BD94",
+                  "dark": "#00E78E"
+                },
+                "ppm": {
+                  "light": "#52BD94",
+                  "dark": "#00E78E"
+                },
+                "maconomy": {
+                  "light": "#52BD94",
+                  "dark": "#00E78E"
+                }
+              }
+            },
+            {
+              "cssVar": "--color-warning",
+              "mcpPath": "tokens.colors.theme.warning",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#FFB020",
+                  "dark": "#F9AF00"
+                },
+                "vp": {
+                  "light": "#FFB020",
+                  "dark": "#F9AF00"
+                },
+                "ppm": {
+                  "light": "#FFB020",
+                  "dark": "#F9AF00"
+                },
+                "maconomy": {
+                  "light": "#FFB020",
+                  "dark": "#F9AF00"
+                }
+              }
+            },
+            {
+              "cssVar": "--color-error",
+              "mcpPath": "tokens.colors.theme.error",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#D14343",
+                  "dark": "#F46286"
+                },
+                "vp": {
+                  "light": "#D14343",
+                  "dark": "#F46286"
+                },
+                "ppm": {
+                  "light": "#D14343",
+                  "dark": "#F46286"
+                },
+                "maconomy": {
+                  "light": "#D14343",
+                  "dark": "#F46286"
+                }
+              }
+            },
+            {
+              "cssVar": "--card-bg",
+              "mcpPath": "tokens.colors.theme.cardBg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#F7F8FA",
+                  "dark": "#37424D"
+                },
+                "vp": {
+                  "light": "#F7F8FA",
+                  "dark": "#1F2124"
+                },
+                "ppm": {
+                  "light": "#F7F8FA",
+                  "dark": "#1F2124"
+                },
+                "maconomy": {
+                  "light": "#F7F8FA",
+                  "dark": "#1F2124"
+                }
+              }
+            },
+            {
+              "cssVar": "--text-primary",
+              "mcpPath": "tokens.colors.theme.textPrimary",
+              "category": "typography",
+              "themes": {
+                "cp": {
+                  "light": "#373F4E",
+                  "dark": "#E9ECEF"
+                },
+                "vp": {
+                  "light": "#373F4E",
+                  "dark": "#FAFAFA"
+                },
+                "ppm": {
+                  "light": "#373F4E",
+                  "dark": "#FAFAFA"
+                },
+                "maconomy": {
+                  "light": "#373F4E",
+                  "dark": "#FAFAFA"
+                }
+              }
+            },
+            {
+              "cssVar": "--text-secondary",
+              "mcpPath": "tokens.colors.theme.textSecondary",
+              "category": "typography",
+              "themes": {
+                "cp": {
+                  "light": "#525969",
+                  "dark": "#B6B6C4"
+                },
+                "vp": {
+                  "light": "#525969",
+                  "dark": "#B5B5BC"
+                },
+                "ppm": {
+                  "light": "#525969",
+                  "dark": "#B5B5BC"
+                },
+                "maconomy": {
+                  "light": "#525969",
+                  "dark": "#B5B5BC"
+                }
+              }
+            }
+          ]
+        }
       }
     },
     "Avatar": {
-      "description": "Avatar component",
+      "description": "Avatar Component",
+      "filePath": "src/components/ui/Avatar.astro",
+      "dependencies": [
+        "Icon"
+      ],
       "props": {
         "size": {
           "type": "'sm' | 'md' | 'lg'",
@@ -75,10 +575,74 @@
           "optional": true,
           "description": null
         }
+      },
+      "tokens": {
+        "base": {
+          "spacing": [
+            {
+              "cssVar": "--avatar-size-sm",
+              "mcpPath": "tokens.spacing.size",
+              "value": "32px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--avatar-size-md",
+              "mcpPath": "tokens.spacing.size",
+              "value": "40px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--avatar-size-lg",
+              "mcpPath": "tokens.spacing.size",
+              "value": "48px",
+              "category": "spacing"
+            }
+          ],
+          "radius": [
+            {
+              "cssVar": "--radius-08",
+              "mcpPath": "tokens.borderRadius.08",
+              "value": "8px",
+              "category": "radius"
+            }
+          ]
+        },
+        "themeAware": {
+          "colors": [
+            {
+              "cssVar": "--theme-primary",
+              "mcpPath": "tokens.colors.theme.primary",
+              "category": "colors",
+              "tokenPath": "themes.{theme}.primary",
+              "themes": {
+                "cp": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "vp": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "ppm": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "maconomy": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                }
+              }
+            }
+          ]
+        }
       }
     },
     "Badge": {
-      "description": "Badge component",
+      "description": "Badge Component",
+      "filePath": "src/components/ui/Badge.astro",
+      "dependencies": [
+        "Icon"
+      ],
       "props": {
         "variant": {
           "type": "'default' | 'primary' | 'success' | 'warning' | 'error' | 'info' | 'orange' | 'pink' | 'disabled'",
@@ -96,78 +660,1153 @@
           "description": null,
           "optional": true
         }
+      },
+      "tokens": {
+        "base": {
+          "spacing": [
+            {
+              "cssVar": "--space-1",
+              "mcpPath": "tokens.spacing.1",
+              "value": "4px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--space-0-5",
+              "mcpPath": "tokens.spacing.0",
+              "value": "2px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--space-2",
+              "mcpPath": "tokens.spacing.2",
+              "value": "8px",
+              "category": "spacing"
+            }
+          ],
+          "typography": [
+            {
+              "cssVar": "--font-sans",
+              "mcpPath": "tokens.typography.fontFamily.sans",
+              "value": "'Figtree', sans-serif",
+              "category": "typography"
+            },
+            {
+              "cssVar": "--text-xs",
+              "mcpPath": "tokens.typography.fontSize.xs",
+              "value": "0.75rem",
+              "category": "typography"
+            },
+            {
+              "cssVar": "--font-medium",
+              "mcpPath": "tokens.typography.fontFamily.medium",
+              "value": "500",
+              "category": "typography"
+            },
+            {
+              "cssVar": "--leading-normal",
+              "mcpPath": "tokens.typography.leadingNormal",
+              "value": "1.5",
+              "category": "typography"
+            }
+          ],
+          "radius": [
+            {
+              "cssVar": "--radius-full",
+              "mcpPath": "tokens.borderRadius.full",
+              "value": "9999px",
+              "category": "radius"
+            }
+          ]
+        },
+        "themeAware": {
+          "colors": [
+            {
+              "cssVar": "--elevated-bg",
+              "mcpPath": "tokens.colors.theme.elevatedBg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#F7F8FA",
+                  "dark": "#37424D"
+                },
+                "vp": {
+                  "light": "#F7F8FA",
+                  "dark": "#1F2124"
+                },
+                "ppm": {
+                  "light": "#F7F8FA",
+                  "dark": "#1F2124"
+                },
+                "maconomy": {
+                  "light": "#F7F8FA",
+                  "dark": "#1F2124"
+                }
+              }
+            },
+            {
+              "cssVar": "--text-secondary",
+              "mcpPath": "tokens.colors.theme.textSecondary",
+              "category": "typography",
+              "themes": {
+                "cp": {
+                  "light": "#525969",
+                  "dark": "#B6B6C4"
+                },
+                "vp": {
+                  "light": "#525969",
+                  "dark": "#B5B5BC"
+                },
+                "ppm": {
+                  "light": "#525969",
+                  "dark": "#B5B5BC"
+                },
+                "maconomy": {
+                  "light": "#525969",
+                  "dark": "#B5B5BC"
+                }
+              }
+            },
+            {
+              "cssVar": "--border-color",
+              "mcpPath": "tokens.colors.theme.borderColor",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#BFC6D4",
+                  "dark": "#5F6871"
+                },
+                "vp": {
+                  "light": "#BFC6D4",
+                  "dark": "#2A2D32"
+                },
+                "ppm": {
+                  "light": "#BFC6D4",
+                  "dark": "#2A2D32"
+                },
+                "maconomy": {
+                  "light": "#BFC6D4",
+                  "dark": "#2A2D32"
+                }
+              }
+            }
+          ]
+        }
       }
     },
     "Button": {
-      "description": "Interactive button component for triggering actions",
+      "description": "Button Component",
+      "filePath": "src/components/ui/Button.astro",
+      "dependencies": [
+        "Icon"
+      ],
       "props": {
         "variant": {
-          "type": "string",
-          "options": ["primary", "secondary", "tertiary", "outline", "ghost", "destructive"],
-          "default": "primary",
-          "description": "Visual style of the button"
+          "type": "'primary' | 'secondary' | 'tertiary' | 'outline' | 'ghost' | 'destructive'",
+          "description": null,
+          "optional": true,
+          "default": "primary"
         },
         "buttonType": {
-          "type": "string",
-          "options": ["theme", "pageHeader"],
-          "default": "theme",
-          "description": "Button type: theme buttons use primary color shades, page header buttons use dark blue"
+          "type": "'theme' | 'pageHeader'",
+          "description": null,
+          "optional": true,
+          "default": "theme"
         },
         "size": {
-          "type": "string",
-          "options": ["xs", "sm", "md", "lg"],
-          "default": "md",
-          "description": "Size of the button"
+          "type": "'xs' | 'sm' | 'md' | 'lg'",
+          "description": null,
+          "optional": true,
+          "default": "md"
         },
         "orientation": {
-          "type": "string",
-          "options": ["horizontal", "vertical"],
-          "default": "horizontal",
-          "description": "Button layout orientation"
+          "type": "'horizontal' | 'vertical'",
+          "description": null,
+          "optional": true,
+          "default": "horizontal"
         },
         "disabled": {
           "type": "boolean",
-          "default": false,
-          "description": "Disables the button"
+          "description": null,
+          "optional": true,
+          "default": "false"
         },
         "loading": {
           "type": "boolean",
-          "default": false,
-          "description": "Shows loading spinner"
+          "description": null,
+          "optional": true,
+          "default": "false"
         },
         "loadingText": {
           "type": "string",
-          "description": "Text to display while loading"
+          "description": null,
+          "optional": true
         },
         "icon": {
           "type": "string",
-          "description": "Heroicon name (e.g., \"plus\", \"arrow-right\")"
+          "description": "Heroicon name (e.g., \"plus\", \"arrow-right\")",
+          "optional": true
         },
         "iconPosition": {
-          "type": "string",
-          "options": ["left", "right"],
-          "default": "left",
-          "description": "Position of icon relative to text"
+          "type": "'left' | 'right'",
+          "description": null,
+          "optional": true,
+          "default": "left"
         },
         "type": {
-          "type": "string",
-          "options": ["button", "submit", "reset"],
-          "default": "button",
-          "description": "Button HTML type attribute"
+          "type": "'button' | 'submit' | 'reset'",
+          "description": null,
+          "optional": true,
+          "default": "button"
         },
         "fullWidth": {
           "type": "boolean",
-          "default": false,
-          "description": "Makes button full width"
+          "description": null,
+          "optional": true,
+          "default": "false"
         },
         "class": {
           "type": "string",
-          "description": "Additional CSS classes"
+          "description": null,
+          "optional": true
+        },
+        "key": {
+          "type": "string]: any",
+          "description": null
+        }
+      },
+      "tokens": {
+        "base": {
+          "spacing": [
+            {
+              "cssVar": "--button-height-xs",
+              "mcpPath": "tokens.spacing.height",
+              "value": "24px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--space-2",
+              "mcpPath": "tokens.spacing.2",
+              "value": "8px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--space-1",
+              "mcpPath": "tokens.spacing.1",
+              "value": "4px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--spinner-size-xs",
+              "mcpPath": "tokens.spacing.size",
+              "value": "12px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--spinner-stroke-width-xs",
+              "mcpPath": "tokens.spacing.stroke",
+              "value": "2",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--button-height-sm",
+              "mcpPath": "tokens.spacing.height",
+              "value": "32px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--space-3",
+              "mcpPath": "tokens.spacing.3",
+              "value": "12px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--space-1-5",
+              "mcpPath": "tokens.spacing.1",
+              "value": "6px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--spinner-size-sm",
+              "mcpPath": "tokens.spacing.size",
+              "value": "14px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--spinner-stroke-width-sm",
+              "mcpPath": "tokens.spacing.stroke",
+              "value": "2.5",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--button-height-md",
+              "mcpPath": "tokens.spacing.height",
+              "value": "40px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--space-4",
+              "mcpPath": "tokens.spacing.4",
+              "value": "16px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--spinner-size-md",
+              "mcpPath": "tokens.spacing.size",
+              "value": "16px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--spinner-stroke-width-md",
+              "mcpPath": "tokens.spacing.stroke",
+              "value": "3",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--button-height-lg",
+              "mcpPath": "tokens.spacing.height",
+              "value": "48px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--space-6",
+              "mcpPath": "tokens.spacing.6",
+              "value": "24px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--spinner-size-lg",
+              "mcpPath": "tokens.spacing.size",
+              "value": "18px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--spinner-stroke-width-lg",
+              "mcpPath": "tokens.spacing.stroke",
+              "value": "3.5",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--space-2-5",
+              "mcpPath": "tokens.spacing.2",
+              "value": "10px",
+              "category": "spacing"
+            }
+          ],
+          "typography": [
+            {
+              "cssVar": "--font-sans",
+              "mcpPath": "tokens.typography.fontFamily.sans",
+              "value": "'Figtree', sans-serif",
+              "category": "typography"
+            },
+            {
+              "cssVar": "--font-medium",
+              "mcpPath": "tokens.typography.fontFamily.medium",
+              "value": "500",
+              "category": "typography"
+            },
+            {
+              "cssVar": "--text-xs",
+              "mcpPath": "tokens.typography.fontSize.xs",
+              "value": "0.75rem",
+              "category": "typography"
+            },
+            {
+              "cssVar": "--text-sm",
+              "mcpPath": "tokens.typography.fontSize.sm",
+              "value": "0.875rem",
+              "category": "typography"
+            },
+            {
+              "cssVar": "--text-base",
+              "mcpPath": "tokens.typography.fontSize.base",
+              "value": "1rem",
+              "category": "typography"
+            },
+            {
+              "cssVar": "--text-lg",
+              "mcpPath": "tokens.typography.fontSize.lg",
+              "value": "1.125rem",
+              "category": "typography"
+            }
+          ],
+          "elevations": [
+            {
+              "cssVar": "--shadow-inset-md",
+              "mcpPath": "tokens.shadows.inset",
+              "value": "inset 0 1px 4px 0 rgba(0, 0, 0, 0.2)",
+              "category": "elevations"
+            },
+            {
+              "cssVar": "--shadow-inset-sm",
+              "mcpPath": "tokens.shadows.inset",
+              "value": "inset 0 1px 4px 0 rgba(0, 0, 0, 0.1)",
+              "category": "elevations"
+            }
+          ],
+          "radius": [
+            {
+              "cssVar": "--radius-lg",
+              "mcpPath": "tokens.borderRadius.lg",
+              "value": "0.5rem",
+              "category": "radius"
+            }
+          ],
+          "transitions": [
+            {
+              "cssVar": "--transition-fast",
+              "mcpPath": "tokens.transitions.fast",
+              "value": "150ms ease",
+              "category": "transitions"
+            }
+          ]
+        },
+        "themeAware": {
+          "colors": [
+            {
+              "cssVar": "--theme-primary",
+              "mcpPath": "tokens.colors.theme.primary",
+              "category": "colors",
+              "tokenPath": "themes.{theme}.primary",
+              "themes": {
+                "cp": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "vp": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "ppm": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "maconomy": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                }
+              }
+            },
+            {
+              "cssVar": "--text-inverse",
+              "mcpPath": "tokens.colors.theme.textInverse",
+              "category": "typography",
+              "themes": {
+                "cp": {
+                  "light": "#FFFFFF",
+                  "dark": "#1F252E"
+                },
+                "vp": {
+                  "light": "#FFFFFF",
+                  "dark": "#15171A"
+                },
+                "ppm": {
+                  "light": "#FFFFFF",
+                  "dark": "#15171A"
+                },
+                "maconomy": {
+                  "light": "#FFFFFF",
+                  "dark": "#15171A"
+                }
+              }
+            },
+            {
+              "cssVar": "--theme-primary-hover",
+              "mcpPath": "tokens.colors.theme.primaryHover",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#0066CC",
+                  "dark": "#7bb8ff"
+                },
+                "vp": {
+                  "light": "#0066CC",
+                  "dark": "#78baff"
+                },
+                "ppm": {
+                  "light": "#0066CC",
+                  "dark": "#7bb8ff"
+                },
+                "maconomy": {
+                  "light": "#0066CC",
+                  "dark": "#7bb8ff"
+                }
+              }
+            },
+            {
+              "cssVar": "--card-bg",
+              "mcpPath": "tokens.colors.theme.cardBg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#F7F8FA",
+                  "dark": "#37424D"
+                },
+                "vp": {
+                  "light": "#F7F8FA",
+                  "dark": "#1F2124"
+                },
+                "ppm": {
+                  "light": "#F7F8FA",
+                  "dark": "#1F2124"
+                },
+                "maconomy": {
+                  "light": "#F7F8FA",
+                  "dark": "#1F2124"
+                }
+              }
+            },
+            {
+              "cssVar": "--theme-btn-primary-disabled-bg",
+              "mcpPath": "tokens.colors.theme.btnPrimaryDisabledBg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#e0e4eb",
+                  "dark": "#e0e4eb"
+                },
+                "vp": {
+                  "light": "#e0e4eb",
+                  "dark": "#e0e4eb"
+                },
+                "ppm": {
+                  "light": "#e0e4eb",
+                  "dark": "#e0e4eb"
+                },
+                "maconomy": {
+                  "light": "#e0e4eb",
+                  "dark": "#e0e4eb"
+                }
+              }
+            },
+            {
+              "cssVar": "--theme-btn-primary-disabled-fg",
+              "mcpPath": "tokens.colors.theme.btnPrimaryDisabledFg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#bfc6d4",
+                  "dark": "#bfc6d4"
+                },
+                "vp": {
+                  "light": "#bfc6d4",
+                  "dark": "#bfc6d4"
+                },
+                "ppm": {
+                  "light": "#bfc6d4",
+                  "dark": "#bfc6d4"
+                },
+                "maconomy": {
+                  "light": "#bfc6d4",
+                  "dark": "#bfc6d4"
+                }
+              }
+            },
+            {
+              "cssVar": "--elevated-bg",
+              "mcpPath": "tokens.colors.theme.elevatedBg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#F7F8FA",
+                  "dark": "#37424D"
+                },
+                "vp": {
+                  "light": "#F7F8FA",
+                  "dark": "#1F2124"
+                },
+                "ppm": {
+                  "light": "#F7F8FA",
+                  "dark": "#1F2124"
+                },
+                "maconomy": {
+                  "light": "#F7F8FA",
+                  "dark": "#1F2124"
+                }
+              }
+            },
+            {
+              "cssVar": "--theme-btn-secondary-stroke",
+              "mcpPath": "tokens.colors.theme.btnSecondaryStroke",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "var(--theme-primary)",
+                  "dark": "var(--theme-primary)"
+                },
+                "vp": {
+                  "light": "var(--theme-primary)",
+                  "dark": "var(--theme-primary)"
+                },
+                "ppm": {
+                  "light": "var(--theme-primary)",
+                  "dark": "var(--theme-primary)"
+                },
+                "maconomy": {
+                  "light": "var(--theme-primary)",
+                  "dark": "var(--theme-primary)"
+                }
+              }
+            },
+            {
+              "cssVar": "--theme-btn-secondary-hover-bg",
+              "mcpPath": "tokens.colors.theme.btnSecondaryHoverBg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#eaeff5",
+                  "dark": "#eaeff5"
+                },
+                "vp": {
+                  "light": "#eaeff5",
+                  "dark": "#eaeff5"
+                },
+                "ppm": {
+                  "light": "#eaeff5",
+                  "dark": "#eaeff5"
+                },
+                "maconomy": {
+                  "light": "#eaeff5",
+                  "dark": "#eaeff5"
+                }
+              }
+            },
+            {
+              "cssVar": "--theme-btn-secondary-hover-fg",
+              "mcpPath": "tokens.colors.theme.btnSecondaryHoverFg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "var(--theme-primary)",
+                  "dark": "var(--theme-primary)"
+                },
+                "vp": {
+                  "light": "var(--theme-primary)",
+                  "dark": "var(--theme-primary)"
+                },
+                "ppm": {
+                  "light": "var(--theme-primary)",
+                  "dark": "var(--theme-primary)"
+                },
+                "maconomy": {
+                  "light": "var(--theme-primary)",
+                  "dark": "var(--theme-primary)"
+                }
+              }
+            },
+            {
+              "cssVar": "--theme-btn-secondary-hover-stroke",
+              "mcpPath": "tokens.colors.theme.btnSecondaryHoverStroke",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "var(--theme-primary)",
+                  "dark": "var(--theme-primary)"
+                },
+                "vp": {
+                  "light": "var(--theme-primary)",
+                  "dark": "var(--theme-primary)"
+                },
+                "ppm": {
+                  "light": "var(--theme-primary)",
+                  "dark": "var(--theme-primary)"
+                },
+                "maconomy": {
+                  "light": "var(--theme-primary)",
+                  "dark": "var(--theme-primary)"
+                }
+              }
+            },
+            {
+              "cssVar": "--theme-btn-secondary-disabled-fg",
+              "mcpPath": "tokens.colors.theme.btnSecondaryDisabledFg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#e0e4eb",
+                  "dark": "#e0e4eb"
+                },
+                "vp": {
+                  "light": "#e0e4eb",
+                  "dark": "#e0e4eb"
+                },
+                "ppm": {
+                  "light": "#e0e4eb",
+                  "dark": "#e0e4eb"
+                },
+                "maconomy": {
+                  "light": "#e0e4eb",
+                  "dark": "#e0e4eb"
+                }
+              }
+            },
+            {
+              "cssVar": "--theme-btn-tertiary-fg",
+              "mcpPath": "tokens.colors.theme.btnTertiaryFg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "var(--theme-primary)",
+                  "dark": "var(--theme-primary)"
+                },
+                "vp": {
+                  "light": "var(--theme-primary)",
+                  "dark": "var(--theme-primary)"
+                },
+                "ppm": {
+                  "light": "var(--theme-primary)",
+                  "dark": "var(--theme-primary)"
+                },
+                "maconomy": {
+                  "light": "var(--theme-primary)",
+                  "dark": "var(--theme-primary)"
+                }
+              }
+            },
+            {
+              "cssVar": "--theme-btn-tertiary-hover-bg",
+              "mcpPath": "tokens.colors.theme.btnTertiaryHoverBg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#eaeff5",
+                  "dark": "#eaeff5"
+                },
+                "vp": {
+                  "light": "#eaeff5",
+                  "dark": "#eaeff5"
+                },
+                "ppm": {
+                  "light": "#eaeff5",
+                  "dark": "#eaeff5"
+                },
+                "maconomy": {
+                  "light": "#eaeff5",
+                  "dark": "#eaeff5"
+                }
+              }
+            },
+            {
+              "cssVar": "--theme-btn-tertiary-disabled-fg",
+              "mcpPath": "tokens.colors.theme.btnTertiaryDisabledFg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#bfc6d4",
+                  "dark": "#bfc6d4"
+                },
+                "vp": {
+                  "light": "#bfc6d4",
+                  "dark": "#bfc6d4"
+                },
+                "ppm": {
+                  "light": "#bfc6d4",
+                  "dark": "#bfc6d4"
+                },
+                "maconomy": {
+                  "light": "#bfc6d4",
+                  "dark": "#bfc6d4"
+                }
+              }
+            },
+            {
+              "cssVar": "--page-header-btn-primary",
+              "mcpPath": "tokens.colors.theme.pageHeaderBtnPrimary",
+              "category": "other",
+              "themes": {
+                "cp": {
+                  "light": "#043852",
+                  "dark": "#043852"
+                },
+                "vp": {
+                  "light": "#043852",
+                  "dark": "#495057"
+                },
+                "ppm": {
+                  "light": "#043852",
+                  "dark": "#495057"
+                },
+                "maconomy": {
+                  "light": "#043852",
+                  "dark": "#495057"
+                }
+              }
+            },
+            {
+              "cssVar": "--page-header-btn-primary-hover",
+              "mcpPath": "tokens.colors.theme.pageHeaderBtnPrimaryHover",
+              "category": "other",
+              "themes": {
+                "cp": {
+                  "light": "#03273a",
+                  "dark": "#03273a"
+                },
+                "vp": {
+                  "light": "#03273a",
+                  "dark": "#03273a"
+                },
+                "ppm": {
+                  "light": "#03273a",
+                  "dark": "#03273a"
+                },
+                "maconomy": {
+                  "light": "#03273a",
+                  "dark": "#03273a"
+                }
+              }
+            },
+            {
+              "cssVar": "--page-header-btn-primary-disabled-bg",
+              "mcpPath": "tokens.colors.theme.pageHeaderBtnPrimaryDisabledBg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#e0e4eb",
+                  "dark": "#e0e4eb"
+                },
+                "vp": {
+                  "light": "#e0e4eb",
+                  "dark": "#e0e4eb"
+                },
+                "ppm": {
+                  "light": "#e0e4eb",
+                  "dark": "#e0e4eb"
+                },
+                "maconomy": {
+                  "light": "#e0e4eb",
+                  "dark": "#e0e4eb"
+                }
+              }
+            },
+            {
+              "cssVar": "--page-header-btn-primary-disabled-fg",
+              "mcpPath": "tokens.colors.theme.pageHeaderBtnPrimaryDisabledFg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#ffffff",
+                  "dark": "#ffffff"
+                },
+                "vp": {
+                  "light": "#ffffff",
+                  "dark": "#ffffff"
+                },
+                "ppm": {
+                  "light": "#ffffff",
+                  "dark": "#ffffff"
+                },
+                "maconomy": {
+                  "light": "#ffffff",
+                  "dark": "#ffffff"
+                }
+              }
+            },
+            {
+              "cssVar": "--page-header-btn-secondary-default-fg",
+              "mcpPath": "tokens.colors.theme.pageHeaderBtnSecondaryDefaultFg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#043852",
+                  "dark": "#B6B6C4"
+                },
+                "vp": {
+                  "light": "#043852",
+                  "dark": "#495057"
+                },
+                "ppm": {
+                  "light": "#043852",
+                  "dark": "#495057"
+                },
+                "maconomy": {
+                  "light": "#043852",
+                  "dark": "#495057"
+                }
+              }
+            },
+            {
+              "cssVar": "--page-header-btn-secondary-stroke",
+              "mcpPath": "tokens.colors.theme.pageHeaderBtnSecondaryStroke",
+              "category": "other",
+              "themes": {
+                "cp": {
+                  "light": "#043852",
+                  "dark": "#B6B6C4"
+                },
+                "vp": {
+                  "light": "#043852",
+                  "dark": "#495057"
+                },
+                "ppm": {
+                  "light": "#043852",
+                  "dark": "#495057"
+                },
+                "maconomy": {
+                  "light": "#043852",
+                  "dark": "#495057"
+                }
+              }
+            },
+            {
+              "cssVar": "--page-header-btn-secondary-hover-bg",
+              "mcpPath": "tokens.colors.theme.pageHeaderBtnSecondaryHoverBg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#eaeff5",
+                  "dark": "#3D4A5C"
+                },
+                "vp": {
+                  "light": "#eaeff5",
+                  "dark": "#eaeff5"
+                },
+                "ppm": {
+                  "light": "#eaeff5",
+                  "dark": "#eaeff5"
+                },
+                "maconomy": {
+                  "light": "#eaeff5",
+                  "dark": "#eaeff5"
+                }
+              }
+            },
+            {
+              "cssVar": "--page-header-btn-secondary-hover-fg",
+              "mcpPath": "tokens.colors.theme.pageHeaderBtnSecondaryHoverFg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#043852",
+                  "dark": "#E9ECEF"
+                },
+                "vp": {
+                  "light": "#043852",
+                  "dark": "#495057"
+                },
+                "ppm": {
+                  "light": "#043852",
+                  "dark": "#495057"
+                },
+                "maconomy": {
+                  "light": "#043852",
+                  "dark": "#495057"
+                }
+              }
+            },
+            {
+              "cssVar": "--page-header-btn-secondary-hover-stroke",
+              "mcpPath": "tokens.colors.theme.pageHeaderBtnSecondaryHoverStroke",
+              "category": "other",
+              "themes": {
+                "cp": {
+                  "light": "#043852",
+                  "dark": "#E9ECEF"
+                },
+                "vp": {
+                  "light": "#043852",
+                  "dark": "#495057"
+                },
+                "ppm": {
+                  "light": "#043852",
+                  "dark": "#495057"
+                },
+                "maconomy": {
+                  "light": "#043852",
+                  "dark": "#495057"
+                }
+              }
+            },
+            {
+              "cssVar": "--page-header-btn-secondary-disabled-fg",
+              "mcpPath": "tokens.colors.theme.pageHeaderBtnSecondaryDisabledFg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#e0e4eb",
+                  "dark": "#e0e4eb"
+                },
+                "vp": {
+                  "light": "#e0e4eb",
+                  "dark": "#e0e4eb"
+                },
+                "ppm": {
+                  "light": "#e0e4eb",
+                  "dark": "#e0e4eb"
+                },
+                "maconomy": {
+                  "light": "#e0e4eb",
+                  "dark": "#e0e4eb"
+                }
+              }
+            },
+            {
+              "cssVar": "--page-header-btn-tertiary-fg",
+              "mcpPath": "tokens.colors.theme.pageHeaderBtnTertiaryFg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#043852",
+                  "dark": "#E9ECEF"
+                },
+                "vp": {
+                  "light": "#043852",
+                  "dark": "#495057"
+                },
+                "ppm": {
+                  "light": "#043852",
+                  "dark": "#495057"
+                },
+                "maconomy": {
+                  "light": "#043852",
+                  "dark": "#495057"
+                }
+              }
+            },
+            {
+              "cssVar": "--page-header-btn-tertiary-hover-bg",
+              "mcpPath": "tokens.colors.theme.pageHeaderBtnTertiaryHoverBg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#eaeff5",
+                  "dark": "#3D4A5C"
+                },
+                "vp": {
+                  "light": "#eaeff5",
+                  "dark": "#eaeff5"
+                },
+                "ppm": {
+                  "light": "#eaeff5",
+                  "dark": "#eaeff5"
+                },
+                "maconomy": {
+                  "light": "#eaeff5",
+                  "dark": "#eaeff5"
+                }
+              }
+            },
+            {
+              "cssVar": "--page-header-btn-tertiary-disabled-fg",
+              "mcpPath": "tokens.colors.theme.pageHeaderBtnTertiaryDisabledFg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#e0e4eb",
+                  "dark": "#e0e4eb"
+                },
+                "vp": {
+                  "light": "#e0e4eb",
+                  "dark": "#e0e4eb"
+                },
+                "ppm": {
+                  "light": "#e0e4eb",
+                  "dark": "#e0e4eb"
+                },
+                "maconomy": {
+                  "light": "#e0e4eb",
+                  "dark": "#e0e4eb"
+                }
+              }
+            },
+            {
+              "cssVar": "--text-primary",
+              "mcpPath": "tokens.colors.theme.textPrimary",
+              "category": "typography",
+              "themes": {
+                "cp": {
+                  "light": "#373F4E",
+                  "dark": "#E9ECEF"
+                },
+                "vp": {
+                  "light": "#373F4E",
+                  "dark": "#FAFAFA"
+                },
+                "ppm": {
+                  "light": "#373F4E",
+                  "dark": "#FAFAFA"
+                },
+                "maconomy": {
+                  "light": "#373F4E",
+                  "dark": "#FAFAFA"
+                }
+              }
+            },
+            {
+              "cssVar": "--border-color",
+              "mcpPath": "tokens.colors.theme.borderColor",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#BFC6D4",
+                  "dark": "#5F6871"
+                },
+                "vp": {
+                  "light": "#BFC6D4",
+                  "dark": "#2A2D32"
+                },
+                "ppm": {
+                  "light": "#BFC6D4",
+                  "dark": "#2A2D32"
+                },
+                "maconomy": {
+                  "light": "#BFC6D4",
+                  "dark": "#2A2D32"
+                }
+              }
+            },
+            {
+              "cssVar": "--hover-bg",
+              "mcpPath": "tokens.colors.theme.hoverBg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#E5E7EB",
+                  "dark": "#3D4A5C"
+                },
+                "vp": {
+                  "light": "#E5E7EB",
+                  "dark": "#2A2D32"
+                },
+                "ppm": {
+                  "light": "#E5E7EB",
+                  "dark": "#2A2D32"
+                },
+                "maconomy": {
+                  "light": "#E5E7EB",
+                  "dark": "#2A2D32"
+                }
+              }
+            },
+            {
+              "cssVar": "--color-error",
+              "mcpPath": "tokens.colors.theme.error",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#D14343",
+                  "dark": "#F46286"
+                },
+                "vp": {
+                  "light": "#D14343",
+                  "dark": "#F46286"
+                },
+                "ppm": {
+                  "light": "#D14343",
+                  "dark": "#F46286"
+                },
+                "maconomy": {
+                  "light": "#D14343",
+                  "dark": "#F46286"
+                }
+              }
+            }
+          ]
         }
       }
     },
     "ButtonGroup": {
-      "description": "ButtonGroup component",
+      "description": "ButtonGroup Component",
+      "filePath": "src/components/ui/ButtonGroup.astro",
       "props": {
         "variant": {
           "type": "'default' | 'outline'",
@@ -194,8 +1833,52 @@
         }
       }
     },
+    "CPLeftSidebar": {
+      "description": "CPLeftSidebar Component",
+      "filePath": "src/components/ui/CPLeftSidebar.astro",
+      "dependencies": [
+        "Icon"
+      ],
+      "props": {},
+      "tokens": {
+        "base": {
+          "spacing": [
+            {
+              "cssVar": "--space-4",
+              "mcpPath": "tokens.spacing.4",
+              "value": "16px",
+              "category": "spacing"
+            }
+          ]
+        }
+      }
+    },
+    "CPRightSidebar": {
+      "description": "CPRightSidebar Component",
+      "filePath": "src/components/ui/CPRightSidebar.astro",
+      "dependencies": [
+        "Icon"
+      ],
+      "props": {},
+      "tokens": {
+        "base": {
+          "spacing": [
+            {
+              "cssVar": "--space-3",
+              "mcpPath": "tokens.spacing.3",
+              "value": "12px",
+              "category": "spacing"
+            }
+          ]
+        }
+      }
+    },
     "Card": {
-      "description": "Card component",
+      "description": "Card Component",
+      "filePath": "src/components/ui/Card.astro",
+      "dependencies": [
+        "Icon"
+      ],
       "props": {
         "elevated": {
           "type": "boolean",
@@ -238,10 +1921,130 @@
           "description": null,
           "optional": true
         }
+      },
+      "tokens": {
+        "base": {
+          "spacing": [
+            {
+              "cssVar": "--space-1",
+              "mcpPath": "tokens.spacing.1",
+              "value": "4px",
+              "category": "spacing"
+            }
+          ],
+          "elevations": [
+            {
+              "cssVar": "--shadow-sm",
+              "mcpPath": "tokens.shadows.sm",
+              "value": "0 1px 2px 0 rgb(15 23 42 / 0.05)",
+              "category": "elevations"
+            },
+            {
+              "cssVar": "--shadow-lg",
+              "mcpPath": "tokens.shadows.lg",
+              "value": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)",
+              "category": "elevations"
+            }
+          ],
+          "radius": [
+            {
+              "cssVar": "--radius-xl",
+              "mcpPath": "tokens.borderRadius.xl",
+              "value": "0.75rem",
+              "category": "radius"
+            }
+          ],
+          "transitions": [
+            {
+              "cssVar": "--transition-fast",
+              "mcpPath": "tokens.transitions.fast",
+              "value": "150ms ease",
+              "category": "transitions"
+            }
+          ]
+        },
+        "themeAware": {
+          "colors": [
+            {
+              "cssVar": "--card-bg",
+              "mcpPath": "tokens.colors.theme.cardBg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#F7F8FA",
+                  "dark": "#37424D"
+                },
+                "vp": {
+                  "light": "#F7F8FA",
+                  "dark": "#1F2124"
+                },
+                "ppm": {
+                  "light": "#F7F8FA",
+                  "dark": "#1F2124"
+                },
+                "maconomy": {
+                  "light": "#F7F8FA",
+                  "dark": "#1F2124"
+                }
+              }
+            },
+            {
+              "cssVar": "--border-color",
+              "mcpPath": "tokens.colors.theme.borderColor",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#BFC6D4",
+                  "dark": "#5F6871"
+                },
+                "vp": {
+                  "light": "#BFC6D4",
+                  "dark": "#2A2D32"
+                },
+                "ppm": {
+                  "light": "#BFC6D4",
+                  "dark": "#2A2D32"
+                },
+                "maconomy": {
+                  "light": "#BFC6D4",
+                  "dark": "#2A2D32"
+                }
+              }
+            },
+            {
+              "cssVar": "--theme-primary",
+              "mcpPath": "tokens.colors.theme.primary",
+              "category": "colors",
+              "tokenPath": "themes.{theme}.primary",
+              "themes": {
+                "cp": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "vp": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "ppm": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "maconomy": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                }
+              }
+            }
+          ]
+        }
       }
     },
     "Checkbox": {
-      "description": "Checkbox component",
+      "description": "Checkbox Component",
+      "filePath": "src/components/ui/Checkbox.astro",
+      "dependencies": [
+        "Icon"
+      ],
       "props": {
         "name": {
           "type": "string",
@@ -306,10 +2109,129 @@
           "type": "string]: any",
           "description": null
         }
+      },
+      "tokens": {
+        "base": {
+          "spacing": [
+            {
+              "cssVar": "--space-2",
+              "mcpPath": "tokens.spacing.2",
+              "value": "8px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--border-width-standard",
+              "mcpPath": "tokens.spacing.width",
+              "value": "2px",
+              "category": "spacing"
+            }
+          ]
+        },
+        "themeAware": {
+          "colors": [
+            {
+              "cssVar": "--text-muted",
+              "mcpPath": "tokens.colors.theme.textMuted",
+              "category": "typography",
+              "themes": {
+                "cp": {
+                  "light": "#616193",
+                  "dark": "#BBBBC6"
+                },
+                "vp": {
+                  "light": "#616193",
+                  "dark": "#B5B5BC"
+                },
+                "ppm": {
+                  "light": "#616193",
+                  "dark": "#B5B5BC"
+                },
+                "maconomy": {
+                  "light": "#616193",
+                  "dark": "#B5B5BC"
+                }
+              }
+            },
+            {
+              "cssVar": "--color-warning",
+              "mcpPath": "tokens.colors.theme.warning",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#FFB020",
+                  "dark": "#F9AF00"
+                },
+                "vp": {
+                  "light": "#FFB020",
+                  "dark": "#F9AF00"
+                },
+                "ppm": {
+                  "light": "#FFB020",
+                  "dark": "#F9AF00"
+                },
+                "maconomy": {
+                  "light": "#FFB020",
+                  "dark": "#F9AF00"
+                }
+              }
+            },
+            {
+              "cssVar": "--theme-primary",
+              "mcpPath": "tokens.colors.theme.primary",
+              "category": "colors",
+              "tokenPath": "themes.{theme}.primary",
+              "themes": {
+                "cp": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "vp": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "ppm": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "maconomy": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                }
+              }
+            },
+            {
+              "cssVar": "--color-error",
+              "mcpPath": "tokens.colors.theme.error",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#D14343",
+                  "dark": "#F46286"
+                },
+                "vp": {
+                  "light": "#D14343",
+                  "dark": "#F46286"
+                },
+                "ppm": {
+                  "light": "#D14343",
+                  "dark": "#F46286"
+                },
+                "maconomy": {
+                  "light": "#D14343",
+                  "dark": "#F46286"
+                }
+              }
+            }
+          ]
+        }
       }
     },
     "CheckboxGroup": {
-      "description": "CheckboxGroup component",
+      "description": "CheckboxGroup Component",
+      "filePath": "src/components/ui/CheckboxGroup.astro",
+      "dependencies": [
+        "Icon"
+      ],
       "props": {
         "legend": {
           "type": "string",
@@ -349,10 +2271,32 @@
           "description": null,
           "optional": true
         }
+      },
+      "tokens": {
+        "base": {
+          "spacing": [
+            {
+              "cssVar": "--space-3",
+              "mcpPath": "tokens.spacing.3",
+              "value": "12px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--space-4",
+              "mcpPath": "tokens.spacing.4",
+              "value": "16px",
+              "category": "spacing"
+            }
+          ]
+        }
       }
     },
     "Chip": {
-      "description": "Chip component",
+      "description": "Chip Component",
+      "filePath": "src/components/ui/Chip.astro",
+      "dependencies": [
+        "Icon"
+      ],
       "props": {
         "size": {
           "type": "'sm' | 'md' | 'lg'",
@@ -405,10 +2349,272 @@
           "description": null,
           "optional": true
         }
+      },
+      "tokens": {
+        "base": {
+          "spacing": [
+            {
+              "cssVar": "--space-4",
+              "mcpPath": "tokens.spacing.4",
+              "value": "16px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--space-1",
+              "mcpPath": "tokens.spacing.1",
+              "value": "4px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--space-2",
+              "mcpPath": "tokens.spacing.2",
+              "value": "8px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--space-6",
+              "mcpPath": "tokens.spacing.6",
+              "value": "24px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--space-5",
+              "mcpPath": "tokens.spacing.5",
+              "value": "20px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--space-8",
+              "mcpPath": "tokens.spacing.8",
+              "value": "32px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--space-1-5",
+              "mcpPath": "tokens.spacing.1",
+              "value": "6px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--space-3",
+              "mcpPath": "tokens.spacing.3",
+              "value": "12px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--space-3-5",
+              "mcpPath": "tokens.spacing.3",
+              "value": "14px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--space-0-5",
+              "mcpPath": "tokens.spacing.0",
+              "value": "2px",
+              "category": "spacing"
+            }
+          ],
+          "typography": [
+            {
+              "cssVar": "--font-sans",
+              "mcpPath": "tokens.typography.fontFamily.sans",
+              "value": "'Figtree', sans-serif",
+              "category": "typography"
+            },
+            {
+              "cssVar": "--font-normal",
+              "mcpPath": "tokens.typography.fontFamily.normal",
+              "value": "400",
+              "category": "typography"
+            },
+            {
+              "cssVar": "--text-sm",
+              "mcpPath": "tokens.typography.fontSize.sm",
+              "value": "0.875rem",
+              "category": "typography"
+            },
+            {
+              "cssVar": "--text-base",
+              "mcpPath": "tokens.typography.fontSize.base",
+              "value": "1rem",
+              "category": "typography"
+            }
+          ],
+          "radius": [
+            {
+              "cssVar": "--radius-04",
+              "mcpPath": "tokens.borderRadius.04",
+              "value": "4px",
+              "category": "radius"
+            }
+          ],
+          "transitions": [
+            {
+              "cssVar": "--transition-fast",
+              "mcpPath": "tokens.transitions.fast",
+              "value": "150ms ease",
+              "category": "transitions"
+            }
+          ]
+        },
+        "themeAware": {
+          "colors": [
+            {
+              "cssVar": "--theme-primary",
+              "mcpPath": "tokens.colors.theme.primary",
+              "category": "colors",
+              "tokenPath": "themes.{theme}.primary",
+              "themes": {
+                "cp": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "vp": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "ppm": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "maconomy": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                }
+              }
+            },
+            {
+              "cssVar": "--text-inverse",
+              "mcpPath": "tokens.colors.theme.textInverse",
+              "category": "typography",
+              "themes": {
+                "cp": {
+                  "light": "#FFFFFF",
+                  "dark": "#1F252E"
+                },
+                "vp": {
+                  "light": "#FFFFFF",
+                  "dark": "#15171A"
+                },
+                "ppm": {
+                  "light": "#FFFFFF",
+                  "dark": "#15171A"
+                },
+                "maconomy": {
+                  "light": "#FFFFFF",
+                  "dark": "#15171A"
+                }
+              }
+            },
+            {
+              "cssVar": "--theme-primary-hover",
+              "mcpPath": "tokens.colors.theme.primaryHover",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#0066CC",
+                  "dark": "#7bb8ff"
+                },
+                "vp": {
+                  "light": "#0066CC",
+                  "dark": "#78baff"
+                },
+                "ppm": {
+                  "light": "#0066CC",
+                  "dark": "#7bb8ff"
+                },
+                "maconomy": {
+                  "light": "#0066CC",
+                  "dark": "#7bb8ff"
+                }
+              }
+            },
+            {
+              "cssVar": "--card-bg",
+              "mcpPath": "tokens.colors.theme.cardBg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#F7F8FA",
+                  "dark": "#37424D"
+                },
+                "vp": {
+                  "light": "#F7F8FA",
+                  "dark": "#1F2124"
+                },
+                "ppm": {
+                  "light": "#F7F8FA",
+                  "dark": "#1F2124"
+                },
+                "maconomy": {
+                  "light": "#F7F8FA",
+                  "dark": "#1F2124"
+                }
+              }
+            },
+            {
+              "cssVar": "--hover-bg",
+              "mcpPath": "tokens.colors.theme.hoverBg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#E5E7EB",
+                  "dark": "#3D4A5C"
+                },
+                "vp": {
+                  "light": "#E5E7EB",
+                  "dark": "#2A2D32"
+                },
+                "ppm": {
+                  "light": "#E5E7EB",
+                  "dark": "#2A2D32"
+                },
+                "maconomy": {
+                  "light": "#E5E7EB",
+                  "dark": "#2A2D32"
+                }
+              }
+            },
+            {
+              "cssVar": "--theme-primary-light",
+              "mcpPath": "tokens.colors.theme.primaryLight",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "rgba(0, 115, 230, 0.1)",
+                  "dark": "rgba(89, 172, 255, 0.1)"
+                },
+                "vp": {
+                  "light": "rgba(0, 115, 230, 0.1)",
+                  "dark": "rgba(89, 172, 255, 0.1)"
+                },
+                "ppm": {
+                  "light": "rgba(0, 115, 230, 0.1)",
+                  "dark": "rgba(89, 172, 255, 0.1)"
+                },
+                "maconomy": {
+                  "light": "rgba(0, 115, 230, 0.1)",
+                  "dark": "rgba(89, 172, 255, 0.1)"
+                }
+              }
+            }
+          ]
+        }
       }
     },
     "DateInput": {
-      "description": "DateInput component",
+      "description": "DateInput Component",
+      "filePath": "src/components/ui/DateInput.astro",
+      "dependencies": [
+        "Icon",
+        "Label",
+        "DatePicker",
+        "TimePicker",
+        "DateTimePicker",
+        "MonthPicker",
+        "WeekPicker",
+        "PickerPopup"
+      ],
       "props": {
         "type": {
           "type": "'date' | 'time' | 'datetime-local' | 'month' | 'week'",
@@ -489,10 +2695,205 @@
           "type": "string]: any",
           "description": null
         }
+      },
+      "tokens": {
+        "base": {
+          "spacing": [
+            {
+              "cssVar": "--space-10",
+              "mcpPath": "tokens.spacing.10",
+              "value": "40px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--space-4",
+              "mcpPath": "tokens.spacing.4",
+              "value": "16px",
+              "category": "spacing"
+            }
+          ],
+          "typography": [
+            {
+              "cssVar": "--font-sans",
+              "mcpPath": "tokens.typography.fontFamily.sans",
+              "value": "'Figtree', sans-serif",
+              "category": "typography"
+            },
+            {
+              "cssVar": "--text-base",
+              "mcpPath": "tokens.typography.fontSize.base",
+              "value": "1rem",
+              "category": "typography"
+            }
+          ],
+          "radius": [
+            {
+              "cssVar": "--radius-lg",
+              "mcpPath": "tokens.borderRadius.lg",
+              "value": "0.5rem",
+              "category": "radius"
+            }
+          ],
+          "transitions": [
+            {
+              "cssVar": "--transition-fast",
+              "mcpPath": "tokens.transitions.fast",
+              "value": "150ms ease",
+              "category": "transitions"
+            }
+          ]
+        },
+        "themeAware": {
+          "colors": [
+            {
+              "cssVar": "--text-primary",
+              "mcpPath": "tokens.colors.theme.textPrimary",
+              "category": "typography",
+              "themes": {
+                "cp": {
+                  "light": "#373F4E",
+                  "dark": "#E9ECEF"
+                },
+                "vp": {
+                  "light": "#373F4E",
+                  "dark": "#FAFAFA"
+                },
+                "ppm": {
+                  "light": "#373F4E",
+                  "dark": "#FAFAFA"
+                },
+                "maconomy": {
+                  "light": "#373F4E",
+                  "dark": "#FAFAFA"
+                }
+              }
+            },
+            {
+              "cssVar": "--input-bg",
+              "mcpPath": "tokens.colors.theme.inputBg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#FFFFFF",
+                  "dark": "#1F252E"
+                },
+                "vp": {
+                  "light": "#FFFFFF",
+                  "dark": "#1F2124"
+                },
+                "ppm": {
+                  "light": "#FFFFFF",
+                  "dark": "#1F2124"
+                },
+                "maconomy": {
+                  "light": "#FFFFFF",
+                  "dark": "#1F2124"
+                }
+              }
+            },
+            {
+              "cssVar": "--border-color",
+              "mcpPath": "tokens.colors.theme.borderColor",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#BFC6D4",
+                  "dark": "#5F6871"
+                },
+                "vp": {
+                  "light": "#BFC6D4",
+                  "dark": "#2A2D32"
+                },
+                "ppm": {
+                  "light": "#BFC6D4",
+                  "dark": "#2A2D32"
+                },
+                "maconomy": {
+                  "light": "#BFC6D4",
+                  "dark": "#2A2D32"
+                }
+              }
+            },
+            {
+              "cssVar": "--theme-primary",
+              "mcpPath": "tokens.colors.theme.primary",
+              "category": "colors",
+              "tokenPath": "themes.{theme}.primary",
+              "themes": {
+                "cp": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "vp": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "ppm": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "maconomy": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                }
+              }
+            },
+            {
+              "cssVar": "--input-disabled-bg",
+              "mcpPath": "tokens.colors.theme.inputDisabledBg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#EAEAEA",
+                  "dark": "#333D47"
+                },
+                "vp": {
+                  "light": "#EAEAEA",
+                  "dark": "#2A2D32"
+                },
+                "ppm": {
+                  "light": "#EAEAEA",
+                  "dark": "#2A2D32"
+                },
+                "maconomy": {
+                  "light": "#EAEAEA",
+                  "dark": "#2A2D32"
+                }
+              }
+            },
+            {
+              "cssVar": "--text-muted",
+              "mcpPath": "tokens.colors.theme.textMuted",
+              "category": "typography",
+              "themes": {
+                "cp": {
+                  "light": "#616193",
+                  "dark": "#BBBBC6"
+                },
+                "vp": {
+                  "light": "#616193",
+                  "dark": "#B5B5BC"
+                },
+                "ppm": {
+                  "light": "#616193",
+                  "dark": "#B5B5BC"
+                },
+                "maconomy": {
+                  "light": "#616193",
+                  "dark": "#B5B5BC"
+                }
+              }
+            }
+          ]
+        }
       }
     },
     "DatePicker": {
-      "description": "DatePicker component",
+      "description": "DatePicker Component",
+      "filePath": "src/components/ui/DatePicker.astro",
+      "dependencies": [
+        "Icon"
+      ],
       "props": {
         "value": {
           "type": "string",
@@ -534,7 +2935,12 @@
       }
     },
     "DateTimePicker": {
-      "description": "DateTimePicker component",
+      "description": "DateTimePicker Component",
+      "filePath": "src/components/ui/DateTimePicker.astro",
+      "dependencies": [
+        "DatePicker",
+        "TimePicker"
+      ],
       "props": {
         "value": {
           "type": "string",
@@ -582,7 +2988,11 @@
       }
     },
     "Dialog": {
-      "description": "Dialog component",
+      "description": "Dialog Component",
+      "filePath": "src/components/ui/Dialog.astro",
+      "dependencies": [
+        "Icon"
+      ],
       "props": {
         "id": {
           "type": "string",
@@ -609,10 +3019,90 @@
           "optional": true,
           "default": "default"
         }
+      },
+      "tokens": {
+        "base": {
+          "spacing": [
+            {
+              "cssVar": "--dialog-max-width-default",
+              "mcpPath": "tokens.spacing.max",
+              "value": "500px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--dialog-width-percentage",
+              "mcpPath": "tokens.spacing.width",
+              "value": "90%",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--dialog-max-height",
+              "mcpPath": "tokens.spacing.max",
+              "value": "90vh",
+              "category": "spacing"
+            }
+          ],
+          "elevations": [
+            {
+              "cssVar": "--shadow-xl",
+              "mcpPath": "tokens.shadows.xl",
+              "value": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+              "category": "elevations"
+            }
+          ],
+          "radius": [
+            {
+              "cssVar": "--radius-xl",
+              "mcpPath": "tokens.borderRadius.xl",
+              "value": "0.75rem",
+              "category": "radius"
+            }
+          ],
+          "transitions": [
+            {
+              "cssVar": "--transition-fast",
+              "mcpPath": "tokens.transitions.fast",
+              "value": "150ms ease",
+              "category": "transitions"
+            }
+          ]
+        },
+        "themeAware": {
+          "colors": [
+            {
+              "cssVar": "--card-bg",
+              "mcpPath": "tokens.colors.theme.cardBg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#F7F8FA",
+                  "dark": "#37424D"
+                },
+                "vp": {
+                  "light": "#F7F8FA",
+                  "dark": "#1F2124"
+                },
+                "ppm": {
+                  "light": "#F7F8FA",
+                  "dark": "#1F2124"
+                },
+                "maconomy": {
+                  "light": "#F7F8FA",
+                  "dark": "#1F2124"
+                }
+              }
+            }
+          ]
+        }
       }
     },
     "Dropdown": {
-      "description": "Dropdown component",
+      "description": "Dropdown Component",
+      "filePath": "src/components/ui/Dropdown.astro",
+      "dependencies": [
+        "Icon",
+        "Label"
+      ],
       "props": {
         "options": {
           "type": "Option[]",
@@ -671,8 +3161,116 @@
         }
       }
     },
+    "FloatingNav": {
+      "description": "FloatingNav Component",
+      "filePath": "src/components/ui/FloatingNav.astro",
+      "dependencies": [
+        "Icon"
+      ],
+      "props": {},
+      "tokens": {
+        "base": {
+          "spacing": [
+            {
+              "cssVar": "--space-2",
+              "mcpPath": "tokens.spacing.2",
+              "value": "8px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--space-3",
+              "mcpPath": "tokens.spacing.3",
+              "value": "12px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--space-2-5",
+              "mcpPath": "tokens.spacing.2",
+              "value": "10px",
+              "category": "spacing"
+            }
+          ],
+          "elevations": [
+            {
+              "cssVar": "--shadow-md",
+              "mcpPath": "tokens.shadows.md",
+              "value": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+              "category": "elevations"
+            }
+          ],
+          "radius": [
+            {
+              "cssVar": "--radius-16",
+              "mcpPath": "tokens.borderRadius.16",
+              "value": "16px",
+              "category": "radius"
+            }
+          ]
+        },
+        "themeAware": {
+          "colors": [
+            {
+              "cssVar": "--nav-bg",
+              "mcpPath": "tokens.colors.theme.navBg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#FCFDFF",
+                  "dark": "#333D47"
+                },
+                "vp": {
+                  "light": "#FCFDFF",
+                  "dark": "#1A1C1F"
+                },
+                "ppm": {
+                  "light": "#FCFDFF",
+                  "dark": "#1A1C1F"
+                },
+                "maconomy": {
+                  "light": "#FCFDFF",
+                  "dark": "#1A1C1F"
+                }
+              }
+            },
+            {
+              "cssVar": "--border-color",
+              "mcpPath": "tokens.colors.theme.borderColor",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#BFC6D4",
+                  "dark": "#5F6871"
+                },
+                "vp": {
+                  "light": "#BFC6D4",
+                  "dark": "#2A2D32"
+                },
+                "ppm": {
+                  "light": "#BFC6D4",
+                  "dark": "#2A2D32"
+                },
+                "maconomy": {
+                  "light": "#BFC6D4",
+                  "dark": "#2A2D32"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "Icon": {
+      "description": "Size mapping - matches CSS token values",
+      "filePath": "src/components/ui/Icon.astro",
+      "props": {}
+    },
     "Input": {
-      "description": "Input component",
+      "description": "Input Component",
+      "filePath": "src/components/ui/Input.astro",
+      "dependencies": [
+        "Icon",
+        "Label"
+      ],
       "props": {
         "type": {
           "type": "'text' | 'email' | 'password' | 'number' | 'url' | 'search' | 'tel'",
@@ -752,10 +3350,231 @@
           "type": "string]: any",
           "description": null
         }
+      },
+      "tokens": {
+        "base": {
+          "spacing": [
+            {
+              "cssVar": "--space-10",
+              "mcpPath": "tokens.spacing.10",
+              "value": "40px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--space-4",
+              "mcpPath": "tokens.spacing.4",
+              "value": "16px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--border-width-standard",
+              "mcpPath": "tokens.spacing.width",
+              "value": "2px",
+              "category": "spacing"
+            }
+          ],
+          "typography": [
+            {
+              "cssVar": "--font-sans",
+              "mcpPath": "tokens.typography.fontFamily.sans",
+              "value": "'Figtree', sans-serif",
+              "category": "typography"
+            },
+            {
+              "cssVar": "--text-base",
+              "mcpPath": "tokens.typography.fontSize.base",
+              "value": "1rem",
+              "category": "typography"
+            }
+          ],
+          "radius": [
+            {
+              "cssVar": "--radius-lg",
+              "mcpPath": "tokens.borderRadius.lg",
+              "value": "0.5rem",
+              "category": "radius"
+            }
+          ],
+          "transitions": [
+            {
+              "cssVar": "--transition-fast",
+              "mcpPath": "tokens.transitions.fast",
+              "value": "150ms ease",
+              "category": "transitions"
+            }
+          ]
+        },
+        "themeAware": {
+          "colors": [
+            {
+              "cssVar": "--text-primary",
+              "mcpPath": "tokens.colors.theme.textPrimary",
+              "category": "typography",
+              "themes": {
+                "cp": {
+                  "light": "#373F4E",
+                  "dark": "#E9ECEF"
+                },
+                "vp": {
+                  "light": "#373F4E",
+                  "dark": "#FAFAFA"
+                },
+                "ppm": {
+                  "light": "#373F4E",
+                  "dark": "#FAFAFA"
+                },
+                "maconomy": {
+                  "light": "#373F4E",
+                  "dark": "#FAFAFA"
+                }
+              }
+            },
+            {
+              "cssVar": "--input-bg",
+              "mcpPath": "tokens.colors.theme.inputBg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#FFFFFF",
+                  "dark": "#1F252E"
+                },
+                "vp": {
+                  "light": "#FFFFFF",
+                  "dark": "#1F2124"
+                },
+                "ppm": {
+                  "light": "#FFFFFF",
+                  "dark": "#1F2124"
+                },
+                "maconomy": {
+                  "light": "#FFFFFF",
+                  "dark": "#1F2124"
+                }
+              }
+            },
+            {
+              "cssVar": "--border-color",
+              "mcpPath": "tokens.colors.theme.borderColor",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#BFC6D4",
+                  "dark": "#5F6871"
+                },
+                "vp": {
+                  "light": "#BFC6D4",
+                  "dark": "#2A2D32"
+                },
+                "ppm": {
+                  "light": "#BFC6D4",
+                  "dark": "#2A2D32"
+                },
+                "maconomy": {
+                  "light": "#BFC6D4",
+                  "dark": "#2A2D32"
+                }
+              }
+            },
+            {
+              "cssVar": "--text-muted",
+              "mcpPath": "tokens.colors.theme.textMuted",
+              "category": "typography",
+              "themes": {
+                "cp": {
+                  "light": "#616193",
+                  "dark": "#BBBBC6"
+                },
+                "vp": {
+                  "light": "#616193",
+                  "dark": "#B5B5BC"
+                },
+                "ppm": {
+                  "light": "#616193",
+                  "dark": "#B5B5BC"
+                },
+                "maconomy": {
+                  "light": "#616193",
+                  "dark": "#B5B5BC"
+                }
+              }
+            },
+            {
+              "cssVar": "--theme-primary",
+              "mcpPath": "tokens.colors.theme.primary",
+              "category": "colors",
+              "tokenPath": "themes.{theme}.primary",
+              "themes": {
+                "cp": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "vp": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "ppm": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "maconomy": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                }
+              }
+            },
+            {
+              "cssVar": "--input-disabled-bg",
+              "mcpPath": "tokens.colors.theme.inputDisabledBg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#EAEAEA",
+                  "dark": "#333D47"
+                },
+                "vp": {
+                  "light": "#EAEAEA",
+                  "dark": "#2A2D32"
+                },
+                "ppm": {
+                  "light": "#EAEAEA",
+                  "dark": "#2A2D32"
+                },
+                "maconomy": {
+                  "light": "#EAEAEA",
+                  "dark": "#2A2D32"
+                }
+              }
+            },
+            {
+              "cssVar": "--color-error",
+              "mcpPath": "tokens.colors.theme.error",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#D14343",
+                  "dark": "#F46286"
+                },
+                "vp": {
+                  "light": "#D14343",
+                  "dark": "#F46286"
+                },
+                "ppm": {
+                  "light": "#D14343",
+                  "dark": "#F46286"
+                },
+                "maconomy": {
+                  "light": "#D14343",
+                  "dark": "#F46286"
+                }
+              }
+            }
+          ]
+        }
       }
     },
     "Label": {
-      "description": "Label component",
+      "description": "Label Component",
+      "filePath": "src/components/ui/Label.astro",
       "props": {
         "for": {
           "type": "string",
@@ -778,10 +3597,191 @@
           "description": null,
           "optional": true
         }
+      },
+      "tokens": {
+        "base": {
+          "spacing": [
+            {
+              "cssVar": "--space-1-5",
+              "mcpPath": "tokens.spacing.1",
+              "value": "6px",
+              "category": "spacing"
+            }
+          ],
+          "typography": [
+            {
+              "cssVar": "--font-sans",
+              "mcpPath": "tokens.typography.fontFamily.sans",
+              "value": "'Figtree', sans-serif",
+              "category": "typography"
+            },
+            {
+              "cssVar": "--text-sm",
+              "mcpPath": "tokens.typography.fontSize.sm",
+              "value": "0.875rem",
+              "category": "typography"
+            },
+            {
+              "cssVar": "--font-medium",
+              "mcpPath": "tokens.typography.fontFamily.medium",
+              "value": "500",
+              "category": "typography"
+            }
+          ]
+        },
+        "themeAware": {
+          "colors": [
+            {
+              "cssVar": "--text-primary",
+              "mcpPath": "tokens.colors.theme.textPrimary",
+              "category": "typography",
+              "themes": {
+                "cp": {
+                  "light": "#373F4E",
+                  "dark": "#E9ECEF"
+                },
+                "vp": {
+                  "light": "#373F4E",
+                  "dark": "#FAFAFA"
+                },
+                "ppm": {
+                  "light": "#373F4E",
+                  "dark": "#FAFAFA"
+                },
+                "maconomy": {
+                  "light": "#373F4E",
+                  "dark": "#FAFAFA"
+                }
+              }
+            },
+            {
+              "cssVar": "--color-error",
+              "mcpPath": "tokens.colors.theme.error",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#D14343",
+                  "dark": "#F46286"
+                },
+                "vp": {
+                  "light": "#D14343",
+                  "dark": "#F46286"
+                },
+                "ppm": {
+                  "light": "#D14343",
+                  "dark": "#F46286"
+                },
+                "maconomy": {
+                  "light": "#D14343",
+                  "dark": "#F46286"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "LeftSidebar": {
+      "description": "LeftSidebar Component",
+      "filePath": "src/components/ui/LeftSidebar.astro",
+      "dependencies": [
+        "Icon",
+        "Tooltip"
+      ],
+      "props": {},
+      "tokens": {
+        "base": {
+          "spacing": [
+            {
+              "cssVar": "--space-4",
+              "mcpPath": "tokens.spacing.4",
+              "value": "16px",
+              "category": "spacing"
+            }
+          ]
+        },
+        "themeAware": {
+          "colors": [
+            {
+              "cssVar": "--theme-primary",
+              "mcpPath": "tokens.colors.theme.primary",
+              "category": "colors",
+              "tokenPath": "themes.{theme}.primary",
+              "themes": {
+                "cp": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "vp": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "ppm": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "maconomy": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                }
+              }
+            },
+            {
+              "cssVar": "--text-inverse",
+              "mcpPath": "tokens.colors.theme.textInverse",
+              "category": "typography",
+              "themes": {
+                "cp": {
+                  "light": "#FFFFFF",
+                  "dark": "#1F252E"
+                },
+                "vp": {
+                  "light": "#FFFFFF",
+                  "dark": "#15171A"
+                },
+                "ppm": {
+                  "light": "#FFFFFF",
+                  "dark": "#15171A"
+                },
+                "maconomy": {
+                  "light": "#FFFFFF",
+                  "dark": "#15171A"
+                }
+              }
+            },
+            {
+              "cssVar": "--theme-primary-hover",
+              "mcpPath": "tokens.colors.theme.primaryHover",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#0066CC",
+                  "dark": "#7bb8ff"
+                },
+                "vp": {
+                  "light": "#0066CC",
+                  "dark": "#78baff"
+                },
+                "ppm": {
+                  "light": "#0066CC",
+                  "dark": "#7bb8ff"
+                },
+                "maconomy": {
+                  "light": "#0066CC",
+                  "dark": "#7bb8ff"
+                }
+              }
+            }
+          ]
+        }
       }
     },
     "Link": {
-      "description": "Link component",
+      "description": "Link Component",
+      "filePath": "src/components/ui/Link.astro",
+      "dependencies": [
+        "Icon"
+      ],
       "props": {
         "href": {
           "type": "string",
@@ -808,10 +3808,99 @@
           "type": "string]: any",
           "description": null
         }
+      },
+      "tokens": {
+        "base": {
+          "transitions": [
+            {
+              "cssVar": "--transition-fast",
+              "mcpPath": "tokens.transitions.fast",
+              "value": "150ms ease",
+              "category": "transitions"
+            }
+          ]
+        },
+        "themeAware": {
+          "colors": [
+            {
+              "cssVar": "--link-color",
+              "mcpPath": "tokens.colors.theme.linkColor",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#5959C5",
+                  "dark": "#ADD0FF"
+                },
+                "vp": {
+                  "light": "#5959C5",
+                  "dark": "#ADD0FF"
+                },
+                "ppm": {
+                  "light": "#5959C5",
+                  "dark": "#ADD0FF"
+                },
+                "maconomy": {
+                  "light": "#5959C5",
+                  "dark": "#ADD0FF"
+                }
+              }
+            },
+            {
+              "cssVar": "--text-muted",
+              "mcpPath": "tokens.colors.theme.textMuted",
+              "category": "typography",
+              "themes": {
+                "cp": {
+                  "light": "#616193",
+                  "dark": "#BBBBC6"
+                },
+                "vp": {
+                  "light": "#616193",
+                  "dark": "#B5B5BC"
+                },
+                "ppm": {
+                  "light": "#616193",
+                  "dark": "#B5B5BC"
+                },
+                "maconomy": {
+                  "light": "#616193",
+                  "dark": "#B5B5BC"
+                }
+              }
+            },
+            {
+              "cssVar": "--text-primary",
+              "mcpPath": "tokens.colors.theme.textPrimary",
+              "category": "typography",
+              "themes": {
+                "cp": {
+                  "light": "#373F4E",
+                  "dark": "#E9ECEF"
+                },
+                "vp": {
+                  "light": "#373F4E",
+                  "dark": "#FAFAFA"
+                },
+                "ppm": {
+                  "light": "#373F4E",
+                  "dark": "#FAFAFA"
+                },
+                "maconomy": {
+                  "light": "#373F4E",
+                  "dark": "#FAFAFA"
+                }
+              }
+            }
+          ]
+        }
       }
     },
     "ListMenu": {
-      "description": "ListMenu component",
+      "description": "ListMenu Component",
+      "filePath": "src/components/ui/ListMenu.astro",
+      "dependencies": [
+        "Icon"
+      ],
       "props": {
         "items": {
           "type": "MenuItem[]",
@@ -834,10 +3923,76 @@
           "description": null,
           "optional": true
         }
+      },
+      "tokens": {
+        "base": {
+          "radius": [
+            {
+              "cssVar": "--radius-lg",
+              "mcpPath": "tokens.borderRadius.lg",
+              "value": "0.5rem",
+              "category": "radius"
+            }
+          ]
+        },
+        "themeAware": {
+          "colors": [
+            {
+              "cssVar": "--card-bg",
+              "mcpPath": "tokens.colors.theme.cardBg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#F7F8FA",
+                  "dark": "#37424D"
+                },
+                "vp": {
+                  "light": "#F7F8FA",
+                  "dark": "#1F2124"
+                },
+                "ppm": {
+                  "light": "#F7F8FA",
+                  "dark": "#1F2124"
+                },
+                "maconomy": {
+                  "light": "#F7F8FA",
+                  "dark": "#1F2124"
+                }
+              }
+            },
+            {
+              "cssVar": "--border-color",
+              "mcpPath": "tokens.colors.theme.borderColor",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#BFC6D4",
+                  "dark": "#5F6871"
+                },
+                "vp": {
+                  "light": "#BFC6D4",
+                  "dark": "#2A2D32"
+                },
+                "ppm": {
+                  "light": "#BFC6D4",
+                  "dark": "#2A2D32"
+                },
+                "maconomy": {
+                  "light": "#BFC6D4",
+                  "dark": "#2A2D32"
+                }
+              }
+            }
+          ]
+        }
       }
     },
     "MonthPicker": {
-      "description": "MonthPicker component",
+      "description": "MonthPicker Component",
+      "filePath": "src/components/ui/MonthPicker.astro",
+      "dependencies": [
+        "Icon"
+      ],
       "props": {
         "value": {
           "type": "string",
@@ -879,7 +4034,8 @@
       }
     },
     "NotificationBadge": {
-      "description": "NotificationBadge component",
+      "description": "NotificationBadge Component",
+      "filePath": "src/components/ui/NotificationBadge.astro",
       "props": {
         "type": {
           "type": "'dot' | 'number' | 'overflow'",
@@ -916,10 +4072,148 @@
           "description": null,
           "optional": true
         }
+      },
+      "tokens": {
+        "base": {
+          "spacing": [
+            {
+              "cssVar": "--badge-dot-size-sm",
+              "mcpPath": "tokens.spacing.dot",
+              "value": "6px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--badge-dot-size-md",
+              "mcpPath": "tokens.spacing.dot",
+              "value": "10px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--border-width-standard",
+              "mcpPath": "tokens.spacing.width",
+              "value": "2px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--badge-dot-size-lg",
+              "mcpPath": "tokens.spacing.dot",
+              "value": "15px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--badge-height-sm",
+              "mcpPath": "tokens.spacing.height",
+              "value": "19px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--badge-min-width-sm",
+              "mcpPath": "tokens.spacing.min",
+              "value": "19px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--space-1",
+              "mcpPath": "tokens.spacing.1",
+              "value": "4px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--space-1-5",
+              "mcpPath": "tokens.spacing.1",
+              "value": "6px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--badge-height-md",
+              "mcpPath": "tokens.spacing.height",
+              "value": "19px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--badge-min-width-md",
+              "mcpPath": "tokens.spacing.min",
+              "value": "19px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--badge-height-lg",
+              "mcpPath": "tokens.spacing.height",
+              "value": "19px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--badge-min-width-lg",
+              "mcpPath": "tokens.spacing.min",
+              "value": "32px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--space-2",
+              "mcpPath": "tokens.spacing.2",
+              "value": "8px",
+              "category": "spacing"
+            }
+          ],
+          "typography": [
+            {
+              "cssVar": "--font-sans",
+              "mcpPath": "tokens.typography.fontFamily.sans",
+              "value": "'Figtree', sans-serif",
+              "category": "typography"
+            },
+            {
+              "cssVar": "--font-medium",
+              "mcpPath": "tokens.typography.fontFamily.medium",
+              "value": "500",
+              "category": "typography"
+            }
+          ],
+          "radius": [
+            {
+              "cssVar": "--radius-full",
+              "mcpPath": "tokens.borderRadius.full",
+              "value": "9999px",
+              "category": "radius"
+            }
+          ]
+        },
+        "themeAware": {
+          "colors": [
+            {
+              "cssVar": "--theme-primary",
+              "mcpPath": "tokens.colors.theme.primary",
+              "category": "colors",
+              "tokenPath": "themes.{theme}.primary",
+              "themes": {
+                "cp": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "vp": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "ppm": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "maconomy": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                }
+              }
+            }
+          ]
+        }
       }
     },
     "PickerPopup": {
-      "description": "PickerPopup component",
+      "description": "PickerPopup Component",
+      "filePath": "src/components/ui/PickerPopup.astro",
+      "dependencies": [
+        "Icon"
+      ],
       "props": {
         "id": {
           "type": "string",
@@ -940,10 +4234,95 @@
           "description": null,
           "optional": true
         }
+      },
+      "tokens": {
+        "base": {
+          "spacing": [
+            {
+              "cssVar": "--space-2",
+              "mcpPath": "tokens.spacing.2",
+              "value": "8px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--space-4",
+              "mcpPath": "tokens.spacing.4",
+              "value": "16px",
+              "category": "spacing"
+            }
+          ],
+          "elevations": [
+            {
+              "cssVar": "--shadow-xl",
+              "mcpPath": "tokens.shadows.xl",
+              "value": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+              "category": "elevations"
+            }
+          ],
+          "radius": [
+            {
+              "cssVar": "--radius-lg",
+              "mcpPath": "tokens.borderRadius.lg",
+              "value": "0.5rem",
+              "category": "radius"
+            }
+          ]
+        },
+        "themeAware": {
+          "colors": [
+            {
+              "cssVar": "--card-bg",
+              "mcpPath": "tokens.colors.theme.cardBg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#F7F8FA",
+                  "dark": "#37424D"
+                },
+                "vp": {
+                  "light": "#F7F8FA",
+                  "dark": "#1F2124"
+                },
+                "ppm": {
+                  "light": "#F7F8FA",
+                  "dark": "#1F2124"
+                },
+                "maconomy": {
+                  "light": "#F7F8FA",
+                  "dark": "#1F2124"
+                }
+              }
+            },
+            {
+              "cssVar": "--border-color",
+              "mcpPath": "tokens.colors.theme.borderColor",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#BFC6D4",
+                  "dark": "#5F6871"
+                },
+                "vp": {
+                  "light": "#BFC6D4",
+                  "dark": "#2A2D32"
+                },
+                "ppm": {
+                  "light": "#BFC6D4",
+                  "dark": "#2A2D32"
+                },
+                "maconomy": {
+                  "light": "#BFC6D4",
+                  "dark": "#2A2D32"
+                }
+              }
+            }
+          ]
+        }
       }
     },
     "ProgressBar": {
-      "description": "ProgressBar component",
+      "description": "ProgressBar Component",
+      "filePath": "src/components/ui/ProgressBar.astro",
       "props": {
         "value": {
           "type": "number",
@@ -981,7 +4360,11 @@
       }
     },
     "RadioButton": {
-      "description": "RadioButton component",
+      "description": "RadioButton Component",
+      "filePath": "src/components/ui/RadioButton.astro",
+      "dependencies": [
+        "Icon"
+      ],
       "props": {
         "name": {
           "type": "string",
@@ -1047,7 +4430,11 @@
       }
     },
     "RadioGroup": {
-      "description": "RadioGroup component",
+      "description": "RadioGroup Component",
+      "filePath": "src/components/ui/RadioGroup.astro",
+      "dependencies": [
+        "Icon"
+      ],
       "props": {
         "name": {
           "type": "string",
@@ -1094,7 +4481,11 @@
       }
     },
     "RangeInput": {
-      "description": "RangeInput component",
+      "description": "RangeInput Component",
+      "filePath": "src/components/ui/RangeInput.astro",
+      "dependencies": [
+        "Label"
+      ],
       "props": {
         "value": {
           "type": "number",
@@ -1180,8 +4571,121 @@
         }
       }
     },
+    "RightSidebar": {
+      "description": "RightSidebar Component",
+      "filePath": "src/components/ui/RightSidebar.astro",
+      "dependencies": [
+        "Icon",
+        "Tooltip"
+      ],
+      "props": {},
+      "tokens": {
+        "base": {
+          "spacing": [
+            {
+              "cssVar": "--space-3",
+              "mcpPath": "tokens.spacing.3",
+              "value": "12px",
+              "category": "spacing"
+            }
+          ]
+        },
+        "themeAware": {
+          "colors": [
+            {
+              "cssVar": "--theme-primary",
+              "mcpPath": "tokens.colors.theme.primary",
+              "category": "colors",
+              "tokenPath": "themes.{theme}.primary",
+              "themes": {
+                "cp": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "vp": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "ppm": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "maconomy": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                }
+              }
+            },
+            {
+              "cssVar": "--text-inverse",
+              "mcpPath": "tokens.colors.theme.textInverse",
+              "category": "typography",
+              "themes": {
+                "cp": {
+                  "light": "#FFFFFF",
+                  "dark": "#1F252E"
+                },
+                "vp": {
+                  "light": "#FFFFFF",
+                  "dark": "#15171A"
+                },
+                "ppm": {
+                  "light": "#FFFFFF",
+                  "dark": "#15171A"
+                },
+                "maconomy": {
+                  "light": "#FFFFFF",
+                  "dark": "#15171A"
+                }
+              }
+            },
+            {
+              "cssVar": "--theme-primary-hover",
+              "mcpPath": "tokens.colors.theme.primaryHover",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#0066CC",
+                  "dark": "#7bb8ff"
+                },
+                "vp": {
+                  "light": "#0066CC",
+                  "dark": "#78baff"
+                },
+                "ppm": {
+                  "light": "#0066CC",
+                  "dark": "#7bb8ff"
+                },
+                "maconomy": {
+                  "light": "#0066CC",
+                  "dark": "#7bb8ff"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "ShellFooter": {
+      "description": "ShellFooter Component",
+      "filePath": "src/components/ui/ShellFooter.astro",
+      "props": {}
+    },
+    "ShellHeader": {
+      "description": "Skip if already initialized",
+      "filePath": "src/components/ui/ShellHeader.astro",
+      "dependencies": [
+        "Icon",
+        "Avatar"
+      ],
+      "props": {}
+    },
     "ShellPageHeader": {
-      "description": "ShellPageHeader component",
+      "description": "Shell Page Header Component",
+      "filePath": "src/components/ui/ShellPageHeader.astro",
+      "dependencies": [
+        "Button"
+      ],
       "props": {
         "title": {
           "type": "string",
@@ -1219,8 +4723,69 @@
         }
       }
     },
+    "ShellPanel": {
+      "description": "ShellPanel Component (Shell Contextual Drawer)",
+      "filePath": "src/components/ui/ShellPanel.astro",
+      "dependencies": [
+        "Icon"
+      ],
+      "props": {
+        "side": {
+          "type": "'left' | 'right'",
+          "description": null
+        },
+        "open": {
+          "type": "boolean",
+          "description": null
+        },
+        "title": {
+          "type": "string",
+          "description": null
+        },
+        "titleIcon": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "headerVariant": {
+          "type": "'theme' | 'default'",
+          "description": null,
+          "optional": true,
+          "default": "theme"
+        },
+        "width": {
+          "type": "'narrow' | 'full'",
+          "description": null,
+          "optional": true,
+          "default": "narrow"
+        },
+        "showClose": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "true"
+        },
+        "showPopout": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "true"
+        },
+        "id": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        },
+        "class": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        }
+      }
+    },
     "Spinner": {
-      "description": "Spinner component",
+      "description": "Spinner Component",
+      "filePath": "src/components/ui/Spinner.astro",
       "props": {
         "size": {
           "type": "'sm' | 'md' | 'lg'",
@@ -1233,10 +4798,116 @@
           "description": null,
           "optional": true
         }
+      },
+      "tokens": {
+        "base": {
+          "spacing": [
+            {
+              "cssVar": "--space-6",
+              "mcpPath": "tokens.spacing.6",
+              "value": "24px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--border-width-medium",
+              "mcpPath": "tokens.spacing.width",
+              "value": "3px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--space-4",
+              "mcpPath": "tokens.spacing.4",
+              "value": "16px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--border-width-standard",
+              "mcpPath": "tokens.spacing.width",
+              "value": "2px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--space-10",
+              "mcpPath": "tokens.spacing.10",
+              "value": "40px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--border-width-thick",
+              "mcpPath": "tokens.spacing.width",
+              "value": "4px",
+              "category": "spacing"
+            }
+          ],
+          "radius": [
+            {
+              "cssVar": "--radius-full",
+              "mcpPath": "tokens.borderRadius.full",
+              "value": "9999px",
+              "category": "radius"
+            }
+          ]
+        },
+        "themeAware": {
+          "colors": [
+            {
+              "cssVar": "--border-color",
+              "mcpPath": "tokens.colors.theme.borderColor",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#BFC6D4",
+                  "dark": "#5F6871"
+                },
+                "vp": {
+                  "light": "#BFC6D4",
+                  "dark": "#2A2D32"
+                },
+                "ppm": {
+                  "light": "#BFC6D4",
+                  "dark": "#2A2D32"
+                },
+                "maconomy": {
+                  "light": "#BFC6D4",
+                  "dark": "#2A2D32"
+                }
+              }
+            },
+            {
+              "cssVar": "--theme-primary",
+              "mcpPath": "tokens.colors.theme.primary",
+              "category": "colors",
+              "tokenPath": "themes.{theme}.primary",
+              "themes": {
+                "cp": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "vp": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "ppm": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "maconomy": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                }
+              }
+            }
+          ]
+        }
       }
     },
     "StepperInput": {
-      "description": "StepperInput component",
+      "description": "StepperInput Component",
+      "filePath": "src/components/ui/StepperInput.astro",
+      "dependencies": [
+        "Icon",
+        "Label"
+      ],
       "props": {
         "value": {
           "type": "number",
@@ -1302,8 +4973,399 @@
         }
       }
     },
+    "TabStrip": {
+      "description": "TabStrip Component",
+      "filePath": "src/components/ui/TabStrip.astro",
+      "dependencies": [
+        "Icon"
+      ],
+      "props": {}
+    },
+    "Table": {
+      "description": "Table Component",
+      "filePath": "src/components/ui/Table.astro",
+      "props": {
+        "headerVariant": {
+          "type": "'gray' | 'white' | 'none'",
+          "description": null,
+          "optional": true,
+          "default": "gray"
+        },
+        "striped": {
+          "type": "boolean",
+          "description": null,
+          "optional": true,
+          "default": "false"
+        },
+        "class": {
+          "type": "string",
+          "description": null,
+          "optional": true
+        }
+      },
+      "tokens": {
+        "base": {
+          "spacing": [
+            {
+              "cssVar": "--space-3",
+              "mcpPath": "tokens.spacing.3",
+              "value": "12px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--space-4",
+              "mcpPath": "tokens.spacing.4",
+              "value": "16px",
+              "category": "spacing"
+            }
+          ],
+          "typography": [
+            {
+              "cssVar": "--font-sans",
+              "mcpPath": "tokens.typography.fontFamily.sans",
+              "value": "'Figtree', sans-serif",
+              "category": "typography"
+            },
+            {
+              "cssVar": "--text-sm",
+              "mcpPath": "tokens.typography.fontSize.sm",
+              "value": "0.875rem",
+              "category": "typography"
+            },
+            {
+              "cssVar": "--font-medium",
+              "mcpPath": "tokens.typography.fontFamily.medium",
+              "value": "500",
+              "category": "typography"
+            },
+            {
+              "cssVar": "--font-semibold",
+              "mcpPath": "tokens.typography.fontFamily.semibold",
+              "value": "600",
+              "category": "typography"
+            }
+          ],
+          "transitions": [
+            {
+              "cssVar": "--transition-fast",
+              "mcpPath": "tokens.transitions.fast",
+              "value": "150ms ease",
+              "category": "transitions"
+            }
+          ]
+        },
+        "themeAware": {
+          "colors": [
+            {
+              "cssVar": "--text-secondary",
+              "mcpPath": "tokens.colors.theme.textSecondary",
+              "category": "typography",
+              "themes": {
+                "cp": {
+                  "light": "#525969",
+                  "dark": "#B6B6C4"
+                },
+                "vp": {
+                  "light": "#525969",
+                  "dark": "#B5B5BC"
+                },
+                "ppm": {
+                  "light": "#525969",
+                  "dark": "#B5B5BC"
+                },
+                "maconomy": {
+                  "light": "#525969",
+                  "dark": "#B5B5BC"
+                }
+              }
+            },
+            {
+              "cssVar": "--border-color",
+              "mcpPath": "tokens.colors.theme.borderColor",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#BFC6D4",
+                  "dark": "#5F6871"
+                },
+                "vp": {
+                  "light": "#BFC6D4",
+                  "dark": "#2A2D32"
+                },
+                "ppm": {
+                  "light": "#BFC6D4",
+                  "dark": "#2A2D32"
+                },
+                "maconomy": {
+                  "light": "#BFC6D4",
+                  "dark": "#2A2D32"
+                }
+              }
+            },
+            {
+              "cssVar": "--surface-bg",
+              "mcpPath": "tokens.colors.theme.surfaceBg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#FFFFFF",
+                  "dark": "#212935"
+                },
+                "vp": {
+                  "light": "#FFFFFF",
+                  "dark": "#1A1C1F"
+                },
+                "ppm": {
+                  "light": "#FFFFFF",
+                  "dark": "#1A1C1F"
+                },
+                "maconomy": {
+                  "light": "#FFFFFF",
+                  "dark": "#1A1C1F"
+                }
+              }
+            },
+            {
+              "cssVar": "--table-header-gray-bg",
+              "mcpPath": "tokens.colors.theme.tableHeaderGrayBg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#EDF0F6",
+                  "dark": "#37424D"
+                },
+                "vp": {
+                  "light": "#EDF0F6",
+                  "dark": "#37424D"
+                },
+                "ppm": {
+                  "light": "#EDF0F6",
+                  "dark": "#37424D"
+                },
+                "maconomy": {
+                  "light": "#EDF0F6",
+                  "dark": "#37424D"
+                }
+              }
+            },
+            {
+              "cssVar": "--text-primary",
+              "mcpPath": "tokens.colors.theme.textPrimary",
+              "category": "typography",
+              "themes": {
+                "cp": {
+                  "light": "#373F4E",
+                  "dark": "#E9ECEF"
+                },
+                "vp": {
+                  "light": "#373F4E",
+                  "dark": "#FAFAFA"
+                },
+                "ppm": {
+                  "light": "#373F4E",
+                  "dark": "#FAFAFA"
+                },
+                "maconomy": {
+                  "light": "#373F4E",
+                  "dark": "#FAFAFA"
+                }
+              }
+            },
+            {
+              "cssVar": "--border-light",
+              "mcpPath": "tokens.colors.theme.borderLight",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#E2E8F0",
+                  "dark": "#374151"
+                },
+                "vp": {
+                  "light": "#E2E8F0",
+                  "dark": "#3A3D42"
+                },
+                "ppm": {
+                  "light": "#E2E8F0",
+                  "dark": "#3A3D42"
+                },
+                "maconomy": {
+                  "light": "#E2E8F0",
+                  "dark": "#3A3D42"
+                }
+              }
+            },
+            {
+              "cssVar": "--card-bg",
+              "mcpPath": "tokens.colors.theme.cardBg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#F7F8FA",
+                  "dark": "#37424D"
+                },
+                "vp": {
+                  "light": "#F7F8FA",
+                  "dark": "#1F2124"
+                },
+                "ppm": {
+                  "light": "#F7F8FA",
+                  "dark": "#1F2124"
+                },
+                "maconomy": {
+                  "light": "#F7F8FA",
+                  "dark": "#1F2124"
+                }
+              }
+            },
+            {
+              "cssVar": "--table-row-selected-bg",
+              "mcpPath": "tokens.colors.theme.tableRowSelectedBg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "rgba(0, 115, 230, 0.15)",
+                  "dark": "rgba(89, 172, 255, 0.15)"
+                },
+                "vp": {
+                  "light": "rgba(0, 115, 230, 0.15)",
+                  "dark": "rgba(89, 172, 255, 0.15)"
+                },
+                "ppm": {
+                  "light": "rgba(0, 115, 230, 0.15)",
+                  "dark": "rgba(89, 172, 255, 0.15)"
+                },
+                "maconomy": {
+                  "light": "rgba(0, 115, 230, 0.15)",
+                  "dark": "rgba(89, 172, 255, 0.15)"
+                }
+              }
+            },
+            {
+              "cssVar": "--table-row-hover-bg",
+              "mcpPath": "tokens.colors.theme.tableRowHoverBg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#d6ebff",
+                  "dark": "rgba(89, 172, 255, 0.15)"
+                },
+                "vp": {
+                  "light": "#d6ebff",
+                  "dark": "rgba(89, 172, 255, 0.15)"
+                },
+                "ppm": {
+                  "light": "#d6ebff",
+                  "dark": "rgba(89, 172, 255, 0.15)"
+                },
+                "maconomy": {
+                  "light": "#d6ebff",
+                  "dark": "rgba(89, 172, 255, 0.15)"
+                }
+              }
+            },
+            {
+              "cssVar": "--table-row-selected-hover-bg",
+              "mcpPath": "tokens.colors.theme.tableRowSelectedHoverBg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#d6ebff",
+                  "dark": "rgba(89, 172, 255, 0.15)"
+                },
+                "vp": {
+                  "light": "#d6ebff",
+                  "dark": "rgba(89, 172, 255, 0.15)"
+                },
+                "ppm": {
+                  "light": "#d6ebff",
+                  "dark": "rgba(89, 172, 255, 0.15)"
+                },
+                "maconomy": {
+                  "light": "#d6ebff",
+                  "dark": "rgba(89, 172, 255, 0.15)"
+                }
+              }
+            },
+            {
+              "cssVar": "--table-total-bg",
+              "mcpPath": "tokens.colors.theme.tableTotalBg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "rgba(0, 115, 230, 0.15)",
+                  "dark": "rgba(89, 172, 255, 0.15)"
+                },
+                "vp": {
+                  "light": "rgba(0, 115, 230, 0.15)",
+                  "dark": "rgba(89, 172, 255, 0.15)"
+                },
+                "ppm": {
+                  "light": "rgba(0, 115, 230, 0.15)",
+                  "dark": "rgba(89, 172, 255, 0.15)"
+                },
+                "maconomy": {
+                  "light": "rgba(0, 115, 230, 0.15)",
+                  "dark": "rgba(89, 172, 255, 0.15)"
+                }
+              }
+            },
+            {
+              "cssVar": "--theme-primary",
+              "mcpPath": "tokens.colors.theme.primary",
+              "category": "colors",
+              "tokenPath": "themes.{theme}.primary",
+              "themes": {
+                "cp": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "vp": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "ppm": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "maconomy": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                }
+              }
+            },
+            {
+              "cssVar": "--text-inverse",
+              "mcpPath": "tokens.colors.theme.textInverse",
+              "category": "typography",
+              "themes": {
+                "cp": {
+                  "light": "#FFFFFF",
+                  "dark": "#1F252E"
+                },
+                "vp": {
+                  "light": "#FFFFFF",
+                  "dark": "#15171A"
+                },
+                "ppm": {
+                  "light": "#FFFFFF",
+                  "dark": "#15171A"
+                },
+                "maconomy": {
+                  "light": "#FFFFFF",
+                  "dark": "#15171A"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
     "Textarea": {
-      "description": "Textarea component",
+      "description": "Textarea Component",
+      "filePath": "src/components/ui/Textarea.astro",
+      "dependencies": [
+        "Label"
+      ],
       "props": {
         "placeholder": {
           "type": "string",
@@ -1367,10 +5429,205 @@
           "type": "string]: any",
           "description": null
         }
+      },
+      "tokens": {
+        "base": {
+          "spacing": [
+            {
+              "cssVar": "--space-3",
+              "mcpPath": "tokens.spacing.3",
+              "value": "12px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--space-4",
+              "mcpPath": "tokens.spacing.4",
+              "value": "16px",
+              "category": "spacing"
+            }
+          ],
+          "typography": [
+            {
+              "cssVar": "--font-sans",
+              "mcpPath": "tokens.typography.fontFamily.sans",
+              "value": "'Figtree', sans-serif",
+              "category": "typography"
+            },
+            {
+              "cssVar": "--text-base",
+              "mcpPath": "tokens.typography.fontSize.base",
+              "value": "1rem",
+              "category": "typography"
+            }
+          ],
+          "radius": [
+            {
+              "cssVar": "--radius-lg",
+              "mcpPath": "tokens.borderRadius.lg",
+              "value": "0.5rem",
+              "category": "radius"
+            }
+          ],
+          "transitions": [
+            {
+              "cssVar": "--transition-fast",
+              "mcpPath": "tokens.transitions.fast",
+              "value": "150ms ease",
+              "category": "transitions"
+            }
+          ]
+        },
+        "themeAware": {
+          "colors": [
+            {
+              "cssVar": "--text-primary",
+              "mcpPath": "tokens.colors.theme.textPrimary",
+              "category": "typography",
+              "themes": {
+                "cp": {
+                  "light": "#373F4E",
+                  "dark": "#E9ECEF"
+                },
+                "vp": {
+                  "light": "#373F4E",
+                  "dark": "#FAFAFA"
+                },
+                "ppm": {
+                  "light": "#373F4E",
+                  "dark": "#FAFAFA"
+                },
+                "maconomy": {
+                  "light": "#373F4E",
+                  "dark": "#FAFAFA"
+                }
+              }
+            },
+            {
+              "cssVar": "--input-bg",
+              "mcpPath": "tokens.colors.theme.inputBg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#FFFFFF",
+                  "dark": "#1F252E"
+                },
+                "vp": {
+                  "light": "#FFFFFF",
+                  "dark": "#1F2124"
+                },
+                "ppm": {
+                  "light": "#FFFFFF",
+                  "dark": "#1F2124"
+                },
+                "maconomy": {
+                  "light": "#FFFFFF",
+                  "dark": "#1F2124"
+                }
+              }
+            },
+            {
+              "cssVar": "--border-color",
+              "mcpPath": "tokens.colors.theme.borderColor",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#BFC6D4",
+                  "dark": "#5F6871"
+                },
+                "vp": {
+                  "light": "#BFC6D4",
+                  "dark": "#2A2D32"
+                },
+                "ppm": {
+                  "light": "#BFC6D4",
+                  "dark": "#2A2D32"
+                },
+                "maconomy": {
+                  "light": "#BFC6D4",
+                  "dark": "#2A2D32"
+                }
+              }
+            },
+            {
+              "cssVar": "--text-muted",
+              "mcpPath": "tokens.colors.theme.textMuted",
+              "category": "typography",
+              "themes": {
+                "cp": {
+                  "light": "#616193",
+                  "dark": "#BBBBC6"
+                },
+                "vp": {
+                  "light": "#616193",
+                  "dark": "#B5B5BC"
+                },
+                "ppm": {
+                  "light": "#616193",
+                  "dark": "#B5B5BC"
+                },
+                "maconomy": {
+                  "light": "#616193",
+                  "dark": "#B5B5BC"
+                }
+              }
+            },
+            {
+              "cssVar": "--theme-primary",
+              "mcpPath": "tokens.colors.theme.primary",
+              "category": "colors",
+              "tokenPath": "themes.{theme}.primary",
+              "themes": {
+                "cp": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "vp": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "ppm": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                },
+                "maconomy": {
+                  "light": "#0073E6",
+                  "dark": "#59ACFF"
+                }
+              }
+            },
+            {
+              "cssVar": "--input-disabled-bg",
+              "mcpPath": "tokens.colors.theme.inputDisabledBg",
+              "category": "colors",
+              "themes": {
+                "cp": {
+                  "light": "#EAEAEA",
+                  "dark": "#333D47"
+                },
+                "vp": {
+                  "light": "#EAEAEA",
+                  "dark": "#2A2D32"
+                },
+                "ppm": {
+                  "light": "#EAEAEA",
+                  "dark": "#2A2D32"
+                },
+                "maconomy": {
+                  "light": "#EAEAEA",
+                  "dark": "#2A2D32"
+                }
+              }
+            }
+          ]
+        }
       }
     },
     "TimePicker": {
-      "description": "TimePicker component",
+      "description": "TimePicker Component",
+      "filePath": "src/components/ui/TimePicker.astro",
+      "dependencies": [
+        "Icon"
+      ],
       "props": {
         "value": {
           "type": "string",
@@ -1418,7 +5675,8 @@
       }
     },
     "Toggle": {
-      "description": "Toggle component",
+      "description": "Toggle Component",
+      "filePath": "src/components/ui/Toggle.astro",
       "props": {
         "name": {
           "type": "string",
@@ -1462,10 +5720,41 @@
           "type": "string]: any",
           "description": null
         }
+      },
+      "tokens": {
+        "base": {
+          "spacing": [
+            {
+              "cssVar": "--space-2",
+              "mcpPath": "tokens.spacing.2",
+              "value": "8px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--space-9",
+              "mcpPath": "tokens.spacing.9",
+              "value": "36px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--space-5",
+              "mcpPath": "tokens.spacing.5",
+              "value": "20px",
+              "category": "spacing"
+            },
+            {
+              "cssVar": "--space-4",
+              "mcpPath": "tokens.spacing.4",
+              "value": "16px",
+              "category": "spacing"
+            }
+          ]
+        }
       }
     },
     "Tooltip": {
-      "description": "Tooltip component",
+      "description": "Tooltip Component",
+      "filePath": "src/components/ui/Tooltip.astro",
       "props": {
         "text": {
           "type": "string",
@@ -1490,7 +5779,11 @@
       }
     },
     "WeekPicker": {
-      "description": "WeekPicker component",
+      "description": "WeekPicker Component",
+      "filePath": "src/components/ui/WeekPicker.astro",
+      "dependencies": [
+        "Icon"
+      ],
       "props": {
         "value": {
           "type": "string",
