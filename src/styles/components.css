@@ -5724,8 +5724,8 @@ div.shell-panel__header.shell-panel__header--theme,
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
+  width: var(--space-6);
+  height: var(--space-6);
   padding: 0;
   border: none;
   background: transparent;
@@ -5742,7 +5742,7 @@ div.shell-panel__header.shell-panel__header--theme,
 
 .kanban__title-bar-icon:focus {
   outline: 2px solid var(--theme-primary);
-  outline-offset: 2px;
+  outline-offset: var(--space-0-5);
 }
 
 /* Action Bar */
@@ -5806,7 +5806,7 @@ div.shell-panel__header.shell-panel__header--theme,
 
 .kanban__action-text-button:focus {
   outline: 2px solid var(--theme-primary);
-  outline-offset: 2px;
+  outline-offset: var(--space-0-5);
 }
 
 /* Columns Wrapper */
@@ -5815,15 +5815,15 @@ div.shell-panel__header.shell-panel__header--theme,
   gap: var(--space-4);
   overflow-x: auto;
   padding: var(--space-4);
-  min-height: 400px;
+  min-height: calc(var(--space-20) * 5); /* 400px */
   flex: 1;
 }
 
 /* Column Card */
 .kanban__column-card {
-  flex: 0 0 400px;
-  min-width: 360px;
-  max-width: 500px;
+  flex: 0 0 calc(var(--space-20) * 5); /* 400px */
+  min-width: calc(var(--space-20) * 4.5); /* 360px */
+  max-width: calc(var(--space-20) * 6.25); /* 500px */
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -5898,8 +5898,8 @@ div.shell-panel__header.shell-panel__header--theme,
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
+  width: var(--space-6);
+  height: var(--space-6);
   padding: 0;
   border: none;
   background: transparent;
@@ -5916,7 +5916,7 @@ div.shell-panel__header.shell-panel__header--theme,
 
 .kanban__column-action-icon:focus {
   outline: 2px solid var(--theme-primary);
-  outline-offset: 2px;
+  outline-offset: var(--space-0-5);
 }
 
 .kanban__add-button {
@@ -5938,7 +5938,7 @@ div.shell-panel__header.shell-panel__header--theme,
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  min-height: 200px;
+  min-height: calc(var(--space-20) * 2.5); /* 200px */
 }
 
 .kanban__column-content::-webkit-scrollbar {
@@ -5987,19 +5987,6 @@ div.shell-panel__header.shell-panel__header--theme,
 
 .kanban-card__avatar {
   flex-shrink: 0;
-}
-
-.kanban-card__avatar--initials {
-  border-radius: var(--radius-full);
-  background-color: #043852;
-}
-
-.kanban-card__avatar-text {
-  color: white;
-  font-size: var(--text-xs);
-  font-weight: var(--font-semibold);
-  font-family: var(--font-sans);
-  line-height: 1;
 }
 
 .kanban-card__header-right {
@@ -6062,7 +6049,7 @@ div.shell-panel__header.shell-panel__header--theme,
   font-weight: var(--font-medium);
   line-height: var(--leading-normal);
   color: var(--text-secondary);
-  min-height: 20px;
+  min-height: var(--space-5);
   flex-wrap: wrap;
 }
 
