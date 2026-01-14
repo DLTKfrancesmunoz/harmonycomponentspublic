@@ -421,6 +421,40 @@ const componentId = `tabstrip-${Math.random().toString(36).substr(2, 9)}`;
     padding: var(--space-1-5) var(--space-3);
     font-size: var(--text-xs);
   }
+
+  /* TabStrip Responsive Styles */
+  @media (max-width: var(--breakpoint-md)) {
+    .tabstrip__tabs {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+    }
+
+    .tabstrip__tabs::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    .tabstrip__tabs::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .tabstrip__tabs::-webkit-scrollbar-thumb {
+      background-color: var(--border-color);
+      border-radius: 2px;
+    }
+
+    .tab {
+      min-width: max-content;
+      padding: var(--space-2) var(--space-3);
+      font-size: var(--text-sm);
+    }
+
+    .tabstrip__add,
+    .tabstrip__more-wrapper {
+      min-width: 44px;
+      min-height: 44px;
+    }
+  }
 </style>
 
 <script>

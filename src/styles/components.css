@@ -483,6 +483,25 @@
   cursor: not-allowed;
 }
 
+/* Input & Textarea Responsive Styles */
+@media (max-width: var(--breakpoint-md)) {
+  .input,
+  .textarea {
+    width: 100%;
+    font-size: 16px; /* Prevent iOS zoom on focus */
+  }
+
+  .input {
+    min-height: 44px; /* Ensure touch target size */
+    padding: 0 var(--space-3);
+  }
+
+  .textarea {
+    min-height: 120px;
+    padding: var(--space-3);
+  }
+}
+
 /* ===========================================
    LABEL
    =========================================== */
@@ -504,6 +523,13 @@
 .label__helper {
   font-weight: var(--font-normal);
   color: var(--text-muted);
+}
+
+/* Label Responsive Styles */
+@media (max-width: var(--breakpoint-md)) {
+  .label {
+    font-size: var(--text-sm);
+  }
 }
 
 /* ===========================================
@@ -712,6 +738,25 @@
   box-shadow: var(--focus-ring-warning-checked);
 }
 
+/* Radio Group / Checkbox Group Responsive Styles */
+@media (max-width: var(--breakpoint-md)) {
+  .radio-group-wrapper--horizontal .radio-group-wrapper__content,
+  .checkbox-group-wrapper--horizontal .checkbox-group-wrapper__content {
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .radio-group-wrapper__content,
+  .checkbox-group-wrapper__content {
+    gap: var(--space-3);
+  }
+
+  .radio,
+  .checkbox {
+    min-height: 44px; /* Ensure touch target size */
+  }
+}
+
 /* ===========================================
    CHECKBOX
    =========================================== */
@@ -781,6 +826,13 @@
 
 .checkbox--disabled .checkbox__label {
   color: var(--text-muted);
+}
+
+/* Checkbox Responsive Styles */
+@media (max-width: var(--breakpoint-md)) {
+  .checkbox {
+    min-height: 44px; /* Ensure touch target size */
+  }
 }
 
 /* Checkbox Warning State */
@@ -926,6 +978,13 @@
 
 .radio--disabled .radio__label {
   color: var(--text-muted);
+}
+
+/* Radio Responsive Styles */
+@media (max-width: var(--breakpoint-md)) {
+  .radio {
+    min-height: 44px; /* Ensure touch target size */
+  }
 }
 
 /* Radio Warning State */
@@ -1075,6 +1134,18 @@
   transform: translateX(var(--space-4));
 }
 
+/* Toggle Responsive Styles */
+@media (max-width: var(--breakpoint-md)) {
+  .toggle__track {
+    min-width: 44px; /* Ensure touch target size */
+    min-height: 24px;
+  }
+
+  .toggle__label {
+    font-size: var(--text-sm);
+  }
+}
+
 /* ===========================================
    SELECT / DROPDOWN
    =========================================== */
@@ -1207,6 +1278,32 @@
 .dropdown__item--disabled {
   color: var(--text-muted);
   cursor: not-allowed;
+}
+
+/* Dropdown Responsive Styles */
+@media (max-width: var(--breakpoint-md)) {
+  .dropdown {
+    width: 100%;
+  }
+
+  .dropdown__trigger {
+    width: 100%;
+    min-width: 100%;
+    min-height: 44px; /* Ensure touch target size */
+  }
+
+  .dropdown__menu {
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100vw;
+    max-height: calc(100vh - 200px);
+  }
+
+  .dropdown__item {
+    min-height: 44px; /* Ensure touch target size */
+    padding: var(--space-3) var(--space-4);
+  }
 }
 
 /* ===========================================
@@ -1476,6 +1573,14 @@
   background-color: var(--alert-chip-disabled-bg);
   color: var(--alert-chip-disabled-fg);
   border: 1px solid var(--alert-chip-disabled-border);
+}
+
+/* Badge Responsive Styles */
+@media (max-width: var(--breakpoint-md)) {
+  .badge {
+    font-size: var(--text-xs);
+    padding: var(--space-0-5) var(--space-2);
+  }
 }
 
 /* ===========================================
@@ -1891,6 +1996,14 @@
   opacity: 1;
 }
 
+/* Chip Responsive Styles */
+@media (max-width: var(--breakpoint-md)) {
+  .chip__remove {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
 /* ===========================================
    ALERT
    =========================================== */
@@ -2270,6 +2383,19 @@
   display: block;
 }
 
+/* Accordion Responsive Styles */
+@media (max-width: var(--breakpoint-md)) {
+  .accordion__trigger {
+    padding: var(--space-3) var(--space-3);
+    font-size: var(--text-sm);
+  }
+
+  .accordion__content {
+    padding: var(--space-3);
+    font-size: var(--text-sm);
+  }
+}
+
 /* ===========================================
    TOOLTIP
    =========================================== */
@@ -2504,6 +2630,42 @@
   justify-content: flex-start;
 }
 
+/* Dialog Responsive Styles */
+@media (max-width: var(--breakpoint-md)) {
+  .dialog {
+    width: calc(100vw - 32px);
+    max-width: 100%;
+    margin: 16px;
+    max-height: calc(100vh - 32px);
+  }
+
+  .dialog__header {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .dialog__body {
+    padding: var(--space-4);
+    max-height: calc(100vh - 200px);
+  }
+
+  .dialog__footer {
+    padding: var(--space-3) var(--space-4);
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .dialog__footer .btn {
+    flex: 1;
+    min-width: 120px;
+  }
+}
+
+@media (min-width: var(--breakpoint-md)) and (max-width: var(--breakpoint-lg)) {
+  .dialog {
+    max-width: 90vw;
+  }
+}
+
 /* ===========================================
    PROGRESS BAR
    =========================================== */
@@ -2543,6 +2705,13 @@
   background-color: var(--color-error);
 }
 
+/* Progress Bar Responsive Styles */
+@media (max-width: var(--breakpoint-md)) {
+  .progress {
+    width: 100%;
+  }
+}
+
 /* ===========================================
    SPINNER
    =========================================== */
@@ -2568,6 +2737,8 @@
   height: var(--space-10);
   border-width: var(--border-width-thick);
 }
+
+/* Spinner Responsive Styles - No changes needed, scales appropriately */
 
 /* ===========================================
    TABS
@@ -2603,6 +2774,14 @@
 
 .link--muted:hover {
   color: var(--text-primary);
+}
+
+/* Link Responsive Styles */
+@media (max-width: var(--breakpoint-md)) {
+  .link {
+    font-size: var(--text-sm);
+    /* Ensure touch targets are adequate - links should have padding in context */
+  }
 }
 
 /* ===========================================
@@ -2681,6 +2860,15 @@
   opacity: 0.5;
 }
 
+/* Date Input Responsive Styles */
+@media (max-width: var(--breakpoint-md)) {
+  .date-input {
+    width: 100%;
+    font-size: 16px; /* Prevent iOS zoom on focus */
+    min-height: 44px; /* Ensure touch target size */
+  }
+}
+
 /* ===========================================
    PICKER POPUP
    =========================================== */
@@ -2742,6 +2930,27 @@
 
 .picker-popup__body {
   /* Body content */
+}
+
+/* Picker Popup Responsive Styles */
+@media (max-width: var(--breakpoint-md)) {
+  .picker-popup {
+    left: 0;
+    right: 0;
+    width: calc(100vw - 32px);
+    max-width: calc(100vw - 32px);
+    min-width: auto;
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+  }
+
+  .picker-popup__close {
+    min-width: 44px;
+    min-height: 44px;
+  }
 }
 
 /* ===========================================
@@ -2887,6 +3096,24 @@
   box-shadow: var(--focus-ring-date-picker);
 }
 
+/* Date Picker Responsive Styles */
+@media (max-width: var(--breakpoint-md)) {
+  .date-picker {
+    width: 100%;
+  }
+
+  .date-picker__day {
+    min-width: 44px;
+    min-height: 44px;
+    font-size: var(--text-sm);
+  }
+
+  .date-picker__nav-btn {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
 /* ===========================================
    TIME PICKER
    =========================================== */
@@ -3012,6 +3239,24 @@
   cursor: not-allowed;
 }
 
+/* Time Picker Responsive Styles */
+@media (max-width: var(--breakpoint-md)) {
+  .time-picker {
+    width: 100%;
+  }
+
+  .time-picker__increment,
+  .time-picker__decrement {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .time-picker__period-btn {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
 /* ===========================================
    DATETIME PICKER
    =========================================== */
@@ -3028,6 +3273,18 @@
 
 .datetime-picker__time-section {
   /* Time picker section */
+}
+
+/* DateTime Picker Responsive Styles */
+@media (max-width: var(--breakpoint-md)) {
+  .datetime-picker {
+    width: 100%;
+  }
+
+  .datetime-picker__date-section {
+    margin-bottom: var(--space-3);
+    padding-bottom: var(--space-3);
+  }
 }
 
 /* ===========================================
@@ -3131,6 +3388,23 @@
 .month-picker__month:focus {
   outline: none;
   box-shadow: var(--focus-ring-date-picker);
+}
+
+/* Month Picker Responsive Styles */
+@media (max-width: var(--breakpoint-md)) {
+  .month-picker {
+    width: 100%;
+  }
+
+  .month-picker__month {
+    min-height: 44px;
+    font-size: var(--text-sm);
+  }
+
+  .month-picker__nav-btn {
+    min-width: 44px;
+    min-height: 44px;
+  }
 }
 
 /* ===========================================
@@ -3255,6 +3529,23 @@
   opacity: 0.9;
 }
 
+/* Week Picker Responsive Styles */
+@media (max-width: var(--breakpoint-md)) {
+  .week-picker {
+    width: 100%;
+  }
+
+  .week-picker__week {
+    min-height: 44px;
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .week-picker__nav-btn {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
 /* CP Theme: Compact input heights */
 .theme-cp .date-input {
   padding-right: var(--space-8);
@@ -3313,6 +3604,30 @@
 
 .stepper__input:focus {
   outline: none;
+}
+
+/* Stepper Input Responsive Styles */
+@media (max-width: var(--breakpoint-md)) {
+  .stepper {
+    width: 100%;
+  }
+
+  .stepper__btn {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .stepper__input {
+    width: 60px;
+    min-height: 44px;
+    font-size: 16px; /* Prevent iOS zoom */
+  }
+
+  .stepper-input-form-wrapper--inline {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-2);
+  }
 }
 
 /* ===========================================
@@ -3392,6 +3707,31 @@
   font-size: var(--text-sm);
   color: var(--text-secondary);
   flex-shrink: 0;
+}
+
+/* Range Input Responsive Styles */
+@media (max-width: var(--breakpoint-md)) {
+  .range-wrap {
+    width: 100%;
+    gap: var(--space-2);
+  }
+
+  .range {
+    width: 100%;
+    --thumb-size: 24px; /* Larger thumb for mobile touch */
+    --track-height: 8px; /* Slightly thicker track for visibility */
+  }
+
+  .range-value {
+    min-width: 40px;
+    font-size: var(--text-xs);
+  }
+
+  .range-input-form-wrapper--inline {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-2);
+  }
 }
 
 /* ===========================================
@@ -3592,6 +3932,43 @@
   border-right-color: transparent;
 }
 
+/* ButtonGroup Responsive Styles */
+@media (max-width: var(--breakpoint-md)) {
+  .btn-group--horizontal {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn-group--horizontal.btn-group--default {
+    gap: var(--space-2);
+  }
+
+  .btn-group--horizontal.btn-group--default .btn {
+    width: 100%;
+    border-radius: var(--radius-lg);
+    margin-left: 0;
+  }
+
+  .btn-group--horizontal.btn-group--outline {
+    gap: var(--space-2);
+  }
+
+  .btn-group--horizontal.btn-group--outline .btn {
+    width: 100%;
+    border-radius: var(--radius-lg);
+    margin-left: 0;
+    border-right-color: var(--border-color);
+  }
+
+  .btn-group--horizontal.btn-group--outline .btn:first-child {
+    border-radius: var(--radius-lg);
+  }
+
+  .btn-group--horizontal.btn-group--outline .btn:last-child {
+    border-radius: var(--radius-lg);
+  }
+}
+
 /* ===========================================
    LIST MENU
    =========================================== */
@@ -3640,6 +4017,18 @@
 
 .list-menu--no-borders .list-menu__item {
   border-bottom: none;
+}
+
+/* ListMenu Responsive Styles */
+@media (max-width: var(--breakpoint-md)) {
+  .list-menu {
+    width: 100%;
+  }
+
+  .list-menu__item {
+    min-height: 44px; /* Ensure touch target size */
+    padding: var(--space-3) var(--space-4);
+  }
 }
 
 /* ===========================================
@@ -4746,6 +5135,26 @@ html.dark .right-sidebar__item:hover {
   color: var(--text-inverse);
 }
 
+/* Table Responsive Styles */
+@media (max-width: var(--breakpoint-md)) {
+  /* Enable horizontal scrolling */
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+  }
+
+  .table {
+    min-width: 600px; /* Ensure table doesn't shrink too much */
+    font-size: var(--text-xs);
+  }
+
+  .table thead th,
+  .table tbody td {
+    padding: var(--space-2) var(--space-3);
+  }
+}
+
 /* ===========================================
    AVATAR
    =========================================== */
@@ -4776,6 +5185,15 @@ html.dark .right-sidebar__item:hover {
 
 .avatar__icon {
   color: white;
+}
+
+/* Avatar Responsive Styles - No changes needed, scales appropriately */
+
+/* Notification Badge Responsive Styles */
+@media (max-width: var(--breakpoint-md)) {
+  .notification-badge {
+    font-size: 10px;
+  }
 }
 
 /* ===========================================
