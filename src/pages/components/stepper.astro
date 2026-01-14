@@ -92,6 +92,21 @@ const stepProps = [
           </Stepper>
         </div>
       </ExampleSection>
+
+      <ExampleSection title="Stepper with Disabled Steps" description="Steps can be explicitly disabled using the disabled prop. Disabled steps appear with reduced opacity and muted colors, and are non-interactive. This is useful when certain steps are temporarily unavailable or require prerequisites.">
+        <div class="w-full max-w-6xl">
+          <Stepper activeStep={1} nonLinear>
+            <Step completed success>Account Setup</Step>
+            <Step>Profile Information</Step>
+            <Step disabled>
+              Payment Method
+              <span slot="description">Temporarily unavailable</span>
+            </Step>
+            <Step disabled>Billing Address</Step>
+            <Step>Review & Complete</Step>
+          </Stepper>
+        </div>
+      </ExampleSection>
     </section>
 
     <section id="props" class="space-y-6">
