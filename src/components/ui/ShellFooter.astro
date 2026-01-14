@@ -86,12 +86,26 @@ const overflowTabsWithPinIcon = overflowTabs.map(tab => ({
     border-bottom: var(--border-width-standard) solid transparent;
   }
 
-  /* Active tab - theme primary color with underline */
+  /* Active tab - white text, primary icon and underline */
   .shell-footer :global(.tabstrip) :global(.tabstrip__tabs) :global(.tab.is-active),
   .shell-footer :global(.tabstrip) :global(.tabstrip__add.tab.is-active),
   .shell-footer :global(.tabstrip) :global(.tabstrip__more.tab.is-active) {
-    color: var(--theme-primary);
+    color: var(--text-inverse);
     border-bottom: var(--border-width-thick) solid var(--theme-primary);
+  }
+
+  /* Active tab label - white text */
+  .shell-footer :global(.tabstrip) :global(.tabstrip__tabs) :global(.tab.is-active) :global(.tab__label),
+  .shell-footer :global(.tabstrip) :global(.tabstrip__add.tab.is-active) :global(.tab__label),
+  .shell-footer :global(.tabstrip) :global(.tabstrip__more.tab.is-active) :global(.tab__label) {
+    color: var(--text-inverse);
+  }
+
+  /* Active tab icon - primary color */
+  .shell-footer :global(.tabstrip) :global(.tabstrip__tabs) :global(.tab.is-active) :global(.tab__icon),
+  .shell-footer :global(.tabstrip) :global(.tabstrip__add.tab.is-active) :global(.tab__icon),
+  .shell-footer :global(.tabstrip) :global(.tabstrip__more.tab.is-active) :global(.tab__icon) {
+    color: var(--theme-primary);
   }
 
   /* Hover state for non-active tabs - background and maintain white text */
@@ -107,11 +121,11 @@ const overflowTabsWithPinIcon = overflowTabs.map(tab => ({
     padding-bottom: calc(var(--space-3) - var(--space-1));
   }
 
-  /* Hover state for active tab - background and maintain primary color and underline */
+  /* Hover state for active tab - background, white text, primary icon and underline */
   .shell-footer :global(.tabstrip) :global(.tabstrip__tabs) :global(.tab.is-active:hover),
   .shell-footer :global(.tabstrip) :global(.tabstrip__add.tab.is-active:hover),
   .shell-footer :global(.tabstrip) :global(.tabstrip__more.tab.is-active:hover) {
-    color: var(--theme-primary);
+    color: var(--text-inverse);
     background-color: var(--shell-footer-tab-hover-bg);
     border-radius: var(--radius-sm);
     border-bottom: var(--border-width-thick) solid var(--theme-primary);
@@ -119,6 +133,20 @@ const overflowTabsWithPinIcon = overflowTabs.map(tab => ({
     margin-bottom: var(--space-1);
     padding-top: calc(var(--space-3) - var(--space-1));
     padding-bottom: calc(var(--space-3) - var(--space-1));
+  }
+
+  /* Active tab hover - label stays white */
+  .shell-footer :global(.tabstrip) :global(.tabstrip__tabs) :global(.tab.is-active:hover) :global(.tab__label),
+  .shell-footer :global(.tabstrip) :global(.tabstrip__add.tab.is-active:hover) :global(.tab__label),
+  .shell-footer :global(.tabstrip) :global(.tabstrip__more.tab.is-active:hover) :global(.tab__label) {
+    color: var(--text-inverse);
+  }
+
+  /* Active tab hover - icon stays primary */
+  .shell-footer :global(.tabstrip) :global(.tabstrip__tabs) :global(.tab.is-active:hover) :global(.tab__icon),
+  .shell-footer :global(.tabstrip) :global(.tabstrip__add.tab.is-active:hover) :global(.tab__icon),
+  .shell-footer :global(.tabstrip) :global(.tabstrip__more.tab.is-active:hover) :global(.tab__icon) {
+    color: var(--theme-primary);
   }
 
   /* Dark mode override for non-active tabs - white text on dark background */
