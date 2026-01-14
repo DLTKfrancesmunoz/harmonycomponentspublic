@@ -3,8 +3,9 @@
   "type": "module",
   "version": "1.0.0",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "concurrently \"npm run watch:tokens\" \"astro dev\" --names \"watch,astro\" --prefix-colors \"cyan,green\"",
     "start": "serve dist -l ${PORT:-3000}",
+    "prebuild": "npm run generate:all",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
@@ -13,7 +14,9 @@
     "generate:components": "node scripts/generate-components-json.js",
     "generate:layouts": "node scripts/generate-layouts-json.js",
     "generate:manifest": "node scripts/generate-manifest.js",
-    "generate:all": "npm run generate:props && npm run generate:tokens && npm run generate:components && npm run generate:layouts && npm run generate:manifest"
+    "generate:ai-tokens": "node scripts/generate-ai-tokens.js",
+    "generate:all": "npm run generate:props && npm run generate:tokens && npm run generate:components && npm run generate:layouts && npm run generate:manifest && npm run generate:ai-tokens",
+    "watch:tokens": "node scripts/watch-tokens.js"
   },
   "dependencies": {
     "astro": "^5.16.7",
@@ -21,6 +24,8 @@
     "serve": "^14.2.0"
   },
   "devDependencies": {
+    "chokidar": "^3.6.0",
+    "concurrently": "^8.2.2",
     "postcss": "^8.4.0",
     "postcss-value-parser": "^4.2.0"
   }
