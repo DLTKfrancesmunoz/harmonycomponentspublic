@@ -5,6 +5,7 @@ import PropsTable from '../../components/PropsTable.astro';
 import Icon from '../../components/ui/Icon.astro';
 import Checkbox from '../../components/ui/Checkbox.astro';
 import Table from '../../components/ui/Table.astro';
+import Button from '../../components/ui/Button.astro';
 
 const props = [
   { name: 'headerVariant', type: "'gray' | 'white' | 'none'", default: "'gray'", description: 'Header background variant: gray (light gray background), white (white background), or none (transparent)' },
@@ -240,6 +241,177 @@ const props = [
               <tr class="table-row--total font-semibold">
                 <td colspan="2">Total</td>
                 <td class="text-right">$40,000.00</td>
+              </tr>
+            </tbody>
+          </Table>
+        </div>
+      </ExampleSection>
+    </section>
+
+    <section class="space-y-6">
+      <h2 class="section__title">Table with Title Bar and Action Bar</h2>
+      
+      <ExampleSection title="Table with Title Bar" description="Table with optional title bar containing title and window control icons. Table header background color remains unchanged.">
+        <div class="overflow-x-auto">
+          <Table headerVariant="gray">
+            <h1 slot="title-bar-content" style="font-family: var(--font-display); font-size: var(--text-13); font-weight: var(--font-semibold); line-height: var(--leading-snug); color: var(--text-primary); margin: 0;">Table Title</h1>
+            <div slot="title-bar-icons" style="display: flex; align-items: center; gap: var(--space-2);">
+              <button type="button" class="table__title-bar-icon" aria-label="Help">
+                <Icon name="question-mark-circle" size="sm" />
+              </button>
+              <button type="button" class="table__title-bar-icon" aria-label="Minimize">
+                <Icon name="minimize" size="sm" />
+              </button>
+              <button type="button" class="table__title-bar-icon" aria-label="Window">
+                <Icon name="window-plain" size="sm" />
+              </button>
+              <button type="button" class="table__title-bar-icon" aria-label="Close">
+                <Icon name="x-mark" size="sm" />
+              </button>
+            </div>
+            <thead slot="header">
+              <tr>
+                <th class="text-left">Project ID</th>
+                <th class="text-left">Name</th>
+                <th class="text-left">Status</th>
+                <th class="text-right">Budget</th>
+              </tr>
+            </thead>
+            <tbody slot="body">
+              <tr>
+                <td>PRJ-001</td>
+                <td>Website Redesign</td>
+                <td>
+                  <span class="badge badge--success">Active</span>
+                </td>
+                <td class="text-right">$25,000</td>
+              </tr>
+              <tr>
+                <td>PRJ-002</td>
+                <td>Mobile App Development</td>
+                <td>
+                  <span class="badge badge--warning">In Progress</span>
+                </td>
+                <td class="text-right">$150,000</td>
+              </tr>
+            </tbody>
+          </Table>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Table with Action Bar" description="Table with optional action bar containing action buttons. Table header background color remains unchanged.">
+        <div class="overflow-x-auto">
+          <Table headerVariant="gray">
+            <div slot="action-bar" style="display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap;">
+              <Button variant="ghost" size="sm" icon="document-duplicate" iconPosition="right">
+                Copy
+              </Button>
+              <Button variant="ghost" size="sm" icon="plus" iconPosition="right">
+                Add
+              </Button>
+              <Button variant="ghost" size="sm" icon="trash">
+                Delete
+              </Button>
+              <span style="color: var(--text-secondary); font-size: var(--text-sm); padding: 0 var(--space-1);">|</span>
+              <Button variant="ghost" size="sm" icon="list-tree">
+                Group
+              </Button>
+              <Button variant="ghost" size="sm" icon="cog-6-tooth">
+                Customize Columns
+              </Button>
+              <span style="font-family: var(--font-sans); font-size: var(--text-sm); font-weight: var(--font-normal); color: var(--text-primary); padding: var(--space-1) var(--space-2);">All Filters</span>
+            </div>
+            <thead slot="header">
+              <tr>
+                <th class="text-left">Project ID</th>
+                <th class="text-left">Name</th>
+                <th class="text-left">Status</th>
+                <th class="text-right">Budget</th>
+              </tr>
+            </thead>
+            <tbody slot="body">
+              <tr>
+                <td>PRJ-001</td>
+                <td>Website Redesign</td>
+                <td>
+                  <span class="badge badge--success">Active</span>
+                </td>
+                <td class="text-right">$25,000</td>
+              </tr>
+              <tr>
+                <td>PRJ-002</td>
+                <td>Mobile App Development</td>
+                <td>
+                  <span class="badge badge--warning">In Progress</span>
+                </td>
+                <td class="text-right">$150,000</td>
+              </tr>
+            </tbody>
+          </Table>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Table with Title Bar and Action Bar" description="Table with both title bar and action bar. Table header background color remains unchanged regardless of title bar or action bar presence.">
+        <div class="overflow-x-auto">
+          <Table headerVariant="gray">
+            <h1 slot="title-bar-content" style="font-family: var(--font-display); font-size: var(--text-13); font-weight: var(--font-semibold); line-height: var(--leading-snug); color: var(--text-primary); margin: 0;">Table Title</h1>
+            <div slot="title-bar-icons" style="display: flex; align-items: center; gap: var(--space-2);">
+              <button type="button" class="table__title-bar-icon" aria-label="Help">
+                <Icon name="question-mark-circle" size="sm" />
+              </button>
+              <button type="button" class="table__title-bar-icon" aria-label="Minimize">
+                <Icon name="minimize" size="sm" />
+              </button>
+              <button type="button" class="table__title-bar-icon" aria-label="Window">
+                <Icon name="window-plain" size="sm" />
+              </button>
+              <button type="button" class="table__title-bar-icon" aria-label="Close">
+                <Icon name="x-mark" size="sm" />
+              </button>
+            </div>
+            <div slot="action-bar" style="display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap;">
+              <Button variant="ghost" size="sm" icon="document-duplicate" iconPosition="right">
+                Copy
+              </Button>
+              <Button variant="ghost" size="sm" icon="plus" iconPosition="right">
+                Add
+              </Button>
+              <Button variant="ghost" size="sm" icon="trash">
+                Delete
+              </Button>
+              <span style="color: var(--text-secondary); font-size: var(--text-sm); padding: 0 var(--space-1);">|</span>
+              <Button variant="ghost" size="sm" icon="list-tree">
+                Group
+              </Button>
+              <Button variant="ghost" size="sm" icon="cog-6-tooth">
+                Customize Columns
+              </Button>
+              <span style="font-family: var(--font-sans); font-size: var(--text-sm); font-weight: var(--font-normal); color: var(--text-primary); padding: var(--space-1) var(--space-2);">All Filters</span>
+            </div>
+            <thead slot="header">
+              <tr>
+                <th class="text-left">Project ID</th>
+                <th class="text-left">Name</th>
+                <th class="text-left">Status</th>
+                <th class="text-right">Budget</th>
+              </tr>
+            </thead>
+            <tbody slot="body">
+              <tr>
+                <td>PRJ-001</td>
+                <td>Website Redesign</td>
+                <td>
+                  <span class="badge badge--success">Active</span>
+                </td>
+                <td class="text-right">$25,000</td>
+              </tr>
+              <tr>
+                <td>PRJ-002</td>
+                <td>Mobile App Development</td>
+                <td>
+                  <span class="badge badge--warning">In Progress</span>
+                </td>
+                <td class="text-right">$150,000</td>
               </tr>
             </tbody>
           </Table>

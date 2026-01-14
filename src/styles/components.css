@@ -5193,6 +5193,135 @@ html.dark .right-sidebar__item:hover {
   color: var(--text-inverse);
 }
 
+/* 13. Table Wrapper */
+.table-wrapper {
+  border-radius: var(--radius-12);
+  overflow: hidden;
+}
+
+/* 14. Table Title Bar */
+.table__title-bar {
+  padding: var(--space-4) var(--space-4) var(--space-3);
+  border-top: 1px solid var(--border-color);
+  border-left: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--surface-bg);
+  border-top-left-radius: var(--radius-12);
+  border-top-right-radius: var(--radius-12);
+  font-family: var(--font-display);
+  font-size: var(--text-13);
+}
+
+.table__title-bar-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.table__title-bar-icons {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.table__title-bar-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-6);
+  height: var(--space-6);
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  border-radius: var(--radius-04);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.table__title-bar-icon:hover {
+  background-color: var(--elevated-bg);
+  color: var(--text-primary);
+}
+
+.table__title-bar-icon:focus {
+  outline: 2px solid var(--theme-primary);
+  outline-offset: var(--space-0-5);
+}
+
+/* 15. Table Action Bar */
+.table__action-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--border-light);
+  background-color: var(--table-header-gray-bg);
+  gap: var(--space-4);
+}
+
+/* When action bar is first (no title bar), it needs top rounded corners */
+.table-wrapper:has(.table__action-bar):not(:has(.table__title-bar)) .table__action-bar {
+  border-top-left-radius: var(--radius-12);
+  border-top-right-radius: var(--radius-12);
+}
+
+.table__action-items {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.table__action-divider {
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  padding: 0 var(--space-1);
+  flex-shrink: 0;
+}
+
+/* 16. Adjust table border radius when title bar or action bar is present */
+/* When title bar is present, it has top rounded corners */
+.table-wrapper:has(.table__title-bar) .table {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.table-wrapper:has(.table__title-bar) .table thead tr:first-child th:first-child {
+  border-top-left-radius: 0;
+  border-top: none;
+}
+
+.table-wrapper:has(.table__title-bar) .table thead tr:first-child th:last-child {
+  border-top-right-radius: 0;
+  border-top: none;
+}
+
+.table-wrapper:has(.table__title-bar) .table thead tr:first-child th {
+  border-top: none;
+}
+
+/* When only action bar is present (no title bar), action bar has top rounded corners */
+.table-wrapper:has(.table__action-bar):not(:has(.table__title-bar)) .table {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.table-wrapper:has(.table__action-bar):not(:has(.table__title-bar)) .table thead tr:first-child th:first-child {
+  border-top-left-radius: 0;
+  border-top: none;
+}
+
+.table-wrapper:has(.table__action-bar):not(:has(.table__title-bar)) .table thead tr:first-child th:last-child {
+  border-top-right-radius: 0;
+  border-top: none;
+}
+
+.table-wrapper:has(.table__action-bar):not(:has(.table__title-bar)) .table thead tr:first-child th {
+  border-top: none;
+}
+
 /* Table Responsive Styles */
 @media (max-width: var(--breakpoint-md)) {
   /* Enable horizontal scrolling */

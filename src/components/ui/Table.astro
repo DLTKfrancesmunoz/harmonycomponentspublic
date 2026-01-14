@@ -3,6 +3,7 @@
  * Table Component
  *
  * Reusable table component with header variants and styling options.
+ * Supports optional title bar and action bar via slots.
  */
 export interface Props {
   headerVariant?: 'gray' | 'white' | 'none';
@@ -22,9 +23,38 @@ const classes = [
   striped && 'table--striped',
   className,
 ].filter(Boolean).join(' ');
+
+const hasTitleBar = Astro.slots.has('title-bar-content') || Astro.slots.has('title-bar-icons');
+const hasActionBar = Astro.slots.has('action-bar');
 ---
 
-<table class={classes}>
-  <slot name="header" />
-  <slot name="body" />
-</table>
+<div class="table-wrapper">
+  <!-- Optional Title Bar -->
+  {hasTitleBar && (
+    <div class="table__title-bar">
+      <div class="table__title-bar-content">
+        {Astro.slots.has('title-bar-content') && (
+          <slot name="title-bar-content" />
+        )}
+        {Astro.slots.has('title-bar-icons') && (
+          <div class="table__title-bar-icons">
+            <slot name="title-bar-icons" />
+          </div>
+        )}
+      </div>
+    </div>
+  )}
+  
+  <!-- Optional Action Bar -->
+  {hasActionBar && (
+    <div class="table__action-bar">
+      <slot name="action-bar" />
+    </div>
+  )}
+  
+  <!-- Table -->
+  <table class={classes}>
+    <slot name="header" />
+    <slot name="body" />
+  </table>
+</div>
