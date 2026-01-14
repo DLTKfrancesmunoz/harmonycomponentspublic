@@ -15,12 +15,14 @@ export type BadgeVariant = 'default' | 'primary' | 'success' | 'warning' | 'erro
 
 export interface KanbanCardProps {
   id: string;
-  title: string;
+  title?: string;
   description?: string;
   avatar?: { name?: string; size?: 'sm' | 'md' | 'lg' };
   badges?: Array<{ label: string; variant?: BadgeVariant }>;
   progress?: number; // 0-100
   icons?: Array<{ name: string; size?: 'xs' | 'sm' | 'md' }>;
+  date?: string;
+  time?: string;
   class?: string;
 }
 
@@ -32,22 +34,35 @@ const {
   badges = [],
   progress,
   icons = [],
+  date,
+  time,
   class: className = '',
 } = Astro.props;
 ---
 
 <Card class={`kanban-card ${className}`} elevated>
   <div class="kanban-card__body">
-    {title && (
-      <h3 class="kanban-card__title">{title}</h3>
-    )}
-    
-    {description && (
-      <p class="kanban-card__description">{description}</p>
-    )}
-    
-    {(badges.length > 0 || progress !== undefined || icons.length > 0 || avatar) && (
-      <div class="kanban-card__footer">
+    {/* Header Section: Avatar on left, Icons and Badges on right */}
+    <div class="kanban-card__header">
+      {avatar ? (
+        <div class="kanban-card__avatar-wrapper">
+          <Avatar size={avatar.size || 'sm'} class="kanban-card__avatar" />
+        </div>
+      ) : (
+        <div class="kanban-card__avatar-placeholder">AA</div>
+      )}
+      <div class="kanban-card__header-right">
+        {icons.length > 0 && (
+          <div class="kanban-card__icons">
+            {icons.map((icon, index) => (
+              <Icon 
+                name={icon.name} 
+                size={icon.size || 'sm'} 
+                class="kanban-card__icon"
+              />
+            ))}
+          </div>
+        )}
         {badges.length > 0 && (
           <div class="kanban-card__badges">
             {badges.map((badge) => (
@@ -55,32 +70,31 @@ const {
             ))}
           </div>
         )}
-        
-        {progress !== undefined && (
-          <div class="kanban-card__progress">
-            <ProgressBar value={progress} size="sm" />
-          </div>
-        )}
-        
-        <div class="kanban-card__meta">
-          {avatar && (
-            <Avatar size={avatar.size || 'sm'} class="kanban-card__avatar" />
-          )}
-          
-          {icons.length > 0 && (
-            <div class="kanban-card__icons">
-              {icons.map((icon, index) => (
-                <Icon 
-                  name={icon.name} 
-                  size={icon.size || 'sm'} 
-                  class="kanban-card__icon"
-                />
-              ))}
-            </div>
-          )}
-        </div>
+      </div>
+    </div>
+    
+    {/* Title Section (if provided) */}
+    {title && (
+      <h3 class="kanban-card__title">{title}</h3>
+    )}
+    
+    {/* Description Section */}
+    {description && (
+      <p class="kanban-card__description">{description}</p>
+    )}
+    
+    {/* Progress Bar (if provided) */}
+    {progress !== undefined && (
+      <div class="kanban-card__progress">
+        <ProgressBar value={progress} size="sm" />
       </div>
     )}
+    
+    {/* Date and Time Section */}
+    <div class="kanban-card__date-time">
+      {date && <span class="kanban-card__date">Date: {date}</span>}
+      {time && <span class="kanban-card__time">Time: {time}</span>}
+    </div>
     
     <slot />
   </div>

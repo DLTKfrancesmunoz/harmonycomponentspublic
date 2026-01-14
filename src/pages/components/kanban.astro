@@ -7,45 +7,113 @@ import Icon from '../../components/ui/Icon.astro';
 
 const kanbanProps = [
   { name: 'columns', type: 'KanbanColumn[]', default: '—', description: 'Array of column objects, each containing id, title, and cards array' },
+  { name: 'title', type: 'string', default: "'Kanban Board'", description: 'Title displayed in the title bar at the top of the board' },
+  { name: 'actionButtons', type: 'ActionButton[]', default: '[]', description: 'Array of action buttons to display in the action bar (left side)' },
+  { name: 'actionDropdowns', type: 'ActionDropdown[]', default: '[]', description: 'Array of action dropdowns to display in the action bar (right side)' },
   { name: 'class', type: 'string', default: '—', description: 'Additional CSS classes to apply to the Kanban container' },
-  { name: 'showAddButton', type: 'boolean', default: 'true', description: 'Show "Add" button in each column header' },
+  { name: 'showAddButton', type: 'boolean', default: 'true', description: 'Show "Add card" button at the bottom of each column' },
 ];
 
 const kanbanCardProps = [
   { name: 'id', type: 'string', default: '—', description: 'Unique identifier for the card' },
-  { name: 'title', type: 'string', default: '—', description: 'Card title text' },
-  { name: 'description', type: 'string', default: '—', description: 'Optional card description text' },
-  { name: 'avatar', type: '{ name?: string; size?: "sm" | "md" | "lg" }', default: '—', description: 'Optional avatar configuration' },
-  { name: 'badges', type: 'Array<{ label: string; variant?: BadgeVariant }>', default: '[]', description: 'Array of badge objects to display' },
+  { name: 'title', type: 'string', default: '—', description: 'Card title text (optional, not shown in current layout)' },
+  { name: 'description', type: 'string', default: '—', description: 'Card description text displayed in the middle section' },
+  { name: 'avatar', type: '{ name?: string; size?: "sm" | "md" | "lg" }', default: '—', description: 'Optional avatar configuration displayed at top-left' },
+  { name: 'badges', type: 'Array<{ label: string; variant?: BadgeVariant }>', default: '[]', description: 'Array of badge objects displayed at top-right' },
+  { name: 'icons', type: 'Array<{ name: string; size?: "xs" | "sm" | "md" }>', default: '[]', description: 'Array of icon objects displayed at top-right before badges' },
   { name: 'progress', type: 'number', default: '—', description: 'Progress value (0-100) to display progress bar' },
-  { name: 'icons', type: 'Array<{ name: string; size?: "xs" | "sm" | "md" }>', default: '[]', description: 'Array of icon objects to display' },
+  { name: 'date', type: 'string', default: '—', description: 'Date string to display at bottom (e.g., "00/00/0000")' },
+  { name: 'time', type: 'string', default: '—', description: 'Time string to display at bottom (e.g., "Monday 9:45 PM")' },
   { name: 'class', type: 'string', default: '—', description: 'Additional CSS classes to apply to the card' },
 ];
 
 const basicColumns = [
   {
     id: 'todo',
-    title: 'To Do',
+    title: 'To do',
     cards: [
-      { id: '1', title: 'Design new landing page' },
-      { id: '2', title: 'Review user feedback' },
-      { id: '3', title: 'Update documentation' },
+      {
+        id: '1',
+        title: 'Design new landing page',
+        description: 'Gummies cotton candy shortbread candy canes donut macaroon candy. Gingerbread fruitcake fruitcake apple pie topping gummi bears cotton candy liquorice jujubes. Candy carrot cake toffee jelly cotton candy candy canes brownie.',
+        avatar: { size: 'sm' },
+        badges: [{ label: 'Priority', variant: 'error' }, { label: 'Status', variant: 'success' }],
+        icons: [{ name: 'user', size: 'sm' }, { name: 'chat-bubble-left', size: 'sm' }, { name: 'paper-clip', size: 'sm' }, { name: 'check-circle', size: 'sm' }],
+        date: '00/00/0000',
+        time: 'Monday 9:45 PM',
+      },
+      {
+        id: '2',
+        title: 'Review user feedback',
+        description: 'Gummies cotton candy shortbread candy canes donut macaroon candy. Gingerbread fruitcake fruitcake apple pie topping gummi bears cotton candy liquorice jujubes. Candy carrot cake toffee jelly cotton candy candy canes brownie.',
+        avatar: { size: 'sm' },
+        badges: [{ label: 'Priority', variant: 'error' }, { label: 'Status', variant: 'success' }],
+        icons: [{ name: 'user', size: 'sm' }, { name: 'chat-bubble-left', size: 'sm' }, { name: 'paper-clip', size: 'sm' }],
+        date: '00/00/0000',
+        time: 'Monday 9:45 PM',
+      },
+      {
+        id: '3',
+        title: 'Update documentation',
+        description: 'Gummies cotton candy shortbread candy canes donut macaroon candy. Gingerbread fruitcake fruitcake apple pie topping gummi bears cotton candy liquorice jujubes. Candy carrot cake toffee jelly cotton candy candy canes brownie.',
+        avatar: { size: 'sm' },
+        badges: [{ label: 'Priority', variant: 'error' }, { label: 'Status', variant: 'success' }],
+        icons: [{ name: 'user', size: 'sm' }, { name: 'chat-bubble-left', size: 'sm' }],
+        date: '00/00/0000',
+        time: 'Monday 9:45 PM',
+      },
     ],
   },
   {
     id: 'in-progress',
-    title: 'In Progress',
+    title: 'In progress',
     cards: [
-      { id: '4', title: 'Implement authentication' },
-      { id: '5', title: 'Fix navigation bug' },
+      {
+        id: '4',
+        title: 'Implement authentication',
+        description: 'Gummies cotton candy shortbread candy canes donut macaroon candy. Gingerbread fruitcake fruitcake apple pie topping gummi bears cotton candy liquorice jujubes. Candy carrot cake toffee jelly cotton candy candy canes brownie.',
+        avatar: { size: 'sm' },
+        badges: [{ label: 'Priority', variant: 'error' }, { label: 'Status', variant: 'success' }],
+        icons: [{ name: 'user', size: 'sm' }, { name: 'chat-bubble-left', size: 'sm' }, { name: 'paper-clip', size: 'sm' }, { name: 'check-circle', size: 'sm' }],
+        date: '00/00/0000',
+        time: 'Monday 9:45 PM',
+      },
+      {
+        id: '5',
+        title: 'Fix navigation bug',
+        description: 'Gummies cotton candy shortbread candy canes donut macaroon candy. Gingerbread fruitcake fruitcake apple pie topping gummi bears cotton candy liquorice jujubes. Candy carrot cake toffee jelly cotton candy candy canes brownie.',
+        avatar: { size: 'sm' },
+        badges: [{ label: 'Priority', variant: 'error' }, { label: 'Status', variant: 'success' }],
+        icons: [{ name: 'user', size: 'sm' }, { name: 'chat-bubble-left', size: 'sm' }],
+        date: '00/00/0000',
+        time: 'Monday 9:45 PM',
+      },
     ],
   },
   {
     id: 'done',
     title: 'Done',
     cards: [
-      { id: '6', title: 'Setup CI/CD pipeline' },
-      { id: '7', title: 'Deploy to staging' },
+      {
+        id: '6',
+        title: 'Setup CI/CD pipeline',
+        description: 'Gummies cotton candy shortbread candy canes donut macaroon candy. Gingerbread fruitcake fruitcake apple pie topping gummi bears cotton candy liquorice jujubes. Candy carrot cake toffee jelly cotton candy candy canes brownie.',
+        avatar: { size: 'sm' },
+        badges: [{ label: 'Priority', variant: 'error' }, { label: 'Status', variant: 'success' }],
+        icons: [{ name: 'user', size: 'sm' }, { name: 'chat-bubble-left', size: 'sm' }, { name: 'paper-clip', size: 'sm' }],
+        date: '00/00/0000',
+        time: 'Monday 9:45 PM',
+      },
+      {
+        id: '7',
+        title: 'Deploy to staging',
+        description: 'Gummies cotton candy shortbread candy canes donut macaroon candy. Gingerbread fruitcake fruitcake apple pie topping gummi bears cotton candy liquorice jujubes. Candy carrot cake toffee jelly cotton candy candy canes brownie.',
+        avatar: { size: 'sm' },
+        badges: [{ label: 'Priority', variant: 'error' }, { label: 'Status', variant: 'success' }],
+        icons: [{ name: 'user', size: 'sm' }, { name: 'chat-bubble-left', size: 'sm' }],
+        date: '00/00/0000',
+        time: 'Monday 9:45 PM',
+      },
     ],
   },
 ];
@@ -57,19 +125,21 @@ const richColumns = [
     cards: [
       {
         id: '1',
-        title: 'Design new landing page',
-        description: 'Create mockups and wireframes for the new landing page design',
+        description: 'Gummies cotton candy shortbread candy canes donut macaroon candy. Gingerbread fruitcake fruitcake apple pie topping gummi bears cotton candy liquorice jujubes.',
         avatar: { size: 'sm' },
-        badges: [{ label: 'High Priority', variant: 'error' }, { label: 'Design', variant: 'primary' }],
-        icons: [{ name: 'paper-clip', size: 'sm' }, { name: 'chat-bubble-left', size: 'sm' }],
+        badges: [{ label: 'Priority', variant: 'error' }, { label: 'Status', variant: 'success' }],
+        icons: [{ name: 'user', size: 'sm' }, { name: 'chat-bubble-left', size: 'sm' }, { name: 'paper-clip', size: 'sm' }, { name: 'check-circle', size: 'sm' }],
+        date: '00/00/0000',
+        time: 'Monday 9:45 PM',
       },
       {
         id: '2',
-        title: 'Develop user authentication',
-        description: 'Implement OAuth2 flow with Google and GitHub',
+        description: 'Candy carrot cake toffee jelly cotton candy candy canes brownie. Gummies cotton candy shortbread candy canes donut macaroon candy.',
         avatar: { size: 'sm' },
-        badges: [{ label: 'Feature', variant: 'primary' }],
-        icons: [{ name: 'code-bracket', size: 'sm' }],
+        badges: [{ label: 'Priority', variant: 'error' }, { label: 'Status', variant: 'success' }],
+        icons: [{ name: 'user', size: 'sm' }, { name: 'chat-bubble-left', size: 'sm' }],
+        date: '00/00/0000',
+        time: 'Monday 9:45 PM',
       },
     ],
   },
@@ -79,21 +149,21 @@ const richColumns = [
     cards: [
       {
         id: '3',
-        title: 'Implement payment gateway',
-        description: 'Integrate Stripe payment processing',
+        description: 'Gummies cotton candy shortbread candy canes donut macaroon candy. Gingerbread fruitcake fruitcake apple pie topping gummi bears cotton candy liquorice jujubes.',
         avatar: { size: 'sm' },
-        badges: [{ label: 'Bug', variant: 'warning' }],
-        progress: 75,
-        icons: [{ name: 'paper-clip', size: 'sm' }, { name: 'chat-bubble-left', size: 'sm' }],
+        badges: [{ label: 'Priority', variant: 'error' }, { label: 'Status', variant: 'success' }],
+        icons: [{ name: 'user', size: 'sm' }, { name: 'chat-bubble-left', size: 'sm' }, { name: 'paper-clip', size: 'sm' }, { name: 'check-circle', size: 'sm' }],
+        date: '00/00/0000',
+        time: 'Monday 9:45 PM',
       },
       {
         id: '4',
-        title: 'Refactor database schema',
-        description: 'Optimize queries and add indexes',
+        description: 'Candy carrot cake toffee jelly cotton candy candy canes brownie. Gummies cotton candy shortbread candy canes donut macaroon candy.',
         avatar: { size: 'sm' },
-        badges: [{ label: 'Technical Debt', variant: 'orange' }],
-        progress: 50,
-        icons: [{ name: 'code-bracket', size: 'sm' }],
+        badges: [{ label: 'Priority', variant: 'error' }, { label: 'Status', variant: 'success' }],
+        icons: [{ name: 'user', size: 'sm' }, { name: 'chat-bubble-left', size: 'sm' }],
+        date: '00/00/0000',
+        time: 'Monday 9:45 PM',
       },
     ],
   },
@@ -103,12 +173,12 @@ const richColumns = [
     cards: [
       {
         id: '5',
-        title: 'Deploy to production',
-        description: 'Successfully deployed v1.0.0 to production',
+        description: 'Gummies cotton candy shortbread candy canes donut macaroon candy. Gingerbread fruitcake fruitcake apple pie topping gummi bears cotton candy liquorice jujubes.',
         avatar: { size: 'sm' },
-        badges: [{ label: 'Deployment', variant: 'success' }],
-        progress: 100,
-        icons: [{ name: 'check-circle', size: 'sm' }],
+        badges: [{ label: 'Priority', variant: 'error' }, { label: 'Status', variant: 'success' }],
+        icons: [{ name: 'user', size: 'sm' }, { name: 'chat-bubble-left', size: 'sm' }, { name: 'paper-clip', size: 'sm' }],
+        date: '00/00/0000',
+        time: 'Monday 9:45 PM',
       },
     ],
   },
@@ -150,7 +220,7 @@ const progressColumns = [
         <span class="badge badge--success">stable</span>
       </div>
       <p class="page-header__description">
-        A Kanban board component for organizing tasks and workflows. Display tasks in columns with cards that can include titles, descriptions, avatars, badges, progress indicators, and icons.
+        A Kanban board component for organizing tasks and workflows. Features a title bar, action bar with buttons and dropdowns, and columns displayed as cards with top borders. Individual cards can include avatars, icons, badges, descriptions, progress indicators, and date/time information.
       </p>
     </header>
 
@@ -163,13 +233,32 @@ const progressColumns = [
     <section id="examples" class="space-y-8">
       <h2 class="section__title">Examples</h2>
 
-      <ExampleSection title="Basic Kanban Board" description="Simple Kanban board with basic cards.">
+      <ExampleSection title="Basic Kanban Board" description="Simple Kanban board with basic cards. Columns are displayed as cards with top borders.">
         <div class="w-full overflow-x-auto">
           <Kanban columns={basicColumns} />
         </div>
       </ExampleSection>
 
-      <ExampleSection title="Kanban with Rich Cards" description="Kanban board with cards containing avatars, badges, icons, and descriptions.">
+      <ExampleSection title="Kanban with Title and Action Bar" description="Kanban board with custom title and action bar containing buttons and dropdowns.">
+        <div class="w-full overflow-x-auto">
+          <Kanban 
+            title="Project Tasks"
+            actionButtons={[
+              { text: 'Delete', icon: 'trash' },
+              { text: 'Group', icon: 'squares-2x2' },
+              { text: 'Subcards: Collapse all', icon: 'chevron-up' },
+              { text: 'Customize Columns', icon: 'cog-6-tooth' }
+            ]}
+            actionDropdowns={[
+              { text: 'All Filters', options: [{ value: 'all', label: 'All Filters' }, { value: 'active', label: 'Active' }, { value: 'completed', label: 'Completed' }] },
+              { text: 'Change Views', options: [{ value: 'kanban', label: 'Kanban' }, { value: 'list', label: 'List' }, { value: 'table', label: 'Table' }] }
+            ]}
+            columns={basicColumns}
+          />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Kanban with Rich Cards" description="Kanban board with cards containing avatars, badges, icons, descriptions, and date/time information.">
         <div class="w-full overflow-x-auto">
           <Kanban columns={richColumns} />
         </div>
@@ -213,7 +302,7 @@ const progressColumns = [
           Semantic Structure
         </h3>
         <p class="a11y-card__text">
-          The Kanban board uses semantic HTML with <code>&lt;section&gt;</code> for the main container and <code>&lt;article&gt;</code> for each column. Column headers use proper heading hierarchy with <code>&lt;h2&gt;</code> elements.
+          The Kanban board uses semantic HTML with <code>&lt;section&gt;</code> for the columns container and <code>&lt;article&gt;</code> for each column. The title bar uses <code>&lt;h1&gt;</code> and column headers use proper heading hierarchy with <code>&lt;h2&gt;</code> elements.
         </p>
       </div>
       

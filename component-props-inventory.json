@@ -1325,26 +1325,61 @@
     "description": "Kanban Component",
     "dependencies": [
       "Button",
-      "Icon"
+      "Icon",
+      "Card"
     ],
     "imports": [
       "./Button.astro",
-      "./Icon.astro"
+      "./Icon.astro",
+      "./Card.astro"
     ],
     "cssClasses": [
+      "kanban__title-bar",
+      "kanban__title-bar-content",
+      "kanban__title",
+      "kanban__title-bar-actions",
+      "kanban__title-bar-icon",
+      "kanban__action-bar",
+      "kanban__action-buttons",
+      "kanban__action-button",
+      "kanban__action-dropdowns",
+      "kanban__action-dropdown",
+      "kanban__columns-wrapper",
+      "kanban__column-card",
       "kanban__column",
       "kanban__column-header",
       "kanban__column-header-content",
       "kanban__column-title",
       "kanban__column-count",
+      "kanban__column-header-actions",
+      "kanban__column-action-icon",
+      "kanban__column-content",
       "kanban__add-button",
-      "kanban__column-content"
+      "table"
     ],
     "props": {
       "columns": {
         "optional": false,
         "type": "KanbanColumn[];",
         "default": null,
+        "description": null
+      },
+      "title": {
+        "optional": true,
+        "type": "string;",
+        "default": "'Kanban Board'",
+        "description": null
+      },
+      "actionButtons": {
+        "optional": true,
+        "type": "ActionButton[];",
+        "default": "[]",
+        "description": null
+      },
+      "actionDropdowns": {
+        "optional": true,
+        "type": "ActionDropdown[];",
+        "default": "[]",
         "description": null
       },
       "class": {
@@ -1361,10 +1396,13 @@
       }
     },
     "defaults": {
+      "title": "'Kanban Board'",
+      "actionButtons": "[]",
+      "actionDropdowns": "[]",
       "className": "''",
       "showAddButton": "true"
     },
-    "rawInterface": "columns: KanbanColumn[];\n  class?: string;\n  showAddButton?: boolean;"
+    "rawInterface": "columns: KanbanColumn[];\n  title?: string;\n  actionButtons?: ActionButton[];\n  actionDropdowns?: ActionDropdown[];\n  class?: string;\n  showAddButton?: boolean;"
   },
   "KanbanCard": {
     "hasProps": false,
@@ -1386,15 +1424,20 @@
     ],
     "cssClasses": [
       "kanban-card__body",
+      "kanban-card__header",
+      "kanban-card__avatar-wrapper",
+      "kanban-card__avatar",
+      "kanban-card__avatar-placeholder",
+      "kanban-card__header-right",
+      "kanban-card__icons",
+      "kanban-card__icon",
+      "kanban-card__badges",
       "kanban-card__title",
       "kanban-card__description",
-      "kanban-card__footer",
-      "kanban-card__badges",
       "kanban-card__progress",
-      "kanban-card__meta",
-      "kanban-card__avatar",
-      "kanban-card__icons",
-      "kanban-card__icon"
+      "kanban-card__date-time",
+      "kanban-card__date",
+      "kanban-card__time"
     ],
     "note": "No Props interface found"
   },
