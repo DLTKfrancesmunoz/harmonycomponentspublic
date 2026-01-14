@@ -77,65 +77,42 @@ const {
 
   <!-- Action Bar -->
   <div class="kanban__action-bar">
-    <div class="kanban__action-buttons">
+    <div class="kanban__action-items">
       {actionButtons.length > 0 ? (
-        actionButtons.map((button) => (
-          <Button
-            variant="ghost"
-            size="sm"
-            icon={button.icon}
-            class="kanban__action-button"
-          >
-            {button.text}
-          </Button>
+        actionButtons.map((button, index) => (
+          <>
+            {index > 0 && <span class="kanban__action-divider">|</span>}
+            <Button
+              variant="ghost"
+              size="sm"
+              icon={button.icon}
+              class="kanban__action-button"
+            >
+              {button.text}
+            </Button>
+          </>
         ))
       ) : (
         <>
           <Button variant="ghost" size="sm" icon="trash" class="kanban__action-button">
             Delete
           </Button>
-          <Button variant="ghost" size="sm" icon="squares-2x2" class="kanban__action-button">
+          <Button variant="ghost" size="sm" icon="list-tree" class="kanban__action-button">
             Group
           </Button>
-          <Button variant="ghost" size="sm" icon="chevron-up" class="kanban__action-button">
+          <Button variant="ghost" size="sm" icon="chevron-up" iconPosition="right" class="kanban__action-button">
             Subcards: Collapse all
           </Button>
+          <span class="kanban__action-divider">|</span>
           <Button variant="ghost" size="sm" icon="cog-6-tooth" class="kanban__action-button">
             Customize Columns
           </Button>
-        </>
-      )}
-    </div>
-    <div class="kanban__action-dropdowns">
-      {actionDropdowns.length > 0 ? (
-        actionDropdowns.map((dropdown) => (
-          <Dropdown
-            options={dropdown.options || []}
-            value={dropdown.value}
-            placeholder={dropdown.text}
-            class="kanban__action-dropdown"
-          />
-        ))
-      ) : (
-        <>
-          <Dropdown
-            options={[
-              { value: 'all', label: 'All Filters' },
-              { value: 'active', label: 'Active' },
-              { value: 'completed', label: 'Completed' }
-            ]}
-            placeholder="All Filters"
-            class="kanban__action-dropdown"
-          />
-          <Dropdown
-            options={[
-              { value: 'kanban', label: 'Kanban' },
-              { value: 'list', label: 'List' },
-              { value: 'table', label: 'Table' }
-            ]}
-            placeholder="Change Views"
-            class="kanban__action-dropdown"
-          />
+          <span class="kanban__action-label">All Filters</span>
+          <span class="kanban__action-divider">|</span>
+          <button type="button" class="kanban__action-text-button">
+            <span>Change Views</span>
+            <Icon name="chevron-down" size="sm" />
+          </button>
         </>
       )}
     </div>
@@ -223,5 +200,12 @@ const {
       </Card>
       );
     })}
+    <Button
+      variant="secondary"
+      size="sm"
+      icon="plus"
+      class="kanban__add-column-button"
+      aria-label="Add new column"
+    />
   </section>
 </div>

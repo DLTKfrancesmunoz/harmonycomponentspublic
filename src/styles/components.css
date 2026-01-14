@@ -5756,7 +5756,7 @@ div.shell-panel__header.shell-panel__header--theme,
   gap: var(--space-4);
 }
 
-.kanban__action-buttons {
+.kanban__action-items {
   display: flex;
   align-items: center;
   gap: var(--space-2);
@@ -5767,15 +5767,46 @@ div.shell-panel__header.shell-panel__header--theme,
   flex-shrink: 0;
 }
 
-.kanban__action-dropdowns {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
+.kanban__action-divider {
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  padding: 0 var(--space-1);
   flex-shrink: 0;
 }
 
-.kanban__action-dropdown {
-  min-width: 120px;
+.kanban__action-label {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: var(--font-normal);
+  color: var(--text-primary);
+  padding: var(--space-1) var(--space-2);
+  flex-shrink: 0;
+}
+
+.kanban__action-text-button {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  border: none;
+  background: transparent;
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: var(--font-normal);
+  color: var(--text-primary);
+  cursor: pointer;
+  border-radius: var(--radius-04);
+  transition: background-color var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.kanban__action-text-button:hover {
+  background-color: var(--elevated-bg);
+}
+
+.kanban__action-text-button:focus {
+  outline: 2px solid var(--theme-primary);
+  outline-offset: 2px;
 }
 
 /* Columns Wrapper */
@@ -5836,7 +5867,7 @@ div.shell-panel__header.shell-panel__header--theme,
 }
 
 .kanban__column-title {
-  font-family: var(--font-sans);
+  font-family: var(--font-display);
   font-size: var(--heading-s);
   font-weight: var(--font-semibold);
   line-height: var(--leading-tight);
@@ -5891,6 +5922,12 @@ div.shell-panel__header.shell-panel__header--theme,
 .kanban__add-button {
   flex-shrink: 0;
   margin-top: var(--space-2);
+}
+
+.kanban__add-column-button {
+  flex-shrink: 0;
+  align-self: flex-start;
+  margin-top: var(--space-4);
 }
 
 .kanban__column-content {
