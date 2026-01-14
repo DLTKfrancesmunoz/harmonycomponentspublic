@@ -1,0 +1,74 @@
+---
+/**
+ * Kanban Component
+ *
+ * Kanban board component that displays tasks in columns (lanes) with cards.
+ * Uses design tokens exclusively and leverages existing components.
+ */
+import Button from './Button.astro';
+import Icon from './Icon.astro';
+import KanbanCard, { type KanbanCardProps } from './KanbanCard.astro';
+
+export interface KanbanColumn {
+  id: string;
+  title: string;
+  cards: KanbanCardProps[];
+}
+
+export interface Props {
+  columns: KanbanColumn[];
+  class?: string;
+  showAddButton?: boolean;
+}
+
+const {
+  columns,
+  class: className = '',
+  showAddButton = true,
+} = Astro.props;
+---
+
+<section class={`kanban ${className}`} role="region" aria-label="Kanban board">
+  {columns.map((column) => (
+    <article 
+      class="kanban__column" 
+      role="group" 
+      aria-label={`${column.title} column`}
+    >
+      <header class="kanban__column-header">
+        <div class="kanban__column-header-content">
+          <h2 class="kanban__column-title">{column.title}</h2>
+          <span class="kanban__column-count" aria-label={`${column.cards.length} items`}>
+            {column.cards.length}
+          </span>
+        </div>
+        {showAddButton && (
+          <Button
+            variant="ghost"
+            size="sm"
+            icon="plus"
+            class="kanban__add-button"
+            aria-label={`Add card to ${column.title}`}
+          >
+            Add
+          </Button>
+        )}
+      </header>
+      
+      <div class="kanban__column-content">
+        {column.cards.map((card) => (
+          <KanbanCard
+            id={card.id}
+            title={card.title}
+            description={card.description}
+            avatar={card.avatar}
+            badges={card.badges}
+            progress={card.progress}
+            icons={card.icons}
+            class={card.class}
+          />
+        ))}
+      </div>
+    </article>
+  ))}
+</section>

@@ -1319,6 +1319,85 @@
     },
     "rawInterface": "type?: 'text' | 'email' | 'password' | 'number' | 'url' | 'search' | 'tel';\n  placeholder?: string;\n  value?: string;\n  name?: string;\n  id?: string;\n  disabled?: boolean;\n  error?: boolean;\n  errorMessage?: string;\n  icon?: string; // Heroicon name (e.g., \"magnifying-glass\", \"envelope\")\n  required?: boolean;\n  label?: string;\n  labelVariant?: 'inline' | 'stacked';\n  labelFor?: string;\n  class?: string;\n  [key: string]: any;"
   },
+  "Kanban": {
+    "hasProps": true,
+    "filePath": "src/components/ui/Kanban.astro",
+    "description": "Kanban Component",
+    "dependencies": [
+      "Button",
+      "Icon"
+    ],
+    "imports": [
+      "./Button.astro",
+      "./Icon.astro"
+    ],
+    "cssClasses": [
+      "kanban__column",
+      "kanban__column-header",
+      "kanban__column-header-content",
+      "kanban__column-title",
+      "kanban__column-count",
+      "kanban__add-button",
+      "kanban__column-content"
+    ],
+    "props": {
+      "columns": {
+        "optional": false,
+        "type": "KanbanColumn[];",
+        "default": null,
+        "description": null
+      },
+      "class": {
+        "optional": true,
+        "type": "string;",
+        "default": null,
+        "description": null
+      },
+      "showAddButton": {
+        "optional": true,
+        "type": "boolean;",
+        "default": "true",
+        "description": null
+      }
+    },
+    "defaults": {
+      "className": "''",
+      "showAddButton": "true"
+    },
+    "rawInterface": "columns: KanbanColumn[];\n  class?: string;\n  showAddButton?: boolean;"
+  },
+  "KanbanCard": {
+    "hasProps": false,
+    "filePath": "src/components/ui/KanbanCard.astro",
+    "description": "KanbanCard Component",
+    "dependencies": [
+      "Card",
+      "Avatar",
+      "Badge",
+      "Icon",
+      "ProgressBar"
+    ],
+    "imports": [
+      "./Card.astro",
+      "./Avatar.astro",
+      "./Badge.astro",
+      "./Icon.astro",
+      "./ProgressBar.astro"
+    ],
+    "cssClasses": [
+      "kanban-card__body",
+      "kanban-card__title",
+      "kanban-card__description",
+      "kanban-card__footer",
+      "kanban-card__badges",
+      "kanban-card__progress",
+      "kanban-card__meta",
+      "kanban-card__avatar",
+      "kanban-card__icons",
+      "kanban-card__icon"
+    ],
+    "note": "No Props interface found"
+  },
   "Label": {
     "hasProps": true,
     "filePath": "src/components/ui/Label.astro",

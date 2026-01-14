@@ -37,6 +37,7 @@ export const navigation: NavSection[] = [
     items: [
       { title: 'Accordion', href: '/components/accordion', icon: 'chevron-down' },
       { title: 'Icons', href: '/components/icons', icon: 'sparkles' },
+      { title: 'Kanban', href: '/components/kanban', icon: 'view-columns' },
       { title: 'Tables', href: '/components/tables', icon: 'table-cells' },
       { title: 'Alerts', href: '/components/alerts', icon: 'exclamation-circle' },
       { title: 'Badges', href: '/components/badges', icon: 'star' },

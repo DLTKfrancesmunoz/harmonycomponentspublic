@@ -1,0 +1,87 @@
+---
+/**
+ * KanbanCard Component
+ *
+ * Individual card component for Kanban board items.
+ * Uses existing Card component as base and adds Kanban-specific styling.
+ */
+import Card from './Card.astro';
+import Avatar from './Avatar.astro';
+import Badge from './Badge.astro';
+import Icon from './Icon.astro';
+import ProgressBar from './ProgressBar.astro';
+
+export type BadgeVariant = 'default' | 'primary' | 'success' | 'warning' | 'error' | 'info' | 'orange' | 'pink' | 'disabled';
+
+export interface KanbanCardProps {
+  id: string;
+  title: string;
+  description?: string;
+  avatar?: { name?: string; size?: 'sm' | 'md' | 'lg' };
+  badges?: Array<{ label: string; variant?: BadgeVariant }>;
+  progress?: number; // 0-100
+  icons?: Array<{ name: string; size?: 'xs' | 'sm' | 'md' }>;
+  class?: string;
+}
+
+const {
+  id,
+  title,
+  description,
+  avatar,
+  badges = [],
+  progress,
+  icons = [],
+  class: className = '',
+} = Astro.props;
+---
+
+<Card class={`kanban-card ${className}`} elevated>
+  <div class="kanban-card__body">
+    {title && (
+      <h3 class="kanban-card__title">{title}</h3>
+    )}
+    
+    {description && (
+      <p class="kanban-card__description">{description}</p>
+    )}
+    
+    {(badges.length > 0 || progress !== undefined || icons.length > 0 || avatar) && (
+      <div class="kanban-card__footer">
+        {badges.length > 0 && (
+          <div class="kanban-card__badges">
+            {badges.map((badge) => (
+              <Badge variant={badge.variant || 'default'}>{badge.label}</Badge>
+            ))}
+          </div>
+        )}
+        
+        {progress !== undefined && (
+          <div class="kanban-card__progress">
+            <ProgressBar value={progress} size="sm" />
+          </div>
+        )}
+        
+        <div class="kanban-card__meta">
+          {avatar && (
+            <Avatar size={avatar.size || 'sm'} class="kanban-card__avatar" />
+          )}
+          
+          {icons.length > 0 && (
+            <div class="kanban-card__icons">
+              {icons.map((icon, index) => (
+                <Icon 
+                  name={icon.name} 
+                  size={icon.size || 'sm'} 
+                  class="kanban-card__icon"
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    )}
+    
+    <slot />
+  </div>
+</Card>

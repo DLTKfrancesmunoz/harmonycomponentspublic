@@ -1,0 +1,261 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import PropsTable from '../../components/PropsTable.astro';
+import ExampleSection from '../../components/ExampleSection.astro';
+import Kanban from '../../components/ui/Kanban.astro';
+import Icon from '../../components/ui/Icon.astro';
+
+const kanbanProps = [
+  { name: 'columns', type: 'KanbanColumn[]', default: '—', description: 'Array of column objects, each containing id, title, and cards array' },
+  { name: 'class', type: 'string', default: '—', description: 'Additional CSS classes to apply to the Kanban container' },
+  { name: 'showAddButton', type: 'boolean', default: 'true', description: 'Show "Add" button in each column header' },
+];
+
+const kanbanCardProps = [
+  { name: 'id', type: 'string', default: '—', description: 'Unique identifier for the card' },
+  { name: 'title', type: 'string', default: '—', description: 'Card title text' },
+  { name: 'description', type: 'string', default: '—', description: 'Optional card description text' },
+  { name: 'avatar', type: '{ name?: string; size?: "sm" | "md" | "lg" }', default: '—', description: 'Optional avatar configuration' },
+  { name: 'badges', type: 'Array<{ label: string; variant?: BadgeVariant }>', default: '[]', description: 'Array of badge objects to display' },
+  { name: 'progress', type: 'number', default: '—', description: 'Progress value (0-100) to display progress bar' },
+  { name: 'icons', type: 'Array<{ name: string; size?: "xs" | "sm" | "md" }>', default: '[]', description: 'Array of icon objects to display' },
+  { name: 'class', type: 'string', default: '—', description: 'Additional CSS classes to apply to the card' },
+];
+
+const basicColumns = [
+  {
+    id: 'todo',
+    title: 'To Do',
+    cards: [
+      { id: '1', title: 'Design new landing page' },
+      { id: '2', title: 'Review user feedback' },
+      { id: '3', title: 'Update documentation' },
+    ],
+  },
+  {
+    id: 'in-progress',
+    title: 'In Progress',
+    cards: [
+      { id: '4', title: 'Implement authentication' },
+      { id: '5', title: 'Fix navigation bug' },
+    ],
+  },
+  {
+    id: 'done',
+    title: 'Done',
+    cards: [
+      { id: '6', title: 'Setup CI/CD pipeline' },
+      { id: '7', title: 'Deploy to staging' },
+    ],
+  },
+];
+
+const richColumns = [
+  {
+    id: 'todo',
+    title: 'To Do',
+    cards: [
+      {
+        id: '1',
+        title: 'Design new landing page',
+        description: 'Create mockups and wireframes for the new landing page design',
+        avatar: { size: 'sm' },
+        badges: [{ label: 'High Priority', variant: 'error' }, { label: 'Design', variant: 'primary' }],
+        icons: [{ name: 'paper-clip', size: 'sm' }, { name: 'chat-bubble-left', size: 'sm' }],
+      },
+      {
+        id: '2',
+        title: 'Develop user authentication',
+        description: 'Implement OAuth2 flow with Google and GitHub',
+        avatar: { size: 'sm' },
+        badges: [{ label: 'Feature', variant: 'primary' }],
+        icons: [{ name: 'code-bracket', size: 'sm' }],
+      },
+    ],
+  },
+  {
+    id: 'in-progress',
+    title: 'In Progress',
+    cards: [
+      {
+        id: '3',
+        title: 'Implement payment gateway',
+        description: 'Integrate Stripe payment processing',
+        avatar: { size: 'sm' },
+        badges: [{ label: 'Bug', variant: 'warning' }],
+        progress: 75,
+        icons: [{ name: 'paper-clip', size: 'sm' }, { name: 'chat-bubble-left', size: 'sm' }],
+      },
+      {
+        id: '4',
+        title: 'Refactor database schema',
+        description: 'Optimize queries and add indexes',
+        avatar: { size: 'sm' },
+        badges: [{ label: 'Technical Debt', variant: 'orange' }],
+        progress: 50,
+        icons: [{ name: 'code-bracket', size: 'sm' }],
+      },
+    ],
+  },
+  {
+    id: 'done',
+    title: 'Done',
+    cards: [
+      {
+        id: '5',
+        title: 'Deploy to production',
+        description: 'Successfully deployed v1.0.0 to production',
+        avatar: { size: 'sm' },
+        badges: [{ label: 'Deployment', variant: 'success' }],
+        progress: 100,
+        icons: [{ name: 'check-circle', size: 'sm' }],
+      },
+    ],
+  },
+];
+
+const progressColumns = [
+  {
+    id: 'todo',
+    title: 'To Do',
+    cards: [
+      { id: '1', title: 'Task 1', progress: 0 },
+      { id: '2', title: 'Task 2', progress: 0 },
+    ],
+  },
+  {
+    id: 'in-progress',
+    title: 'In Progress',
+    cards: [
+      { id: '3', title: 'Task 3', progress: 45 },
+      { id: '4', title: 'Task 4', progress: 80 },
+    ],
+  },
+  {
+    id: 'done',
+    title: 'Done',
+    cards: [
+      { id: '5', title: 'Task 5', progress: 100 },
+      { id: '6', title: 'Task 6', progress: 100 },
+    ],
+  },
+];
+---
+
+<DocsLayout title="Kanban" description="Kanban board component for organizing tasks in columns with drag-and-drop cards.">
+  <article class="space-y-12">
+    <header class="page-header page-header--compact">
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="page-header__title page-header__title--sm">Kanban</h1>
+        <span class="badge badge--success">stable</span>
+      </div>
+      <p class="page-header__description">
+        A Kanban board component for organizing tasks and workflows. Display tasks in columns with cards that can include titles, descriptions, avatars, badges, progress indicators, and icons.
+      </p>
+    </header>
+
+    <nav class="article-nav">
+      <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
+      <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+      <a href="#accessibility" class="article-nav__link"><Icon name="check-badge" size="sm" /> Accessibility</a>
+    </nav>
+
+    <section id="examples" class="space-y-8">
+      <h2 class="section__title">Examples</h2>
+
+      <ExampleSection title="Basic Kanban Board" description="Simple Kanban board with basic cards.">
+        <div class="w-full overflow-x-auto">
+          <Kanban columns={basicColumns} />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Kanban with Rich Cards" description="Kanban board with cards containing avatars, badges, icons, and descriptions.">
+        <div class="w-full overflow-x-auto">
+          <Kanban columns={richColumns} />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Kanban with Progress Bars" description="Kanban board showing task progress with progress indicators.">
+        <div class="w-full overflow-x-auto">
+          <Kanban columns={progressColumns} />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Kanban without Add Buttons" description="Kanban board with add buttons hidden.">
+        <div class="w-full overflow-x-auto">
+          <Kanban columns={basicColumns} showAddButton={false} />
+        </div>
+      </ExampleSection>
+    </section>
+
+    <section id="props">
+      <h2 class="section__title">Props</h2>
+      
+      <div class="space-y-6">
+        <div>
+          <h3 class="text-lg font-semibold text-primary mb-3">Kanban Component</h3>
+          <PropsTable props={kanbanProps} />
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-semibold text-primary mb-3">KanbanCard Component</h3>
+          <PropsTable props={kanbanCardProps} />
+        </div>
+      </div>
+    </section>
+
+    <section id="accessibility" class="space-y-4">
+      <h2 class="section__title">Accessibility</h2>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="tag" size="sm" />
+          Semantic Structure
+        </h3>
+        <p class="a11y-card__text">
+          The Kanban board uses semantic HTML with <code>&lt;section&gt;</code> for the main container and <code>&lt;article&gt;</code> for each column. Column headers use proper heading hierarchy with <code>&lt;h2&gt;</code> elements.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="tag" size="sm" />
+          ARIA Labels
+        </h3>
+        <p class="a11y-card__text">
+          The Kanban board includes <code>role="region"</code> with an <code>aria-label</code> for the main container. Each column has <code>role="group"</code> with descriptive <code>aria-label</code> attributes. Column counts include <code>aria-label</code> for screen readers.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="keyboard" size="sm" />
+          Keyboard Navigation
+        </h3>
+        <p class="a11y-card__text">
+          Cards are keyboard accessible and can be navigated using Tab. The "Add" buttons in column headers are fully keyboard accessible. For drag-and-drop functionality, implement keyboard alternatives such as arrow keys to move cards between columns.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="eye" size="sm" />
+          Screen Reader Support
+        </h3>
+        <p class="a11y-card__text">
+          Column titles and card counts are announced by screen readers. Card titles and descriptions provide context. When implementing drag-and-drop, ensure proper ARIA live regions announce card movements to screen reader users.
+        </p>
+      </div>
+      
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="cursor-arrow-rays" size="sm" />
+          Focus Management
+        </h3>
+        <p class="a11y-card__text">
+          All interactive elements (cards and buttons) include visible focus indicators that meet WCAG 2.1 requirements. Focus is clearly visible when navigating with keyboard.
+        </p>
+      </div>
+    </section>
+  </article>
+</DocsLayout>

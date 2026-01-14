@@ -23,6 +23,8 @@ export { default as Dropdown } from './Dropdown.astro';
 export { default as FloatingNav } from './FloatingNav.astro';
 export { default as Icon } from './Icon.astro';
 export { default as Input } from './Input.astro';
+export { default as Kanban } from './Kanban.astro';
+export { default as KanbanCard } from './KanbanCard.astro';
 export { default as Label } from './Label.astro';
 export { default as Link } from './Link.astro';
 export { default as ProgressBar } from './ProgressBar.astro';
