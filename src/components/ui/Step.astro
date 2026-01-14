@@ -72,6 +72,13 @@ const classes = [
   </div>
   <div class="step__connector" aria-hidden="true"></div>
   <div class="step__label">
-    <slot />
+    <span class="step__label-text">
+      <slot />
+    </span>
+    {Astro.slots.has('description') && (
+      <span class="step__description">
+        <slot name="description" />
+      </span>
+    )}
   </div>
 </div>

@@ -61,11 +61,34 @@ const stepProps = [
       <ExampleSection title="Linear Stepper with Multiple Steps" description="Complete linear workflow showing proper step progression. Steps must be completed in sequence - future steps are disabled until previous steps are completed.">
         <div class="w-full max-w-6xl">
           <Stepper activeStep={2}>
-            <Step completed>Select campaign settings</Step>
-            <Step completed>Create an ad group</Step>
+            <Step completed success>Select campaign settings</Step>
+            <Step completed success>Create an ad group</Step>
             <Step>Create an ad</Step>
             <Step>Review campaign</Step>
             <Step>Launch campaign</Step>
+          </Stepper>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Stepper with Descriptions" description="Steps can include descriptions below the label. Labels use Lexend (display font) and descriptions use Figtree (body font) for clear typographic hierarchy.">
+        <div class="w-full max-w-6xl">
+          <Stepper activeStep={1}>
+            <Step completed success>
+              Account Setup
+              <span slot="description">Verify your email and password</span>
+            </Step>
+            <Step>
+              Profile Information
+              <span slot="description">Add your personal details</span>
+            </Step>
+            <Step>
+              Preferences
+              <span slot="description">Configure your settings</span>
+            </Step>
+            <Step>
+              Review & Complete
+              <span slot="description">Finalize your account</span>
+            </Step>
           </Stepper>
         </div>
       </ExampleSection>
@@ -126,6 +149,26 @@ const stepProps = [
               &nbsp;&nbsp;&lt;Step error&gt;Fix errors&lt;/Step&gt;<br />
               &nbsp;&nbsp;&lt;Step&gt;Complete&lt;/Step&gt;<br />
               &lt;/Stepper&gt;
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__body">
+            <h3 class="font-semibold text-primary mb-3">
+              <Icon name="code-bracket" size="sm" class="inline mr-2" />
+              Step with Description
+            </h3>
+            <p class="text-sm text-secondary mb-3">
+              Steps can include a description using a named slot. Labels use Lexend (display font) and descriptions use Figtree (body font) at the same size for clear typographic hierarchy.
+            </p>
+            <div class="text-xs bg-elevated p-4 rounded font-mono">
+              &lt;Step completed success&gt;<br />
+              &nbsp;&nbsp;Account Setup<br />
+              &nbsp;&nbsp;&lt;template slot="description"&gt;<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;Verify your email and password<br />
+              &nbsp;&nbsp;&lt;/template&gt;<br />
+              &lt;/Step&gt;
             </div>
           </div>
         </div>

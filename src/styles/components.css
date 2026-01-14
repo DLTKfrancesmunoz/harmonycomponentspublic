@@ -3785,7 +3785,6 @@
 }
 
 .stepper--horizontal .step:last-child {
-  flex: 0 0 auto;
   padding-right: 0;
 }
 
@@ -3880,6 +3879,16 @@
   flex-direction: column;
   min-width: 0;
   flex: 1;
+  position: relative;
+  z-index: 2;
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+/* Step Label Text - Title styling with Lexend */
+.step__label-text {
+  font-family: var(--font-display);
   font-size: var(--text-sm);
   font-weight: var(--font-medium);
   color: var(--text-primary);
@@ -3887,11 +3896,19 @@
   word-wrap: break-word;
   overflow-wrap: break-word;
   white-space: normal;
-  position: relative;
-  z-index: 2;
-  background-color: transparent;
-  padding: 0;
-  margin: 0;
+}
+
+/* Step Description - Body copy with Figtree */
+.step__description {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: var(--font-normal);
+  color: var(--text-secondary);
+  line-height: var(--leading-normal);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  margin-top: var(--space-1);
 }
 
 /* Horizontal: Label below indicator (alternative label style) */
@@ -3906,11 +3923,21 @@
   padding-top: 0;
 }
 
+/* Horizontal: Description alignment */
+.stepper--horizontal .step__description {
+  text-align: center;
+}
+
 /* Vertical: Label inline to the right of indicator - consistent spacing */
 .stepper--vertical .step__label {
   margin-left: 0;
   flex: 1;
   padding-top: 2px;
+}
+
+/* Vertical: Description alignment */
+.stepper--vertical .step__description {
+  text-align: left;
 }
 
 /* Step Connector Line - z-index: 0 (behind everything) */
