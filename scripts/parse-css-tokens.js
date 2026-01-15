@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Parse CSS tokens from tokens.css and colors.json
+ * Parse CSS tokens from tokens.css
  * Extracts all CSS variables with theme/color mode awareness
  * Generates token registry with MCP-compatible paths
  */
@@ -15,7 +15,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const tokensCssFile = path.join(__dirname, '../src/styles/tokens.css');
-const colorsJsonFile = path.join(__dirname, '../src/tokens/colors.json');
 const outputFile = path.join(__dirname, '../src/tokens/css-tokens-registry.json');
 
 const themes = ['cp', 'vp', 'ppm', 'maconomy'];
@@ -187,95 +186,6 @@ function parseCSSTokens() {
   return tokenRegistry;
 }
 
-// Load colors.json and merge with CSS tokens
-function mergeJSONTokens(cssTokens) {
-  const colorsData = JSON.parse(fs.readFileSync(colorsJsonFile, 'utf-8'));
-  
-  // Map JSON structure to CSS variables
-  // For example: themes.cp.primary.light -> --theme-primary
-  for (const [theme, themeData] of Object.entries(colorsData.themes || {})) {
-    // Primary colors
-    if (themeData.primary) {
-      const cssVar = '--theme-primary';
-      if (!cssTokens[cssVar]) {
-        cssTokens[cssVar] = {
-          type: 'themeAware',
-          category: 'colors',
-          definedIn: [],
-          values: {}
-        };
-      }
-      if (themeData.primary.light) {
-        cssTokens[cssVar].values[theme] = cssTokens[cssVar].values[theme] || {};
-        cssTokens[cssVar].values[theme].light = themeData.primary.light;
-      }
-      if (themeData.primary.dark) {
-        cssTokens[cssVar].values[theme] = cssTokens[cssVar].values[theme] || {};
-        cssTokens[cssVar].values[theme].dark = themeData.primary.dark;
-      }
-    }
-    
-    // Primary hover
-    if (themeData.primaryHover) {
-      const cssVar = '--theme-primary-hover';
-      if (!cssTokens[cssVar]) {
-        cssTokens[cssVar] = {
-          type: 'themeAware',
-          category: 'colors',
-          definedIn: [],
-          values: {}
-        };
-      }
-      if (themeData.primaryHover.light) {
-        cssTokens[cssVar].values[theme] = cssTokens[cssVar].values[theme] || {};
-        cssTokens[cssVar].values[theme].light = themeData.primaryHover.light;
-      }
-      if (themeData.primaryHover.dark) {
-        cssTokens[cssVar].values[theme] = cssTokens[cssVar].values[theme] || {};
-        cssTokens[cssVar].values[theme].dark = themeData.primaryHover.dark;
-      }
-    }
-    
-    // Palette colors
-    if (themeData.palette) {
-      for (const [colorMode, palette] of Object.entries(themeData.palette)) {
-        for (const [key, value] of Object.entries(palette)) {
-          // Map palette keys to CSS variables
-          const cssVarMap = {
-            'pageBackground': '--page-bg',
-            'cardBackground': '--card-bg',
-            'navBackground': '--nav-bg',
-            'inputBackground': '--input-bg',
-            'inputDisabled': '--input-disabled-bg',
-            'border': '--border-color',
-            'hover': '--hover-bg',
-            'titleText': '--text-primary',
-            'secondaryText': '--text-secondary',
-            'mutedText': '--text-muted',
-            'link': '--link-color'
-          };
-          
-          const cssVar = cssVarMap[key];
-          if (cssVar) {
-            if (!cssTokens[cssVar]) {
-              cssTokens[cssVar] = {
-                type: 'themeAware',
-                category: 'colors',
-                definedIn: [],
-                values: {}
-              };
-            }
-            cssTokens[cssVar].values[theme] = cssTokens[cssVar].values[theme] || {};
-            cssTokens[cssVar].values[theme][colorMode] = value;
-          }
-        }
-      }
-    }
-  }
-  
-  return cssTokens;
-}
-
 // Categorize tokens and generate MCP paths
 function categorizeTokens(tokens) {
   const categorized = {};
@@ -337,10 +247,7 @@ function categorizeTokens(tokens) {
 // Main execution
 try {
   console.log('🔍 Parsing CSS tokens...');
-  let tokens = parseCSSTokens();
-  
-  console.log('🔄 Merging with JSON tokens...');
-  tokens = mergeJSONTokens(tokens);
+  const tokens = parseCSSTokens();
   
   console.log('📊 Categorizing tokens...');
   const categorized = categorizeTokens(tokens);

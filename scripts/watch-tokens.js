@@ -18,7 +18,9 @@ const projectRoot = path.join(__dirname, '..');
 const watchPaths = [
   path.join(projectRoot, 'src/components/ui/**/*.astro'),
   path.join(projectRoot, 'src/layouts/**/*.astro'),
-  path.join(projectRoot, 'src/styles/components.css')
+  path.join(projectRoot, 'src/styles/components.css'),
+  path.join(projectRoot, 'src/styles/tokens.css'),
+  path.join(projectRoot, 'src/tokens/colors.json')
 ];
 
 // Debounce timer to avoid multiple regenerations
@@ -49,7 +51,8 @@ function debouncedRegenerate() {
 // Initialize watcher
 console.log('👀 Watching for changes in:');
 watchPaths.forEach(path => console.log(`   - ${path.replace(projectRoot + '/', '')}`));
-console.log('\n💡 Token files will regenerate automatically on changes...\n');
+console.log('\n💡 Token files will regenerate automatically on changes...');
+console.log('   Note: tokens.css changes will regenerate colors.json first, then other token files.\n');
 
 const watcher = watch(watchPaths, {
   ignored: /(^|[\/\\])\../, // ignore dotfiles
