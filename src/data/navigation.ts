@@ -11,6 +11,12 @@ export interface NavSection {
 
 export const navigation: NavSection[] = [
   {
+    title: 'Changelog',
+    items: [
+      { title: 'Changelog', href: '/changelog', icon: 'clock' },
+    ],
+  },
+  {
     title: 'Foundation',
     items: [
       { title: 'Colors', href: '/foundation/colors', icon: 'swatch' },
@@ -65,12 +71,6 @@ export const navigation: NavSection[] = [
       { title: 'Tables', href: '/components/tables', icon: 'table-cells' },
       { title: 'Toggle Switches', href: '/components/toggle-switches', icon: 'arrow-path' },
       { title: 'Tooltips', href: '/components/tooltips', icon: 'chat-bubble-left' },
-    ],
-  },
-  {
-    title: 'Resources',
-    items: [
-      { title: 'Changelog', href: '/changelog', icon: 'clock' },
     ],
   },
 ];
