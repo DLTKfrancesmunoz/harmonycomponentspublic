@@ -12,6 +12,7 @@ const props = [
   { name: 'overflowMode', type: "'auto' | 'manual' | 'none'", default: "'auto'", description: 'Overflow handling mode: auto (automatic), manual (use overflowTabs), or none' },
   { name: 'overflowTabs', type: 'Tab[]', default: '[]', description: 'Manual override for overflow tabs (used when overflowMode is "manual")' },
   { name: 'variant', type: "'default' | 'compact'", default: "'default'", description: 'Visual variant: default or compact (reduced height/padding)' },
+  { name: 'iconPosition', type: "'left' | 'right' | 'top'", default: '—', description: 'Enforce consistent icon position for all tabs. Overrides individual tab iconPosition values. Prevents mixing inline (left/right) with stacked (top) positions.' },
   { name: 'class', type: 'string', default: '—', description: 'Additional CSS classes' },
 ];
 ---
@@ -184,17 +185,20 @@ const props = [
         </div>
       </ExampleSection>
 
-      <ExampleSection title="Mixed Icon Positions" description="Tabs can have different icon positions in the same strip.">
+      <ExampleSection title="Enforced Icon Position" description="Use the component-level iconPosition prop to enforce consistent positioning across all tabs.">
         <div>
           <TabStrip
             tabs={[
-              { id: '1', label: 'Home', icon: 'home', iconPosition: 'top', active: true },
-              { id: '2', label: 'Profile', icon: 'user', iconPosition: 'left' },
-              { id: '3', label: 'Settings', icon: 'cog-6-tooth', iconPosition: 'right' },
-              { id: '4', label: 'Help', icon: 'question-mark-circle', iconPosition: 'top' },
+              { id: '1', label: 'Home', icon: 'home', active: true },
+              { id: '2', label: 'Profile', icon: 'user' },
+              { id: '3', label: 'Settings', icon: 'cog-6-tooth' },
             ]}
+            iconPosition="top"
           />
         </div>
+        <p class="text-sm text-secondary mt-2">
+          All tabs use the same icon position (top in this example). Individual tab iconPosition values are overridden.
+        </p>
       </ExampleSection>
     </section>
 

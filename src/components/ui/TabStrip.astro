@@ -10,6 +10,7 @@
  * @prop {string} overflowMode - 'auto' | 'manual' | 'none' (default: 'auto')
  * @prop {Array} overflowTabs - Manual override for overflow tabs (default: [])
  * @prop {string} variant - 'default' | 'compact' (default: 'default')
+ * @prop {string} iconPosition - Enforce consistent icon position for all tabs: 'left' | 'right' | 'top' (optional)
  * @prop {string} class - Additional CSS classes
  */
 import Icon from './Icon.astro';
@@ -31,6 +32,7 @@ interface Props {
   overflowMode?: 'auto' | 'manual' | 'none';
   overflowTabs?: Tab[];
   variant?: 'default' | 'compact';
+  iconPosition?: 'left' | 'right' | 'top';
   class?: string;
 }
 
@@ -41,10 +43,29 @@ const {
   overflowMode = 'auto',
   overflowTabs = [],
   variant = 'default',
+  iconPosition: componentIconPosition,
   class: className = ''
 } = Astro.props;
 
 const componentId = `tabstrip-${Math.random().toString(36).substr(2, 9)}`;
+
+// Validate icon positions: ensure all tabs use either inline (left/right) OR stacked (top)
+// Cannot mix inline with stacked
+if (tabs.length > 0 && !componentIconPosition) {
+  const positions = tabs
+    .filter(tab => tab.icon)
+    .map(tab => tab.iconPosition || 'left');
+  
+  const hasTop = positions.includes('top');
+  const hasInline = positions.some(pos => pos === 'left' || pos === 'right');
+  
+  if (hasTop && hasInline) {
+    console.warn(
+      `TabStrip: Mixed icon positions detected. All tabs must use either inline (left/right) or stacked (top) positions, not both. ` +
+      `Consider using the component-level 'iconPosition' prop to enforce consistency.`
+    );
+  }
+}
 ---
 
 <div 
@@ -58,7 +79,8 @@ const componentId = `tabstrip-${Math.random().toString(36).substr(2, 9)}`;
     <div class="tabstrip__container">
       <div class="tabstrip__tabs" data-tabstrip-tabs>
         {tabs.map((tab) => {
-          const iconPosition = tab.iconPosition || 'left';
+          // Use component-level iconPosition if provided, otherwise use tab's iconPosition
+          const iconPosition = componentIconPosition || tab.iconPosition || 'left';
           const iconModifier = iconPosition === 'top' ? 'tab--icon-top' : 
                               iconPosition === 'right' ? 'tab--icon-right' : 
                               'tab--icon-left';
