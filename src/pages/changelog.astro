@@ -20,32 +20,19 @@ const sortedAllEntries = [...allEntries].sort((a, b) => {
   return b.data.date.getTime() - a.data.date.getTime();
 });
 
-// Group by version, then by date within each version
-const groupedByVersionAndDate: Record<string, Record<string, ChangelogEntry[]>> = {};
+// Group by date first (not version), so all entries for the same date are together
+const groupedByDate: Record<string, ChangelogEntry[]> = {};
 for (const entry of sortedAllEntries) {
-  const version = entry.data.version || 'unreleased';
   const dateKey = getDateKey(entry.data.date);
   
-  if (!groupedByVersionAndDate[version]) {
-    groupedByVersionAndDate[version] = {};
+  if (!groupedByDate[dateKey]) {
+    groupedByDate[dateKey] = [];
   }
-  if (!groupedByVersionAndDate[version][dateKey]) {
-    groupedByVersionAndDate[version][dateKey] = [];
-  }
-  groupedByVersionAndDate[version][dateKey].push(entry);
+  groupedByDate[dateKey].push(entry);
 }
 
-// Sort versions (unreleased first, then semantic versioning)
-const sortedVersions = Object.keys(groupedByVersionAndDate).sort((a, b) => {
-  if (a === 'unreleased') return -1;
-  if (b === 'unreleased') return 1;
-  return b.localeCompare(a, undefined, { numeric: true });
-});
-
-// Sort dates within each version (newest first)
-function sortDatesDescending(dateKeys: string[]): string[] {
-  return dateKeys.sort((a, b) => b.localeCompare(a));
-}
+// Sort dates descending (newest first)
+const sortedDates = Object.keys(groupedByDate).sort((a, b) => b.localeCompare(a));
 
 // Category configuration
 type CategoryKey = 'added' | 'changed' | 'deprecated' | 'removed' | 'fixed' | 'security';
@@ -81,21 +68,14 @@ const categoryConfig: Record<CategoryKey, { label: string; color: 'success' | 'i
         <ChangelogFilters entries={allEntries} />
 
         <div class="changelog-timeline" id="changelog-entries">
-          {sortedVersions.map(version => {
-            const versionDates = groupedByVersionAndDate[version];
-            const sortedDates = sortDatesDescending(Object.keys(versionDates));
-
-            return (
-              <section class="version-section" data-version={version}>
-                <div class="version-header">
-                  <h2 class="version-title">
-                    {(version === 'recent' || version === 'unreleased') ? 'Recent Changes' : `Version ${version}`}
-                  </h2>
-                </div>
-
-                {sortedDates.map(dateKey => {
-                  const entries = versionDates[dateKey];
-                  const entryDate = entries[0]?.data.date;
+          <section class="version-section">
+            <div class="version-header">
+              <h2 class="version-title">Recent Changes</h2>
+            </div>
+            
+            {sortedDates.map(dateKey => {
+              const entries = groupedByDate[dateKey];
+              const entryDate = entries[0]?.data.date;
 
                   // Sort entries by date/time descending (newest first) within this date group
                   const sortedEntries = [...entries].sort((a, b) => {
@@ -115,24 +95,24 @@ const categoryConfig: Record<CategoryKey, { label: string; color: 'success' | 'i
                     }
                   }
 
-                  return (
-                    <div class="date-section">
-                      <div class="date-header">
-                        <div class="version-meta">
-                          {entryDate && (
-                            <time class="version-date" datetime={entryDate.toISOString()}>
-                              {entryDate.toLocaleDateString('en-US', {
-                                year: 'numeric',
-                                month: 'long',
-                                day: 'numeric'
-                              })}
-                            </time>
-                          )}
-                          <span class="version-count">({entries.length} {entries.length === 1 ? 'entry' : 'entries'})</span>
-                        </div>
-                      </div>
+            return (
+              <div class="date-section">
+                  <div class="date-header">
+                    <div class="version-meta">
+                      {entryDate && (
+                        <time class="version-date" datetime={entryDate.toISOString()}>
+                          {entryDate.toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                          })}
+                        </time>
+                      )}
+                      <span class="version-count">({entries.length} {entries.length === 1 ? 'entry' : 'entries'})</span>
+                    </div>
+                  </div>
 
-                      <div class="version-content">
+                  <div class="version-content">
                         {(Object.entries(entriesByCategory) as [string, ChangelogEntry[]][]).map(([category, categoryEntries]) => {
                           const config = categoryConfig[category as CategoryKey];
                           return (
@@ -200,13 +180,12 @@ const categoryConfig: Record<CategoryKey, { label: string; color: 'success' | 'i
                             </div>
                           );
                         })}
-                      </div>
-                    </div>
-                  );
-                })}
-              </section>
+                  </div>
+                </div>
+              </div>
             );
-          })}
+            })}
+          </section>
         </div>
       </>
     ) : (
