@@ -28,7 +28,7 @@ const accordionId = `accordion-${Math.random().toString(36).substr(2, 9)}`;
 const classes = ['accordion', className].filter(Boolean).join(' ');
 ---
 
-<div class={classes} data-accordion data-allow-multiple={allowMultiple}>
+<div class={classes} data-accordion {...(allowMultiple && { 'data-allow-multiple': true })}>
   {items.map((item, index) => (
     <div class={`accordion__item ${item.defaultOpen ? 'is-open' : ''}`} data-accordion-item>
       <button
