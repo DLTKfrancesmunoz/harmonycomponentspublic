@@ -81,15 +81,18 @@ const categoryConfig: Record<CategoryKey, { label: string; color: 'success' | 'i
                   <h2 class="version-title">
                     {(version === 'recent' || version === 'unreleased') ? 'Recent Changes' : `Version ${version}`}
                   </h2>
-                  {versionDate && (
-                    <time class="version-date" datetime={versionDate.toISOString()}>
-                      {versionDate.toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                      })}
-                    </time>
-                  )}
+                  <div class="version-meta">
+                    {versionDate && (
+                      <time class="version-date" datetime={versionDate.toISOString()}>
+                        {versionDate.toLocaleDateString('en-US', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        })}
+                      </time>
+                    )}
+                    <span class="version-count">({entries.length} {entries.length === 1 ? 'entry' : 'entries'})</span>
+                  </div>
                 </div>
 
                 <div class="version-content">
@@ -237,9 +240,22 @@ const categoryConfig: Record<CategoryKey, { label: string; color: 'success' | 'i
     font-weight: 600;
   }
 
+  .version-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3, 12px);
+    flex-wrap: wrap;
+  }
+
   .version-date {
     color: var(--text-secondary);
     font-size: var(--font-size-body-sm, 0.875rem);
+  }
+
+  .version-count {
+    color: var(--text-secondary);
+    font-size: var(--font-size-body-sm, 0.875rem);
+    font-weight: 500;
   }
 
   .changelog-category {
