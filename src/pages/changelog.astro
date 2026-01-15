@@ -2,11 +2,16 @@
 import { getCollection } from 'astro:content';
 import DocsLayout from '../layouts/DocsLayout.astro';
 import ChangelogFilters from '../components/ChangelogFilters.astro';
+import Badge from '../components/ui/Badge.astro';
+import Button from '../components/ui/Button.astro';
+import Card from '../components/ui/Card.astro';
 
 const allEntries = await getCollection('changelog');
 
+type ChangelogEntry = typeof allEntries[number];
+
 // Group by version
-const groupedByVersion: any = {};
+const groupedByVersion: Record<string, ChangelogEntry[]> = {};
 for (const entry of allEntries) {
   const version = entry.data.version || 'unreleased';
   if (!groupedByVersion[version]) {
@@ -23,7 +28,8 @@ const sortedVersions = Object.keys(groupedByVersion).sort((a, b) => {
 });
 
 // Category configuration
-const categoryConfig = {
+type CategoryKey = 'added' | 'changed' | 'deprecated' | 'removed' | 'fixed' | 'security';
+const categoryConfig: Record<CategoryKey, { label: string; color: 'success' | 'info' | 'warning' | 'error' }> = {
   added: { label: 'Added', color: 'success' },
   changed: { label: 'Changed', color: 'info' },
   deprecated: { label: 'Deprecated', color: 'warning' },
@@ -44,9 +50,9 @@ const categoryConfig = {
       </p>
 
       <div class="changelog-actions">
-        <a href="/changelog.xml" class="changelog-rss-link">
-          📡 Subscribe via RSS
-        </a>
+        <Button variant="secondary" href="/changelog.xml" icon="rss" iconPosition="left">
+          Subscribe via RSS
+        </Button>
       </div>
     </header>
 
@@ -60,10 +66,10 @@ const categoryConfig = {
             const versionDate = entries[0]?.data.date;
 
             // Group entries by category within version
-            const categoriesOrder = ['added', 'changed', 'deprecated', 'removed', 'fixed', 'security'];
+            const categoriesOrder: CategoryKey[] = ['added', 'changed', 'deprecated', 'removed', 'fixed', 'security'];
             const entriesByCategory: any = {};
             for (const cat of categoriesOrder) {
-              const categoryEntries = entries.filter(e => e.data.category === cat);
+              const categoryEntries = entries.filter((e: ChangelogEntry) => e.data.category === cat);
               if (categoryEntries.length > 0) {
                 entriesByCategory[cat] = categoryEntries;
               }
@@ -73,7 +79,7 @@ const categoryConfig = {
               <section class="version-section" data-version={version}>
                 <div class="version-header">
                   <h2 class="version-title">
-                    {version === 'unreleased' ? 'Unreleased' : `Version ${version}`}
+                    {(version === 'recent' || version === 'unreleased') ? 'Recent Changes' : `Version ${version}`}
                   </h2>
                   {versionDate && (
                     <time class="version-date" datetime={versionDate.toISOString()}>
@@ -87,17 +93,17 @@ const categoryConfig = {
                 </div>
 
                 <div class="version-content">
-                  {Object.entries(entriesByCategory).map(([category, categoryEntries]) => {
-                    const config = categoryConfig[category];
+                  {(Object.entries(entriesByCategory) as [string, ChangelogEntry[]][]).map(([category, categoryEntries]) => {
+                    const config = categoryConfig[category as CategoryKey];
                     return (
                       <div class="changelog-category">
                         <h3 class="category-title">
-                          <span class={`badge badge--${config.color}`}>
+                          <Badge variant={config.color}>
                             {config.label}
-                          </span>
+                          </Badge>
                         </h3>
                         <ul class="changelog-entries">
-                          {categoryEntries.map(entry => (
+                          {categoryEntries.map((entry) => (
                             <li
                               class="changelog-entry"
                               data-category={entry.data.category}
@@ -109,13 +115,13 @@ const categoryConfig = {
                                 <strong class="entry-target">{entry.data.target}:</strong>
                                 <span class="entry-description">{entry.data.description}</span>
                                 {entry.data.breaking && (
-                                  <span class="badge badge--error badge--sm">Breaking</span>
+                                  <Badge variant="error">Breaking</Badge>
                                 )}
                               </div>
 
                               {entry.data.properties && entry.data.properties.length > 0 && (
                                 <ul class="entry-properties">
-                                  {entry.data.properties.map(prop => (
+                                  {entry.data.properties.map((prop: { name: string; change: string; before?: string; after?: string }) => (
                                     <li>
                                       <code>{prop.name}</code>: {prop.change}
                                       {prop.before && prop.after && (
@@ -149,20 +155,22 @@ const categoryConfig = {
         </div>
       </>
     ) : (
-      <div class="changelog-empty">
-        <p>📝 No changelog entries yet.</p>
-        <p>
-          The changelog automatically updates when commits are pushed to main that modify components or design tokens.
-        </p>
-        <details class="changelog-empty-details">
-          <summary>How does it work?</summary>
-          <ul>
-            <li>GitHub Actions detects component/token changes automatically</li>
-            <li>Changelog entries are generated and committed</li>
-            <li>Changes appear here after the workflow completes</li>
-          </ul>
-        </details>
-      </div>
+      <Card elevated>
+        <div class="changelog-empty">
+          <p>📝 No changelog entries yet.</p>
+          <p>
+            The changelog automatically updates when commits are pushed to main that modify components or design tokens.
+          </p>
+          <details class="changelog-empty-details">
+            <summary>How does it work?</summary>
+            <ul>
+              <li>GitHub Actions detects component/token changes automatically</li>
+              <li>Changelog entries are generated and committed</li>
+              <li>Changes appear here after the workflow completes</li>
+            </ul>
+          </details>
+        </div>
+      </Card>
     )}
   </div>
 </DocsLayout>
@@ -185,13 +193,13 @@ const categoryConfig = {
   }
 
   .changelog-description {
-    color: var(--color-text-secondary, #666);
+    color: var(--text-secondary);
     line-height: 1.6;
     margin-bottom: var(--spacing-4, 16px);
   }
 
   .changelog-description a {
-    color: var(--color-primary, #0073e6);
+    color: var(--theme-primary);
     text-decoration: underline;
   }
 
@@ -200,26 +208,9 @@ const categoryConfig = {
     gap: var(--spacing-3, 12px);
   }
 
-  .changelog-rss-link {
-    display: inline-block;
-    padding: var(--spacing-2, 8px) var(--spacing-4, 16px);
-    background: var(--color-surface-secondary, #f5f5f5);
-    border: 1px solid var(--color-border, #ddd);
-    border-radius: var(--border-radius-md, 6px);
-    text-decoration: none;
-    color: var(--color-text-primary, #000);
-    font-size: var(--font-size-body-sm, 0.875rem);
-    transition: all 0.2s;
-  }
-
-  .changelog-rss-link:hover {
-    background: var(--color-surface-tertiary, #eee);
-    border-color: var(--color-primary, #0073e6);
-  }
-
   .version-section {
     margin-bottom: var(--spacing-10, 40px);
-    border-left: 2px solid var(--color-border, #ddd);
+    border-left: 2px solid var(--border-color);
     padding-left: var(--spacing-6, 24px);
     position: relative;
   }
@@ -231,9 +222,9 @@ const categoryConfig = {
     top: 6px;
     width: 12px;
     height: 12px;
-    background: var(--color-primary, #0073e6);
+    background: var(--theme-primary);
     border-radius: 50%;
-    border: 2px solid var(--color-surface, #fff);
+    border: 2px solid var(--card-bg);
   }
 
   .version-header {
@@ -247,7 +238,7 @@ const categoryConfig = {
   }
 
   .version-date {
-    color: var(--color-text-secondary, #666);
+    color: var(--text-secondary);
     font-size: var(--font-size-body-sm, 0.875rem);
   }
 
@@ -261,39 +252,6 @@ const categoryConfig = {
     font-weight: 600;
   }
 
-  .badge {
-    display: inline-block;
-    padding: 4px 12px;
-    border-radius: var(--border-radius-sm, 4px);
-    font-size: var(--font-size-body-sm, 0.875rem);
-    font-weight: 600;
-  }
-
-  .badge--success {
-    background: #d4edda;
-    color: #155724;
-  }
-
-  .badge--info {
-    background: #d1ecf1;
-    color: #0c5460;
-  }
-
-  .badge--warning {
-    background: #fff3cd;
-    color: #856404;
-  }
-
-  .badge--error {
-    background: #f8d7da;
-    color: #721c24;
-  }
-
-  .badge--sm {
-    padding: 2px 8px;
-    font-size: 0.75rem;
-  }
-
   .changelog-entries {
     list-style: none;
     padding: 0;
@@ -302,7 +260,7 @@ const categoryConfig = {
 
   .changelog-entry {
     padding: var(--spacing-4, 16px) 0;
-    border-bottom: 1px solid var(--color-border, #ddd);
+    border-bottom: 1px solid var(--border-color);
   }
 
   .changelog-entry:last-child {
@@ -318,12 +276,12 @@ const categoryConfig = {
   }
 
   .entry-target {
-    color: var(--color-text-primary, #000);
+    color: var(--text-primary);
     font-weight: 600;
   }
 
   .entry-description {
-    color: var(--color-text-secondary, #666);
+    color: var(--text-secondary);
     flex: 1;
   }
 
@@ -331,12 +289,12 @@ const categoryConfig = {
     margin-top: var(--spacing-2, 8px);
     margin-left: var(--spacing-4, 16px);
     list-style: disc;
-    color: var(--color-text-secondary, #666);
+    color: var(--text-secondary);
     font-size: var(--font-size-body-sm, 0.875rem);
   }
 
   .entry-properties code {
-    background: var(--color-surface-secondary, #f5f5f5);
+    background: var(--elevated-bg);
     padding: 2px 6px;
     border-radius: 3px;
     font-family: monospace;
@@ -346,14 +304,14 @@ const categoryConfig = {
   .entry-meta {
     margin-top: var(--spacing-2, 8px);
     font-size: var(--font-size-body-sm, 0.875rem);
-    color: var(--color-text-tertiary, #999);
+    color: var(--text-muted);
     display: flex;
     gap: var(--spacing-2, 8px);
   }
 
   .commit-hash {
     font-family: monospace;
-    background: var(--color-surface-secondary, #f5f5f5);
+    background: var(--elevated-bg);
     padding: 2px 6px;
     border-radius: 3px;
     cursor: help;
@@ -362,35 +320,33 @@ const categoryConfig = {
   .changelog-empty {
     text-align: center;
     padding: var(--spacing-10, 40px);
-    background: var(--color-surface-secondary, #f5f5f5);
-    border-radius: var(--border-radius-lg, 8px);
   }
 
   .changelog-empty p {
     margin-bottom: var(--spacing-3, 12px);
-    color: var(--color-text-secondary, #666);
+    color: var(--text-secondary);
   }
 
   .changelog-empty code {
-    background: var(--color-surface, #fff);
+    background: var(--elevated-bg);
     padding: 4px 8px;
     border-radius: 4px;
     font-family: monospace;
-    border: 1px solid var(--color-border, #ddd);
+    border: 1px solid var(--border-color);
   }
 
   .changelog-empty-details {
     margin-top: var(--spacing-4, 16px);
     padding: var(--spacing-3, 12px);
-    background: var(--color-surface, #fff);
-    border: 1px solid var(--color-border, #ddd);
+    background: var(--elevated-bg);
+    border: 1px solid var(--border-color);
     border-radius: var(--border-radius-md, 6px);
   }
 
   .changelog-empty-details summary {
     cursor: pointer;
     font-weight: 600;
-    color: var(--color-primary, #0073e6);
+    color: var(--theme-primary);
   }
 
   .changelog-empty-details ul {

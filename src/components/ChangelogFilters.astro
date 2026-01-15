@@ -174,7 +174,7 @@ const categories = [...new Set(entries.map(e => e.data.category))].sort();
 
 <style>
   .changelog-filters {
-    background: var(--color-surface-secondary, #f5f5f5);
+    background: var(--surface-bg);
     padding: var(--spacing-6, 24px);
     border-radius: var(--border-radius-lg, 8px);
     margin-bottom: var(--spacing-8, 32px);
@@ -187,7 +187,7 @@ const categories = [...new Set(entries.map(e => e.data.category))].sort();
     font-weight: 600;
     display: block;
     margin-bottom: var(--spacing-2, 8px);
-    color: var(--color-text-primary, #000);
+    color: var(--text-primary);
     font-size: var(--font-size-body-sm, 0.875rem);
   }
 
@@ -198,16 +198,17 @@ const categories = [...new Set(entries.map(e => e.data.category))].sort();
   .filter-search {
     width: 100%;
     padding: var(--spacing-2, 8px) var(--spacing-3, 12px);
-    border: 1px solid var(--color-border, #ddd);
+    border: 1px solid var(--border-color);
     border-radius: var(--border-radius-md, 6px);
     font-size: var(--font-size-body, 1rem);
-    background: var(--color-surface, #fff);
+    background: var(--card-bg);
+    color: var(--text-primary);
   }
 
   .filter-search:focus {
     outline: none;
-    border-color: var(--color-primary, #0073e6);
-    box-shadow: 0 0 0 3px rgba(0, 115, 230, 0.1);
+    border-color: var(--theme-primary);
+    box-shadow: var(--focus-ring-primary);
   }
 
   .filter-checkboxes {
@@ -234,13 +235,13 @@ const categories = [...new Set(entries.map(e => e.data.category))].sort();
 
   .filter-label {
     font-size: var(--font-size-body-sm, 0.875rem);
-    color: var(--color-text-secondary, #666);
+    color: var(--text-secondary);
     text-transform: capitalize;
     line-height: 1.5;
   }
 
   .filter-checkbox:hover .filter-label {
-    color: var(--color-text-primary, #000);
+    color: var(--text-primary);
   }
 
   @media (max-width: 768px) {
