@@ -1,0 +1,248 @@
+---
+interface Props {
+  entries: any[];
+}
+
+const { entries } = Astro.props;
+
+// Extract unique categories
+const categories = [...new Set(entries.map(e => e.data.category))].sort();
+---
+
+<div class="changelog-filters">
+  <div class="filter-group filter-search-group">
+    <label for="search">Search</label>
+    <input
+      type="text"
+      id="search"
+      class="filter-search"
+      placeholder="Search components or tokens..."
+    />
+  </div>
+
+  <div class="filter-group">
+    <label>Category</label>
+    <div class="filter-checkboxes">
+      {categories.map(cat => (
+        <label class="filter-checkbox">
+          <input type="checkbox" value={cat} checked data-filter-category />
+          <span class="filter-label">{cat}</span>
+        </label>
+      ))}
+    </div>
+  </div>
+
+  <div class="filter-group">
+    <label>Type</label>
+    <div class="filter-checkboxes">
+      <label class="filter-checkbox">
+        <input type="checkbox" value="component" checked data-filter-type />
+        <span class="filter-label">Components</span>
+      </label>
+      <label class="filter-checkbox">
+        <input type="checkbox" value="token" checked data-filter-type />
+        <span class="filter-label">Tokens</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="filter-group">
+    <label class="filter-checkbox">
+      <input type="checkbox" id="filter-breaking" />
+      <span class="filter-label">Breaking Changes Only</span>
+    </label>
+  </div>
+</div>
+
+<script>
+  import Fuse from 'fuse.js';
+
+  // Gather all entries from DOM
+  const entriesData = Array.from(document.querySelectorAll('.changelog-entry')).map(el => {
+    const htmlEl = el as HTMLElement;
+    return {
+      element: htmlEl,
+      category: htmlEl.getAttribute('data-category') || '',
+      type: htmlEl.getAttribute('data-type') || '',
+      target: htmlEl.getAttribute('data-target') || '',
+      text: htmlEl.textContent || '',
+      breaking: htmlEl.getAttribute('data-breaking') === 'true'
+    };
+  });
+
+  // Initialize Fuse.js for fuzzy search
+  const fuse = new Fuse(entriesData, {
+    keys: ['target', 'text'],
+    threshold: 0.3,
+    includeMatches: true
+  });
+
+  // Filter state
+  let searchQuery = '';
+  let selectedCategories = new Set(['added', 'changed', 'deprecated', 'removed', 'fixed', 'security']);
+  let selectedTypes = new Set(['component', 'token']);
+  let breakingOnly = false;
+
+  // Apply all filters
+  function applyFilters() {
+    let filtered = entriesData;
+
+    // Search filter
+    if (searchQuery.trim()) {
+      const results = fuse.search(searchQuery);
+      filtered = results.map(r => r.item);
+    }
+
+    // Category filter
+    filtered = filtered.filter(e => selectedCategories.has(e.category));
+
+    // Type filter
+    filtered = filtered.filter(e => selectedTypes.has(e.type));
+
+    // Breaking changes filter
+    if (breakingOnly) {
+      filtered = filtered.filter(e => e.breaking);
+    }
+
+    // Show/hide entries
+    entriesData.forEach(entry => {
+      if (filtered.includes(entry)) {
+        entry.element.style.display = '';
+      } else {
+        entry.element.style.display = 'none';
+      }
+    });
+
+    // Hide empty version sections
+    document.querySelectorAll('.version-section').forEach(section => {
+      const visibleEntries = section.querySelectorAll('.changelog-entry:not([style*="display: none"])');
+      if (visibleEntries.length === 0) {
+        (section as HTMLElement).style.display = 'none';
+      } else {
+        (section as HTMLElement).style.display = '';
+      }
+    });
+
+    // Hide empty categories
+    document.querySelectorAll('.changelog-category').forEach(category => {
+      const visibleEntries = category.querySelectorAll('.changelog-entry:not([style*="display: none"])');
+      if (visibleEntries.length === 0) {
+        (category as HTMLElement).style.display = 'none';
+      } else {
+        (category as HTMLElement).style.display = '';
+      }
+    });
+  }
+
+  // Event listeners
+  const searchInput = document.getElementById('search');
+  searchInput?.addEventListener('input', (e) => {
+    searchQuery = (e.target as HTMLInputElement).value;
+    applyFilters();
+  });
+
+  document.querySelectorAll('[data-filter-category]').forEach(checkbox => {
+    checkbox.addEventListener('change', (e) => {
+      const target = e.target as HTMLInputElement;
+      if (target.checked) {
+        selectedCategories.add(target.value);
+      } else {
+        selectedCategories.delete(target.value);
+      }
+      applyFilters();
+    });
+  });
+
+  document.querySelectorAll('[data-filter-type]').forEach(checkbox => {
+    checkbox.addEventListener('change', (e) => {
+      const target = e.target as HTMLInputElement;
+      if (target.checked) {
+        selectedTypes.add(target.value);
+      } else {
+        selectedTypes.delete(target.value);
+      }
+      applyFilters();
+    });
+  });
+
+  const breakingCheckbox = document.getElementById('filter-breaking');
+  breakingCheckbox?.addEventListener('change', (e) => {
+    breakingOnly = (e.target as HTMLInputElement).checked;
+    applyFilters();
+  });
+</script>
+
+<style>
+  .changelog-filters {
+    background: var(--color-surface-secondary, #f5f5f5);
+    padding: var(--spacing-6, 24px);
+    border-radius: var(--border-radius-lg, 8px);
+    margin-bottom: var(--spacing-8, 32px);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-4, 16px);
+  }
+
+  .filter-group > label:first-child {
+    font-weight: 600;
+    display: block;
+    margin-bottom: var(--spacing-2, 8px);
+    color: var(--color-text-primary, #000);
+    font-size: var(--font-size-body-sm, 0.875rem);
+  }
+
+  .filter-search-group {
+    grid-column: 1 / -1;
+  }
+
+  .filter-search {
+    width: 100%;
+    padding: var(--spacing-2, 8px) var(--spacing-3, 12px);
+    border: 1px solid var(--color-border, #ddd);
+    border-radius: var(--border-radius-md, 6px);
+    font-size: var(--font-size-body, 1rem);
+    background: var(--color-surface, #fff);
+  }
+
+  .filter-search:focus {
+    outline: none;
+    border-color: var(--color-primary, #0073e6);
+    box-shadow: 0 0 0 3px rgba(0, 115, 230, 0.1);
+  }
+
+  .filter-checkboxes {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2, 8px);
+  }
+
+  .filter-checkbox {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2, 8px);
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .filter-checkbox input[type="checkbox"] {
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+  }
+
+  .filter-label {
+    font-size: var(--font-size-body-sm, 0.875rem);
+    color: var(--color-text-secondary, #666);
+    text-transform: capitalize;
+  }
+
+  .filter-checkbox:hover .filter-label {
+    color: var(--color-text-primary, #000);
+  }
+
+  @media (max-width: 768px) {
+    .changelog-filters {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

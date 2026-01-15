@@ -1,0 +1,41 @@
+name: Changelog Automation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/components/ui/**'
+      - 'src/tokens/**'
+
+jobs:
+  update-changelog:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2  # Need previous commit for comparison
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run changelog automation
+        run: npm run changelog
+
+      - name: Commit changelog updates
+        run: |
+          git config user.name "Changelog Bot"
+          git config user.email "changelog-bot@github-actions"
+          git add changelog-data/
+          git diff --staged --quiet || git commit -m "chore: update changelog [skip ci]"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

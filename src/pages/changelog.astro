@@ -1,0 +1,371 @@
+---
+import { getCollection } from 'astro:content';
+import DocsLayout from '../layouts/DocsLayout.astro';
+import ChangelogFilters from '../components/ChangelogFilters.astro';
+
+const allEntries = await getCollection('changelog');
+
+// Group by version
+const groupedByVersion: any = {};
+for (const entry of allEntries) {
+  const version = entry.data.version || 'unreleased';
+  if (!groupedByVersion[version]) {
+    groupedByVersion[version] = [];
+  }
+  groupedByVersion[version].push(entry);
+}
+
+// Sort versions (unreleased first, then semantic versioning)
+const sortedVersions = Object.keys(groupedByVersion).sort((a, b) => {
+  if (a === 'unreleased') return -1;
+  if (b === 'unreleased') return 1;
+  return b.localeCompare(a, undefined, { numeric: true });
+});
+
+// Category configuration
+const categoryConfig = {
+  added: { label: 'Added', color: 'success' },
+  changed: { label: 'Changed', color: 'info' },
+  deprecated: { label: 'Deprecated', color: 'warning' },
+  removed: { label: 'Removed', color: 'error' },
+  fixed: { label: 'Fixed', color: 'success' },
+  security: { label: 'Security', color: 'error' }
+};
+---
+
+<DocsLayout title="Changelog">
+  <div class="changelog-page">
+    <header class="changelog-header">
+      <h1>Changelog</h1>
+      <p class="changelog-description">
+        All notable changes to the Harmony Design System are automatically documented here.
+        This changelog follows <a href="https://keepachangelog.com/" target="_blank" rel="noopener">Keep a Changelog</a> format
+        and adheres to <a href="https://semver.org/" target="_blank" rel="noopener">Semantic Versioning</a>.
+      </p>
+
+      <div class="changelog-actions">
+        <a href="/changelog.xml" class="changelog-rss-link">
+          📡 Subscribe via RSS
+        </a>
+      </div>
+    </header>
+
+    {allEntries.length > 0 ? (
+      <>
+        <ChangelogFilters entries={allEntries} />
+
+        <div class="changelog-timeline" id="changelog-entries">
+          {sortedVersions.map(version => {
+            const entries = groupedByVersion[version];
+            const versionDate = entries[0]?.data.date;
+
+            // Group entries by category within version
+            const categoriesOrder = ['added', 'changed', 'deprecated', 'removed', 'fixed', 'security'];
+            const entriesByCategory: any = {};
+            for (const cat of categoriesOrder) {
+              const categoryEntries = entries.filter(e => e.data.category === cat);
+              if (categoryEntries.length > 0) {
+                entriesByCategory[cat] = categoryEntries;
+              }
+            }
+
+            return (
+              <section class="version-section" data-version={version}>
+                <div class="version-header">
+                  <h2 class="version-title">
+                    {version === 'unreleased' ? 'Unreleased' : `Version ${version}`}
+                  </h2>
+                  {versionDate && (
+                    <time class="version-date" datetime={versionDate.toISOString()}>
+                      {versionDate.toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                      })}
+                    </time>
+                  )}
+                </div>
+
+                <div class="version-content">
+                  {Object.entries(entriesByCategory).map(([category, categoryEntries]) => {
+                    const config = categoryConfig[category];
+                    return (
+                      <div class="changelog-category">
+                        <h3 class="category-title">
+                          <span class={`badge badge--${config.color}`}>
+                            {config.label}
+                          </span>
+                        </h3>
+                        <ul class="changelog-entries">
+                          {categoryEntries.map(entry => (
+                            <li
+                              class="changelog-entry"
+                              data-category={entry.data.category}
+                              data-type={entry.data.type}
+                              data-target={entry.data.target}
+                              data-breaking={entry.data.breaking ? 'true' : 'false'}
+                            >
+                              <div class="entry-content">
+                                <strong class="entry-target">{entry.data.target}:</strong>
+                                <span class="entry-description">{entry.data.description}</span>
+                                {entry.data.breaking && (
+                                  <span class="badge badge--error badge--sm">Breaking</span>
+                                )}
+                              </div>
+
+                              {entry.data.properties && entry.data.properties.length > 0 && (
+                                <ul class="entry-properties">
+                                  {entry.data.properties.map(prop => (
+                                    <li>
+                                      <code>{prop.name}</code>: {prop.change}
+                                      {prop.before && prop.after && (
+                                        <span> ({prop.before} → {prop.after})</span>
+                                      )}
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
+
+                              {entry.data.commit && (
+                                <div class="entry-meta">
+                                  <span class="commit-hash" title={entry.data.commit.message}>
+                                    {entry.data.commit.hash}
+                                  </span>
+                                  <span class="commit-author">
+                                    by {entry.data.commit.author}
+                                  </span>
+                                </div>
+                              )}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    );
+                  })}
+                </div>
+              </section>
+            );
+          })}
+        </div>
+      </>
+    ) : (
+      <div class="changelog-empty">
+        <p>📝 No changelog entries yet.</p>
+        <p>Run <code>npm run changelog</code> to start tracking changes!</p>
+      </div>
+    )}
+  </div>
+</DocsLayout>
+
+<style>
+  .changelog-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: var(--spacing-6, 24px);
+  }
+
+  .changelog-header {
+    margin-bottom: var(--spacing-8, 32px);
+  }
+
+  .changelog-header h1 {
+    font-size: var(--font-size-display-sm, 2.5rem);
+    margin-bottom: var(--spacing-4, 16px);
+    font-weight: 700;
+  }
+
+  .changelog-description {
+    color: var(--color-text-secondary, #666);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-4, 16px);
+  }
+
+  .changelog-description a {
+    color: var(--color-primary, #0073e6);
+    text-decoration: underline;
+  }
+
+  .changelog-actions {
+    display: flex;
+    gap: var(--spacing-3, 12px);
+  }
+
+  .changelog-rss-link {
+    display: inline-block;
+    padding: var(--spacing-2, 8px) var(--spacing-4, 16px);
+    background: var(--color-surface-secondary, #f5f5f5);
+    border: 1px solid var(--color-border, #ddd);
+    border-radius: var(--border-radius-md, 6px);
+    text-decoration: none;
+    color: var(--color-text-primary, #000);
+    font-size: var(--font-size-body-sm, 0.875rem);
+    transition: all 0.2s;
+  }
+
+  .changelog-rss-link:hover {
+    background: var(--color-surface-tertiary, #eee);
+    border-color: var(--color-primary, #0073e6);
+  }
+
+  .version-section {
+    margin-bottom: var(--spacing-10, 40px);
+    border-left: 2px solid var(--color-border, #ddd);
+    padding-left: var(--spacing-6, 24px);
+    position: relative;
+  }
+
+  .version-section::before {
+    content: '';
+    position: absolute;
+    left: -7px;
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    background: var(--color-primary, #0073e6);
+    border-radius: 50%;
+    border: 2px solid var(--color-surface, #fff);
+  }
+
+  .version-header {
+    margin-bottom: var(--spacing-6, 24px);
+  }
+
+  .version-title {
+    font-size: var(--font-size-heading-lg, 1.75rem);
+    margin-bottom: var(--spacing-2, 8px);
+    font-weight: 600;
+  }
+
+  .version-date {
+    color: var(--color-text-secondary, #666);
+    font-size: var(--font-size-body-sm, 0.875rem);
+  }
+
+  .changelog-category {
+    margin-bottom: var(--spacing-6, 24px);
+  }
+
+  .category-title {
+    font-size: var(--font-size-heading-sm, 1.25rem);
+    margin-bottom: var(--spacing-3, 12px);
+    font-weight: 600;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: var(--border-radius-sm, 4px);
+    font-size: var(--font-size-body-sm, 0.875rem);
+    font-weight: 600;
+  }
+
+  .badge--success {
+    background: #d4edda;
+    color: #155724;
+  }
+
+  .badge--info {
+    background: #d1ecf1;
+    color: #0c5460;
+  }
+
+  .badge--warning {
+    background: #fff3cd;
+    color: #856404;
+  }
+
+  .badge--error {
+    background: #f8d7da;
+    color: #721c24;
+  }
+
+  .badge--sm {
+    padding: 2px 8px;
+    font-size: 0.75rem;
+  }
+
+  .changelog-entries {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .changelog-entry {
+    padding: var(--spacing-4, 16px) 0;
+    border-bottom: 1px solid var(--color-border, #ddd);
+  }
+
+  .changelog-entry:last-child {
+    border-bottom: none;
+  }
+
+  .entry-content {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-2, 8px);
+    flex-wrap: wrap;
+    margin-bottom: var(--spacing-2, 8px);
+  }
+
+  .entry-target {
+    color: var(--color-text-primary, #000);
+    font-weight: 600;
+  }
+
+  .entry-description {
+    color: var(--color-text-secondary, #666);
+    flex: 1;
+  }
+
+  .entry-properties {
+    margin-top: var(--spacing-2, 8px);
+    margin-left: var(--spacing-4, 16px);
+    list-style: disc;
+    color: var(--color-text-secondary, #666);
+    font-size: var(--font-size-body-sm, 0.875rem);
+  }
+
+  .entry-properties code {
+    background: var(--color-surface-secondary, #f5f5f5);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: monospace;
+    font-size: 0.875em;
+  }
+
+  .entry-meta {
+    margin-top: var(--spacing-2, 8px);
+    font-size: var(--font-size-body-sm, 0.875rem);
+    color: var(--color-text-tertiary, #999);
+    display: flex;
+    gap: var(--spacing-2, 8px);
+  }
+
+  .commit-hash {
+    font-family: monospace;
+    background: var(--color-surface-secondary, #f5f5f5);
+    padding: 2px 6px;
+    border-radius: 3px;
+    cursor: help;
+  }
+
+  .changelog-empty {
+    text-align: center;
+    padding: var(--spacing-10, 40px);
+    background: var(--color-surface-secondary, #f5f5f5);
+    border-radius: var(--border-radius-lg, 8px);
+  }
+
+  .changelog-empty p {
+    margin-bottom: var(--spacing-3, 12px);
+    color: var(--color-text-secondary, #666);
+  }
+
+  .changelog-empty code {
+    background: var(--color-surface, #fff);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-family: monospace;
+    border: 1px solid var(--color-border, #ddd);
+  }
+</style>

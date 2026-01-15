@@ -67,6 +67,12 @@ export const navigation: NavSection[] = [
       { title: 'Tooltips', href: '/components/tooltips', icon: 'chat-bubble-left' },
     ],
   },
+  {
+    title: 'Resources',
+    items: [
+      { title: 'Changelog', href: '/changelog', icon: 'clock' },
+    ],
+  },
 ];
 
 export const componentCount = navigation.reduce((acc, section) => acc + section.items.length, 0);

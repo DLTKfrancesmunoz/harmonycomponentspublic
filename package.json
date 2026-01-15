@@ -7,17 +7,23 @@
     "start": "serve dist -l ${PORT:-3000}",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "changelog": "node scripts/changelog/run-automation.js",
+    "changelog:snapshot": "node scripts/changelog/generate-snapshot.js"
   },
   "dependencies": {
+    "@astrojs/rss": "^4.0.14",
     "astro": "^5.16.7",
+    "fuse.js": "^7.1.0",
     "heroicons": "^2.2.0",
     "serve": "^14.2.0"
   },
   "devDependencies": {
     "chokidar": "^3.6.0",
     "concurrently": "^8.2.2",
+    "deep-diff": "^1.0.2",
     "postcss": "^8.4.0",
-    "postcss-value-parser": "^4.2.0"
+    "postcss-value-parser": "^4.2.0",
+    "simple-git": "^3.30.0"
   }
 }
