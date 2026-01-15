@@ -82,19 +82,6 @@ const categoryConfig: Record<CategoryKey, { label: string; color: 'success' | 'i
                     return b.data.date.getTime() - a.data.date.getTime();
                   });
 
-                  // Group entries by category within date, maintaining time order within each category
-                  const categoriesOrder: CategoryKey[] = ['added', 'changed', 'deprecated', 'removed', 'fixed', 'security'];
-                  const entriesByCategory: any = {};
-                  for (const cat of categoriesOrder) {
-                    // Filter and sort entries within each category by time (newest first)
-                    const categoryEntries = sortedEntries
-                      .filter((e: ChangelogEntry) => e.data.category === cat)
-                      .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
-                    if (categoryEntries.length > 0) {
-                      entriesByCategory[cat] = categoryEntries;
-                    }
-                  }
-
             return (
               <div class="date-section">
                   <div class="date-header">
@@ -113,76 +100,69 @@ const categoryConfig: Record<CategoryKey, { label: string; color: 'success' | 'i
                   </div>
 
                   <div class="version-content">
-                        {(Object.entries(entriesByCategory) as [string, ChangelogEntry[]][]).map(([category, categoryEntries]) => {
-                          const config = categoryConfig[category as CategoryKey];
-                          return (
-                            <div class="changelog-category">
-                              <h3 class="category-title">
-                                <Badge variant={config.color}>
-                                  {config.label}
-                                </Badge>
-                              </h3>
-                              <ul class="changelog-entries">
-                                {categoryEntries.map((entry) => (
-                                  <li
-                                    class="changelog-entry"
-                                    data-category={entry.data.category}
-                                    data-type={entry.data.type}
-                                    data-target={entry.data.target}
-                                    data-breaking={entry.data.breaking ? 'true' : 'false'}
-                                  >
-                                    <div class="entry-content">
-                                      <strong class="entry-target">{entry.data.target}:</strong>
-                                      <span class="entry-description">{entry.data.description}</span>
-                                      {entry.data.breaking && (
-                                        <Badge variant="error">Breaking</Badge>
-                                      )}
-                                    </div>
+                    <ul class="changelog-entries">
+                      {sortedEntries.map((entry) => {
+                        const config = categoryConfig[entry.data.category as CategoryKey];
+                        return (
+                          <li
+                            class="changelog-entry"
+                            data-category={entry.data.category}
+                            data-type={entry.data.type}
+                            data-target={entry.data.target}
+                            data-breaking={entry.data.breaking ? 'true' : 'false'}
+                          >
+                            <div class="entry-content">
+                              <Badge variant={config.color} class="entry-category-badge">
+                                {config.label}
+                              </Badge>
+                              <strong class="entry-target">{entry.data.target}:</strong>
+                              <span class="entry-description">{entry.data.description}</span>
+                              {entry.data.breaking && (
+                                <Badge variant="error">Breaking</Badge>
+                              )}
+                            </div>
 
-                                    {entry.data.properties && entry.data.properties.length > 0 && (
-                                      <ul class="entry-properties">
-                                        {entry.data.properties.map((prop: { name: string; change: string; before?: string; after?: string }) => (
-                                          <li>
-                                            <code>{prop.name}</code>: {prop.change}
-                                            {prop.before && prop.after && (
-                                              <span> ({prop.before} → {prop.after})</span>
-                                            )}
-                                          </li>
-                                        ))}
-                                      </ul>
+                            {entry.data.properties && entry.data.properties.length > 0 && (
+                              <ul class="entry-properties">
+                                {entry.data.properties.map((prop: { name: string; change: string; before?: string; after?: string }) => (
+                                  <li>
+                                    <code>{prop.name}</code>: {prop.change}
+                                    {prop.before && prop.after && (
+                                      <span> ({prop.before} → {prop.after})</span>
                                     )}
-
-                                    <div class="entry-meta">
-                                      <time class="entry-timestamp" datetime={entry.data.date.toISOString()}>
-                                        {entry.data.date.toLocaleString('en-US', {
-                                          year: 'numeric',
-                                          month: 'short',
-                                          day: 'numeric',
-                                          hour: '2-digit',
-                                          minute: '2-digit'
-                                        })}
-                                      </time>
-                                      {entry.data.commit && (
-                                        <>
-                                          <span class="entry-meta-separator">·</span>
-                                          <span class="commit-hash" title={entry.data.commit.message}>
-                                            {entry.data.commit.hash}
-                                          </span>
-                                          <span class="commit-author">
-                                            by {entry.data.commit.author}
-                                          </span>
-                                        </>
-                                      )}
-                                    </div>
                                   </li>
                                 ))}
                               </ul>
+                            )}
+
+                            <div class="entry-meta">
+                              <time class="entry-timestamp" datetime={entry.data.date.toISOString()}>
+                                {entry.data.date.toLocaleString('en-US', {
+                                  year: 'numeric',
+                                  month: 'short',
+                                  day: 'numeric',
+                                  hour: '2-digit',
+                                  minute: '2-digit'
+                                })}
+                              </time>
+                              {entry.data.commit && (
+                                <>
+                                  <span class="entry-meta-separator">·</span>
+                                  <span class="commit-hash" title={entry.data.commit.message}>
+                                    {entry.data.commit.hash}
+                                  </span>
+                                  <span class="commit-author">
+                                    by {entry.data.commit.author}
+                                  </span>
+                                </>
+                              )}
                             </div>
-                          );
-                        })}
+                          </li>
+                        );
+                      })}
+                    </ul>
                   </div>
                 </div>
-              </div>
             );
             })}
           </section>
@@ -341,6 +321,10 @@ const categoryConfig: Record<CategoryKey, { label: string; color: 'success' | 'i
     gap: var(--spacing-2, 8px);
     flex-wrap: wrap;
     margin-bottom: var(--spacing-2, 8px);
+  }
+
+  .entry-category-badge {
+    flex-shrink: 0;
   }
 
   .entry-target {
