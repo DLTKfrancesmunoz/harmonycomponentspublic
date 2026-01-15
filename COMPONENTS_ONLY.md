@@ -150,7 +150,7 @@ import { Card } from './src/components/ui';
 
 For comprehensive usage rules, component patterns, Figma mapping guidelines, and best practices, see:
 
-- **`src/tokens/ai-usage-guide.json`** - Complete usage guide with:
+- **`ai/ai-usage-guide.json`** - Complete usage guide with:
   - Setup instructions
   - Theming rules
   - Shell layout spacing requirements
@@ -159,7 +159,7 @@ For comprehensive usage rules, component patterns, Figma mapping guidelines, and
   - Component selection decision trees
   - Best practices
 
-The usage guide is also included in `ai-tokens.json` under the `usageGuide` property.
+The usage guide is also included in `ai/ai-tokens.json` under the `usageGuide` property.
 
 ## Key Rules
 
@@ -210,6 +210,6 @@ cp package.json your-project/
 ## Support
 
 For questions or issues:
-1. Check `src/tokens/ai-usage-guide.json` for detailed usage rules
+1. Check `ai/ai-usage-guide.json` for detailed usage rules
 2. Review component examples in the documentation site (if you have access)
 3. Refer to component prop definitions in `src/tokens/components.json`

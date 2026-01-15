@@ -17,7 +17,6 @@ export const navigation: NavSection[] = [
       { title: 'Typography', href: '/foundation/typography', icon: 'document-text' },
       { title: 'Spacing', href: '/foundation/spacing', icon: 'arrows-pointing-out' },
       { title: 'Elevations', href: '/foundation/elevations', icon: 'squares-2x2' },
-      { title: 'Updates', href: '/updates', icon: 'clock' },
     ],
   },
   {
