@@ -19,7 +19,7 @@ const componentsDir = path.join(projectRoot, 'src/components/ui');
 const tokensDir = path.join(projectRoot, 'src/tokens');
 const stylesDir = path.join(projectRoot, 'src/styles');
 const inventoryFile = path.join(projectRoot, 'component-props-inventory.json');
-const componentsJsonFile = path.join(projectRoot, 'src/tokens/components.json');
+const componentsJsonFile = path.join(projectRoot, 'mcp-data/components.json');
 const cacheFile = path.join(projectRoot, '.cache/components-regeneration-cache.json');
 
 // Files to track
@@ -346,6 +346,12 @@ function updateCache() {
  * Write components.json atomically
  */
 function writeComponentsJson(componentsJson) {
+  // Ensure mcp-data directory exists
+  const mcpDataDir = path.dirname(componentsJsonFile);
+  if (!fs.existsSync(mcpDataDir)) {
+    fs.mkdirSync(mcpDataDir, { recursive: true });
+  }
+  
   // Write to temp file first, then rename (atomic write)
   const tempFile = componentsJsonFile + '.tmp';
   const jsonContent = JSON.stringify(componentsJson, null, 2);

@@ -12,7 +12,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const componentsDir = path.join(__dirname, '../src/components/ui');
 const docsDir = path.join(__dirname, '../src/pages/components');
-const componentsJsonFile = path.join(__dirname, '../src/tokens/components.json');
+const componentsJsonFile = path.join(__dirname, '../mcp-data/components.json');
 const inventoryFile = path.join(__dirname, '../component-props-inventory.json');
 
 // Load data

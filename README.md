@@ -110,6 +110,37 @@ npm run dev
 npm run build
 ```
 
+## MCP Integration
+
+The design system generates a `components.json` file for use with Model Context Protocol (MCP) tools like dsmanager.
+
+### MCP Data Location
+
+- **Location**: `mcp-data/components.json`
+- **Purpose**: Component metadata (props, dependencies, CSS classes) for MCP tools
+- **Generation**: Automatically generated before `npm run dev` or `npm run build`
+- **Manual Generation**: Run `npm run generate:components`
+
+### What Gets Generated
+
+The `components.json` file contains:
+- Component props (types, defaults, descriptions)
+- Component dependencies
+- CSS class names used by each component
+- File paths and metadata
+
+This file is **read-only** for MCP tools - it's generated from `component-props-inventory.json` and should not be edited manually.
+
+### Change Detection
+
+The generation script uses smart change detection:
+- Only regenerates when component files, tokens, CSS, or inventory change
+- Uses file hashing for accurate change detection
+- Fast checks (~5-10ms) when nothing changed
+- Full regeneration (~50-200ms) only when needed
+
+**Note**: The `mcp-data/` folder is dedicated to MCP tooling and is separate from component code and design tokens.
+
 ## Browser Support
 
 - Chrome (latest)
