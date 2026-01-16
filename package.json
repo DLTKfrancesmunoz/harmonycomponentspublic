@@ -4,12 +4,15 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "astro dev",
+    "predev": "npm run generate:components",
     "start": "serve dist -l ${PORT:-3000}",
     "build": "astro build",
+    "prebuild": "npm run generate:components",
     "preview": "astro preview",
     "astro": "astro",
     "changelog": "node scripts/changelog/run-automation.js",
-    "changelog:snapshot": "node scripts/changelog/generate-snapshot.js"
+    "changelog:snapshot": "node scripts/changelog/generate-snapshot.js",
+    "generate:components": "node scripts/generate-components-json.js"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.14",
