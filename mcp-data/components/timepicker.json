@@ -1,0 +1,270 @@
+{
+  "name": "TimePicker",
+  "type": "component",
+  "filePath": "src/components/ui/TimePicker.astro",
+  "description": "TimePicker Component",
+  "props": {
+    "value": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "HH": {
+      "type": "MM or HH:MM:SS)\n  min?: string",
+      "optional": false,
+      "default": null
+    },
+    "max": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "disabled": {
+      "type": "boolean",
+      "optional": true,
+      "default": null
+    },
+    "format": {
+      "type": "'12' | '24'",
+      "optional": true,
+      "default": null
+    },
+    "step": {
+      "type": "number",
+      "optional": true,
+      "default": null
+    },
+    "default": {
+      "type": "1)\n  id?: string",
+      "optional": false,
+      "default": null
+    },
+    "class": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    }
+  },
+  "imports": {
+    "Icon": "./Icon.astro"
+  },
+  "dependencies": [
+    "Icon"
+  ],
+  "cssClasses": [
+    "time-picker__controls",
+    "time-picker__hour",
+    "time-picker__increment",
+    "time-picker__input",
+    "time-picker__decrement",
+    "time-picker__separator",
+    "time-picker__minute",
+    "time-picker__period",
+    "time-picker__period-btn",
+    "${period",
+    "===",
+    "?",
+    ":",
+    "}"
+  ],
+  "themeSupport": {
+    "themes": [
+      "cp",
+      "vp",
+      "ppm",
+      "maconomy"
+    ],
+    "darkMode": true
+  },
+  "slots": {},
+  "structure": {
+    "root": {
+      "element": "div",
+      "class": "classes",
+      "spacing": {
+        "padding": "0",
+        "margin": "0"
+      },
+      "baseClass": null,
+      "modifierClasses": {},
+      "children": [
+        {
+          "element": "div",
+          "class": "time-picker__controls",
+          "spacing": {
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": [
+            {
+              "element": "div",
+              "class": "time-picker__hour",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": [
+                {
+                  "element": "button",
+                  "class": "time-picker__increment",
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": [
+                    {
+                      "element": "Icon",
+                      "class": null,
+                      "spacing": {
+                        "padding": "0",
+                        "margin": "0"
+                      },
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "element": "input",
+                  "class": "time-picker__input",
+                  "spacing": {
+                    "padding": "0 var(--space-2)",
+                    "margin": "0"
+                  },
+                  "children": []
+                },
+                {
+                  "element": "button",
+                  "class": "time-picker__decrement",
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": [
+                    {
+                      "element": "Icon",
+                      "class": null,
+                      "spacing": {
+                        "padding": "0",
+                        "margin": "0"
+                      },
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "element": "span",
+              "class": "time-picker__separator",
+              "spacing": {
+                "padding": "0 var(--space-1)",
+                "margin": "0"
+              },
+              "children": []
+            },
+            {
+              "element": "div",
+              "class": "time-picker__minute",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": [
+                {
+                  "element": "button",
+                  "class": "time-picker__increment",
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": [
+                    {
+                      "element": "Icon",
+                      "class": null,
+                      "spacing": {
+                        "padding": "0",
+                        "margin": "0"
+                      },
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "element": "input",
+                  "class": "time-picker__input",
+                  "spacing": {
+                    "padding": "0 var(--space-2)",
+                    "margin": "0"
+                  },
+                  "children": []
+                },
+                {
+                  "element": "button",
+                  "class": "time-picker__decrement",
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": [
+                    {
+                      "element": "Icon",
+                      "class": null,
+                      "spacing": {
+                        "padding": "0",
+                        "margin": "0"
+                      },
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "element": "div",
+              "class": "time-picker__period",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": [
+                {
+                  "element": "button",
+                  "class": "`time-picker__period-btn ${period === 'AM' ? 'time-picker__period-btn--active' : ''}`",
+                  "spacing": {
+                    "padding": "0 var(--space-2)",
+                    "margin": "0"
+                  },
+                  "children": []
+                },
+                {
+                  "element": "button",
+                  "class": "`time-picker__period-btn ${period === 'PM' ? 'time-picker__period-btn--active' : ''}`",
+                  "spacing": {
+                    "padding": "0 var(--space-2)",
+                    "margin": "0"
+                  },
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "children": [
+      {
+        "element": "script",
+        "class": null,
+        "spacing": {
+          "padding": "0",
+          "margin": "0"
+        },
+        "children": []
+      }
+    ]
+  },
+  "_metadata": {
+    "lastGenerated": "2026-01-16T19:52:02.984Z",
+    "generatedWith": "@astrojs/compiler@2.13.0"
+  }
+}

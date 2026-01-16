@@ -1,0 +1,140 @@
+{
+  "name": "RightSidebar",
+  "type": "component",
+  "filePath": "src/components/ui/RightSidebar.astro",
+  "description": "RightSidebar Component",
+  "props": {
+    "variant": {
+      "type": "'cp' | 'vp' | 'ppm' | 'maconomy'",
+      "optional": true,
+      "default": null
+    },
+    "sections": {
+      "type": "Section[]",
+      "optional": true,
+      "default": null
+    },
+    "class": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    }
+  },
+  "imports": {
+    "Icon": "./Icon.astro",
+    "Tooltip": "./Tooltip.astro"
+  },
+  "dependencies": [
+    "Icon",
+    "Tooltip"
+  ],
+  "cssClasses": [
+    "right-sidebar__variant",
+    "right-sidebar__variant--cp",
+    "right-sidebar__section",
+    "right-sidebar__item",
+    "right-sidebar__label",
+    "right-sidebar__item-tooltip",
+    "right-sidebar__icon",
+    "right-sidebar__dela-logo",
+    "right-sidebar__variant--vp",
+    "right-sidebar__variant--ppm",
+    "right-sidebar__variant--maconomy"
+  ],
+  "themeSupport": {
+    "themes": [
+      "cp",
+      "vp",
+      "ppm",
+      "maconomy"
+    ],
+    "darkMode": true
+  },
+  "slots": {},
+  "structure": {
+    "root": {
+      "element": "nav",
+      "class": null,
+      "spacing": {
+        "padding": "0",
+        "margin": "0"
+      },
+      "baseClass": null,
+      "modifierClasses": {},
+      "children": [
+        {
+          "element": "div",
+          "class": "right-sidebar__section",
+          "spacing": {
+            "padding": "var(--space-3) var(--space-2)",
+            "margin": "0"
+          },
+          "children": [
+            {
+              "element": "a",
+              "class": "right-sidebar__item",
+              "spacing": {
+                "padding": "var(--space-1-5)",
+                "margin": "0"
+              },
+              "children": [
+                {
+                  "element": "span",
+                  "class": "right-sidebar__label",
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": []
+                },
+                {
+                  "element": "Tooltip",
+                  "class": "right-sidebar__item-tooltip",
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": [
+                    {
+                      "element": "span",
+                      "class": "right-sidebar__icon",
+                      "spacing": {
+                        "padding": "0",
+                        "margin": "0"
+                      },
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "children": [
+      {
+        "element": "style",
+        "class": null,
+        "spacing": {
+          "padding": "0",
+          "margin": "0"
+        },
+        "children": []
+      },
+      {
+        "element": "script",
+        "class": null,
+        "spacing": {
+          "padding": "0",
+          "margin": "0"
+        },
+        "children": []
+      }
+    ]
+  },
+  "_metadata": {
+    "lastGenerated": "2026-01-16T19:52:02.933Z",
+    "generatedWith": "@astrojs/compiler@2.13.0"
+  }
+}

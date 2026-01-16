@@ -1,0 +1,449 @@
+{
+  "name": "Kanban",
+  "type": "component",
+  "filePath": "src/components/ui/Kanban.astro",
+  "description": "Kanban Component",
+  "props": {
+    "columns": {
+      "type": "KanbanColumn[]",
+      "optional": false,
+      "default": null
+    },
+    "title": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "actionButtons": {
+      "type": "ActionButton[]",
+      "optional": true,
+      "default": null
+    },
+    "actionDropdowns": {
+      "type": "ActionDropdown[]",
+      "optional": true,
+      "default": null
+    },
+    "class": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "showAddButton": {
+      "type": "boolean",
+      "optional": true,
+      "default": null
+    }
+  },
+  "imports": {
+    "Button": "./Button.astro",
+    "Icon": "./Icon.astro",
+    "Card": "./Card.astro"
+  },
+  "dependencies": [
+    "Button",
+    "Icon",
+    "Card"
+  ],
+  "cssClasses": [
+    "kanban__container",
+    "${className}",
+    "kanban__title-bar",
+    "kanban__title-bar-content",
+    "kanban__title",
+    "kanban__title-bar-actions",
+    "kanban__title-bar-icon",
+    "kanban__action-bar",
+    "kanban__action-items",
+    "kanban__action-divider",
+    "kanban__action-button",
+    "kanban__action-label",
+    "kanban__action-text-button",
+    "kanban__columns-wrapper",
+    "kanban__column-card",
+    "${borderColorClass}",
+    "kanban__column",
+    "kanban__column-header",
+    "kanban__column-header-content",
+    "kanban__column-title",
+    "kanban__column-count",
+    "kanban__column-header-actions",
+    "kanban__column-action-icon",
+    "kanban__column-content",
+    "kanban__add-button",
+    "kanban__add-column-button"
+  ],
+  "themeSupport": {
+    "themes": [
+      "cp",
+      "vp",
+      "ppm",
+      "maconomy"
+    ],
+    "darkMode": true
+  },
+  "slots": {},
+  "structure": {
+    "root": {
+      "element": "div",
+      "class": "`kanban__container ${className}`",
+      "spacing": {
+        "padding": "0",
+        "margin": "0"
+      },
+      "baseClass": "kanban__container",
+      "modifierClasses": {},
+      "children": [
+        {
+          "element": "div",
+          "class": "kanban__title-bar",
+          "spacing": {
+            "padding": "var(--space-3)",
+            "margin": "0"
+          },
+          "children": [
+            {
+              "element": "div",
+              "class": "kanban__title-bar-content",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": [
+                {
+                  "element": "h1",
+                  "class": "kanban__title",
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": []
+                },
+                {
+                  "element": "div",
+                  "class": "kanban__title-bar-actions",
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": [
+                    {
+                      "element": "button",
+                      "class": "kanban__title-bar-icon",
+                      "spacing": {
+                        "padding": "0",
+                        "margin": "0"
+                      },
+                      "children": [
+                        {
+                          "element": "Icon",
+                          "class": null,
+                          "spacing": {
+                            "padding": "0",
+                            "margin": "0"
+                          },
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "element": "button",
+                      "class": "kanban__title-bar-icon",
+                      "spacing": {
+                        "padding": "0",
+                        "margin": "0"
+                      },
+                      "children": [
+                        {
+                          "element": "Icon",
+                          "class": null,
+                          "spacing": {
+                            "padding": "0",
+                            "margin": "0"
+                          },
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "element": "button",
+                      "class": "kanban__title-bar-icon",
+                      "spacing": {
+                        "padding": "0",
+                        "margin": "0"
+                      },
+                      "children": [
+                        {
+                          "element": "Icon",
+                          "class": null,
+                          "spacing": {
+                            "padding": "0",
+                            "margin": "0"
+                          },
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "element": "button",
+                      "class": "kanban__title-bar-icon",
+                      "spacing": {
+                        "padding": "0",
+                        "margin": "0"
+                      },
+                      "children": [
+                        {
+                          "element": "Icon",
+                          "class": null,
+                          "spacing": {
+                            "padding": "0",
+                            "margin": "0"
+                          },
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "element": "button",
+                      "class": "kanban__title-bar-icon",
+                      "spacing": {
+                        "padding": "0",
+                        "margin": "0"
+                      },
+                      "children": [
+                        {
+                          "element": "Icon",
+                          "class": null,
+                          "spacing": {
+                            "padding": "0",
+                            "margin": "0"
+                          },
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "element": "button",
+                      "class": "kanban__title-bar-icon",
+                      "spacing": {
+                        "padding": "0",
+                        "margin": "0"
+                      },
+                      "children": [
+                        {
+                          "element": "Icon",
+                          "class": null,
+                          "spacing": {
+                            "padding": "0",
+                            "margin": "0"
+                          },
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "element": "div",
+          "class": "kanban__action-bar",
+          "spacing": {
+            "padding": "var(--space-3)",
+            "margin": "0"
+          },
+          "children": [
+            {
+              "element": "div",
+              "class": "kanban__action-items",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": []
+            }
+          ]
+        },
+        {
+          "element": "section",
+          "class": "kanban__columns-wrapper",
+          "spacing": {
+            "padding": "var(--space-3)",
+            "margin": "0"
+          },
+          "children": [
+            {
+              "element": "Card",
+              "class": "`kanban__column-card ${borderColorClass}`",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": [
+                {
+                  "element": "article",
+                  "class": "kanban__column",
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": [
+                    {
+                      "element": "header",
+                      "class": "kanban__column-header",
+                      "spacing": {
+                        "padding": "var(--space-3)",
+                        "margin": "0"
+                      },
+                      "children": [
+                        {
+                          "element": "div",
+                          "class": "kanban__column-header-content",
+                          "spacing": {
+                            "padding": "0",
+                            "margin": "0"
+                          },
+                          "children": [
+                            {
+                              "element": "h2",
+                              "class": "kanban__column-title",
+                              "spacing": {
+                                "padding": "0",
+                                "margin": "0"
+                              },
+                              "children": []
+                            },
+                            {
+                              "element": "span",
+                              "class": "kanban__column-count",
+                              "spacing": {
+                                "padding": "var(--space-0-5) var(--space-2)",
+                                "margin": "0"
+                              },
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "element": "div",
+                          "class": "kanban__column-header-actions",
+                          "spacing": {
+                            "padding": "0",
+                            "margin": "0"
+                          },
+                          "children": [
+                            {
+                              "element": "button",
+                              "class": "kanban__column-action-icon",
+                              "spacing": {
+                                "padding": "0",
+                                "margin": "0"
+                              },
+                              "children": [
+                                {
+                                  "element": "Icon",
+                                  "class": null,
+                                  "spacing": {
+                                    "padding": "0",
+                                    "margin": "0"
+                                  },
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "element": "button",
+                              "class": "kanban__column-action-icon",
+                              "spacing": {
+                                "padding": "0",
+                                "margin": "0"
+                              },
+                              "children": [
+                                {
+                                  "element": "Icon",
+                                  "class": null,
+                                  "spacing": {
+                                    "padding": "0",
+                                    "margin": "0"
+                                  },
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "element": "button",
+                              "class": "kanban__column-action-icon",
+                              "spacing": {
+                                "padding": "0",
+                                "margin": "0"
+                              },
+                              "children": [
+                                {
+                                  "element": "Icon",
+                                  "class": null,
+                                  "spacing": {
+                                    "padding": "0",
+                                    "margin": "0"
+                                  },
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "element": "div",
+                      "class": "kanban__column-content",
+                      "spacing": {
+                        "padding": "var(--space-2)",
+                        "margin": "0"
+                      },
+                      "children": [
+                        {
+                          "element": "KanbanCard",
+                          "class": "card.class",
+                          "spacing": {
+                            "padding": "0",
+                            "margin": "0"
+                          },
+                          "children": []
+                        },
+                        {
+                          "element": "Button",
+                          "class": "kanban__add-button",
+                          "spacing": {
+                            "padding": "0",
+                            "margin": "0"
+                          },
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "element": "Button",
+              "class": "kanban__add-column-button",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    "children": []
+  },
+  "_metadata": {
+    "lastGenerated": "2026-01-16T19:52:02.873Z",
+    "generatedWith": "@astrojs/compiler@2.13.0"
+  }
+}

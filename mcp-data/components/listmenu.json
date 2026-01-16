@@ -1,0 +1,85 @@
+{
+  "name": "ListMenu",
+  "type": "component",
+  "filePath": "src/components/ui/ListMenu.astro",
+  "description": "ListMenu Component",
+  "props": {
+    "items": {
+      "type": "MenuItem[]",
+      "optional": false,
+      "default": null
+    },
+    "as": {
+      "type": "'button' | 'link'",
+      "optional": true,
+      "default": null
+    },
+    "variant": {
+      "type": "'default' | 'no-borders'",
+      "optional": true,
+      "default": null
+    },
+    "class": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    }
+  },
+  "imports": {
+    "Icon": "./Icon.astro"
+  },
+  "dependencies": [
+    "Icon"
+  ],
+  "cssClasses": [
+    "list-menu__item-icon"
+  ],
+  "themeSupport": {
+    "themes": [
+      "cp",
+      "vp",
+      "ppm",
+      "maconomy"
+    ],
+    "darkMode": true
+  },
+  "slots": {},
+  "structure": {
+    "root": {
+      "element": "div",
+      "class": null,
+      "spacing": {
+        "padding": "0",
+        "margin": "0"
+      },
+      "baseClass": null,
+      "modifierClasses": {},
+      "children": [
+        {
+          "element": "Element",
+          "class": null,
+          "spacing": {
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": [
+            {
+              "element": "Icon",
+              "class": "list-menu__item-icon",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    "children": []
+  },
+  "_metadata": {
+    "lastGenerated": "2026-01-16T19:52:02.895Z",
+    "generatedWith": "@astrojs/compiler@2.13.0"
+  }
+}

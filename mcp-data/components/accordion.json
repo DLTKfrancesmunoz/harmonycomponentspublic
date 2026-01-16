@@ -1,0 +1,116 @@
+{
+  "name": "Accordion",
+  "type": "component",
+  "filePath": "src/components/ui/Accordion.astro",
+  "description": "Accordion Component",
+  "props": {
+    "items": {
+      "type": "AccordionItem[]",
+      "optional": false,
+      "default": null
+    },
+    "allowMultiple": {
+      "type": "boolean",
+      "optional": true,
+      "default": null
+    },
+    "class": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    }
+  },
+  "imports": {
+    "Icon": "./Icon.astro"
+  },
+  "dependencies": [
+    "Icon"
+  ],
+  "cssClasses": [
+    "accordion__item",
+    "${item.defaultOpen",
+    "?",
+    ":",
+    "}",
+    "accordion__trigger",
+    "accordion__icon",
+    "accordion__content"
+  ],
+  "themeSupport": {
+    "themes": [
+      "cp",
+      "vp",
+      "ppm",
+      "maconomy"
+    ],
+    "darkMode": true
+  },
+  "slots": {},
+  "structure": {
+    "root": {
+      "element": "div",
+      "class": "classes",
+      "spacing": {
+        "padding": "0",
+        "margin": "0"
+      },
+      "baseClass": null,
+      "modifierClasses": {},
+      "children": [
+        {
+          "element": "div",
+          "class": "`accordion__item ${item.defaultOpen ? 'is-open' : ''}`",
+          "spacing": {
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": [
+            {
+              "element": "button",
+              "class": "accordion__trigger",
+              "spacing": {
+                "padding": "var(--space-3) var(--space-3)",
+                "margin": "0"
+              },
+              "children": [
+                {
+                  "element": "Icon",
+                  "class": "accordion__icon",
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": []
+                }
+              ]
+            },
+            {
+              "element": "div",
+              "class": "accordion__content",
+              "spacing": {
+                "padding": "var(--space-3)",
+                "margin": "0"
+              },
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    "children": [
+      {
+        "element": "script",
+        "class": null,
+        "spacing": {
+          "padding": "0",
+          "margin": "0"
+        },
+        "children": []
+      }
+    ]
+  },
+  "_metadata": {
+    "lastGenerated": "2026-01-16T19:52:02.766Z",
+    "generatedWith": "@astrojs/compiler@2.13.0"
+  }
+}

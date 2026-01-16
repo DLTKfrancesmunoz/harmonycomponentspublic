@@ -1,0 +1,173 @@
+{
+  "name": "Input",
+  "type": "component",
+  "filePath": "src/components/ui/Input.astro",
+  "description": "Input Component",
+  "props": {
+    "type": {
+      "type": "'text' | 'email' | 'password' | 'number' | 'url' | 'search' | 'tel'",
+      "optional": true,
+      "default": null
+    },
+    "placeholder": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "value": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "name": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "id": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "disabled": {
+      "type": "boolean",
+      "optional": true,
+      "default": null
+    },
+    "error": {
+      "type": "boolean",
+      "optional": true,
+      "default": null
+    },
+    "errorMessage": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "icon": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "required": {
+      "type": "boolean",
+      "optional": true,
+      "default": null
+    },
+    "label": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "labelVariant": {
+      "type": "'inline' | 'stacked'",
+      "optional": true,
+      "default": null
+    },
+    "labelFor": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "class": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "key": {
+      "type": "string]: any",
+      "optional": false,
+      "default": null
+    }
+  },
+  "imports": {
+    "Icon": "./Icon.astro",
+    "Label": "./Label.astro"
+  },
+  "dependencies": [
+    "Icon",
+    "Label"
+  ],
+  "cssClasses": [
+    "inline",
+    "input-form-wrapper__label",
+    "input-wrapper",
+    "input-wrapper__icon",
+    "input-wrapper__error"
+  ],
+  "themeSupport": {
+    "themes": [
+      "cp",
+      "vp",
+      "ppm",
+      "maconomy"
+    ],
+    "darkMode": true
+  },
+  "slots": {},
+  "structure": {
+    "root": {
+      "element": "div",
+      "class": "wrapperClasses",
+      "spacing": {
+        "padding": "0",
+        "margin": "0"
+      },
+      "baseClass": null,
+      "modifierClasses": {},
+      "children": [
+        {
+          "element": "Label",
+          "class": "(finalLabelVariant === 'inline' || !finalLabelVariant) ? 'input-form-wrapper__label' : ''",
+          "spacing": {
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": []
+        },
+        {
+          "element": "div",
+          "class": "input-wrapper",
+          "spacing": {
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": [
+            {
+              "element": "Icon",
+              "class": "input-wrapper__icon",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": []
+            },
+            {
+              "element": "input",
+              "class": "inputClasses",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": []
+            },
+            {
+              "element": "p",
+              "class": "input-wrapper__error",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    "children": []
+  },
+  "_metadata": {
+    "lastGenerated": "2026-01-16T19:52:02.860Z",
+    "generatedWith": "@astrojs/compiler@2.13.0"
+  }
+}

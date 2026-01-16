@@ -1,0 +1,177 @@
+{
+  "name": "ShellHeader",
+  "type": "component",
+  "filePath": "src/components/ui/ShellHeader.astro",
+  "description": "ShellHeader component",
+  "props": {
+    "productName": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "logoSrc": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "companyName": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "showCompanyPicker": {
+      "type": "boolean",
+      "optional": true,
+      "default": null
+    },
+    "companyColor": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "class": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    }
+  },
+  "imports": {
+    "Icon": "./Icon.astro",
+    "Avatar": "./Avatar.astro"
+  },
+  "dependencies": [
+    "Icon",
+    "Avatar"
+  ],
+  "cssClasses": [
+    "header",
+    "${className}",
+    "header__brand",
+    "header__brand-link",
+    "header__logo",
+    "header__title",
+    "header__actions",
+    "company-picker",
+    "company-picker__btn",
+    "company-picker__indicator",
+    "company-picker__name",
+    "company-picker__chevron",
+    "company-picker__menu",
+    "company-picker__option",
+    "company-picker__option--selected",
+    "company-picker__option-indicator",
+    "company-picker__option-indicator--acme",
+    "company-picker__option-name",
+    "company-picker__option-indicator--ocean",
+    "company-picker__option-indicator--violet",
+    "company-picker__option-indicator--azure",
+    "company-picker__option-indicator--sunset",
+    "divider",
+    "header__gradient"
+  ],
+  "themeSupport": {
+    "themes": [
+      "cp",
+      "vp",
+      "ppm",
+      "maconomy"
+    ],
+    "darkMode": true
+  },
+  "slots": {},
+  "structure": {
+    "root": {
+      "element": "header",
+      "class": "`header ${className}`",
+      "spacing": {
+        "padding": "0",
+        "margin": "0"
+      },
+      "baseClass": "header",
+      "modifierClasses": {},
+      "children": [
+        {
+          "element": "div",
+          "class": "header__brand",
+          "spacing": {
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": [
+            {
+              "element": "a",
+              "class": "header__brand-link",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": [
+                {
+                  "element": "img",
+                  "class": "header__logo",
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": []
+                },
+                {
+                  "element": "span",
+                  "class": "header__title",
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "element": "div",
+          "class": "header__actions",
+          "spacing": {
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": [
+            {
+              "element": "Avatar",
+              "class": null,
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": []
+            }
+          ]
+        },
+        {
+          "element": "div",
+          "class": "header__gradient",
+          "spacing": {
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": []
+        }
+      ]
+    },
+    "children": [
+      {
+        "element": "script",
+        "class": null,
+        "spacing": {
+          "padding": "0",
+          "margin": "0"
+        },
+        "children": []
+      }
+    ]
+  },
+  "_metadata": {
+    "lastGenerated": "2026-01-16T19:52:02.944Z",
+    "generatedWith": "@astrojs/compiler@2.13.0"
+  }
+}

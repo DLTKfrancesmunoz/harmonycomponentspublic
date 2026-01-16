@@ -1,0 +1,260 @@
+{
+  "name": "DateInput",
+  "type": "component",
+  "filePath": "src/components/ui/DateInput.astro",
+  "description": "DateInput Component",
+  "props": {
+    "type": {
+      "type": "'date' | 'time' | 'datetime-local' | 'month' | 'week'",
+      "optional": true,
+      "default": null
+    },
+    "value": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "name": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "id": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "disabled": {
+      "type": "boolean",
+      "optional": true,
+      "default": null
+    },
+    "min": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "max": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "required": {
+      "type": "boolean",
+      "optional": true,
+      "default": null
+    },
+    "label": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "labelVariant": {
+      "type": "'inline' | 'stacked'",
+      "optional": true,
+      "default": null
+    },
+    "labelFor": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "timeFormat": {
+      "type": "'12' | '24'",
+      "optional": true,
+      "default": null
+    },
+    "locale": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "class": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "key": {
+      "type": "string]: any",
+      "optional": false,
+      "default": null
+    }
+  },
+  "imports": {
+    "Icon": "./Icon.astro",
+    "Label": "./Label.astro",
+    "DatePicker": "./DatePicker.astro",
+    "TimePicker": "./TimePicker.astro",
+    "DateTimePicker": "./DateTimePicker.astro",
+    "MonthPicker": "./MonthPicker.astro",
+    "WeekPicker": "./WeekPicker.astro",
+    "PickerPopup": "./PickerPopup.astro"
+  },
+  "dependencies": [
+    "Icon",
+    "Label",
+    "DatePicker",
+    "TimePicker",
+    "DateTimePicker",
+    "MonthPicker",
+    "WeekPicker",
+    "PickerPopup"
+  ],
+  "cssClasses": [
+    "inline",
+    "date-input-form-wrapper__label",
+    "date-input-wrapper",
+    "date-input-wrapper__icon",
+    "date-input-popup"
+  ],
+  "themeSupport": {
+    "themes": [
+      "cp",
+      "vp",
+      "ppm",
+      "maconomy"
+    ],
+    "darkMode": true
+  },
+  "slots": {},
+  "structure": {
+    "root": {
+      "element": "div",
+      "class": "wrapperClasses",
+      "spacing": {
+        "padding": "0",
+        "margin": "0"
+      },
+      "baseClass": null,
+      "modifierClasses": {},
+      "children": [
+        {
+          "element": "Label",
+          "class": "(finalLabelVariant === 'inline' || !finalLabelVariant) ? 'date-input-form-wrapper__label' : ''",
+          "spacing": {
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": []
+        },
+        {
+          "element": "div",
+          "class": "date-input-wrapper",
+          "spacing": {
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": [
+            {
+              "element": "input",
+              "class": "classes",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": []
+            },
+            {
+              "element": "input",
+              "class": null,
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": []
+            },
+            {
+              "element": "button",
+              "class": "date-input-wrapper__icon",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": [
+                {
+                  "element": "Icon",
+                  "class": null,
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": []
+                }
+              ]
+            },
+            {
+              "element": "PickerPopup",
+              "class": "date-input-popup",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": [
+                {
+                  "element": "DatePicker",
+                  "class": null,
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": []
+                },
+                {
+                  "element": "TimePicker",
+                  "class": null,
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": []
+                },
+                {
+                  "element": "DateTimePicker",
+                  "class": null,
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": []
+                },
+                {
+                  "element": "MonthPicker",
+                  "class": null,
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": []
+                },
+                {
+                  "element": "WeekPicker",
+                  "class": null,
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "children": [
+      {
+        "element": "script",
+        "class": null,
+        "spacing": {
+          "padding": "0",
+          "margin": "0"
+        },
+        "children": []
+      }
+    ]
+  },
+  "_metadata": {
+    "lastGenerated": "2026-01-16T19:52:02.830Z",
+    "generatedWith": "@astrojs/compiler@2.13.0"
+  }
+}

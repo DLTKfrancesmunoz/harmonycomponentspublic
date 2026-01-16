@@ -1,0 +1,177 @@
+{
+  "name": "Card",
+  "type": "component",
+  "filePath": "src/components/ui/Card.astro",
+  "description": "Card Component",
+  "props": {
+    "elevated": {
+      "type": "boolean",
+      "optional": true,
+      "default": null
+    },
+    "interactive": {
+      "type": "boolean",
+      "optional": true,
+      "default": null
+    },
+    "primary": {
+      "type": "boolean",
+      "optional": true,
+      "default": null
+    },
+    "withHeader": {
+      "type": "boolean",
+      "optional": true,
+      "default": null
+    },
+    "headerTitle": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "headerSubtitle": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "class": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    }
+  },
+  "imports": {
+    "Icon": "./Icon.astro"
+  },
+  "dependencies": [
+    "Icon"
+  ],
+  "cssClasses": [
+    "card__header",
+    "card__header--colored",
+    "card__header-content",
+    "card__header-title",
+    "card__header-subtitle",
+    "card__header-actions",
+    "card__body",
+    "card__footer"
+  ],
+  "themeSupport": {
+    "themes": [
+      "cp",
+      "vp",
+      "ppm",
+      "maconomy"
+    ],
+    "darkMode": true
+  },
+  "slots": {
+    "header": {
+      "name": "header",
+      "required": false,
+      "location": "card__header",
+      "description": null,
+      "conditional": null
+    },
+    "header-actions": {
+      "name": "header-actions",
+      "required": false,
+      "location": "card__header-actions",
+      "description": null,
+      "conditional": null
+    },
+    "default": {
+      "name": "default",
+      "required": true,
+      "location": "card__body",
+      "description": null,
+      "conditional": null
+    },
+    "footer": {
+      "name": "footer",
+      "required": false,
+      "location": "card__footer",
+      "description": null,
+      "conditional": null
+    }
+  },
+  "structure": {
+    "root": {
+      "element": "div",
+      "class": "classes",
+      "spacing": {
+        "padding": "0",
+        "margin": "0"
+      },
+      "baseClass": null,
+      "modifierClasses": {},
+      "children": [
+        {
+          "element": "div",
+          "class": "card__header card__header--colored",
+          "spacing": {
+            "padding": "var(--space-4)",
+            "margin": "0"
+          },
+          "children": [
+            {
+              "element": "slot",
+              "slotName": "header",
+              "class": null
+            },
+            {
+              "element": "div",
+              "class": "card__header-actions",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": [
+                {
+                  "element": "slot",
+                  "slotName": "header-actions",
+                  "class": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "element": "div",
+          "class": "card__body",
+          "spacing": {
+            "padding": "var(--space-3)",
+            "margin": "0"
+          },
+          "children": [
+            {
+              "element": "slot",
+              "slotName": "default",
+              "class": null
+            }
+          ]
+        },
+        {
+          "element": "div",
+          "class": "card__footer",
+          "spacing": {
+            "padding": "var(--space-4)",
+            "margin": "0"
+          },
+          "children": [
+            {
+              "element": "slot",
+              "slotName": "footer",
+              "class": null
+            }
+          ]
+        }
+      ]
+    },
+    "children": []
+  },
+  "_metadata": {
+    "lastGenerated": "2026-01-16T19:52:02.807Z",
+    "generatedWith": "@astrojs/compiler@2.13.0"
+  }
+}

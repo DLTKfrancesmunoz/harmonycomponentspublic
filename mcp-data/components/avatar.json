@@ -1,0 +1,68 @@
+{
+  "name": "Avatar",
+  "type": "component",
+  "filePath": "src/components/ui/Avatar.astro",
+  "description": "Avatar Component",
+  "props": {
+    "size": {
+      "type": "'sm' | 'md' | 'lg'",
+      "optional": true,
+      "default": null
+    },
+    "class": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    }
+  },
+  "imports": {
+    "Icon": "./Icon.astro"
+  },
+  "dependencies": [
+    "Icon"
+  ],
+  "cssClasses": [
+    "avatar",
+    "avatar--${size}",
+    "${className}",
+    "avatar__icon"
+  ],
+  "themeSupport": {
+    "themes": [
+      "cp",
+      "vp",
+      "ppm",
+      "maconomy"
+    ],
+    "darkMode": true
+  },
+  "slots": {},
+  "structure": {
+    "root": {
+      "element": "div",
+      "class": "`avatar avatar--${size} ${className}`",
+      "spacing": {
+        "padding": "0",
+        "margin": "0"
+      },
+      "baseClass": "avatar",
+      "modifierClasses": {},
+      "children": [
+        {
+          "element": "Icon",
+          "class": "avatar__icon",
+          "spacing": {
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": []
+        }
+      ]
+    },
+    "children": []
+  },
+  "_metadata": {
+    "lastGenerated": "2026-01-16T19:52:02.779Z",
+    "generatedWith": "@astrojs/compiler@2.13.0"
+  }
+}

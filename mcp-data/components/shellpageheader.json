@@ -1,0 +1,152 @@
+{
+  "name": "ShellPageHeader",
+  "type": "component",
+  "filePath": "src/components/ui/ShellPageHeader.astro",
+  "description": "Shell Page Header Component",
+  "props": {
+    "title": {
+      "type": "string",
+      "optional": false,
+      "default": null
+    },
+    "subtitle": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "primaryButton": {
+      "type": "ButtonConfig",
+      "optional": true,
+      "default": null
+    },
+    "outlineButton1": {
+      "type": "ButtonConfig",
+      "optional": true,
+      "default": null
+    },
+    "outlineButton2": {
+      "type": "ButtonConfig",
+      "optional": true,
+      "default": null
+    },
+    "outlineButton3": {
+      "type": "ButtonConfig",
+      "optional": true,
+      "default": null
+    },
+    "class": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    }
+  },
+  "imports": {
+    "Button": "./Button.astro"
+  },
+  "dependencies": [
+    "Button"
+  ],
+  "cssClasses": [
+    "shell-page-header",
+    "${className}",
+    "shell-page-header__left",
+    "shell-page-header__title",
+    "shell-page-header__subtitle",
+    "shell-page-header__actions"
+  ],
+  "themeSupport": {
+    "themes": [
+      "cp",
+      "vp",
+      "ppm",
+      "maconomy"
+    ],
+    "darkMode": true
+  },
+  "slots": {},
+  "structure": {
+    "root": {
+      "element": "header",
+      "class": "`shell-page-header ${className}`",
+      "spacing": {
+        "padding": "0",
+        "margin": "0"
+      },
+      "baseClass": "shell-page-header",
+      "modifierClasses": {},
+      "children": [
+        {
+          "element": "div",
+          "class": "shell-page-header__left",
+          "spacing": {
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": [
+            {
+              "element": "h1",
+              "class": "shell-page-header__title",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": []
+            },
+            {
+              "element": "p",
+              "class": "shell-page-header__subtitle",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": []
+            }
+          ]
+        },
+        {
+          "element": "div",
+          "class": "shell-page-header__actions",
+          "spacing": {
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": [
+            {
+              "element": "Button",
+              "class": null,
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": []
+            },
+            {
+              "element": "Button",
+              "class": null,
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    "children": [
+      {
+        "element": "style",
+        "class": null,
+        "spacing": {
+          "padding": "0",
+          "margin": "0"
+        },
+        "children": []
+      }
+    ]
+  },
+  "_metadata": {
+    "lastGenerated": "2026-01-16T19:52:02.947Z",
+    "generatedWith": "@astrojs/compiler@2.13.0"
+  }
+}

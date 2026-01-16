@@ -1,0 +1,328 @@
+{
+  "name": "TabStrip",
+  "type": "component",
+  "filePath": "src/components/ui/TabStrip.astro",
+  "description": "TabStrip Component",
+  "props": {
+    "tabs": {
+      "type": "Tab[]",
+      "optional": false,
+      "default": null
+    },
+    "showAddTab": {
+      "type": "boolean",
+      "optional": true,
+      "default": null
+    },
+    "addTabLabel": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "overflowMode": {
+      "type": "'auto' | 'manual' | 'none'",
+      "optional": true,
+      "default": null
+    },
+    "overflowTabs": {
+      "type": "Tab[]",
+      "optional": true,
+      "default": null
+    },
+    "variant": {
+      "type": "'default' | 'compact'",
+      "optional": true,
+      "default": null
+    },
+    "iconPosition": {
+      "type": "'left' | 'right' | 'top'",
+      "optional": true,
+      "default": null
+    },
+    "class": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    }
+  },
+  "imports": {
+    "Icon": "./Icon.astro"
+  },
+  "dependencies": [
+    "Icon"
+  ],
+  "cssClasses": [
+    "tabstrip",
+    "${className}",
+    "tabstrip__nav",
+    "tabstrip__container",
+    "tabstrip__tabs",
+    "tab__icon-wrapper",
+    "tab__icon",
+    "tab__label",
+    "tab",
+    "tabstrip__add",
+    "tabstrip__more-wrapper",
+    "tabstrip__more",
+    "tabstrip__dropdown",
+    "tabstrip__dropdown-section",
+    "tabstrip__dropdown-item",
+    "${tab.active",
+    "?",
+    ":",
+    "}",
+    "tabstrip__dropdown-item-label",
+    "tabstrip__dropdown-item-icon",
+    "tabstrip__dropdown-item-actions",
+    "tabstrip__dropdown-action-btn"
+  ],
+  "themeSupport": {
+    "themes": [
+      "cp",
+      "vp",
+      "ppm",
+      "maconomy"
+    ],
+    "darkMode": true
+  },
+  "slots": {},
+  "structure": {
+    "root": {
+      "element": "div",
+      "class": "`tabstrip ${className}`",
+      "spacing": {
+        "padding": "0",
+        "margin": "0"
+      },
+      "baseClass": "tabstrip",
+      "modifierClasses": {},
+      "children": [
+        {
+          "element": "nav",
+          "class": "tabstrip__nav",
+          "spacing": {
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": [
+            {
+              "element": "div",
+              "class": "tabstrip__container",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": [
+                {
+                  "element": "div",
+                  "class": "tabstrip__tabs",
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": []
+                },
+                {
+                  "element": "button",
+                  "class": "tab tabstrip__add",
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": [
+                    {
+                      "element": "Icon",
+                      "class": null,
+                      "spacing": {
+                        "padding": "0",
+                        "margin": "0"
+                      },
+                      "children": []
+                    },
+                    {
+                      "element": "span",
+                      "class": null,
+                      "spacing": {
+                        "padding": "0",
+                        "margin": "0"
+                      },
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "element": "div",
+                  "class": "tabstrip__more-wrapper",
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": [
+                    {
+                      "element": "button",
+                      "class": "tab tabstrip__more",
+                      "spacing": {
+                        "padding": "0",
+                        "margin": "0"
+                      },
+                      "children": [
+                        {
+                          "element": "span",
+                          "class": null,
+                          "spacing": {
+                            "padding": "0",
+                            "margin": "0"
+                          },
+                          "children": []
+                        },
+                        {
+                          "element": "Icon",
+                          "class": null,
+                          "spacing": {
+                            "padding": "0",
+                            "margin": "0"
+                          },
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "element": "div",
+                      "class": "tabstrip__dropdown",
+                      "spacing": {
+                        "padding": "0",
+                        "margin": "0"
+                      },
+                      "children": [
+                        {
+                          "element": "div",
+                          "class": "tabstrip__dropdown-section",
+                          "spacing": {
+                            "padding": "0",
+                            "margin": "0"
+                          },
+                          "children": [
+                            {
+                              "element": "div",
+                              "class": "`tabstrip__dropdown-item ${tab.active ? 'is-active' : ''}`",
+                              "spacing": {
+                                "padding": "0",
+                                "margin": "0"
+                              },
+                              "children": [
+                                {
+                                  "element": "button",
+                                  "class": "tabstrip__dropdown-item-label",
+                                  "spacing": {
+                                    "padding": "0",
+                                    "margin": "0"
+                                  },
+                                  "children": [
+                                    {
+                                      "element": "Icon",
+                                      "class": "tabstrip__dropdown-item-icon",
+                                      "spacing": {
+                                        "padding": "0",
+                                        "margin": "0"
+                                      },
+                                      "children": []
+                                    },
+                                    {
+                                      "element": "span",
+                                      "class": null,
+                                      "spacing": {
+                                        "padding": "0",
+                                        "margin": "0"
+                                      },
+                                      "children": []
+                                    }
+                                  ]
+                                },
+                                {
+                                  "element": "div",
+                                  "class": "tabstrip__dropdown-item-actions",
+                                  "spacing": {
+                                    "padding": "0",
+                                    "margin": "0"
+                                  },
+                                  "children": [
+                                    {
+                                      "element": "button",
+                                      "class": "tabstrip__dropdown-action-btn",
+                                      "spacing": {
+                                        "padding": "0",
+                                        "margin": "0"
+                                      },
+                                      "children": [
+                                        {
+                                          "element": "Icon",
+                                          "class": null,
+                                          "spacing": {
+                                            "padding": "0",
+                                            "margin": "0"
+                                          },
+                                          "children": []
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "element": "button",
+                                      "class": "tabstrip__dropdown-action-btn",
+                                      "spacing": {
+                                        "padding": "0",
+                                        "margin": "0"
+                                      },
+                                      "children": [
+                                        {
+                                          "element": "Icon",
+                                          "class": null,
+                                          "spacing": {
+                                            "padding": "0",
+                                            "margin": "0"
+                                          },
+                                          "children": []
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "children": [
+      {
+        "element": "style",
+        "class": null,
+        "spacing": {
+          "padding": "0",
+          "margin": "0"
+        },
+        "children": []
+      },
+      {
+        "element": "script",
+        "class": null,
+        "spacing": {
+          "padding": "0",
+          "margin": "0"
+        },
+        "children": []
+      }
+    ]
+  },
+  "_metadata": {
+    "lastGenerated": "2026-01-16T19:52:02.972Z",
+    "generatedWith": "@astrojs/compiler@2.13.0"
+  }
+}

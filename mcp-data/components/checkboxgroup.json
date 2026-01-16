@@ -1,0 +1,155 @@
+{
+  "name": "CheckboxGroup",
+  "type": "component",
+  "filePath": "src/components/ui/CheckboxGroup.astro",
+  "description": "CheckboxGroup Component",
+  "props": {
+    "legend": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "error": {
+      "type": "boolean",
+      "optional": true,
+      "default": null
+    },
+    "warning": {
+      "type": "boolean",
+      "optional": true,
+      "default": null
+    },
+    "errorMessage": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "warningMessage": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "orientation": {
+      "type": "'vertical' | 'horizontal'",
+      "optional": true,
+      "default": null
+    },
+    "class": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    }
+  },
+  "imports": {
+    "Icon": "./Icon.astro"
+  },
+  "dependencies": [
+    "Icon"
+  ],
+  "cssClasses": [
+    "checkbox-group-wrapper__content",
+    "checkbox-group-wrapper__message",
+    "checkbox-group-wrapper__message--error",
+    "checkbox-group-wrapper__message-icon",
+    "checkbox-group-wrapper__message--warning"
+  ],
+  "themeSupport": {
+    "themes": [
+      "cp",
+      "vp",
+      "ppm",
+      "maconomy"
+    ],
+    "darkMode": true
+  },
+  "slots": {
+    "default": {
+      "name": "default",
+      "required": true,
+      "location": "checkbox-group-wrapper__content",
+      "description": null,
+      "conditional": null
+    }
+  },
+  "structure": {
+    "root": {
+      "element": "fieldset",
+      "class": "wrapperClasses",
+      "spacing": {
+        "padding": "0",
+        "margin": "0"
+      },
+      "baseClass": null,
+      "modifierClasses": {},
+      "children": [
+        {
+          "element": "legend",
+          "class": "legendClasses",
+          "spacing": {
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": []
+        },
+        {
+          "element": "div",
+          "class": "checkbox-group-wrapper__content",
+          "spacing": {
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": [
+            {
+              "element": "slot",
+              "slotName": "default",
+              "class": null
+            }
+          ]
+        },
+        {
+          "element": "p",
+          "class": "checkbox-group-wrapper__message checkbox-group-wrapper__message--error",
+          "spacing": {
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": [
+            {
+              "element": "Icon",
+              "class": "checkbox-group-wrapper__message-icon",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": []
+            }
+          ]
+        },
+        {
+          "element": "p",
+          "class": "checkbox-group-wrapper__message checkbox-group-wrapper__message--warning",
+          "spacing": {
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": [
+            {
+              "element": "Icon",
+              "class": "checkbox-group-wrapper__message-icon",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    "children": []
+  },
+  "_metadata": {
+    "lastGenerated": "2026-01-16T19:52:02.814Z",
+    "generatedWith": "@astrojs/compiler@2.13.0"
+  }
+}

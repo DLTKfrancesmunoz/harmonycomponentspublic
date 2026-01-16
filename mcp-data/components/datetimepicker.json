@@ -1,0 +1,137 @@
+{
+  "name": "DateTimePicker",
+  "type": "component",
+  "filePath": "src/components/ui/DateTimePicker.astro",
+  "description": "DateTimePicker Component",
+  "props": {
+    "value": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "DDTHH": {
+      "type": "MM)\n  min?: string",
+      "optional": false,
+      "default": null
+    },
+    "max": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "disabled": {
+      "type": "boolean",
+      "optional": true,
+      "default": null
+    },
+    "timeFormat": {
+      "type": "'12' | '24'",
+      "optional": true,
+      "default": null
+    },
+    "locale": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "id": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "class": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    }
+  },
+  "imports": {
+    "DatePicker": "./DatePicker.astro",
+    "TimePicker": "./TimePicker.astro"
+  },
+  "dependencies": [
+    "DatePicker",
+    "TimePicker"
+  ],
+  "cssClasses": [
+    "datetime-picker__date-section",
+    "datetime-picker__time-section"
+  ],
+  "themeSupport": {
+    "themes": [
+      "cp",
+      "vp",
+      "ppm",
+      "maconomy"
+    ],
+    "darkMode": true
+  },
+  "slots": {},
+  "structure": {
+    "root": {
+      "element": "div",
+      "class": "classes",
+      "spacing": {
+        "padding": "0",
+        "margin": "0"
+      },
+      "baseClass": null,
+      "modifierClasses": {},
+      "children": [
+        {
+          "element": "div",
+          "class": "datetime-picker__date-section",
+          "spacing": {
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": [
+            {
+              "element": "DatePicker",
+              "class": null,
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": []
+            }
+          ]
+        },
+        {
+          "element": "div",
+          "class": "datetime-picker__time-section",
+          "spacing": {
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": [
+            {
+              "element": "TimePicker",
+              "class": null,
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    "children": [
+      {
+        "element": "script",
+        "class": null,
+        "spacing": {
+          "padding": "0",
+          "margin": "0"
+        },
+        "children": []
+      }
+    ]
+  },
+  "_metadata": {
+    "lastGenerated": "2026-01-16T19:52:02.837Z",
+    "generatedWith": "@astrojs/compiler@2.13.0"
+  }
+}

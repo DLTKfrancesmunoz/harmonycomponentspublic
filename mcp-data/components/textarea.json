@@ -1,0 +1,125 @@
+{
+  "name": "Textarea",
+  "type": "component",
+  "filePath": "src/components/ui/Textarea.astro",
+  "description": "Textarea Component",
+  "props": {
+    "placeholder": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "value": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "name": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "id": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "disabled": {
+      "type": "boolean",
+      "optional": true,
+      "default": null
+    },
+    "rows": {
+      "type": "number",
+      "optional": true,
+      "default": null
+    },
+    "required": {
+      "type": "boolean",
+      "optional": true,
+      "default": null
+    },
+    "label": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "labelVariant": {
+      "type": "'inline' | 'stacked'",
+      "optional": true,
+      "default": null
+    },
+    "labelFor": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "class": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "key": {
+      "type": "string]: any",
+      "optional": false,
+      "default": null
+    }
+  },
+  "imports": {
+    "Label": "./Label.astro"
+  },
+  "dependencies": [
+    "Label"
+  ],
+  "cssClasses": [
+    "inline",
+    "textarea-form-wrapper__label"
+  ],
+  "themeSupport": {
+    "themes": [
+      "cp",
+      "vp",
+      "ppm",
+      "maconomy"
+    ],
+    "darkMode": true
+  },
+  "slots": {},
+  "structure": {
+    "root": {
+      "element": "div",
+      "class": "wrapperClasses",
+      "spacing": {
+        "padding": "0",
+        "margin": "0"
+      },
+      "baseClass": null,
+      "modifierClasses": {},
+      "children": [
+        {
+          "element": "Label",
+          "class": "(finalLabelVariant === 'inline' || !finalLabelVariant) ? 'textarea-form-wrapper__label' : ''",
+          "spacing": {
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": []
+        },
+        {
+          "element": "textarea",
+          "class": "classes",
+          "spacing": {
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": []
+        }
+      ]
+    },
+    "children": []
+  },
+  "_metadata": {
+    "lastGenerated": "2026-01-16T19:52:02.978Z",
+    "generatedWith": "@astrojs/compiler@2.13.0"
+  }
+}

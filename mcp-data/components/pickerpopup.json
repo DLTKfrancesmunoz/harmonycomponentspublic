@@ -1,0 +1,140 @@
+{
+  "name": "PickerPopup",
+  "type": "component",
+  "filePath": "src/components/ui/PickerPopup.astro",
+  "description": "PickerPopup Component",
+  "props": {
+    "id": {
+      "type": "string",
+      "optional": false,
+      "default": null
+    },
+    "triggerId": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "class": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "title": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    }
+  },
+  "imports": {
+    "Icon": "./Icon.astro"
+  },
+  "dependencies": [
+    "Icon"
+  ],
+  "cssClasses": [
+    "picker-popup__header",
+    "picker-popup__title",
+    "picker-popup__close",
+    "picker-popup__body"
+  ],
+  "themeSupport": {
+    "themes": [
+      "cp",
+      "vp",
+      "ppm",
+      "maconomy"
+    ],
+    "darkMode": true
+  },
+  "slots": {
+    "default": {
+      "name": "default",
+      "required": true,
+      "location": "picker-popup__body",
+      "description": null,
+      "conditional": null
+    }
+  },
+  "structure": {
+    "root": {
+      "element": "div",
+      "class": "classes",
+      "spacing": {
+        "padding": "0",
+        "margin": "0"
+      },
+      "baseClass": null,
+      "modifierClasses": {},
+      "children": [
+        {
+          "element": "div",
+          "class": "picker-popup__header",
+          "spacing": {
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": [
+            {
+              "element": "h3",
+              "class": "picker-popup__title",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": []
+            },
+            {
+              "element": "button",
+              "class": "picker-popup__close",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": [
+                {
+                  "element": "Icon",
+                  "class": null,
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "element": "div",
+          "class": "picker-popup__body",
+          "spacing": {
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": [
+            {
+              "element": "slot",
+              "slotName": "default",
+              "class": null
+            }
+          ]
+        }
+      ]
+    },
+    "children": [
+      {
+        "element": "script",
+        "class": null,
+        "spacing": {
+          "padding": "0",
+          "margin": "0"
+        },
+        "children": []
+      }
+    ]
+  },
+  "_metadata": {
+    "lastGenerated": "2026-01-16T19:52:02.908Z",
+    "generatedWith": "@astrojs/compiler@2.13.0"
+  }
+}

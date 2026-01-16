@@ -1,0 +1,201 @@
+{
+  "name": "Dropdown",
+  "type": "component",
+  "filePath": "src/components/ui/Dropdown.astro",
+  "description": "Dropdown Component",
+  "props": {
+    "options": {
+      "type": "Option[]",
+      "optional": false,
+      "default": null
+    },
+    "value": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "placeholder": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "name": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "id": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "disabled": {
+      "type": "boolean",
+      "optional": true,
+      "default": null
+    },
+    "class": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "label": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "labelVariant": {
+      "type": "'inline' | 'stacked'",
+      "optional": true,
+      "default": null
+    },
+    "labelFor": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "key": {
+      "type": "string]: any",
+      "optional": false,
+      "default": null
+    }
+  },
+  "imports": {
+    "Icon": "./Icon.astro",
+    "Label": "./Label.astro"
+  },
+  "dependencies": [
+    "Icon",
+    "Label"
+  ],
+  "cssClasses": [
+    "inline",
+    "dropdown-wrapper__label",
+    "dropdown__trigger",
+    "dropdown__value",
+    "dropdown__chevron",
+    "dropdown__menu",
+    "dropdown__item",
+    "${option.value",
+    "===",
+    "value",
+    "?",
+    ":",
+    "}",
+    "${option.disabled"
+  ],
+  "themeSupport": {
+    "themes": [
+      "cp",
+      "vp",
+      "ppm",
+      "maconomy"
+    ],
+    "darkMode": true
+  },
+  "slots": {},
+  "structure": {
+    "root": {
+      "element": "div",
+      "class": "wrapperClasses",
+      "spacing": {
+        "padding": "0",
+        "margin": "0"
+      },
+      "baseClass": null,
+      "modifierClasses": {},
+      "children": [
+        {
+          "element": "Label",
+          "class": "(finalLabelVariant === 'inline' || !finalLabelVariant) ? 'dropdown-wrapper__label' : ''",
+          "spacing": {
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": []
+        },
+        {
+          "element": "div",
+          "class": "classes",
+          "spacing": {
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": [
+            {
+              "element": "button",
+              "class": "dropdown__trigger",
+              "spacing": {
+                "padding": "0 var(--space-2) 0 var(--space-2)",
+                "margin": "0"
+              },
+              "children": [
+                {
+                  "element": "span",
+                  "class": "dropdown__value",
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": []
+                },
+                {
+                  "element": "Icon",
+                  "class": "dropdown__chevron",
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": []
+                }
+              ]
+            },
+            {
+              "element": "div",
+              "class": "dropdown__menu",
+              "spacing": {
+                "padding": "var(--space-1) 0",
+                "margin": "0"
+              },
+              "children": [
+                {
+                  "element": "button",
+                  "class": "`dropdown__item ${option.value === value ? 'is-selected' : ''} ${option.disabled ? 'dropdown__item--disabled' : ''}`",
+                  "spacing": {
+                    "padding": "var(--space-3) var(--space-4)",
+                    "margin": "0"
+                  },
+                  "children": []
+                }
+              ]
+            },
+            {
+              "element": "input",
+              "class": null,
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    "children": [
+      {
+        "element": "script",
+        "class": null,
+        "spacing": {
+          "padding": "0",
+          "margin": "0"
+        },
+        "children": []
+      }
+    ]
+  },
+  "_metadata": {
+    "lastGenerated": "2026-01-16T19:52:02.845Z",
+    "generatedWith": "@astrojs/compiler@2.13.0"
+  }
+}

@@ -1,0 +1,214 @@
+{
+  "name": "FloatingNav",
+  "type": "component",
+  "filePath": "src/components/ui/FloatingNav.astro",
+  "description": "FloatingNav Component",
+  "props": {
+    "showExecute": {
+      "type": "boolean",
+      "optional": true,
+      "default": null
+    },
+    "saveDisabled": {
+      "type": "boolean",
+      "optional": true,
+      "default": null
+    },
+    "variant": {
+      "type": "'full' | 'compact'",
+      "optional": true,
+      "default": null
+    }
+  },
+  "imports": {
+    "Icon": "./Icon.astro"
+  },
+  "dependencies": [
+    "Icon"
+  ],
+  "cssClasses": [
+    "floating-nav",
+    "floating-nav__toolbar",
+    "floating-nav__buttons",
+    "floating-nav__btn",
+    "floating-nav__btn--secondary",
+    "floating-nav__btn--dropdown",
+    "floating-nav__btn-text",
+    "floating-nav__btn-chevron",
+    "floating-nav__btn--icon-dropdown",
+    "floating-nav__btn-icon",
+    "floating-nav__divider",
+    "floating-nav__pin",
+    "floating-nav__pin-icon"
+  ],
+  "themeSupport": {
+    "themes": [
+      "cp",
+      "vp",
+      "ppm",
+      "maconomy"
+    ],
+    "darkMode": true
+  },
+  "slots": {},
+  "structure": {
+    "root": {
+      "element": "div",
+      "class": "floating-nav",
+      "spacing": {
+        "padding": "var(--space-2) var(--space-2) var(--space-3) var(--space-2)",
+        "margin": "0"
+      },
+      "baseClass": "floating-nav",
+      "modifierClasses": {},
+      "children": [
+        {
+          "element": "div",
+          "class": "floating-nav__toolbar",
+          "spacing": {
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": [
+            {
+              "element": "div",
+              "class": "floating-nav__buttons",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": [
+                {
+                  "element": "button",
+                  "class": "floating-nav__btn floating-nav__btn--secondary",
+                  "spacing": {
+                    "padding": "var(--space-2)",
+                    "margin": "0"
+                  },
+                  "children": []
+                },
+                {
+                  "element": "button",
+                  "class": "floating-nav__btn floating-nav__btn--secondary floating-nav__btn--dropdown",
+                  "spacing": {
+                    "padding": "var(--space-2)",
+                    "margin": "0"
+                  },
+                  "children": [
+                    {
+                      "element": "span",
+                      "class": "floating-nav__btn-text",
+                      "spacing": {
+                        "padding": "0",
+                        "margin": "0"
+                      },
+                      "children": []
+                    },
+                    {
+                      "element": "Icon",
+                      "class": "floating-nav__btn-chevron",
+                      "spacing": {
+                        "padding": "0",
+                        "margin": "0"
+                      },
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "element": "button",
+                  "class": "floating-nav__btn floating-nav__btn--secondary floating-nav__btn--icon-dropdown",
+                  "spacing": {
+                    "padding": "var(--space-2)",
+                    "margin": "0"
+                  },
+                  "children": [
+                    {
+                      "element": "Icon",
+                      "class": "floating-nav__btn-icon",
+                      "spacing": {
+                        "padding": "0",
+                        "margin": "0"
+                      },
+                      "children": []
+                    },
+                    {
+                      "element": "Icon",
+                      "class": "floating-nav__btn-chevron",
+                      "spacing": {
+                        "padding": "0",
+                        "margin": "0"
+                      },
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "element": "button",
+                  "class": null,
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": [
+                    {
+                      "element": "span",
+                      "class": "floating-nav__btn-text",
+                      "spacing": {
+                        "padding": "0",
+                        "margin": "0"
+                      },
+                      "children": []
+                    },
+                    {
+                      "element": "Icon",
+                      "class": "floating-nav__btn-chevron",
+                      "spacing": {
+                        "padding": "0",
+                        "margin": "0"
+                      },
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "element": "div",
+              "class": "floating-nav__divider",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": []
+            },
+            {
+              "element": "button",
+              "class": "floating-nav__pin",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": [
+                {
+                  "element": "Icon",
+                  "class": "floating-nav__pin-icon",
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "children": []
+  },
+  "_metadata": {
+    "lastGenerated": "2026-01-16T19:52:02.849Z",
+    "generatedWith": "@astrojs/compiler@2.13.0"
+  }
+}

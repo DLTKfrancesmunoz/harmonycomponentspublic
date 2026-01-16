@@ -1,0 +1,276 @@
+{
+  "name": "Alert",
+  "type": "component",
+  "filePath": "src/components/ui/Alert.astro",
+  "description": "Alert Component",
+  "props": {
+    "variant": {
+      "type": "'info' | 'success' | 'warning' | 'error'",
+      "optional": true,
+      "default": null
+    },
+    "style": {
+      "type": "'default' | 'enhanced'",
+      "optional": true,
+      "default": null
+    },
+    "title": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "dismissible": {
+      "type": "boolean",
+      "optional": true,
+      "default": null
+    },
+    "icon": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "primaryButton": {
+      "type": "{ text: string",
+      "optional": true,
+      "default": null
+    },
+    "href": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "onClick": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    }
+  },
+  "imports": {
+    "Icon": "./Icon.astro",
+    "Button": "./Button.astro",
+    "ProgressBar": "./ProgressBar.astro"
+  },
+  "dependencies": [
+    "Icon",
+    "Button",
+    "ProgressBar"
+  ],
+  "cssClasses": [
+    "alert__border",
+    "alert__content",
+    "alert__inner",
+    "alert__icon",
+    "alert__text",
+    "alert__title",
+    "alert__message",
+    "alert__close",
+    "alert__actions",
+    "alert__buttons",
+    "alert__link",
+    "alert__progress"
+  ],
+  "themeSupport": {
+    "themes": [
+      "cp",
+      "vp",
+      "ppm",
+      "maconomy"
+    ],
+    "darkMode": true
+  },
+  "slots": {
+    "default": {
+      "name": "default",
+      "required": true,
+      "location": "alert__message",
+      "description": null,
+      "conditional": null
+    }
+  },
+  "structure": {
+    "root": {
+      "element": "div",
+      "class": "classes",
+      "spacing": {
+        "padding": "0",
+        "margin": "0"
+      },
+      "baseClass": null,
+      "modifierClasses": {},
+      "children": [
+        {
+          "element": "div",
+          "class": "alert__border",
+          "spacing": {
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": []
+        },
+        {
+          "element": "div",
+          "class": "alert__content",
+          "spacing": {
+            "padding": "var(--space-3)",
+            "margin": "0"
+          },
+          "children": [
+            {
+              "element": "div",
+              "class": "alert__inner",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": [
+                {
+                  "element": "Icon",
+                  "class": "alert__icon",
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": []
+                },
+                {
+                  "element": "div",
+                  "class": "alert__text",
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": [
+                    {
+                      "element": "div",
+                      "class": "alert__title",
+                      "spacing": {
+                        "padding": "0",
+                        "margin": "0"
+                      },
+                      "children": []
+                    },
+                    {
+                      "element": "div",
+                      "class": "alert__message",
+                      "spacing": {
+                        "padding": "0",
+                        "margin": "0"
+                      },
+                      "children": [
+                        {
+                          "element": "slot",
+                          "slotName": "default",
+                          "class": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "element": "button",
+                  "class": "alert__close",
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": [
+                    {
+                      "element": "Icon",
+                      "class": null,
+                      "spacing": {
+                        "padding": "0",
+                        "margin": "0"
+                      },
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "element": "div",
+              "class": "alert__actions",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": [
+                {
+                  "element": "div",
+                  "class": "alert__buttons",
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": [
+                    {
+                      "element": "Button",
+                      "class": null,
+                      "spacing": {
+                        "padding": "0",
+                        "margin": "0"
+                      },
+                      "children": []
+                    },
+                    {
+                      "element": "Button",
+                      "class": null,
+                      "spacing": {
+                        "padding": "0",
+                        "margin": "0"
+                      },
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "element": "a",
+                  "class": "alert__link",
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": []
+                }
+              ]
+            },
+            {
+              "element": "div",
+              "class": "alert__progress",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": [
+                {
+                  "element": "ProgressBar",
+                  "class": null,
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "children": [
+      {
+        "element": "script",
+        "class": null,
+        "spacing": {
+          "padding": "0",
+          "margin": "0"
+        },
+        "children": []
+      }
+    ]
+  },
+  "_metadata": {
+    "lastGenerated": "2026-01-16T19:52:02.777Z",
+    "generatedWith": "@astrojs/compiler@2.13.0"
+  }
+}

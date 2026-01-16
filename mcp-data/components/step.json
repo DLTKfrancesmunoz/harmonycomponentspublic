@@ -1,0 +1,201 @@
+{
+  "name": "Step",
+  "type": "component",
+  "filePath": "src/components/ui/Step.astro",
+  "description": "Step Component",
+  "props": {
+    "completed": {
+      "type": "boolean",
+      "optional": true,
+      "default": null
+    },
+    "disabled": {
+      "type": "boolean",
+      "optional": true,
+      "default": null
+    },
+    "error": {
+      "type": "boolean",
+      "optional": true,
+      "default": null
+    },
+    "warning": {
+      "type": "boolean",
+      "optional": true,
+      "default": null
+    },
+    "success": {
+      "type": "boolean",
+      "optional": true,
+      "default": null
+    },
+    "icon": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "class": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    }
+  },
+  "imports": {
+    "Icon": "./Icon.astro"
+  },
+  "dependencies": [
+    "Icon"
+  ],
+  "cssClasses": [
+    "step__indicator",
+    "step__icon",
+    "step__number",
+    "step__error-icon",
+    "step__warning-icon",
+    "step__success-icon",
+    "step__check",
+    "step__connector",
+    "step__label",
+    "step__label-text",
+    "step__description"
+  ],
+  "themeSupport": {
+    "themes": [
+      "cp",
+      "vp",
+      "ppm",
+      "maconomy"
+    ],
+    "darkMode": true
+  },
+  "slots": {
+    "default": {
+      "name": "default",
+      "required": true,
+      "location": "step__label-text",
+      "description": null,
+      "conditional": null
+    },
+    "description": {
+      "name": "description",
+      "required": false,
+      "location": "step__description",
+      "description": null,
+      "conditional": null
+    }
+  },
+  "structure": {
+    "root": {
+      "element": "div",
+      "class": "classes",
+      "spacing": {
+        "padding": "0",
+        "margin": "0"
+      },
+      "baseClass": null,
+      "modifierClasses": {},
+      "children": [
+        {
+          "element": "div",
+          "class": "step__indicator",
+          "spacing": {
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": [
+            {
+              "element": "Icon",
+              "class": "step__error-icon",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": []
+            },
+            {
+              "element": "Icon",
+              "class": "step__warning-icon",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": []
+            },
+            {
+              "element": "Icon",
+              "class": "step__success-icon",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": []
+            },
+            {
+              "element": "Icon",
+              "class": "step__check",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": []
+            }
+          ]
+        },
+        {
+          "element": "div",
+          "class": "step__connector",
+          "spacing": {
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": []
+        },
+        {
+          "element": "div",
+          "class": "step__label",
+          "spacing": {
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": [
+            {
+              "element": "span",
+              "class": "step__label-text",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": [
+                {
+                  "element": "slot",
+                  "slotName": "default",
+                  "class": null
+                }
+              ]
+            },
+            {
+              "element": "span",
+              "class": "step__description",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": [
+                {
+                  "element": "slot",
+                  "slotName": "description",
+                  "class": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "children": []
+  },
+  "_metadata": {
+    "lastGenerated": "2026-01-16T19:52:02.958Z",
+    "generatedWith": "@astrojs/compiler@2.13.0"
+  }
+}

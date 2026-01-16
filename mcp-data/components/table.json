@@ -1,0 +1,176 @@
+{
+  "name": "Table",
+  "type": "component",
+  "filePath": "src/components/ui/Table.astro",
+  "description": "Table Component",
+  "props": {
+    "headerVariant": {
+      "type": "'gray' | 'white' | 'none'",
+      "optional": true,
+      "default": null
+    },
+    "striped": {
+      "type": "boolean",
+      "optional": true,
+      "default": null
+    },
+    "class": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    }
+  },
+  "imports": {},
+  "dependencies": [],
+  "cssClasses": [
+    "table-wrapper",
+    "table__title-bar",
+    "table__title-bar-content",
+    "table__title-bar-icons",
+    "table__action-bar"
+  ],
+  "themeSupport": {
+    "themes": [
+      "cp",
+      "vp",
+      "ppm",
+      "maconomy"
+    ],
+    "darkMode": true
+  },
+  "slots": {
+    "title-bar-content": {
+      "name": "title-bar-content",
+      "required": false,
+      "location": null,
+      "description": null,
+      "conditional": null
+    },
+    "title-bar-icons": {
+      "name": "title-bar-icons",
+      "required": false,
+      "location": "table__title-bar-icons",
+      "description": null,
+      "conditional": null
+    },
+    "action-bar": {
+      "name": "action-bar",
+      "required": false,
+      "location": "table__action-bar",
+      "description": null,
+      "conditional": null
+    },
+    "header": {
+      "name": "header",
+      "required": false,
+      "location": "classes",
+      "description": null,
+      "conditional": null
+    },
+    "body": {
+      "name": "body",
+      "required": false,
+      "location": "classes",
+      "description": null,
+      "conditional": null
+    }
+  },
+  "structure": {
+    "root": {
+      "element": "div",
+      "class": "table-wrapper",
+      "spacing": {
+        "padding": "0",
+        "margin": "0"
+      },
+      "baseClass": "table-wrapper",
+      "modifierClasses": {},
+      "children": [
+        {
+          "element": "div",
+          "class": "table__title-bar",
+          "spacing": {
+            "padding": "var(--space-4) var(--space-4) var(--space-3)",
+            "margin": "0"
+          },
+          "children": [
+            {
+              "element": "div",
+              "class": "table__title-bar-content",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": [
+                {
+                  "element": "slot",
+                  "class": null,
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": []
+                },
+                {
+                  "element": "div",
+                  "class": "table__title-bar-icons",
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": [
+                    {
+                      "element": "slot",
+                      "slotName": "title-bar-icons",
+                      "class": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "element": "div",
+          "class": "table__action-bar",
+          "spacing": {
+            "padding": "var(--space-3) var(--space-4) var(--space-3) var(--space-1)",
+            "margin": "0"
+          },
+          "children": [
+            {
+              "element": "slot",
+              "slotName": "action-bar",
+              "class": null
+            }
+          ]
+        },
+        {
+          "element": "table",
+          "class": "classes",
+          "spacing": {
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": [
+            {
+              "element": "slot",
+              "slotName": "header",
+              "class": null
+            },
+            {
+              "element": "slot",
+              "slotName": "body",
+              "class": null
+            }
+          ]
+        }
+      ]
+    },
+    "children": []
+  },
+  "_metadata": {
+    "lastGenerated": "2026-01-16T19:52:02.976Z",
+    "generatedWith": "@astrojs/compiler@2.13.0"
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "name": "Dialog",
+  "type": "component",
+  "filePath": "src/components/ui/Dialog.astro",
+  "description": "Dialog Component",
+  "props": {
+    "id": {
+      "type": "string",
+      "optional": false,
+      "default": null
+    },
+    "title": {
+      "type": "string",
+      "optional": false,
+      "default": null
+    },
+    "class": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "buttonAlignment": {
+      "type": "'left' | 'right'",
+      "optional": true,
+      "default": null
+    },
+    "headerVariant": {
+      "type": "'default' | 'primary'",
+      "optional": true,
+      "default": null
+    }
+  },
+  "imports": {
+    "Icon": "./Icon.astro"
+  },
+  "dependencies": [
+    "Icon"
+  ],
+  "cssClasses": [
+    "dialog-overlay",
+    "dialog__title",
+    "dialog__close",
+    "dialog__body"
+  ],
+  "themeSupport": {
+    "themes": [
+      "cp",
+      "vp",
+      "ppm",
+      "maconomy"
+    ],
+    "darkMode": true
+  },
+  "slots": {
+    "default": {
+      "name": "default",
+      "required": true,
+      "location": "dialog__body",
+      "description": null,
+      "conditional": null
+    },
+    "footer": {
+      "name": "footer",
+      "required": false,
+      "location": "footerClasses",
+      "description": null,
+      "conditional": null
+    }
+  },
+  "structure": {
+    "root": {
+      "element": "div",
+      "class": "dialog-overlay",
+      "spacing": {
+        "padding": "0",
+        "margin": "0"
+      },
+      "baseClass": "dialog-overlay",
+      "modifierClasses": {},
+      "children": [
+        {
+          "element": "div",
+          "class": "classes",
+          "spacing": {
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": [
+            {
+              "element": "div",
+              "class": "headerClasses",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": [
+                {
+                  "element": "h2",
+                  "class": "dialog__title",
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": []
+                },
+                {
+                  "element": "button",
+                  "class": "dialog__close",
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": [
+                    {
+                      "element": "Icon",
+                      "class": null,
+                      "spacing": {
+                        "padding": "0",
+                        "margin": "0"
+                      },
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "element": "div",
+              "class": "dialog__body",
+              "spacing": {
+                "padding": "var(--space-4)",
+                "margin": "0"
+              },
+              "children": [
+                {
+                  "element": "slot",
+                  "slotName": "default",
+                  "class": null
+                }
+              ]
+            },
+            {
+              "element": "div",
+              "class": "footerClasses",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": [
+                {
+                  "element": "slot",
+                  "slotName": "footer",
+                  "class": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "children": [
+      {
+        "element": "script",
+        "class": null,
+        "spacing": {
+          "padding": "0",
+          "margin": "0"
+        },
+        "children": []
+      }
+    ]
+  },
+  "_metadata": {
+    "lastGenerated": "2026-01-16T19:52:02.840Z",
+    "generatedWith": "@astrojs/compiler@2.13.0"
+  }
+}

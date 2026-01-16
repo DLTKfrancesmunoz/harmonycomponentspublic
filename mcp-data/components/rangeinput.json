@@ -1,0 +1,171 @@
+{
+  "name": "RangeInput",
+  "type": "component",
+  "filePath": "src/components/ui/RangeInput.astro",
+  "description": "RangeInput Component",
+  "props": {
+    "value": {
+      "type": "number",
+      "optional": true,
+      "default": null
+    },
+    "min": {
+      "type": "number",
+      "optional": true,
+      "default": null
+    },
+    "max": {
+      "type": "number",
+      "optional": true,
+      "default": null
+    },
+    "step": {
+      "type": "number",
+      "optional": true,
+      "default": null
+    },
+    "name": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "id": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "disabled": {
+      "type": "boolean",
+      "optional": true,
+      "default": null
+    },
+    "showPercent": {
+      "type": "boolean",
+      "optional": true,
+      "default": null
+    },
+    "prefix": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "suffix": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "label": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "labelVariant": {
+      "type": "'inline' | 'stacked'",
+      "optional": true,
+      "default": null
+    },
+    "labelFor": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "class": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "key": {
+      "type": "string]: any",
+      "optional": false,
+      "default": null
+    }
+  },
+  "imports": {
+    "Label": "./Label.astro"
+  },
+  "dependencies": [
+    "Label"
+  ],
+  "cssClasses": [
+    "inline",
+    "range-input-form-wrapper__label",
+    "range",
+    "range-value"
+  ],
+  "themeSupport": {
+    "themes": [
+      "cp",
+      "vp",
+      "ppm",
+      "maconomy"
+    ],
+    "darkMode": true
+  },
+  "slots": {},
+  "structure": {
+    "root": {
+      "element": "div",
+      "class": "wrapperClasses",
+      "spacing": {
+        "padding": "0",
+        "margin": "0"
+      },
+      "baseClass": null,
+      "modifierClasses": {},
+      "children": [
+        {
+          "element": "Label",
+          "class": "(finalLabelVariant === 'inline' || !finalLabelVariant) ? 'range-input-form-wrapper__label' : ''",
+          "spacing": {
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": []
+        },
+        {
+          "element": "div",
+          "class": "classes",
+          "spacing": {
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": [
+            {
+              "element": "input",
+              "class": "range",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": []
+            },
+            {
+              "element": "span",
+              "class": "range-value",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    "children": [
+      {
+        "element": "script",
+        "class": null,
+        "spacing": {
+          "padding": "0",
+          "margin": "0"
+        },
+        "children": []
+      }
+    ]
+  },
+  "_metadata": {
+    "lastGenerated": "2026-01-16T19:52:02.919Z",
+    "generatedWith": "@astrojs/compiler@2.13.0"
+  }
+}
