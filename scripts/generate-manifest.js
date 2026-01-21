@@ -14,6 +14,7 @@ const rootDir = path.resolve(__dirname, '..');
 // Paths
 const COMPONENTS_DIR = path.join(rootDir, 'mcp-data/components');
 const LAYOUTS_DIR = path.join(rootDir, 'mcp-data/layouts');
+const GUIDELINES_DIR = path.join(rootDir, 'mcp-data/guidelines');
 const OUTPUT_FILE = path.join(rootDir, 'mcp-data/manifest.json');
 
 // Component categories
@@ -121,6 +122,59 @@ function readLayoutFiles() {
   }
 
   return layouts;
+}
+
+/**
+ * Read all guideline JSON files
+ */
+function readGuidelineFiles() {
+  const guidelines = {};
+
+  if (!fs.existsSync(GUIDELINES_DIR)) {
+    console.warn(`⚠️  Guidelines directory not found: ${GUIDELINES_DIR}`);
+    return guidelines;
+  }
+
+  const files = fs.readdirSync(GUIDELINES_DIR).filter((f) => f.endsWith('.json'));
+
+  for (const file of files) {
+    try {
+      const filePath = path.join(GUIDELINES_DIR, file);
+      const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+      const id = data.id || file.replace('.json', '');
+      guidelines[id] = {
+        id,
+        name: data.name || id,
+        type: 'guideline',
+        filePath: `mcp-data/guidelines/${file}`,
+        description: data.description,
+        ruleCount: countRules(data),
+      };
+    } catch (error) {
+      console.error(`⚠️  Error reading ${file}:`, error.message);
+    }
+  }
+
+  return guidelines;
+}
+
+/**
+ * Count total rules in a guideline file
+ */
+function countRules(guidelineData) {
+  let count = 0;
+  const traverse = (obj) => {
+    if (Array.isArray(obj)) {
+      obj.forEach((item) => {
+        if (item && item.id && item.rule) count++;
+        traverse(item);
+      });
+    } else if (obj && typeof obj === 'object') {
+      Object.values(obj).forEach(traverse);
+    }
+  };
+  traverse(guidelineData);
+  return count;
 }
 
 /**
@@ -320,6 +374,10 @@ function generateManifest() {
   const layouts = readLayoutFiles();
   console.log(`  Found ${Object.keys(layouts).length} layout files`);
 
+  // Read all guideline files
+  const guidelines = readGuidelineFiles();
+  console.log(`  Found ${Object.keys(guidelines).length} guideline files`);
+
   // Build dependency graph
   const dependencyGraph = buildDependencyGraph(components);
   console.log('  ✅ Built dependency graph');
@@ -340,6 +398,9 @@ function generateManifest() {
   const layoutIndex = buildLayoutIndex(layouts);
   console.log('  ✅ Built layout index');
 
+  // Guidelines are already indexed
+  console.log('  ✅ Indexed guidelines');
+
   // Calculate stats
   const stats = calculateStats(components, dependencyGraph, reverseDeps);
   console.log('  ✅ Calculated statistics');
@@ -350,9 +411,11 @@ function generateManifest() {
     generated: new Date().toISOString(),
     totalComponents: stats.totalComponents,
     totalLayouts: Object.keys(layouts).length,
+    totalGuidelines: Object.keys(guidelines).length,
 
     components: componentIndex,
     layouts: layoutIndex,
+    guidelines: guidelines,
     dependencyGraph,
     reverseDependencies: reverseDeps,
     categories,
@@ -366,6 +429,7 @@ function generateManifest() {
   console.log('\n📊 Statistics:');
   console.log(`   Total components: ${stats.totalComponents}`);
   console.log(`   Total layouts: ${Object.keys(layouts).length}`);
+  console.log(`   Total guidelines: ${Object.keys(guidelines).length}`);
   console.log(`   Most used: ${stats.mostUsedComponent} (${stats.mostUsedCount} times)`);
   console.log(`   Average dependencies: ${stats.averageDependencies}`);
   console.log(`   Components with no deps: ${stats.componentsWithNoDependencies}`);
