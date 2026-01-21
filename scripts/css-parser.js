@@ -184,9 +184,9 @@ export function extractComponentStyles(componentName, cssClasses, parsedCSS, var
           const prop = decl.prop;
           const value = decl.value;
           
-          // Resolve CSS variables for light mode
-          const resolvedLight = getResolvedValue(value, variableMap, 'light');
-          const resolvedDark = getResolvedValue(value, variableMap, 'dark');
+          // Resolve CSS variables for CP theme light and dark modes
+          const resolvedLight = getResolvedValue(value, variableMap, 'cp-light');
+          const resolvedDark = getResolvedValue(value, variableMap, 'cp-dark');
 
           styles[selector][prop] = {
             raw: value,
@@ -223,7 +223,7 @@ export function extractSizeVariants(componentName, parsedCSS, variableMap) {
 
           sizes[size][prop] = {
             raw: value,
-            resolved: getResolvedValue(value, variableMap, 'light')
+            resolved: getResolvedValue(value, variableMap, 'cp-light')
           };
         });
       }
@@ -248,7 +248,22 @@ export function extractVariantColors(componentName, parsedCSS, variableMap) {
     const selector = rule.selector;
 
     for (const variantName of variantNames) {
-      if (selector.includes(`${classPrefix}--${variantName}`)) {
+      // Match selectors that contain the exact class pattern (e.g., .btn--primary)
+      // but exclude:
+      // 1. More specific classes (e.g., .floating-nav__btn--primary)
+      // 2. Compound selectors in button groups (e.g., .btn-group .btn--primary)
+      // We want to match: .btn--primary, .btn--primary:hover, etc.
+      const exactPattern = `.${classPrefix}--${variantName}`;
+      const moreSpecificPattern = `__${classPrefix}--${variantName}`;
+      const buttonGroupPattern = `.btn-group`;
+      
+      // Only match if it's the base class or a state modifier (hover, active, etc.)
+      // and not part of a button group or more specific component
+      const isBaseClass = selector === exactPattern || 
+                         selector.startsWith(exactPattern + ':') ||
+                         selector.startsWith(exactPattern + '.');
+      
+      if (isBaseClass && !selector.includes(moreSpecificPattern) && !selector.includes(buttonGroupPattern)) {
         // Determine state (hover, active, focus, disabled)
         let state = 'default';
         if (selector.includes(':hover')) state = 'hover';
@@ -271,9 +286,10 @@ export function extractVariantColors(componentName, parsedCSS, variableMap) {
           const prop = decl.prop;
           const value = decl.value;
 
-          // Resolve for light and dark modes
-          const resolvedLight = getResolvedValue(value, variableMap, 'light');
-          const resolvedDark = getResolvedValue(value, variableMap, 'dark');
+          // Resolve for light and dark modes using CP theme as default
+          // (CP is the primary theme, and specs should reflect actual theme values)
+          const resolvedLight = getResolvedValue(value, variableMap, 'cp-light');
+          const resolvedDark = getResolvedValue(value, variableMap, 'cp-dark');
 
           variants[variantName].light[state][prop] = resolvedLight;
           variants[variantName].dark[state][prop] = resolvedDark;
