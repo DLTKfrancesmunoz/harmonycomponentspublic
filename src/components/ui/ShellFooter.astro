@@ -21,6 +21,7 @@ interface Props {
   overflowTabs?: Tab[];
   showAddTab?: boolean;
   variant?: 'default' | 'compact';
+  class?: string;
 }
 
 const {
@@ -29,7 +30,8 @@ const {
   moreCount = 0,
   overflowTabs = [],
   showAddTab = true,
-  variant = 'default'
+  variant = 'default',
+  class: className = ''
 } = Astro.props;
 
 // Determine overflow mode based on showMore prop
@@ -50,7 +52,7 @@ const overflowTabsWithPinIcon = overflowTabs.map(tab => ({
 }));
 ---
 
-<div class="shell-footer" data-variant={variant}>
+<div class={`shell-footer ${className}`.trim()} data-variant={variant}>
   <TabStrip
     tabs={tabsWithPinIcon}
     showAddTab={showAddTab}

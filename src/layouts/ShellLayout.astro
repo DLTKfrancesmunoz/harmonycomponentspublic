@@ -246,6 +246,7 @@ const isCPVariant = effectiveLeftSidebarVariant === 'cp';
         overflowTabs={overflowTabs}
         showAddTab={showAddTab}
         variant={footerVariant}
+        class="shell-layout__footer"
       />
     ) : (
       hasFooter && (
@@ -256,6 +257,7 @@ const isCPVariant = effectiveLeftSidebarVariant === 'cp';
           overflowTabs={overflowTabs}
           showAddTab={showAddTab}
           variant={footerVariant}
+          class="shell-layout__footer"
         />
       )
     )}
@@ -366,8 +368,9 @@ const isCPVariant = effectiveLeftSidebarVariant === 'cp';
   }
 
   /* Hide footer when data-has-footer is false */
-  .shell-layout__container[data-has-footer="false"] .shell-layout__footer {
-    display: none;
+  .shell-layout__container[data-has-footer="false"] :global(.shell-layout__footer),
+  .shell-layout__container[data-has-footer="false"] :global(.shell-footer.shell-layout__footer) {
+    display: none !important;
   }
 
   /* Hide floating nav when data-has-floating-nav is false */
