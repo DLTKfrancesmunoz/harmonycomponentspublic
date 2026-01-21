@@ -13,6 +13,7 @@ const rootDir = path.resolve(__dirname, '..');
 
 // Paths
 const COMPONENTS_DIR = path.join(rootDir, 'mcp-data/components');
+const LAYOUTS_DIR = path.join(rootDir, 'mcp-data/layouts');
 const OUTPUT_FILE = path.join(rootDir, 'mcp-data/manifest.json');
 
 // Component categories
@@ -94,6 +95,32 @@ function readComponentFiles() {
   }
 
   return components;
+}
+
+/**
+ * Read all layout JSON files
+ */
+function readLayoutFiles() {
+  const layouts = {};
+
+  if (!fs.existsSync(LAYOUTS_DIR)) {
+    console.warn(`⚠️  Layouts directory not found: ${LAYOUTS_DIR}`);
+    return layouts;
+  }
+
+  const files = fs.readdirSync(LAYOUTS_DIR).filter((f) => f.endsWith('.json'));
+
+  for (const file of files) {
+    try {
+      const filePath = path.join(LAYOUTS_DIR, file);
+      const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+      layouts[data.name] = data;
+    } catch (error) {
+      console.error(`⚠️  Error reading ${file}:`, error.message);
+    }
+  }
+
+  return layouts;
 }
 
 /**
@@ -254,6 +281,27 @@ function calculateStats(components, dependencyGraph, reverseDeps) {
 }
 
 /**
+ * Build layout index
+ */
+function buildLayoutIndex(layouts) {
+  const index = {};
+
+  for (const [name, data] of Object.entries(layouts)) {
+    index[name] = {
+      name,
+      type: data.type || 'layout',
+      filePath: data.filePath,
+      description: data.description,
+      themes: data.themeSupport?.themes || [],
+      dependencies: data.dependencies || [],
+      dependencyCount: (data.dependencies || []).length,
+    };
+  }
+
+  return index;
+}
+
+/**
  * Generate manifest
  */
 function generateManifest() {
@@ -267,6 +315,10 @@ function generateManifest() {
     console.error('❌ No component files found. Run generate-mcp-data.js first.');
     process.exit(1);
   }
+
+  // Read all layout files
+  const layouts = readLayoutFiles();
+  console.log(`  Found ${Object.keys(layouts).length} layout files`);
 
   // Build dependency graph
   const dependencyGraph = buildDependencyGraph(components);
@@ -284,6 +336,10 @@ function generateManifest() {
   const componentIndex = buildComponentIndex(components, dependencyGraph);
   console.log('  ✅ Built component index');
 
+  // Build layout index
+  const layoutIndex = buildLayoutIndex(layouts);
+  console.log('  ✅ Built layout index');
+
   // Calculate stats
   const stats = calculateStats(components, dependencyGraph, reverseDeps);
   console.log('  ✅ Calculated statistics');
@@ -293,8 +349,10 @@ function generateManifest() {
     version: '1.0.0',
     generated: new Date().toISOString(),
     totalComponents: stats.totalComponents,
+    totalLayouts: Object.keys(layouts).length,
 
     components: componentIndex,
+    layouts: layoutIndex,
     dependencyGraph,
     reverseDependencies: reverseDeps,
     categories,
@@ -307,6 +365,7 @@ function generateManifest() {
   console.log(`\n✅ Manifest generated: ${OUTPUT_FILE}`);
   console.log('\n📊 Statistics:');
   console.log(`   Total components: ${stats.totalComponents}`);
+  console.log(`   Total layouts: ${Object.keys(layouts).length}`);
   console.log(`   Most used: ${stats.mostUsedComponent} (${stats.mostUsedCount} times)`);
   console.log(`   Average dependencies: ${stats.averageDependencies}`);
   console.log(`   Components with no deps: ${stats.componentsWithNoDependencies}`);

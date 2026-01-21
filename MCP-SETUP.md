@@ -88,6 +88,7 @@ npm run generate:mcp-data
 This updates:
 - `mcp-data/design-tokens.json` (31.5 KB)
 - `mcp-data/components/*.json` (49 component files)
+- `mcp-data/layouts/*.json` (layout composition data)
 - `mcp-data/manifest.json` (dependency graph)
 
 **Then commit and push:**
@@ -99,19 +100,219 @@ git push
 
 Designers will get the updated data on their next `git pull` or fresh clone.
 
+## Guidelines Structure
+
+The `mcp-data/guidelines/` directory contains structured rules and best practices for the Harmony Design System. These guidelines help AI and developers understand Harmony's conventions and create consistent components.
+
+### Available Guidelines
+
+#### 1. **category-rules.json** ✨ NEW
+Category-specific patterns and rules for different component types:
+
+- **Forms**: Field composition patterns, validation strategies, form layouts
+- **Display**: Content hierarchy, status indicators, interactive display components
+- **Layout**: Spacing responsibility, composition patterns, when to create layout components
+- **Navigation**: Navigation hierarchy, shell composition
+- **Feedback**: Feedback types (alerts, dialogs, loading indicators)
+- **Atomic Design Mapping**: How Harmony components map to atomic levels (atoms, molecules, organisms, templates)
+- **Category Classification**: Criteria for assigning components to categories
+
+**Key Features:**
+- Form field composition pattern (Label + Input + Helper + Error)
+- Layout spacing ownership rules (layouts control gaps, components have no margins)
+- Forms vs Layouts decision matrix (CheckboxGroup = form, ButtonGroup = layout)
+- Atomic design hierarchy for all 49 components
+- Slots vs props guidance (content = slots, configuration = props)
+
+#### 2. **component-rules.json**
+General component creation rules:
+
+- **Atomic Design Hierarchy** ✨ NEW: Component complexity levels and dependency rules
+- **Variants**: Maximum variants (6-9), semantic naming, consistency
+- **Icons**: Icon component usage, positioning, default icons
+- **Sizing**: Standard size scale (xs, sm, md, lg)
+- **Props**: Required props (class, disabled, error, required)
+- **Composition** ✨ EXPANDED: Slots vs props, slot naming, compound components, wrapper patterns
+- **States**: Loading, boolean modifiers, ARIA attributes
+- **Accessibility**: Semantic HTML, ARIA labels, keyboard support, focus indicators
+- **Styling**: BEM naming, class composition, CSS variables
+
+#### 3. **token-rules.json**
+Design token usage rules:
+
+- **Spacing**: 4px grid system, no arbitrary values, spacing patterns
+- **Border Radius**: Numbered convention (radius-04, radius-08, etc.)
+- **Colors**: Semantic tokens, categories (theme, surface, text, border)
+- **Typography**: Font families (Lexend, Figtree, JetBrains Mono), text styles
+- **Elevations**: Shadow hierarchy, component defaults
+
+#### 4. **theme-rules.json**
+Theme-specific composition rules:
+
+- **CP Theme**: FloatingNav + no footer + 88px top padding
+- **VP/PPM/Maconomy Themes**: Footer + no FloatingNav + 20px top padding
+- **Grid Structure**: 2-row (CP) vs 3-row (VP/PPM/Maconomy)
+- **Responsive Behavior**: Breakpoints, sidebar visibility
+- **Common Patterns**: Shared spacing tokens, positioning
+
+#### 5. **decisions.json**
+Design decision log with rationale:
+
+- **New Decisions** ✨:
+  - Why functional categories (form, display, navigation) over Atomic Design terminology
+  - Forms vs Layouts categorization criteria
+  - Slots vs props philosophy
+- **Existing Decisions**:
+  - 4px spacing base (vs 8px)
+  - Maximum 6 button variants
+  - Icon component abstraction
+  - Numbered radius convention
+  - Semantic color tokens
+  - CP FloatingNav pattern
+  - Vanilla CSS architecture
+  - MCP data structure
+
+### How AI Uses Guidelines
+
+When generating components, AI should:
+
+1. **Check Category Classification** (`category-rules.json`)
+   - Determine if component is form, display, layout, navigation, or feedback
+   - Follow category-specific patterns
+
+2. **Apply Component Rules** (`component-rules.json`)
+   - Respect atomic design hierarchy (atoms → molecules → organisms)
+   - Use correct prop patterns (class, disabled, error)
+   - Choose slots for content, props for configuration
+
+3. **Use Token Rules** (`token-rules.json`)
+   - Apply 4px spacing grid (var(--space-4), var(--space-6))
+   - Use semantic colors (var(--theme-primary), var(--text-title))
+   - Follow typography hierarchy
+
+4. **Respect Theme Rules** (`theme-rules.json`)
+   - Include FloatingNav for CP theme
+   - Include Footer for VP/PPM/Maconomy themes
+   - Apply correct top padding per theme
+
+5. **Reference Decisions** (`decisions.json`)
+   - Understand the "why" behind rules
+   - Follow established patterns with documented rationale
+
+### Example: Creating a Form Component
+
+Using the guidelines to create a new form input component:
+
+1. **Category Classification** (category-rules.json):
+   - Component accepts user input → `form` category
+   - Follow form field composition pattern
+
+2. **Atomic Level** (component-rules.json):
+   - Composes Label + Icon + input → `molecule` level
+   - Can depend on Icon (atom) and Label (atom)
+
+3. **Props** (component-rules.json):
+   - Required: `class` (for styling), `disabled`, `error`, `errorMessage`
+   - Optional: `label`, `icon`, `required`, `placeholder`
+
+4. **Composition** (category-rules.json):
+   - Structure: Label (optional) → Input wrapper (Icon + input + error message)
+   - Error message replaces helper text when present
+
+5. **Tokens** (token-rules.json):
+   - Padding: `var(--space-2)` vertical, `var(--space-4)` horizontal
+   - Border radius: `var(--radius-08)`
+   - Colors: `var(--input-background)`, `var(--text-title)`
+
+6. **Result**: Consistent with existing Input component pattern
+
+### Guidelines Discovery
+
+DSManager tools can expose these guidelines:
+
+```javascript
+// Hypothetical DSManager tools
+get_harmony_guidelines({ category: "form" })
+search_harmony_guidelines({ query: "form validation patterns" })
+get_category_classification({ componentName: "CheckboxGroup" })
+```
+
 ## Data Structure
 
 ```
 mcp-data/
 ├── design-tokens.json          # All design tokens (31.5 KB)
-├── manifest.json               # Component index and stats
+├── manifest.json               # Component & layout index, stats
 ├── components.json             # Legacy: all components in one file
-└── components/                 # Individual component files
-    ├── button.json
-    ├── card.json
-    ├── dialog.json
-    └── ... (49 total)
+├── components/                 # Individual component files
+│   ├── button.json
+│   ├── card.json
+│   ├── dialog.json
+│   └── ... (49 total)
+├── layouts/                    # Layout composition data
+│   └── shelllayout.json        # ShellLayout theme-specific data
+└── guidelines/                 # Design system rules & best practices
+    ├── component-rules.json    # Component creation rules (variants, props, composition)
+    ├── token-rules.json        # Design token usage rules (spacing, colors, typography)
+    ├── theme-rules.json        # Theme-specific composition rules
+    ├── category-rules.json     # Category-specific patterns (forms, layouts, etc.) ✨ NEW
+    └── decisions.json          # Design decision log with rationale
 ```
+
+## Layout MCP Data
+
+The `mcp-data/layouts/` directory contains comprehensive layout composition data that enables AI to build theme-specific applications correctly.
+
+### ShellLayout Data
+
+`shelllayout.json` includes:
+
+**Theme-Specific Composition** - Exact component usage for each theme:
+- **CP theme**: FloatingNav + no footer + 88px top padding
+- **VP theme**: Footer + no FloatingNav + 20px top padding  
+- **PPM theme**: Footer + no FloatingNav + 20px top padding
+- **Maconomy theme**: Footer + no FloatingNav + 20px top padding
+
+**Spacing Tokens** - All layout-specific spacing with CSS values:
+- `--shell-header-height: 56px`
+- `--shell-footer-height-default: 48px`
+- `--shell-layout-padding-top: 88px` (CP with FloatingNav)
+- `--shell-layout-padding-side-default: 52px`
+- Responsive variants (tablet: 32px, mobile: 16px)
+
+**Grid Structure** - CSS Grid configuration:
+- With footer: `header 1fr footer` (VP/PPM/Maconomy)
+- Without footer: `header 1fr` (CP)
+
+**Component Positioning** - Fixed/relative positioning for all shell components:
+- Header: Fixed at top, z-index 50
+- FloatingNav: Fixed below header, z-index 40 (CP only)
+- Sidebars: Fixed left/right, z-index 45
+- Main: Relative, scrollable, grid row 2
+- Footer: Relative, grid row 3 (VP/PPM/Maconomy only)
+- Panels: Fixed, z-index 30 (optional)
+
+**Responsive Behavior** - Breakpoint-specific changes:
+- Mobile (`≤768px`): Hide sidebars, 16px side padding
+- Tablet (`≤1024px`): Keep sidebars, 32px side padding
+- Desktop: Full layout, 52px side padding
+
+**Main Content Padding** - Different per theme:
+- CP: `88px 72px 24px 72px` (accounts for FloatingNav)
+- VP/PPM/Maconomy: `20px 72px 24px 72px` (no FloatingNav)
+
+### How AI Uses Layout Data
+
+When generating applications, AI should:
+
+1. **Detect theme** from user requirements or context
+2. **Read layout composition** from `shelllayout.json`
+3. **Include correct components** based on theme (FloatingNav for CP, Footer for others)
+4. **Apply proper spacing** using token references from layout data
+5. **Set grid structure** matching theme requirements
+6. **Handle responsive** breakpoints as specified
+
+This ensures generated code matches Harmony's theme-specific layouts exactly.
 
 ## Troubleshooting
 
@@ -192,7 +393,9 @@ git push
 │ harmonycomponents/  │         │ • design-tokens.json        │
 │ ├── src/            │         │ • manifest.json             │
 │ ├── components/     │         │ • components/*.json         │
-│ └── ...             │         │   (49 files)                │
+│ ├── layouts/        │         │   (49 files)                │
+│ └── ...             │         │ • layouts/*.json            │
+│                     │         │   (ShellLayout)             │
 └─────────────────────┘         └─────────────────────────────┘
 ```
 
