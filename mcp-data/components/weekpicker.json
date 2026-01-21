@@ -195,7 +195,7 @@
     ]
   },
   "_metadata": {
-    "lastGenerated": "2026-01-21T19:20:01.783Z",
+    "lastGenerated": "2026-01-21T20:25:38.050Z",
     "generatedWith": "@astrojs/compiler@2.13.0",
     "includesVisualSpecs": true
   },
@@ -228,55 +228,55 @@
     },
     "spacing": {
       "xs": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "gap": "0"
+        "paddingTop": "8px",
+        "paddingRight": "12px",
+        "paddingBottom": "8px",
+        "paddingLeft": "12px",
+        "gap": "4px"
       },
       "sm": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "gap": "0"
+        "paddingTop": "8px",
+        "paddingRight": "12px",
+        "paddingBottom": "8px",
+        "paddingLeft": "12px",
+        "gap": "4px"
       },
       "md": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "gap": "0"
+        "paddingTop": "8px",
+        "paddingRight": "12px",
+        "paddingBottom": "8px",
+        "paddingLeft": "12px",
+        "gap": "4px"
       },
       "lg": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "gap": "0"
+        "paddingTop": "8px",
+        "paddingRight": "12px",
+        "paddingBottom": "8px",
+        "paddingLeft": "12px",
+        "gap": "4px"
       }
     },
     "typography": {
-      "fontFamily": "'Lexend', sans-serif",
+      "fontFamily": "'Figtree', sans-serif",
       "fontWeight": "500",
       "lineHeight": null,
       "letterSpacing": null,
       "textTransform": null,
       "sizes": {
         "xs": {
-          "fontSize": null,
+          "fontSize": "1rem",
           "lineHeight": null
         },
         "sm": {
-          "fontSize": null,
+          "fontSize": "1rem",
           "lineHeight": null
         },
         "md": {
-          "fontSize": null,
+          "fontSize": "1rem",
           "lineHeight": null
         },
         "lg": {
-          "fontSize": null,
+          "fontSize": "1rem",
           "lineHeight": null
         }
       }
@@ -295,7 +295,7 @@
       "default": "none",
       "hover": null,
       "active": null,
-      "focus": null
+      "focus": "0 0 0 2px rgba(76, 146, 217, 0.1)"
     },
     "transitions": {
       "default": "all 150ms ease",
@@ -304,7 +304,7 @@
     "layout": {
       "display": "flex",
       "alignItems": "center",
-      "justifyContent": "center",
+      "justifyContent": "space-between",
       "flexDirection": "column"
     },
     "iconSpecs": null
@@ -318,6 +318,11 @@
     "focusVisible": {}
   },
   "cssClassStyles": {
+    ".week-picker": {
+      "width": "100%",
+      "max-height": "400px",
+      "overflow-y": "auto"
+    },
     ".week-picker__header": {
       "display": "flex",
       "align-items": "center",
@@ -361,6 +366,50 @@
       "display": "flex",
       "flex-direction": "column",
       "gap": "4px"
+    },
+    ".week-picker__week": {
+      "display": "flex",
+      "align-items": "center",
+      "justify-content": "space-between",
+      "width": "100%",
+      "padding": "8px 12px",
+      "font-size": "0.875rem",
+      "font-family": "'Figtree', sans-serif",
+      "text-align": "left",
+      "color": "#373F4E",
+      "background": "transparent",
+      "border": "1px solid transparent",
+      "border-radius": "0.375rem",
+      "cursor": "pointer",
+      "transition": "all 150ms ease",
+      "min-height": "44px"
+    },
+    ".week-picker__week:hover:not(:disabled)": {
+      "background-color": "#E5E7EB",
+      "border-color": "#BFC6D4"
+    },
+    ".week-picker__week--selected": {
+      "background-color": "#4C92D9",
+      "color": "#FFFFFF",
+      "border-color": "#4C92D9",
+      "font-weight": "600"
+    },
+    ".week-picker__week--selected:hover:not(:disabled)": {
+      "background-color": "#3D7BC4",
+      "border-color": "#3D7BC4"
+    },
+    ".week-picker__week--disabled": {
+      "opacity": "0.4",
+      "cursor": "not-allowed",
+      "color": "#6B7280"
+    },
+    ".week-picker__week--disabled:hover": {
+      "background": "transparent",
+      "border-color": "transparent"
+    },
+    ".week-picker__week:focus": {
+      "outline": "none",
+      "box-shadow": "0 0 0 2px rgba(76, 146, 217, 0.1)"
     },
     ".week-picker__week-number": {
       "font-weight": "500"

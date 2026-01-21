@@ -171,7 +171,7 @@
     ]
   },
   "_metadata": {
-    "lastGenerated": "2026-01-21T19:20:00.995Z",
+    "lastGenerated": "2026-01-21T20:25:37.641Z",
     "generatedWith": "@astrojs/compiler@2.13.0",
     "includesVisualSpecs": true
   },
@@ -204,32 +204,32 @@
     },
     "spacing": {
       "xs": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "gap": "0"
+        "paddingTop": "12px",
+        "paddingRight": "16px",
+        "paddingBottom": "12px",
+        "paddingLeft": "16px",
+        "gap": "8px"
       },
       "sm": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "gap": "0"
+        "paddingTop": "12px",
+        "paddingRight": "16px",
+        "paddingBottom": "12px",
+        "paddingLeft": "16px",
+        "gap": "8px"
       },
       "md": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "gap": "0"
+        "paddingTop": "12px",
+        "paddingRight": "16px",
+        "paddingBottom": "12px",
+        "paddingLeft": "16px",
+        "gap": "8px"
       },
       "lg": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "gap": "0"
+        "paddingTop": "12px",
+        "paddingRight": "16px",
+        "paddingBottom": "12px",
+        "paddingLeft": "16px",
+        "gap": "8px"
       }
     },
     "typography": {
@@ -240,19 +240,19 @@
       "textTransform": null,
       "sizes": {
         "xs": {
-          "fontSize": null,
+          "fontSize": "1.125rem",
           "lineHeight": null
         },
         "sm": {
-          "fontSize": null,
+          "fontSize": "1.125rem",
           "lineHeight": null
         },
         "md": {
-          "fontSize": null,
+          "fontSize": "1.125rem",
           "lineHeight": null
         },
         "lg": {
-          "fontSize": null,
+          "fontSize": "1.125rem",
           "lineHeight": null
         }
       }
@@ -260,13 +260,15 @@
     "borders": {
       "width": null,
       "style": null,
-      "radius": {}
+      "radius": {
+        "default": "0.75rem"
+      }
     },
     "colors": {
       "variants": {}
     },
     "elevation": {
-      "default": "none",
+      "default": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
       "hover": null,
       "active": null,
       "focus": null
@@ -274,13 +276,14 @@
     "transitions": {
       "default": "color 150ms ease",
       "properties": {
+        "transform": "transform 150ms ease",
         "color": "color 150ms ease"
       }
     },
     "layout": {
       "display": "flex",
       "alignItems": "center",
-      "justifyContent": "center",
+      "justifyContent": "flex-start",
       "position": "fixed"
     },
     "iconSpecs": null
@@ -317,8 +320,32 @@
       "opacity": "1",
       "visibility": "visible"
     },
+    ".dialog": {
+      "background-color": "#F7F8FA",
+      "border-radius": "0.75rem",
+      "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+      "max-width": "90vw",
+      "width": "calc(100vw - 32px)",
+      "max-height": "calc(100vh - 32px)",
+      "overflow": "hidden",
+      "transform": "scale(0.95)",
+      "transition": "transform 150ms ease",
+      "margin": "16px"
+    },
     ".dialog-overlay.is-open .dialog": {
       "transform": "scale(1)"
+    },
+    ".dialog__header": {
+      "display": "flex",
+      "align-items": "center",
+      "justify-content": "space-between",
+      "padding": "12px 16px",
+      "border-bottom": "1px solid #BFC6D4",
+      "background-color": "#F7F8FA"
+    },
+    ".dialog__header--variant-primary": {
+      "background-color": "#4C92D9",
+      "border-bottom-color": "#4C92D9"
     },
     ".dialog__header--variant-primary .dialog__title": {
       "color": "#FFFFFF"
@@ -349,6 +376,25 @@
       "overflow-y": "auto",
       "color": "#525969",
       "max-height": "calc(100vh - 200px)"
+    },
+    ".dialog__footer": {
+      "display": "flex",
+      "justify-content": "flex-start",
+      "gap": "8px",
+      "padding": "12px 16px",
+      "border-top": "1px solid #BFC6D4",
+      "background-color": "#F7F8FA",
+      "flex-wrap": "wrap"
+    },
+    ".dialog__footer--align-right": {
+      "justify-content": "flex-end"
+    },
+    ".dialog__footer--align-left": {
+      "justify-content": "flex-start"
+    },
+    ".dialog__footer .btn": {
+      "flex": "1",
+      "min-width": "120px"
     }
   }
 }

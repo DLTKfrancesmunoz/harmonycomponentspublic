@@ -93,67 +93,98 @@ function getContextFromSelector(selector) {
 export function getResolvedValue(cssValue, variableMap, context = 'light') {
   if (!cssValue) return cssValue;
 
-  // If it's a var() reference, resolve it
-  if (cssValue.includes('var(')) {
-    const parsed = valueParser(cssValue);
+  // Keep resolving until no more var() references remain
+  let result = cssValue;
+  let maxIterations = 10; // Prevent infinite loops
+  let iteration = 0;
+
+  while (result.includes('var(') && iteration < maxIterations) {
+    iteration++;
+    const parsed = valueParser(result);
+    let hasChanges = false;
     
     parsed.walk((node) => {
       if (node.type === 'function' && node.value === 'var') {
         const varName = node.nodes[0]?.value;
-        if (varName && variableMap[varName]) {
-          // Build list of context variations to try
-          const contextVariations = [];
-          
-          // If context is theme-specific (e.g., 'cp-light'), try it first
-          if (context.includes('-')) {
-            contextVariations.push(context);
-          }
-          
-          // Try all theme variants for the mode (light or dark)
-          const isDark = context.includes('dark') || context === 'dark';
-          const themes = ['cp', 'vp', 'ppm', 'maconomy'];
-          themes.forEach(theme => {
-            const themeContext = isDark ? `${theme}-dark` : `${theme}-light`;
-            if (!contextVariations.includes(themeContext)) {
-              contextVariations.push(themeContext);
-            }
-          });
-          
-          // Try generic light/dark
-          if (isDark) {
-            contextVariations.push('dark');
-          } else {
-            contextVariations.push('light');
-          }
-          
-          // Finally, try any available value
+        if (varName) {
           let resolved = null;
-          for (const ctx of contextVariations) {
-            if (variableMap[varName][ctx]) {
-              resolved = variableMap[varName][ctx];
-              break;
-            }
-          }
           
-          // If still no match, get first available value
-          if (!resolved && Object.keys(variableMap[varName]).length > 0) {
-            resolved = Object.values(variableMap[varName])[0];
+          if (variableMap[varName]) {
+            // Build list of context variations to try
+            const contextVariations = [];
+            
+            // If context is theme-specific (e.g., 'cp-light'), try it first
+            if (context.includes('-')) {
+              contextVariations.push(context);
+            }
+            
+            // Try all theme variants for the mode (light or dark)
+            const isDark = context.includes('dark') || context === 'dark';
+            const themes = ['cp', 'vp', 'ppm', 'maconomy'];
+            themes.forEach(theme => {
+              const themeContext = isDark ? `${theme}-dark` : `${theme}-light`;
+              if (!contextVariations.includes(themeContext)) {
+                contextVariations.push(themeContext);
+              }
+            });
+            
+            // Try generic light/dark
+            if (isDark) {
+              contextVariations.push('dark');
+            } else {
+              contextVariations.push('light');
+            }
+            
+            // Try each context variation
+            for (const ctx of contextVariations) {
+              if (variableMap[varName][ctx]) {
+                resolved = variableMap[varName][ctx];
+                break;
+              }
+            }
+            
+            // If still no match, get first available value
+            if (!resolved && Object.keys(variableMap[varName]).length > 0) {
+              resolved = Object.values(variableMap[varName])[0];
+            }
           }
           
           if (resolved) {
-            // Recursively resolve if the resolved value also contains var()
-            const finalValue = getResolvedValue(resolved, variableMap, context);
+            // Replace the var() with the resolved value
             node.type = 'word';
-            node.value = finalValue;
+            node.value = resolved;
+            hasChanges = true;
+          } else {
+            // Variable not found - log warning but keep trying
+            console.warn(`⚠️  CSS variable not found: ${varName} (context: ${context})`);
+            // Keep the var() reference but mark as changed to continue loop
+            hasChanges = true;
           }
         }
       }
     });
 
-    return parsed.toString();
+    if (hasChanges) {
+      result = parsed.toString();
+    } else {
+      break; // No more changes, exit loop
+    }
   }
 
-  return cssValue;
+  // Final check: if still contains var(), try one more time with different context
+  if (result.includes('var(')) {
+    // Try with 'light' context as fallback
+    if (context !== 'light') {
+      const fallbackResult = getResolvedValue(result, variableMap, 'light');
+      if (!fallbackResult.includes('var(')) {
+        return fallbackResult;
+      }
+    }
+    // If still unresolved, log warning
+    console.warn(`⚠️  Could not fully resolve CSS value: ${result}`);
+  }
+
+  return result;
 }
 
 /**
@@ -166,35 +197,68 @@ export function extractComponentStyles(componentName, cssClasses, parsedCSS, var
   const componentsCss = parsedCSS['components.css'];
   if (!componentsCss) return styles;
 
+  // Get component prefix for precise matching
+  const classPrefix = getClassPrefix(componentName);
+  
+  // Build a set of valid class names for this component
+  const validClasses = new Set();
+  for (const cssClass of cssClasses) {
+    // Clean up template literal fragments
+    const cleanClass = cssClass.replace(/[${}?:]/g, '').trim();
+    if (cleanClass && cleanClass.length > 0) {
+      validClasses.add(cleanClass);
+    }
+  }
+
   // Find all rules that match the component's classes
   componentsCss.walkRules((rule) => {
-    for (const cssClass of cssClasses) {
-      // Clean up template literal fragments
-      const cleanClass = cssClass.replace(/[${}?:]/g, '');
-      
-      if (rule.selector.includes(cleanClass)) {
-        const selector = rule.selector;
-        
-        if (!styles[selector]) {
-          styles[selector] = {};
-        }
+    const selector = rule.selector;
+    
+    // Match selectors that belong to this component specifically
+    // Match patterns like: .accordion, .accordion__item, .accordion__trigger, etc.
+    // But exclude: .some-other-accordion, .btn (which contains "on" but isn't accordion)
+    const isComponentSelector = 
+      // Exact match: .prefix
+      selector === `.${classPrefix}` ||
+      // BEM modifier: .prefix--modifier
+      selector.startsWith(`.${classPrefix}--`) ||
+      // BEM element: .prefix__element
+      selector.startsWith(`.${classPrefix}__`) ||
+      // Pseudo-classes: .prefix:hover, .prefix:active, etc.
+      selector.startsWith(`.${classPrefix}:`) ||
+      // State classes: .prefix.is-open, .prefix.disabled, etc.
+      selector.startsWith(`.${classPrefix}.`) ||
+      // Combined: .prefix__element:hover, .prefix__element.is-open, etc.
+      selector.includes(`.${classPrefix}__`) ||
+      // Check if selector contains any of the valid classes
+      Array.from(validClasses).some(cls => {
+        // Match exact class or class with modifiers (e.g., .accordion__item, .accordion__item.is-open)
+        return selector === `.${cls}` || 
+               selector.startsWith(`.${cls}`) ||
+               selector.includes(`.${cls}:`) ||
+               selector.includes(`.${cls}.`);
+      });
 
-        // Extract all declarations
-        rule.walkDecls((decl) => {
-          const prop = decl.prop;
-          const value = decl.value;
-          
-          // Resolve CSS variables for CP theme light and dark modes
-          const resolvedLight = getResolvedValue(value, variableMap, 'cp-light');
-          const resolvedDark = getResolvedValue(value, variableMap, 'cp-dark');
-
-          styles[selector][prop] = {
-            raw: value,
-            light: resolvedLight,
-            dark: resolvedDark
-          };
-        });
+    if (isComponentSelector) {
+      if (!styles[selector]) {
+        styles[selector] = {};
       }
+
+      // Extract all declarations
+      rule.walkDecls((decl) => {
+        const prop = decl.prop;
+        const value = decl.value;
+        
+        // Resolve CSS variables for CP theme light and dark modes
+        const resolvedLight = getResolvedValue(value, variableMap, 'cp-light');
+        const resolvedDark = getResolvedValue(value, variableMap, 'cp-dark');
+
+        styles[selector][prop] = {
+          raw: value,
+          light: resolvedLight,
+          dark: resolvedDark
+        };
+      });
     }
   });
 

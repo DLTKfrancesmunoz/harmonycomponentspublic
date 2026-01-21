@@ -300,11 +300,33 @@ export function extractCSSClasses(ast) {
         // This is best effort for common patterns
         const expression = classAttr.value;
 
-        // Extract strings from template literals: `class ${var} other-class`
-        const stringMatches = expression.matchAll(/['"`]([^'"`]+)['"`]/g);
-        for (const match of stringMatches) {
-          const classList = match[1].split(/\s+/).filter(Boolean);
-          classList.forEach(cls => classes.add(cls));
+        // Handle template literals: `accordion__item ${item.defaultOpen ? 'is-open' : ''}`
+        if (expression.includes('`')) {
+          // Extract base class names from template literal before ${} expressions
+          // Pattern: `base-class ${expr} other-class`
+          // We want to extract: "base-class" and "other-class"
+          const templateLiteralMatch = expression.match(/`([^`]*?)(?:\$\{|$)/);
+          if (templateLiteralMatch) {
+            const baseString = templateLiteralMatch[1];
+            // Split by whitespace and extract class names
+            const classList = baseString.split(/\s+/).filter(Boolean);
+            classList.forEach(cls => classes.add(cls));
+          }
+          
+          // Also extract any class names after ${} expressions
+          // Pattern: `${expr} other-class`
+          const afterExpressionMatches = expression.matchAll(/\}\s*([^\s`]+)/g);
+          for (const match of afterExpressionMatches) {
+            const classList = match[1].split(/\s+/).filter(Boolean);
+            classList.forEach(cls => classes.add(cls));
+          }
+        } else {
+          // Extract strings from regular string concatenations: 'class' + var + 'other-class'
+          const stringMatches = expression.matchAll(/['"]([^'"]+)['"]/g);
+          for (const match of stringMatches) {
+            const classList = match[1].split(/\s+/).filter(Boolean);
+            classList.forEach(cls => classes.add(cls));
+          }
         }
       }
     }

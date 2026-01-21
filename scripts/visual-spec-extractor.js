@@ -12,6 +12,37 @@ import {
 } from './css-parser.js';
 
 /**
+ * Recursively resolve all var() references in an object structure
+ */
+function resolveAllVarReferences(obj, variableMap, context = 'cp-light') {
+  if (obj === null || obj === undefined) {
+    return obj;
+  }
+
+  if (typeof obj === 'string') {
+    // If it's a string and contains var(), resolve it
+    if (obj.includes('var(')) {
+      return getResolvedValue(obj, variableMap, context);
+    }
+    return obj;
+  }
+
+  if (Array.isArray(obj)) {
+    return obj.map(item => resolveAllVarReferences(item, variableMap, context));
+  }
+
+  if (typeof obj === 'object') {
+    const resolved = {};
+    for (const [key, value] of Object.entries(obj)) {
+      resolved[key] = resolveAllVarReferences(value, variableMap, context);
+    }
+    return resolved;
+  }
+
+  return obj;
+}
+
+/**
  * Extract complete visual specifications for a component
  */
 export function extractVisualSpecifications(componentData, parsedCSS, variableMap) {
@@ -26,7 +57,7 @@ export function extractVisualSpecifications(componentData, parsedCSS, variableMa
   // Build visual specifications structure
   const visualSpecs = {
     dimensions: buildDimensions(sizeVariants, variableMap),
-    spacing: buildSpacing(sizeVariants, variableMap),
+    spacing: buildSpacing(sizeVariants, componentStyles, variableMap),
     typography: buildTypography(sizeVariants, componentStyles, variableMap),
     borders: buildBorders(componentStyles, variableMap),
     colors: buildColors(variantColors, componentStyles, variableMap),
@@ -45,11 +76,16 @@ export function extractVisualSpecifications(componentData, parsedCSS, variableMa
   // Build CSS class styles mapping
   const cssClassStyles = buildCSSClassStyles(componentStyles, variableMap);
 
+  // Final resolution pass: ensure all var() references are resolved
+  const resolvedVisualSpecs = resolveAllVarReferences(visualSpecs, variableMap);
+  const resolvedThemeOverrides = resolveAllVarReferences(themeOverridesFormatted, variableMap);
+  const resolvedCssClassStyles = resolveAllVarReferences(cssClassStyles, variableMap);
+
   return {
-    visualSpecifications: visualSpecs,
-    themeOverrides: themeOverridesFormatted,
+    visualSpecifications: resolvedVisualSpecs,
+    themeOverrides: resolvedThemeOverrides,
     accessibility,
-    cssClassStyles
+    cssClassStyles: resolvedCssClassStyles
   };
 }
 
@@ -75,13 +111,52 @@ function buildDimensions(sizeVariants, variableMap) {
 /**
  * Build spacing object
  */
-function buildSpacing(sizeVariants, variableMap) {
+function buildSpacing(sizeVariants, componentStyles, variableMap) {
   const spacing = {};
+
+  // Check if any size variants have data
+  const hasSizeVariants = ['xs', 'sm', 'md', 'lg'].some(size => 
+    Object.keys(sizeVariants[size] || {}).length > 0
+  );
+
+  // Extract base padding/margin from component styles if size variants are empty
+  let basePadding = null;
+  let baseGap = null;
+  
+  if (!hasSizeVariants) {
+    // Look for padding in base component classes (e.g., .accordion__trigger)
+    for (const [selector, styles] of Object.entries(componentStyles)) {
+      // Only check base selectors (not size variants or state modifiers)
+      if (!selector.includes('--') && !selector.includes(':')) {
+        if (styles.padding) {
+          basePadding = styles.padding.light || styles.padding.raw;
+        }
+        if (styles.gap) {
+          baseGap = styles.gap.light || styles.gap.raw;
+        }
+        // Also check padding-top, padding-right, etc.
+        if (styles['padding-top']) {
+          basePadding = basePadding || (styles['padding-top'].light || styles['padding-top'].raw);
+        }
+      }
+    }
+  }
 
   for (const size of ['xs', 'sm', 'md', 'lg']) {
     const sizeData = sizeVariants[size];
-    const padding = sizeData.padding?.resolved || '0';
-    const gap = sizeData.gap?.resolved || '0';
+    let padding = sizeData.padding?.resolved;
+    let gap = sizeData.gap?.resolved;
+
+    // If size variant is empty, use base values
+    if (!padding && basePadding) {
+      padding = basePadding;
+    }
+    if (!gap && baseGap) {
+      gap = baseGap;
+    }
+
+    padding = padding || '0';
+    gap = gap || '0';
 
     // Parse padding (could be "0 16px" or just "16px")
     const paddingParts = padding.split(' ').filter(p => p);
@@ -130,11 +205,38 @@ function buildTypography(sizeVariants, componentStyles, variableMap) {
     }
   }
 
+  // Check if any size variants have font-size data
+  const hasSizeVariants = ['xs', 'sm', 'md', 'lg'].some(size => 
+    sizeVariants[size]?.['font-size']?.resolved
+  );
+
+  // Extract base font-size from component styles if size variants are empty
+  let baseFontSize = null;
+  if (!hasSizeVariants) {
+    // Look for font-size in base component classes (e.g., .accordion__trigger)
+    for (const [selector, styles] of Object.entries(componentStyles)) {
+      // Only check base selectors (not size variants or state modifiers)
+      if (!selector.includes('--') && !selector.includes(':')) {
+        if (styles['font-size']) {
+          baseFontSize = styles['font-size'].light || styles['font-size'].raw;
+          break; // Use first found font-size
+        }
+      }
+    }
+  }
+
   // Extract size-specific typography
   for (const size of ['xs', 'sm', 'md', 'lg']) {
     const sizeData = sizeVariants[size];
+    let fontSize = sizeData['font-size']?.resolved;
+    
+    // If size variant is empty, use base font-size
+    if (!fontSize && baseFontSize) {
+      fontSize = baseFontSize;
+    }
+    
     typography.sizes[size] = {
-      fontSize: sizeData['font-size']?.resolved || null,
+      fontSize: fontSize || null,
       lineHeight: sizeData['line-height']?.resolved || typography.lineHeight
     };
   }

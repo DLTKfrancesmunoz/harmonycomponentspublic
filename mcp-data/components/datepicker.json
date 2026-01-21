@@ -196,7 +196,7 @@
     ]
   },
   "_metadata": {
-    "lastGenerated": "2026-01-21T19:20:00.959Z",
+    "lastGenerated": "2026-01-21T20:25:37.628Z",
     "generatedWith": "@astrojs/compiler@2.13.0",
     "includesVisualSpecs": true
   },
@@ -233,51 +233,51 @@
         "paddingRight": "0",
         "paddingBottom": "0",
         "paddingLeft": "0",
-        "gap": "0"
+        "gap": "4px"
       },
       "sm": {
         "paddingTop": "0",
         "paddingRight": "0",
         "paddingBottom": "0",
         "paddingLeft": "0",
-        "gap": "0"
+        "gap": "4px"
       },
       "md": {
         "paddingTop": "0",
         "paddingRight": "0",
         "paddingBottom": "0",
         "paddingLeft": "0",
-        "gap": "0"
+        "gap": "4px"
       },
       "lg": {
         "paddingTop": "0",
         "paddingRight": "0",
         "paddingBottom": "0",
         "paddingLeft": "0",
-        "gap": "0"
+        "gap": "4px"
       }
     },
     "typography": {
-      "fontFamily": "'Lexend', sans-serif",
-      "fontWeight": "500",
+      "fontFamily": "'Figtree', sans-serif",
+      "fontWeight": "600",
       "lineHeight": null,
       "letterSpacing": null,
       "textTransform": null,
       "sizes": {
         "xs": {
-          "fontSize": null,
+          "fontSize": "1rem",
           "lineHeight": null
         },
         "sm": {
-          "fontSize": null,
+          "fontSize": "1rem",
           "lineHeight": null
         },
         "md": {
-          "fontSize": null,
+          "fontSize": "1rem",
           "lineHeight": null
         },
         "lg": {
-          "fontSize": null,
+          "fontSize": "1rem",
           "lineHeight": null
         }
       }
@@ -296,14 +296,14 @@
       "default": "none",
       "hover": null,
       "active": null,
-      "focus": null
+      "focus": "0 0 0 2px rgba(76, 146, 217, 0.1)"
     },
     "transitions": {
       "default": "all 150ms ease",
       "properties": {}
     },
     "layout": {
-      "display": "grid",
+      "display": "flex",
       "alignItems": "center",
       "justifyContent": "center"
     },
@@ -318,6 +318,9 @@
     "focusVisible": {}
   },
   "cssClassStyles": {
+    ".date-picker": {
+      "width": "100%"
+    },
     ".date-picker__header": {
       "display": "flex",
       "align-items": "center",
@@ -378,6 +381,59 @@
       "display": "grid",
       "grid-template-columns": "repeat(7, 1fr)",
       "gap": "4px"
+    },
+    ".date-picker__day": {
+      "display": "flex",
+      "align-items": "center",
+      "justify-content": "center",
+      "width": "36px",
+      "height": "36px",
+      "padding": "0",
+      "font-size": "0.875rem",
+      "font-family": "'Figtree', sans-serif",
+      "color": "#373F4E",
+      "background": "transparent",
+      "border": "1px solid transparent",
+      "border-radius": "0.375rem",
+      "cursor": "pointer",
+      "transition": "all 150ms ease",
+      "min-width": "44px",
+      "min-height": "44px"
+    },
+    ".date-picker__day:hover:not(:disabled)": {
+      "background-color": "#E5E7EB",
+      "border-color": "#BFC6D4"
+    },
+    ".date-picker__day--today": {
+      "font-weight": "600",
+      "border-color": "#4C92D9"
+    },
+    ".date-picker__day--selected": {
+      "background-color": "#4C92D9",
+      "color": "#FFFFFF",
+      "border-color": "#4C92D9",
+      "font-weight": "600"
+    },
+    ".date-picker__day--selected:hover:not(:disabled)": {
+      "background-color": "#3D7BC4",
+      "border-color": "#3D7BC4"
+    },
+    ".date-picker__day--other-month": {
+      "color": "#6B7280",
+      "opacity": "0.5"
+    },
+    ".date-picker__day--disabled": {
+      "opacity": "0.4",
+      "cursor": "not-allowed",
+      "color": "#6B7280"
+    },
+    ".date-picker__day--disabled:hover": {
+      "background": "transparent",
+      "border-color": "transparent"
+    },
+    ".date-picker__day:focus": {
+      "outline": "none",
+      "box-shadow": "0 0 0 2px rgba(76, 146, 217, 0.1)"
     }
   }
 }

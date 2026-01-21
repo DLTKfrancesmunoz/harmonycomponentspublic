@@ -257,7 +257,7 @@
     ]
   },
   "_metadata": {
-    "lastGenerated": "2026-01-21T19:20:01.526Z",
+    "lastGenerated": "2026-01-21T20:25:37.886Z",
     "generatedWith": "@astrojs/compiler@2.13.0",
     "includesVisualSpecs": true
   },
@@ -290,32 +290,32 @@
     },
     "spacing": {
       "xs": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "gap": "0"
+        "paddingTop": "16px",
+        "paddingRight": "96px",
+        "paddingBottom": "16px",
+        "paddingLeft": "16px",
+        "gap": "8px"
       },
       "sm": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "gap": "0"
+        "paddingTop": "16px",
+        "paddingRight": "96px",
+        "paddingBottom": "16px",
+        "paddingLeft": "16px",
+        "gap": "8px"
       },
       "md": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "gap": "0"
+        "paddingTop": "16px",
+        "paddingRight": "96px",
+        "paddingBottom": "16px",
+        "paddingLeft": "16px",
+        "gap": "8px"
       },
       "lg": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "gap": "0"
+        "paddingTop": "16px",
+        "paddingRight": "96px",
+        "paddingBottom": "16px",
+        "paddingLeft": "16px",
+        "gap": "8px"
       }
     },
     "typography": {
@@ -326,19 +326,19 @@
       "textTransform": null,
       "sizes": {
         "xs": {
-          "fontSize": null,
+          "fontSize": "1.125rem",
           "lineHeight": "1.25"
         },
         "sm": {
-          "fontSize": null,
+          "fontSize": "1.125rem",
           "lineHeight": "1.25"
         },
         "md": {
-          "fontSize": null,
+          "fontSize": "1.125rem",
           "lineHeight": "1.25"
         },
         "lg": {
-          "fontSize": null,
+          "fontSize": "1.125rem",
           "lineHeight": "1.25"
         }
       }
@@ -370,8 +370,8 @@
     "layout": {
       "display": "flex",
       "alignItems": "center",
-      "justifyContent": "center",
       "flexShrink": "0",
+      "justifyContent": "center",
       "position": "absolute"
     },
     "iconSpecs": null
@@ -385,11 +385,29 @@
     "focusVisible": {}
   },
   "cssClassStyles": {
+    ".shell-panel__header": {
+      "flex-shrink": "0",
+      "min-height": "calc(8px * 2 + 24px)",
+      "display": "flex",
+      "align-items": "center"
+    },
     ".shell-panel__header-content": {
       "display": "flex",
       "align-items": "center",
       "gap": "16px",
       "width": "100%"
+    },
+    ".shell-panel__header.shell-panel__header--theme,\ndiv.shell-panel__header.shell-panel__header--theme,\n[data-header-variant=\"theme\"].shell-panel__header,\n.shell-panel__header[data-header-variant=\"theme\"]": {
+      "background-color": "#4C92D9",
+      "color": "#FFFFFF",
+      "padding": "8px 16px",
+      "width": "100%"
+    },
+    ".shell-layout .shell-panel--right .shell-panel__header--theme": {
+      "border-radius": "16px 0 0 0"
+    },
+    ".shell-layout .shell-panel--left .shell-panel__header--theme": {
+      "border-radius": "0 16px 0 0"
     },
     ".shell-panel__header--theme .shell-panel__title": {
       "color": "#FFFFFF"
@@ -403,6 +421,10 @@
     ".shell-panel__header--theme .shell-panel__action:hover": {
       "background-color": "#3D7BC4"
     },
+    ".shell-panel__header[data-gradient-header=\"true\"]": {
+      "background": "linear-gradient(119deg, #8A33C2 17.59%, #423FE2 77.78%)",
+      "color": "#FFFFFF"
+    },
     ".shell-panel__header[data-gradient-header=\"true\"] .shell-panel__title": {
       "color": "#FFFFFF"
     },
@@ -414,6 +436,33 @@
     },
     ".shell-panel__header[data-gradient-header=\"true\"] .shell-panel__action:hover": {
       "background-color": "rgba(255, 255, 255, 0.1)"
+    },
+    ".shell-panel__header.shell-panel__header--default": {
+      "background-color": "#F7F8FA",
+      "color": "#373F4E",
+      "padding": "8px 16px",
+      "width": "100%",
+      "border-bottom": "1px solid #BFC6D4"
+    },
+    ".shell-layout .shell-panel--right .shell-panel__header--default": {
+      "border-radius": "16px 0 0 0"
+    },
+    ".shell-layout .shell-panel--left .shell-panel__header--default": {
+      "border-radius": "0 16px 0 0",
+      "border-bottom": "none",
+      "position": "relative"
+    },
+    ".shell-layout .shell-panel--left .shell-panel__header": {
+      "padding-left": "calc(52px + 16px)"
+    },
+    ".shell-layout .shell-panel--left .shell-panel__header--default::after": {
+      "content": "''",
+      "position": "absolute",
+      "left": "calc(52px + 16px)",
+      "right": "0",
+      "bottom": "0",
+      "height": "1px",
+      "background-color": "#BFC6D4"
     },
     ".shell-panel__header--default .shell-panel__title": {
       "color": "#373F4E"

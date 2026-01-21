@@ -119,7 +119,7 @@
     "children": []
   },
   "_metadata": {
-    "lastGenerated": "2026-01-21T19:20:01.668Z",
+    "lastGenerated": "2026-01-21T20:25:38.017Z",
     "generatedWith": "@astrojs/compiler@2.13.0",
     "includesVisualSpecs": true
   },
@@ -152,55 +152,55 @@
     },
     "spacing": {
       "xs": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
+        "paddingTop": "12px",
+        "paddingRight": "12px",
+        "paddingBottom": "12px",
+        "paddingLeft": "12px",
         "gap": "0"
       },
       "sm": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
+        "paddingTop": "12px",
+        "paddingRight": "12px",
+        "paddingBottom": "12px",
+        "paddingLeft": "12px",
         "gap": "0"
       },
       "md": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
+        "paddingTop": "12px",
+        "paddingRight": "12px",
+        "paddingBottom": "12px",
+        "paddingLeft": "12px",
         "gap": "0"
       },
       "lg": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
+        "paddingTop": "12px",
+        "paddingRight": "12px",
+        "paddingBottom": "12px",
+        "paddingLeft": "12px",
         "gap": "0"
       }
     },
     "typography": {
-      "fontFamily": null,
+      "fontFamily": "'Figtree', sans-serif",
       "fontWeight": null,
       "lineHeight": null,
       "letterSpacing": null,
       "textTransform": null,
       "sizes": {
         "xs": {
-          "fontSize": null,
+          "fontSize": "1rem",
           "lineHeight": null
         },
         "sm": {
-          "fontSize": null,
+          "fontSize": "1rem",
           "lineHeight": null
         },
         "md": {
-          "fontSize": null,
+          "fontSize": "1rem",
           "lineHeight": null
         },
         "lg": {
-          "fontSize": null,
+          "fontSize": "1rem",
           "lineHeight": null
         }
       }
@@ -208,7 +208,9 @@
     "borders": {
       "width": null,
       "style": null,
-      "radius": {}
+      "radius": {
+        "default": "0.5rem"
+      }
     },
     "colors": {
       "variants": {}
@@ -217,10 +219,10 @@
       "default": "none",
       "hover": null,
       "active": null,
-      "focus": null
+      "focus": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA"
     },
     "transitions": {
-      "default": null,
+      "default": "all 150ms ease",
       "properties": {}
     },
     "layout": {},
@@ -245,7 +247,7 @@
           "dark": "center"
         },
         "gap": {
-          "raw": "var(--space-1)",
+          "raw": "4px",
           "light": "4px",
           "dark": "4px"
         },
@@ -265,12 +267,12 @@
           "dark": "60px"
         },
         "padding": {
-          "raw": "var(--space-2)",
+          "raw": "8px",
           "light": "8px",
           "dark": "8px"
         },
         "font-size": {
-          "raw": "var(--text-xs)",
+          "raw": "0.75rem",
           "light": "0.75rem",
           "dark": "0.75rem"
         }
@@ -285,47 +287,33 @@
     "focusVisible": {}
   },
   "cssClassStyles": {
-    ".dropdown-wrapper--inline": {
-      "display": "flex",
-      "flex-direction": "row",
-      "align-items": "center",
-      "gap": "4px"
+    ".textarea": {
+      "width": "100%",
+      "min-height": "120px",
+      "padding": "12px",
+      "font-family": "'Figtree', sans-serif",
+      "font-size": "1rem",
+      "color": "#373F4E",
+      "background-color": "#FFFFFF",
+      "border": "1px solid #BFC6D4",
+      "border-radius": "0.5rem",
+      "resize": "vertical",
+      "transition": "all 150ms ease"
     },
-    ".input-form-wrapper--inline": {
-      "display": "flex",
-      "flex-direction": "row",
-      "align-items": "center",
-      "gap": "4px"
+    ".textarea::placeholder": {
+      "color": "#6B7280"
     },
-    ".textarea-form-wrapper--inline": {
-      "display": "flex",
-      "flex-direction": "row",
-      "align-items": "center",
-      "gap": "4px"
+    ".textarea:focus": {
+      "outline": "none",
+      "border-color": "#4C92D9",
+      "box-shadow": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA"
+    },
+    ".textarea:disabled": {
+      "background-color": "#EAEAEA",
+      "color": "#6B7280",
+      "cursor": "not-allowed"
     },
     ".textarea-form-wrapper__label": {
-      "margin-bottom": "0",
-      "white-space": "nowrap"
-    },
-    ".date-input-form-wrapper--inline": {
-      "display": "flex",
-      "flex-direction": "row",
-      "align-items": "center",
-      "gap": "4px"
-    },
-    ".range-input-form-wrapper--inline": {
-      "display": "flex",
-      "flex-direction": "column",
-      "align-items": "stretch",
-      "gap": "8px"
-    },
-    ".number-input-form-wrapper--inline": {
-      "display": "flex",
-      "flex-direction": "column",
-      "align-items": "stretch",
-      "gap": "8px"
-    },
-    ".theme-cp .input-form-wrapper:not(.input-form-wrapper--stacked) .label,\n.theme-cp .input-form-wrapper:not(.input-form-wrapper--stacked) .input-form-wrapper__label,\n.theme-cp .textarea-form-wrapper:not(.textarea-form-wrapper--stacked) .label,\n.theme-cp .textarea-form-wrapper:not(.textarea-form-wrapper--stacked) .textarea-form-wrapper__label,\n.theme-cp .date-input-form-wrapper:not(.date-input-form-wrapper--stacked) .label,\n.theme-cp .date-input-form-wrapper:not(.date-input-form-wrapper--stacked) .date-input-form-wrapper__label,\n.theme-cp .range-input-form-wrapper:not(.range-input-form-wrapper--stacked) .label,\n.theme-cp .range-input-form-wrapper:not(.range-input-form-wrapper--stacked) .range-input-form-wrapper__label,\n.theme-cp .number-input-form-wrapper:not(.number-input-form-wrapper--stacked) .label,\n.theme-cp .number-input-form-wrapper:not(.number-input-form-wrapper--stacked) .number-input-form-wrapper__label": {
       "margin-bottom": "0",
       "white-space": "nowrap"
     }
