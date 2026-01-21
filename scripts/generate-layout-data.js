@@ -6,6 +6,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { parseCSSFiles, resolveCSSVariables, getResolvedValue } from './css-parser.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -367,10 +368,135 @@ function buildSlots() {
 }
 
 /**
+ * Resolve spacing tokens to actual values
+ */
+function resolveSpacingTokens(spacingTokens, variableMap) {
+  const resolved = {};
+  
+  for (const [key, tokenData] of Object.entries(spacingTokens)) {
+    resolved[key] = {
+      ...tokenData,
+      resolved: getResolvedValue(tokenData.value, variableMap, 'light')
+    };
+  }
+  
+  return resolved;
+}
+
+/**
+ * Resolve calc() expressions to actual values
+ */
+function resolveCalc(calcExpression, variableMap) {
+  // Handle calc(var(--x) + var(--y)) expressions
+  const varMatches = [...calcExpression.matchAll(/var\(([^)]+)\)/g)];
+  
+  let result = calcExpression;
+  for (const match of varMatches) {
+    const varName = match[1];
+    const resolved = getResolvedValue(`var(${varName})`, variableMap, 'light');
+    result = result.replace(match[0], resolved);
+  }
+  
+  // If it's a simple calc with px values, evaluate it
+  if (result.startsWith('calc(')) {
+    // Parse "calc(52px + 20px)" to 72px
+    const numbers = [...result.matchAll(/(\d+)px/g)].map(m => parseInt(m[1]));
+    if (numbers.length > 0) {
+      const sum = numbers.reduce((a, b) => a + b, 0);
+      return `${sum}px`;
+    }
+  }
+  
+  return result;
+}
+
+/**
+ * Resolve grid template rows to actual values
+ */
+function resolveGridTemplateRows(gridRows, variableMap) {
+  const parts = gridRows.split(' ');
+  const resolved = parts.map(part => {
+    if (part.startsWith('var(')) {
+      return getResolvedValue(part, variableMap, 'light');
+    }
+    return part;
+  });
+  return resolved.join(' ');
+}
+
+/**
+ * Build layout visual specifications (resolved dimensions and spacing)
+ */
+function buildLayoutVisualSpecs(themeComposition, variableMap) {
+  const visualSpecs = {};
+  
+  for (const [theme, composition] of Object.entries(themeComposition)) {
+    visualSpecs[theme] = {
+      // Component dimensions (resolved)
+      componentDimensions: {
+        header: {
+          height: getResolvedValue('var(--shell-header-height)', variableMap, 'light')
+        },
+        footer: composition.hasFooter ? {
+          height: getResolvedValue('var(--shell-footer-height-default)', variableMap, 'light'),
+          heightCompact: getResolvedValue('var(--shell-footer-height-compact)', variableMap, 'light')
+        } : null,
+        sidebar: {
+          width: getResolvedValue('var(--sidebar-width)', variableMap, 'light')
+        },
+        floatingNav: composition.hasFloatingNav ? {
+          top: getResolvedValue('var(--shell-header-height)', variableMap, 'light')
+        } : null
+      },
+      
+      // Main content area spacing (resolved)
+      mainSpacing: {
+        paddingTop: getResolvedValue(
+          composition.mainPadding.top,
+          variableMap,
+          'light'
+        ),
+        paddingRight: resolveCalc(
+          composition.mainPadding.right,
+          variableMap
+        ),
+        paddingBottom: getResolvedValue(
+          composition.mainPadding.bottom,
+          variableMap,
+          'light'
+        ),
+        paddingLeft: resolveCalc(
+          composition.mainPadding.left,
+          variableMap
+        )
+      },
+      
+      // Grid structure (resolved)
+      gridStructure: {
+        rows: resolveGridTemplateRows(composition.gridRows, variableMap),
+        columns: composition.gridColumns
+      }
+    };
+  }
+  
+  return visualSpecs;
+}
+
+/**
  * Generate layout data
  */
 function generateLayoutData() {
   console.log('🏗️  Generating layout MCP data...\n');
+
+  // Parse CSS files and resolve variables
+  console.log('🎨 Parsing CSS files and resolving variables...');
+  const CSS_DIR = path.join(rootDir, 'src/styles');
+  const TOKENS_CSS = path.join(rootDir, 'src/styles/tokens.css');
+  const parsedCSS = parseCSSFiles(CSS_DIR);
+  const tokensCssContent = fs.readFileSync(TOKENS_CSS, 'utf-8');
+  const variableMap = resolveCSSVariables(tokensCssContent);
+  const varCount = Object.keys(variableMap).length;
+  console.log(`✅ Resolved ${varCount} CSS variables\n`);
 
   // Extract data from source files
   console.log('📦 Extracting spacing tokens...');
@@ -397,11 +523,14 @@ function generateLayoutData() {
     themeSupport: THEME_SUPPORT,
 
     themeComposition,
-    spacingTokens,
+    spacingTokens: resolveSpacingTokens(spacingTokens, variableMap),
     gridStructure: buildGridStructure(),
     positioning: buildPositioning(),
     responsive: buildResponsive(),
     slots: buildSlots(),
+
+    // Visual specifications with resolved values
+    visualSpecifications: buildLayoutVisualSpecs(themeComposition, variableMap),
 
     usage: {
       importPath: './src/layouts/ShellLayout.astro',
@@ -418,6 +547,7 @@ function generateLayoutData() {
     _metadata: {
       lastGenerated: new Date().toISOString(),
       version: '1.0.0',
+      includesVisualSpecs: true,
     },
   };
 
