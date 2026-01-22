@@ -267,6 +267,113 @@ function getVariantProp(componentProps) {
 }
 
 /**
+ * Get all variant-like props from component props
+ * Detects props with union types containing string literals
+ * Variant-like prop names: variant, style, type, appearance, etc.
+ * Excludes: size (handled separately as size variants)
+ */
+function getAllVariantProps(componentProps) {
+  if (!componentProps || typeof componentProps !== 'object') return [];
+  
+  // Exclude these props - they're not visual variants
+  const excludeProps = new Set(['size', 'orientation', 'iconPosition', 'buttonType']);
+  const variantLikeNames = ['variant', 'style', 'type', 'appearance', 'mode'];
+  const variantProps = [];
+  
+  for (const [propName, propData] of Object.entries(componentProps)) {
+    const lowerName = propName.toLowerCase();
+    
+    // Skip excluded props
+    if (excludeProps.has(lowerName)) continue;
+    
+    // Check if it's a variant-like prop name
+    if (variantLikeNames.includes(lowerName) || lowerName.includes('variant') || lowerName.includes('style')) {
+      // Check if the type is a union of string literals
+      if (propData && propData.type) {
+        const typeStr = propData.type;
+        // Check if it contains string literal union (e.g., 'value1' | 'value2')
+        if (typeStr.includes("'") || typeStr.includes('"')) {
+          const variantNames = extractVariantNamesFromType(typeStr);
+          if (variantNames.length > 0) {
+            variantProps.push({
+              name: propName,
+              type: typeStr,
+              variantNames: variantNames,
+              optional: propData.optional || false,
+              default: propData.default || null
+            });
+          }
+        }
+      }
+    }
+  }
+  
+  return variantProps;
+}
+
+/**
+ * Extract variant names from CSS classes
+ * Scans CSS for all classes matching variant patterns
+ * Returns a Set of all variant names found
+ */
+function extractVariantsFromCSS(componentName, parsedCSS) {
+  const variants = new Set();
+  const componentsCss = parsedCSS['components.css'];
+  if (!componentsCss) return variants;
+
+  const classPrefix = getClassPrefix(componentName);
+  
+  // Exclude these non-variant modifiers
+  const excludeList = new Set([
+    'xs', 'sm', 'md', 'lg', // sizes
+    'disabled', 'loading', 'vertical', 'horizontal', 'full', 'icon', // states/layout
+    'page-header', 'pageHeader' // button-specific
+    // Note: 'enhanced' is a valid variant for Alert, so we don't exclude it
+  ]);
+  
+  // Patterns to match:
+  // 1. Standard: .component--variant
+  // 2. BEM: .component__element--variant (but only for theme-selection components)
+  // 3. Combined: .component--variant1.component--variant2
+  const escapedPrefix = classPrefix.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const standardPattern = new RegExp(`\\.${escapedPrefix}--([a-z0-9-]+)`);
+  const bemPattern = new RegExp(`\\.${escapedPrefix}__[a-z0-9-]+--([a-z0-9-]+)`);
+  
+  // Check if this is a theme-selection component (LeftSidebar, RightSidebar)
+  const themeSelectionOnly = ['LeftSidebar', 'RightSidebar'];
+  const isThemeSelection = themeSelectionOnly.includes(componentName);
+  
+  componentsCss.walkRules((rule) => {
+    const selector = rule.selector;
+    
+    // Extract from standard pattern: .component--variant
+    const standardMatch = selector.match(standardPattern);
+    if (standardMatch && standardMatch[1]) {
+      const variantName = standardMatch[1];
+      // Exclude non-variant modifiers
+      if (!excludeList.has(variantName)) {
+        variants.add(variantName);
+      }
+    }
+    
+    // Extract from BEM pattern: .component__element--variant
+    // Only for theme-selection components (e.g., .left-sidebar__variant--cp)
+    if (isThemeSelection) {
+      const bemMatch = selector.match(bemPattern);
+      if (bemMatch && bemMatch[1]) {
+        const variantName = bemMatch[1];
+        // For theme-selection components, these are theme names (cp, vp, ppm, maconomy)
+        // We'll exclude them from variant colors extraction, but capture them here for completeness
+        // They won't be used since theme-selection components return empty variants
+        variants.add(variantName);
+      }
+    }
+  });
+  
+  return variants;
+}
+
+/**
  * Extract component-specific styles by CSS class selectors
  * Uses exact class matching to prevent false matches
  */
@@ -416,6 +523,10 @@ export function extractSizeVariants(componentName, parsedCSS, variableMap) {
 /**
  * Extract variant colors (primary, secondary, etc.)
  * Returns structure: variants[variantName][theme][mode][state]
+ * 
+ * Now extracts variants from BOTH component props AND CSS classes
+ * Handles multiple variant props (e.g., Alert's variant and style)
+ * Handles combined variants (e.g., .alert--enhanced.alert--success)
  */
 export function extractVariantColors(componentName, parsedCSS, variableMap, componentProps = null) {
   const variants = {};
@@ -425,16 +536,33 @@ export function extractVariantColors(componentName, parsedCSS, variableMap, comp
   const classPrefix = getClassPrefix(componentName);
   const themes = ['cp', 'vp', 'ppm', 'maconomy'];
   
-  // Extract variant names from component props if available
-  let variantNames = [];
-  if (componentProps) {
-    const variantProp = getVariantProp(componentProps);
-    if (variantProp && variantProp.type) {
-      variantNames = extractVariantNamesFromType(variantProp.type);
+  // Component-specific configuration
+  const themeSelectionOnly = ['LeftSidebar', 'RightSidebar'];
+  if (themeSelectionOnly.includes(componentName)) {
+    // These components use variant for theme selection, not visual styling
+    // Return empty variants object (correct behavior)
+    return variants;
+  }
+  
+  // Extract variant names from component props
+  const variantProps = componentProps ? getAllVariantProps(componentProps) : [];
+  const propsVariantNames = new Set();
+  
+  // Collect all variant names from all variant props
+  for (const variantProp of variantProps) {
+    for (const variantName of variantProp.variantNames) {
+      propsVariantNames.add(variantName);
     }
   }
   
-  // Fall back to hardcoded list if no variant prop found
+  // Extract variant names from CSS classes
+  const cssVariantNames = extractVariantsFromCSS(componentName, parsedCSS);
+  
+  // Merge variants from both sources (union)
+  const allVariantNames = new Set([...propsVariantNames, ...cssVariantNames]);
+  
+  // Fall back to hardcoded list if no variants found
+  let variantNames = Array.from(allVariantNames);
   if (variantNames.length === 0) {
     variantNames = ['primary', 'secondary', 'tertiary', 'danger', 'error', 'success', 'warning', 'info', 'outline', 'ghost', 'destructive'];
   }
@@ -451,16 +579,39 @@ export function extractVariantColors(componentName, parsedCSS, variableMap, comp
     const exactPattern = new RegExp(`\\.${prefix.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(--|__|:|$|\\.)`);
     return exactPattern.test(selector);
   };
+  
+  // Helper to extract all variant names from a selector
+  const extractVariantsFromSelector = (selector) => {
+    const foundVariants = [];
+    for (const variantName of variantNames) {
+      const exactPattern = `.${classPrefix}--${variantName}`;
+      // Check for standard pattern: .component--variant
+      if (selector === exactPattern || 
+          selector.startsWith(exactPattern + ':') ||
+          selector.startsWith(exactPattern + '.') ||
+          selector.includes(exactPattern + '.') ||
+          selector.includes(' ' + exactPattern) ||
+          selector.includes(exactPattern + ' ')) {
+        foundVariants.push(variantName);
+      }
+    }
+    return foundVariants;
+  };
 
   componentsCss.walkRules((rule) => {
     const selector = rule.selector;
-
-    for (const variantName of variantNames) {
-      // Match selectors that contain the exact class pattern (e.g., .btn--primary)
-      // but exclude:
-      // 1. More specific classes (e.g., .floating-nav__btn--primary)
-      // 2. Compound selectors in button groups (e.g., .btn-group .btn--primary) - but only for Button, not ButtonGroup
-      // We want to match: .btn--primary, .btn--primary:hover, etc.
+    
+    // Extract all variants found in this selector
+    const foundVariants = extractVariantsFromSelector(selector);
+    
+    // Skip if no variants found
+    if (foundVariants.length === 0) return;
+    
+    // Handle combined variants (e.g., .alert--enhanced.alert--success)
+    // For now, we'll extract each variant independently
+    // In the future, we could create combined variant entries
+    
+    for (const variantName of foundVariants) {
       const exactPattern = `.${classPrefix}--${variantName}`;
       const moreSpecificPattern = `__${classPrefix}--${variantName}`;
       const buttonGroupPattern = `.btn-group`;
@@ -470,13 +621,15 @@ export function extractVariantColors(componentName, parsedCSS, variableMap, comp
                                    selector.includes(pageHeaderPattern) && 
                                    selector.includes(exactPattern) &&
                                    !selector.includes(moreSpecificPattern) &&
-                                   // Only exclude button-group pattern for Button, not ButtonGroup
                                    (isButtonGroup || !selector.includes(buttonGroupPattern));
       
       // Check for regular variants (e.g., .btn--primary or .btn-group--default)
+      // Also handle combined: .alert--enhanced.alert--success
       const isRegularVariant = selector === exactPattern || 
                                selector.startsWith(exactPattern + ':') ||
-                               selector.startsWith(exactPattern + '.');
+                               selector.startsWith(exactPattern + '.') ||
+                               selector.includes(exactPattern + '.') ||
+                               (selector.includes(exactPattern) && !selector.includes(moreSpecificPattern));
       
       // Only process primary, secondary, tertiary for page header variants
       const isPageHeaderApplicable = isPageHeaderVariant && 
@@ -492,7 +645,7 @@ export function extractVariantColors(componentName, parsedCSS, variableMap, comp
         if (selector.includes(`.theme-${theme}`) || selector.includes(`html.theme-${theme}`)) {
           if (matchesExactClass(selector, `${classPrefix}--${variantName}`)) {
             matchedTheme = theme;
-            if (selector.includes('.dark') || selector.includes('html.theme-${theme}.dark')) {
+            if (selector.includes('.dark') || selector.includes(`html.theme-${theme}.dark`)) {
               matchedMode = 'dark';
             } else {
               matchedMode = 'light';
@@ -510,7 +663,7 @@ export function extractVariantColors(componentName, parsedCSS, variableMap, comp
         let state = 'default';
         if (selector.includes(':hover')) state = 'hover';
         else if (selector.includes(':active')) state = 'active';
-        else if (selector.includes(':focus-visible')) state = 'focus';
+        else if (selector.includes(':focus-visible') || selector.includes(':focus')) state = 'focus';
         else if (selector.includes(':disabled') || selector.includes('.disabled')) state = 'disabled';
 
         // Use different variant key for page header variants
@@ -556,6 +709,21 @@ export function extractVariantColors(componentName, parsedCSS, variableMap, comp
       }
     }
   });
+  
+  // Initialize variant entries for all variants from props, even if they have no CSS rules
+  // This ensures all variants defined in the component interface are included in the JSON
+  for (const variantName of propsVariantNames) {
+    if (!variants[variantName]) {
+      // Initialize empty variant structure
+      variants[variantName] = {};
+      for (const theme of themes) {
+        variants[variantName][theme] = { 
+          light: { default: {} }, 
+          dark: { default: {} } 
+        };
+      }
+    }
+  }
 
   return variants;
 }
