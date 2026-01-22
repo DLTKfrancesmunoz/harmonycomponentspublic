@@ -13,6 +13,7 @@ import {
 
 /**
  * Recursively resolve all var() references in an object structure
+ * Handles nested objects, arrays, and ensures all var() references are resolved
  */
 function resolveAllVarReferences(obj, variableMap, context = 'cp-light') {
   if (obj === null || obj === undefined) {
@@ -22,7 +23,12 @@ function resolveAllVarReferences(obj, variableMap, context = 'cp-light') {
   if (typeof obj === 'string') {
     // If it's a string and contains var(), resolve it
     if (obj.includes('var(')) {
-      return getResolvedValue(obj, variableMap, context);
+      const resolved = getResolvedValue(obj, variableMap, context);
+      // If still contains var(), try with different context
+      if (resolved.includes('var(') && context !== 'light') {
+        return getResolvedValue(resolved, variableMap, 'light');
+      }
+      return resolved;
     }
     return obj;
   }
@@ -34,7 +40,12 @@ function resolveAllVarReferences(obj, variableMap, context = 'cp-light') {
   if (typeof obj === 'object') {
     const resolved = {};
     for (const [key, value] of Object.entries(obj)) {
-      resolved[key] = resolveAllVarReferences(value, variableMap, context);
+      // Skip metadata keys that shouldn't be resolved
+      if (key.startsWith('_')) {
+        resolved[key] = value;
+      } else {
+        resolved[key] = resolveAllVarReferences(value, variableMap, context);
+      }
     }
     return resolved;
   }
@@ -63,7 +74,7 @@ export function extractVisualSpecifications(componentData, parsedCSS, variableMa
     colors: buildColors(variantColors, componentStyles, variableMap),
     elevation: buildElevation(componentStyles, variableMap),
     transitions: buildTransitions(componentStyles, variableMap),
-    layout: buildLayout(componentStyles),
+    layout: buildLayout(componentStyles, variableMap),
     iconSpecs: buildIconSpecs(sizeVariants, componentName)
   };
 
@@ -130,13 +141,25 @@ function buildSpacing(sizeVariants, componentStyles, variableMap) {
       if (!selector.includes('--') && !selector.includes(':')) {
         if (styles.padding) {
           basePadding = styles.padding.light || styles.padding.raw;
+          // Ensure it's resolved
+          if (basePadding && basePadding.includes('var(')) {
+            basePadding = getResolvedValue(basePadding, variableMap, 'cp-light');
+          }
         }
         if (styles.gap) {
           baseGap = styles.gap.light || styles.gap.raw;
+          // Ensure it's resolved
+          if (baseGap && baseGap.includes('var(')) {
+            baseGap = getResolvedValue(baseGap, variableMap, 'cp-light');
+          }
         }
         // Also check padding-top, padding-right, etc.
         if (styles['padding-top']) {
-          basePadding = basePadding || (styles['padding-top'].light || styles['padding-top'].raw);
+          let paddingTop = styles['padding-top'].light || styles['padding-top'].raw;
+          if (paddingTop && paddingTop.includes('var(')) {
+            paddingTop = getResolvedValue(paddingTop, variableMap, 'cp-light');
+          }
+          basePadding = basePadding || paddingTop;
         }
       }
     }
@@ -146,6 +169,14 @@ function buildSpacing(sizeVariants, componentStyles, variableMap) {
     const sizeData = sizeVariants[size];
     let padding = sizeData.padding?.resolved;
     let gap = sizeData.gap?.resolved;
+
+    // Ensure values are fully resolved
+    if (padding && padding.includes('var(')) {
+      padding = getResolvedValue(padding, variableMap, 'cp-light');
+    }
+    if (gap && gap.includes('var(')) {
+      gap = getResolvedValue(gap, variableMap, 'cp-light');
+    }
 
     // If size variant is empty, use base values
     if (!padding && basePadding) {
@@ -189,19 +220,39 @@ function buildTypography(sizeVariants, componentStyles, variableMap) {
   // Extract from base styles
   for (const [selector, styles] of Object.entries(componentStyles)) {
     if (styles['font-family']) {
-      typography.fontFamily = styles['font-family'].light || styles['font-family'].raw;
+      let fontFamily = styles['font-family'].light || styles['font-family'].raw;
+      if (fontFamily && fontFamily.includes('var(')) {
+        fontFamily = getResolvedValue(fontFamily, variableMap, 'cp-light');
+      }
+      typography.fontFamily = fontFamily;
     }
     if (styles['font-weight']) {
-      typography.fontWeight = styles['font-weight'].light || styles['font-weight'].raw;
+      let fontWeight = styles['font-weight'].light || styles['font-weight'].raw;
+      if (fontWeight && fontWeight.includes('var(')) {
+        fontWeight = getResolvedValue(fontWeight, variableMap, 'cp-light');
+      }
+      typography.fontWeight = fontWeight;
     }
     if (styles['line-height']) {
-      typography.lineHeight = styles['line-height'].light || styles['line-height'].raw;
+      let lineHeight = styles['line-height'].light || styles['line-height'].raw;
+      if (lineHeight && lineHeight.includes('var(')) {
+        lineHeight = getResolvedValue(lineHeight, variableMap, 'cp-light');
+      }
+      typography.lineHeight = lineHeight;
     }
     if (styles['letter-spacing']) {
-      typography.letterSpacing = styles['letter-spacing'].light || styles['letter-spacing'].raw;
+      let letterSpacing = styles['letter-spacing'].light || styles['letter-spacing'].raw;
+      if (letterSpacing && letterSpacing.includes('var(')) {
+        letterSpacing = getResolvedValue(letterSpacing, variableMap, 'cp-light');
+      }
+      typography.letterSpacing = letterSpacing;
     }
     if (styles['text-transform']) {
-      typography.textTransform = styles['text-transform'].light || styles['text-transform'].raw;
+      let textTransform = styles['text-transform'].light || styles['text-transform'].raw;
+      if (textTransform && textTransform.includes('var(')) {
+        textTransform = getResolvedValue(textTransform, variableMap, 'cp-light');
+      }
+      typography.textTransform = textTransform;
     }
   }
 
@@ -219,6 +270,10 @@ function buildTypography(sizeVariants, componentStyles, variableMap) {
       if (!selector.includes('--') && !selector.includes(':')) {
         if (styles['font-size']) {
           baseFontSize = styles['font-size'].light || styles['font-size'].raw;
+          // Ensure it's resolved
+          if (baseFontSize && baseFontSize.includes('var(')) {
+            baseFontSize = getResolvedValue(baseFontSize, variableMap, 'cp-light');
+          }
           break; // Use first found font-size
         }
       }
@@ -230,14 +285,25 @@ function buildTypography(sizeVariants, componentStyles, variableMap) {
     const sizeData = sizeVariants[size];
     let fontSize = sizeData['font-size']?.resolved;
     
+    // Ensure fontSize is fully resolved
+    if (fontSize && fontSize.includes('var(')) {
+      fontSize = getResolvedValue(fontSize, variableMap, 'cp-light');
+    }
+    
     // If size variant is empty, use base font-size
     if (!fontSize && baseFontSize) {
       fontSize = baseFontSize;
     }
     
+    let lineHeight = sizeData['line-height']?.resolved || typography.lineHeight;
+    // Ensure lineHeight is fully resolved
+    if (lineHeight && lineHeight.includes('var(')) {
+      lineHeight = getResolvedValue(lineHeight, variableMap, 'cp-light');
+    }
+    
     typography.sizes[size] = {
       fontSize: fontSize || null,
-      lineHeight: sizeData['line-height']?.resolved || typography.lineHeight
+      lineHeight: lineHeight
     };
   }
 
@@ -257,13 +323,25 @@ function buildBorders(componentStyles, variableMap) {
   // Extract from styles
   for (const [selector, styles] of Object.entries(componentStyles)) {
     if (styles['border-width']) {
-      borders.width = styles['border-width'].light || styles['border-width'].raw;
+      let width = styles['border-width'].light || styles['border-width'].raw;
+      if (width && width.includes('var(')) {
+        width = getResolvedValue(width, variableMap, 'cp-light');
+      }
+      borders.width = width;
     }
     if (styles['border-style']) {
-      borders.style = styles['border-style'].light || styles['border-style'].raw;
+      let style = styles['border-style'].light || styles['border-style'].raw;
+      if (style && style.includes('var(')) {
+        style = getResolvedValue(style, variableMap, 'cp-light');
+      }
+      borders.style = style;
     }
     if (styles['border-radius']) {
-      const radius = styles['border-radius'].light || styles['border-radius'].raw;
+      let radius = styles['border-radius'].light || styles['border-radius'].raw;
+      // Ensure no var() references remain
+      if (radius && radius.includes('var(')) {
+        radius = getResolvedValue(radius, variableMap, 'cp-light');
+      }
       // Try to map to size variants
       if (selector.includes('--xs')) borders.radius.xs = radius;
       else if (selector.includes('--sm')) borders.radius.sm = radius;
@@ -348,13 +426,18 @@ function buildElevation(componentStyles, variableMap) {
 
   for (const [selector, styles] of Object.entries(componentStyles)) {
     if (styles['box-shadow']) {
-      const shadow = styles['box-shadow'].light || styles['box-shadow'].raw;
+      // Use resolved light value, and ensure it's fully resolved
+      let shadow = styles['box-shadow'].light || styles['box-shadow'].raw;
+      // Ensure no var() references remain
+      if (shadow && shadow.includes('var(')) {
+        shadow = getResolvedValue(shadow, variableMap, 'cp-light');
+      }
       
       if (selector.includes(':hover')) {
         elevation.hover = shadow;
       } else if (selector.includes(':active')) {
         elevation.active = shadow;
-      } else if (selector.includes(':focus')) {
+      } else if (selector.includes(':focus') || selector.includes(':focus-visible')) {
         elevation.focus = shadow;
       } else {
         elevation.default = shadow !== 'none' ? shadow : elevation.default;
@@ -376,7 +459,11 @@ function buildTransitions(componentStyles, variableMap) {
 
   for (const [selector, styles] of Object.entries(componentStyles)) {
     if (styles['transition']) {
-      const transition = styles['transition'].light || styles['transition'].raw;
+      let transition = styles['transition'].light || styles['transition'].raw;
+      // Ensure it's fully resolved
+      if (transition && transition.includes('var(')) {
+        transition = getResolvedValue(transition, variableMap, 'cp-light');
+      }
       transitions.default = transition;
       
       // Parse transition properties
@@ -396,19 +483,61 @@ function buildTransitions(componentStyles, variableMap) {
 /**
  * Build layout object
  */
-function buildLayout(componentStyles) {
+function buildLayout(componentStyles, variableMap) {
   const layout = {};
 
   for (const [selector, styles] of Object.entries(componentStyles)) {
     // Only get base layout properties (not size/state specific)
     if (!selector.includes('--') && !selector.includes(':')) {
-      if (styles['display']) layout.display = styles['display'].light || styles['display'].raw;
-      if (styles['align-items']) layout.alignItems = styles['align-items'].light || styles['align-items'].raw;
-      if (styles['justify-content']) layout.justifyContent = styles['justify-content'].light || styles['justify-content'].raw;
-      if (styles['flex-direction']) layout.flexDirection = styles['flex-direction'].light || styles['flex-direction'].raw;
-      if (styles['flex-shrink']) layout.flexShrink = styles['flex-shrink'].light || styles['flex-shrink'].raw;
-      if (styles['position']) layout.position = styles['position'].light || styles['position'].raw;
-      if (styles['vertical-align']) layout.verticalAlign = styles['vertical-align'].light || styles['vertical-align'].raw;
+      if (styles['display']) {
+        let display = styles['display'].light || styles['display'].raw;
+        if (display && display.includes('var(')) {
+          display = getResolvedValue(display, variableMap, 'cp-light');
+        }
+        layout.display = display;
+      }
+      if (styles['align-items']) {
+        let alignItems = styles['align-items'].light || styles['align-items'].raw;
+        if (alignItems && alignItems.includes('var(')) {
+          alignItems = getResolvedValue(alignItems, variableMap, 'cp-light');
+        }
+        layout.alignItems = alignItems;
+      }
+      if (styles['justify-content']) {
+        let justifyContent = styles['justify-content'].light || styles['justify-content'].raw;
+        if (justifyContent && justifyContent.includes('var(')) {
+          justifyContent = getResolvedValue(justifyContent, variableMap, 'cp-light');
+        }
+        layout.justifyContent = justifyContent;
+      }
+      if (styles['flex-direction']) {
+        let flexDirection = styles['flex-direction'].light || styles['flex-direction'].raw;
+        if (flexDirection && flexDirection.includes('var(')) {
+          flexDirection = getResolvedValue(flexDirection, variableMap, 'cp-light');
+        }
+        layout.flexDirection = flexDirection;
+      }
+      if (styles['flex-shrink']) {
+        let flexShrink = styles['flex-shrink'].light || styles['flex-shrink'].raw;
+        if (flexShrink && flexShrink.includes('var(')) {
+          flexShrink = getResolvedValue(flexShrink, variableMap, 'cp-light');
+        }
+        layout.flexShrink = flexShrink;
+      }
+      if (styles['position']) {
+        let position = styles['position'].light || styles['position'].raw;
+        if (position && position.includes('var(')) {
+          position = getResolvedValue(position, variableMap, 'cp-light');
+        }
+        layout.position = position;
+      }
+      if (styles['vertical-align']) {
+        let verticalAlign = styles['vertical-align'].light || styles['vertical-align'].raw;
+        if (verticalAlign && verticalAlign.includes('var(')) {
+          verticalAlign = getResolvedValue(verticalAlign, variableMap, 'cp-light');
+        }
+        layout.verticalAlign = verticalAlign;
+      }
     }
   }
 
@@ -579,7 +708,12 @@ function buildCSSClassStyles(componentStyles, variableMap) {
     
     for (const [prop, value] of Object.entries(styles)) {
       // Use light mode resolved value as default
-      cssClassStyles[cleanSelector][prop] = value.light || value.raw;
+      let resolvedValue = value.light || value.raw;
+      // Ensure it's fully resolved
+      if (resolvedValue && resolvedValue.includes('var(')) {
+        resolvedValue = getResolvedValue(resolvedValue, variableMap, 'cp-light');
+      }
+      cssClassStyles[cleanSelector][prop] = resolvedValue;
     }
   }
 

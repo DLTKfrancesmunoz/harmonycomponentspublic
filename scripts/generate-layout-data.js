@@ -387,6 +387,14 @@ function resolveSpacingTokens(spacingTokens, variableMap) {
  * Resolve calc() expressions to actual values
  */
 function resolveCalc(calcExpression, variableMap) {
+  if (!calcExpression || !calcExpression.includes('calc(')) {
+    // If not a calc expression, just resolve any var() references
+    if (calcExpression && calcExpression.includes('var(')) {
+      return getResolvedValue(calcExpression, variableMap, 'light');
+    }
+    return calcExpression;
+  }
+  
   // Handle calc(var(--x) + var(--y)) expressions
   const varMatches = [...calcExpression.matchAll(/var\(([^)]+)\)/g)];
   
@@ -394,7 +402,10 @@ function resolveCalc(calcExpression, variableMap) {
   for (const match of varMatches) {
     const varName = match[1];
     const resolved = getResolvedValue(`var(${varName})`, variableMap, 'light');
-    result = result.replace(match[0], resolved);
+    // Ensure resolved value doesn't contain var() references
+    if (resolved && !resolved.includes('var(')) {
+      result = result.replace(match[0], resolved);
+    }
   }
   
   // If it's a simple calc with px values, evaluate it
@@ -405,6 +416,11 @@ function resolveCalc(calcExpression, variableMap) {
       const sum = numbers.reduce((a, b) => a + b, 0);
       return `${sum}px`;
     }
+  }
+  
+  // If still contains var(), try to resolve it one more time
+  if (result.includes('var(')) {
+    result = getResolvedValue(result, variableMap, 'light');
   }
   
   return result;

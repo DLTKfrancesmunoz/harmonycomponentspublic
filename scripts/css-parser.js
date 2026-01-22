@@ -89,14 +89,17 @@ function getContextFromSelector(selector) {
 
 /**
  * Resolve a CSS value (converts var(--name) to actual value)
+ * Handles nested variables, fallback values, and recursive resolution
  */
 export function getResolvedValue(cssValue, variableMap, context = 'light') {
   if (!cssValue) return cssValue;
+  if (typeof cssValue !== 'string') return cssValue;
 
   // Keep resolving until no more var() references remain
   let result = cssValue;
-  let maxIterations = 10; // Prevent infinite loops
+  let maxIterations = 20; // Increased for deeply nested variables
   let iteration = 0;
+  const unresolvedVars = new Set();
 
   while (result.includes('var(') && iteration < maxIterations) {
     iteration++;
@@ -106,6 +109,8 @@ export function getResolvedValue(cssValue, variableMap, context = 'light') {
     parsed.walk((node) => {
       if (node.type === 'function' && node.value === 'var') {
         const varName = node.nodes[0]?.value;
+        const fallbackValue = node.nodes[1]?.value; // Handle var(--name, fallback)
+        
         if (varName) {
           let resolved = null;
           
@@ -149,14 +154,24 @@ export function getResolvedValue(cssValue, variableMap, context = 'light') {
             }
           }
           
+          // If variable not found and there's a fallback, use it
+          if (!resolved && fallbackValue) {
+            resolved = fallbackValue.trim();
+          }
+          
           if (resolved) {
+            // Recursively resolve the resolved value in case it contains more var() references
+            if (resolved.includes('var(')) {
+              resolved = getResolvedValue(resolved, variableMap, context);
+            }
+            
             // Replace the var() with the resolved value
             node.type = 'word';
             node.value = resolved;
             hasChanges = true;
           } else {
-            // Variable not found - log warning but keep trying
-            console.warn(`⚠️  CSS variable not found: ${varName} (context: ${context})`);
+            // Variable not found - track it but don't break
+            unresolvedVars.add(varName);
             // Keep the var() reference but mark as changed to continue loop
             hasChanges = true;
           }
@@ -180,8 +195,30 @@ export function getResolvedValue(cssValue, variableMap, context = 'light') {
         return fallbackResult;
       }
     }
-    // If still unresolved, log warning
-    console.warn(`⚠️  Could not fully resolve CSS value: ${result}`);
+    
+    // Log warnings for unresolved variables
+    if (unresolvedVars.size > 0) {
+      console.warn(`⚠️  Could not fully resolve CSS value: ${result}`);
+      console.warn(`   Unresolved variables: ${Array.from(unresolvedVars).join(', ')} (context: ${context})`);
+    }
+  }
+
+  // Final validation: ensure no var() references remain
+  if (result.includes('var(')) {
+    // Last attempt: try to extract and resolve any remaining var() references
+    const varMatches = result.match(/var\(([^)]+)\)/g);
+    if (varMatches) {
+      for (const varMatch of varMatches) {
+        const varName = varMatch.match(/var\(([^,)]+)/)?.[1]?.trim();
+        if (varName && variableMap[varName]) {
+          // Try to get any available value
+          const firstValue = Object.values(variableMap[varName])[0];
+          if (firstValue && !firstValue.includes('var(')) {
+            result = result.replace(varMatch, firstValue);
+          }
+        }
+      }
+    }
   }
 
   return result;
