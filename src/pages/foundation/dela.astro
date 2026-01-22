@@ -4,7 +4,6 @@ import ExampleSection from '../../components/ExampleSection.astro';
 import RightSidebar from '../../components/ui/RightSidebar.astro';
 import ShellPanel from '../../components/ui/ShellPanel.astro';
 import Icon from '../../components/ui/Icon.astro';
-import Button from '../../components/ui/Button.astro';
 
 // Custom sections for Dela demo with panel configuration
 const delaDemoSections = [
@@ -64,62 +63,57 @@ const delaDemoSections = [
       </p>
 
       <ExampleSection title="Dela Panel - Right Sidebar Integration" description="The Dela icon appears as the first item in the right sidebar across all themes. Click it to open the AI panel with a gradient header.">
-        <div class="dela-demo-container">
-          <div class="dela-demo-content">
-            <p class="text-secondary text-sm mb-4">
-              The right sidebar is docked to the right edge. Hover over it to see the expanded state with labels, then click the Dela icon to open the panel.
-            </p>
-            <p class="text-secondary text-sm mb-2">
-              <strong>Key Features:</strong>
-            </p>
-            <ul class="list-disc list-inside text-sm text-secondary space-y-1 mb-4">
-              <li>Dela icon appears first in all themes (CP, VP, PPM, Maconomy)</li>
-              <li>Panel slides out from the right side</li>
-              <li>Gradient header automatically applied for Dela panel</li>
-              <li>Panel maintains sidebar icon positions when open</li>
-            </ul>
-            <Button 
-              variant="outline" 
-              size="sm" 
-              onclick="window.openDelaPanel()"
-            >
-              Open Dela Panel
-            </Button>
-          </div>
-          
-          <div class="dela-demo-sidebar">
-            <RightSidebar variant="cp" sections={delaDemoSections} />
-          </div>
-        </div>
-
-        <ShellPanel
-          side="right"
-          open={false}
-          title="Dela AI"
-          headerVariant="theme"
-          width="narrow"
-          id="dela-demo-panel"
-          class="dela-demo-panel"
-        >
-          <div style="padding: var(--space-4);">
-            <div class="space-y-4">
-              <p class="text-secondary">
-                Welcome to Dela AI. This panel provides contextual AI assistance throughout the application.
+        <div class="shell-layout" style="position: relative; height: auto; min-height: 500px;">
+          <div class="dela-demo-container">
+            <div class="dela-demo-content">
+              <p class="text-secondary text-sm mb-4">
+                The right sidebar is docked to the right edge. Hover over it to see the expanded state with labels, then click the Dela icon to open the panel.
               </p>
-              <div class="card">
-                <div class="card__body">
-                  <h3 class="text-lg font-semibold text-primary mb-2">AI Features</h3>
-                  <ul class="list-disc list-inside text-sm text-secondary space-y-1">
-                    <li>Contextual assistance based on current page</li>
-                    <li>Natural language interactions</li>
-                    <li>Smart suggestions and recommendations</li>
-                    <li>Task automation support</li>
-                  </ul>
+              <p class="text-secondary text-sm mb-2">
+                <strong>Key Features:</strong>
+              </p>
+              <ul class="list-disc list-inside text-sm text-secondary space-y-1 mb-4">
+                <li>Dela icon appears first in all themes (CP, VP, PPM, Maconomy)</li>
+                <li>Panel slides out from the right side</li>
+                <li>Gradient header automatically applied for Dela panel</li>
+                <li>Panel maintains sidebar icon positions when open</li>
+              </ul>
+            </div>
+            
+            <div class="dela-demo-sidebar">
+              <RightSidebar variant="cp" sections={delaDemoSections} />
+            </div>
+
+            <ShellPanel
+              side="right"
+              open={false}
+              title="Dela AI"
+              headerVariant="theme"
+              width="narrow"
+              id="right-panel"
+              class="shell-panel--right"
+            >
+              <div style="padding: var(--space-4);">
+                <div class="space-y-4">
+                  <p class="text-secondary">
+                    Welcome to Dela AI. This panel provides contextual AI assistance throughout the application.
+                  </p>
+                  <div class="card">
+                    <div class="card__body">
+                      <h3 class="text-lg font-semibold text-primary mb-2">AI Features</h3>
+                      <ul class="list-disc list-inside text-sm text-secondary space-y-1">
+                        <li>Contextual assistance based on current page</li>
+                        <li>Natural language interactions</li>
+                        <li>Smart suggestions and recommendations</li>
+                        <li>Task automation support</li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
+            </ShellPanel>
           </div>
-        </ShellPanel>
+        </div>
       </ExampleSection>
     </section>
 
@@ -328,6 +322,13 @@ const delaDemoSections = [
 </DocsLayout>
 
 <style>
+  /* Shell-layout wrapper for demos - provides context for panel CSS */
+  .shell-layout {
+    /* Override shell-layout default styles for demo context */
+    height: auto;
+    overflow: visible;
+  }
+
   .dela-demo-container {
     position: relative;
     min-height: 500px;
@@ -346,56 +347,62 @@ const delaDemoSections = [
 
   .dela-demo-sidebar {
     position: absolute;
-    top: 0;
+    top: 50%;
     right: 0;
-    bottom: 0;
-    z-index: 2;
+    transform: translateY(-50%);
+    z-index: 11; /* Above panel (z-index: 10) so icons stay visible */
   }
 
-  /* Override ShellPanel positioning for demo context */
-  .dela-demo-container :global(.dela-demo-panel) {
+  /* CRITICAL: Use :global() to override ShellPanel's fixed positioning for demo context */
+  .dela-demo-container :global(.shell-panel) {
     position: absolute !important;
     top: 0 !important;
     right: 0 !important;
     bottom: 0 !important;
     z-index: 10 !important;
   }
+
+  /* Ensure sidebar stays visible when panel is open - apply same styles as shell-layout */
+  .dela-demo-container :global(.right-sidebar[data-panel-open="true"]) {
+    width: 52px !important; /* Stay collapsed when panel is open */
+  }
+
+  .dela-demo-container :global(.right-sidebar[data-panel-open="true"]:hover) {
+    width: 52px !important; /* Prevent hover expansion when panel is open */
+  }
+
+  /* Hide labels when panel is open */
+  .dela-demo-container :global(.right-sidebar[data-panel-open="true"] .right-sidebar__label) {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  /* Show tooltips when panel is open and item is hovered */
+  .dela-demo-container :global(.right-sidebar[data-panel-open="true"] .right-sidebar__item-tooltip .tooltip__content) {
+    display: block;
+  }
+
+  .dela-demo-container :global(.right-sidebar[data-panel-open="true"] .right-sidebar__item:hover .right-sidebar__item-tooltip .tooltip__content) {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* Active item styling when panel is open */
+  .dela-demo-container :global(.right-sidebar[data-panel-open="true"] .right-sidebar__item[data-active="true"]) {
+    background-color: var(--theme-primary);
+    color: var(--text-inverse);
+  }
+
+  .dela-demo-container :global(.right-sidebar[data-panel-open="true"] .right-sidebar__item[data-active="true"] .right-sidebar__icon) {
+    color: var(--text-inverse);
+  }
+
+  /* Sidebar sections styling when panel is open */
+  .dela-demo-container :global(.right-sidebar[data-panel-open="true"] .right-sidebar__section) {
+    box-shadow: none;
+    border: none;
+    background-color: transparent;
+    border-radius: 0;
+  }
 </style>
 
-<script>
-  // Function to open Dela panel for demo
-  (function() {
-    // Declare function on window with proper typing
-    (window as any).openDelaPanel = function() {
-      const rightSidebar = document.querySelector('.right-sidebar') as HTMLElement | null;
-      const delaPanel = document.querySelector('#dela-demo-panel') as HTMLElement | null;
-      
-      if (!delaPanel || !rightSidebar) return;
-
-      // Find the Dela AI item in the sidebar
-      const delaItem = rightSidebar.querySelector('[data-right-sidebar-item]') as HTMLElement | null;
-      
-      if (delaItem) {
-        // Trigger click on Dela item
-        delaItem.click();
-      } else {
-        // Fallback: manually open the panel
-        delaPanel.classList.add('shell-panel--open');
-        delaPanel.setAttribute('data-open', 'true');
-        
-        // Apply gradient header
-        const panelHeader = delaPanel.querySelector('.shell-panel__header') as HTMLElement | null;
-        if (panelHeader) {
-          panelHeader.setAttribute('data-gradient-header', 'true');
-        }
-      }
-    };
-
-    // Initialize panel functionality on page load
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => {
-        // Panel initialization happens via RightSidebar component script
-      });
-    }
-  })();
-</script>

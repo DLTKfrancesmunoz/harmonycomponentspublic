@@ -100,6 +100,53 @@
             "style": ["default", "outline", "ghost", "destructive"]
           },
           "severity": "warning"
+        },
+        {
+          "id": "variant-data-completeness",
+          "rule": "Variant data may have different levels of state completeness",
+          "rationale": "Not all components define all states (hover, active, focus, disabled) for all variants. Tools must handle incomplete variant data gracefully.",
+          "patterns": {
+            "full": {
+              "description": "All variants have all states (default, hover, active, focus, disabled)",
+              "example": "Button component - primary variant has all states",
+              "toolBehavior": "Display all states for all variants"
+            },
+            "mixed": {
+              "description": "Different variants have different state completeness within the same component",
+              "example": "Alert - info variant has only default, enhanced variant has default + hover",
+              "toolBehavior": "Only show states that exist for each variant. Do NOT show empty state sections."
+            },
+            "default-only": {
+              "description": "All variants only have default state. Child elements may have states in cssClassStyles",
+              "example": "LeftSidebar, Card, Dialog - variants only have default, but child elements have active/hover states",
+              "toolBehavior": "Show only default for variant colors. Also check cssClassStyles for child element states."
+            },
+            "empty": {
+              "description": "Empty variants object {} - no variant styling data",
+              "example": "Spinner, Toggle, Step",
+              "toolBehavior": "Skip variant section or show 'No variant styling data available'"
+            }
+          },
+          "dataStructure": {
+            "variantColors": {
+              "path": "visualSpecifications.colors.variants",
+              "description": "Component-level variant colors. May only have default state.",
+              "structure": "variants[variantName][theme][mode][state]"
+            },
+            "childElementStates": {
+              "path": "cssClassStyles",
+              "description": "Child element states (hover, active, focus, disabled) for nested components",
+              "pattern": "Look for selectors with '__' or '--' and state pseudo-classes (:hover, :active, etc.)",
+              "examples": [".left-sidebar__item--active", ".dialog__close:hover", ".card--interactive:hover"]
+            }
+          },
+          "toolGuidance": {
+            "checkVariantsExist": "if (component.visualSpecifications?.colors?.variants && Object.keys(component.visualSpecifications.colors.variants).length > 0)",
+            "checkStatesPerVariant": "Object.keys(variantData[theme][mode]) - only show states that exist",
+            "checkChildStates": "Extract from cssClassStyles - look for selectors with '__' or '--' and state indicators",
+            "important": "Check both colors.variants (component-level) AND cssClassStyles (child element states) for complete state information"
+          },
+          "severity": "info"
         }
       ]
     },
