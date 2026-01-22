@@ -343,7 +343,7 @@ export function extractVariantColors(componentName, parsedCSS, variableMap) {
   if (!componentsCss) return variants;
 
   const classPrefix = getClassPrefix(componentName);
-  const variantNames = ['primary', 'secondary', 'tertiary', 'danger', 'success', 'warning', 'info', 'outline', 'ghost'];
+  const variantNames = ['primary', 'secondary', 'tertiary', 'danger', 'success', 'warning', 'info', 'outline', 'ghost', 'destructive'];
 
   componentsCss.walkRules((rule) => {
     const selector = rule.selector;
