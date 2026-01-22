@@ -399,6 +399,134 @@ git push
 └─────────────────────┘         └─────────────────────────────┘
 ```
 
+## Handling Variant Data Display
+
+Component JSON files have variant data stored in `visualSpecifications.colors.variants`, but not all components have complete variant data with all states. Additionally, many components have child element states stored separately in `cssClassStyles`.
+
+### Understanding Variant Data Completeness
+
+Components can have different levels of variant data completeness:
+
+1. **Full Variants**: All variants have all states (default, hover, active, focus, disabled) - Example: Button
+2. **Mixed Completeness**: Different variants have different state completeness - Example: Alert (some variants only have default, others have default + hover)
+3. **Default-Only Variants**: All variants only have default state - Example: LeftSidebar, Card, Dialog
+4. **Empty Variants**: Empty variants object `{}` - Example: Spinner, Toggle
+
+See [VARIANT_DATA_PATTERNS.md](docs/VARIANT_DATA_PATTERNS.md) for detailed documentation of these patterns.
+
+### How to Check if Variants Exist
+
+```javascript
+if (component.visualSpecifications?.colors?.variants && 
+    Object.keys(component.visualSpecifications.colors.variants).length > 0) {
+  // Variants exist
+}
+```
+
+### How to Handle Per-Variant State Completeness
+
+Check states per variant and only show states that exist:
+
+```javascript
+const variants = component.visualSpecifications?.colors?.variants || {};
+
+if (Object.keys(variants).length > 0) {
+  for (const [variantName, variantData] of Object.entries(variants)) {
+    // Check states for a specific theme and mode
+    const states = Object.keys(variantData.cp?.light || {});
+    
+    // Only show states that exist
+    if (states.includes('default')) { /* show default */ }
+    if (states.includes('hover')) { /* show hover */ }
+    if (states.includes('active')) { /* show active */ }
+    if (states.includes('focus')) { /* show focus */ }
+    if (states.includes('disabled')) { /* show disabled */ }
+    
+    // Do NOT show empty state sections for states that don't exist
+  }
+}
+```
+
+### How to Handle Empty Variants
+
+If variants object is empty:
+
+```javascript
+if (Object.keys(variants).length === 0) {
+  // Option 1: Skip variant section entirely
+  // Option 2: Show message: "No variant styling data available"
+}
+```
+
+### Important: Check Both Variant Colors AND Child Element States
+
+Many components have nested child components with their own states, even when variant colors only show default. These are stored in `cssClassStyles`, not in `colors.variants`.
+
+**Component-level variant colors** (`colors.variants`):
+- May only have default state
+- Represents variant-level styling
+
+**Child element states** (`cssClassStyles`):
+- Hover, active, focus, disabled for nested components
+- Examples: `.left-sidebar__item--active`, `.dialog__close:hover`, `.card--interactive:hover`
+
+**Example Implementation**:
+
+```javascript
+// Check variant colors
+const variantColors = component.visualSpecifications?.colors?.variants || {};
+if (Object.keys(variantColors).length > 0) {
+  // Display variant colors (only show states that exist)
+  for (const [variantName, variantData] of Object.entries(variantColors)) {
+    const states = Object.keys(variantData.cp?.light || {});
+    // Display only existing states
+  }
+}
+
+// Also check cssClassStyles for child element states
+const cssClassStyles = component.cssClassStyles || {};
+if (cssClassStyles) {
+  // Look for child element states
+  // Pattern: .component__child:hover, .component__child--active, etc.
+  for (const [selector, styles] of Object.entries(cssClassStyles)) {
+    if (selector.includes('__') || selector.includes('--')) {
+      if (selector.includes(':hover') || selector.includes('--active')) {
+        // This is a child element state
+        // Display it appropriately
+      }
+    }
+  }
+}
+```
+
+### Common Patterns
+
+**LeftSidebar Example**:
+- Variant colors: Only default state (variants are theme configurations)
+- Child element states: `.left-sidebar__item--active`, `.left-sidebar__item:hover`
+- **Display both**: Variant colors (default only) AND child element states (active, hover)
+
+**Alert Example**:
+- `info` variant: Only default state
+- `enhanced` variant: Default + hover states
+- **Display**: Only show states that exist for each variant
+
+**Button Example**:
+- All variants: All states (default, hover, active, focus, disabled)
+- **Display**: All states for all variants
+
+### Validation
+
+Run the validation script to see variant data completeness for all components:
+
+```bash
+node scripts/validate-variant-data.js
+```
+
+This generates `variant-data-report.json` with detailed analysis.
+
+For more information, see [VARIANT_DATA_PATTERNS.md](docs/VARIANT_DATA_PATTERNS.md).
+
 ## Summary
 
 **Designers** → Clone from Git → Get `mcp-data/` automatically → 5 Harmony tools work
