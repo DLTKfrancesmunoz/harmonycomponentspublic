@@ -2,62 +2,62 @@
   "name": "Checkbox",
   "type": "component",
   "filePath": "src/components/ui/Checkbox.astro",
-  "description": "Checkbox Component",
+  "description": "Checkbox input for boolean selections with support for warning and error states",
   "props": {
     "name": {
       "type": "string",
       "optional": true,
-      "default": null
+      "default": ""
     },
     "id": {
       "type": "string",
       "optional": true,
-      "default": null
+      "default": ""
     },
     "checked": {
       "type": "boolean",
       "optional": true,
-      "default": null
+      "default": false
     },
     "disabled": {
       "type": "boolean",
       "optional": true,
-      "default": null
+      "default": false
     },
     "label": {
       "type": "string",
       "optional": true,
-      "default": null
+      "default": ""
     },
     "value": {
       "type": "string",
       "optional": true,
-      "default": null
+      "default": ""
     },
     "warning": {
       "type": "boolean",
       "optional": true,
-      "default": null
+      "default": false
     },
     "error": {
       "type": "boolean",
       "optional": true,
-      "default": null
+      "default": false
     },
     "warningMessage": {
       "type": "string",
       "optional": true,
-      "default": null
+      "default": ""
     },
     "errorMessage": {
       "type": "string",
       "optional": true,
-      "default": null
+      "default": ""
     },
     "class": {
       "type": "string",
       "optional": true,
-      "default": null
+      "default": ""
     }
   },
   "imports": {
@@ -68,14 +68,18 @@
   ],
   "cssClasses": [
     "checkbox-wrapper",
+    "checkbox",
+    "checkbox--disabled",
+    "checkbox--warning",
+    "checkbox--error",
     "checkbox__input",
     "checkbox__box",
     "checkbox__icon",
     "checkbox__label",
-    "checkbox-wrapper__error",
-    "checkbox-wrapper__error-icon",
     "checkbox-wrapper__warning",
-    "checkbox-wrapper__warning-icon"
+    "checkbox-wrapper__warning-icon",
+    "checkbox-wrapper__error",
+    "checkbox-wrapper__error-icon"
   ],
   "themeSupport": {
     "themes": [
@@ -100,7 +104,7 @@
       "children": [
         {
           "element": "label",
-          "class": "classes",
+          "class": "checkbox checkbox--disabled checkbox--warning checkbox--error",
           "spacing": {
             "padding": "0",
             "margin": "0"
@@ -188,153 +192,1019 @@
     "children": []
   },
   "_metadata": {
-    "lastGenerated": "2026-01-22T20:53:20.179Z",
+    "lastGenerated": "2026-01-22T21:00:00.000Z",
     "generatedWith": "@astrojs/compiler@2.13.0",
     "includesVisualSpecs": true,
     "availableVariants": [
+      "default",
       "warning",
       "error"
     ]
   },
   "visualSpecifications": {
     "dimensions": {
-      "xs": {
-        "height": null,
-        "width": null,
-        "minWidth": "auto",
-        "maxWidth": "none"
+      "box": {
+        "width": "18px",
+        "height": "18px",
+        "minWidth": "18px",
+        "maxWidth": "18px",
+        "minHeight": "18px",
+        "maxHeight": "18px"
       },
-      "sm": {
-        "height": null,
-        "width": null,
+      "wrapper": {
+        "width": "auto",
+        "height": "auto",
         "minWidth": "auto",
-        "maxWidth": "none"
+        "maxWidth": "none",
+        "minHeight": "auto",
+        "maxHeight": "none"
       },
-      "md": {
-        "height": null,
-        "width": null,
-        "minWidth": "auto",
-        "maxWidth": "none"
-      },
-      "lg": {
-        "height": null,
-        "width": null,
-        "minWidth": "auto",
-        "maxWidth": "none"
+      "responsive": {
+        "minHeight": "44px",
+        "breakpoint": "768px"
       }
     },
     "spacing": {
-      "xs": {
+      "checkbox": {
+        "gap": "8px",
         "paddingTop": "0",
         "paddingRight": "0",
         "paddingBottom": "0",
         "paddingLeft": "0",
-        "gap": "4px"
+        "marginTop": "0",
+        "marginRight": "0",
+        "marginBottom": "0",
+        "marginLeft": "0"
       },
-      "sm": {
+      "box": {
         "paddingTop": "0",
         "paddingRight": "0",
         "paddingBottom": "0",
         "paddingLeft": "0",
-        "gap": "4px"
+        "marginTop": "0",
+        "marginRight": "0",
+        "marginBottom": "0",
+        "marginLeft": "0"
       },
-      "md": {
+      "wrapper": {
         "paddingTop": "0",
         "paddingRight": "0",
         "paddingBottom": "0",
         "paddingLeft": "0",
-        "gap": "4px"
+        "marginTop": "0",
+        "marginRight": "0",
+        "marginBottom": "0",
+        "marginLeft": "0"
       },
-      "lg": {
+      "message": {
+        "gap": "4px",
+        "marginTop": "4px",
         "paddingTop": "0",
         "paddingRight": "0",
         "paddingBottom": "0",
         "paddingLeft": "0",
-        "gap": "4px"
+        "marginRight": "0",
+        "marginBottom": "0",
+        "marginLeft": "0"
       }
     },
+    "borderRadius": {
+      "base": "4px",
+      "value": "0.25rem",
+      "cssVar": "--radius-sm"
+    },
     "typography": {
-      "fontFamily": null,
-      "fontWeight": null,
-      "lineHeight": null,
-      "letterSpacing": null,
-      "textTransform": null,
-      "sizes": {
-        "xs": {
-          "fontSize": "0.75rem",
-          "lineHeight": null
+      "fontFamily": "'Figtree', sans-serif",
+      "fontWeight": "400",
+      "fontSize": {
+        "label": "0.875rem",
+        "labelPixels": "14px",
+        "icon": "0.75rem",
+        "iconPixels": "12px",
+        "message": "0.875rem",
+        "messagePixels": "14px"
+      },
+      "lineHeight": "inherit",
+      "letterSpacing": "normal"
+    },
+    "borders": {
+      "width": {
+        "default": "2px",
+        "error": "2px",
+        "cssVar": "--border-width-standard"
+      },
+      "style": "solid",
+      "radius": "4px"
+    },
+    "transitions": {
+      "box": {
+        "property": "all",
+        "duration": "150ms",
+        "timingFunction": "ease",
+        "cssVar": "--transition-fast"
+      },
+      "icon": {
+        "property": "all",
+        "duration": "150ms",
+        "timingFunction": "ease",
+        "cssVar": "--transition-fast"
+      }
+    },
+    "icon": {
+      "name": "check",
+      "size": "12px",
+      "color": "#FFFFFF",
+      "opacity": {
+        "default": "0",
+        "checked": "1"
+      },
+      "transform": {
+        "default": "scale(0)",
+        "checked": "scale(1)"
+      }
+    },
+    "layout": {
+      "checkbox": {
+        "display": "inline-flex",
+        "alignItems": "center",
+        "flexDirection": "row"
+      },
+      "box": {
+        "display": "flex",
+        "alignItems": "center",
+        "justifyContent": "center",
+        "flexShrink": "0"
+      },
+      "wrapper": {
+        "display": "flex",
+        "flexDirection": "column"
+      },
+      "message": {
+        "display": "flex",
+        "alignItems": "center",
+        "flexDirection": "row"
+      }
+    },
+    "responsive": {
+      "breakpoint": "768px",
+      "cssVar": "--breakpoint-md",
+      "minHeight": "44px"
+    }
+  },
+  "variants": {
+    "default": {
+      "states": {
+        "default": {
+          "backgroundColor": "var(--input-bg)",
+          "borderColor": "var(--border-color)",
+          "borderWidth": "2px",
+          "borderStyle": "solid",
+          "borderRadius": "4px"
         },
-        "sm": {
-          "fontSize": "0.75rem",
-          "lineHeight": null
+        "checked": {
+          "backgroundColor": "var(--theme-primary)",
+          "borderColor": "var(--theme-primary)",
+          "borderWidth": "2px",
+          "borderStyle": "solid"
         },
-        "md": {
-          "fontSize": "0.75rem",
-          "lineHeight": null
+        "focus": {
+          "boxShadow": "var(--focus-ring-primary)"
         },
-        "lg": {
-          "fontSize": "0.75rem",
-          "lineHeight": null
+        "checkedFocus": {
+          "boxShadow": "var(--focus-ring-primary)"
+        },
+        "disabled": {
+          "opacity": "0.5",
+          "cursor": "not-allowed"
+        }
+      },
+      "resolved": {
+        "cp": {
+          "light": {
+            "default": {
+              "backgroundColor": "#FFFFFF",
+              "borderColor": "#BFC6D4",
+              "borderWidth": "2px",
+              "borderStyle": "solid",
+              "borderRadius": "4px"
+            },
+            "checked": {
+              "backgroundColor": "#4C92D9",
+              "borderColor": "#4C92D9",
+              "borderWidth": "2px",
+              "borderStyle": "solid"
+            },
+            "focus": {
+              "boxShadow": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA"
+            },
+            "checkedFocus": {
+              "boxShadow": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA"
+            },
+            "disabled": {
+              "opacity": "0.5",
+              "cursor": "not-allowed"
+            }
+          },
+          "dark": {
+            "default": {
+              "backgroundColor": "#1F252E",
+              "borderColor": "#5F6871",
+              "borderWidth": "2px",
+              "borderStyle": "solid",
+              "borderRadius": "4px"
+            },
+            "checked": {
+              "backgroundColor": "#59ACFF",
+              "borderColor": "#59ACFF",
+              "borderWidth": "2px",
+              "borderStyle": "solid"
+            },
+            "focus": {
+              "boxShadow": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #37424D"
+            },
+            "checkedFocus": {
+              "boxShadow": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #37424D"
+            },
+            "disabled": {
+              "opacity": "0.5",
+              "cursor": "not-allowed"
+            }
+          }
+        },
+        "vp": {
+          "light": {
+            "default": {
+              "backgroundColor": "#FFFFFF",
+              "borderColor": "#BFC6D4",
+              "borderWidth": "2px",
+              "borderStyle": "solid",
+              "borderRadius": "4px"
+            },
+            "checked": {
+              "backgroundColor": "#4C92D9",
+              "borderColor": "#4C92D9",
+              "borderWidth": "2px",
+              "borderStyle": "solid"
+            },
+            "focus": {
+              "boxShadow": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA"
+            },
+            "checkedFocus": {
+              "boxShadow": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA"
+            },
+            "disabled": {
+              "opacity": "0.5",
+              "cursor": "not-allowed"
+            }
+          },
+          "dark": {
+            "default": {
+              "backgroundColor": "#1F2124",
+              "borderColor": "#2A2D32",
+              "borderWidth": "2px",
+              "borderStyle": "solid",
+              "borderRadius": "4px"
+            },
+            "checked": {
+              "backgroundColor": "#59ACFF",
+              "borderColor": "#59ACFF",
+              "borderWidth": "2px",
+              "borderStyle": "solid"
+            },
+            "focus": {
+              "boxShadow": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #1F2124"
+            },
+            "checkedFocus": {
+              "boxShadow": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #1F2124"
+            },
+            "disabled": {
+              "opacity": "0.5",
+              "cursor": "not-allowed"
+            }
+          }
+        },
+        "ppm": {
+          "light": {
+            "default": {
+              "backgroundColor": "#FFFFFF",
+              "borderColor": "#BFC6D4",
+              "borderWidth": "2px",
+              "borderStyle": "solid",
+              "borderRadius": "4px"
+            },
+            "checked": {
+              "backgroundColor": "#4C92D9",
+              "borderColor": "#4C92D9",
+              "borderWidth": "2px",
+              "borderStyle": "solid"
+            },
+            "focus": {
+              "boxShadow": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA"
+            },
+            "checkedFocus": {
+              "boxShadow": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA"
+            },
+            "disabled": {
+              "opacity": "0.5",
+              "cursor": "not-allowed"
+            }
+          },
+          "dark": {
+            "default": {
+              "backgroundColor": "#1F2124",
+              "borderColor": "#2A2D32",
+              "borderWidth": "2px",
+              "borderStyle": "solid",
+              "borderRadius": "4px"
+            },
+            "checked": {
+              "backgroundColor": "#59ACFF",
+              "borderColor": "#59ACFF",
+              "borderWidth": "2px",
+              "borderStyle": "solid"
+            },
+            "focus": {
+              "boxShadow": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #1F2124"
+            },
+            "checkedFocus": {
+              "boxShadow": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #1F2124"
+            },
+            "disabled": {
+              "opacity": "0.5",
+              "cursor": "not-allowed"
+            }
+          }
+        },
+        "maconomy": {
+          "light": {
+            "default": {
+              "backgroundColor": "#FFFFFF",
+              "borderColor": "#BFC6D4",
+              "borderWidth": "2px",
+              "borderStyle": "solid",
+              "borderRadius": "4px"
+            },
+            "checked": {
+              "backgroundColor": "#4C92D9",
+              "borderColor": "#4C92D9",
+              "borderWidth": "2px",
+              "borderStyle": "solid"
+            },
+            "focus": {
+              "boxShadow": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA"
+            },
+            "checkedFocus": {
+              "boxShadow": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA"
+            },
+            "disabled": {
+              "opacity": "0.5",
+              "cursor": "not-allowed"
+            }
+          },
+          "dark": {
+            "default": {
+              "backgroundColor": "#1F2124",
+              "borderColor": "#2A2D32",
+              "borderWidth": "2px",
+              "borderStyle": "solid",
+              "borderRadius": "4px"
+            },
+            "checked": {
+              "backgroundColor": "#59ACFF",
+              "borderColor": "#59ACFF",
+              "borderWidth": "2px",
+              "borderStyle": "solid"
+            },
+            "focus": {
+              "boxShadow": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #1F2124"
+            },
+            "checkedFocus": {
+              "boxShadow": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #1F2124"
+            },
+            "disabled": {
+              "opacity": "0.5",
+              "cursor": "not-allowed"
+            }
+          }
         }
       }
     },
-    "borders": {
-      "width": "2px",
-      "style": null,
-      "radius": {
-        "default": "0.25rem"
+    "warning": {
+      "states": {
+        "default": {
+          "borderColor": "var(--color-warning)",
+          "borderWidth": "2px",
+          "borderStyle": "solid"
+        },
+        "checked": {
+          "backgroundColor": "var(--theme-primary)",
+          "borderColor": "var(--theme-primary)",
+          "boxShadow": "0 0 0 1px var(--color-warning)"
+        },
+        "focus": {
+          "boxShadow": "var(--focus-ring-warning)"
+        },
+        "checkedFocus": {
+          "boxShadow": "var(--focus-ring-warning-checked)"
+        }
+      },
+      "resolved": {
+        "cp": {
+          "light": {
+            "default": {
+              "borderColor": "#FFB020",
+              "borderWidth": "2px",
+              "borderStyle": "solid"
+            },
+            "checked": {
+              "backgroundColor": "#4C92D9",
+              "borderColor": "#4C92D9",
+              "boxShadow": "0 0 0 1px #FFB020"
+            },
+            "focus": {
+              "boxShadow": "0 0 0 1px #BFC6D4, 0 0 0 3px rgba(255, 176, 32, 0.48)"
+            },
+            "checkedFocus": {
+              "boxShadow": "0 0 0 1px #FFB020, 0 0 0 3px rgba(255, 176, 32, 0.48)"
+            }
+          },
+          "dark": {
+            "default": {
+              "borderColor": "#F9AF00",
+              "borderWidth": "2px",
+              "borderStyle": "solid"
+            },
+            "checked": {
+              "backgroundColor": "#59ACFF",
+              "borderColor": "#59ACFF",
+              "boxShadow": "0 0 0 1px #F9AF00"
+            },
+            "focus": {
+              "boxShadow": "0 0 0 1px #5F6871, 0 0 0 3px rgba(249, 175, 0, 0.48)"
+            },
+            "checkedFocus": {
+              "boxShadow": "0 0 0 1px #F9AF00, 0 0 0 3px rgba(249, 175, 0, 0.48)"
+            }
+          }
+        },
+        "vp": {
+          "light": {
+            "default": {
+              "borderColor": "#FFB020",
+              "borderWidth": "2px",
+              "borderStyle": "solid"
+            },
+            "checked": {
+              "backgroundColor": "#4C92D9",
+              "borderColor": "#4C92D9",
+              "boxShadow": "0 0 0 1px #FFB020"
+            },
+            "focus": {
+              "boxShadow": "0 0 0 1px #BFC6D4, 0 0 0 3px rgba(255, 176, 32, 0.48)"
+            },
+            "checkedFocus": {
+              "boxShadow": "0 0 0 1px #FFB020, 0 0 0 3px rgba(255, 176, 32, 0.48)"
+            }
+          },
+          "dark": {
+            "default": {
+              "borderColor": "#F9AF00",
+              "borderWidth": "2px",
+              "borderStyle": "solid"
+            },
+            "checked": {
+              "backgroundColor": "#59ACFF",
+              "borderColor": "#59ACFF",
+              "boxShadow": "0 0 0 1px #F9AF00"
+            },
+            "focus": {
+              "boxShadow": "0 0 0 1px #2A2D32, 0 0 0 3px rgba(249, 175, 0, 0.48)"
+            },
+            "checkedFocus": {
+              "boxShadow": "0 0 0 1px #F9AF00, 0 0 0 3px rgba(249, 175, 0, 0.48)"
+            }
+          }
+        },
+        "ppm": {
+          "light": {
+            "default": {
+              "borderColor": "#FFB020",
+              "borderWidth": "2px",
+              "borderStyle": "solid"
+            },
+            "checked": {
+              "backgroundColor": "#4C92D9",
+              "borderColor": "#4C92D9",
+              "boxShadow": "0 0 0 1px #FFB020"
+            },
+            "focus": {
+              "boxShadow": "0 0 0 1px #BFC6D4, 0 0 0 3px rgba(255, 176, 32, 0.48)"
+            },
+            "checkedFocus": {
+              "boxShadow": "0 0 0 1px #FFB020, 0 0 0 3px rgba(255, 176, 32, 0.48)"
+            }
+          },
+          "dark": {
+            "default": {
+              "borderColor": "#F9AF00",
+              "borderWidth": "2px",
+              "borderStyle": "solid"
+            },
+            "checked": {
+              "backgroundColor": "#59ACFF",
+              "borderColor": "#59ACFF",
+              "boxShadow": "0 0 0 1px #F9AF00"
+            },
+            "focus": {
+              "boxShadow": "0 0 0 1px #2A2D32, 0 0 0 3px rgba(249, 175, 0, 0.48)"
+            },
+            "checkedFocus": {
+              "boxShadow": "0 0 0 1px #F9AF00, 0 0 0 3px rgba(249, 175, 0, 0.48)"
+            }
+          }
+        },
+        "maconomy": {
+          "light": {
+            "default": {
+              "borderColor": "#FFB020",
+              "borderWidth": "2px",
+              "borderStyle": "solid"
+            },
+            "checked": {
+              "backgroundColor": "#4C92D9",
+              "borderColor": "#4C92D9",
+              "boxShadow": "0 0 0 1px #FFB020"
+            },
+            "focus": {
+              "boxShadow": "0 0 0 1px #BFC6D4, 0 0 0 3px rgba(255, 176, 32, 0.48)"
+            },
+            "checkedFocus": {
+              "boxShadow": "0 0 0 1px #FFB020, 0 0 0 3px rgba(255, 176, 32, 0.48)"
+            }
+          },
+          "dark": {
+            "default": {
+              "borderColor": "#F9AF00",
+              "borderWidth": "2px",
+              "borderStyle": "solid"
+            },
+            "checked": {
+              "backgroundColor": "#59ACFF",
+              "borderColor": "#59ACFF",
+              "boxShadow": "0 0 0 1px #F9AF00"
+            },
+            "focus": {
+              "boxShadow": "0 0 0 1px #2A2D32, 0 0 0 3px rgba(249, 175, 0, 0.48)"
+            },
+            "checkedFocus": {
+              "boxShadow": "0 0 0 1px #F9AF00, 0 0 0 3px rgba(249, 175, 0, 0.48)"
+            }
+          }
+        }
       }
     },
-    "transitions": {
-      "default": "all 150ms ease",
-      "properties": {}
+    "error": {
+      "states": {
+        "default": {
+          "borderColor": "var(--color-error)",
+          "borderWidth": "2px",
+          "borderStyle": "solid"
+        },
+        "checked": {
+          "backgroundColor": "var(--theme-primary)",
+          "borderColor": "var(--theme-primary)",
+          "boxShadow": "0 0 0 2px var(--color-error)"
+        },
+        "focus": {
+          "boxShadow": "var(--focus-ring-error)"
+        },
+        "checkedFocus": {
+          "boxShadow": "var(--focus-ring-error-checked)"
+        }
+      },
+      "resolved": {
+        "cp": {
+          "light": {
+            "default": {
+              "borderColor": "#D83148",
+              "borderWidth": "2px",
+              "borderStyle": "solid"
+            },
+            "checked": {
+              "backgroundColor": "#4C92D9",
+              "borderColor": "#4C92D9",
+              "boxShadow": "0 0 0 2px #D83148"
+            },
+            "focus": {
+              "boxShadow": "0 0 0 1px #BFC6D4, 0 0 0 3px rgba(216, 49, 72, 0.32)"
+            },
+            "checkedFocus": {
+              "boxShadow": "0 0 0 2px #D83148, 0 0 0 3px rgba(216, 49, 72, 0.32)"
+            }
+          },
+          "dark": {
+            "default": {
+              "borderColor": "#F46286",
+              "borderWidth": "2px",
+              "borderStyle": "solid"
+            },
+            "checked": {
+              "backgroundColor": "#59ACFF",
+              "borderColor": "#59ACFF",
+              "boxShadow": "0 0 0 2px #F46286"
+            },
+            "focus": {
+              "boxShadow": "0 0 0 1px #5F6871, 0 0 0 3px rgba(244, 98, 134, 0.32)"
+            },
+            "checkedFocus": {
+              "boxShadow": "0 0 0 2px #F46286, 0 0 0 3px rgba(244, 98, 134, 0.32)"
+            }
+          }
+        },
+        "vp": {
+          "light": {
+            "default": {
+              "borderColor": "#D83148",
+              "borderWidth": "2px",
+              "borderStyle": "solid"
+            },
+            "checked": {
+              "backgroundColor": "#4C92D9",
+              "borderColor": "#4C92D9",
+              "boxShadow": "0 0 0 2px #D83148"
+            },
+            "focus": {
+              "boxShadow": "0 0 0 1px #BFC6D4, 0 0 0 3px rgba(216, 49, 72, 0.32)"
+            },
+            "checkedFocus": {
+              "boxShadow": "0 0 0 2px #D83148, 0 0 0 3px rgba(216, 49, 72, 0.32)"
+            }
+          },
+          "dark": {
+            "default": {
+              "borderColor": "#F46286",
+              "borderWidth": "2px",
+              "borderStyle": "solid"
+            },
+            "checked": {
+              "backgroundColor": "#59ACFF",
+              "borderColor": "#59ACFF",
+              "boxShadow": "0 0 0 2px #F46286"
+            },
+            "focus": {
+              "boxShadow": "0 0 0 1px #2A2D32, 0 0 0 3px rgba(244, 98, 134, 0.32)"
+            },
+            "checkedFocus": {
+              "boxShadow": "0 0 0 2px #F46286, 0 0 0 3px rgba(244, 98, 134, 0.32)"
+            }
+          }
+        },
+        "ppm": {
+          "light": {
+            "default": {
+              "borderColor": "#D83148",
+              "borderWidth": "2px",
+              "borderStyle": "solid"
+            },
+            "checked": {
+              "backgroundColor": "#4C92D9",
+              "borderColor": "#4C92D9",
+              "boxShadow": "0 0 0 2px #D83148"
+            },
+            "focus": {
+              "boxShadow": "0 0 0 1px #BFC6D4, 0 0 0 3px rgba(216, 49, 72, 0.32)"
+            },
+            "checkedFocus": {
+              "boxShadow": "0 0 0 2px #D83148, 0 0 0 3px rgba(216, 49, 72, 0.32)"
+            }
+          },
+          "dark": {
+            "default": {
+              "borderColor": "#F46286",
+              "borderWidth": "2px",
+              "borderStyle": "solid"
+            },
+            "checked": {
+              "backgroundColor": "#59ACFF",
+              "borderColor": "#59ACFF",
+              "boxShadow": "0 0 0 2px #F46286"
+            },
+            "focus": {
+              "boxShadow": "0 0 0 1px #2A2D32, 0 0 0 3px rgba(244, 98, 134, 0.32)"
+            },
+            "checkedFocus": {
+              "boxShadow": "0 0 0 2px #F46286, 0 0 0 3px rgba(244, 98, 134, 0.32)"
+            }
+          }
+        },
+        "maconomy": {
+          "light": {
+            "default": {
+              "borderColor": "#D83148",
+              "borderWidth": "2px",
+              "borderStyle": "solid"
+            },
+            "checked": {
+              "backgroundColor": "#4C92D9",
+              "borderColor": "#4C92D9",
+              "boxShadow": "0 0 0 2px #D83148"
+            },
+            "focus": {
+              "boxShadow": "0 0 0 1px #BFC6D4, 0 0 0 3px rgba(216, 49, 72, 0.32)"
+            },
+            "checkedFocus": {
+              "boxShadow": "0 0 0 2px #D83148, 0 0 0 3px rgba(216, 49, 72, 0.32)"
+            }
+          },
+          "dark": {
+            "default": {
+              "borderColor": "#F46286",
+              "borderWidth": "2px",
+              "borderStyle": "solid"
+            },
+            "checked": {
+              "backgroundColor": "#59ACFF",
+              "borderColor": "#59ACFF",
+              "boxShadow": "0 0 0 2px #F46286"
+            },
+            "focus": {
+              "boxShadow": "0 0 0 1px #2A2D32, 0 0 0 3px rgba(244, 98, 134, 0.32)"
+            },
+            "checkedFocus": {
+              "boxShadow": "0 0 0 2px #F46286, 0 0 0 3px rgba(244, 98, 134, 0.32)"
+            }
+          }
+        }
+      }
+    }
+  },
+  "themeColors": {
+    "cp": {
+      "light": {
+        "themePrimary": "#4C92D9",
+        "themePrimaryHover": "#3D7BC4",
+        "themePrimaryLight": "rgba(76, 146, 217, 0.1)",
+        "textPrimary": "#373F4E",
+        "textSecondary": "#525969",
+        "textMuted": "#6B7280",
+        "textInverse": "#FFFFFF",
+        "borderColor": "#BFC6D4",
+        "hoverBg": "#E5E7EB",
+        "elevatedBg": "#F7F8FA",
+        "cardBg": "#F7F8FA",
+        "inputBg": "#FFFFFF",
+        "colorError": "#D83148",
+        "colorErrorFocus": "rgba(216, 49, 72, 0.32)",
+        "colorWarning": "#FFB020",
+        "colorWarningFocus": "rgba(255, 176, 32, 0.48)"
+      },
+      "dark": {
+        "themePrimary": "#59ACFF",
+        "themePrimaryHover": "#7BB8FF",
+        "themePrimaryLight": "rgba(89, 172, 255, 0.1)",
+        "textPrimary": "#E9ECEF",
+        "textSecondary": "#B6B6C4",
+        "textMuted": "#BBBBC6",
+        "textInverse": "#1F252E",
+        "borderColor": "#5F6871",
+        "hoverBg": "#3D4A5C",
+        "elevatedBg": "#37424D",
+        "cardBg": "#37424D",
+        "inputBg": "#1F252E",
+        "colorError": "#F46286",
+        "colorErrorFocus": "rgba(244, 98, 134, 0.32)",
+        "colorWarning": "#F9AF00",
+        "colorWarningFocus": "rgba(249, 175, 0, 0.48)"
+      }
     },
-    "layout": {
-      "display": "flex",
-      "alignItems": "center",
-      "position": "absolute",
-      "justifyContent": "center",
-      "flexShrink": "0",
-      "flexDirection": "column"
+    "vp": {
+      "light": {
+        "themePrimary": "#4C92D9",
+        "themePrimaryHover": "#3D7BC4",
+        "themePrimaryLight": "rgba(76, 146, 217, 0.1)",
+        "textPrimary": "#373F4E",
+        "textSecondary": "#525969",
+        "textMuted": "#6B7280",
+        "textInverse": "#FFFFFF",
+        "borderColor": "#BFC6D4",
+        "hoverBg": "#E5E7EB",
+        "elevatedBg": "#F7F8FA",
+        "cardBg": "#F7F8FA",
+        "inputBg": "#FFFFFF",
+        "colorError": "#D83148",
+        "colorErrorFocus": "rgba(216, 49, 72, 0.32)",
+        "colorWarning": "#FFB020",
+        "colorWarningFocus": "rgba(255, 176, 32, 0.48)"
+      },
+      "dark": {
+        "themePrimary": "#59ACFF",
+        "themePrimaryHover": "#7bb8ff",
+        "themePrimaryLight": "rgba(89, 172, 255, 0.1)",
+        "textPrimary": "#FAFAFA",
+        "textSecondary": "#B5B5BC",
+        "textMuted": "#B5B5BC",
+        "textInverse": "#15171A",
+        "borderColor": "#2A2D32",
+        "hoverBg": "#2A2D32",
+        "elevatedBg": "#1F2124",
+        "cardBg": "#1F2124",
+        "inputBg": "#1F2124",
+        "colorError": "#F46286",
+        "colorErrorFocus": "rgba(244, 98, 134, 0.32)",
+        "colorWarning": "#F9AF00",
+        "colorWarningFocus": "rgba(249, 175, 0, 0.48)"
+      }
     },
-    "iconSpecs": null
+    "ppm": {
+      "light": {
+        "themePrimary": "#4C92D9",
+        "themePrimaryHover": "#3D7BC4",
+        "themePrimaryLight": "rgba(76, 146, 217, 0.1)",
+        "textPrimary": "#373F4E",
+        "textSecondary": "#525969",
+        "textMuted": "#6B7280",
+        "textInverse": "#FFFFFF",
+        "borderColor": "#BFC6D4",
+        "hoverBg": "#E5E7EB",
+        "elevatedBg": "#F7F8FA",
+        "cardBg": "#F7F8FA",
+        "inputBg": "#FFFFFF",
+        "colorError": "#D83148",
+        "colorErrorFocus": "rgba(216, 49, 72, 0.32)",
+        "colorWarning": "#FFB020",
+        "colorWarningFocus": "rgba(255, 176, 32, 0.48)"
+      },
+      "dark": {
+        "themePrimary": "#59ACFF",
+        "themePrimaryHover": "#7bb8ff",
+        "themePrimaryLight": "rgba(89, 172, 255, 0.1)",
+        "textPrimary": "#FAFAFA",
+        "textSecondary": "#B5B5BC",
+        "textMuted": "#B5B5BC",
+        "textInverse": "#15171A",
+        "borderColor": "#2A2D32",
+        "hoverBg": "#2A2D32",
+        "elevatedBg": "#1F2124",
+        "cardBg": "#1F2124",
+        "inputBg": "#1F2124",
+        "colorError": "#F46286",
+        "colorErrorFocus": "rgba(244, 98, 134, 0.32)",
+        "colorWarning": "#F9AF00",
+        "colorWarningFocus": "rgba(249, 175, 0, 0.48)"
+      }
+    },
+    "maconomy": {
+      "light": {
+        "themePrimary": "#4C92D9",
+        "themePrimaryHover": "#3D7BC4",
+        "themePrimaryLight": "rgba(76, 146, 217, 0.1)",
+        "textPrimary": "#373F4E",
+        "textSecondary": "#525969",
+        "textMuted": "#6B7280",
+        "textInverse": "#FFFFFF",
+        "borderColor": "#BFC6D4",
+        "hoverBg": "#E5E7EB",
+        "elevatedBg": "#F7F8FA",
+        "cardBg": "#F7F8FA",
+        "inputBg": "#FFFFFF",
+        "colorError": "#D83148",
+        "colorErrorFocus": "rgba(216, 49, 72, 0.32)",
+        "colorWarning": "#FFB020",
+        "colorWarningFocus": "rgba(255, 176, 32, 0.48)"
+      },
+      "dark": {
+        "themePrimary": "#59ACFF",
+        "themePrimaryHover": "#7bb8ff",
+        "themePrimaryLight": "rgba(89, 172, 255, 0.1)",
+        "textPrimary": "#FAFAFA",
+        "textSecondary": "#B5B5BC",
+        "textMuted": "#B5B5BC",
+        "textInverse": "#15171A",
+        "borderColor": "#2A2D32",
+        "hoverBg": "#2A2D32",
+        "elevatedBg": "#1F2124",
+        "cardBg": "#1F2124",
+        "inputBg": "#1F2124",
+        "colorError": "#F46286",
+        "colorErrorFocus": "rgba(244, 98, 134, 0.32)",
+        "colorWarning": "#F9AF00",
+        "colorWarningFocus": "rgba(249, 175, 0, 0.48)"
+      }
+    }
+  },
+  "elevations": {
+    "focusRings": {
+      "primary": "0 0 0 3px var(--theme-primary-light), 0 0 0 4px var(--card-bg)",
+      "warning": "0 0 0 1px var(--border-color), 0 0 0 3px var(--color-warning-focus)",
+      "warningChecked": "0 0 0 1px var(--color-warning), 0 0 0 3px var(--color-warning-focus)",
+      "error": "0 0 0 1px var(--border-color), 0 0 0 3px var(--color-error-focus)",
+      "errorChecked": "0 0 0 2px var(--color-error), 0 0 0 3px var(--color-error-focus)",
+      "resolved": {
+        "cp": {
+          "light": {
+            "primary": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA",
+            "warning": "0 0 0 1px #BFC6D4, 0 0 0 3px rgba(255, 176, 32, 0.48)",
+            "warningChecked": "0 0 0 1px #FFB020, 0 0 0 3px rgba(255, 176, 32, 0.48)",
+            "error": "0 0 0 1px #BFC6D4, 0 0 0 3px rgba(216, 49, 72, 0.32)",
+            "errorChecked": "0 0 0 2px #D83148, 0 0 0 3px rgba(216, 49, 72, 0.32)"
+          },
+          "dark": {
+            "primary": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #37424D",
+            "warning": "0 0 0 1px #5F6871, 0 0 0 3px rgba(249, 175, 0, 0.48)",
+            "warningChecked": "0 0 0 1px #F9AF00, 0 0 0 3px rgba(249, 175, 0, 0.48)",
+            "error": "0 0 0 1px #5F6871, 0 0 0 3px rgba(244, 98, 134, 0.32)",
+            "errorChecked": "0 0 0 2px #F46286, 0 0 0 3px rgba(244, 98, 134, 0.32)"
+          }
+        },
+        "vp": {
+          "light": {
+            "primary": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA",
+            "warning": "0 0 0 1px #BFC6D4, 0 0 0 3px rgba(255, 176, 32, 0.48)",
+            "warningChecked": "0 0 0 1px #FFB020, 0 0 0 3px rgba(255, 176, 32, 0.48)",
+            "error": "0 0 0 1px #BFC6D4, 0 0 0 3px rgba(216, 49, 72, 0.32)",
+            "errorChecked": "0 0 0 2px #D83148, 0 0 0 3px rgba(216, 49, 72, 0.32)"
+          },
+          "dark": {
+            "primary": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #1F2124",
+            "warning": "0 0 0 1px #2A2D32, 0 0 0 3px rgba(249, 175, 0, 0.48)",
+            "warningChecked": "0 0 0 1px #F9AF00, 0 0 0 3px rgba(249, 175, 0, 0.48)",
+            "error": "0 0 0 1px #2A2D32, 0 0 0 3px rgba(244, 98, 134, 0.32)",
+            "errorChecked": "0 0 0 2px #F46286, 0 0 0 3px rgba(244, 98, 134, 0.32)"
+          }
+        },
+        "ppm": {
+          "light": {
+            "primary": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA",
+            "warning": "0 0 0 1px #BFC6D4, 0 0 0 3px rgba(255, 176, 32, 0.48)",
+            "warningChecked": "0 0 0 1px #FFB020, 0 0 0 3px rgba(255, 176, 32, 0.48)",
+            "error": "0 0 0 1px #BFC6D4, 0 0 0 3px rgba(216, 49, 72, 0.32)",
+            "errorChecked": "0 0 0 2px #D83148, 0 0 0 3px rgba(216, 49, 72, 0.32)"
+          },
+          "dark": {
+            "primary": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #1F2124",
+            "warning": "0 0 0 1px #2A2D32, 0 0 0 3px rgba(249, 175, 0, 0.48)",
+            "warningChecked": "0 0 0 1px #F9AF00, 0 0 0 3px rgba(249, 175, 0, 0.48)",
+            "error": "0 0 0 1px #2A2D32, 0 0 0 3px rgba(244, 98, 134, 0.32)",
+            "errorChecked": "0 0 0 2px #F46286, 0 0 0 3px rgba(244, 98, 134, 0.32)"
+          }
+        },
+        "maconomy": {
+          "light": {
+            "primary": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA",
+            "warning": "0 0 0 1px #BFC6D4, 0 0 0 3px rgba(255, 176, 32, 0.48)",
+            "warningChecked": "0 0 0 1px #FFB020, 0 0 0 3px rgba(255, 176, 32, 0.48)",
+            "error": "0 0 0 1px #BFC6D4, 0 0 0 3px rgba(216, 49, 72, 0.32)",
+            "errorChecked": "0 0 0 2px #D83148, 0 0 0 3px rgba(216, 49, 72, 0.32)"
+          },
+          "dark": {
+            "primary": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #1F2124",
+            "warning": "0 0 0 1px #2A2D32, 0 0 0 3px rgba(249, 175, 0, 0.48)",
+            "warningChecked": "0 0 0 1px #F9AF00, 0 0 0 3px rgba(249, 175, 0, 0.48)",
+            "error": "0 0 0 1px #2A2D32, 0 0 0 3px rgba(244, 98, 134, 0.32)",
+            "errorChecked": "0 0 0 2px #F46286, 0 0 0 3px rgba(244, 98, 134, 0.32)"
+          }
+        }
+      }
+    },
+    "insetShadows": {},
+    "cssVars": {
+      "focusRingPrimary": "--focus-ring-primary",
+      "focusRingWarning": "--focus-ring-warning",
+      "focusRingWarningChecked": "--focus-ring-warning-checked",
+      "focusRingError": "--focus-ring-error",
+      "focusRingErrorChecked": "--focus-ring-error-checked"
+    }
+  },
+  "states": {
+    "default": {
+      "cursor": "pointer",
+      "textDecoration": "none"
+    },
+    "checked": {
+      "iconOpacity": "1",
+      "iconTransform": "scale(1)"
+    },
+    "focus": {
+      "outline": "none"
+    },
+    "disabled": {
+      "cursor": "not-allowed",
+      "opacity": "0.5"
+    },
+    "warning": {
+      "borderColor": "warning color (theme-specific)"
+    },
+    "error": {
+      "borderColor": "error color (theme-specific)",
+      "borderWidth": "2px"
+    }
   },
   "cssClassStyles": {
-    ".checkbox-group-wrapper--error .checkbox__box": {
-      "border-color": "#D83148",
-      "border-width": "2px"
-    },
-    ".checkbox-group-wrapper--error .checkbox__input:checked + .checkbox__box": {
-      "background-color": "#4C92D9",
-      "border-color": "#4C92D9",
-      "box-shadow": "0 0 0 2px #D83148"
-    },
-    ".checkbox-group-wrapper--error .checkbox__input:focus + .checkbox__box": {
-      "box-shadow": "0 0 0 1px #BFC6D4, 0 0 0 3px rgba(216, 49, 72, 0.32)"
-    },
-    ".checkbox-group-wrapper--error .checkbox__input:checked:focus + .checkbox__box": {
-      "box-shadow": "0 0 0 2px #D83148, 0 0 0 3px rgba(216, 49, 72, 0.32)"
-    },
-    ".checkbox-group-wrapper--warning .checkbox__box": {
-      "border-color": "#FFB020"
-    },
-    ".checkbox-group-wrapper--warning .checkbox__input:checked + .checkbox__box": {
-      "background-color": "#4C92D9",
-      "border-color": "#4C92D9",
-      "box-shadow": "0 0 0 1px #FFB020"
-    },
-    ".checkbox-group-wrapper--warning .checkbox__input:focus + .checkbox__box": {
-      "box-shadow": "0 0 0 1px #BFC6D4, 0 0 0 3px rgba(255, 176, 32, 0.48)"
-    },
-    ".checkbox-group-wrapper--warning .checkbox__input:checked:focus + .checkbox__box": {
-      "box-shadow": "0 0 0 1px #FFB020, 0 0 0 3px rgba(255, 176, 32, 0.48)"
-    },
     ".checkbox": {
       "display": "inline-flex",
-      "align-items": "center",
+      "alignItems": "center",
       "gap": "8px",
-      "cursor": "pointer",
-      "min-height": "44px"
+      "cursor": "pointer"
     },
     ".checkbox__input": {
       "position": "absolute",
@@ -345,21 +1215,22 @@
     ".checkbox__box": {
       "width": "18px",
       "height": "18px",
-      "border": "2px solid #BFC6D4",
-      "border-radius": "0.25rem",
-      "background-color": "#FFFFFF",
+      "border": "2px solid",
+      "borderRadius": "4px",
+      "backgroundColor": "var(--input-bg)",
+      "borderColor": "var(--border-color)",
       "display": "flex",
-      "align-items": "center",
-      "justify-content": "center",
+      "alignItems": "center",
+      "justifyContent": "center",
       "transition": "all 150ms ease",
-      "flex-shrink": "0"
+      "flexShrink": "0"
     },
     ".checkbox__input:checked + .checkbox__box": {
-      "background-color": "#4C92D9",
-      "border-color": "#4C92D9"
+      "backgroundColor": "var(--theme-primary)",
+      "borderColor": "var(--theme-primary)"
     },
     ".checkbox__input:focus + .checkbox__box": {
-      "box-shadow": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA"
+      "boxShadow": "var(--focus-ring-primary)"
     },
     ".checkbox__input:disabled + .checkbox__box": {
       "opacity": "0.5",
@@ -367,7 +1238,7 @@
     },
     ".checkbox__icon": {
       "color": "white",
-      "font-size": "0.75rem",
+      "fontSize": "0.75rem",
       "opacity": "0",
       "transform": "scale(0)",
       "transition": "all 150ms ease"
@@ -377,489 +1248,73 @@
       "transform": "scale(1)"
     },
     ".checkbox__label": {
-      "font-size": "0.875rem",
-      "color": "#373F4E"
+      "fontSize": "0.875rem",
+      "color": "var(--text-primary)"
     },
     ".checkbox--disabled": {
       "cursor": "not-allowed"
     },
     ".checkbox--disabled .checkbox__label": {
-      "color": "#6B7280"
+      "color": "var(--text-muted)"
     },
     ".checkbox--warning .checkbox__box": {
-      "border-color": "#FFB020"
+      "borderColor": "var(--color-warning)"
     },
     ".checkbox--warning .checkbox__input:checked + .checkbox__box": {
-      "background-color": "#4C92D9",
-      "border-color": "#4C92D9",
-      "box-shadow": "0 0 0 1px #FFB020"
+      "backgroundColor": "var(--theme-primary)",
+      "borderColor": "var(--theme-primary)",
+      "boxShadow": "0 0 0 1px var(--color-warning)"
     },
     ".checkbox--warning .checkbox__input:focus + .checkbox__box": {
-      "box-shadow": "0 0 0 1px #BFC6D4, 0 0 0 3px rgba(255, 176, 32, 0.48)"
+      "boxShadow": "var(--focus-ring-warning)"
     },
     ".checkbox--warning .checkbox__input:checked:focus + .checkbox__box": {
-      "box-shadow": "0 0 0 1px #FFB020, 0 0 0 3px rgba(255, 176, 32, 0.48)"
+      "boxShadow": "var(--focus-ring-warning-checked)"
     },
     ".checkbox--error .checkbox__box": {
-      "border-color": "#D83148",
-      "border-width": "2px"
+      "borderColor": "var(--color-error)",
+      "borderWidth": "2px"
     },
     ".checkbox--error .checkbox__input:checked + .checkbox__box": {
-      "background-color": "#4C92D9",
-      "border-color": "#4C92D9",
-      "box-shadow": "0 0 0 2px #D83148"
+      "backgroundColor": "var(--theme-primary)",
+      "borderColor": "var(--theme-primary)",
+      "boxShadow": "0 0 0 2px var(--color-error)"
     },
     ".checkbox--error .checkbox__input:focus + .checkbox__box": {
-      "box-shadow": "0 0 0 1px #BFC6D4, 0 0 0 3px rgba(216, 49, 72, 0.32)"
+      "boxShadow": "var(--focus-ring-error)"
     },
     ".checkbox--error .checkbox__input:checked:focus + .checkbox__box": {
-      "box-shadow": "0 0 0 2px #D83148, 0 0 0 3px rgba(216, 49, 72, 0.32)"
+      "boxShadow": "var(--focus-ring-error-checked)"
     },
     ".checkbox-wrapper": {
       "display": "flex",
-      "flex-direction": "column"
+      "flexDirection": "column"
     },
-    ".checkbox-wrapper__warning,\n.checkbox-wrapper__error": {
+    ".checkbox-wrapper__warning, .checkbox-wrapper__error": {
       "display": "flex",
-      "align-items": "center",
+      "alignItems": "center",
       "gap": "4px",
-      "margin-top": "4px",
-      "font-size": "0.875rem",
-      "color": "#525969"
+      "marginTop": "4px",
+      "fontSize": "0.875rem",
+      "color": "var(--text-secondary)"
     },
     ".checkbox-wrapper__warning": {
-      "color": "#525969"
+      "color": "var(--text-secondary)"
     },
     ".checkbox-wrapper__warning-icon": {
-      "color": "#FFB020",
-      "flex-shrink": "0"
+      "color": "var(--color-warning)",
+      "flexShrink": "0"
     },
     ".checkbox-wrapper__error": {
-      "color": "#525969"
+      "color": "var(--text-secondary)"
     },
     ".checkbox-wrapper__error-icon": {
-      "color": "#D83148",
-      "flex-shrink": "0"
+      "color": "var(--color-error)",
+      "flexShrink": "0"
     },
-    ".table tbody tr.table-row--selected,\n.table tbody tr:has(.checkbox__input:checked)": {
-      "background-color": "rgba(0, 115, 230, 0.15)"
-    },
-    ".table--striped tbody tr.table-row--selected,\n.table--striped tbody tr:has(.checkbox__input:checked)": {
-      "background-color": "rgba(0, 115, 230, 0.15)"
-    },
-    ".table tbody tr:hover:not(.table-row--selected):not(:has(.checkbox__input:checked))": {
-      "background-color": "#d6ebff"
-    },
-    ".table tbody tr.table-row--selected:hover,\n.table tbody tr:has(.checkbox__input:checked):hover": {
-      "background-color": "#d6ebff"
-    },
-    ".table--striped tbody tr:hover:not(.table-row--selected):not(:has(.checkbox__input:checked))": {
-      "background-color": "#d6ebff"
-    },
-    ".table--striped tbody tr.table-row--selected:hover,\n.table--striped tbody tr:has(.checkbox__input:checked):hover": {
-      "background-color": "#d6ebff"
-    },
-    ".table tbody tr.table-row--total.table-row--selected,\n.table tbody tr.table-row--total:has(.checkbox__input:checked)": {
-      "background-color": "rgba(0, 115, 230, 0.15)"
-    }
-  },
-  "variants": {
-    "warning": {
-      "cp": {
-        "light": {
-          "states": {
-            "default": {
-              "backgroundColor": "#4C92D9",
-              "border": "#4C92D9"
-            }
-          }
-        },
-        "dark": {
-          "states": {
-            "default": {
-              "backgroundColor": "#59ACFF",
-              "border": "#59ACFF"
-            }
-          }
-        }
-      },
-      "vp": {
-        "light": {
-          "states": {
-            "default": {
-              "backgroundColor": "#4C92D9",
-              "border": "#4C92D9"
-            }
-          }
-        },
-        "dark": {
-          "states": {
-            "default": {
-              "backgroundColor": "#59ACFF",
-              "border": "#59ACFF"
-            }
-          }
-        }
-      },
-      "ppm": {
-        "light": {
-          "states": {
-            "default": {
-              "backgroundColor": "#4C92D9",
-              "border": "#4C92D9"
-            }
-          }
-        },
-        "dark": {
-          "states": {
-            "default": {
-              "backgroundColor": "#59ACFF",
-              "border": "#59ACFF"
-            }
-          }
-        }
-      },
-      "maconomy": {
-        "light": {
-          "states": {
-            "default": {
-              "backgroundColor": "#4C92D9",
-              "border": "#4C92D9"
-            }
-          }
-        },
-        "dark": {
-          "states": {
-            "default": {
-              "backgroundColor": "#59ACFF",
-              "border": "#59ACFF"
-            }
-          }
-        }
-      }
-    },
-    "error": {
-      "cp": {
-        "light": {
-          "states": {
-            "default": {
-              "backgroundColor": "#4C92D9",
-              "border": "#4C92D9"
-            }
-          }
-        },
-        "dark": {
-          "states": {
-            "default": {
-              "backgroundColor": "#59ACFF",
-              "border": "#59ACFF"
-            }
-          }
-        }
-      },
-      "vp": {
-        "light": {
-          "states": {
-            "default": {
-              "backgroundColor": "#4C92D9",
-              "border": "#4C92D9"
-            }
-          }
-        },
-        "dark": {
-          "states": {
-            "default": {
-              "backgroundColor": "#59ACFF",
-              "border": "#59ACFF"
-            }
-          }
-        }
-      },
-      "ppm": {
-        "light": {
-          "states": {
-            "default": {
-              "backgroundColor": "#4C92D9",
-              "border": "#4C92D9"
-            }
-          }
-        },
-        "dark": {
-          "states": {
-            "default": {
-              "backgroundColor": "#59ACFF",
-              "border": "#59ACFF"
-            }
-          }
-        }
-      },
-      "maconomy": {
-        "light": {
-          "states": {
-            "default": {
-              "backgroundColor": "#4C92D9",
-              "border": "#4C92D9"
-            }
-          }
-        },
-        "dark": {
-          "states": {
-            "default": {
-              "backgroundColor": "#59ACFF",
-              "border": "#59ACFF"
-            }
-          }
-        }
-      }
-    }
-  },
-  "elevations": {
-    "focusRings": {
-      "primary": "0 0 0 2px #D83148, 0 0 0 3px rgba(216, 49, 72, 0.32)"
-    },
-    "insetShadows": {},
-    "cssVars": {}
-  },
-  "states": {},
-  "themeColors": {
-    "cp": {
-      "light": {
-        "textPrimary": "#373F4E",
-        "textSecondary": "#525969",
-        "textMuted": "#6B7280",
-        "textInverse": "#FFFFFF",
-        "borderColor": "#BFC6D4",
-        "hoverBg": "#E5E7EB",
-        "elevatedBg": "#F7F8FA",
-        "cardBg": "#F7F8FA",
-        "colorError": "#D83148",
-        "colorErrorFocus": "rgba(216, 49, 72, 0.32)",
-        "themePrimary": "#4C92D9",
-        "themePrimaryHover": "#3D7BC4",
-        "checkbox-group-wrappererror checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkbox-group-wrapperwarning checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkboxdisabled checkbox__labelColor": "#6B7280",
-        "checkboxwarning checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkboxerror checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkbox-wrapper__warning-iconColor": "#FFB020",
-        "checkbox-wrapper__error-iconColor": "#D83148",
-        "table tbody trtable-rowselected,\ntable tbody tr:has(checkbox__input:checked)Bg": "rgba(0, 115, 230, 0.15)",
-        "tablestriped tbody trtable-rowselected,\ntablestriped tbody tr:has(checkbox__input:checked)Bg": "rgba(0, 115, 230, 0.15)",
-        "table tbody tr:hover:not(table-rowselected):not(:has(checkbox__input:checked))Bg": "#d6ebff",
-        "table tbody trtable-rowselected:hover,\ntable tbody tr:has(checkbox__input:checked):hoverBg": "#d6ebff",
-        "tablestriped tbody tr:hover:not(table-rowselected):not(:has(checkbox__input:checked))Bg": "#d6ebff",
-        "tablestriped tbody trtable-rowselected:hover,\ntablestriped tbody tr:has(checkbox__input:checked):hoverBg": "#d6ebff",
-        "table tbody trtable-rowtotaltable-rowselected,\ntable tbody trtable-rowtotal:has(checkbox__input:checked)Bg": "rgba(0, 115, 230, 0.15)"
-      },
-      "dark": {
-        "textPrimary": "#E9ECEF",
-        "textSecondary": "#B6B6C4",
-        "textMuted": "#BBBBC6",
-        "textInverse": "#1F252E",
-        "borderColor": "#5F6871",
-        "hoverBg": "#3D4A5C",
-        "elevatedBg": "#37424D",
-        "cardBg": "#37424D",
-        "colorError": "#F46286",
-        "colorErrorFocus": "rgba(244, 98, 134, 0.32)",
-        "themePrimary": "#59ACFF",
-        "themePrimaryHover": "#7BB8FF",
-        "checkbox-group-wrappererror checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkbox-group-wrapperwarning checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkboxdisabled checkbox__labelColor": "#6B7280",
-        "checkboxwarning checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkboxerror checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkbox-wrapper__warning-iconColor": "#FFB020",
-        "checkbox-wrapper__error-iconColor": "#D83148",
-        "table tbody trtable-rowselected,\ntable tbody tr:has(checkbox__input:checked)Bg": "rgba(0, 115, 230, 0.15)",
-        "tablestriped tbody trtable-rowselected,\ntablestriped tbody tr:has(checkbox__input:checked)Bg": "rgba(0, 115, 230, 0.15)",
-        "table tbody tr:hover:not(table-rowselected):not(:has(checkbox__input:checked))Bg": "#d6ebff",
-        "table tbody trtable-rowselected:hover,\ntable tbody tr:has(checkbox__input:checked):hoverBg": "#d6ebff",
-        "tablestriped tbody tr:hover:not(table-rowselected):not(:has(checkbox__input:checked))Bg": "#d6ebff",
-        "tablestriped tbody trtable-rowselected:hover,\ntablestriped tbody tr:has(checkbox__input:checked):hoverBg": "#d6ebff",
-        "table tbody trtable-rowtotaltable-rowselected,\ntable tbody trtable-rowtotal:has(checkbox__input:checked)Bg": "rgba(0, 115, 230, 0.15)"
-      }
-    },
-    "vp": {
-      "light": {
-        "textPrimary": "#373F4E",
-        "textSecondary": "#525969",
-        "textMuted": "#6B7280",
-        "textInverse": "#FFFFFF",
-        "borderColor": "#BFC6D4",
-        "hoverBg": "#E5E7EB",
-        "elevatedBg": "#F7F8FA",
-        "cardBg": "#F7F8FA",
-        "colorError": "#D83148",
-        "colorErrorFocus": "rgba(216, 49, 72, 0.32)",
-        "themePrimary": "#4C92D9",
-        "themePrimaryHover": "#3D7BC4",
-        "checkbox-group-wrappererror checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkbox-group-wrapperwarning checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkboxdisabled checkbox__labelColor": "#6B7280",
-        "checkboxwarning checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkboxerror checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkbox-wrapper__warning-iconColor": "#FFB020",
-        "checkbox-wrapper__error-iconColor": "#D83148",
-        "table tbody trtable-rowselected,\ntable tbody tr:has(checkbox__input:checked)Bg": "rgba(0, 115, 230, 0.15)",
-        "tablestriped tbody trtable-rowselected,\ntablestriped tbody tr:has(checkbox__input:checked)Bg": "rgba(0, 115, 230, 0.15)",
-        "table tbody tr:hover:not(table-rowselected):not(:has(checkbox__input:checked))Bg": "#d6ebff",
-        "table tbody trtable-rowselected:hover,\ntable tbody tr:has(checkbox__input:checked):hoverBg": "#d6ebff",
-        "tablestriped tbody tr:hover:not(table-rowselected):not(:has(checkbox__input:checked))Bg": "#d6ebff",
-        "tablestriped tbody trtable-rowselected:hover,\ntablestriped tbody tr:has(checkbox__input:checked):hoverBg": "#d6ebff",
-        "table tbody trtable-rowtotaltable-rowselected,\ntable tbody trtable-rowtotal:has(checkbox__input:checked)Bg": "rgba(0, 115, 230, 0.15)"
-      },
-      "dark": {
-        "textPrimary": "#E9ECEF",
-        "textSecondary": "#B6B6C4",
-        "textMuted": "#BBBBC6",
-        "textInverse": "#1F252E",
-        "borderColor": "#5F6871",
-        "hoverBg": "#3D4A5C",
-        "elevatedBg": "#37424D",
-        "cardBg": "#37424D",
-        "colorError": "#F46286",
-        "colorErrorFocus": "rgba(244, 98, 134, 0.32)",
-        "themePrimary": "#59ACFF",
-        "themePrimaryHover": "#7BB8FF",
-        "checkbox-group-wrappererror checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkbox-group-wrapperwarning checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkboxdisabled checkbox__labelColor": "#6B7280",
-        "checkboxwarning checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkboxerror checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkbox-wrapper__warning-iconColor": "#FFB020",
-        "checkbox-wrapper__error-iconColor": "#D83148",
-        "table tbody trtable-rowselected,\ntable tbody tr:has(checkbox__input:checked)Bg": "rgba(0, 115, 230, 0.15)",
-        "tablestriped tbody trtable-rowselected,\ntablestriped tbody tr:has(checkbox__input:checked)Bg": "rgba(0, 115, 230, 0.15)",
-        "table tbody tr:hover:not(table-rowselected):not(:has(checkbox__input:checked))Bg": "#d6ebff",
-        "table tbody trtable-rowselected:hover,\ntable tbody tr:has(checkbox__input:checked):hoverBg": "#d6ebff",
-        "tablestriped tbody tr:hover:not(table-rowselected):not(:has(checkbox__input:checked))Bg": "#d6ebff",
-        "tablestriped tbody trtable-rowselected:hover,\ntablestriped tbody tr:has(checkbox__input:checked):hoverBg": "#d6ebff",
-        "table tbody trtable-rowtotaltable-rowselected,\ntable tbody trtable-rowtotal:has(checkbox__input:checked)Bg": "rgba(0, 115, 230, 0.15)"
-      }
-    },
-    "ppm": {
-      "light": {
-        "textPrimary": "#373F4E",
-        "textSecondary": "#525969",
-        "textMuted": "#6B7280",
-        "textInverse": "#FFFFFF",
-        "borderColor": "#BFC6D4",
-        "hoverBg": "#E5E7EB",
-        "elevatedBg": "#F7F8FA",
-        "cardBg": "#F7F8FA",
-        "colorError": "#D83148",
-        "colorErrorFocus": "rgba(216, 49, 72, 0.32)",
-        "themePrimary": "#4C92D9",
-        "themePrimaryHover": "#3D7BC4",
-        "checkbox-group-wrappererror checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkbox-group-wrapperwarning checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkboxdisabled checkbox__labelColor": "#6B7280",
-        "checkboxwarning checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkboxerror checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkbox-wrapper__warning-iconColor": "#FFB020",
-        "checkbox-wrapper__error-iconColor": "#D83148",
-        "table tbody trtable-rowselected,\ntable tbody tr:has(checkbox__input:checked)Bg": "rgba(0, 115, 230, 0.15)",
-        "tablestriped tbody trtable-rowselected,\ntablestriped tbody tr:has(checkbox__input:checked)Bg": "rgba(0, 115, 230, 0.15)",
-        "table tbody tr:hover:not(table-rowselected):not(:has(checkbox__input:checked))Bg": "#d6ebff",
-        "table tbody trtable-rowselected:hover,\ntable tbody tr:has(checkbox__input:checked):hoverBg": "#d6ebff",
-        "tablestriped tbody tr:hover:not(table-rowselected):not(:has(checkbox__input:checked))Bg": "#d6ebff",
-        "tablestriped tbody trtable-rowselected:hover,\ntablestriped tbody tr:has(checkbox__input:checked):hoverBg": "#d6ebff",
-        "table tbody trtable-rowtotaltable-rowselected,\ntable tbody trtable-rowtotal:has(checkbox__input:checked)Bg": "rgba(0, 115, 230, 0.15)"
-      },
-      "dark": {
-        "textPrimary": "#E9ECEF",
-        "textSecondary": "#B6B6C4",
-        "textMuted": "#BBBBC6",
-        "textInverse": "#1F252E",
-        "borderColor": "#5F6871",
-        "hoverBg": "#3D4A5C",
-        "elevatedBg": "#37424D",
-        "cardBg": "#37424D",
-        "colorError": "#F46286",
-        "colorErrorFocus": "rgba(244, 98, 134, 0.32)",
-        "themePrimary": "#59ACFF",
-        "themePrimaryHover": "#7BB8FF",
-        "checkbox-group-wrappererror checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkbox-group-wrapperwarning checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkboxdisabled checkbox__labelColor": "#6B7280",
-        "checkboxwarning checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkboxerror checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkbox-wrapper__warning-iconColor": "#FFB020",
-        "checkbox-wrapper__error-iconColor": "#D83148",
-        "table tbody trtable-rowselected,\ntable tbody tr:has(checkbox__input:checked)Bg": "rgba(0, 115, 230, 0.15)",
-        "tablestriped tbody trtable-rowselected,\ntablestriped tbody tr:has(checkbox__input:checked)Bg": "rgba(0, 115, 230, 0.15)",
-        "table tbody tr:hover:not(table-rowselected):not(:has(checkbox__input:checked))Bg": "#d6ebff",
-        "table tbody trtable-rowselected:hover,\ntable tbody tr:has(checkbox__input:checked):hoverBg": "#d6ebff",
-        "tablestriped tbody tr:hover:not(table-rowselected):not(:has(checkbox__input:checked))Bg": "#d6ebff",
-        "tablestriped tbody trtable-rowselected:hover,\ntablestriped tbody tr:has(checkbox__input:checked):hoverBg": "#d6ebff",
-        "table tbody trtable-rowtotaltable-rowselected,\ntable tbody trtable-rowtotal:has(checkbox__input:checked)Bg": "rgba(0, 115, 230, 0.15)"
-      }
-    },
-    "maconomy": {
-      "light": {
-        "textPrimary": "#373F4E",
-        "textSecondary": "#525969",
-        "textMuted": "#6B7280",
-        "textInverse": "#FFFFFF",
-        "borderColor": "#BFC6D4",
-        "hoverBg": "#E5E7EB",
-        "elevatedBg": "#F7F8FA",
-        "cardBg": "#F7F8FA",
-        "colorError": "#D83148",
-        "colorErrorFocus": "rgba(216, 49, 72, 0.32)",
-        "themePrimary": "#4C92D9",
-        "themePrimaryHover": "#3D7BC4",
-        "checkbox-group-wrappererror checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkbox-group-wrapperwarning checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkboxdisabled checkbox__labelColor": "#6B7280",
-        "checkboxwarning checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkboxerror checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkbox-wrapper__warning-iconColor": "#FFB020",
-        "checkbox-wrapper__error-iconColor": "#D83148",
-        "table tbody trtable-rowselected,\ntable tbody tr:has(checkbox__input:checked)Bg": "rgba(0, 115, 230, 0.15)",
-        "tablestriped tbody trtable-rowselected,\ntablestriped tbody tr:has(checkbox__input:checked)Bg": "rgba(0, 115, 230, 0.15)",
-        "table tbody tr:hover:not(table-rowselected):not(:has(checkbox__input:checked))Bg": "#d6ebff",
-        "table tbody trtable-rowselected:hover,\ntable tbody tr:has(checkbox__input:checked):hoverBg": "#d6ebff",
-        "tablestriped tbody tr:hover:not(table-rowselected):not(:has(checkbox__input:checked))Bg": "#d6ebff",
-        "tablestriped tbody trtable-rowselected:hover,\ntablestriped tbody tr:has(checkbox__input:checked):hoverBg": "#d6ebff",
-        "table tbody trtable-rowtotaltable-rowselected,\ntable tbody trtable-rowtotal:has(checkbox__input:checked)Bg": "rgba(0, 115, 230, 0.15)"
-      },
-      "dark": {
-        "textPrimary": "#E9ECEF",
-        "textSecondary": "#B6B6C4",
-        "textMuted": "#BBBBC6",
-        "textInverse": "#1F252E",
-        "borderColor": "#5F6871",
-        "hoverBg": "#3D4A5C",
-        "elevatedBg": "#37424D",
-        "cardBg": "#37424D",
-        "colorError": "#F46286",
-        "colorErrorFocus": "rgba(244, 98, 134, 0.32)",
-        "themePrimary": "#59ACFF",
-        "themePrimaryHover": "#7BB8FF",
-        "checkbox-group-wrappererror checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkbox-group-wrapperwarning checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkboxdisabled checkbox__labelColor": "#6B7280",
-        "checkboxwarning checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkboxerror checkbox__input:checked + checkbox__boxBg": "#4C92D9",
-        "checkbox-wrapper__warning-iconColor": "#FFB020",
-        "checkbox-wrapper__error-iconColor": "#D83148",
-        "table tbody trtable-rowselected,\ntable tbody tr:has(checkbox__input:checked)Bg": "rgba(0, 115, 230, 0.15)",
-        "tablestriped tbody trtable-rowselected,\ntablestriped tbody tr:has(checkbox__input:checked)Bg": "rgba(0, 115, 230, 0.15)",
-        "table tbody tr:hover:not(table-rowselected):not(:has(checkbox__input:checked))Bg": "#d6ebff",
-        "table tbody trtable-rowselected:hover,\ntable tbody tr:has(checkbox__input:checked):hoverBg": "#d6ebff",
-        "tablestriped tbody tr:hover:not(table-rowselected):not(:has(checkbox__input:checked))Bg": "#d6ebff",
-        "tablestriped tbody trtable-rowselected:hover,\ntablestriped tbody tr:has(checkbox__input:checked):hoverBg": "#d6ebff",
-        "table tbody trtable-rowtotaltable-rowselected,\ntable tbody trtable-rowtotal:has(checkbox__input:checked)Bg": "rgba(0, 115, 230, 0.15)"
+    "@media (max-width: 768px)": {
+      ".checkbox": {
+        "minHeight": "44px"
       }
     }
   }
