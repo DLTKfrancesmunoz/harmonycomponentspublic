@@ -2,22 +2,22 @@
   "name": "Accordion",
   "type": "component",
   "filePath": "src/components/ui/Accordion.astro",
-  "description": "Collapsible content sections for organizing information",
+  "description": "Accordion Component",
   "props": {
     "items": {
       "type": "AccordionItem[]",
       "optional": false,
-      "default": []
+      "default": null
     },
     "allowMultiple": {
       "type": "boolean",
       "optional": true,
-      "default": false
+      "default": null
     },
     "class": {
       "type": "string",
       "optional": true,
-      "default": ""
+      "default": null
     }
   },
   "imports": {
@@ -27,9 +27,7 @@
     "Icon"
   ],
   "cssClasses": [
-    "accordion",
     "accordion__item",
-    "accordion__item.is-open",
     "accordion__trigger",
     "accordion__icon",
     "accordion__content"
@@ -47,40 +45,28 @@
   "structure": {
     "root": {
       "element": "div",
-      "class": "accordion",
+      "class": "classes",
       "spacing": {
         "padding": "0",
         "margin": "0"
       },
-      "baseClass": "accordion",
+      "baseClass": null,
       "modifierClasses": {},
-      "ariaAttributes": {
-        "data-accordion": "true",
-        "data-allow-multiple": "conditional (if allowMultiple prop is true)"
-      },
       "children": [
         {
           "element": "div",
-          "class": "accordion__item",
+          "class": "`accordion__item ${item.defaultOpen ? 'is-open' : ''}`",
           "spacing": {
             "padding": "0",
             "margin": "0"
-          },
-          "ariaAttributes": {
-            "data-accordion-item": "true"
           },
           "children": [
             {
               "element": "button",
               "class": "accordion__trigger",
               "spacing": {
-                "padding": "16px",
+                "padding": "var(--space-3) var(--space-3)",
                 "margin": "0"
-              },
-              "ariaAttributes": {
-                "type": "button",
-                "aria-expanded": "true | false (based on defaultOpen)",
-                "aria-controls": "accordion-panel-{index}"
               },
               "children": [
                 {
@@ -90,9 +76,6 @@
                     "padding": "0",
                     "margin": "0"
                   },
-                  "props": {
-                    "name": "chevron-down"
-                  },
                   "children": []
                 }
               ]
@@ -101,12 +84,8 @@
               "element": "div",
               "class": "accordion__content",
               "spacing": {
-                "padding": "0 16px 16px",
+                "padding": "var(--space-3)",
                 "margin": "0"
-              },
-              "ariaAttributes": {
-                "id": "accordion-panel-{index}",
-                "role": "region"
               },
               "children": []
             }
@@ -117,7 +96,7 @@
     "children": [
       {
         "element": "script",
-        "class": "",
+        "class": null,
         "spacing": {
           "padding": "0",
           "margin": "0"
@@ -127,539 +106,178 @@
     ]
   },
   "_metadata": {
-    "lastGenerated": "2026-01-22T19:40:16.895Z",
+    "lastGenerated": "2026-01-23T01:33:49.263Z",
     "generatedWith": "@astrojs/compiler@2.13.0",
     "includesVisualSpecs": true,
     "availableVariants": []
   },
   "visualSpecifications": {
     "dimensions": {
-      "root": {
-        "height": "auto",
-        "width": "auto",
+      "xs": {
+        "height": null,
+        "width": null,
         "minWidth": "auto",
         "maxWidth": "none"
       },
-      "trigger": {
-        "height": "auto",
-        "width": "100%",
+      "sm": {
+        "height": null,
+        "width": null,
         "minWidth": "auto",
         "maxWidth": "none"
       },
-      "content": {
-        "height": "auto",
-        "width": "100%",
+      "md": {
+        "height": null,
+        "width": null,
+        "minWidth": "auto",
+        "maxWidth": "none"
+      },
+      "lg": {
+        "height": null,
+        "width": null,
         "minWidth": "auto",
         "maxWidth": "none"
       }
     },
     "spacing": {
-      "root": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "marginTop": "0",
-        "marginRight": "0",
-        "marginBottom": "0",
-        "marginLeft": "0",
+      "xs": {
+        "paddingTop": "12px",
+        "paddingRight": "12px",
+        "paddingBottom": "12px",
+        "paddingLeft": "12px",
         "gap": "0"
       },
-      "trigger": {
-        "default": {
-          "paddingTop": "16px",
-          "paddingRight": "16px",
-          "paddingBottom": "16px",
-          "paddingLeft": "16px",
-          "gap": "0"
-        },
-        "mobile": {
-          "paddingTop": "12px",
-          "paddingRight": "12px",
-          "paddingBottom": "12px",
-          "paddingLeft": "12px",
-          "gap": "0"
-        }
-      },
-      "content": {
-        "default": {
-          "paddingTop": "0",
-          "paddingRight": "16px",
-          "paddingBottom": "16px",
-          "paddingLeft": "16px",
-          "gap": "0"
-        },
-        "mobile": {
-          "paddingTop": "12px",
-          "paddingRight": "12px",
-          "paddingBottom": "12px",
-          "paddingLeft": "12px",
-          "gap": "0"
-        }
-      },
-      "item": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "marginTop": "0",
-        "marginRight": "0",
-        "marginBottom": "0",
-        "marginLeft": "0",
+      "sm": {
+        "paddingTop": "12px",
+        "paddingRight": "12px",
+        "paddingBottom": "12px",
+        "paddingLeft": "12px",
         "gap": "0"
       },
-      "icon": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "marginTop": "0",
-        "marginRight": "0",
-        "marginBottom": "0",
-        "marginLeft": "0",
+      "md": {
+        "paddingTop": "12px",
+        "paddingRight": "12px",
+        "paddingBottom": "12px",
+        "paddingLeft": "12px",
+        "gap": "0"
+      },
+      "lg": {
+        "paddingTop": "12px",
+        "paddingRight": "12px",
+        "paddingBottom": "12px",
+        "paddingLeft": "12px",
         "gap": "0"
       }
     },
-    "borderRadius": {
-      "base": "8px",
-      "value": "0.5rem",
-      "cssVar": "--radius-lg"
-    },
     "typography": {
-      "fontFamily": "'Figtree', sans-serif",
-      "fontWeight": {
-        "trigger": "500",
-        "content": "400"
-      },
-      "fontSize": {
-        "trigger": {
-          "default": "1rem",
-          "pixels": "16px",
-          "mobile": "0.875rem",
-          "mobilePixels": "14px"
+      "fontFamily": null,
+      "fontWeight": "500",
+      "lineHeight": null,
+      "letterSpacing": null,
+      "textTransform": null,
+      "sizes": {
+        "xs": {
+          "fontSize": "0.875rem",
+          "lineHeight": null
         },
-        "content": {
-          "default": "0.875rem",
-          "pixels": "14px",
-          "mobile": "0.875rem",
-          "mobilePixels": "14px"
+        "sm": {
+          "fontSize": "0.875rem",
+          "lineHeight": null
+        },
+        "md": {
+          "fontSize": "0.875rem",
+          "lineHeight": null
+        },
+        "lg": {
+          "fontSize": "0.875rem",
+          "lineHeight": null
         }
-      },
-      "lineHeight": {
-        "trigger": "1.5",
-        "content": "1.5"
-      },
-      "letterSpacing": "normal",
-      "textAlign": {
-        "trigger": "left",
-        "content": "left"
       }
     },
     "borders": {
-      "root": {
-        "width": "1px",
-        "style": "solid",
-        "radius": "8px"
-      },
-      "item": {
-        "width": "1px",
-        "style": "solid",
-        "position": "bottom",
-        "lastChild": {
-          "width": "0",
-          "style": "none"
-        }
+      "width": null,
+      "style": null,
+      "radius": {
+        "default": "0.5rem"
       }
+    },
+    "colors": {
+      "variants": {}
+    },
+    "elevation": {
+      "default": "none",
+      "hover": null,
+      "active": null,
+      "focus": null
     },
     "transitions": {
-      "trigger": {
-        "property": "background-color",
-        "duration": "150ms",
-        "timingFunction": "ease",
-        "cssVar": "--transition-fast"
-      },
-      "icon": {
-        "property": "transform",
-        "duration": "150ms",
-        "timingFunction": "ease",
-        "cssVar": "--transition-fast"
-      }
-    },
-    "icon": {
-      "name": "chevron-down",
-      "size": "16px",
-      "positions": [
-        "right"
-      ],
-      "transform": {
-        "default": "rotate(0deg)",
-        "open": "rotate(180deg)"
+      "default": "transform 150ms ease",
+      "properties": {
+        "background-color": "background-color 150ms ease",
+        "transform": "transform 150ms ease"
       }
     },
     "layout": {
-      "root": {
-        "display": "block",
-        "overflow": "hidden"
-      },
-      "trigger": {
-        "display": "flex",
-        "alignItems": "center",
-        "justifyContent": "space-between",
-        "width": "100%"
-      },
-      "content": {
-        "display": {
-          "closed": "none",
-          "open": "block"
-        }
-      }
+      "display": "block",
+      "alignItems": "center",
+      "justifyContent": "space-between"
     },
-    "responsive": {
-      "breakpoint": "768px",
-      "cssVar": "--breakpoint-md",
-      "trigger": {
-        "padding": "12px",
-        "fontSize": "14px"
-      },
-      "content": {
-        "padding": "12px",
-        "fontSize": "14px"
-      }
-    }
+    "iconSpecs": null
   },
-  "variants": {},
-  "themeColors": {
-    "cp": {
-      "light": {
-        "textPrimary": "#373F4E",
-        "textSecondary": "#525969",
-        "textMuted": "#6B7280",
-        "textInverse": "#FFFFFF",
-        "borderColor": "#BFC6D4",
-        "hoverBg": "#E5E7EB",
-        "elevatedBg": "#F7F8FA",
-        "cardBg": "#F7F8FA",
-        "colorError": "#D83148",
-        "colorErrorFocus": "rgba(216, 49, 72, 0.32)",
-        "themePrimary": "#4C92D9",
-        "themePrimaryHover": "#3D7BC4",
-        "themePrimaryLight": "rgba(76, 146, 217, 0.1)"
-      },
-      "dark": {
-        "textPrimary": "#E9ECEF",
-        "textSecondary": "#B6B6C4",
-        "textMuted": "#BBBBC6",
-        "textInverse": "#1F252E",
-        "borderColor": "#5F6871",
-        "hoverBg": "#3D4A5C",
-        "elevatedBg": "#37424D",
-        "cardBg": "#37424D",
-        "colorError": "#F46286",
-        "colorErrorFocus": "rgba(244, 98, 134, 0.32)",
-        "themePrimary": "#59ACFF",
-        "themePrimaryHover": "#7BB8FF",
-        "themePrimaryLight": "rgba(89, 172, 255, 0.1)"
-      }
-    },
-    "vp": {
-      "light": {
-        "textPrimary": "#373F4E",
-        "textSecondary": "#525969",
-        "textMuted": "#6B7280",
-        "textInverse": "#FFFFFF",
-        "borderColor": "#BFC6D4",
-        "hoverBg": "#E5E7EB",
-        "elevatedBg": "#F7F8FA",
-        "cardBg": "#F7F8FA",
-        "colorError": "#D83148",
-        "colorErrorFocus": "rgba(216, 49, 72, 0.32)",
-        "themePrimary": "#4C92D9",
-        "themePrimaryHover": "#3D7BC4",
-        "themePrimaryLight": "rgba(76, 146, 217, 0.1)"
-      },
-      "dark": {
-        "textPrimary": "#FAFAFA",
-        "textSecondary": "#B5B5BC",
-        "textMuted": "#B5B5BC",
-        "textInverse": "#15171A",
-        "borderColor": "#2A2D32",
-        "hoverBg": "#2A2D32",
-        "elevatedBg": "#1F2124",
-        "cardBg": "#1F2124",
-        "colorError": "#F46286",
-        "colorErrorFocus": "rgba(244, 98, 134, 0.32)",
-        "themePrimary": "#59ACFF",
-        "themePrimaryHover": "#7bb8ff",
-        "themePrimaryLight": "rgba(89, 172, 255, 0.1)"
-      }
-    },
-    "ppm": {
-      "light": {
-        "textPrimary": "#373F4E",
-        "textSecondary": "#525969",
-        "textMuted": "#6B7280",
-        "textInverse": "#FFFFFF",
-        "borderColor": "#BFC6D4",
-        "hoverBg": "#E5E7EB",
-        "elevatedBg": "#F7F8FA",
-        "cardBg": "#F7F8FA",
-        "colorError": "#D83148",
-        "colorErrorFocus": "rgba(216, 49, 72, 0.32)",
-        "themePrimary": "#4C92D9",
-        "themePrimaryHover": "#3D7BC4",
-        "themePrimaryLight": "rgba(76, 146, 217, 0.1)"
-      },
-      "dark": {
-        "textPrimary": "#FAFAFA",
-        "textSecondary": "#B5B5BC",
-        "textMuted": "#B5B5BC",
-        "textInverse": "#15171A",
-        "borderColor": "#2A2D32",
-        "hoverBg": "#2A2D32",
-        "elevatedBg": "#1F2124",
-        "cardBg": "#1F2124",
-        "colorError": "#F46286",
-        "colorErrorFocus": "rgba(244, 98, 134, 0.32)",
-        "themePrimary": "#59ACFF",
-        "themePrimaryHover": "#7bb8ff",
-        "themePrimaryLight": "rgba(89, 172, 255, 0.1)"
-      }
-    },
-    "maconomy": {
-      "light": {
-        "textPrimary": "#373F4E",
-        "textSecondary": "#525969",
-        "textMuted": "#6B7280",
-        "textInverse": "#FFFFFF",
-        "borderColor": "#BFC6D4",
-        "hoverBg": "#E5E7EB",
-        "elevatedBg": "#F7F8FA",
-        "cardBg": "#F7F8FA",
-        "colorError": "#D83148",
-        "colorErrorFocus": "rgba(216, 49, 72, 0.32)",
-        "themePrimary": "#4C92D9",
-        "themePrimaryHover": "#3D7BC4",
-        "themePrimaryLight": "rgba(76, 146, 217, 0.1)"
-      },
-      "dark": {
-        "textPrimary": "#FAFAFA",
-        "textSecondary": "#B5B5BC",
-        "textMuted": "#B5B5BC",
-        "textInverse": "#15171A",
-        "borderColor": "#2A2D32",
-        "hoverBg": "#2A2D32",
-        "elevatedBg": "#1F2124",
-        "cardBg": "#1F2124",
-        "colorError": "#F46286",
-        "colorErrorFocus": "rgba(244, 98, 134, 0.32)",
-        "themePrimary": "#59ACFF",
-        "themePrimaryHover": "#7bb8ff",
-        "themePrimaryLight": "rgba(89, 172, 255, 0.1)"
-      }
-    }
-  },
-  "elevations": {
-    "focusRings": {},
-    "insetShadows": {},
-    "cssVars": {
-      "spacing": {
-        "space3": {
-          "name": "--space-3",
-          "value": "12px",
-          "usage": "Mobile trigger padding, mobile content padding"
-        },
-        "space4": {
-          "name": "--space-4",
-          "value": "16px",
-          "usage": "Default trigger padding, content padding"
-        }
-      },
-      "typography": {
-        "textBase": {
-          "name": "--text-base",
-          "value": "1rem",
-          "pixels": "16px",
-          "usage": "Trigger font size"
-        },
-        "textSm": {
-          "name": "--text-sm",
-          "value": "0.875rem",
-          "pixels": "14px",
-          "usage": "Content font size, mobile trigger font size"
-        },
-        "fontMedium": {
-          "name": "--font-medium",
-          "value": "500",
-          "usage": "Trigger font weight"
-        }
-      },
-      "borders": {
-        "borderColor": {
-          "name": "--border-color",
-          "value": "theme-specific",
-          "reference": "themeColors.borderColor",
-          "usage": "Root border, item borders"
-        },
-        "radiusLg": {
-          "name": "--radius-lg",
-          "value": "0.5rem",
-          "pixels": "8px",
-          "usage": "Root border radius"
-        }
-      },
-      "transitions": {
-        "transitionFast": {
-          "name": "--transition-fast",
-          "value": "150ms ease",
-          "usage": "Trigger background transition, icon transform transition"
-        }
-      },
-      "colors": {
-        "textPrimary": {
-          "name": "--text-primary",
-          "value": "theme-specific",
-          "reference": "themeColors.textPrimary",
-          "usage": "Trigger text color"
-        },
-        "textSecondary": {
-          "name": "--text-secondary",
-          "value": "theme-specific",
-          "reference": "themeColors.textSecondary",
-          "usage": "Content text color"
-        },
-        "textMuted": {
-          "name": "--text-muted",
-          "value": "theme-specific",
-          "reference": "themeColors.textMuted",
-          "usage": "Icon color"
-        },
-        "hoverBg": {
-          "name": "--hover-bg",
-          "value": "theme-specific",
-          "reference": "themeColors.hoverBg",
-          "usage": "Trigger hover background"
-        }
-      },
-      "responsive": {
-        "breakpointMd": {
-          "name": "--breakpoint-md",
-          "value": "768px",
-          "usage": "Mobile breakpoint for responsive styles"
-        }
-      }
-    }
-  },
-  "states": {
-    "default": {
-      "root": {
-        "border": "1px solid",
-        "borderRadius": "8px",
-        "overflow": "hidden"
-      },
-      "item": {
-        "borderBottom": "1px solid"
-      },
-      "trigger": {
-        "backgroundColor": "transparent",
-        "cursor": "pointer"
-      },
-      "content": {
-        "display": "none"
-      },
-      "icon": {
-        "transform": "rotate(0deg)"
-      }
-    },
-    "hover": {
-      "trigger": {
-        "backgroundColor": "hover background color (theme-specific, see themeColors)"
-      }
-    },
-    "open": {
-      "item": {
-        "class": "is-open"
-      },
-      "trigger": {
-        "ariaExpanded": "true"
-      },
-      "content": {
-        "display": "block"
-      },
-      "icon": {
-        "transform": "rotate(180deg)"
-      }
-    },
-    "closed": {
-      "item": {
-        "class": ""
-      },
-      "trigger": {
-        "ariaExpanded": "false"
-      },
-      "content": {
-        "display": "none"
-      },
-      "icon": {
-        "transform": "rotate(0deg)"
-      }
-    }
+  "accessibility": {
+    "role": null,
+    "tabIndex": null,
+    "keyboardSupport": {},
+    "ariaAttributes": {},
+    "focusVisible": {}
   },
   "cssClassStyles": {
     ".accordion": {
-      "border": "1px solid var(--border-color)",
-      "borderRadius": "var(--radius-lg)",
+      "border": "1px solid #BFC6D4",
+      "border-radius": "0.5rem",
       "overflow": "hidden"
     },
     ".accordion__item": {
-      "borderBottom": "1px solid var(--border-color)"
+      "border-bottom": "1px solid #BFC6D4"
     },
     ".accordion__item:last-child": {
-      "borderBottom": "none"
+      "border-bottom": "none"
     },
     ".accordion__trigger": {
       "display": "flex",
-      "alignItems": "center",
-      "justifyContent": "space-between",
+      "align-items": "center",
+      "justify-content": "space-between",
       "width": "100%",
-      "padding": "var(--space-4)",
-      "fontSize": "var(--text-base)",
-      "fontWeight": "var(--font-medium)",
-      "color": "var(--text-primary)",
-      "textAlign": "left",
-      "backgroundColor": "transparent",
+      "padding": "12px 12px",
+      "font-size": "0.875rem",
+      "font-weight": "500",
+      "color": "#373F4E",
+      "text-align": "left",
+      "background-color": "transparent",
       "cursor": "pointer",
-      "transition": "background-color var(--transition-fast)",
-      "border": "none",
-      "outline": "none"
+      "transition": "background-color 150ms ease"
     },
     ".accordion__trigger:hover": {
-      "backgroundColor": "var(--hover-bg)"
+      "background-color": "#E5E7EB"
     },
     ".accordion__icon": {
-      "color": "var(--text-muted)",
-      "transition": "transform var(--transition-fast)"
+      "color": "#6B7280",
+      "transition": "transform 150ms ease"
     },
     ".accordion__item.is-open .accordion__icon": {
       "transform": "rotate(180deg)"
     },
     ".accordion__content": {
       "display": "none",
-      "padding": "0 var(--space-4) var(--space-4)",
-      "fontSize": "var(--text-sm)",
-      "color": "var(--text-secondary)"
+      "padding": "12px",
+      "font-size": "0.875rem",
+      "color": "#525969"
     },
     ".accordion__item.is-open .accordion__content": {
       "display": "block"
-    },
-    "@media (max-width: var(--breakpoint-md))": {
-      ".accordion__trigger": {
-        "padding": "var(--space-3) var(--space-3)",
-        "fontSize": "var(--text-sm)"
-      },
-      ".accordion__content": {
-        "padding": "var(--space-3)",
-        "fontSize": "var(--text-sm)"
-      }
     }
+  },
+  "_variantIndex": {},
+  "_variantMetadata": {
+    "availableVariants": []
   }
 }
