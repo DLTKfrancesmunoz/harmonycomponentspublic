@@ -2,55 +2,47 @@
   "name": "DateTimePicker",
   "type": "component",
   "filePath": "src/components/ui/DateTimePicker.astro",
-  "description": "Combined date and time picker component that integrates DatePicker and TimePicker",
+  "description": "DateTimePicker Component",
   "props": {
     "value": {
       "type": "string",
       "optional": true,
-      "default": "",
-      "description": "ISO datetime string (YYYY-MM-DDTHH:MM)"
+      "default": null
     },
     "min": {
       "type": "string",
       "optional": true,
-      "default": "",
-      "description": "ISO datetime string for minimum allowed value"
+      "default": null
     },
     "max": {
       "type": "string",
       "optional": true,
-      "default": "",
-      "description": "ISO datetime string for maximum allowed value"
+      "default": null
     },
     "disabled": {
       "type": "boolean",
       "optional": true,
-      "default": false,
-      "description": "Whether the picker is disabled"
+      "default": null
     },
     "timeFormat": {
       "type": "'12' | '24'",
       "optional": true,
-      "default": "24",
-      "description": "Time format: 12-hour or 24-hour"
+      "default": null
     },
     "locale": {
       "type": "string",
       "optional": true,
-      "default": "en-US",
-      "description": "Locale for date/time formatting"
+      "default": null
     },
     "id": {
       "type": "string",
       "optional": true,
-      "default": "",
-      "description": "Unique identifier for the picker"
+      "default": null
     },
     "class": {
       "type": "string",
       "optional": true,
-      "default": "",
-      "description": "Additional CSS classes"
+      "default": null
     }
   },
   "imports": {
@@ -62,7 +54,6 @@
     "TimePicker"
   ],
   "cssClasses": [
-    "datetime-picker",
     "datetime-picker__date-section",
     "datetime-picker__time-section"
   ],
@@ -79,30 +70,25 @@
   "structure": {
     "root": {
       "element": "div",
-      "class": "datetime-picker",
+      "class": "classes",
       "spacing": {
         "padding": "0",
         "margin": "0"
       },
-      "baseClass": "datetime-picker",
+      "baseClass": null,
       "modifierClasses": {},
-      "ariaAttributes": {
-        "data-datetime-picker": "true"
-      },
       "children": [
         {
           "element": "div",
           "class": "datetime-picker__date-section",
           "spacing": {
             "padding": "0",
-            "margin": "0",
-            "marginBottom": "16px",
-            "paddingBottom": "16px"
+            "margin": "0"
           },
           "children": [
             {
               "element": "DatePicker",
-              "class": "",
+              "class": null,
               "spacing": {
                 "padding": "0",
                 "margin": "0"
@@ -121,7 +107,7 @@
           "children": [
             {
               "element": "TimePicker",
-              "class": "",
+              "class": null,
               "spacing": {
                 "padding": "0",
                 "margin": "0"
@@ -132,689 +118,146 @@
         }
       ]
     },
-    "children": []
+    "children": [
+      {
+        "element": "script",
+        "class": null,
+        "spacing": {
+          "padding": "0",
+          "margin": "0"
+        },
+        "children": []
+      }
+    ]
   },
   "_metadata": {
-    "lastGenerated": "2026-01-23T00:00:00.000Z",
+    "lastGenerated": "2026-01-23T01:33:50.394Z",
     "generatedWith": "@astrojs/compiler@2.13.0",
     "includesVisualSpecs": true,
     "availableVariants": []
   },
   "visualSpecifications": {
     "dimensions": {
-      "root": {
-        "width": "100%",
-        "height": "auto",
+      "xs": {
+        "height": null,
+        "width": null,
         "minWidth": "auto",
         "maxWidth": "none"
       },
-      "dateSection": {
-        "width": "100%",
-        "height": "auto",
+      "sm": {
+        "height": null,
+        "width": null,
         "minWidth": "auto",
         "maxWidth": "none"
       },
-      "timeSection": {
-        "width": "100%",
-        "height": "auto",
+      "md": {
+        "height": null,
+        "width": null,
+        "minWidth": "auto",
+        "maxWidth": "none"
+      },
+      "lg": {
+        "height": null,
+        "width": null,
         "minWidth": "auto",
         "maxWidth": "none"
       }
     },
     "spacing": {
-      "root": {
+      "xs": {
         "paddingTop": "0",
         "paddingRight": "0",
         "paddingBottom": "0",
         "paddingLeft": "0",
-        "marginTop": "0",
-        "marginRight": "0",
-        "marginBottom": "0",
-        "marginLeft": "0",
         "gap": "0"
       },
-      "dateSection": {
-        "default": {
-          "paddingTop": "0",
-          "paddingRight": "0",
-          "paddingBottom": "16px",
-          "paddingLeft": "0",
-          "marginTop": "0",
-          "marginRight": "0",
-          "marginBottom": "16px",
-          "marginLeft": "0",
-          "gap": "0"
-        },
-        "mobile": {
-          "paddingTop": "0",
-          "paddingRight": "0",
-          "paddingBottom": "12px",
-          "paddingLeft": "0",
-          "marginTop": "0",
-          "marginRight": "0",
-          "marginBottom": "12px",
-          "marginLeft": "0",
-          "gap": "0"
-        }
-      },
-      "timeSection": {
+      "sm": {
         "paddingTop": "0",
         "paddingRight": "0",
         "paddingBottom": "0",
         "paddingLeft": "0",
-        "marginTop": "0",
-        "marginRight": "0",
-        "marginBottom": "0",
-        "marginLeft": "0",
+        "gap": "0"
+      },
+      "md": {
+        "paddingTop": "0",
+        "paddingRight": "0",
+        "paddingBottom": "0",
+        "paddingLeft": "0",
+        "gap": "0"
+      },
+      "lg": {
+        "paddingTop": "0",
+        "paddingRight": "0",
+        "paddingBottom": "0",
+        "paddingLeft": "0",
         "gap": "0"
       }
-    },
-    "borderRadius": {
-      "base": "0px",
-      "value": "0",
-      "cssVar": "none"
     },
     "typography": {
-      "fontFamily": "inherit",
-      "fontWeight": "inherit",
-      "fontSize": "inherit",
-      "lineHeight": "inherit",
-      "letterSpacing": "inherit"
+      "fontFamily": null,
+      "fontWeight": null,
+      "lineHeight": null,
+      "letterSpacing": null,
+      "textTransform": null,
+      "sizes": {
+        "xs": {
+          "fontSize": null,
+          "lineHeight": null
+        },
+        "sm": {
+          "fontSize": null,
+          "lineHeight": null
+        },
+        "md": {
+          "fontSize": null,
+          "lineHeight": null
+        },
+        "lg": {
+          "fontSize": null,
+          "lineHeight": null
+        }
+      }
     },
     "borders": {
-      "root": {
-        "width": "none",
-        "style": "none",
-        "radius": "0px"
-      },
-      "dateSection": {
-        "width": "1px",
-        "style": "solid",
-        "position": "bottom",
-        "radius": "0px",
-        "color": "var(--border-light)"
-      },
-      "timeSection": {
-        "width": "none",
-        "style": "none",
-        "radius": "0px"
-      }
+      "width": null,
+      "style": null,
+      "radius": {}
+    },
+    "colors": {
+      "variants": {}
+    },
+    "elevation": {
+      "default": "none",
+      "hover": null,
+      "active": null,
+      "focus": null
     },
     "transitions": {
-      "property": "none",
-      "duration": "0ms",
-      "timingFunction": "ease",
-      "cssVar": "none"
+      "default": null,
+      "properties": {}
     },
-    "layout": {
-      "root": {
-        "display": "block",
-        "overflow": "visible"
-      },
-      "dateSection": {
-        "display": "block",
-        "overflow": "visible"
-      },
-      "timeSection": {
-        "display": "block",
-        "overflow": "visible"
-      }
-    },
-    "responsive": {
-      "breakpoint": "768px",
-      "cssVar": "--breakpoint-md",
-      "dateSection": {
-        "marginBottom": "12px",
-        "paddingBottom": "12px"
-      }
-    }
+    "layout": {},
+    "iconSpecs": null
   },
-  "variants": {
-    "default": {
-      "states": {
-        "default": {
-          "root": {
-            "width": "100%"
-          },
-          "dateSection": {
-            "marginBottom": "16px",
-            "paddingBottom": "16px",
-            "borderBottom": "1px solid var(--border-light)"
-          },
-          "timeSection": {
-            "width": "100%"
-          }
-        },
-        "disabled": {
-          "root": {
-            "width": "100%",
-            "opacity": "1",
-            "pointerEvents": "auto"
-          },
-          "dateSection": {
-            "marginBottom": "16px",
-            "paddingBottom": "16px",
-            "borderBottom": "1px solid var(--border-light)",
-            "opacity": "1"
-          },
-          "timeSection": {
-            "width": "100%",
-            "opacity": "1"
-          }
-        }
-      },
-      "resolved": {
-        "cp": {
-          "light": {
-            "default": {
-              "root": {
-                "width": "100%"
-              },
-              "dateSection": {
-                "marginBottom": "16px",
-                "paddingBottom": "16px",
-                "borderBottom": "1px solid #E2E8F0"
-              },
-              "timeSection": {
-                "width": "100%"
-              }
-            },
-            "disabled": {
-              "root": {
-                "width": "100%",
-                "opacity": "1",
-                "pointerEvents": "auto"
-              },
-              "dateSection": {
-                "marginBottom": "16px",
-                "paddingBottom": "16px",
-                "borderBottom": "1px solid #E2E8F0",
-                "opacity": "1"
-              },
-              "timeSection": {
-                "width": "100%",
-                "opacity": "1"
-              }
-            }
-          },
-          "dark": {
-            "default": {
-              "root": {
-                "width": "100%"
-              },
-              "dateSection": {
-                "marginBottom": "16px",
-                "paddingBottom": "16px",
-                "borderBottom": "1px solid #374151"
-              },
-              "timeSection": {
-                "width": "100%"
-              }
-            },
-            "disabled": {
-              "root": {
-                "width": "100%",
-                "opacity": "1",
-                "pointerEvents": "auto"
-              },
-              "dateSection": {
-                "marginBottom": "16px",
-                "paddingBottom": "16px",
-                "borderBottom": "1px solid #374151",
-                "opacity": "1"
-              },
-              "timeSection": {
-                "width": "100%",
-                "opacity": "1"
-              }
-            }
-          }
-        },
-        "vp": {
-          "light": {
-            "default": {
-              "root": {
-                "width": "100%"
-              },
-              "dateSection": {
-                "marginBottom": "16px",
-                "paddingBottom": "16px",
-                "borderBottom": "1px solid #E2E8F0"
-              },
-              "timeSection": {
-                "width": "100%"
-              }
-            },
-            "disabled": {
-              "root": {
-                "width": "100%",
-                "opacity": "1",
-                "pointerEvents": "auto"
-              },
-              "dateSection": {
-                "marginBottom": "16px",
-                "paddingBottom": "16px",
-                "borderBottom": "1px solid #E2E8F0",
-                "opacity": "1"
-              },
-              "timeSection": {
-                "width": "100%",
-                "opacity": "1"
-              }
-            }
-          },
-          "dark": {
-            "default": {
-              "root": {
-                "width": "100%"
-              },
-              "dateSection": {
-                "marginBottom": "16px",
-                "paddingBottom": "16px",
-                "borderBottom": "1px solid #3A3D42"
-              },
-              "timeSection": {
-                "width": "100%"
-              }
-            },
-            "disabled": {
-              "root": {
-                "width": "100%",
-                "opacity": "1",
-                "pointerEvents": "auto"
-              },
-              "dateSection": {
-                "marginBottom": "16px",
-                "paddingBottom": "16px",
-                "borderBottom": "1px solid #3A3D42",
-                "opacity": "1"
-              },
-              "timeSection": {
-                "width": "100%",
-                "opacity": "1"
-              }
-            }
-          }
-        },
-        "ppm": {
-          "light": {
-            "default": {
-              "root": {
-                "width": "100%"
-              },
-              "dateSection": {
-                "marginBottom": "16px",
-                "paddingBottom": "16px",
-                "borderBottom": "1px solid #E2E8F0"
-              },
-              "timeSection": {
-                "width": "100%"
-              }
-            },
-            "disabled": {
-              "root": {
-                "width": "100%",
-                "opacity": "1",
-                "pointerEvents": "auto"
-              },
-              "dateSection": {
-                "marginBottom": "16px",
-                "paddingBottom": "16px",
-                "borderBottom": "1px solid #E2E8F0",
-                "opacity": "1"
-              },
-              "timeSection": {
-                "width": "100%",
-                "opacity": "1"
-              }
-            }
-          },
-          "dark": {
-            "default": {
-              "root": {
-                "width": "100%"
-              },
-              "dateSection": {
-                "marginBottom": "16px",
-                "paddingBottom": "16px",
-                "borderBottom": "1px solid #3A3D42"
-              },
-              "timeSection": {
-                "width": "100%"
-              }
-            },
-            "disabled": {
-              "root": {
-                "width": "100%",
-                "opacity": "1",
-                "pointerEvents": "auto"
-              },
-              "dateSection": {
-                "marginBottom": "16px",
-                "paddingBottom": "16px",
-                "borderBottom": "1px solid #3A3D42",
-                "opacity": "1"
-              },
-              "timeSection": {
-                "width": "100%",
-                "opacity": "1"
-              }
-            }
-          }
-        },
-        "maconomy": {
-          "light": {
-            "default": {
-              "root": {
-                "width": "100%"
-              },
-              "dateSection": {
-                "marginBottom": "16px",
-                "paddingBottom": "16px",
-                "borderBottom": "1px solid #E2E8F0"
-              },
-              "timeSection": {
-                "width": "100%"
-              }
-            },
-            "disabled": {
-              "root": {
-                "width": "100%",
-                "opacity": "1",
-                "pointerEvents": "auto"
-              },
-              "dateSection": {
-                "marginBottom": "16px",
-                "paddingBottom": "16px",
-                "borderBottom": "1px solid #E2E8F0",
-                "opacity": "1"
-              },
-              "timeSection": {
-                "width": "100%",
-                "opacity": "1"
-              }
-            }
-          },
-          "dark": {
-            "default": {
-              "root": {
-                "width": "100%"
-              },
-              "dateSection": {
-                "marginBottom": "16px",
-                "paddingBottom": "16px",
-                "borderBottom": "1px solid #3A3D42"
-              },
-              "timeSection": {
-                "width": "100%"
-              }
-            },
-            "disabled": {
-              "root": {
-                "width": "100%",
-                "opacity": "1",
-                "pointerEvents": "auto"
-              },
-              "dateSection": {
-                "marginBottom": "16px",
-                "paddingBottom": "16px",
-                "borderBottom": "1px solid #3A3D42",
-                "opacity": "1"
-              },
-              "timeSection": {
-                "width": "100%",
-                "opacity": "1"
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "themeColors": {
-    "cp": {
-      "light": {
-        "textPrimary": "#373F4E",
-        "textSecondary": "#525969",
-        "textMuted": "#6B7280",
-        "textInverse": "#FFFFFF",
-        "borderColor": "#BFC6D4",
-        "borderLight": "#E2E8F0",
-        "hoverBg": "#E5E7EB",
-        "elevatedBg": "#F7F8FA",
-        "cardBg": "#F7F8FA",
-        "colorError": "#D83148",
-        "colorErrorFocus": "rgba(216, 49, 72, 0.32)",
-        "themePrimary": "#4C92D9",
-        "themePrimaryHover": "#3D7BC4",
-        "themePrimaryLight": "rgba(76, 146, 217, 0.1)"
-      },
-      "dark": {
-        "textPrimary": "#E9ECEF",
-        "textSecondary": "#B6B6C4",
-        "textMuted": "#BBBBC6",
-        "textInverse": "#1F252E",
-        "borderColor": "#5F6871",
-        "borderLight": "#374151",
-        "hoverBg": "#3D4A5C",
-        "elevatedBg": "#37424D",
-        "cardBg": "#37424D",
-        "colorError": "#F46286",
-        "colorErrorFocus": "rgba(244, 98, 134, 0.32)",
-        "themePrimary": "#59ACFF",
-        "themePrimaryHover": "#7BB8FF",
-        "themePrimaryLight": "rgba(89, 172, 255, 0.1)"
-      }
-    },
-    "vp": {
-      "light": {
-        "textPrimary": "#373F4E",
-        "textSecondary": "#525969",
-        "textMuted": "#6B7280",
-        "textInverse": "#FFFFFF",
-        "borderColor": "#BFC6D4",
-        "borderLight": "#E2E8F0",
-        "hoverBg": "#E5E7EB",
-        "elevatedBg": "#F7F8FA",
-        "cardBg": "#F7F8FA",
-        "colorError": "#D83148",
-        "colorErrorFocus": "rgba(216, 49, 72, 0.32)",
-        "themePrimary": "#4C92D9",
-        "themePrimaryHover": "#3D7BC4",
-        "themePrimaryLight": "rgba(76, 146, 217, 0.1)"
-      },
-      "dark": {
-        "textPrimary": "#FAFAFA",
-        "textSecondary": "#B5B5BC",
-        "textMuted": "#B5B5BC",
-        "textInverse": "#15171A",
-        "borderColor": "#2A2D32",
-        "borderLight": "#3A3D42",
-        "hoverBg": "#2A2D32",
-        "elevatedBg": "#1F2124",
-        "cardBg": "#1F2124",
-        "colorError": "#F46286",
-        "colorErrorFocus": "rgba(244, 98, 134, 0.32)",
-        "themePrimary": "#59ACFF",
-        "themePrimaryHover": "#7BB8FF",
-        "themePrimaryLight": "rgba(89, 172, 255, 0.1)"
-      }
-    },
-    "ppm": {
-      "light": {
-        "textPrimary": "#373F4E",
-        "textSecondary": "#525969",
-        "textMuted": "#6B7280",
-        "textInverse": "#FFFFFF",
-        "borderColor": "#BFC6D4",
-        "borderLight": "#E2E8F0",
-        "hoverBg": "#E5E7EB",
-        "elevatedBg": "#F7F8FA",
-        "cardBg": "#F7F8FA",
-        "colorError": "#D83148",
-        "colorErrorFocus": "rgba(216, 49, 72, 0.32)",
-        "themePrimary": "#4C92D9",
-        "themePrimaryHover": "#3D7BC4",
-        "themePrimaryLight": "rgba(76, 146, 217, 0.1)"
-      },
-      "dark": {
-        "textPrimary": "#FAFAFA",
-        "textSecondary": "#B5B5BC",
-        "textMuted": "#B5B5BC",
-        "textInverse": "#15171A",
-        "borderColor": "#2A2D32",
-        "borderLight": "#3A3D42",
-        "hoverBg": "#2A2D32",
-        "elevatedBg": "#1F2124",
-        "cardBg": "#1F2124",
-        "colorError": "#F46286",
-        "colorErrorFocus": "rgba(244, 98, 134, 0.32)",
-        "themePrimary": "#59ACFF",
-        "themePrimaryHover": "#7BB8FF",
-        "themePrimaryLight": "rgba(89, 172, 255, 0.1)"
-      }
-    },
-    "maconomy": {
-      "light": {
-        "textPrimary": "#373F4E",
-        "textSecondary": "#525969",
-        "textMuted": "#6B7280",
-        "textInverse": "#FFFFFF",
-        "borderColor": "#BFC6D4",
-        "borderLight": "#E2E8F0",
-        "hoverBg": "#E5E7EB",
-        "elevatedBg": "#F7F8FA",
-        "cardBg": "#F7F8FA",
-        "colorError": "#D83148",
-        "colorErrorFocus": "rgba(216, 49, 72, 0.32)",
-        "themePrimary": "#4C92D9",
-        "themePrimaryHover": "#3D7BC4",
-        "themePrimaryLight": "rgba(76, 146, 217, 0.1)"
-      },
-      "dark": {
-        "textPrimary": "#FAFAFA",
-        "textSecondary": "#B5B5BC",
-        "textMuted": "#B5B5BC",
-        "textInverse": "#15171A",
-        "borderColor": "#2A2D32",
-        "borderLight": "#3A3D42",
-        "hoverBg": "#2A2D32",
-        "elevatedBg": "#1F2124",
-        "cardBg": "#1F2124",
-        "colorError": "#F46286",
-        "colorErrorFocus": "rgba(244, 98, 134, 0.32)",
-        "themePrimary": "#59ACFF",
-        "themePrimaryHover": "#7BB8FF",
-        "themePrimaryLight": "rgba(89, 172, 255, 0.1)"
-      }
-    }
-  },
-  "elevations": {
-    "focusRings": {},
-    "insetShadows": {},
-    "cssVars": {
-      "spacing": {
-        "space3": {
-          "name": "--space-3",
-          "value": "12px",
-          "usage": "Mobile date section margin-bottom and padding-bottom"
-        },
-        "space4": {
-          "name": "--space-4",
-          "value": "16px",
-          "usage": "Default date section margin-bottom and padding-bottom"
-        }
-      },
-      "borders": {
-        "borderLight": {
-          "name": "--border-light",
-          "value": "theme-specific",
-          "reference": "themeColors.borderLight",
-          "usage": "Date section border-bottom color"
-        }
-      },
-      "responsive": {
-        "breakpointMd": {
-          "name": "--breakpoint-md",
-          "value": "768px",
-          "usage": "Mobile breakpoint for responsive styles"
-        }
-      }
-    }
-  },
-  "states": {
-    "default": {
-      "root": {
-        "width": "100%"
-      },
-      "dateSection": {
-        "marginBottom": "16px",
-        "paddingBottom": "16px",
-        "borderBottom": "1px solid var(--border-light)"
-      },
-      "timeSection": {
-        "width": "100%"
-      }
-    },
-    "disabled": {
-      "root": {
-        "width": "100%",
-        "opacity": "1",
-        "pointerEvents": "auto"
-      },
-      "dateSection": {
-        "marginBottom": "16px",
-        "paddingBottom": "16px",
-        "borderBottom": "1px solid var(--border-light)",
-        "opacity": "1"
-      },
-      "timeSection": {
-        "width": "100%",
-        "opacity": "1"
-      }
-    }
+  "accessibility": {
+    "role": null,
+    "tabIndex": null,
+    "keyboardSupport": {},
+    "ariaAttributes": {},
+    "focusVisible": {}
   },
   "cssClassStyles": {
     ".datetime-picker": {
       "width": "100%"
     },
     ".datetime-picker__date-section": {
-      "margin-bottom": "16px",
-      "padding-bottom": "16px",
-      "border-bottom": "1px solid var(--border-light)"
-    },
-    "@media (max-width: 768px)": {
-      ".datetime-picker": {
-        "width": "100%"
-      },
-      ".datetime-picker__date-section": {
-        "margin-bottom": "12px",
-        "padding-bottom": "12px"
-      }
-    },
-    ".theme-cp .datetime-picker__date-section": {
-      "border-bottom-color": "#E2E8F0"
-    },
-    ".theme-cp.dark .datetime-picker__date-section": {
-      "border-bottom-color": "#374151"
-    },
-    ".theme-vp .datetime-picker__date-section": {
-      "border-bottom-color": "#E2E8F0"
-    },
-    ".theme-vp.dark .datetime-picker__date-section": {
-      "border-bottom-color": "#3A3D42"
-    },
-    ".theme-ppm .datetime-picker__date-section": {
-      "border-bottom-color": "#E2E8F0"
-    },
-    ".theme-ppm.dark .datetime-picker__date-section": {
-      "border-bottom-color": "#3A3D42"
-    },
-    ".theme-maconomy .datetime-picker__date-section": {
-      "border-bottom-color": "#E2E8F0"
-    },
-    ".theme-maconomy.dark .datetime-picker__date-section": {
-      "border-bottom-color": "#3A3D42"
+      "margin-bottom": "12px",
+      "padding-bottom": "12px",
+      "border-bottom": "1px solid #E2E8F0"
     }
+  },
+  "_variantIndex": {},
+  "_variantMetadata": {
+    "availableVariants": []
   }
 }

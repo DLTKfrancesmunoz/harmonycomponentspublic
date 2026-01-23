@@ -2,27 +2,27 @@
   "name": "Icon",
   "type": "component",
   "filePath": "src/components/ui/Icon.astro",
-  "description": "SVG icon component that supports heroicons and custom SVG files with multiple sizes and variants. Icons use currentColor to inherit color from parent elements.",
+  "description": "Icon component",
   "props": {
     "name": {
       "type": "string",
       "optional": false,
-      "default": ""
+      "default": null
     },
     "size": {
       "type": "'xs' | 'sm' | 'md' | 'lg' | 'xl'",
       "optional": true,
-      "default": "md"
+      "default": null
     },
     "class": {
       "type": "string",
       "optional": true,
-      "default": ""
+      "default": null
     },
     "variant": {
       "type": "'outline' | 'solid'",
       "optional": true,
-      "default": "outline"
+      "default": null
     }
   },
   "imports": {
@@ -49,96 +49,46 @@
         "padding": "0",
         "margin": "0"
       },
-      "baseClass": "",
+      "baseClass": null,
       "modifierClasses": {},
-      "attributes": {
-        "xmlns": "http://www.w3.org/2000/svg",
-        "fill": "currentColor (outline: none, solid: currentColor)",
-        "stroke": "currentColor (outline: currentColor, solid: none)",
-        "strokeWidth": "1.5 (outline only)",
-        "viewBox": "0 0 24 24 (default, custom icons may vary)",
-        "width": "size-dependent (12px-32px)",
-        "height": "size-dependent (12px-32px)",
-        "ariaHidden": "true",
-        "dataIcon": "name prop value"
-      },
       "children": []
     },
-    "fallback": {
-      "element": "span",
-      "class": "className",
-      "spacing": {
-        "padding": "0",
-        "margin": "0"
-      },
-      "attributes": {
-        "title": "Icon \"{name}\" not found"
-      },
-      "children": [
-        {
-          "element": "text",
-          "content": "?"
-        }
-      ]
-    }
+    "children": []
   },
   "_metadata": {
-    "lastGenerated": "2026-01-22T20:53:20.276Z",
+    "lastGenerated": "2026-01-23T01:33:50.529Z",
     "generatedWith": "@astrojs/compiler@2.13.0",
     "includesVisualSpecs": true,
     "availableVariants": [
       "outline",
       "solid"
-    ],
-    "availableSizes": [
-      "xs",
-      "sm",
-      "md",
-      "lg",
-      "xl"
     ]
   },
   "visualSpecifications": {
     "dimensions": {
       "xs": {
-        "width": "12px",
-        "height": "12px",
-        "minWidth": "12px",
-        "maxWidth": "12px",
-        "minHeight": "12px",
-        "maxHeight": "12px"
+        "height": null,
+        "width": null,
+        "minWidth": "auto",
+        "maxWidth": "none"
       },
       "sm": {
-        "width": "16px",
-        "height": "16px",
-        "minWidth": "16px",
-        "maxWidth": "16px",
-        "minHeight": "16px",
-        "maxHeight": "16px"
+        "height": null,
+        "width": null,
+        "minWidth": "auto",
+        "maxWidth": "none"
       },
       "md": {
-        "width": "20px",
-        "height": "20px",
-        "minWidth": "20px",
-        "maxWidth": "20px",
-        "minHeight": "20px",
-        "maxHeight": "20px"
+        "height": null,
+        "width": null,
+        "minWidth": "auto",
+        "maxWidth": "none"
       },
       "lg": {
-        "width": "24px",
-        "height": "24px",
-        "minWidth": "24px",
-        "maxWidth": "24px",
-        "minHeight": "24px",
-        "maxHeight": "24px"
-      },
-      "xl": {
-        "width": "32px",
-        "height": "32px",
-        "minWidth": "32px",
-        "maxWidth": "32px",
-        "minHeight": "32px",
-        "maxHeight": "32px"
+        "height": null,
+        "width": null,
+        "minWidth": "auto",
+        "maxWidth": "none"
       }
     },
     "spacing": {
@@ -147,10 +97,6 @@
         "paddingRight": "0",
         "paddingBottom": "0",
         "paddingLeft": "0",
-        "marginTop": "0",
-        "marginRight": "0",
-        "marginBottom": "0",
-        "marginLeft": "0",
         "gap": "0"
       },
       "sm": {
@@ -158,10 +104,6 @@
         "paddingRight": "0",
         "paddingBottom": "0",
         "paddingLeft": "0",
-        "marginTop": "0",
-        "marginRight": "0",
-        "marginBottom": "0",
-        "marginLeft": "0",
         "gap": "0"
       },
       "md": {
@@ -169,10 +111,6 @@
         "paddingRight": "0",
         "paddingBottom": "0",
         "paddingLeft": "0",
-        "marginTop": "0",
-        "marginRight": "0",
-        "marginBottom": "0",
-        "marginLeft": "0",
         "gap": "0"
       },
       "lg": {
@@ -180,913 +118,388 @@
         "paddingRight": "0",
         "paddingBottom": "0",
         "paddingLeft": "0",
-        "marginTop": "0",
-        "marginRight": "0",
-        "marginBottom": "0",
-        "marginLeft": "0",
         "gap": "0"
-      },
-      "xl": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "marginTop": "0",
-        "marginRight": "0",
-        "marginBottom": "0",
-        "marginLeft": "0",
-        "gap": "0"
-      }
-    },
-    "borderRadius": {
-      "svg": {
-        "value": "0",
-        "description": "SVG icons have no border radius"
-      },
-      "fallback": {
-        "value": "2px",
-        "cssVar": "--icon-fallback-radius"
       }
     },
     "typography": {
-      "svg": {
-        "fontFamily": "N/A",
-        "fontWeight": "N/A",
-        "fontSize": "N/A",
-        "lineHeight": "N/A",
-        "letterSpacing": "N/A",
-        "description": "SVG icons do not use typography properties"
-      },
-      "fallback": {
-        "fontFamily": "inherit",
-        "fontWeight": "inherit",
-        "fontSize": "8px",
-        "cssVar": "--icon-fallback-font-size",
-        "lineHeight": "inherit",
-        "letterSpacing": "inherit"
+      "fontFamily": null,
+      "fontWeight": null,
+      "lineHeight": null,
+      "letterSpacing": null,
+      "textTransform": null,
+      "sizes": {
+        "xs": {
+          "fontSize": null,
+          "lineHeight": null
+        },
+        "sm": {
+          "fontSize": null,
+          "lineHeight": null
+        },
+        "md": {
+          "fontSize": null,
+          "lineHeight": null
+        },
+        "lg": {
+          "fontSize": null,
+          "lineHeight": null
+        }
       }
     },
     "borders": {
-      "width": "none",
-      "style": "none",
-      "color": "none",
-      "radius": "0",
-      "description": "Icons do not have borders"
+      "width": null,
+      "style": null,
+      "radius": {}
+    },
+    "colors": {
+      "variants": {
+        "outline": {
+          "cp": {
+            "light": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            },
+            "dark": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            }
+          },
+          "vp": {
+            "light": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            },
+            "dark": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            }
+          },
+          "ppm": {
+            "light": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            },
+            "dark": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            }
+          },
+          "maconomy": {
+            "light": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            },
+            "dark": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            }
+          }
+        },
+        "solid": {
+          "cp": {
+            "light": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            },
+            "dark": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            }
+          },
+          "vp": {
+            "light": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            },
+            "dark": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            }
+          },
+          "ppm": {
+            "light": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            },
+            "dark": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            }
+          },
+          "maconomy": {
+            "light": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            },
+            "dark": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            }
+          }
+        }
+      }
+    },
+    "elevation": {
+      "default": "none",
+      "hover": null,
+      "active": null,
+      "focus": null
     },
     "transitions": {
-      "property": "none",
-      "duration": "0ms",
-      "timingFunction": "none",
-      "description": "Icons are static and do not have transitions"
+      "default": null,
+      "properties": {}
     },
-    "strokes": {
-      "outline": {
-        "stroke": "currentColor",
-        "strokeWidth": "1.5",
-        "cssVar": "--icon-stroke-width",
-        "fill": "none"
-      },
-      "solid": {
-        "stroke": "none",
-        "strokeWidth": "none",
-        "fill": "currentColor"
-      },
-      "complex": {
-        "stroke": "preserved from original SVG",
-        "strokeWidth": "preserved from original SVG",
-        "fill": "preserved from original SVG",
-        "description": "For custom SVGs with gradients, patterns, or non-standard viewBox"
+    "layout": {},
+    "iconSpecs": {
+      "sizes": {},
+      "position": {
+        "left": {
+          "marginRight": "gap"
+        },
+        "right": {
+          "marginLeft": "gap"
+        }
       }
-    },
-    "layout": {
-      "display": "inline",
-      "verticalAlign": "middle",
-      "flexShrink": "0",
-      "description": "Icons are inline SVG elements"
-    },
-    "fallback": {
-      "display": "inline-flex",
-      "alignItems": "center",
-      "justifyContent": "center",
-      "backgroundColor": "#ffecef",
-      "color": "#c1253a",
-      "fontSize": "8px",
-      "borderRadius": "2px",
-      "width": "size-dependent (12px-32px)",
-      "height": "size-dependent (12px-32px)"
     }
   },
-  "variants": {
-    "outline": {
-      "description": "Outline variant uses stroke with currentColor, fill is none",
-      "svgAttributes": {
-        "fill": "none",
-        "stroke": "currentColor",
-        "strokeWidth": "1.5"
-      },
-      "states": {
+  "accessibility": {
+    "role": null,
+    "tabIndex": null,
+    "keyboardSupport": {},
+    "ariaAttributes": {},
+    "focusVisible": {}
+  },
+  "cssClassStyles": {},
+  "_variantIndex": {
+    "cp-outline": {
+      "variant": "outline",
+      "theme": "cp",
+      "light": {
         "default": {
-          "color": "currentColor",
-          "fill": "none",
-          "stroke": "currentColor",
-          "strokeWidth": "1.5",
-          "opacity": "1"
-        },
-        "hover": {
-          "color": "inherits from parent hover color",
-          "fill": "none",
-          "stroke": "inherits from parent hover color",
-          "strokeWidth": "1.5",
-          "opacity": "1"
-        },
-        "focus": {
-          "color": "inherits from parent focus color",
-          "fill": "none",
-          "stroke": "inherits from parent focus color",
-          "strokeWidth": "1.5",
-          "opacity": "1"
-        },
-        "disabled": {
-          "color": "inherits from parent disabled color",
-          "fill": "none",
-          "stroke": "inherits from parent disabled color",
-          "strokeWidth": "1.5",
-          "opacity": "inherits from parent (typically 0.5)"
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
         }
       },
-      "resolved": {
-        "cp": {
-          "light": {
-            "default": {
-              "color": "currentColor (typically #373F4E)",
-              "fill": "none",
-              "stroke": "currentColor (typically #373F4E)",
-              "strokeWidth": "1.5",
-              "opacity": "1"
-            },
-            "hover": {
-              "color": "currentColor (inherits parent hover, typically #4C92D9)",
-              "fill": "none",
-              "stroke": "currentColor (inherits parent hover, typically #4C92D9)",
-              "strokeWidth": "1.5",
-              "opacity": "1"
-            },
-            "focus": {
-              "color": "currentColor (inherits parent focus)",
-              "fill": "none",
-              "stroke": "currentColor (inherits parent focus)",
-              "strokeWidth": "1.5",
-              "opacity": "1"
-            },
-            "disabled": {
-              "color": "currentColor (inherits parent disabled, typically #BFC6D4)",
-              "fill": "none",
-              "stroke": "currentColor (inherits parent disabled, typically #BFC6D4)",
-              "strokeWidth": "1.5",
-              "opacity": "0.5"
-            }
-          },
-          "dark": {
-            "default": {
-              "color": "currentColor (typically #E9ECEF)",
-              "fill": "none",
-              "stroke": "currentColor (typically #E9ECEF)",
-              "strokeWidth": "1.5",
-              "opacity": "1"
-            },
-            "hover": {
-              "color": "currentColor (inherits parent hover, typically #59ACFF)",
-              "fill": "none",
-              "stroke": "currentColor (inherits parent hover, typically #59ACFF)",
-              "strokeWidth": "1.5",
-              "opacity": "1"
-            },
-            "focus": {
-              "color": "currentColor (inherits parent focus)",
-              "fill": "none",
-              "stroke": "currentColor (inherits parent focus)",
-              "strokeWidth": "1.5",
-              "opacity": "1"
-            },
-            "disabled": {
-              "color": "currentColor (inherits parent disabled, typically #5F6871)",
-              "fill": "none",
-              "stroke": "currentColor (inherits parent disabled, typically #5F6871)",
-              "strokeWidth": "1.5",
-              "opacity": "0.5"
-            }
-          }
-        },
-        "vp": {
-          "light": {
-            "default": {
-              "color": "currentColor (typically #373F4E)",
-              "fill": "none",
-              "stroke": "currentColor (typically #373F4E)",
-              "strokeWidth": "1.5",
-              "opacity": "1"
-            },
-            "hover": {
-              "color": "currentColor (inherits parent hover, typically #4C92D9)",
-              "fill": "none",
-              "stroke": "currentColor (inherits parent hover, typically #4C92D9)",
-              "strokeWidth": "1.5",
-              "opacity": "1"
-            },
-            "focus": {
-              "color": "currentColor (inherits parent focus)",
-              "fill": "none",
-              "stroke": "currentColor (inherits parent focus)",
-              "strokeWidth": "1.5",
-              "opacity": "1"
-            },
-            "disabled": {
-              "color": "currentColor (inherits parent disabled, typically #BFC6D4)",
-              "fill": "none",
-              "stroke": "currentColor (inherits parent disabled, typically #BFC6D4)",
-              "strokeWidth": "1.5",
-              "opacity": "0.5"
-            }
-          },
-          "dark": {
-            "default": {
-              "color": "currentColor (typically #FAFAFA)",
-              "fill": "none",
-              "stroke": "currentColor (typically #FAFAFA)",
-              "strokeWidth": "1.5",
-              "opacity": "1"
-            },
-            "hover": {
-              "color": "currentColor (inherits parent hover, typically #59ACFF)",
-              "fill": "none",
-              "stroke": "currentColor (inherits parent hover, typically #59ACFF)",
-              "strokeWidth": "1.5",
-              "opacity": "1"
-            },
-            "focus": {
-              "color": "currentColor (inherits parent focus)",
-              "fill": "none",
-              "stroke": "currentColor (inherits parent focus)",
-              "strokeWidth": "1.5",
-              "opacity": "1"
-            },
-            "disabled": {
-              "color": "currentColor (inherits parent disabled, typically #2A2D32)",
-              "fill": "none",
-              "stroke": "currentColor (inherits parent disabled, typically #2A2D32)",
-              "strokeWidth": "1.5",
-              "opacity": "0.5"
-            }
-          }
-        },
-        "ppm": {
-          "light": {
-            "default": {
-              "color": "currentColor (typically #373F4E)",
-              "fill": "none",
-              "stroke": "currentColor (typically #373F4E)",
-              "strokeWidth": "1.5",
-              "opacity": "1"
-            },
-            "hover": {
-              "color": "currentColor (inherits parent hover, typically #4C92D9)",
-              "fill": "none",
-              "stroke": "currentColor (inherits parent hover, typically #4C92D9)",
-              "strokeWidth": "1.5",
-              "opacity": "1"
-            },
-            "focus": {
-              "color": "currentColor (inherits parent focus)",
-              "fill": "none",
-              "stroke": "currentColor (inherits parent focus)",
-              "strokeWidth": "1.5",
-              "opacity": "1"
-            },
-            "disabled": {
-              "color": "currentColor (inherits parent disabled, typically #BFC6D4)",
-              "fill": "none",
-              "stroke": "currentColor (inherits parent disabled, typically #BFC6D4)",
-              "strokeWidth": "1.5",
-              "opacity": "0.5"
-            }
-          },
-          "dark": {
-            "default": {
-              "color": "currentColor (typically #FAFAFA)",
-              "fill": "none",
-              "stroke": "currentColor (typically #FAFAFA)",
-              "strokeWidth": "1.5",
-              "opacity": "1"
-            },
-            "hover": {
-              "color": "currentColor (inherits parent hover, typically #59ACFF)",
-              "fill": "none",
-              "stroke": "currentColor (inherits parent hover, typically #59ACFF)",
-              "strokeWidth": "1.5",
-              "opacity": "1"
-            },
-            "focus": {
-              "color": "currentColor (inherits parent focus)",
-              "fill": "none",
-              "stroke": "currentColor (inherits parent focus)",
-              "strokeWidth": "1.5",
-              "opacity": "1"
-            },
-            "disabled": {
-              "color": "currentColor (inherits parent disabled, typically #2A2D32)",
-              "fill": "none",
-              "stroke": "currentColor (inherits parent disabled, typically #2A2D32)",
-              "strokeWidth": "1.5",
-              "opacity": "0.5"
-            }
-          }
-        },
-        "maconomy": {
-          "light": {
-            "default": {
-              "color": "currentColor (typically #373F4E)",
-              "fill": "none",
-              "stroke": "currentColor (typically #373F4E)",
-              "strokeWidth": "1.5",
-              "opacity": "1"
-            },
-            "hover": {
-              "color": "currentColor (inherits parent hover, typically #4C92D9)",
-              "fill": "none",
-              "stroke": "currentColor (inherits parent hover, typically #4C92D9)",
-              "strokeWidth": "1.5",
-              "opacity": "1"
-            },
-            "focus": {
-              "color": "currentColor (inherits parent focus)",
-              "fill": "none",
-              "stroke": "currentColor (inherits parent focus)",
-              "strokeWidth": "1.5",
-              "opacity": "1"
-            },
-            "disabled": {
-              "color": "currentColor (inherits parent disabled, typically #BFC6D4)",
-              "fill": "none",
-              "stroke": "currentColor (inherits parent disabled, typically #BFC6D4)",
-              "strokeWidth": "1.5",
-              "opacity": "0.5"
-            }
-          },
-          "dark": {
-            "default": {
-              "color": "currentColor (typically #FAFAFA)",
-              "fill": "none",
-              "stroke": "currentColor (typically #FAFAFA)",
-              "strokeWidth": "1.5",
-              "opacity": "1"
-            },
-            "hover": {
-              "color": "currentColor (inherits parent hover, typically #59ACFF)",
-              "fill": "none",
-              "stroke": "currentColor (inherits parent hover, typically #59ACFF)",
-              "strokeWidth": "1.5",
-              "opacity": "1"
-            },
-            "focus": {
-              "color": "currentColor (inherits parent focus)",
-              "fill": "none",
-              "stroke": "currentColor (inherits parent focus)",
-              "strokeWidth": "1.5",
-              "opacity": "1"
-            },
-            "disabled": {
-              "color": "currentColor (inherits parent disabled, typically #2A2D32)",
-              "fill": "none",
-              "stroke": "currentColor (inherits parent disabled, typically #2A2D32)",
-              "strokeWidth": "1.5",
-              "opacity": "0.5"
-            }
-          }
-        }
-      }
-    },
-    "solid": {
-      "description": "Solid variant uses fill with currentColor, stroke is none",
-      "svgAttributes": {
-        "fill": "currentColor",
-        "stroke": "none",
-        "strokeWidth": "none"
-      },
-      "states": {
+      "dark": {
         "default": {
-          "color": "currentColor",
-          "fill": "currentColor",
-          "stroke": "none",
-          "strokeWidth": "none",
-          "opacity": "1"
-        },
-        "hover": {
-          "color": "inherits from parent hover color",
-          "fill": "inherits from parent hover color",
-          "stroke": "none",
-          "strokeWidth": "none",
-          "opacity": "1"
-        },
-        "focus": {
-          "color": "inherits from parent focus color",
-          "fill": "inherits from parent focus color",
-          "stroke": "none",
-          "strokeWidth": "none",
-          "opacity": "1"
-        },
-        "disabled": {
-          "color": "inherits from parent disabled color",
-          "fill": "inherits from parent disabled color",
-          "stroke": "none",
-          "strokeWidth": "none",
-          "opacity": "inherits from parent (typically 0.5)"
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      }
+    },
+    "vp-outline": {
+      "variant": "outline",
+      "theme": "vp",
+      "light": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
         }
       },
-      "resolved": {
-        "cp": {
-          "light": {
-            "default": {
-              "color": "currentColor (typically #373F4E)",
-              "fill": "currentColor (typically #373F4E)",
-              "stroke": "none",
-              "strokeWidth": "none",
-              "opacity": "1"
-            },
-            "hover": {
-              "color": "currentColor (inherits parent hover, typically #4C92D9)",
-              "fill": "currentColor (inherits parent hover, typically #4C92D9)",
-              "stroke": "none",
-              "strokeWidth": "none",
-              "opacity": "1"
-            },
-            "focus": {
-              "color": "currentColor (inherits parent focus)",
-              "fill": "currentColor (inherits parent focus)",
-              "stroke": "none",
-              "strokeWidth": "none",
-              "opacity": "1"
-            },
-            "disabled": {
-              "color": "currentColor (inherits parent disabled, typically #BFC6D4)",
-              "fill": "currentColor (inherits parent disabled, typically #BFC6D4)",
-              "stroke": "none",
-              "strokeWidth": "none",
-              "opacity": "0.5"
-            }
-          },
-          "dark": {
-            "default": {
-              "color": "currentColor (typically #E9ECEF)",
-              "fill": "currentColor (typically #E9ECEF)",
-              "stroke": "none",
-              "strokeWidth": "none",
-              "opacity": "1"
-            },
-            "hover": {
-              "color": "currentColor (inherits parent hover, typically #59ACFF)",
-              "fill": "currentColor (inherits parent hover, typically #59ACFF)",
-              "stroke": "none",
-              "strokeWidth": "none",
-              "opacity": "1"
-            },
-            "focus": {
-              "color": "currentColor (inherits parent focus)",
-              "fill": "currentColor (inherits parent focus)",
-              "stroke": "none",
-              "strokeWidth": "none",
-              "opacity": "1"
-            },
-            "disabled": {
-              "color": "currentColor (inherits parent disabled, typically #5F6871)",
-              "fill": "currentColor (inherits parent disabled, typically #5F6871)",
-              "stroke": "none",
-              "strokeWidth": "none",
-              "opacity": "0.5"
-            }
-          }
-        },
-        "vp": {
-          "light": {
-            "default": {
-              "color": "currentColor (typically #373F4E)",
-              "fill": "currentColor (typically #373F4E)",
-              "stroke": "none",
-              "strokeWidth": "none",
-              "opacity": "1"
-            },
-            "hover": {
-              "color": "currentColor (inherits parent hover, typically #4C92D9)",
-              "fill": "currentColor (inherits parent hover, typically #4C92D9)",
-              "stroke": "none",
-              "strokeWidth": "none",
-              "opacity": "1"
-            },
-            "focus": {
-              "color": "currentColor (inherits parent focus)",
-              "fill": "currentColor (inherits parent focus)",
-              "stroke": "none",
-              "strokeWidth": "none",
-              "opacity": "1"
-            },
-            "disabled": {
-              "color": "currentColor (inherits parent disabled, typically #BFC6D4)",
-              "fill": "currentColor (inherits parent disabled, typically #BFC6D4)",
-              "stroke": "none",
-              "strokeWidth": "none",
-              "opacity": "0.5"
-            }
-          },
-          "dark": {
-            "default": {
-              "color": "currentColor (typically #FAFAFA)",
-              "fill": "currentColor (typically #FAFAFA)",
-              "stroke": "none",
-              "strokeWidth": "none",
-              "opacity": "1"
-            },
-            "hover": {
-              "color": "currentColor (inherits parent hover, typically #59ACFF)",
-              "fill": "currentColor (inherits parent hover, typically #59ACFF)",
-              "stroke": "none",
-              "strokeWidth": "none",
-              "opacity": "1"
-            },
-            "focus": {
-              "color": "currentColor (inherits parent focus)",
-              "fill": "currentColor (inherits parent focus)",
-              "stroke": "none",
-              "strokeWidth": "none",
-              "opacity": "1"
-            },
-            "disabled": {
-              "color": "currentColor (inherits parent disabled, typically #2A2D32)",
-              "fill": "currentColor (inherits parent disabled, typically #2A2D32)",
-              "stroke": "none",
-              "strokeWidth": "none",
-              "opacity": "0.5"
-            }
-          }
-        },
-        "ppm": {
-          "light": {
-            "default": {
-              "color": "currentColor (typically #373F4E)",
-              "fill": "currentColor (typically #373F4E)",
-              "stroke": "none",
-              "strokeWidth": "none",
-              "opacity": "1"
-            },
-            "hover": {
-              "color": "currentColor (inherits parent hover, typically #4C92D9)",
-              "fill": "currentColor (inherits parent hover, typically #4C92D9)",
-              "stroke": "none",
-              "strokeWidth": "none",
-              "opacity": "1"
-            },
-            "focus": {
-              "color": "currentColor (inherits parent focus)",
-              "fill": "currentColor (inherits parent focus)",
-              "stroke": "none",
-              "strokeWidth": "none",
-              "opacity": "1"
-            },
-            "disabled": {
-              "color": "currentColor (inherits parent disabled, typically #BFC6D4)",
-              "fill": "currentColor (inherits parent disabled, typically #BFC6D4)",
-              "stroke": "none",
-              "strokeWidth": "none",
-              "opacity": "0.5"
-            }
-          },
-          "dark": {
-            "default": {
-              "color": "currentColor (typically #FAFAFA)",
-              "fill": "currentColor (typically #FAFAFA)",
-              "stroke": "none",
-              "strokeWidth": "none",
-              "opacity": "1"
-            },
-            "hover": {
-              "color": "currentColor (inherits parent hover, typically #59ACFF)",
-              "fill": "currentColor (inherits parent hover, typically #59ACFF)",
-              "stroke": "none",
-              "strokeWidth": "none",
-              "opacity": "1"
-            },
-            "focus": {
-              "color": "currentColor (inherits parent focus)",
-              "fill": "currentColor (inherits parent focus)",
-              "stroke": "none",
-              "strokeWidth": "none",
-              "opacity": "1"
-            },
-            "disabled": {
-              "color": "currentColor (inherits parent disabled, typically #2A2D32)",
-              "fill": "currentColor (inherits parent disabled, typically #2A2D32)",
-              "stroke": "none",
-              "strokeWidth": "none",
-              "opacity": "0.5"
-            }
-          }
-        },
-        "maconomy": {
-          "light": {
-            "default": {
-              "color": "currentColor (typically #373F4E)",
-              "fill": "currentColor (typically #373F4E)",
-              "stroke": "none",
-              "strokeWidth": "none",
-              "opacity": "1"
-            },
-            "hover": {
-              "color": "currentColor (inherits parent hover, typically #4C92D9)",
-              "fill": "currentColor (inherits parent hover, typically #4C92D9)",
-              "stroke": "none",
-              "strokeWidth": "none",
-              "opacity": "1"
-            },
-            "focus": {
-              "color": "currentColor (inherits parent focus)",
-              "fill": "currentColor (inherits parent focus)",
-              "stroke": "none",
-              "strokeWidth": "none",
-              "opacity": "1"
-            },
-            "disabled": {
-              "color": "currentColor (inherits parent disabled, typically #BFC6D4)",
-              "fill": "currentColor (inherits parent disabled, typically #BFC6D4)",
-              "stroke": "none",
-              "strokeWidth": "none",
-              "opacity": "0.5"
-            }
-          },
-          "dark": {
-            "default": {
-              "color": "currentColor (typically #FAFAFA)",
-              "fill": "currentColor (typically #FAFAFA)",
-              "stroke": "none",
-              "strokeWidth": "none",
-              "opacity": "1"
-            },
-            "hover": {
-              "color": "currentColor (inherits parent hover, typically #59ACFF)",
-              "fill": "currentColor (inherits parent hover, typically #59ACFF)",
-              "stroke": "none",
-              "strokeWidth": "none",
-              "opacity": "1"
-            },
-            "focus": {
-              "color": "currentColor (inherits parent focus)",
-              "fill": "currentColor (inherits parent focus)",
-              "stroke": "none",
-              "strokeWidth": "none",
-              "opacity": "1"
-            },
-            "disabled": {
-              "color": "currentColor (inherits parent disabled, typically #2A2D32)",
-              "fill": "currentColor (inherits parent disabled, typically #2A2D32)",
-              "stroke": "none",
-              "strokeWidth": "none",
-              "opacity": "0.5"
-            }
-          }
+      "dark": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      }
+    },
+    "ppm-outline": {
+      "variant": "outline",
+      "theme": "ppm",
+      "light": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      },
+      "dark": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      }
+    },
+    "maconomy-outline": {
+      "variant": "outline",
+      "theme": "maconomy",
+      "light": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      },
+      "dark": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      }
+    },
+    "cp-solid": {
+      "variant": "solid",
+      "theme": "cp",
+      "light": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      },
+      "dark": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      }
+    },
+    "vp-solid": {
+      "variant": "solid",
+      "theme": "vp",
+      "light": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      },
+      "dark": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      }
+    },
+    "ppm-solid": {
+      "variant": "solid",
+      "theme": "ppm",
+      "light": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      },
+      "dark": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      }
+    },
+    "maconomy-solid": {
+      "variant": "solid",
+      "theme": "maconomy",
+      "light": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      },
+      "dark": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
         }
       }
     }
   },
-  "themeColors": {
-    "cp": {
-      "light": {
-        "textPrimary": "#373F4E",
-        "textSecondary": "#525969",
-        "textMuted": "#6B7280",
-        "textInverse": "#FFFFFF",
-        "borderColor": "#BFC6D4",
-        "hoverBg": "#E5E7EB",
-        "elevatedBg": "#F7F8FA",
-        "cardBg": "#F7F8FA",
-        "colorError": "#D83148",
-        "colorErrorFocus": "rgba(216, 49, 72, 0.32)",
-        "themePrimary": "#4C92D9",
-        "themePrimaryHover": "#3D7BC4",
-        "themePrimaryLight": "rgba(76, 146, 217, 0.1)"
-      },
-      "dark": {
-        "textPrimary": "#E9ECEF",
-        "textSecondary": "#B6B6C4",
-        "textMuted": "#BBBBC6",
-        "textInverse": "#1F252E",
-        "borderColor": "#5F6871",
-        "hoverBg": "#3D4A5C",
-        "elevatedBg": "#37424D",
-        "cardBg": "#37424D",
-        "colorError": "#F46286",
-        "colorErrorFocus": "rgba(244, 98, 134, 0.32)",
-        "themePrimary": "#59ACFF",
-        "themePrimaryHover": "#7BB8FF",
-        "themePrimaryLight": "rgba(89, 172, 255, 0.1)"
-      }
-    },
-    "vp": {
-      "light": {
-        "textPrimary": "#373F4E",
-        "textSecondary": "#525969",
-        "textMuted": "#6B7280",
-        "textInverse": "#FFFFFF",
-        "borderColor": "#BFC6D4",
-        "hoverBg": "#E5E7EB",
-        "elevatedBg": "#F7F8FA",
-        "cardBg": "#F7F8FA",
-        "colorError": "#D83148",
-        "colorErrorFocus": "rgba(216, 49, 72, 0.32)",
-        "themePrimary": "#4C92D9",
-        "themePrimaryHover": "#3D7BC4",
-        "themePrimaryLight": "rgba(76, 146, 217, 0.1)"
-      },
-      "dark": {
-        "textPrimary": "#FAFAFA",
-        "textSecondary": "#B5B5BC",
-        "textMuted": "#B5B5BC",
-        "textInverse": "#15171A",
-        "borderColor": "#2A2D32",
-        "hoverBg": "#2A2D32",
-        "elevatedBg": "#1F2124",
-        "cardBg": "#1F2124",
-        "colorError": "#F46286",
-        "colorErrorFocus": "rgba(244, 98, 134, 0.32)",
-        "themePrimary": "#59ACFF",
-        "themePrimaryHover": "#7bb8ff",
-        "themePrimaryLight": "rgba(89, 172, 255, 0.1)"
-      }
-    },
-    "ppm": {
-      "light": {
-        "textPrimary": "#373F4E",
-        "textSecondary": "#525969",
-        "textMuted": "#6B7280",
-        "textInverse": "#FFFFFF",
-        "borderColor": "#BFC6D4",
-        "hoverBg": "#E5E7EB",
-        "elevatedBg": "#F7F8FA",
-        "cardBg": "#F7F8FA",
-        "colorError": "#D83148",
-        "colorErrorFocus": "rgba(216, 49, 72, 0.32)",
-        "themePrimary": "#4C92D9",
-        "themePrimaryHover": "#3D7BC4",
-        "themePrimaryLight": "rgba(76, 146, 217, 0.1)"
-      },
-      "dark": {
-        "textPrimary": "#FAFAFA",
-        "textSecondary": "#B5B5BC",
-        "textMuted": "#B5B5BC",
-        "textInverse": "#15171A",
-        "borderColor": "#2A2D32",
-        "hoverBg": "#2A2D32",
-        "elevatedBg": "#1F2124",
-        "cardBg": "#1F2124",
-        "colorError": "#F46286",
-        "colorErrorFocus": "rgba(244, 98, 134, 0.32)",
-        "themePrimary": "#59ACFF",
-        "themePrimaryHover": "#7bb8ff",
-        "themePrimaryLight": "rgba(89, 172, 255, 0.1)"
-      }
-    },
-    "maconomy": {
-      "light": {
-        "textPrimary": "#373F4E",
-        "textSecondary": "#525969",
-        "textMuted": "#6B7280",
-        "textInverse": "#FFFFFF",
-        "borderColor": "#BFC6D4",
-        "hoverBg": "#E5E7EB",
-        "elevatedBg": "#F7F8FA",
-        "cardBg": "#F7F8FA",
-        "colorError": "#D83148",
-        "colorErrorFocus": "rgba(216, 49, 72, 0.32)",
-        "themePrimary": "#4C92D9",
-        "themePrimaryHover": "#3D7BC4",
-        "themePrimaryLight": "rgba(76, 146, 217, 0.1)"
-      },
-      "dark": {
-        "textPrimary": "#FAFAFA",
-        "textSecondary": "#B5B5BC",
-        "textMuted": "#B5B5BC",
-        "textInverse": "#15171A",
-        "borderColor": "#2A2D32",
-        "hoverBg": "#2A2D32",
-        "elevatedBg": "#1F2124",
-        "cardBg": "#1F2124",
-        "colorError": "#F46286",
-        "colorErrorFocus": "rgba(244, 98, 134, 0.32)",
-        "themePrimary": "#59ACFF",
-        "themePrimaryHover": "#7bb8ff",
-        "themePrimaryLight": "rgba(89, 172, 255, 0.1)"
-      }
-    }
-  },
-  "elevations": {
-    "focusRings": {},
-    "insetShadows": {},
-    "cssVars": {},
-    "description": "Icons do not use elevations, shadows, or focus rings"
-  },
-  "states": {
-    "default": {
-      "color": "currentColor",
-      "opacity": "1",
-      "display": "inline",
-      "verticalAlign": "middle"
-    },
-    "hover": {
-      "color": "inherits from parent hover color",
-      "opacity": "1",
-      "display": "inline",
-      "verticalAlign": "middle"
-    },
-    "focus": {
-      "color": "inherits from parent focus color",
-      "opacity": "1",
-      "display": "inline",
-      "verticalAlign": "middle"
-    },
-    "disabled": {
-      "color": "inherits from parent disabled color",
-      "opacity": "inherits from parent (typically 0.5)",
-      "display": "inline",
-      "verticalAlign": "middle",
-      "cursor": "not-allowed"
-    },
-    "fallback": {
-      "display": "inline-flex",
-      "alignItems": "center",
-      "justifyContent": "center",
-      "backgroundColor": "#ffecef",
-      "color": "#c1253a",
-      "fontSize": "8px",
-      "borderRadius": "2px",
-      "width": "size-dependent (12px-32px)",
-      "height": "size-dependent (12px-32px)"
-    }
-  },
-  "cssClassStyles": {
-    "description": "Icons do not have predefined CSS classes. The class prop allows custom styling to be applied."
-  },
-  "cssVars": {
-    "sizes": {
-      "iconXs": {
-        "name": "--icon-xs",
-        "value": "12px",
-        "usage": "Extra small icon size"
-      },
-      "iconSm": {
-        "name": "--icon-sm",
-        "value": "16px",
-        "usage": "Small icon size"
-      },
-      "iconMd": {
-        "name": "--icon-md",
-        "value": "20px",
-        "usage": "Medium icon size (default)"
-      },
-      "iconLg": {
-        "name": "--icon-lg",
-        "value": "24px",
-        "usage": "Large icon size"
-      },
-      "iconXl": {
-        "name": "--icon-xl",
-        "value": "32px",
-        "usage": "Extra large icon size"
-      }
-    },
-    "strokes": {
-      "iconStrokeWidth": {
-        "name": "--icon-stroke-width",
-        "value": "1.5",
-        "usage": "Stroke width for outline variant icons"
-      }
-    },
-    "fallback": {
-      "iconFallbackBg": {
-        "name": "--icon-fallback-bg",
-        "value": "#ffecef",
-        "usage": "Background color for fallback span when icon not found"
-      },
-      "iconFallbackText": {
-        "name": "--icon-fallback-text",
-        "value": "#c1253a",
-        "usage": "Text color for fallback span when icon not found"
-      },
-      "iconFallbackFontSize": {
-        "name": "--icon-fallback-font-size",
-        "value": "8px",
-        "usage": "Font size for fallback span when icon not found"
-      },
-      "iconFallbackRadius": {
-        "name": "--icon-fallback-radius",
-        "value": "2px",
-        "usage": "Border radius for fallback span when icon not found"
-      }
-    }
+  "_variantMetadata": {
+    "availableVariants": [
+      "outline",
+      "solid"
+    ]
   }
 }

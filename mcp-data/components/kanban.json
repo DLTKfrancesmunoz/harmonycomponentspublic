@@ -2,52 +2,48 @@
   "name": "Kanban",
   "type": "component",
   "filePath": "src/components/ui/Kanban.astro",
-  "description": "Kanban board component for organizing tasks in columns with drag-and-drop cards",
+  "description": "Kanban Component",
   "props": {
     "columns": {
       "type": "KanbanColumn[]",
       "optional": false,
-      "default": []
+      "default": null
     },
     "title": {
       "type": "string",
       "optional": true,
-      "default": "Kanban Board"
+      "default": null
     },
     "actionButtons": {
       "type": "ActionButton[]",
       "optional": true,
-      "default": []
+      "default": null
     },
     "actionDropdowns": {
       "type": "ActionDropdown[]",
       "optional": true,
-      "default": []
+      "default": null
     },
     "class": {
       "type": "string",
       "optional": true,
-      "default": ""
+      "default": null
     },
     "showAddButton": {
       "type": "boolean",
       "optional": true,
-      "default": true
+      "default": null
     }
   },
   "imports": {
     "Button": "./Button.astro",
     "Icon": "./Icon.astro",
-    "Card": "./Card.astro",
-    "Dropdown": "./Dropdown.astro",
-    "KanbanCard": "./KanbanCard.astro"
+    "Card": "./Card.astro"
   },
   "dependencies": [
     "Button",
     "Icon",
-    "Card",
-    "Dropdown",
-    "KanbanCard"
+    "Card"
   ],
   "cssClasses": [
     "kanban__container",
@@ -58,14 +54,12 @@
     "kanban__title-bar-icon",
     "kanban__action-bar",
     "kanban__action-items",
-    "kanban__action-button",
     "kanban__action-divider",
+    "kanban__action-button",
     "kanban__action-label",
     "kanban__action-text-button",
     "kanban__columns-wrapper",
     "kanban__column-card",
-    "kanban__column-card--in-progress",
-    "kanban__column-card--done",
     "kanban__column",
     "kanban__column-header",
     "kanban__column-header-content",
@@ -75,20 +69,7 @@
     "kanban__column-action-icon",
     "kanban__column-content",
     "kanban__add-button",
-    "kanban__add-column-button",
-    "kanban-card",
-    "kanban-card__header",
-    "kanban-card__avatar",
-    "kanban-card__header-right",
-    "kanban-card__icons",
-    "kanban-card__icon",
-    "kanban-card__badges",
-    "kanban-card__description",
-    "kanban-card__progress",
-    "kanban-card__title",
-    "kanban-card__date-time",
-    "kanban-card__date",
-    "kanban-card__time"
+    "kanban__add-column-button"
   ],
   "themeSupport": {
     "themes": [
@@ -103,7 +84,7 @@
   "structure": {
     "root": {
       "element": "div",
-      "class": "kanban__container",
+      "class": "`kanban__container ${className}`",
       "spacing": {
         "padding": "0",
         "margin": "0"
@@ -115,25 +96,148 @@
           "element": "div",
           "class": "kanban__title-bar",
           "spacing": {
-            "padding": "16px 16px 12px",
+            "padding": "var(--space-3)",
             "margin": "0"
           },
           "children": [
             {
               "element": "div",
               "class": "kanban__title-bar-content",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
               "children": [
                 {
                   "element": "h1",
-                  "class": "kanban__title"
+                  "class": "kanban__title",
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": []
                 },
                 {
                   "element": "div",
                   "class": "kanban__title-bar-actions",
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
                   "children": [
                     {
                       "element": "button",
-                      "class": "kanban__title-bar-icon"
+                      "class": "kanban__title-bar-icon",
+                      "spacing": {
+                        "padding": "0",
+                        "margin": "0"
+                      },
+                      "children": [
+                        {
+                          "element": "Icon",
+                          "class": null,
+                          "spacing": {
+                            "padding": "0",
+                            "margin": "0"
+                          },
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "element": "button",
+                      "class": "kanban__title-bar-icon",
+                      "spacing": {
+                        "padding": "0",
+                        "margin": "0"
+                      },
+                      "children": [
+                        {
+                          "element": "Icon",
+                          "class": null,
+                          "spacing": {
+                            "padding": "0",
+                            "margin": "0"
+                          },
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "element": "button",
+                      "class": "kanban__title-bar-icon",
+                      "spacing": {
+                        "padding": "0",
+                        "margin": "0"
+                      },
+                      "children": [
+                        {
+                          "element": "Icon",
+                          "class": null,
+                          "spacing": {
+                            "padding": "0",
+                            "margin": "0"
+                          },
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "element": "button",
+                      "class": "kanban__title-bar-icon",
+                      "spacing": {
+                        "padding": "0",
+                        "margin": "0"
+                      },
+                      "children": [
+                        {
+                          "element": "Icon",
+                          "class": null,
+                          "spacing": {
+                            "padding": "0",
+                            "margin": "0"
+                          },
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "element": "button",
+                      "class": "kanban__title-bar-icon",
+                      "spacing": {
+                        "padding": "0",
+                        "margin": "0"
+                      },
+                      "children": [
+                        {
+                          "element": "Icon",
+                          "class": null,
+                          "spacing": {
+                            "padding": "0",
+                            "margin": "0"
+                          },
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "element": "button",
+                      "class": "kanban__title-bar-icon",
+                      "spacing": {
+                        "padding": "0",
+                        "margin": "0"
+                      },
+                      "children": [
+                        {
+                          "element": "Icon",
+                          "class": null,
+                          "spacing": {
+                            "padding": "0",
+                            "margin": "0"
+                          },
+                          "children": []
+                        }
+                      ]
                     }
                   ]
                 }
@@ -145,13 +249,18 @@
           "element": "div",
           "class": "kanban__action-bar",
           "spacing": {
-            "padding": "12px 16px",
+            "padding": "var(--space-3)",
             "margin": "0"
           },
           "children": [
             {
               "element": "div",
-              "class": "kanban__action-items"
+              "class": "kanban__action-items",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": []
             }
           ]
         },
@@ -159,29 +268,171 @@
           "element": "section",
           "class": "kanban__columns-wrapper",
           "spacing": {
-            "padding": "16px",
+            "padding": "var(--space-3)",
             "margin": "0"
           },
           "children": [
             {
               "element": "Card",
-              "class": "kanban__column-card",
+              "class": "`kanban__column-card ${borderColorClass}`",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
               "children": [
                 {
                   "element": "article",
                   "class": "kanban__column",
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
                   "children": [
                     {
                       "element": "header",
-                      "class": "kanban__column-header"
+                      "class": "kanban__column-header",
+                      "spacing": {
+                        "padding": "var(--space-3)",
+                        "margin": "0"
+                      },
+                      "children": [
+                        {
+                          "element": "div",
+                          "class": "kanban__column-header-content",
+                          "spacing": {
+                            "padding": "0",
+                            "margin": "0"
+                          },
+                          "children": [
+                            {
+                              "element": "h2",
+                              "class": "kanban__column-title",
+                              "spacing": {
+                                "padding": "0",
+                                "margin": "0"
+                              },
+                              "children": []
+                            },
+                            {
+                              "element": "span",
+                              "class": "kanban__column-count",
+                              "spacing": {
+                                "padding": "var(--space-0-5) var(--space-2)",
+                                "margin": "0"
+                              },
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "element": "div",
+                          "class": "kanban__column-header-actions",
+                          "spacing": {
+                            "padding": "0",
+                            "margin": "0"
+                          },
+                          "children": [
+                            {
+                              "element": "button",
+                              "class": "kanban__column-action-icon",
+                              "spacing": {
+                                "padding": "0",
+                                "margin": "0"
+                              },
+                              "children": [
+                                {
+                                  "element": "Icon",
+                                  "class": null,
+                                  "spacing": {
+                                    "padding": "0",
+                                    "margin": "0"
+                                  },
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "element": "button",
+                              "class": "kanban__column-action-icon",
+                              "spacing": {
+                                "padding": "0",
+                                "margin": "0"
+                              },
+                              "children": [
+                                {
+                                  "element": "Icon",
+                                  "class": null,
+                                  "spacing": {
+                                    "padding": "0",
+                                    "margin": "0"
+                                  },
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "element": "button",
+                              "class": "kanban__column-action-icon",
+                              "spacing": {
+                                "padding": "0",
+                                "margin": "0"
+                              },
+                              "children": [
+                                {
+                                  "element": "Icon",
+                                  "class": null,
+                                  "spacing": {
+                                    "padding": "0",
+                                    "margin": "0"
+                                  },
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
                     },
                     {
                       "element": "div",
-                      "class": "kanban__column-content"
+                      "class": "kanban__column-content",
+                      "spacing": {
+                        "padding": "var(--space-2)",
+                        "margin": "0"
+                      },
+                      "children": [
+                        {
+                          "element": "KanbanCard",
+                          "class": "card.class",
+                          "spacing": {
+                            "padding": "0",
+                            "margin": "0"
+                          },
+                          "children": []
+                        },
+                        {
+                          "element": "Button",
+                          "class": "kanban__add-button",
+                          "spacing": {
+                            "padding": "0",
+                            "margin": "0"
+                          },
+                          "children": []
+                        }
+                      ]
                     }
                   ]
                 }
               ]
+            },
+            {
+              "element": "Button",
+              "class": "kanban__add-column-button",
+              "spacing": {
+                "padding": "0",
+                "margin": "0"
+              },
+              "children": []
             }
           ]
         }
@@ -190,1304 +441,378 @@
     "children": []
   },
   "_metadata": {
-    "lastGenerated": "2026-01-22T20:00:00.000Z",
+    "lastGenerated": "2026-01-23T01:33:50.582Z",
     "generatedWith": "@astrojs/compiler@2.13.0",
     "includesVisualSpecs": true,
-    "availableVariants": [
-      "in-progress",
-      "done"
-    ]
+    "availableVariants": []
   },
   "visualSpecifications": {
     "dimensions": {
-      "container": {
-        "width": "100%",
-        "height": "100%",
+      "xs": {
+        "height": null,
+        "width": null,
         "minWidth": "auto",
         "maxWidth": "none"
       },
-      "columnCard": {
-        "flexBasis": "400px",
-        "minWidth": "360px",
-        "maxWidth": "500px",
-        "width": "auto",
-        "height": "auto"
+      "sm": {
+        "height": null,
+        "width": null,
+        "minWidth": "auto",
+        "maxWidth": "none"
       },
-      "columnsWrapper": {
-        "minHeight": "400px",
-        "width": "auto",
-        "height": "auto"
+      "md": {
+        "height": null,
+        "width": null,
+        "minWidth": "auto",
+        "maxWidth": "none"
       },
-      "titleBarIcon": {
-        "width": "24px",
-        "height": "24px"
-      },
-      "columnActionIcon": {
-        "width": "24px",
-        "height": "24px"
-      },
-      "columnContent": {
-        "minHeight": "200px",
-        "width": "auto",
-        "height": "auto"
-      },
-      "kanbanCard": {
-        "width": "auto",
-        "height": "auto",
-        "minHeight": "32px"
+      "lg": {
+        "height": null,
+        "width": null,
+        "minWidth": "auto",
+        "maxWidth": "none"
       }
     },
     "spacing": {
-      "container": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "marginTop": "0",
-        "marginRight": "0",
-        "marginBottom": "0",
-        "marginLeft": "0",
-        "gap": "0"
-      },
-      "titleBar": {
-        "default": {
-          "paddingTop": "16px",
-          "paddingRight": "16px",
-          "paddingBottom": "12px",
-          "paddingLeft": "16px",
-          "gap": "0"
-        },
-        "mobile": {
-          "paddingTop": "12px",
-          "paddingRight": "12px",
-          "paddingBottom": "12px",
-          "paddingLeft": "12px",
-          "gap": "0"
-        }
-      },
-      "titleBarContent": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "gap": "0"
-      },
-      "titleBarActions": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "gap": "8px"
-      },
-      "actionBar": {
-        "default": {
-          "paddingTop": "12px",
-          "paddingRight": "16px",
-          "paddingBottom": "12px",
-          "paddingLeft": "16px",
-          "gap": "16px"
-        },
-        "mobile": {
-          "paddingTop": "12px",
-          "paddingRight": "12px",
-          "paddingBottom": "12px",
-          "paddingLeft": "12px",
-          "gap": "12px"
-        }
-      },
-      "actionItems": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "gap": "8px"
-      },
-      "actionDivider": {
-        "paddingTop": "0",
-        "paddingRight": "4px",
-        "paddingBottom": "0",
-        "paddingLeft": "4px",
-        "gap": "0"
-      },
-      "actionLabel": {
-        "paddingTop": "4px",
-        "paddingRight": "8px",
-        "paddingBottom": "4px",
-        "paddingLeft": "8px",
-        "gap": "0"
-      },
-      "actionTextButton": {
-        "paddingTop": "4px",
-        "paddingRight": "8px",
-        "paddingBottom": "4px",
-        "paddingLeft": "8px",
-        "gap": "4px"
-      },
-      "columnsWrapper": {
-        "default": {
-          "paddingTop": "16px",
-          "paddingRight": "16px",
-          "paddingBottom": "16px",
-          "paddingLeft": "16px",
-          "gap": "16px"
-        },
-        "mobile": {
-          "paddingTop": "12px",
-          "paddingRight": "12px",
-          "paddingBottom": "12px",
-          "paddingLeft": "12px",
-          "gap": "16px"
-        }
-      },
-      "columnHeader": {
-        "default": {
-          "paddingTop": "16px",
-          "paddingRight": "16px",
-          "paddingBottom": "12px",
-          "paddingLeft": "16px",
-          "gap": "0"
-        },
-        "mobile": {
-          "paddingTop": "12px",
-          "paddingRight": "12px",
-          "paddingBottom": "12px",
-          "paddingLeft": "12px",
-          "gap": "0"
-        }
-      },
-      "columnHeaderContent": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "gap": "8px"
-      },
-      "columnCount": {
-        "paddingTop": "2px",
-        "paddingRight": "8px",
-        "paddingBottom": "2px",
-        "paddingLeft": "8px",
-        "gap": "0",
-        "minWidth": "24px"
-      },
-      "columnHeaderActions": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "gap": "8px"
-      },
-      "columnContent": {
-        "default": {
-          "paddingTop": "12px",
-          "paddingRight": "12px",
-          "paddingBottom": "12px",
-          "paddingLeft": "12px",
-          "gap": "12px"
-        },
-        "mobile": {
-          "paddingTop": "8px",
-          "paddingRight": "8px",
-          "paddingBottom": "8px",
-          "paddingLeft": "8px",
-          "gap": "8px"
-        }
-      },
-      "addButton": {
-        "marginTop": "8px",
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "gap": "0"
-      },
-      "addColumnButton": {
-        "marginTop": "16px",
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "gap": "0"
-      },
-      "kanbanCard": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "gap": "0"
-      },
-      "kanbanCardBody": {
-        "default": {
-          "paddingTop": "16px",
-          "paddingRight": "16px",
-          "paddingBottom": "16px",
-          "paddingLeft": "16px",
-          "gap": "12px"
-        },
-        "mobile": {
-          "paddingTop": "12px",
-          "paddingRight": "12px",
-          "paddingBottom": "12px",
-          "paddingLeft": "12px",
-          "gap": "12px"
-        }
-      },
-      "kanbanCardHeader": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "gap": "12px",
-        "marginBottom": "8px",
-        "minHeight": "32px"
-      },
-      "kanbanCardHeaderRight": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "gap": "8px"
-      },
-      "kanbanCardIcons": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "gap": "8px"
-      },
-      "kanbanCardBadges": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "gap": "4px"
-      },
-      "kanbanCardDateTime": {
+      "xs": {
         "paddingTop": "8px",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "gap": "16px",
-        "marginTop": "8px",
-        "minHeight": "20px"
+        "paddingRight": "8px",
+        "paddingBottom": "8px",
+        "paddingLeft": "8px",
+        "gap": "8px"
+      },
+      "sm": {
+        "paddingTop": "8px",
+        "paddingRight": "8px",
+        "paddingBottom": "8px",
+        "paddingLeft": "8px",
+        "gap": "8px"
+      },
+      "md": {
+        "paddingTop": "8px",
+        "paddingRight": "8px",
+        "paddingBottom": "8px",
+        "paddingLeft": "8px",
+        "gap": "8px"
+      },
+      "lg": {
+        "paddingTop": "8px",
+        "paddingRight": "8px",
+        "paddingBottom": "8px",
+        "paddingLeft": "8px",
+        "gap": "8px"
       }
     },
-    "borderRadius": {
-      "base": "4px",
-      "value": "0.25rem",
-      "cssVar": "--radius-04"
-    },
-    "borderRadiusFull": {
-      "base": "9999px",
-      "value": "9999px",
-      "cssVar": "--radius-full"
-    },
     "typography": {
-      "fontFamily": {
-        "sans": "'Figtree', sans-serif",
-        "display": "'Lexend', sans-serif"
-      },
-      "fontWeight": {
-        "normal": "400",
-        "medium": "500",
-        "semibold": "600"
-      },
-      "fontSize": {
-        "title": {
-          "default": "1.5rem",
-          "pixels": "24px"
+      "fontFamily": "'Figtree', sans-serif",
+      "fontWeight": "500",
+      "lineHeight": "1.5",
+      "letterSpacing": null,
+      "textTransform": null,
+      "sizes": {
+        "xs": {
+          "fontSize": "1.5rem",
+          "lineHeight": "1.5"
         },
-        "columnTitle": {
-          "default": "1.125rem",
-          "pixels": "18px"
+        "sm": {
+          "fontSize": "1.5rem",
+          "lineHeight": "1.5"
         },
-        "columnCount": {
-          "default": "0.75rem",
-          "pixels": "12px"
+        "md": {
+          "fontSize": "1.5rem",
+          "lineHeight": "1.5"
         },
-        "actionLabel": {
-          "default": "0.875rem",
-          "pixels": "14px"
-        },
-        "actionTextButton": {
-          "default": "0.875rem",
-          "pixels": "14px"
-        },
-        "kanbanCardTitle": {
-          "default": "1rem",
-          "pixels": "16px"
-        },
-        "kanbanCardDescription": {
-          "default": "0.875rem",
-          "pixels": "14px"
-        },
-        "kanbanCardDateTime": {
-          "default": "0.875rem",
-          "pixels": "14px"
+        "lg": {
+          "fontSize": "1.5rem",
+          "lineHeight": "1.5"
         }
-      },
-      "lineHeight": {
-        "title": "1.375",
-        "columnTitle": "1.25",
-        "columnCount": "1.5",
-        "actionLabel": "1.5",
-        "actionTextButton": "1.5",
-        "kanbanCardTitle": "1.375",
-        "kanbanCardDescription": "1.5",
-        "kanbanCardDateTime": "1.5"
-      },
-      "letterSpacing": "normal",
-      "textAlign": {
-        "title": "left",
-        "columnTitle": "left",
-        "columnCount": "center",
-        "actionLabel": "left",
-        "actionTextButton": "left",
-        "kanbanCardDescription": "left",
-        "kanbanCardDateTime": "left"
       }
     },
     "borders": {
-      "titleBar": {
-        "width": "1px",
-        "style": "solid",
-        "position": "bottom"
-      },
-      "actionBar": {
-        "width": "1px",
-        "style": "solid",
-        "position": "bottom"
-      },
-      "columnHeader": {
-        "width": "1px",
-        "style": "solid",
-        "position": "bottom"
-      },
-      "kanbanCardDateTime": {
-        "width": "1px",
-        "style": "solid",
-        "position": "top"
-      },
-      "columnCardInProgress": {
-        "width": "1px",
-        "style": "solid",
-        "position": "top",
-        "color": "#F5A616"
-      },
-      "columnCardDone": {
-        "width": "1px",
-        "style": "solid",
-        "position": "top",
-        "color": "#37B8B5"
+      "width": null,
+      "style": null,
+      "radius": {
+        "default": "4px"
       }
+    },
+    "colors": {
+      "variants": {}
+    },
+    "elevation": {
+      "default": "none",
+      "hover": null,
+      "active": null,
+      "focus": null
     },
     "transitions": {
-      "titleBarIcon": {
-        "property": "background-color, color",
-        "duration": "150ms",
-        "timingFunction": "ease",
-        "cssVar": "--transition-fast"
-      },
-      "actionTextButton": {
-        "property": "background-color",
-        "duration": "150ms",
-        "timingFunction": "ease",
-        "cssVar": "--transition-fast"
-      },
-      "columnActionIcon": {
-        "property": "background-color, color",
-        "duration": "150ms",
-        "timingFunction": "ease",
-        "cssVar": "--transition-fast"
-      },
-      "kanbanCard": {
-        "property": "transform, box-shadow",
-        "duration": "150ms",
-        "timingFunction": "ease",
-        "cssVar": "--transition-fast"
-      }
-    },
-    "shadows": {
-      "kanbanCardHover": {
-        "light": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
-        "dark": "0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.2)",
-        "cssVar": "--shadow-md"
-      }
-    },
-    "scrollbar": {
-      "width": "8px",
-      "track": {
-        "background": "transparent"
-      },
-      "thumb": {
-        "borderRadius": "4px"
+      "default": "background-color 150ms ease, color 150ms ease",
+      "properties": {
+        "background-color": "background-color 150ms ease",
+        "color": "color 150ms ease"
       }
     },
     "layout": {
-      "container": {
-        "display": "flex",
-        "flexDirection": "column",
-        "width": "100%",
-        "height": "100%"
-      },
-      "titleBarContent": {
-        "display": "flex",
-        "alignItems": "center",
-        "justifyContent": "space-between"
-      },
-      "titleBarActions": {
-        "display": "flex",
-        "alignItems": "center",
-        "gap": "8px"
-      },
-      "actionBar": {
-        "display": "flex",
-        "alignItems": "center",
-        "justifyContent": "space-between"
-      },
-      "actionItems": {
-        "display": "flex",
-        "alignItems": "center",
-        "flexWrap": "wrap"
-      },
-      "columnsWrapper": {
-        "display": "flex",
-        "overflowX": "auto",
-        "flex": "1"
-      },
-      "columnCard": {
-        "display": "flex",
-        "flexDirection": "column",
-        "overflow": "hidden"
-      },
-      "column": {
-        "display": "flex",
-        "flexDirection": "column",
-        "height": "100%",
-        "flex": "1"
-      },
-      "columnHeader": {
-        "display": "flex",
-        "alignItems": "center",
-        "justifyContent": "space-between"
-      },
-      "columnHeaderContent": {
-        "display": "flex",
-        "alignItems": "center"
-      },
-      "columnHeaderActions": {
-        "display": "flex",
-        "alignItems": "center"
-      },
-      "columnContent": {
-        "display": "flex",
-        "flexDirection": "column",
-        "overflowY": "auto",
-        "overflowX": "hidden",
-        "flex": "1"
-      },
-      "kanbanCardHeader": {
-        "display": "flex",
-        "alignItems": "flex-start",
-        "justifyContent": "space-between"
-      },
-      "kanbanCardHeaderRight": {
-        "display": "flex",
-        "alignItems": "center",
-        "flexWrap": "wrap"
-      },
-      "kanbanCardIcons": {
-        "display": "flex",
-        "alignItems": "center"
-      },
-      "kanbanCardBadges": {
-        "display": "flex",
-        "flexWrap": "wrap"
-      },
-      "kanbanCardDateTime": {
-        "display": "flex",
-        "alignItems": "center",
-        "justifyContent": "space-between",
-        "flexWrap": "wrap"
-      }
+      "display": "flex",
+      "flexDirection": "column",
+      "alignItems": "center",
+      "justifyContent": "center",
+      "flexShrink": "0"
     },
-    "responsive": {
-      "breakpoint": "768px",
-      "cssVar": "--breakpoint-md",
-      "container": {
-        "padding": "0"
-      },
-      "titleBar": {
-        "padding": "12px"
-      },
-      "actionBar": {
-        "flexDirection": "column",
-        "alignItems": "stretch",
-        "padding": "12px",
-        "gap": "12px"
-      },
-      "columnsWrapper": {
-        "flexDirection": "column",
-        "padding": "12px",
-        "gap": "16px"
-      },
-      "columnCard": {
-        "flex": "1 1 auto",
-        "minWidth": "100%",
-        "maxWidth": "100%"
-      },
-      "columnHeader": {
-        "padding": "12px"
-      },
-      "columnContent": {
-        "padding": "8px",
-        "gap": "8px"
-      },
-      "kanbanCardBody": {
-        "padding": "12px"
-      }
-    }
+    "iconSpecs": null
   },
-  "variants": {
-    "in-progress": {
-      "states": {
-        "default": {
-          "borderTopColor": "#F5A616"
-        }
-      },
-      "resolved": {
-        "cp": {
-          "light": {
-            "default": {
-              "borderTopColor": "#F5A616"
-            }
-          },
-          "dark": {
-            "default": {
-              "borderTopColor": "#F5A616"
-            }
-          }
-        },
-        "vp": {
-          "light": {
-            "default": {
-              "borderTopColor": "#F5A616"
-            }
-          },
-          "dark": {
-            "default": {
-              "borderTopColor": "#F5A616"
-            }
-          }
-        },
-        "ppm": {
-          "light": {
-            "default": {
-              "borderTopColor": "#F5A616"
-            }
-          },
-          "dark": {
-            "default": {
-              "borderTopColor": "#F5A616"
-            }
-          }
-        },
-        "maconomy": {
-          "light": {
-            "default": {
-              "borderTopColor": "#F5A616"
-            }
-          },
-          "dark": {
-            "default": {
-              "borderTopColor": "#F5A616"
-            }
-          }
-        }
-      }
-    },
-    "done": {
-      "states": {
-        "default": {
-          "borderTopColor": "#37B8B5"
-        }
-      },
-      "resolved": {
-        "cp": {
-          "light": {
-            "default": {
-              "borderTopColor": "#37B8B5"
-            }
-          },
-          "dark": {
-            "default": {
-              "borderTopColor": "#37B8B5"
-            }
-          }
-        },
-        "vp": {
-          "light": {
-            "default": {
-              "borderTopColor": "#37B8B5"
-            }
-          },
-          "dark": {
-            "default": {
-              "borderTopColor": "#37B8B5"
-            }
-          }
-        },
-        "ppm": {
-          "light": {
-            "default": {
-              "borderTopColor": "#37B8B5"
-            }
-          },
-          "dark": {
-            "default": {
-              "borderTopColor": "#37B8B5"
-            }
-          }
-        },
-        "maconomy": {
-          "light": {
-            "default": {
-              "borderTopColor": "#37B8B5"
-            }
-          },
-          "dark": {
-            "default": {
-              "borderTopColor": "#37B8B5"
-            }
-          }
-        }
-      }
-    }
-  },
-  "themeColors": {
-    "cp": {
-      "light": {
-        "textPrimary": "#373F4E",
-        "textSecondary": "#525969",
-        "textMuted": "#6B7280",
-        "textInverse": "#FFFFFF",
-        "borderColor": "#BFC6D4",
-        "borderLight": "#E2E8F0",
-        "hoverBg": "#E5E7EB",
-        "elevatedBg": "#F7F8FA",
-        "cardBg": "#F7F8FA",
-        "tableHeaderGrayBg": "#EDF0F6",
-        "themePrimary": "#4C92D9",
-        "themePrimaryHover": "#3D7BC4",
-        "kanbanInProgressBorder": "#F5A616",
-        "kanbanDoneBorder": "#37B8B5"
-      },
-      "dark": {
-        "textPrimary": "#E9ECEF",
-        "textSecondary": "#B6B6C4",
-        "textMuted": "#BBBBC6",
-        "textInverse": "#1F252E",
-        "borderColor": "#5F6871",
-        "borderLight": "#374151",
-        "hoverBg": "#3D4A5C",
-        "elevatedBg": "#37424D",
-        "cardBg": "#37424D",
-        "tableHeaderGrayBg": "#37424D",
-        "themePrimary": "#59ACFF",
-        "themePrimaryHover": "#7BB8FF",
-        "kanbanInProgressBorder": "#F5A616",
-        "kanbanDoneBorder": "#37B8B5"
-      }
-    },
-    "vp": {
-      "light": {
-        "textPrimary": "#373F4E",
-        "textSecondary": "#525969",
-        "textMuted": "#6B7280",
-        "textInverse": "#FFFFFF",
-        "borderColor": "#BFC6D4",
-        "borderLight": "#E2E8F0",
-        "hoverBg": "#E5E7EB",
-        "elevatedBg": "#F7F8FA",
-        "cardBg": "#F7F8FA",
-        "tableHeaderGrayBg": "#EDF0F6",
-        "themePrimary": "#4C92D9",
-        "themePrimaryHover": "#3D7BC4",
-        "kanbanInProgressBorder": "#F5A616",
-        "kanbanDoneBorder": "#37B8B5"
-      },
-      "dark": {
-        "textPrimary": "#FAFAFA",
-        "textSecondary": "#B5B5BC",
-        "textMuted": "#B5B5BC",
-        "textInverse": "#15171A",
-        "borderColor": "#2A2D32",
-        "borderLight": "#3A3D42",
-        "hoverBg": "#2A2D32",
-        "elevatedBg": "#1F2124",
-        "cardBg": "#1F2124",
-        "tableHeaderGrayBg": "#37424D",
-        "themePrimary": "#59ACFF",
-        "themePrimaryHover": "#7bb8ff",
-        "kanbanInProgressBorder": "#F5A616",
-        "kanbanDoneBorder": "#37B8B5"
-      }
-    },
-    "ppm": {
-      "light": {
-        "textPrimary": "#373F4E",
-        "textSecondary": "#525969",
-        "textMuted": "#6B7280",
-        "textInverse": "#FFFFFF",
-        "borderColor": "#BFC6D4",
-        "borderLight": "#E2E8F0",
-        "hoverBg": "#E5E7EB",
-        "elevatedBg": "#F7F8FA",
-        "cardBg": "#F7F8FA",
-        "tableHeaderGrayBg": "#EDF0F6",
-        "themePrimary": "#4C92D9",
-        "themePrimaryHover": "#3D7BC4",
-        "kanbanInProgressBorder": "#F5A616",
-        "kanbanDoneBorder": "#37B8B5"
-      },
-      "dark": {
-        "textPrimary": "#FAFAFA",
-        "textSecondary": "#B5B5BC",
-        "textMuted": "#B5B5BC",
-        "textInverse": "#15171A",
-        "borderColor": "#2A2D32",
-        "borderLight": "#3A3D42",
-        "hoverBg": "#2A2D32",
-        "elevatedBg": "#1F2124",
-        "cardBg": "#1F2124",
-        "tableHeaderGrayBg": "#37424D",
-        "themePrimary": "#59ACFF",
-        "themePrimaryHover": "#7bb8ff",
-        "kanbanInProgressBorder": "#F5A616",
-        "kanbanDoneBorder": "#37B8B5"
-      }
-    },
-    "maconomy": {
-      "light": {
-        "textPrimary": "#373F4E",
-        "textSecondary": "#525969",
-        "textMuted": "#6B7280",
-        "textInverse": "#FFFFFF",
-        "borderColor": "#BFC6D4",
-        "borderLight": "#E2E8F0",
-        "hoverBg": "#E5E7EB",
-        "elevatedBg": "#F7F8FA",
-        "cardBg": "#F7F8FA",
-        "tableHeaderGrayBg": "#EDF0F6",
-        "themePrimary": "#4C92D9",
-        "themePrimaryHover": "#3D7BC4",
-        "kanbanInProgressBorder": "#F5A616",
-        "kanbanDoneBorder": "#37B8B5"
-      },
-      "dark": {
-        "textPrimary": "#FAFAFA",
-        "textSecondary": "#B5B5BC",
-        "textMuted": "#B5B5BC",
-        "textInverse": "#15171A",
-        "borderColor": "#2A2D32",
-        "borderLight": "#3A3D42",
-        "hoverBg": "#2A2D32",
-        "elevatedBg": "#1F2124",
-        "cardBg": "#1F2124",
-        "tableHeaderGrayBg": "#37424D",
-        "themePrimary": "#59ACFF",
-        "themePrimaryHover": "#7bb8ff",
-        "kanbanInProgressBorder": "#F5A616",
-        "kanbanDoneBorder": "#37B8B5"
-      }
-    }
-  },
-  "elevations": {
-    "focusRings": {
-      "titleBarIcon": {
-        "cp": {
-          "light": "2px solid #4C92D9",
-          "dark": "2px solid #59ACFF"
-        },
-        "vp": {
-          "light": "2px solid #4C92D9",
-          "dark": "2px solid #59ACFF"
-        },
-        "ppm": {
-          "light": "2px solid #4C92D9",
-          "dark": "2px solid #59ACFF"
-        },
-        "maconomy": {
-          "light": "2px solid #4C92D9",
-          "dark": "2px solid #59ACFF"
-        }
-      },
-      "actionTextButton": {
-        "cp": {
-          "light": "2px solid #4C92D9",
-          "dark": "2px solid #59ACFF"
-        },
-        "vp": {
-          "light": "2px solid #4C92D9",
-          "dark": "2px solid #59ACFF"
-        },
-        "ppm": {
-          "light": "2px solid #4C92D9",
-          "dark": "2px solid #59ACFF"
-        },
-        "maconomy": {
-          "light": "2px solid #4C92D9",
-          "dark": "2px solid #59ACFF"
-        }
-      },
-      "columnActionIcon": {
-        "cp": {
-          "light": "2px solid #4C92D9",
-          "dark": "2px solid #59ACFF"
-        },
-        "vp": {
-          "light": "2px solid #4C92D9",
-          "dark": "2px solid #59ACFF"
-        },
-        "ppm": {
-          "light": "2px solid #4C92D9",
-          "dark": "2px solid #59ACFF"
-        },
-        "maconomy": {
-          "light": "2px solid #4C92D9",
-          "dark": "2px solid #59ACFF"
-        }
-      }
-    },
-    "shadows": {
-      "kanbanCardHover": {
-        "light": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
-        "dark": "0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.2)"
-      }
-    },
-    "cssVars": {
-      "shadowMd": "--shadow-md",
-      "transitionFast": "--transition-fast"
-    }
-  },
-  "states": {
-    "default": {
-      "container": {
-        "display": "flex",
-        "flexDirection": "column",
-        "width": "100%",
-        "height": "100%"
-      },
-      "titleBarIcon": {
-        "backgroundColor": "transparent",
-        "color": "text-secondary (theme-specific)",
-        "cursor": "pointer"
-      },
-      "actionTextButton": {
-        "backgroundColor": "transparent",
-        "color": "text-primary (theme-specific)",
-        "cursor": "pointer"
-      },
-      "columnActionIcon": {
-        "backgroundColor": "transparent",
-        "color": "text-secondary (theme-specific)",
-        "cursor": "pointer"
-      },
-      "kanbanCard": {
-        "cursor": "pointer",
-        "transform": "translateY(0)"
-      }
-    },
-    "hover": {
-      "titleBarIcon": {
-        "backgroundColor": "elevated-bg (theme-specific)",
-        "color": "text-primary (theme-specific)"
-      },
-      "actionTextButton": {
-        "backgroundColor": "elevated-bg (theme-specific)"
-      },
-      "columnActionIcon": {
-        "backgroundColor": "elevated-bg (theme-specific)",
-        "color": "text-primary (theme-specific)"
-      },
-      "kanbanCard": {
-        "transform": "translateY(-2px)",
-        "boxShadow": "shadow-md (theme-specific)"
-      },
-      "scrollbarThumb": {
-        "backgroundColor": "text-secondary (theme-specific)"
-      }
-    },
-    "focus": {
-      "titleBarIcon": {
-        "outline": "2px solid theme-primary (theme-specific)",
-        "outlineOffset": "2px"
-      },
-      "actionTextButton": {
-        "outline": "2px solid theme-primary (theme-specific)",
-        "outlineOffset": "2px"
-      },
-      "columnActionIcon": {
-        "outline": "2px solid theme-primary (theme-specific)",
-        "outlineOffset": "2px"
-      }
-    }
+  "accessibility": {
+    "role": null,
+    "tabIndex": null,
+    "keyboardSupport": {},
+    "ariaAttributes": {},
+    "focusVisible": {}
   },
   "cssClassStyles": {
     ".kanban__container": {
       "display": "flex",
-      "flexDirection": "column",
+      "flex-direction": "column",
       "width": "100%",
-      "height": "100%"
+      "height": "100%",
+      "padding": "0"
     },
     ".kanban__title-bar": {
-      "padding": "16px 16px 12px",
-      "borderBottom": "1px solid",
-      "borderBottomColor": "var(--border-light)",
-      "backgroundColor": "var(--card-bg)"
+      "padding": "12px",
+      "border-bottom": "1px solid #E2E8F0",
+      "background-color": "#F7F8FA"
     },
     ".kanban__title-bar-content": {
       "display": "flex",
-      "alignItems": "center",
-      "justifyContent": "space-between"
+      "align-items": "center",
+      "justify-content": "space-between"
     },
     ".kanban__title": {
-      "fontFamily": "var(--font-display)",
-      "fontSize": "var(--heading-l)",
-      "fontWeight": "var(--font-semibold)",
-      "lineHeight": "var(--leading-snug)",
-      "color": "var(--text-primary)",
+      "font-family": "'Lexend', sans-serif",
+      "font-size": "1.5rem",
+      "font-weight": "600",
+      "line-height": "1.375",
+      "color": "#373F4E",
       "margin": "0"
     },
     ".kanban__title-bar-actions": {
       "display": "flex",
-      "alignItems": "center",
-      "gap": "var(--space-2)"
+      "align-items": "center",
+      "gap": "8px"
     },
     ".kanban__title-bar-icon": {
       "display": "flex",
-      "alignItems": "center",
-      "justifyContent": "center",
-      "width": "var(--space-6)",
-      "height": "var(--space-6)",
+      "align-items": "center",
+      "justify-content": "center",
+      "width": "24px",
+      "height": "24px",
       "padding": "0",
       "border": "none",
       "background": "transparent",
-      "color": "var(--text-secondary)",
+      "color": "#525969",
       "cursor": "pointer",
-      "borderRadius": "var(--radius-04)",
-      "transition": "background-color var(--transition-fast), color var(--transition-fast)"
+      "border-radius": "4px",
+      "transition": "background-color 150ms ease, color 150ms ease"
     },
     ".kanban__title-bar-icon:hover": {
-      "backgroundColor": "var(--elevated-bg)",
-      "color": "var(--text-primary)"
+      "background-color": "#F7F8FA",
+      "color": "#373F4E"
     },
     ".kanban__title-bar-icon:focus": {
-      "outline": "2px solid var(--theme-primary)",
-      "outlineOffset": "2px"
+      "outline": "2px solid #4C92D9",
+      "outline-offset": "2px"
     },
     ".kanban__action-bar": {
       "display": "flex",
-      "alignItems": "center",
-      "justifyContent": "space-between",
-      "padding": "12px 16px",
-      "borderBottom": "1px solid",
-      "borderBottomColor": "var(--border-light)",
-      "backgroundColor": "var(--table-header-gray-bg)",
-      "gap": "var(--space-4)"
+      "align-items": "stretch",
+      "justify-content": "space-between",
+      "padding": "12px",
+      "border-bottom": "1px solid #E2E8F0",
+      "background-color": "#EDF0F6",
+      "gap": "12px",
+      "flex-direction": "column"
     },
     ".kanban__action-items": {
       "display": "flex",
-      "alignItems": "center",
-      "gap": "var(--space-2)",
-      "flexWrap": "wrap"
+      "align-items": "center",
+      "gap": "8px",
+      "flex-wrap": "wrap"
     },
     ".kanban__action-button": {
-      "flexShrink": "0"
+      "flex-shrink": "0"
     },
     ".kanban__action-divider": {
-      "color": "var(--text-secondary)",
-      "fontSize": "var(--text-sm)",
-      "padding": "0 var(--space-1)",
-      "flexShrink": "0"
+      "color": "#525969",
+      "font-size": "0.875rem",
+      "padding": "0 4px",
+      "flex-shrink": "0"
     },
     ".kanban__action-label": {
-      "fontFamily": "var(--font-sans)",
-      "fontSize": "var(--text-sm)",
-      "fontWeight": "var(--font-normal)",
-      "color": "var(--text-primary)",
-      "padding": "var(--space-1) var(--space-2)",
-      "flexShrink": "0"
+      "font-family": "'Figtree', sans-serif",
+      "font-size": "0.875rem",
+      "font-weight": "400",
+      "color": "#373F4E",
+      "padding": "4px 8px",
+      "flex-shrink": "0"
     },
     ".kanban__action-text-button": {
       "display": "flex",
-      "alignItems": "center",
-      "gap": "var(--space-1)",
-      "padding": "var(--space-1) var(--space-2)",
+      "align-items": "center",
+      "gap": "4px",
+      "padding": "4px 8px",
       "border": "none",
       "background": "transparent",
-      "fontFamily": "var(--font-sans)",
-      "fontSize": "var(--text-sm)",
-      "fontWeight": "var(--font-normal)",
-      "color": "var(--text-primary)",
+      "font-family": "'Figtree', sans-serif",
+      "font-size": "0.875rem",
+      "font-weight": "400",
+      "color": "#373F4E",
       "cursor": "pointer",
-      "borderRadius": "var(--radius-04)",
-      "transition": "background-color var(--transition-fast)",
-      "flexShrink": "0"
+      "border-radius": "4px",
+      "transition": "background-color 150ms ease",
+      "flex-shrink": "0"
     },
     ".kanban__action-text-button:hover": {
-      "backgroundColor": "var(--elevated-bg)"
+      "background-color": "#F7F8FA"
     },
     ".kanban__action-text-button:focus": {
-      "outline": "2px solid var(--theme-primary)",
-      "outlineOffset": "2px"
+      "outline": "2px solid #4C92D9",
+      "outline-offset": "2px"
     },
     ".kanban__columns-wrapper": {
       "display": "flex",
-      "gap": "var(--space-4)",
-      "overflowX": "auto",
-      "padding": "var(--space-4)",
-      "minHeight": "400px",
-      "flex": "1"
+      "gap": "16px",
+      "overflow-x": "auto",
+      "padding": "12px",
+      "min-height": "calc(80px * 5)",
+      "flex": "1",
+      "flex-direction": "column"
     },
     ".kanban__column-card": {
-      "flex": "0 0 400px",
-      "minWidth": "360px",
-      "maxWidth": "500px",
+      "flex": "1 1 auto",
+      "min-width": "100%",
+      "max-width": "100%",
       "display": "flex",
-      "flexDirection": "column",
+      "flex-direction": "column",
       "overflow": "hidden"
     },
     ".kanban__column-card--in-progress.card--primary": {
-      "borderTopColor": "var(--kanban-in-progress-border)"
+      "border-top-color": "#F5A616"
     },
     ".kanban__column-card--done.card--primary": {
-      "borderTopColor": "var(--kanban-done-border)"
+      "border-top-color": "#37B8B5"
     },
     ".kanban__column-card .card__body": {
       "padding": "0",
       "display": "flex",
-      "flexDirection": "column",
+      "flex-direction": "column",
       "height": "100%"
     },
     ".kanban__column": {
       "display": "flex",
-      "flexDirection": "column",
+      "flex-direction": "column",
       "height": "100%",
       "flex": "1"
     },
     ".kanban__column-header": {
       "display": "flex",
-      "alignItems": "center",
-      "justifyContent": "space-between",
-      "padding": "16px 16px 12px",
-      "borderBottom": "1px solid",
-      "borderBottomColor": "var(--border-light)",
-      "backgroundColor": "var(--card-bg)"
+      "align-items": "center",
+      "justify-content": "space-between",
+      "padding": "12px",
+      "border-bottom": "1px solid #E2E8F0",
+      "background-color": "#F7F8FA"
     },
     ".kanban__column-header-content": {
       "display": "flex",
-      "alignItems": "center",
-      "gap": "var(--space-2)"
+      "align-items": "center",
+      "gap": "8px"
     },
     ".kanban__column-title": {
-      "fontFamily": "var(--font-display)",
-      "fontSize": "var(--heading-s)",
-      "fontWeight": "var(--font-semibold)",
-      "lineHeight": "var(--leading-tight)",
-      "color": "var(--text-primary)",
+      "font-family": "'Lexend', sans-serif",
+      "font-size": "1.125rem",
+      "font-weight": "600",
+      "line-height": "1.25",
+      "color": "#373F4E",
       "margin": "0"
     },
     ".kanban__column-count": {
-      "fontFamily": "var(--font-sans)",
-      "fontSize": "var(--caption)",
-      "fontWeight": "var(--font-medium)",
-      "lineHeight": "var(--leading-normal)",
-      "color": "var(--text-secondary)",
-      "backgroundColor": "var(--elevated-bg)",
+      "font-family": "'Figtree', sans-serif",
+      "font-size": "0.75rem",
+      "font-weight": "500",
+      "line-height": "1.5",
+      "color": "#525969",
+      "background-color": "#F7F8FA",
       "padding": "2px 8px",
-      "borderRadius": "var(--radius-full)",
-      "minWidth": "24px",
-      "textAlign": "center"
+      "border-radius": "9999px",
+      "min-width": "24px",
+      "text-align": "center"
     },
     ".kanban__column-header-actions": {
       "display": "flex",
-      "alignItems": "center",
-      "gap": "var(--space-2)"
+      "align-items": "center",
+      "gap": "8px"
     },
     ".kanban__column-action-icon": {
       "display": "flex",
-      "alignItems": "center",
-      "justifyContent": "center",
-      "width": "var(--space-6)",
-      "height": "var(--space-6)",
+      "align-items": "center",
+      "justify-content": "center",
+      "width": "24px",
+      "height": "24px",
       "padding": "0",
       "border": "none",
       "background": "transparent",
-      "color": "var(--text-secondary)",
+      "color": "#525969",
       "cursor": "pointer",
-      "borderRadius": "var(--radius-04)",
-      "transition": "background-color var(--transition-fast), color var(--transition-fast)"
+      "border-radius": "4px",
+      "transition": "background-color 150ms ease, color 150ms ease"
     },
     ".kanban__column-action-icon:hover": {
-      "backgroundColor": "var(--elevated-bg)",
-      "color": "var(--text-primary)"
+      "background-color": "#F7F8FA",
+      "color": "#373F4E"
     },
     ".kanban__column-action-icon:focus": {
-      "outline": "2px solid var(--theme-primary)",
-      "outlineOffset": "2px"
+      "outline": "2px solid #4C92D9",
+      "outline-offset": "2px"
     },
     ".kanban__add-button": {
-      "flexShrink": "0",
-      "marginTop": "var(--space-2)"
+      "flex-shrink": "0",
+      "margin-top": "8px"
     },
     ".kanban__add-column-button": {
-      "flexShrink": "0",
-      "alignSelf": "flex-start",
-      "marginTop": "var(--space-4)"
+      "flex-shrink": "0",
+      "align-self": "flex-start",
+      "margin-top": "16px"
     },
     ".kanban__column-content": {
       "flex": "1",
-      "overflowY": "auto",
-      "overflowX": "hidden",
-      "padding": "var(--space-3)",
+      "overflow-y": "auto",
+      "overflow-x": "hidden",
+      "padding": "8px",
       "display": "flex",
-      "flexDirection": "column",
-      "gap": "var(--space-3)",
-      "minHeight": "200px"
+      "flex-direction": "column",
+      "gap": "8px",
+      "min-height": "calc(80px * 2.5)"
     },
     ".kanban__column-content::-webkit-scrollbar": {
-      "width": "var(--space-2)"
+      "width": "8px"
     },
     ".kanban__column-content::-webkit-scrollbar-track": {
       "background": "transparent"
     },
     ".kanban__column-content::-webkit-scrollbar-thumb": {
-      "backgroundColor": "var(--border-color)",
-      "borderRadius": "var(--radius-04)"
+      "background-color": "#BFC6D4",
+      "border-radius": "4px"
     },
     ".kanban__column-content::-webkit-scrollbar-thumb:hover": {
-      "backgroundColor": "var(--text-secondary)"
+      "background-color": "#525969"
     },
-    ".kanban-card": {
-      "cursor": "pointer",
-      "transition": "transform var(--transition-fast), box-shadow var(--transition-fast)"
+    ".kanban__action-buttons": {
+      "width": "100%",
+      "flex-wrap": "wrap"
     },
-    ".kanban-card:hover": {
-      "transform": "translateY(-2px)",
-      "boxShadow": "var(--shadow-md)"
-    },
-    ".kanban-card .card__body": {
-      "padding": "var(--space-4)",
-      "display": "flex",
-      "flexDirection": "column",
-      "gap": "var(--space-3)"
-    },
-    ".kanban-card__header": {
-      "display": "flex",
-      "alignItems": "flex-start",
-      "justifyContent": "space-between",
-      "gap": "var(--space-3)",
-      "marginBottom": "var(--space-2)",
-      "minHeight": "32px"
-    },
-    ".kanban-card__avatar": {
-      "flexShrink": "0"
-    },
-    ".kanban-card__header-right": {
-      "display": "flex",
-      "alignItems": "center",
-      "gap": "var(--space-2)",
-      "flexWrap": "wrap",
-      "flexShrink": "0"
-    },
-    ".kanban-card__icons": {
-      "display": "flex",
-      "alignItems": "center",
-      "gap": "var(--space-2)"
-    },
-    ".kanban-card__icon": {
-      "color": "var(--text-secondary)",
-      "flexShrink": "0"
-    },
-    ".kanban-card__badges": {
-      "display": "flex",
-      "flexWrap": "wrap",
-      "gap": "var(--space-1)"
-    },
-    ".kanban-card__description": {
-      "fontFamily": "var(--font-sans)",
-      "fontSize": "var(--text-sm)",
-      "fontWeight": "var(--font-normal)",
-      "lineHeight": "var(--leading-normal)",
-      "color": "var(--text-secondary)",
-      "margin": "0"
-    },
-    ".kanban-card__progress": {
+    ".kanban__action-dropdowns": {
       "width": "100%"
-    },
-    ".kanban-card__title": {
-      "fontFamily": "var(--font-display)",
-      "fontSize": "var(--body-default)",
-      "fontWeight": "var(--font-semibold)",
-      "lineHeight": "var(--leading-snug)",
-      "color": "var(--text-primary)",
-      "margin": "0 0 var(--space-2) 0"
-    },
-    ".kanban-card__date-time": {
-      "display": "flex",
-      "alignItems": "center",
-      "justifyContent": "space-between",
-      "gap": "var(--space-4)",
-      "marginTop": "var(--space-2)",
-      "paddingTop": "var(--space-2)",
-      "borderTop": "1px solid",
-      "borderTopColor": "var(--border-light)",
-      "fontFamily": "var(--font-sans)",
-      "fontSize": "var(--text-sm)",
-      "fontWeight": "var(--font-medium)",
-      "lineHeight": "var(--leading-normal)",
-      "color": "var(--text-secondary)",
-      "minHeight": "var(--space-5)",
-      "flexWrap": "wrap"
-    },
-    ".kanban-card__date, .kanban-card__time": {
-      "flexShrink": "0",
-      "whiteSpace": "nowrap"
-    },
-    "@media (max-width: var(--breakpoint-md))": {
-      ".kanban__container": {
-        "padding": "0"
-      },
-      ".kanban__title-bar": {
-        "padding": "var(--space-3)"
-      },
-      ".kanban__action-bar": {
-        "flexDirection": "column",
-        "alignItems": "stretch",
-        "padding": "var(--space-3)",
-        "gap": "var(--space-3)"
-      },
-      ".kanban__columns-wrapper": {
-        "flexDirection": "column",
-        "gap": "var(--space-4)",
-        "padding": "var(--space-3)"
-      },
-      ".kanban__column-card": {
-        "flex": "1 1 auto",
-        "minWidth": "100%",
-        "maxWidth": "100%"
-      },
-      ".kanban__column-header": {
-        "padding": "var(--space-3)"
-      },
-      ".kanban__column-content": {
-        "padding": "var(--space-2)",
-        "gap": "var(--space-2)"
-      },
-      ".kanban-card .card__body": {
-        "padding": "var(--space-3)"
-      }
     }
+  },
+  "_variantIndex": {},
+  "_variantMetadata": {
+    "availableVariants": []
   }
 }

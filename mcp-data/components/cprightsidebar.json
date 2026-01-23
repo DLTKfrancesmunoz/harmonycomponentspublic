@@ -2,18 +2,17 @@
   "name": "CPRightSidebar",
   "type": "component",
   "filePath": "src/components/ui/CPRightSidebar.astro",
-  "description": "A CP-specific right navigation sidebar that is docked to the right edge of the screen. Shows only icons when collapsed, expands on hover to show text labels + icon. Supports configurable sections via props, with default CP sections provided.",
+  "description": "CPRightSidebar Component",
   "props": {
     "sections": {
       "type": "Section[]",
       "optional": true,
-      "default": "cpDefaultSections",
-      "description": "Optional custom sections configuration. If not provided, uses default CP sections. Each section contains an array of NavItem objects with icon, label, href (optional), active (optional), isCustom (optional), customSrc (optional), and iconSize (optional) properties."
+      "default": null
     },
     "class": {
       "type": "string",
       "optional": true,
-      "default": ""
+      "default": null
     }
   },
   "imports": {
@@ -23,13 +22,10 @@
     "Icon"
   ],
   "cssClasses": [
-    "cp-right-sidebar",
     "cp-right-sidebar__section",
-    "cp-right-sidebar__item",
-    "cp-right-sidebar__item--active",
+    "cp-right-sidebar__label",
     "cp-right-sidebar__icon",
-    "cp-right-sidebar__dela-logo",
-    "cp-right-sidebar__label"
+    "cp-right-sidebar__dela-logo"
   ],
   "themeSupport": {
     "themes": [
@@ -41,114 +37,31 @@
     "darkMode": true
   },
   "slots": {},
-  "defaultSections": [
-    {
-      "items": [
-        {
-          "icon": "dela-ai",
-          "label": "Dela AI",
-          "isCustom": true,
-          "customSrc": "/logos/DelaD.svg",
-          "iconSize": "36px",
-          "href": "#",
-          "active": false
-        },
-        {
-          "icon": "bell",
-          "label": "Notifications",
-          "iconSize": "24px",
-          "href": "#",
-          "active": false
-        },
-        {
-          "icon": "arrow-up-tray",
-          "label": "Files",
-          "iconSize": "24px",
-          "href": "#",
-          "active": false
-        }
-      ]
-    },
-    {
-      "items": [
-        {
-          "icon": "printer",
-          "label": "Print",
-          "iconSize": "24px",
-          "href": "#",
-          "active": false
-        },
-        {
-          "icon": "view-columns",
-          "label": "Layout Options",
-          "iconSize": "24px",
-          "href": "#",
-          "active": false
-        }
-      ]
-    },
-    {
-      "items": [
-        {
-          "icon": "microphone-slash",
-          "label": "Microphone",
-          "iconSize": "24px",
-          "href": "#",
-          "active": false
-        },
-        {
-          "icon": "signal-slash",
-          "label": "Offline",
-          "iconSize": "24px",
-          "href": "#",
-          "active": false
-        },
-        {
-          "icon": "command-line",
-          "label": "Keyboard Shortcuts",
-          "iconSize": "24px",
-          "href": "#",
-          "active": false
-        },
-        {
-          "icon": "question-mark-circle",
-          "label": "Help",
-          "iconSize": "24px",
-          "href": "#",
-          "active": false
-        }
-      ]
-    }
-  ],
   "structure": {
     "root": {
       "element": "nav",
-      "class": "cp-right-sidebar",
+      "class": null,
       "spacing": {
         "padding": "0",
         "margin": "0"
       },
-      "baseClass": "cp-right-sidebar",
+      "baseClass": null,
       "modifierClasses": {},
       "children": [
         {
           "element": "div",
           "class": "cp-right-sidebar__section",
           "spacing": {
-            "padding": "12px 8px",
+            "padding": "var(--space-3) var(--space-2)",
             "margin": "0"
           },
           "children": [
             {
               "element": "a",
-              "class": "cp-right-sidebar__item",
+              "class": null,
               "spacing": {
-                "padding": "6px",
+                "padding": "0",
                 "margin": "0"
-              },
-              "attributes": {
-                "href": "item.href || '#'",
-                "class": "cp-right-sidebar__item (with cp-right-sidebar__item--active if item.active is true)"
               },
               "children": [
                 {
@@ -167,28 +80,7 @@
                     "padding": "0",
                     "margin": "0"
                   },
-                  "children": [
-                    {
-                      "element": "Icon",
-                      "class": "",
-                      "props": {
-                        "name": "item.icon",
-                        "size": "lg"
-                      },
-                      "conditional": "if !item.isCustom",
-                      "children": []
-                    },
-                    {
-                      "element": "img",
-                      "class": "cp-right-sidebar__dela-logo (if isDelaLogo)",
-                      "attributes": {
-                        "src": "item.customSrc",
-                        "alt": "item.label"
-                      },
-                      "conditional": "if item.isCustom && item.customSrc",
-                      "children": []
-                    }
-                  ]
+                  "children": []
                 }
               ]
             }
@@ -199,965 +91,134 @@
     "children": []
   },
   "_metadata": {
-    "lastGenerated": "2026-01-22T20:00:00.000Z",
+    "lastGenerated": "2026-01-23T01:33:49.856Z",
     "generatedWith": "@astrojs/compiler@2.13.0",
     "includesVisualSpecs": true,
     "availableVariants": []
   },
   "visualSpecifications": {
     "dimensions": {
-      "root": {
-        "collapsed": {
-          "width": "52px",
-          "height": "auto",
-          "minWidth": "52px",
-          "maxWidth": "52px"
-        },
-        "expanded": {
-          "width": "220px",
-          "height": "auto",
-          "minWidth": "52px",
-          "maxWidth": "220px"
-        }
-      },
-      "section": {
-        "width": "100%",
-        "height": "auto",
+      "xs": {
+        "height": null,
+        "width": null,
         "minWidth": "auto",
         "maxWidth": "none"
       },
-      "item": {
-        "width": "100%",
-        "height": "auto",
+      "sm": {
+        "height": null,
+        "width": null,
         "minWidth": "auto",
         "maxWidth": "none"
       },
-      "icon": {
-        "width": "24px",
-        "height": "24px",
-        "minWidth": "24px",
-        "maxWidth": "24px"
+      "md": {
+        "height": null,
+        "width": null,
+        "minWidth": "auto",
+        "maxWidth": "none"
       },
-      "delaLogo": {
-        "width": "36px",
-        "height": "36px",
-        "minWidth": "36px",
-        "maxWidth": "36px"
-      },
-      "label": {
-        "width": "auto",
-        "height": "auto",
+      "lg": {
+        "height": null,
+        "width": null,
         "minWidth": "auto",
         "maxWidth": "none"
       }
     },
     "spacing": {
-      "root": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "marginTop": "0",
-        "marginRight": "0",
-        "marginBottom": "0",
-        "marginLeft": "0",
-        "gap": "12px"
-      },
-      "section": {
-        "paddingTop": "12px",
-        "paddingRight": "8px",
-        "paddingBottom": "12px",
-        "paddingLeft": "8px",
-        "marginTop": "0",
-        "marginRight": "0",
-        "marginBottom": "0",
-        "marginLeft": "0",
-        "gap": "8px"
-      },
-      "item": {
+      "xs": {
         "paddingTop": "6px",
         "paddingRight": "6px",
         "paddingBottom": "6px",
         "paddingLeft": "6px",
-        "marginTop": "0",
-        "marginRight": "0",
-        "marginBottom": "0",
-        "marginLeft": "0",
         "gap": "8px"
       },
-      "icon": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "marginTop": "0",
-        "marginRight": "0",
-        "marginBottom": "0",
-        "marginLeft": "0",
-        "gap": "0"
+      "sm": {
+        "paddingTop": "6px",
+        "paddingRight": "6px",
+        "paddingBottom": "6px",
+        "paddingLeft": "6px",
+        "gap": "8px"
       },
-      "label": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "marginTop": "0",
-        "marginRight": "0",
-        "marginBottom": "0",
-        "marginLeft": "0",
-        "gap": "0"
-      }
-    },
-    "borderRadius": {
-      "root": {
-        "base": "0",
-        "value": "0",
-        "cssVar": ""
+      "md": {
+        "paddingTop": "6px",
+        "paddingRight": "6px",
+        "paddingBottom": "6px",
+        "paddingLeft": "6px",
+        "gap": "8px"
       },
-      "section": {
-        "base": "12px",
-        "value": "0.75rem",
-        "cssVar": "--radius-12",
-        "left": "12px",
-        "right": "0",
-        "top": "12px",
-        "bottom": "12px"
-      },
-      "item": {
-        "base": "8px",
-        "value": "0.5rem",
-        "cssVar": "--radius-08"
-      },
-      "delaLogo": {
-        "base": "50%",
-        "value": "50%",
-        "cssVar": ""
+      "lg": {
+        "paddingTop": "6px",
+        "paddingRight": "6px",
+        "paddingBottom": "6px",
+        "paddingLeft": "6px",
+        "gap": "8px"
       }
     },
     "typography": {
-      "label": {
-        "fontFamily": "'Figtree', sans-serif",
-        "fontWeight": "400",
-        "fontSize": "0.875rem",
-        "fontSizePixels": "14px",
-        "lineHeight": "inherit",
-        "letterSpacing": "normal",
-        "textAlign": "right",
-        "cssVar": {
-          "fontFamily": "--font-sans",
-          "fontSize": "--text-sm",
-          "fontWeight": "--font-normal"
+      "fontFamily": "'Figtree', sans-serif",
+      "fontWeight": "400",
+      "lineHeight": null,
+      "letterSpacing": null,
+      "textTransform": null,
+      "sizes": {
+        "xs": {
+          "fontSize": "0.875rem",
+          "lineHeight": null
+        },
+        "sm": {
+          "fontSize": "0.875rem",
+          "lineHeight": null
+        },
+        "md": {
+          "fontSize": "0.875rem",
+          "lineHeight": null
+        },
+        "lg": {
+          "fontSize": "0.875rem",
+          "lineHeight": null
         }
       }
     },
     "borders": {
-      "section": {
-        "width": "1px",
-        "style": "solid",
-        "radius": "12px 0 0 12px",
-        "right": "none"
-      },
-      "item": {
-        "width": "none",
-        "style": "none",
-        "radius": "8px"
+      "width": null,
+      "style": null,
+      "radius": {
+        "default": "50%"
       }
+    },
+    "colors": {
+      "variants": {}
+    },
+    "elevation": {
+      "default": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+      "hover": null,
+      "active": null,
+      "focus": null
     },
     "transitions": {
-      "root": {
-        "property": "width",
-        "duration": "0.2s",
-        "timingFunction": "ease",
-        "cssVar": ""
-      },
-      "item": {
-        "property": "background-color",
-        "duration": "150ms",
-        "timingFunction": "ease",
-        "cssVar": "--transition-fast"
-      },
-      "label": {
-        "property": "opacity, visibility",
-        "duration": "0.2s",
-        "timingFunction": "ease",
-        "cssVar": ""
+      "default": "opacity 0.2s ease, visibility 0.2s ease",
+      "properties": {
+        "width": "width 0.2s ease",
+        "background-color": "background-color 150ms ease",
+        "opacity": "opacity 0.2s ease",
+        "visibility": "visibility 0.2s ease"
       }
-    },
-    "icon": {
-      "container": {
-        "width": "24px",
-        "height": "24px",
-        "display": "flex",
-        "alignItems": "center",
-        "justifyContent": "center",
-        "flexShrink": "0"
-      },
-      "svg": {
-        "width": "24px",
-        "height": "24px"
-      },
-      "delaLogo": {
-        "width": "36px",
-        "height": "36px",
-        "borderRadius": "50%",
-        "src": "/logos/DelaD.svg",
-        "alt": "Dela AI"
-      },
-      "color": {
-        "inherited": true,
-        "from": "item text color"
-      },
-      "strokeWidth": "1.5"
     },
     "layout": {
-      "root": {
-        "display": "flex",
-        "flexDirection": "column",
-        "position": "fixed",
-        "right": "0",
-        "top": "50%",
-        "transform": "translateY(-50%)",
-        "zIndex": "200",
-        "overflow": "visible"
-      },
-      "section": {
-        "display": "flex",
-        "flexDirection": "column",
-        "alignItems": "flex-end",
-        "overflow": "visible"
-      },
-      "item": {
-        "display": "flex",
-        "alignItems": "center",
-        "justifyContent": "flex-end",
-        "width": "100%",
-        "whiteSpace": "nowrap"
-      },
-      "label": {
-        "opacity": "0",
-        "visibility": "hidden",
-        "flex": "1",
-        "textAlign": "right"
-      },
-      "labelVisible": {
-        "opacity": "1",
-        "visibility": "visible"
-      }
-    }
+      "display": "flex",
+      "flexDirection": "column",
+      "position": "fixed",
+      "alignItems": "center",
+      "justifyContent": "center",
+      "flexShrink": "0"
+    },
+    "iconSpecs": null
   },
-  "variants": {
-    "default": {
-      "states": {
-        "default": {
-          "root": {
-            "width": "52px"
-          },
-          "section": {
-            "backgroundColor": "var(--nav-bg)",
-            "border": "1px solid var(--cp-sidebar-section-border)",
-            "borderRight": "none",
-            "boxShadow": "var(--shadow-xl)"
-          },
-          "item": {
-            "backgroundColor": "transparent",
-            "color": "var(--cp-sidebar-item-fg)",
-            "textDecoration": "none"
-          },
-          "label": {
-            "opacity": "0",
-            "visibility": "hidden"
-          }
-        },
-        "hover": {
-          "root": {
-            "width": "220px"
-          },
-          "item": {
-            "backgroundColor": "var(--cp-sidebar-item-hover-bg)",
-            "textDecoration": "none"
-          },
-          "label": {
-            "opacity": "1",
-            "visibility": "visible"
-          }
-        },
-        "focus": {
-          "item": {
-            "outline": "1px solid var(--card-bg)",
-            "outlineOffset": "0",
-            "boxShadow": "var(--focus-ring-primary)"
-          }
-        },
-        "active": {
-          "item": {
-            "boxShadow": "var(--shadow-inset-sm)"
-          }
-        }
-      },
-      "resolved": {
-        "cp": {
-          "light": {
-            "default": {
-              "root": {
-                "width": "52px"
-              },
-              "section": {
-                "backgroundColor": "#FCFDFF",
-                "border": "1px solid #ffffff",
-                "borderRight": "none",
-                "boxShadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)"
-              },
-              "item": {
-                "backgroundColor": "transparent",
-                "color": "#373f4e",
-                "textDecoration": "none"
-              },
-              "label": {
-                "opacity": "0",
-                "visibility": "hidden"
-              }
-            },
-            "hover": {
-              "root": {
-                "width": "220px"
-              },
-              "item": {
-                "backgroundColor": "rgba(55, 63, 78, 0.08)",
-                "textDecoration": "none"
-              },
-              "label": {
-                "opacity": "1",
-                "visibility": "visible"
-              }
-            },
-            "focus": {
-              "item": {
-                "outline": "1px solid #F7F8FA",
-                "outlineOffset": "0",
-                "boxShadow": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA"
-              }
-            },
-            "active": {
-              "item": {
-                "boxShadow": "inset 0 1px 4px 0 rgba(0, 0, 0, 0.1)"
-              }
-            }
-          },
-          "dark": {
-            "default": {
-              "root": {
-                "width": "52px"
-              },
-              "section": {
-                "backgroundColor": "#333d47",
-                "border": "1px solid #4a5568",
-                "borderRight": "none",
-                "boxShadow": "0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3)"
-              },
-              "item": {
-                "backgroundColor": "transparent",
-                "color": "#e9ecef",
-                "textDecoration": "none"
-              },
-              "label": {
-                "opacity": "0",
-                "visibility": "hidden"
-              }
-            },
-            "hover": {
-              "root": {
-                "width": "220px"
-              },
-              "item": {
-                "backgroundColor": "rgba(255, 255, 255, 0.08)",
-                "textDecoration": "none"
-              },
-              "label": {
-                "opacity": "1",
-                "visibility": "visible"
-              }
-            },
-            "focus": {
-              "item": {
-                "outline": "1px solid #37424D",
-                "outlineOffset": "0",
-                "boxShadow": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #37424D"
-              }
-            },
-            "active": {
-              "item": {
-                "boxShadow": "inset 0 1px 4px 0 rgba(0, 0, 0, 0.1)"
-              }
-            }
-          }
-        },
-        "vp": {
-          "light": {
-            "default": {
-              "root": {
-                "width": "52px"
-              },
-              "section": {
-                "backgroundColor": "#FCFDFF",
-                "border": "1px solid #BFC6D4",
-                "borderRight": "none",
-                "boxShadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)"
-              },
-              "item": {
-                "backgroundColor": "transparent",
-                "color": "#373F4E",
-                "textDecoration": "none"
-              },
-              "label": {
-                "opacity": "0",
-                "visibility": "hidden"
-              }
-            },
-            "hover": {
-              "root": {
-                "width": "220px"
-              },
-              "item": {
-                "backgroundColor": "#E5E7EB",
-                "textDecoration": "none"
-              },
-              "label": {
-                "opacity": "1",
-                "visibility": "visible"
-              }
-            },
-            "focus": {
-              "item": {
-                "outline": "1px solid #F7F8FA",
-                "outlineOffset": "0",
-                "boxShadow": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA"
-              }
-            },
-            "active": {
-              "item": {
-                "boxShadow": "inset 0 1px 4px 0 rgba(0, 0, 0, 0.1)"
-              }
-            }
-          },
-          "dark": {
-            "default": {
-              "root": {
-                "width": "52px"
-              },
-              "section": {
-                "backgroundColor": "#1A1C1F",
-                "border": "1px solid #2A2D32",
-                "borderRight": "none",
-                "boxShadow": "0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3)"
-              },
-              "item": {
-                "backgroundColor": "transparent",
-                "color": "#FAFAFA",
-                "textDecoration": "none"
-              },
-              "label": {
-                "opacity": "0",
-                "visibility": "hidden"
-              }
-            },
-            "hover": {
-              "root": {
-                "width": "220px"
-              },
-              "item": {
-                "backgroundColor": "#2A2D32",
-                "textDecoration": "none"
-              },
-              "label": {
-                "opacity": "1",
-                "visibility": "visible"
-              }
-            },
-            "focus": {
-              "item": {
-                "outline": "1px solid #1F2124",
-                "outlineOffset": "0",
-                "boxShadow": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #1F2124"
-              }
-            },
-            "active": {
-              "item": {
-                "boxShadow": "inset 0 1px 4px 0 rgba(0, 0, 0, 0.1)"
-              }
-            }
-          }
-        },
-        "ppm": {
-          "light": {
-            "default": {
-              "root": {
-                "width": "52px"
-              },
-              "section": {
-                "backgroundColor": "#FCFDFF",
-                "border": "1px solid #BFC6D4",
-                "borderRight": "none",
-                "boxShadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)"
-              },
-              "item": {
-                "backgroundColor": "transparent",
-                "color": "#373F4E",
-                "textDecoration": "none"
-              },
-              "label": {
-                "opacity": "0",
-                "visibility": "hidden"
-              }
-            },
-            "hover": {
-              "root": {
-                "width": "220px"
-              },
-              "item": {
-                "backgroundColor": "#E5E7EB",
-                "textDecoration": "none"
-              },
-              "label": {
-                "opacity": "1",
-                "visibility": "visible"
-              }
-            },
-            "focus": {
-              "item": {
-                "outline": "1px solid #F7F8FA",
-                "outlineOffset": "0",
-                "boxShadow": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA"
-              }
-            },
-            "active": {
-              "item": {
-                "boxShadow": "inset 0 1px 4px 0 rgba(0, 0, 0, 0.1)"
-              }
-            }
-          },
-          "dark": {
-            "default": {
-              "root": {
-                "width": "52px"
-              },
-              "section": {
-                "backgroundColor": "#1A1C1F",
-                "border": "1px solid #2A2D32",
-                "borderRight": "none",
-                "boxShadow": "0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3)"
-              },
-              "item": {
-                "backgroundColor": "transparent",
-                "color": "#FAFAFA",
-                "textDecoration": "none"
-              },
-              "label": {
-                "opacity": "0",
-                "visibility": "hidden"
-              }
-            },
-            "hover": {
-              "root": {
-                "width": "220px"
-              },
-              "item": {
-                "backgroundColor": "#2A2D32",
-                "textDecoration": "none"
-              },
-              "label": {
-                "opacity": "1",
-                "visibility": "visible"
-              }
-            },
-            "focus": {
-              "item": {
-                "outline": "1px solid #1F2124",
-                "outlineOffset": "0",
-                "boxShadow": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #1F2124"
-              }
-            },
-            "active": {
-              "item": {
-                "boxShadow": "inset 0 1px 4px 0 rgba(0, 0, 0, 0.1)"
-              }
-            }
-          }
-        },
-        "maconomy": {
-          "light": {
-            "default": {
-              "root": {
-                "width": "52px"
-              },
-              "section": {
-                "backgroundColor": "#FCFDFF",
-                "border": "1px solid #BFC6D4",
-                "borderRight": "none",
-                "boxShadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)"
-              },
-              "item": {
-                "backgroundColor": "transparent",
-                "color": "#373F4E",
-                "textDecoration": "none"
-              },
-              "label": {
-                "opacity": "0",
-                "visibility": "hidden"
-              }
-            },
-            "hover": {
-              "root": {
-                "width": "220px"
-              },
-              "item": {
-                "backgroundColor": "#E5E7EB",
-                "textDecoration": "none"
-              },
-              "label": {
-                "opacity": "1",
-                "visibility": "visible"
-              }
-            },
-            "focus": {
-              "item": {
-                "outline": "1px solid #F7F8FA",
-                "outlineOffset": "0",
-                "boxShadow": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA"
-              }
-            },
-            "active": {
-              "item": {
-                "boxShadow": "inset 0 1px 4px 0 rgba(0, 0, 0, 0.1)"
-              }
-            }
-          },
-          "dark": {
-            "default": {
-              "root": {
-                "width": "52px"
-              },
-              "section": {
-                "backgroundColor": "#1A1C1F",
-                "border": "1px solid #2A2D32",
-                "borderRight": "none",
-                "boxShadow": "0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3)"
-              },
-              "item": {
-                "backgroundColor": "transparent",
-                "color": "#FAFAFA",
-                "textDecoration": "none"
-              },
-              "label": {
-                "opacity": "0",
-                "visibility": "hidden"
-              }
-            },
-            "hover": {
-              "root": {
-                "width": "220px"
-              },
-              "item": {
-                "backgroundColor": "#2A2D32",
-                "textDecoration": "none"
-              },
-              "label": {
-                "opacity": "1",
-                "visibility": "visible"
-              }
-            },
-            "focus": {
-              "item": {
-                "outline": "1px solid #1F2124",
-                "outlineOffset": "0",
-                "boxShadow": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #1F2124"
-              }
-            },
-            "active": {
-              "item": {
-                "boxShadow": "inset 0 1px 4px 0 rgba(0, 0, 0, 0.1)"
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "themeColors": {
-    "cp": {
-      "light": {
-        "navBg": "#FCFDFF",
-        "cpSidebarSectionBorder": "#ffffff",
-        "cpSidebarItemFg": "#373f4e",
-        "cpSidebarItemHoverBg": "rgba(55, 63, 78, 0.08)",
-        "textPrimary": "#373F4E",
-        "textSecondary": "#525969",
-        "textMuted": "#6B7280",
-        "textInverse": "#FFFFFF",
-        "borderColor": "#BFC6D4",
-        "hoverBg": "#E5E7EB",
-        "elevatedBg": "#F7F8FA",
-        "cardBg": "#F7F8FA",
-        "colorError": "#D83148",
-        "colorErrorFocus": "rgba(216, 49, 72, 0.32)",
-        "themePrimary": "#4C92D9",
-        "themePrimaryHover": "#3D7BC4",
-        "themePrimaryLight": "rgba(76, 146, 217, 0.1)"
-      },
-      "dark": {
-        "cpSidebarSectionBgDark": "#333d47",
-        "cpSidebarSectionBorderDark": "#4a5568",
-        "cpSidebarItemFgDark": "#e9ecef",
-        "cpSidebarItemHoverBgDark": "rgba(255, 255, 255, 0.08)",
-        "navBg": "#333D47",
-        "textPrimary": "#E9ECEF",
-        "textSecondary": "#B6B6C4",
-        "textMuted": "#BBBBC6",
-        "textInverse": "#1F252E",
-        "borderColor": "#5F6871",
-        "hoverBg": "#3D4A5C",
-        "elevatedBg": "#37424D",
-        "cardBg": "#37424D",
-        "colorError": "#F46286",
-        "colorErrorFocus": "rgba(244, 98, 134, 0.32)",
-        "themePrimary": "#59ACFF",
-        "themePrimaryHover": "#7BB8FF",
-        "themePrimaryLight": "rgba(89, 172, 255, 0.1)"
-      }
-    },
-    "vp": {
-      "light": {
-        "navBg": "#FCFDFF",
-        "textPrimary": "#373F4E",
-        "textSecondary": "#525969",
-        "textMuted": "#6B7280",
-        "textInverse": "#FFFFFF",
-        "borderColor": "#BFC6D4",
-        "hoverBg": "#E5E7EB",
-        "elevatedBg": "#F7F8FA",
-        "cardBg": "#F7F8FA",
-        "colorError": "#D83148",
-        "colorErrorFocus": "rgba(216, 49, 72, 0.32)",
-        "themePrimary": "#4C92D9",
-        "themePrimaryHover": "#3D7BC4",
-        "themePrimaryLight": "rgba(76, 146, 217, 0.1)"
-      },
-      "dark": {
-        "navBg": "#1A1C1F",
-        "textPrimary": "#FAFAFA",
-        "textSecondary": "#B5B5BC",
-        "textMuted": "#B5B5BC",
-        "textInverse": "#15171A",
-        "borderColor": "#2A2D32",
-        "hoverBg": "#2A2D32",
-        "elevatedBg": "#1F2124",
-        "cardBg": "#1F2124",
-        "colorError": "#F46286",
-        "colorErrorFocus": "rgba(244, 98, 134, 0.32)",
-        "themePrimary": "#59ACFF",
-        "themePrimaryHover": "#7bb8ff",
-        "themePrimaryLight": "rgba(89, 172, 255, 0.1)"
-      }
-    },
-    "ppm": {
-      "light": {
-        "navBg": "#FCFDFF",
-        "textPrimary": "#373F4E",
-        "textSecondary": "#525969",
-        "textMuted": "#6B7280",
-        "textInverse": "#FFFFFF",
-        "borderColor": "#BFC6D4",
-        "hoverBg": "#E5E7EB",
-        "elevatedBg": "#F7F8FA",
-        "cardBg": "#F7F8FA",
-        "colorError": "#D83148",
-        "colorErrorFocus": "rgba(216, 49, 72, 0.32)",
-        "themePrimary": "#4C92D9",
-        "themePrimaryHover": "#3D7BC4",
-        "themePrimaryLight": "rgba(76, 146, 217, 0.1)"
-      },
-      "dark": {
-        "navBg": "#1A1C1F",
-        "textPrimary": "#FAFAFA",
-        "textSecondary": "#B5B5BC",
-        "textMuted": "#B5B5BC",
-        "textInverse": "#15171A",
-        "borderColor": "#2A2D32",
-        "hoverBg": "#2A2D32",
-        "elevatedBg": "#1F2124",
-        "cardBg": "#1F2124",
-        "colorError": "#F46286",
-        "colorErrorFocus": "rgba(244, 98, 134, 0.32)",
-        "themePrimary": "#59ACFF",
-        "themePrimaryHover": "#7bb8ff",
-        "themePrimaryLight": "rgba(89, 172, 255, 0.1)"
-      }
-    },
-    "maconomy": {
-      "light": {
-        "navBg": "#FCFDFF",
-        "textPrimary": "#373F4E",
-        "textSecondary": "#525969",
-        "textMuted": "#6B7280",
-        "textInverse": "#FFFFFF",
-        "borderColor": "#BFC6D4",
-        "hoverBg": "#E5E7EB",
-        "elevatedBg": "#F7F8FA",
-        "cardBg": "#F7F8FA",
-        "colorError": "#D83148",
-        "colorErrorFocus": "rgba(216, 49, 72, 0.32)",
-        "themePrimary": "#4C92D9",
-        "themePrimaryHover": "#3D7BC4",
-        "themePrimaryLight": "rgba(76, 146, 217, 0.1)"
-      },
-      "dark": {
-        "navBg": "#1A1C1F",
-        "textPrimary": "#FAFAFA",
-        "textSecondary": "#B5B5BC",
-        "textMuted": "#B5B5BC",
-        "textInverse": "#15171A",
-        "borderColor": "#2A2D32",
-        "hoverBg": "#2A2D32",
-        "elevatedBg": "#1F2124",
-        "cardBg": "#1F2124",
-        "colorError": "#F46286",
-        "colorErrorFocus": "rgba(244, 98, 134, 0.32)",
-        "themePrimary": "#59ACFF",
-        "themePrimaryHover": "#7bb8ff",
-        "themePrimaryLight": "rgba(89, 172, 255, 0.1)"
-      }
-    }
-  },
-  "elevations": {
-    "focusRings": {
-      "primary": {
-        "raw": "var(--focus-ring-primary)",
-        "resolved": {
-          "cp": {
-            "light": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA",
-            "dark": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #37424D"
-          },
-          "vp": {
-            "light": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA",
-            "dark": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #1F2124"
-          },
-          "ppm": {
-            "light": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA",
-            "dark": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #1F2124"
-          },
-          "maconomy": {
-            "light": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA",
-            "dark": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #1F2124"
-          }
-        }
-      }
-    },
-    "insetShadows": {
-      "sm": {
-        "raw": "var(--shadow-inset-sm)",
-        "resolved": "inset 0 1px 4px 0 rgba(0, 0, 0, 0.1)"
-      },
-      "md": {
-        "raw": "var(--shadow-inset-md)",
-        "resolved": "inset 0 1px 4px 0 rgba(0, 0, 0, 0.2)"
-      }
-    },
-    "shadows": {
-      "xl": {
-        "raw": "var(--shadow-xl)",
-        "resolved": {
-          "cp": {
-            "light": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
-            "dark": "0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3)"
-          },
-          "vp": {
-            "light": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
-            "dark": "0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3)"
-          },
-          "ppm": {
-            "light": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
-            "dark": "0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3)"
-          },
-          "maconomy": {
-            "light": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
-            "dark": "0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3)"
-          }
-        }
-      }
-    },
-    "cssVars": {
-      "shadowXl": "--shadow-xl",
-      "shadowInsetSm": "--shadow-inset-sm",
-      "shadowInsetMd": "--shadow-inset-md",
-      "focusRingPrimary": "--focus-ring-primary"
-    }
-  },
-  "states": {
-    "default": {
-      "root": {
-        "width": "52px",
-        "position": "fixed",
-        "right": "0",
-        "top": "50%",
-        "transform": "translateY(-50%)",
-        "zIndex": "200"
-      },
-      "section": {
-        "backgroundColor": "theme-specific (see themeColors)",
-        "border": "1px solid",
-        "borderRight": "none",
-        "borderRadius": "12px 0 0 12px",
-        "boxShadow": "theme-specific (see elevations)"
-      },
-      "item": {
-        "backgroundColor": "transparent",
-        "color": "theme-specific (see themeColors)",
-        "textDecoration": "none",
-        "cursor": "pointer"
-      },
-      "label": {
-        "opacity": "0",
-        "visibility": "hidden"
-      }
-    },
-    "hover": {
-      "root": {
-        "width": "220px"
-      },
-      "item": {
-        "backgroundColor": "theme-specific hover color (see themeColors)",
-        "textDecoration": "none"
-      },
-      "label": {
-        "opacity": "1",
-        "visibility": "visible"
-      }
-    },
-    "focus": {
-      "item": {
-        "outline": "1px solid var(--card-bg)",
-        "outlineOffset": "0",
-        "boxShadow": "var(--focus-ring-primary)"
-      }
-    },
-    "active": {
-      "item": {
-        "class": "cp-right-sidebar__item--active",
-        "boxShadow": "var(--shadow-inset-sm)"
-      }
-    },
-    "itemActive": {
-      "item": {
-        "class": "cp-right-sidebar__item--active",
-        "description": "Applied when item.active is true"
-      }
-    },
-    "disabled": {
-      "item": {
-        "opacity": "0.5",
-        "cursor": "not-allowed",
-        "pointerEvents": "none"
-      }
-    }
+  "accessibility": {
+    "role": null,
+    "tabIndex": null,
+    "keyboardSupport": {},
+    "ariaAttributes": {},
+    "focusVisible": {}
   },
   "cssClassStyles": {
     ".cp-right-sidebar": {
@@ -1165,9 +226,9 @@
       "right": "0",
       "top": "50%",
       "transform": "translateY(-50%)",
-      "zIndex": "200",
+      "z-index": "200",
       "display": "flex",
-      "flexDirection": "column",
+      "flex-direction": "column",
       "gap": "12px",
       "width": "52px",
       "transition": "width 0.2s ease",
@@ -1177,45 +238,42 @@
       "width": "220px"
     },
     ".cp-right-sidebar__section": {
-      "backgroundColor": "var(--nav-bg)",
-      "border": "1px solid var(--cp-sidebar-section-border)",
-      "borderRight": "none",
-      "borderRadius": "12px 0 0 12px",
-      "boxShadow": "var(--shadow-xl)",
+      "background-color": "#FCFDFF",
+      "border": "1px solid #ffffff",
+      "border-right": "none",
+      "border-radius": "12px 0 0 12px",
+      "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
       "padding": "12px 8px",
       "display": "flex",
-      "flexDirection": "column",
-      "alignItems": "flex-end",
+      "flex-direction": "column",
+      "align-items": "flex-end",
       "gap": "8px",
       "overflow": "visible"
     },
     ".cp-right-sidebar__item": {
       "display": "flex",
-      "alignItems": "center",
-      "justifyContent": "flex-end",
+      "align-items": "center",
+      "justify-content": "flex-end",
       "gap": "8px",
       "padding": "6px",
-      "borderRadius": "8px",
-      "textDecoration": "none",
-      "color": "var(--cp-sidebar-item-fg)",
-      "whiteSpace": "nowrap",
+      "border-radius": "8px",
+      "text-decoration": "none",
+      "color": "#373f4e",
+      "white-space": "nowrap",
       "width": "100%",
       "transition": "background-color 150ms ease"
     },
     ".cp-right-sidebar__item:hover": {
-      "backgroundColor": "var(--cp-sidebar-item-hover-bg)",
-      "textDecoration": "none"
-    },
-    ".cp-right-sidebar__item--active": {
-      "description": "Active state class applied when item.active is true"
+      "background-color": "rgba(55, 63, 78, 0.08)",
+      "text-decoration": "none"
     },
     ".cp-right-sidebar__icon": {
-      "flexShrink": "0",
+      "flex-shrink": "0",
       "width": "24px",
       "height": "24px",
       "display": "flex",
-      "alignItems": "center",
-      "justifyContent": "center"
+      "align-items": "center",
+      "justify-content": "center"
     },
     ".cp-right-sidebar__icon svg": {
       "width": "24px",
@@ -1224,31 +282,35 @@
     ".cp-right-sidebar__dela-logo": {
       "width": "36px",
       "height": "36px",
-      "borderRadius": "50%"
+      "border-radius": "50%"
     },
     ".cp-right-sidebar__label": {
-      "fontFamily": "var(--font-sans)",
-      "fontSize": "var(--text-sm)",
-      "fontWeight": "var(--font-normal)",
+      "font-family": "'Figtree', sans-serif",
+      "font-size": "0.875rem",
+      "font-weight": "400",
       "opacity": "0",
       "visibility": "hidden",
       "transition": "opacity 0.2s ease, visibility 0.2s ease",
       "flex": "1",
-      "textAlign": "right"
+      "text-align": "right"
     },
     ".cp-right-sidebar:hover .cp-right-sidebar__label": {
       "opacity": "1",
       "visibility": "visible"
     },
     "html.theme-cp.dark .cp-right-sidebar__section": {
-      "backgroundColor": "var(--cp-sidebar-section-bg-dark)",
-      "borderColor": "var(--cp-sidebar-section-border-dark)"
+      "background-color": "#333d47",
+      "border-color": "#4a5568"
     },
     "html.theme-cp.dark .cp-right-sidebar__item": {
-      "color": "var(--cp-sidebar-item-fg-dark)"
+      "color": "#e9ecef"
     },
     "html.theme-cp.dark .cp-right-sidebar__item:hover": {
-      "backgroundColor": "var(--cp-sidebar-item-hover-bg-dark)"
+      "background-color": "rgba(255, 255, 255, 0.08)"
     }
+  },
+  "_variantIndex": {},
+  "_variantMetadata": {
+    "availableVariants": []
   }
 }
