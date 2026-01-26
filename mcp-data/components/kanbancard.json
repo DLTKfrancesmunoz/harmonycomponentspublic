@@ -2,57 +2,57 @@
   "name": "KanbanCard",
   "type": "component",
   "filePath": "src/components/ui/KanbanCard.astro",
-  "description": "Individual card component for Kanban board items. Uses Card component as base with elevated styling and adds Kanban-specific layout with avatar, icons, badges, description, progress bar, and date/time information.",
+  "description": "KanbanCard Component",
   "props": {
     "id": {
       "type": "string",
       "optional": false,
-      "default": ""
+      "default": null
     },
     "title": {
       "type": "string",
       "optional": true,
-      "default": ""
+      "default": null
     },
     "description": {
       "type": "string",
       "optional": true,
-      "default": ""
+      "default": null
     },
     "avatar": {
       "type": "{ name?: string; size?: 'sm' | 'md' | 'lg' }",
       "optional": true,
-      "default": {}
+      "default": null
     },
     "badges": {
       "type": "Array<{ label: string; variant?: BadgeVariant }>",
       "optional": true,
-      "default": []
+      "default": null
     },
     "progress": {
       "type": "number",
       "optional": true,
-      "default": 0
+      "default": null
     },
     "icons": {
       "type": "Array<{ name: string; size?: 'xs' | 'sm' | 'md' }>",
       "optional": true,
-      "default": []
+      "default": null
     },
     "date": {
       "type": "string",
       "optional": true,
-      "default": ""
+      "default": null
     },
     "time": {
       "type": "string",
       "optional": true,
-      "default": ""
+      "default": null
     },
     "class": {
       "type": "string",
       "optional": true,
-      "default": ""
+      "default": null
     }
   },
   "imports": {
@@ -96,171 +96,68 @@
   "slots": {
     "default": {
       "name": "default",
-      "required": false,
-      "location": "card body",
-      "description": "Additional content slot",
-      "conditional": ""
+      "required": true,
+      "location": null,
+      "description": null,
+      "conditional": null
     }
   },
   "structure": {
     "root": {
-      "element": "Card",
-      "class": "kanban-card",
+      "element": "div",
+      "class": "kanban-card__header",
       "spacing": {
         "padding": "0",
         "margin": "0"
       },
-      "baseClass": "kanban-card",
-      "modifierClasses": {
-        "elevated": "card--elevated"
-      },
-      "props": {
-        "elevated": true
-      },
+      "baseClass": "kanban-card__header",
+      "modifierClasses": {},
       "children": [
         {
           "element": "div",
-          "class": "kanban-card__header",
+          "class": "kanban-card__header-right",
           "spacing": {
             "padding": "0",
-            "margin": "0 0 8px 0"
+            "margin": "0"
           },
           "children": [
             {
-              "element": "Avatar",
-              "class": "kanban-card__avatar",
-              "spacing": {
-                "padding": "0",
-                "margin": "0"
-              },
-              "props": {
-                "size": "sm"
-              },
-              "children": []
-            },
-            {
               "element": "div",
-              "class": "kanban-card__header-right",
+              "class": "kanban-card__icons",
               "spacing": {
                 "padding": "0",
                 "margin": "0"
               },
               "children": [
                 {
-                  "element": "div",
-                  "class": "kanban-card__icons",
+                  "element": "Icon",
+                  "class": "kanban-card__icon",
                   "spacing": {
                     "padding": "0",
                     "margin": "0"
                   },
-                  "conditional": "when icons array is provided",
-                  "children": [
-                    {
-                      "element": "Icon",
-                      "class": "kanban-card__icon",
-                      "spacing": {
-                        "padding": "0",
-                        "margin": "0"
-                      },
-                      "children": []
-                    }
-                  ]
-                },
-                {
-                  "element": "div",
-                  "class": "kanban-card__badges",
-                  "spacing": {
-                    "padding": "0",
-                    "margin": "0"
-                  },
-                  "conditional": "when badges array is provided",
-                  "children": [
-                    {
-                      "element": "Badge",
-                      "class": "",
-                      "spacing": {
-                        "padding": "0",
-                        "margin": "0"
-                      },
-                      "children": []
-                    }
-                  ]
+                  "children": []
                 }
               ]
-            }
-          ]
-        },
-        {
-          "element": "h3",
-          "class": "kanban-card__title",
-          "spacing": {
-            "padding": "0",
-            "margin": "0 0 8px 0"
-          },
-          "conditional": "when title prop is provided",
-          "children": []
-        },
-        {
-          "element": "p",
-          "class": "kanban-card__description",
-          "spacing": {
-            "padding": "0",
-            "margin": "0"
-          },
-          "conditional": "when description prop is provided",
-          "children": []
-        },
-        {
-          "element": "div",
-          "class": "kanban-card__progress",
-          "spacing": {
-            "padding": "0",
-            "margin": "0"
-          },
-          "conditional": "when progress prop is provided",
-          "children": [
-            {
-              "element": "ProgressBar",
-              "class": "",
-              "spacing": {
-                "padding": "0",
-                "margin": "0"
-              },
-              "props": {
-                "value": "progress prop value",
-                "size": "sm"
-              },
-              "children": []
-            }
-          ]
-        },
-        {
-          "element": "div",
-          "class": "kanban-card__date-time",
-          "spacing": {
-            "padding": "8px 0 0 0",
-            "margin": "8px 0 0 0"
-          },
-          "children": [
-            {
-              "element": "span",
-              "class": "kanban-card__date",
-              "spacing": {
-                "padding": "0",
-                "margin": "0"
-              },
-              "conditional": "when date prop is provided",
-              "children": []
             },
             {
-              "element": "span",
-              "class": "kanban-card__time",
+              "element": "div",
+              "class": "kanban-card__badges",
               "spacing": {
                 "padding": "0",
                 "margin": "0"
               },
-              "conditional": "when time prop is provided",
-              "children": []
+              "children": [
+                {
+                  "element": "Badge",
+                  "class": null,
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": []
+                }
+              ]
             }
           ]
         }
@@ -269,884 +166,212 @@
     "children": []
   },
   "_metadata": {
-    "lastGenerated": "2026-01-22T20:53:20.322Z",
+    "lastGenerated": "2026-01-26T21:42:17.789Z",
     "generatedWith": "@astrojs/compiler@2.13.0",
     "includesVisualSpecs": true,
-    "availableVariants": [
-      "elevated"
-    ]
+    "availableVariants": []
   },
   "visualSpecifications": {
     "dimensions": {
-      "root": {
-        "width": "auto",
-        "height": "auto",
+      "xs": {
+        "height": null,
+        "width": null,
         "minWidth": "auto",
         "maxWidth": "none"
       },
-      "header": {
-        "width": "100%",
-        "height": "auto",
-        "minHeight": "32px",
+      "sm": {
+        "height": null,
+        "width": null,
         "minWidth": "auto",
         "maxWidth": "none"
       },
-      "avatar": {
-        "sm": {
-          "width": "32px",
-          "height": "32px",
-          "minWidth": "32px",
-          "maxWidth": "32px"
-        },
-        "md": {
-          "width": "40px",
-          "height": "40px",
-          "minWidth": "40px",
-          "maxWidth": "40px"
-        },
-        "lg": {
-          "width": "48px",
-          "height": "48px",
-          "minWidth": "48px",
-          "maxWidth": "48px"
-        }
-      },
-      "icon": {
-        "xs": {
-          "width": "12px",
-          "height": "12px"
-        },
-        "sm": {
-          "width": "16px",
-          "height": "16px"
-        },
-        "md": {
-          "width": "20px",
-          "height": "20px"
-        }
-      },
-      "progress": {
-        "width": "100%",
-        "height": "auto",
+      "md": {
+        "height": null,
+        "width": null,
         "minWidth": "auto",
         "maxWidth": "none"
       },
-      "dateTime": {
-        "width": "100%",
-        "height": "auto",
-        "minHeight": "20px",
+      "lg": {
+        "height": null,
+        "width": null,
         "minWidth": "auto",
         "maxWidth": "none"
       }
     },
     "spacing": {
-      "root": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "marginTop": "0",
-        "marginRight": "0",
-        "marginBottom": "0",
-        "marginLeft": "0",
-        "gap": "0"
-      },
-      "cardBody": {
-        "default": {
-          "paddingTop": "16px",
-          "paddingRight": "16px",
-          "paddingBottom": "16px",
-          "paddingLeft": "16px",
-          "gap": "12px"
-        },
-        "mobile": {
-          "paddingTop": "12px",
-          "paddingRight": "12px",
-          "paddingBottom": "12px",
-          "paddingLeft": "12px",
-          "gap": "12px"
-        }
-      },
-      "header": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "marginTop": "0",
-        "marginRight": "0",
-        "marginBottom": "8px",
-        "marginLeft": "0",
-        "gap": "12px"
-      },
-      "avatar": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "marginTop": "0",
-        "marginRight": "0",
-        "marginBottom": "0",
-        "marginLeft": "0",
-        "gap": "0"
-      },
-      "headerRight": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "marginTop": "0",
-        "marginRight": "0",
-        "marginBottom": "0",
-        "marginLeft": "0",
-        "gap": "8px"
-      },
-      "icons": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "marginTop": "0",
-        "marginRight": "0",
-        "marginBottom": "0",
-        "marginLeft": "0",
-        "gap": "8px"
-      },
-      "badges": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "marginTop": "0",
-        "marginRight": "0",
-        "marginBottom": "0",
-        "marginLeft": "0",
-        "gap": "4px"
-      },
-      "title": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "marginTop": "0",
-        "marginRight": "0",
-        "marginBottom": "8px",
-        "marginLeft": "0",
-        "gap": "0"
-      },
-      "description": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "marginTop": "0",
-        "marginRight": "0",
-        "marginBottom": "0",
-        "marginLeft": "0",
-        "gap": "0"
-      },
-      "progress": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "marginTop": "0",
-        "marginRight": "0",
-        "marginBottom": "0",
-        "marginLeft": "0",
-        "gap": "0"
-      },
-      "dateTime": {
+      "xs": {
         "paddingTop": "8px",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "marginTop": "8px",
-        "marginRight": "0",
-        "marginBottom": "0",
-        "marginLeft": "0",
+        "paddingRight": "8px",
+        "paddingBottom": "8px",
+        "paddingLeft": "8px",
         "gap": "16px"
       },
-      "date": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "marginTop": "0",
-        "marginRight": "0",
-        "marginBottom": "0",
-        "marginLeft": "0",
-        "gap": "0"
+      "sm": {
+        "paddingTop": "8px",
+        "paddingRight": "8px",
+        "paddingBottom": "8px",
+        "paddingLeft": "8px",
+        "gap": "16px"
       },
-      "time": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "marginTop": "0",
-        "marginRight": "0",
-        "marginBottom": "0",
-        "marginLeft": "0",
-        "gap": "0"
+      "md": {
+        "paddingTop": "8px",
+        "paddingRight": "8px",
+        "paddingBottom": "8px",
+        "paddingLeft": "8px",
+        "gap": "16px"
+      },
+      "lg": {
+        "paddingTop": "8px",
+        "paddingRight": "8px",
+        "paddingBottom": "8px",
+        "paddingLeft": "8px",
+        "gap": "16px"
       }
     },
-    "borderRadius": {
-      "base": "12px",
-      "value": "0.75rem",
-      "cssVar": "--radius-xl"
-    },
     "typography": {
-      "fontFamily": {
-        "title": "'Lexend', sans-serif",
-        "description": "'Figtree', sans-serif",
-        "dateTime": "'Figtree', sans-serif",
-        "icon": "inherit"
-      },
-      "fontWeight": {
-        "title": "600",
-        "description": "400",
-        "dateTime": "500",
-        "icon": "inherit"
-      },
-      "fontSize": {
-        "title": {
-          "value": "1rem",
-          "pixels": "16px",
-          "cssVar": "--body-default"
+      "fontFamily": "'Figtree', sans-serif",
+      "fontWeight": "500",
+      "lineHeight": "1.5",
+      "letterSpacing": null,
+      "textTransform": null,
+      "sizes": {
+        "xs": {
+          "fontSize": "0.875rem",
+          "lineHeight": "1.5"
         },
-        "description": {
-          "value": "0.875rem",
-          "pixels": "14px",
-          "cssVar": "--text-sm"
+        "sm": {
+          "fontSize": "0.875rem",
+          "lineHeight": "1.5"
         },
-        "dateTime": {
-          "value": "0.875rem",
-          "pixels": "14px",
-          "cssVar": "--text-sm"
+        "md": {
+          "fontSize": "0.875rem",
+          "lineHeight": "1.5"
+        },
+        "lg": {
+          "fontSize": "0.875rem",
+          "lineHeight": "1.5"
         }
-      },
-      "lineHeight": {
-        "title": "1.375",
-        "description": "1.5",
-        "dateTime": "1.5",
-        "icon": "inherit"
-      },
-      "letterSpacing": "normal",
-      "textAlign": {
-        "title": "left",
-        "description": "left",
-        "dateTime": "left",
-        "icon": "inherit"
       }
     },
     "borders": {
-      "root": {
-        "width": "1px",
-        "style": "solid",
-        "radius": "12px",
-        "position": "all"
-      },
-      "dateTime": {
-        "width": "1px",
-        "style": "solid",
-        "position": "top",
-        "color": "theme-specific (--border-light)"
-      }
+      "width": null,
+      "style": null,
+      "radius": {}
+    },
+    "colors": {
+      "variants": {}
+    },
+    "elevation": {
+      "default": "none",
+      "hover": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+      "active": null,
+      "focus": null
     },
     "transitions": {
-      "root": {
-        "property": "transform, box-shadow",
-        "duration": "150ms",
-        "timingFunction": "ease",
-        "cssVar": "--transition-fast",
-        "value": "transform 150ms ease, box-shadow 150ms ease"
+      "default": "transform 150ms ease, box-shadow 150ms ease",
+      "properties": {
+        "transform": "transform 150ms ease",
+        "box-shadow": "box-shadow 150ms ease"
       }
     },
     "layout": {
-      "root": {
-        "display": "block",
-        "overflow": "hidden"
-      },
-      "header": {
-        "display": "flex",
-        "alignItems": "flex-start",
-        "justifyContent": "space-between"
-      },
-      "headerRight": {
-        "display": "flex",
-        "alignItems": "center",
-        "flexWrap": "wrap",
-        "flexShrink": "0"
-      },
-      "icons": {
-        "display": "flex",
-        "alignItems": "center"
-      },
-      "badges": {
-        "display": "flex",
-        "flexWrap": "wrap"
-      },
-      "dateTime": {
-        "display": "flex",
-        "alignItems": "center",
-        "justifyContent": "space-between",
-        "flexWrap": "wrap"
-      },
-      "cardBody": {
-        "display": "flex",
-        "flexDirection": "column"
-      }
+      "display": "flex",
+      "alignItems": "center",
+      "justifyContent": "space-between",
+      "flexShrink": "0"
     },
-    "responsive": {
-      "breakpoint": "768px",
-      "cssVar": "--breakpoint-md",
-      "cardBody": {
-        "padding": "12px"
-      }
-    }
+    "iconSpecs": null
   },
-  "variants": {
-    "elevated": {
-      "states": {
-        "default": {
-          "backgroundColor": "var(--card-bg)",
-          "border": "1px solid var(--border-color)",
-          "borderRadius": "12px",
-          "boxShadow": "var(--shadow-lg)",
-          "overflow": "hidden",
-          "cursor": "pointer",
-          "transition": "transform var(--transition-fast), box-shadow var(--transition-fast)"
-        },
-        "hover": {
-          "transform": "translateY(-2px)",
-          "boxShadow": "var(--shadow-md)"
-        },
-        "focus": {
-          "outline": "none"
-        },
-        "disabled": {
-          "opacity": "0.5",
-          "cursor": "not-allowed",
-          "pointerEvents": "none"
-        }
-      },
-      "resolved": {
-        "cp": {
-          "light": {
-            "default": {
-              "backgroundColor": "#F7F8FA",
-              "border": "1px solid #BFC6D4",
-              "borderRadius": "12px",
-              "boxShadow": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)",
-              "overflow": "hidden",
-              "cursor": "pointer",
-              "transition": "transform 150ms ease, box-shadow 150ms ease"
-            },
-            "hover": {
-              "transform": "translateY(-2px)",
-              "boxShadow": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)"
-            },
-            "focus": {
-              "outline": "none"
-            },
-            "disabled": {
-              "opacity": "0.5",
-              "cursor": "not-allowed",
-              "pointerEvents": "none"
-            }
-          },
-          "dark": {
-            "default": {
-              "backgroundColor": "#37424D",
-              "border": "1px solid #5F6871",
-              "borderRadius": "12px",
-              "boxShadow": "0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.3)",
-              "overflow": "hidden",
-              "cursor": "pointer",
-              "transition": "transform 150ms ease, box-shadow 150ms ease"
-            },
-            "hover": {
-              "transform": "translateY(-2px)",
-              "boxShadow": "0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.2)"
-            },
-            "focus": {
-              "outline": "none"
-            },
-            "disabled": {
-              "opacity": "0.5",
-              "cursor": "not-allowed",
-              "pointerEvents": "none"
-            }
-          }
-        },
-        "vp": {
-          "light": {
-            "default": {
-              "backgroundColor": "#F7F8FA",
-              "border": "1px solid #BFC6D4",
-              "borderRadius": "12px",
-              "boxShadow": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)",
-              "overflow": "hidden",
-              "cursor": "pointer",
-              "transition": "transform 150ms ease, box-shadow 150ms ease"
-            },
-            "hover": {
-              "transform": "translateY(-2px)",
-              "boxShadow": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)"
-            },
-            "focus": {
-              "outline": "none"
-            },
-            "disabled": {
-              "opacity": "0.5",
-              "cursor": "not-allowed",
-              "pointerEvents": "none"
-            }
-          },
-          "dark": {
-            "default": {
-              "backgroundColor": "#1F2124",
-              "border": "1px solid #2A2D32",
-              "borderRadius": "12px",
-              "boxShadow": "0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.3)",
-              "overflow": "hidden",
-              "cursor": "pointer",
-              "transition": "transform 150ms ease, box-shadow 150ms ease"
-            },
-            "hover": {
-              "transform": "translateY(-2px)",
-              "boxShadow": "0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.2)"
-            },
-            "focus": {
-              "outline": "none"
-            },
-            "disabled": {
-              "opacity": "0.5",
-              "cursor": "not-allowed",
-              "pointerEvents": "none"
-            }
-          }
-        },
-        "ppm": {
-          "light": {
-            "default": {
-              "backgroundColor": "#F7F8FA",
-              "border": "1px solid #BFC6D4",
-              "borderRadius": "12px",
-              "boxShadow": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)",
-              "overflow": "hidden",
-              "cursor": "pointer",
-              "transition": "transform 150ms ease, box-shadow 150ms ease"
-            },
-            "hover": {
-              "transform": "translateY(-2px)",
-              "boxShadow": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)"
-            },
-            "focus": {
-              "outline": "none"
-            },
-            "disabled": {
-              "opacity": "0.5",
-              "cursor": "not-allowed",
-              "pointerEvents": "none"
-            }
-          },
-          "dark": {
-            "default": {
-              "backgroundColor": "#1F2124",
-              "border": "1px solid #2A2D32",
-              "borderRadius": "12px",
-              "boxShadow": "0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.3)",
-              "overflow": "hidden",
-              "cursor": "pointer",
-              "transition": "transform 150ms ease, box-shadow 150ms ease"
-            },
-            "hover": {
-              "transform": "translateY(-2px)",
-              "boxShadow": "0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.2)"
-            },
-            "focus": {
-              "outline": "none"
-            },
-            "disabled": {
-              "opacity": "0.5",
-              "cursor": "not-allowed",
-              "pointerEvents": "none"
-            }
-          }
-        },
-        "maconomy": {
-          "light": {
-            "default": {
-              "backgroundColor": "#F7F8FA",
-              "border": "1px solid #BFC6D4",
-              "borderRadius": "12px",
-              "boxShadow": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)",
-              "overflow": "hidden",
-              "cursor": "pointer",
-              "transition": "transform 150ms ease, box-shadow 150ms ease"
-            },
-            "hover": {
-              "transform": "translateY(-2px)",
-              "boxShadow": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)"
-            },
-            "focus": {
-              "outline": "none"
-            },
-            "disabled": {
-              "opacity": "0.5",
-              "cursor": "not-allowed",
-              "pointerEvents": "none"
-            }
-          },
-          "dark": {
-            "default": {
-              "backgroundColor": "#1F2124",
-              "border": "1px solid #2A2D32",
-              "borderRadius": "12px",
-              "boxShadow": "0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.3)",
-              "overflow": "hidden",
-              "cursor": "pointer",
-              "transition": "transform 150ms ease, box-shadow 150ms ease"
-            },
-            "hover": {
-              "transform": "translateY(-2px)",
-              "boxShadow": "0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.2)"
-            },
-            "focus": {
-              "outline": "none"
-            },
-            "disabled": {
-              "opacity": "0.5",
-              "cursor": "not-allowed",
-              "pointerEvents": "none"
-            }
-          }
-        }
-      }
-    }
-  },
-  "themeColors": {
-    "cp": {
-      "light": {
-        "textPrimary": "#373F4E",
-        "textSecondary": "#525969",
-        "textMuted": "#6B7280",
-        "textInverse": "#FFFFFF",
-        "borderColor": "#BFC6D4",
-        "borderLight": "#E2E8F0",
-        "hoverBg": "#E5E7EB",
-        "elevatedBg": "#F7F8FA",
-        "cardBg": "#F7F8FA",
-        "colorError": "#D83148",
-        "colorErrorFocus": "rgba(216, 49, 72, 0.32)",
-        "themePrimary": "#4C92D9",
-        "themePrimaryHover": "#3D7BC4",
-        "themePrimaryLight": "rgba(76, 146, 217, 0.1)"
-      },
-      "dark": {
-        "textPrimary": "#E9ECEF",
-        "textSecondary": "#B6B6C4",
-        "textMuted": "#BBBBC6",
-        "textInverse": "#1F252E",
-        "borderColor": "#5F6871",
-        "borderLight": "#374151",
-        "hoverBg": "#3D4A5C",
-        "elevatedBg": "#37424D",
-        "cardBg": "#37424D",
-        "colorError": "#F46286",
-        "colorErrorFocus": "rgba(244, 98, 134, 0.32)",
-        "themePrimary": "#59ACFF",
-        "themePrimaryHover": "#7BB8FF",
-        "themePrimaryLight": "rgba(89, 172, 255, 0.1)"
-      }
-    },
-    "vp": {
-      "light": {
-        "textPrimary": "#373F4E",
-        "textSecondary": "#525969",
-        "textMuted": "#6B7280",
-        "textInverse": "#FFFFFF",
-        "borderColor": "#BFC6D4",
-        "borderLight": "#E2E8F0",
-        "hoverBg": "#E5E7EB",
-        "elevatedBg": "#F7F8FA",
-        "cardBg": "#F7F8FA",
-        "colorError": "#D83148",
-        "colorErrorFocus": "rgba(216, 49, 72, 0.32)",
-        "themePrimary": "#4C92D9",
-        "themePrimaryHover": "#3D7BC4",
-        "themePrimaryLight": "rgba(76, 146, 217, 0.1)"
-      },
-      "dark": {
-        "textPrimary": "#FAFAFA",
-        "textSecondary": "#B5B5BC",
-        "textMuted": "#B5B5BC",
-        "textInverse": "#15171A",
-        "borderColor": "#2A2D32",
-        "borderLight": "#3A3D42",
-        "hoverBg": "#2A2D32",
-        "elevatedBg": "#1F2124",
-        "cardBg": "#1F2124",
-        "colorError": "#F46286",
-        "colorErrorFocus": "rgba(244, 98, 134, 0.32)",
-        "themePrimary": "#59ACFF",
-        "themePrimaryHover": "#7bb8ff",
-        "themePrimaryLight": "rgba(89, 172, 255, 0.1)"
-      }
-    },
-    "ppm": {
-      "light": {
-        "textPrimary": "#373F4E",
-        "textSecondary": "#525969",
-        "textMuted": "#6B7280",
-        "textInverse": "#FFFFFF",
-        "borderColor": "#BFC6D4",
-        "borderLight": "#E2E8F0",
-        "hoverBg": "#E5E7EB",
-        "elevatedBg": "#F7F8FA",
-        "cardBg": "#F7F8FA",
-        "colorError": "#D83148",
-        "colorErrorFocus": "rgba(216, 49, 72, 0.32)",
-        "themePrimary": "#4C92D9",
-        "themePrimaryHover": "#3D7BC4",
-        "themePrimaryLight": "rgba(76, 146, 217, 0.1)"
-      },
-      "dark": {
-        "textPrimary": "#FAFAFA",
-        "textSecondary": "#B5B5BC",
-        "textMuted": "#B5B5BC",
-        "textInverse": "#15171A",
-        "borderColor": "#2A2D32",
-        "borderLight": "#3A3D42",
-        "hoverBg": "#2A2D32",
-        "elevatedBg": "#1F2124",
-        "cardBg": "#1F2124",
-        "colorError": "#F46286",
-        "colorErrorFocus": "rgba(244, 98, 134, 0.32)",
-        "themePrimary": "#59ACFF",
-        "themePrimaryHover": "#7bb8ff",
-        "themePrimaryLight": "rgba(89, 172, 255, 0.1)"
-      }
-    },
-    "maconomy": {
-      "light": {
-        "textPrimary": "#373F4E",
-        "textSecondary": "#525969",
-        "textMuted": "#6B7280",
-        "textInverse": "#FFFFFF",
-        "borderColor": "#BFC6D4",
-        "borderLight": "#E2E8F0",
-        "hoverBg": "#E5E7EB",
-        "elevatedBg": "#F7F8FA",
-        "cardBg": "#F7F8FA",
-        "colorError": "#D83148",
-        "colorErrorFocus": "rgba(216, 49, 72, 0.32)",
-        "themePrimary": "#4C92D9",
-        "themePrimaryHover": "#3D7BC4",
-        "themePrimaryLight": "rgba(76, 146, 217, 0.1)"
-      },
-      "dark": {
-        "textPrimary": "#FAFAFA",
-        "textSecondary": "#B5B5BC",
-        "textMuted": "#B5B5BC",
-        "textInverse": "#15171A",
-        "borderColor": "#2A2D32",
-        "borderLight": "#3A3D42",
-        "hoverBg": "#2A2D32",
-        "elevatedBg": "#1F2124",
-        "cardBg": "#1F2124",
-        "colorError": "#F46286",
-        "colorErrorFocus": "rgba(244, 98, 134, 0.32)",
-        "themePrimary": "#59ACFF",
-        "themePrimaryHover": "#7bb8ff",
-        "themePrimaryLight": "rgba(89, 172, 255, 0.1)"
-      }
-    }
-  },
-  "elevations": {
-    "shadows": {
-      "sm": {
-        "light": "0 1px 2px 0 rgb(15 23 42 / 0.05)",
-        "dark": "0 1px 2px 0 rgba(0, 0, 0, 0.3)",
-        "cssVar": "--shadow-sm"
-      },
-      "md": {
-        "light": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
-        "dark": "0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.2)",
-        "cssVar": "--shadow-md"
-      },
-      "lg": {
-        "light": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)",
-        "dark": "0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.3)",
-        "cssVar": "--shadow-lg"
-      }
-    },
-    "cssVars": {
-      "shadowSm": "--shadow-sm",
-      "shadowMd": "--shadow-md",
-      "shadowLg": "--shadow-lg"
-    }
-  },
-  "states": {
-    "default": {
-      "root": {
-        "cursor": "pointer",
-        "transition": "transform 150ms ease, box-shadow 150ms ease"
-      },
-      "header": {
-        "display": "flex",
-        "alignItems": "flex-start",
-        "justifyContent": "space-between",
-        "gap": "12px",
-        "marginBottom": "8px",
-        "minHeight": "32px"
-      },
-      "icon": {
-        "color": "theme-specific (--text-secondary)",
-        "flexShrink": "0"
-      },
-      "title": {
-        "fontFamily": "'Lexend', sans-serif",
-        "fontSize": "1rem",
-        "fontWeight": "600",
-        "lineHeight": "1.375",
-        "color": "theme-specific (--text-primary)",
-        "margin": "0 0 8px 0"
-      },
-      "description": {
-        "fontFamily": "'Figtree', sans-serif",
-        "fontSize": "0.875rem",
-        "fontWeight": "400",
-        "lineHeight": "1.5",
-        "color": "theme-specific (--text-secondary)",
-        "margin": "0"
-      },
-      "dateTime": {
-        "display": "flex",
-        "alignItems": "center",
-        "justifyContent": "space-between",
-        "gap": "16px",
-        "marginTop": "8px",
-        "paddingTop": "8px",
-        "borderTop": "1px solid theme-specific (--border-light)",
-        "fontFamily": "'Figtree', sans-serif",
-        "fontSize": "0.875rem",
-        "fontWeight": "500",
-        "lineHeight": "1.5",
-        "color": "theme-specific (--text-secondary)",
-        "minHeight": "20px",
-        "flexWrap": "wrap"
-      }
-    },
-    "hover": {
-      "root": {
-        "transform": "translateY(-2px)",
-        "boxShadow": "theme-specific (--shadow-md)"
-      }
-    },
-    "focus": {
-      "root": {
-        "outline": "none"
-      }
-    },
-    "disabled": {
-      "root": {
-        "opacity": "0.5",
-        "cursor": "not-allowed",
-        "pointerEvents": "none"
-      }
-    }
+  "accessibility": {
+    "role": null,
+    "tabIndex": null,
+    "keyboardSupport": {},
+    "ariaAttributes": {},
+    "focusVisible": {}
   },
   "cssClassStyles": {
     ".kanban-card": {
       "cursor": "pointer",
-      "transition": "transform var(--transition-fast), box-shadow var(--transition-fast)"
+      "transition": "transform 150ms ease, box-shadow 150ms ease"
     },
     ".kanban-card:hover": {
       "transform": "translateY(-2px)",
-      "boxShadow": "var(--shadow-md)"
-    },
-    ".kanban-card .card__body": {
-      "padding": "var(--space-4)",
-      "display": "flex",
-      "flexDirection": "column",
-      "gap": "var(--space-3)"
+      "box-shadow": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)"
     },
     ".kanban-card__header": {
       "display": "flex",
-      "alignItems": "flex-start",
-      "justifyContent": "space-between",
-      "gap": "var(--space-3)",
-      "marginBottom": "var(--space-2)",
-      "minHeight": "32px"
+      "align-items": "flex-start",
+      "justify-content": "space-between",
+      "gap": "12px",
+      "margin-bottom": "8px",
+      "min-height": "32px"
     },
     ".kanban-card__avatar": {
-      "flexShrink": "0"
+      "flex-shrink": "0"
     },
     ".kanban-card__header-right": {
       "display": "flex",
-      "alignItems": "center",
-      "gap": "var(--space-2)",
-      "flexWrap": "wrap",
-      "flexShrink": "0"
+      "align-items": "center",
+      "gap": "8px",
+      "flex-wrap": "wrap",
+      "flex-shrink": "0"
     },
     ".kanban-card__icons": {
       "display": "flex",
-      "alignItems": "center",
-      "gap": "var(--space-2)"
+      "align-items": "center",
+      "gap": "8px"
     },
     ".kanban-card__icon": {
-      "color": "var(--text-secondary)",
-      "flexShrink": "0"
+      "color": "#525969",
+      "flex-shrink": "0"
     },
     ".kanban-card__badges": {
       "display": "flex",
-      "flexWrap": "wrap",
-      "gap": "var(--space-1)"
-    },
-    ".kanban-card__title": {
-      "fontFamily": "var(--font-display)",
-      "fontSize": "var(--body-default)",
-      "fontWeight": "var(--font-semibold)",
-      "lineHeight": "var(--leading-snug)",
-      "color": "var(--text-primary)",
-      "margin": "0 0 var(--space-2) 0"
+      "flex-wrap": "wrap",
+      "gap": "4px"
     },
     ".kanban-card__description": {
-      "fontFamily": "var(--font-sans)",
-      "fontSize": "var(--text-sm)",
-      "fontWeight": "var(--font-normal)",
-      "lineHeight": "var(--leading-normal)",
-      "color": "var(--text-secondary)",
+      "font-family": "'Figtree', sans-serif",
+      "font-size": "0.875rem",
+      "font-weight": "400",
+      "line-height": "1.5",
+      "color": "#525969",
       "margin": "0"
     },
     ".kanban-card__progress": {
       "width": "100%"
     },
+    ".kanban-card__title": {
+      "font-family": "'Lexend', sans-serif",
+      "font-size": "1rem",
+      "font-weight": "600",
+      "line-height": "1.375",
+      "color": "#373F4E",
+      "margin": "0 0 8px 0"
+    },
     ".kanban-card__date-time": {
       "display": "flex",
-      "alignItems": "center",
-      "justifyContent": "space-between",
-      "gap": "var(--space-4)",
-      "marginTop": "var(--space-2)",
-      "paddingTop": "var(--space-2)",
-      "borderTop": "1px solid var(--border-light)",
-      "fontFamily": "var(--font-sans)",
-      "fontSize": "var(--text-sm)",
-      "fontWeight": "var(--font-medium)",
-      "lineHeight": "var(--leading-normal)",
-      "color": "var(--text-secondary)",
-      "minHeight": "var(--space-5)",
-      "flexWrap": "wrap"
+      "align-items": "center",
+      "justify-content": "space-between",
+      "gap": "16px",
+      "margin-top": "8px",
+      "padding-top": "8px",
+      "border-top": "1px solid #E2E8F0",
+      "font-family": "'Figtree', sans-serif",
+      "font-size": "0.875rem",
+      "font-weight": "500",
+      "line-height": "1.5",
+      "color": "#525969",
+      "min-height": "20px",
+      "flex-wrap": "wrap"
     },
     ".kanban-card__date,\n.kanban-card__time": {
-      "flexShrink": "0",
-      "whiteSpace": "nowrap"
-    },
-    "@media (max-width: var(--breakpoint-md))": {
-      ".kanban-card .card__body": {
-        "padding": "var(--space-3)"
-      }
+      "flex-shrink": "0",
+      "white-space": "nowrap"
     }
+  },
+  "_variantIndex": {},
+  "_variantMetadata": {
+    "availableVariants": []
   }
 }

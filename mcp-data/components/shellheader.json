@@ -2,37 +2,37 @@
   "name": "ShellHeader",
   "type": "component",
   "filePath": "src/components/ui/ShellHeader.astro",
-  "description": "Application header component with company selection and gradient border",
+  "description": "ShellHeader component",
   "props": {
     "productName": {
       "type": "string",
       "optional": true,
-      "default": "Harmony"
+      "default": null
     },
     "logoSrc": {
       "type": "string",
       "optional": true,
-      "default": "/logos/CPVPLogo.svg"
+      "default": null
     },
     "companyName": {
       "type": "string",
       "optional": true,
-      "default": "Company name"
+      "default": null
     },
     "showCompanyPicker": {
       "type": "boolean",
       "optional": true,
-      "default": true
+      "default": null
     },
     "companyColor": {
       "type": "string",
       "optional": true,
-      "default": ""
+      "default": null
     },
     "class": {
       "type": "string",
       "optional": true,
-      "default": ""
+      "default": null
     }
   },
   "imports": {
@@ -56,17 +56,15 @@
     "company-picker__name",
     "company-picker__chevron",
     "company-picker__menu",
-    "company-picker__menu--open",
     "company-picker__option",
     "company-picker__option--selected",
     "company-picker__option-indicator",
     "company-picker__option-indicator--acme",
+    "company-picker__option-name",
     "company-picker__option-indicator--ocean",
     "company-picker__option-indicator--violet",
     "company-picker__option-indicator--azure",
     "company-picker__option-indicator--sunset",
-    "company-picker__option-indicator--default",
-    "company-picker__option-name",
     "divider",
     "header__gradient"
   ],
@@ -83,9 +81,9 @@
   "structure": {
     "root": {
       "element": "header",
-      "class": "header",
+      "class": "`header ${className}`",
       "spacing": {
-        "padding": "0 16px",
+        "padding": "0",
         "margin": "0"
       },
       "baseClass": "header",
@@ -96,8 +94,7 @@
           "class": "header__brand",
           "spacing": {
             "padding": "0",
-            "margin": "0",
-            "gap": "16px"
+            "margin": "0"
           },
           "children": [
             {
@@ -105,8 +102,7 @@
               "class": "header__brand-link",
               "spacing": {
                 "padding": "0",
-                "margin": "0",
-                "gap": "8px"
+                "margin": "0"
               },
               "children": [
                 {
@@ -136,109 +132,12 @@
           "class": "header__actions",
           "spacing": {
             "padding": "0",
-            "margin": "0",
-            "gap": "12px"
+            "margin": "0"
           },
           "children": [
             {
-              "element": "div",
-              "class": "company-picker",
-              "spacing": {
-                "padding": "0",
-                "margin": "0"
-              },
-              "children": [
-                {
-                  "element": "button",
-                  "class": "company-picker__btn",
-                  "spacing": {
-                    "padding": "8px 12px",
-                    "margin": "0",
-                    "gap": "8px"
-                  },
-                  "children": [
-                    {
-                      "element": "span",
-                      "class": "company-picker__indicator",
-                      "spacing": {
-                        "padding": "0",
-                        "margin": "0"
-                      },
-                      "children": []
-                    },
-                    {
-                      "element": "span",
-                      "class": "company-picker__name",
-                      "spacing": {
-                        "padding": "0",
-                        "margin": "0"
-                      },
-                      "children": []
-                    },
-                    {
-                      "element": "Icon",
-                      "class": "company-picker__chevron",
-                      "spacing": {
-                        "padding": "0",
-                        "margin": "0"
-                      },
-                      "children": []
-                    }
-                  ]
-                },
-                {
-                  "element": "div",
-                  "class": "company-picker__menu",
-                  "spacing": {
-                    "padding": "8px",
-                    "margin": "0"
-                  },
-                  "children": [
-                    {
-                      "element": "button",
-                      "class": "company-picker__option",
-                      "spacing": {
-                        "padding": "8px 12px",
-                        "margin": "0",
-                        "gap": "12px"
-                      },
-                      "children": [
-                        {
-                          "element": "span",
-                          "class": "company-picker__option-indicator",
-                          "spacing": {
-                            "padding": "0",
-                            "margin": "0"
-                          },
-                          "children": []
-                        },
-                        {
-                          "element": "span",
-                          "class": "company-picker__option-name",
-                          "spacing": {
-                            "padding": "0",
-                            "margin": "0"
-                          },
-                          "children": []
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "element": "div",
-              "class": "divider",
-              "spacing": {
-                "padding": "0",
-                "margin": "0"
-              },
-              "children": []
-            },
-            {
               "element": "Avatar",
-              "class": "",
+              "class": null,
               "spacing": {
                 "padding": "0",
                 "margin": "0"
@@ -258,1286 +157,137 @@
         }
       ]
     },
-    "children": []
+    "children": [
+      {
+        "element": "script",
+        "class": null,
+        "spacing": {
+          "padding": "0",
+          "margin": "0"
+        },
+        "children": []
+      }
+    ]
   },
   "_metadata": {
-    "lastGenerated": "2026-01-23T00:00:00.000Z",
-    "generatedWith": "manual",
+    "lastGenerated": "2026-01-26T21:42:18.332Z",
+    "generatedWith": "@astrojs/compiler@2.13.0",
     "includesVisualSpecs": true,
     "availableVariants": []
   },
   "visualSpecifications": {
     "dimensions": {
-      "default": {
-        "height": "56px",
-        "width": "100%",
+      "xs": {
+        "height": null,
+        "width": null,
+        "minWidth": "auto",
+        "maxWidth": "none"
+      },
+      "sm": {
+        "height": null,
+        "width": null,
+        "minWidth": "auto",
+        "maxWidth": "none"
+      },
+      "md": {
+        "height": null,
+        "width": null,
+        "minWidth": "auto",
+        "maxWidth": "none"
+      },
+      "lg": {
+        "height": null,
+        "width": null,
         "minWidth": "auto",
         "maxWidth": "none"
       }
     },
     "spacing": {
-      "default": {
+      "xs": {
         "paddingTop": "0",
-        "paddingRight": "16px",
+        "paddingRight": "0",
         "paddingBottom": "0",
-        "paddingLeft": "16px",
+        "paddingLeft": "0",
         "gap": "0"
       },
-      "desktop": {
+      "sm": {
         "paddingTop": "0",
-        "paddingRight": "24px",
+        "paddingRight": "0",
         "paddingBottom": "0",
-        "paddingLeft": "24px",
+        "paddingLeft": "0",
+        "gap": "0"
+      },
+      "md": {
+        "paddingTop": "0",
+        "paddingRight": "0",
+        "paddingBottom": "0",
+        "paddingLeft": "0",
+        "gap": "0"
+      },
+      "lg": {
+        "paddingTop": "0",
+        "paddingRight": "0",
+        "paddingBottom": "0",
+        "paddingLeft": "0",
         "gap": "0"
       }
     },
     "typography": {
-      "fontFamily": "'Lexend', sans-serif",
-      "fontWeight": "700",
-      "lineHeight": "normal",
-      "letterSpacing": "-0.025em",
-      "textTransform": "none",
+      "fontFamily": null,
+      "fontWeight": null,
+      "lineHeight": null,
+      "letterSpacing": null,
+      "textTransform": null,
       "sizes": {
-        "default": {
-          "fontSize": "0.875rem",
-          "lineHeight": "normal"
+        "xs": {
+          "fontSize": null,
+          "lineHeight": null
+        },
+        "sm": {
+          "fontSize": null,
+          "lineHeight": null
+        },
+        "md": {
+          "fontSize": null,
+          "lineHeight": null
+        },
+        "lg": {
+          "fontSize": null,
+          "lineHeight": null
         }
       }
     },
     "borders": {
-      "width": "0",
-      "style": "none",
-      "radius": {
-        "default": "0"
-      }
+      "width": null,
+      "style": null,
+      "radius": {}
     },
     "colors": {
-      "variants": {
-        "default": {
-          "cp": {
-            "light": {
-              "default": {
-                "background": "#FCFDFF",
-                "text": "#373F4E",
-                "border": "transparent",
-                "iconColor": "#6B7280"
-              },
-              "hover": {
-                "background": "#FCFDFF",
-                "text": "#373F4E",
-                "border": "transparent",
-                "iconColor": "#6B7280"
-              },
-              "focus": {
-                "background": "#FCFDFF",
-                "text": "#373F4E",
-                "border": "transparent",
-                "iconColor": "#6B7280"
-              },
-              "active": {
-                "background": "#FCFDFF",
-                "text": "#373F4E",
-                "border": "transparent",
-                "iconColor": "#6B7280"
-              },
-              "disabled": {
-                "background": "#FCFDFF",
-                "text": "#373F4E",
-                "border": "transparent",
-                "iconColor": "#6B7280"
-              }
-            },
-            "dark": {
-              "default": {
-                "background": "#333D47",
-                "text": "#E9ECEF",
-                "border": "transparent",
-                "iconColor": "#BBBBC6"
-              },
-              "hover": {
-                "background": "#333D47",
-                "text": "#E9ECEF",
-                "border": "transparent",
-                "iconColor": "#BBBBC6"
-              },
-              "focus": {
-                "background": "#333D47",
-                "text": "#E9ECEF",
-                "border": "transparent",
-                "iconColor": "#BBBBC6"
-              },
-              "active": {
-                "background": "#333D47",
-                "text": "#E9ECEF",
-                "border": "transparent",
-                "iconColor": "#BBBBC6"
-              },
-              "disabled": {
-                "background": "#333D47",
-                "text": "#E9ECEF",
-                "border": "transparent",
-                "iconColor": "#BBBBC6"
-              }
-            }
-          },
-          "vp": {
-            "light": {
-              "default": {
-                "background": "#FCFDFF",
-                "text": "#373F4E",
-                "border": "transparent",
-                "iconColor": "#6B7280"
-              },
-              "hover": {
-                "background": "#FCFDFF",
-                "text": "#373F4E",
-                "border": "transparent",
-                "iconColor": "#6B7280"
-              },
-              "focus": {
-                "background": "#FCFDFF",
-                "text": "#373F4E",
-                "border": "transparent",
-                "iconColor": "#6B7280"
-              },
-              "active": {
-                "background": "#FCFDFF",
-                "text": "#373F4E",
-                "border": "transparent",
-                "iconColor": "#6B7280"
-              },
-              "disabled": {
-                "background": "#FCFDFF",
-                "text": "#373F4E",
-                "border": "transparent",
-                "iconColor": "#6B7280"
-              }
-            },
-            "dark": {
-              "default": {
-                "background": "#1A1C1F",
-                "text": "#FAFAFA",
-                "border": "transparent",
-                "iconColor": "#B5B5BC"
-              },
-              "hover": {
-                "background": "#1A1C1F",
-                "text": "#FAFAFA",
-                "border": "transparent",
-                "iconColor": "#B5B5BC"
-              },
-              "focus": {
-                "background": "#1A1C1F",
-                "text": "#FAFAFA",
-                "border": "transparent",
-                "iconColor": "#B5B5BC"
-              },
-              "active": {
-                "background": "#1A1C1F",
-                "text": "#FAFAFA",
-                "border": "transparent",
-                "iconColor": "#B5B5BC"
-              },
-              "disabled": {
-                "background": "#1A1C1F",
-                "text": "#FAFAFA",
-                "border": "transparent",
-                "iconColor": "#B5B5BC"
-              }
-            }
-          },
-          "ppm": {
-            "light": {
-              "default": {
-                "background": "#FCFDFF",
-                "text": "#373F4E",
-                "border": "transparent",
-                "iconColor": "#6B7280"
-              },
-              "hover": {
-                "background": "#FCFDFF",
-                "text": "#373F4E",
-                "border": "transparent",
-                "iconColor": "#6B7280"
-              },
-              "focus": {
-                "background": "#FCFDFF",
-                "text": "#373F4E",
-                "border": "transparent",
-                "iconColor": "#6B7280"
-              },
-              "active": {
-                "background": "#FCFDFF",
-                "text": "#373F4E",
-                "border": "transparent",
-                "iconColor": "#6B7280"
-              },
-              "disabled": {
-                "background": "#FCFDFF",
-                "text": "#373F4E",
-                "border": "transparent",
-                "iconColor": "#6B7280"
-              }
-            },
-            "dark": {
-              "default": {
-                "background": "#1A1C1F",
-                "text": "#FAFAFA",
-                "border": "transparent",
-                "iconColor": "#B5B5BC"
-              },
-              "hover": {
-                "background": "#1A1C1F",
-                "text": "#FAFAFA",
-                "border": "transparent",
-                "iconColor": "#B5B5BC"
-              },
-              "focus": {
-                "background": "#1A1C1F",
-                "text": "#FAFAFA",
-                "border": "transparent",
-                "iconColor": "#B5B5BC"
-              },
-              "active": {
-                "background": "#1A1C1F",
-                "text": "#FAFAFA",
-                "border": "transparent",
-                "iconColor": "#B5B5BC"
-              },
-              "disabled": {
-                "background": "#1A1C1F",
-                "text": "#FAFAFA",
-                "border": "transparent",
-                "iconColor": "#B5B5BC"
-              }
-            }
-          },
-          "maconomy": {
-            "light": {
-              "default": {
-                "background": "#FCFDFF",
-                "text": "#373F4E",
-                "border": "transparent",
-                "iconColor": "#6B7280"
-              },
-              "hover": {
-                "background": "#FCFDFF",
-                "text": "#373F4E",
-                "border": "transparent",
-                "iconColor": "#6B7280"
-              },
-              "focus": {
-                "background": "#FCFDFF",
-                "text": "#373F4E",
-                "border": "transparent",
-                "iconColor": "#6B7280"
-              },
-              "active": {
-                "background": "#FCFDFF",
-                "text": "#373F4E",
-                "border": "transparent",
-                "iconColor": "#6B7280"
-              },
-              "disabled": {
-                "background": "#FCFDFF",
-                "text": "#373F4E",
-                "border": "transparent",
-                "iconColor": "#6B7280"
-              }
-            },
-            "dark": {
-              "default": {
-                "background": "#1A1C1F",
-                "text": "#FAFAFA",
-                "border": "transparent",
-                "iconColor": "#B5B5BC"
-              },
-              "hover": {
-                "background": "#1A1C1F",
-                "text": "#FAFAFA",
-                "border": "transparent",
-                "iconColor": "#B5B5BC"
-              },
-              "focus": {
-                "background": "#1A1C1F",
-                "text": "#FAFAFA",
-                "border": "transparent",
-                "iconColor": "#B5B5BC"
-              },
-              "active": {
-                "background": "#1A1C1F",
-                "text": "#FAFAFA",
-                "border": "transparent",
-                "iconColor": "#B5B5BC"
-              },
-              "disabled": {
-                "background": "#1A1C1F",
-                "text": "#FAFAFA",
-                "border": "transparent",
-                "iconColor": "#B5B5BC"
-              }
-            }
-          }
-        }
-      }
+      "variants": {}
     },
     "elevation": {
       "default": "none",
-      "hover": "none",
-      "active": "none",
-      "focus": "none"
+      "hover": null,
+      "active": null,
+      "focus": null
     },
     "transitions": {
-      "default": "all 150ms ease",
-      "properties": {
-        "background-color": "background-color 150ms ease",
-        "all": "all 150ms ease",
-        "transform": "transform 150ms ease",
-        "opacity": "opacity 150ms ease",
-        "visibility": "visibility 150ms ease"
-      }
+      "default": null,
+      "properties": {}
     },
-    "layout": {
-      "display": "flex",
-      "alignItems": "center",
-      "justifyContent": "space-between",
-      "flexShrink": "0"
-    },
-    "iconSpecs": {
-      "chevronDown": {
-        "name": "chevron-down",
-        "size": "sm",
-        "width": "16px",
-        "height": "16px",
-        "colors": {
-          "cp": {
-            "light": "#6B7280",
-            "dark": "#BBBBC6"
-          },
-          "vp": {
-            "light": "#6B7280",
-            "dark": "#B5B5BC"
-          },
-          "ppm": {
-            "light": "#6B7280",
-            "dark": "#B5B5BC"
-          },
-          "maconomy": {
-            "light": "#6B7280",
-            "dark": "#B5B5BC"
-          }
-        }
-      }
-    }
+    "layout": {},
+    "iconSpecs": null
   },
   "accessibility": {
-    "role": "banner",
-    "tabIndex": "0",
-    "keyboardSupport": {
-      "enter": "Opens/closes company picker menu",
-      "escape": "Closes company picker menu",
-      "arrowDown": "Navigates company picker options",
-      "arrowUp": "Navigates company picker options"
-    },
-    "ariaAttributes": {
-      "ariaLabel": "Application header",
-      "ariaExpanded": "false",
-      "ariaHasPopup": "true"
-    },
-    "focusVisible": {
-      "outline": "none",
-      "boxShadow": "none"
-    }
+    "role": null,
+    "tabIndex": null,
+    "keyboardSupport": {},
+    "ariaAttributes": {},
+    "focusVisible": {}
   },
-  "cssClassStyles": {
-    ".header": {
-      "width": "100%",
-      "height": "56px",
-      "background-color": "var(--nav-bg)",
-      "border-bottom": "none",
-      "display": "flex",
-      "align-items": "center",
-      "justify-content": "space-between",
-      "padding": "0 16px",
-      "position": "relative",
-      "z-index": "50",
-      "flex-shrink": "0"
-    },
-    ".header__brand": {
-      "display": "flex",
-      "align-items": "center",
-      "gap": "16px"
-    },
-    ".header__brand-link": {
-      "display": "flex",
-      "align-items": "center",
-      "gap": "8px",
-      "text-decoration": "none"
-    },
-    ".header__brand-link:hover": {
-      "text-decoration": "none"
-    },
-    ".header__logo": {
-      "width": "20px",
-      "height": "20px",
-      "border-radius": "9999px"
-    },
-    ".header__title": {
-      "font-family": "'Lexend', sans-serif",
-      "font-weight": "700",
-      "font-size": "0.875rem",
-      "color": "var(--text-primary)",
-      "letter-spacing": "-0.025em"
-    },
-    ".header__actions": {
-      "display": "flex",
-      "align-items": "center",
-      "gap": "12px"
-    },
-    ".company-picker": {
-      "position": "relative"
-    },
-    ".company-picker__btn": {
-      "display": "flex",
-      "align-items": "center",
-      "gap": "8px",
-      "padding": "8px 12px",
-      "background": "transparent",
-      "border": "none",
-      "border-radius": "6px",
-      "color": "var(--text-primary)",
-      "font-size": "0.875rem",
-      "font-weight": "500",
-      "cursor": "pointer",
-      "transition": "background-color 150ms ease"
-    },
-    ".company-picker__btn:hover": {
-      "background-color": "var(--hover-bg)"
-    },
-    ".company-picker__indicator": {
-      "width": "8px",
-      "height": "8px",
-      "border-radius": "50%",
-      "flex-shrink": "0"
-    },
-    ".company-picker__name": {
-      "max-width": "200px",
-      "overflow": "hidden",
-      "text-overflow": "ellipsis",
-      "white-space": "nowrap"
-    },
-    ".company-picker__chevron": {
-      "color": "var(--text-muted)",
-      "flex-shrink": "0"
-    },
-    ".company-picker__menu": {
-      "position": "absolute",
-      "top": "calc(100% + 8px)",
-      "right": "0",
-      "min-width": "240px",
-      "background-color": "var(--nav-bg)",
-      "border": "1px solid var(--border-color)",
-      "border-radius": "8px",
-      "box-shadow": "var(--shadow-lg)",
-      "padding": "8px",
-      "opacity": "0",
-      "visibility": "hidden",
-      "transform": "translateY(-8px)",
-      "transition": "all 150ms ease",
-      "z-index": "500"
-    },
-    ".company-picker__menu--open": {
-      "opacity": "1",
-      "visibility": "visible",
-      "transform": "translateY(0)"
-    },
-    ".company-picker__option": {
-      "display": "flex",
-      "align-items": "center",
-      "gap": "12px",
-      "width": "100%",
-      "padding": "8px 12px",
-      "background": "transparent",
-      "border": "none",
-      "border-radius": "6px",
-      "color": "var(--text-secondary)",
-      "font-size": "0.875rem",
-      "text-align": "left",
-      "cursor": "pointer",
-      "transition": "all 150ms ease"
-    },
-    ".company-picker__option:hover": {
-      "background-color": "var(--hover-bg)",
-      "color": "var(--text-primary)"
-    },
-    ".company-picker__option--selected": {
-      "background-color": "var(--theme-primary-light)",
-      "color": "var(--theme-primary)"
-    },
-    ".company-picker__option-indicator": {
-      "width": "12px",
-      "height": "12px",
-      "border-radius": "50%",
-      "flex-shrink": "0",
-      "background-color": "var(--company-picker-indicator-default)"
-    },
-    ".company-picker__option-indicator--acme": {
-      "background-color": "#FF507B"
-    },
-    ".company-picker__option-indicator--ocean": {
-      "background-color": "#285F8C"
-    },
-    ".company-picker__option-indicator--violet": {
-      "background-color": "#DC50FF"
-    },
-    ".company-picker__option-indicator--azure": {
-      "background-color": "#5077FF"
-    },
-    ".company-picker__option-indicator--sunset": {
-      "background-color": "#FFAF50"
-    },
-    ".company-picker__option-indicator--default": {
-      "background-color": "var(--company-picker-indicator-default)"
-    },
-    ".company-picker__option-name": {
-      "flex": "1"
-    },
-    ".divider": {
-      "width": "1px",
-      "height": "20px",
-      "background-color": "var(--border-color)"
-    },
-    ".header__gradient": {
-      "position": "absolute",
-      "bottom": "0",
-      "left": "0",
-      "width": "100%",
-      "height": "6px",
-      "pointer-events": "none"
-    }
-  },
-  "subComponents": {
-    "companyPicker": {
-      "name": "CompanyPicker",
-      "description": "Dropdown component for selecting company",
-      "dimensions": {
-        "button": {
-          "height": "auto",
-          "minWidth": "auto"
-        },
-        "menu": {
-          "minWidth": "240px",
-          "maxHeight": "none"
-        },
-        "indicator": {
-          "width": "8px",
-          "height": "8px"
-        },
-        "optionIndicator": {
-          "width": "12px",
-          "height": "12px"
-        },
-        "name": {
-          "maxWidth": "200px"
-        }
-      },
-      "spacing": {
-        "button": {
-          "padding": "8px 12px",
-          "gap": "8px"
-        },
-        "menu": {
-          "padding": "8px",
-          "top": "calc(100% + 8px)"
-        },
-        "option": {
-          "padding": "8px 12px",
-          "gap": "12px"
-        }
-      },
-      "typography": {
-        "button": {
-          "fontFamily": "'Figtree', sans-serif",
-          "fontSize": "0.875rem",
-          "fontWeight": "500"
-        },
-        "option": {
-          "fontFamily": "'Figtree', sans-serif",
-          "fontSize": "0.875rem",
-          "fontWeight": "400"
-        }
-      },
-      "borders": {
-        "button": {
-          "radius": "6px"
-        },
-        "menu": {
-          "radius": "8px",
-          "width": "1px",
-          "style": "solid"
-        },
-        "option": {
-          "radius": "6px"
-        },
-        "indicator": {
-          "radius": "50%"
-        }
-      },
-      "colors": {
-        "variants": {
-          "default": {
-            "cp": {
-              "light": {
-                "button": {
-                  "default": {
-                    "background": "transparent",
-                    "text": "#373F4E",
-                    "border": "transparent",
-                    "iconColor": "#6B7280"
-                  },
-                  "hover": {
-                    "background": "#E5E7EB",
-                    "text": "#373F4E",
-                    "border": "transparent",
-                    "iconColor": "#6B7280"
-                  }
-                },
-                "menu": {
-                  "default": {
-                    "background": "#FCFDFF",
-                    "text": "#373F4E",
-                    "border": "#BFC6D4"
-                  }
-                },
-                "option": {
-                  "default": {
-                    "background": "transparent",
-                    "text": "#525969",
-                    "border": "transparent"
-                  },
-                  "hover": {
-                    "background": "#E5E7EB",
-                    "text": "#373F4E",
-                    "border": "transparent"
-                  },
-                  "selected": {
-                    "background": "rgba(76, 146, 217, 0.1)",
-                    "text": "#4C92D9",
-                    "border": "transparent"
-                  }
-                },
-                "indicator": {
-                  "acme": "#FF507B",
-                  "ocean": "#285F8C",
-                  "violet": "#DC50FF",
-                  "azure": "#5077FF",
-                  "sunset": "#FFAF50",
-                  "default": "#4C92D9"
-                }
-              },
-              "dark": {
-                "button": {
-                  "default": {
-                    "background": "transparent",
-                    "text": "#E9ECEF",
-                    "border": "transparent",
-                    "iconColor": "#BBBBC6"
-                  },
-                  "hover": {
-                    "background": "#3D4A5C",
-                    "text": "#E9ECEF",
-                    "border": "transparent",
-                    "iconColor": "#BBBBC6"
-                  }
-                },
-                "menu": {
-                  "default": {
-                    "background": "#333D47",
-                    "text": "#E9ECEF",
-                    "border": "#5F6871"
-                  }
-                },
-                "option": {
-                  "default": {
-                    "background": "transparent",
-                    "text": "#B6B6C4",
-                    "border": "transparent"
-                  },
-                  "hover": {
-                    "background": "#3D4A5C",
-                    "text": "#E9ECEF",
-                    "border": "transparent"
-                  },
-                  "selected": {
-                    "background": "rgba(89, 172, 255, 0.1)",
-                    "text": "#59ACFF",
-                    "border": "transparent"
-                  }
-                },
-                "indicator": {
-                  "acme": "#FF507B",
-                  "ocean": "#285F8C",
-                  "violet": "#DC50FF",
-                  "azure": "#5077FF",
-                  "sunset": "#FFAF50",
-                  "default": "#59ACFF"
-                }
-              }
-            },
-            "vp": {
-              "light": {
-                "button": {
-                  "default": {
-                    "background": "transparent",
-                    "text": "#373F4E",
-                    "border": "transparent",
-                    "iconColor": "#6B7280"
-                  },
-                  "hover": {
-                    "background": "#E5E7EB",
-                    "text": "#373F4E",
-                    "border": "transparent",
-                    "iconColor": "#6B7280"
-                  }
-                },
-                "menu": {
-                  "default": {
-                    "background": "#FCFDFF",
-                    "text": "#373F4E",
-                    "border": "#BFC6D4"
-                  }
-                },
-                "option": {
-                  "default": {
-                    "background": "transparent",
-                    "text": "#525969",
-                    "border": "transparent"
-                  },
-                  "hover": {
-                    "background": "#E5E7EB",
-                    "text": "#373F4E",
-                    "border": "transparent"
-                  },
-                  "selected": {
-                    "background": "rgba(76, 146, 217, 0.1)",
-                    "text": "#4C92D9",
-                    "border": "transparent"
-                  }
-                },
-                "indicator": {
-                  "acme": "#FF507B",
-                  "ocean": "#285F8C",
-                  "violet": "#DC50FF",
-                  "azure": "#5077FF",
-                  "sunset": "#FFAF50",
-                  "default": "#4C92D9"
-                }
-              },
-              "dark": {
-                "button": {
-                  "default": {
-                    "background": "transparent",
-                    "text": "#FAFAFA",
-                    "border": "transparent",
-                    "iconColor": "#B5B5BC"
-                  },
-                  "hover": {
-                    "background": "#2A2D32",
-                    "text": "#FAFAFA",
-                    "border": "transparent",
-                    "iconColor": "#B5B5BC"
-                  }
-                },
-                "menu": {
-                  "default": {
-                    "background": "#1A1C1F",
-                    "text": "#FAFAFA",
-                    "border": "#2A2D32"
-                  }
-                },
-                "option": {
-                  "default": {
-                    "background": "transparent",
-                    "text": "#B5B5BC",
-                    "border": "transparent"
-                  },
-                  "hover": {
-                    "background": "#2A2D32",
-                    "text": "#FAFAFA",
-                    "border": "transparent"
-                  },
-                  "selected": {
-                    "background": "rgba(89, 172, 255, 0.1)",
-                    "text": "#59ACFF",
-                    "border": "transparent"
-                  }
-                },
-                "indicator": {
-                  "acme": "#FF507B",
-                  "ocean": "#285F8C",
-                  "violet": "#DC50FF",
-                  "azure": "#5077FF",
-                  "sunset": "#FFAF50",
-                  "default": "#59ACFF"
-                }
-              }
-            },
-            "ppm": {
-              "light": {
-                "button": {
-                  "default": {
-                    "background": "transparent",
-                    "text": "#373F4E",
-                    "border": "transparent",
-                    "iconColor": "#6B7280"
-                  },
-                  "hover": {
-                    "background": "#E5E7EB",
-                    "text": "#373F4E",
-                    "border": "transparent",
-                    "iconColor": "#6B7280"
-                  }
-                },
-                "menu": {
-                  "default": {
-                    "background": "#FCFDFF",
-                    "text": "#373F4E",
-                    "border": "#BFC6D4"
-                  }
-                },
-                "option": {
-                  "default": {
-                    "background": "transparent",
-                    "text": "#525969",
-                    "border": "transparent"
-                  },
-                  "hover": {
-                    "background": "#E5E7EB",
-                    "text": "#373F4E",
-                    "border": "transparent"
-                  },
-                  "selected": {
-                    "background": "rgba(76, 146, 217, 0.1)",
-                    "text": "#4C92D9",
-                    "border": "transparent"
-                  }
-                },
-                "indicator": {
-                  "acme": "#FF507B",
-                  "ocean": "#285F8C",
-                  "violet": "#DC50FF",
-                  "azure": "#5077FF",
-                  "sunset": "#FFAF50",
-                  "default": "#4C92D9"
-                }
-              },
-              "dark": {
-                "button": {
-                  "default": {
-                    "background": "transparent",
-                    "text": "#FAFAFA",
-                    "border": "transparent",
-                    "iconColor": "#B5B5BC"
-                  },
-                  "hover": {
-                    "background": "#2A2D32",
-                    "text": "#FAFAFA",
-                    "border": "transparent",
-                    "iconColor": "#B5B5BC"
-                  }
-                },
-                "menu": {
-                  "default": {
-                    "background": "#1A1C1F",
-                    "text": "#FAFAFA",
-                    "border": "#2A2D32"
-                  }
-                },
-                "option": {
-                  "default": {
-                    "background": "transparent",
-                    "text": "#B5B5BC",
-                    "border": "transparent"
-                  },
-                  "hover": {
-                    "background": "#2A2D32",
-                    "text": "#FAFAFA",
-                    "border": "transparent"
-                  },
-                  "selected": {
-                    "background": "rgba(89, 172, 255, 0.1)",
-                    "text": "#59ACFF",
-                    "border": "transparent"
-                  }
-                },
-                "indicator": {
-                  "acme": "#FF507B",
-                  "ocean": "#285F8C",
-                  "violet": "#DC50FF",
-                  "azure": "#5077FF",
-                  "sunset": "#FFAF50",
-                  "default": "#59ACFF"
-                }
-              }
-            },
-            "maconomy": {
-              "light": {
-                "button": {
-                  "default": {
-                    "background": "transparent",
-                    "text": "#373F4E",
-                    "border": "transparent",
-                    "iconColor": "#6B7280"
-                  },
-                  "hover": {
-                    "background": "#E5E7EB",
-                    "text": "#373F4E",
-                    "border": "transparent",
-                    "iconColor": "#6B7280"
-                  }
-                },
-                "menu": {
-                  "default": {
-                    "background": "#FCFDFF",
-                    "text": "#373F4E",
-                    "border": "#BFC6D4"
-                  }
-                },
-                "option": {
-                  "default": {
-                    "background": "transparent",
-                    "text": "#525969",
-                    "border": "transparent"
-                  },
-                  "hover": {
-                    "background": "#E5E7EB",
-                    "text": "#373F4E",
-                    "border": "transparent"
-                  },
-                  "selected": {
-                    "background": "rgba(76, 146, 217, 0.1)",
-                    "text": "#4C92D9",
-                    "border": "transparent"
-                  }
-                },
-                "indicator": {
-                  "acme": "#FF507B",
-                  "ocean": "#285F8C",
-                  "violet": "#DC50FF",
-                  "azure": "#5077FF",
-                  "sunset": "#FFAF50",
-                  "default": "#4C92D9"
-                }
-              },
-              "dark": {
-                "button": {
-                  "default": {
-                    "background": "transparent",
-                    "text": "#FAFAFA",
-                    "border": "transparent",
-                    "iconColor": "#B5B5BC"
-                  },
-                  "hover": {
-                    "background": "#2A2D32",
-                    "text": "#FAFAFA",
-                    "border": "transparent",
-                    "iconColor": "#B5B5BC"
-                  }
-                },
-                "menu": {
-                  "default": {
-                    "background": "#1A1C1F",
-                    "text": "#FAFAFA",
-                    "border": "#2A2D32"
-                  }
-                },
-                "option": {
-                  "default": {
-                    "background": "transparent",
-                    "text": "#B5B5BC",
-                    "border": "transparent"
-                  },
-                  "hover": {
-                    "background": "#2A2D32",
-                    "text": "#FAFAFA",
-                    "border": "transparent"
-                  },
-                  "selected": {
-                    "background": "rgba(89, 172, 255, 0.1)",
-                    "text": "#59ACFF",
-                    "border": "transparent"
-                  }
-                },
-                "indicator": {
-                  "acme": "#FF507B",
-                  "ocean": "#285F8C",
-                  "violet": "#DC50FF",
-                  "azure": "#5077FF",
-                  "sunset": "#FFAF50",
-                  "default": "#59ACFF"
-                }
-              }
-            }
-          }
-        }
-      },
-      "elevation": {
-        "menu": {
-          "light": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)",
-          "dark": "0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.3)"
-        }
-      },
-      "transitions": {
-        "button": "background-color 150ms ease",
-        "menu": "all 150ms ease",
-        "option": "all 150ms ease"
-      },
-      "states": {
-        "open": {
-          "opacity": "1",
-          "visibility": "visible",
-          "transform": "translateY(0)"
-        },
-        "closed": {
-          "opacity": "0",
-          "visibility": "hidden",
-          "transform": "translateY(-8px)"
-        }
-      }
-    },
-    "divider": {
-      "name": "Divider",
-      "description": "Vertical divider between header actions",
-      "dimensions": {
-        "width": "1px",
-        "height": "20px"
-      },
-      "colors": {
-        "variants": {
-          "default": {
-            "cp": {
-              "light": "#BFC6D4",
-              "dark": "#5F6871"
-            },
-            "vp": {
-              "light": "#BFC6D4",
-              "dark": "#2A2D32"
-            },
-            "ppm": {
-              "light": "#BFC6D4",
-              "dark": "#2A2D32"
-            },
-            "maconomy": {
-              "light": "#BFC6D4",
-              "dark": "#2A2D32"
-            }
-          }
-        }
-      }
-    },
-    "gradientBorder": {
-      "name": "GradientBorder",
-      "description": "Gradient fades at edges (opacity 0.02) and is solid in center (50%)",
-      "dimensions": {
-        "height": "6px",
-        "width": "100%"
-      },
-      "pattern": "linear-gradient(to right, {color}05, {color} 50%, {color}05)",
-      "colors": {
-        "acme": "linear-gradient(to right, #FF507B05, #FF507B 50%, #FF507B05)",
-        "ocean": "linear-gradient(to right, #285F8C05, #285F8C 50%, #285F8C05)",
-        "violet": "linear-gradient(to right, #DC50FF05, #DC50FF 50%, #DC50FF05)",
-        "azure": "linear-gradient(to right, #5077FF05, #5077FF 50%, #5077FF05)",
-        "sunset": "linear-gradient(to right, #FFAF5005, #FFAF50 50%, #FFAF5005)",
-        "default": {
-          "cp": {
-            "light": "linear-gradient(to right, #4C92D905, #4C92D9 50%, #4C92D905)",
-            "dark": "linear-gradient(to right, #59ACFF05, #59ACFF 50%, #59ACFF05)"
-          },
-          "vp": {
-            "light": "linear-gradient(to right, #4C92D905, #4C92D9 50%, #4C92D905)",
-            "dark": "linear-gradient(to right, #59ACFF05, #59ACFF 50%, #59ACFF05)"
-          },
-          "ppm": {
-            "light": "linear-gradient(to right, #4C92D905, #4C92D9 50%, #4C92D905)",
-            "dark": "linear-gradient(to right, #59ACFF05, #59ACFF 50%, #59ACFF05)"
-          },
-          "maconomy": {
-            "light": "linear-gradient(to right, #4C92D905, #4C92D9 50%, #4C92D905)",
-            "dark": "linear-gradient(to right, #59ACFF05, #59ACFF 50%, #59ACFF05)"
-          }
-        }
-      }
-    }
-  },
-  "responsive": {
-    "breakpoints": {
-      "mobile": {
-        "maxWidth": "639px",
-        "padding": "0 16px"
-      },
-      "desktop": {
-        "minWidth": "640px",
-        "padding": "0 24px"
-      }
-    }
-  },
-  "interactivity": {
-    "hasInteractivity": true,
-    "initialization": {
-      "function": "initCompanyPickers",
-      "triggers": [
-        "DOMContentLoaded",
-        "astro:page-load"
-      ],
-      "preventDoubleInit": true,
-      "preventDoubleInitMethod": "data-init attribute on picker button"
-    },
-    "state": {
-      "menuOpen": {
-        "type": "boolean",
-        "managedBy": "CSS class",
-        "class": "company-picker__menu--open",
-        "description": "Controls visibility of company picker dropdown menu"
-      },
-      "selectedCompany": {
-        "type": "object",
-        "properties": {
-          "id": "string (data-company-id)",
-          "name": "string (display text)",
-          "color": "string (RGB/hex color)"
-        },
-        "description": "Currently selected company information"
-      }
-    },
-    "eventHandlers": [
-      {
-        "element": "[data-company-picker-btn]",
-        "event": "click",
-        "handler": "toggleCompanyPickerMenu",
-        "description": "Toggles company picker dropdown menu open/closed",
-        "stopsPropagation": true
-      },
-      {
-        "element": "[data-company-option]",
-        "event": "click",
-        "handler": "selectCompany",
-        "description": "Selects a company option, updates display, indicator color, and gradient border",
-        "stopsPropagation": true,
-        "actions": [
-          "Remove 'company-picker__option--selected' from all options",
-          "Add 'company-picker__option--selected' to clicked option",
-          "Update company name display (data-company-name)",
-          "Update company indicator color (data-company-indicator)",
-          "Update header gradient border (data-header-gradient)",
-          "Close menu (remove 'company-picker__menu--open')"
-        ]
-      },
-      {
-        "element": "document",
-        "event": "click",
-        "handler": "closeMenuOnOutsideClick",
-        "description": "Closes company picker menu when clicking outside",
-        "condition": "Click target is not within picker button or menu",
-        "global": true,
-        "singleton": true
-      }
-    ],
-    "keyboardSupport": {
-      "enter": "Opens/closes company picker menu (via button click)",
-      "escape": "Closes company picker menu",
-      "arrowDown": "Navigates company picker options",
-      "arrowUp": "Navigates company picker options"
-    },
-    "dataAttributes": {
-      "data-company-picker-btn": {
-        "purpose": "Identifies company picker button element",
-        "usedBy": "Event handler attachment"
-      },
-      "data-company-picker-menu": {
-        "purpose": "Identifies company picker dropdown menu element",
-        "usedBy": "Menu visibility toggle"
-      },
-      "data-company-option": {
-        "purpose": "Identifies individual company option buttons",
-        "usedBy": "Selection event handlers"
-      },
-      "data-company-id": {
-        "purpose": "Stores unique identifier for each company option",
-        "values": [
-          "acme-corp",
-          "ocean-industries",
-          "violet-systems",
-          "azure-dynamics",
-          "sunset-corporation"
-        ]
-      },
-      "data-company-indicator": {
-        "purpose": "Identifies color indicator element in picker button",
-        "usedBy": "Dynamic color updates"
-      },
-      "data-company-name": {
-        "purpose": "Identifies company name display element",
-        "usedBy": "Dynamic text updates"
-      },
-      "data-header-gradient": {
-        "purpose": "Identifies gradient border element at bottom of header",
-        "usedBy": "Dynamic gradient color updates based on selected company"
-      },
-      "data-init": {
-        "purpose": "Prevents double initialization of picker functionality",
-        "setBy": "initCompanyPickers function"
-      }
-    },
-    "globalFunctions": {},
-    "customEvents": [],
-    "dependencies": {
-      "internal": [
-        "rgbToHex helper function"
-      ],
-      "external": []
-    },
-    "coordination": {
-      "updates": [
-        {
-          "target": "Company indicator color",
-          "method": "Reads computed style from selected option indicator, applies to button indicator"
-        },
-        {
-          "target": "Header gradient border",
-          "method": "Converts RGB color to hex, applies linear gradient with fade edges (opacity 0.02 at edges, solid at 50%)"
-        },
-        {
-          "target": "Company name display",
-          "method": "Updates text content of data-company-name element"
-        }
-      ]
-    },
-    "implementationNotes": [
-      "Uses rgbToHex helper function to convert computed RGB colors to hex format for gradient",
-      "Gradient pattern: linear-gradient(to right, {color}05, {color} 50%, {color}05)",
-      "Outside click handler is added only once globally (singleton pattern)",
-      "Each picker button is initialized independently with data-init flag"
-    ]
-  },
+  "cssClassStyles": {},
   "_variantIndex": {},
   "_variantMetadata": {
     "availableVariants": []
-  },
-  "iconPaths": {
-    "chevronIcon": {
-      "name": "chevron-down",
-      "source": "heroicons",
-      "path": "node_modules/heroicons/24/outline/chevron-down.svg"
-    }
-  },
-  "_iconPathMetadata": {
-    "description": "Icon paths document where hardcoded/default icons come from (heroicons or custom SVG)",
-    "resolutionOrder": [
-      "heroicons",
-      "custom",
-      "unknown"
-    ],
-    "lastUpdated": "2026-01-26T21:35:36.802Z"
   }
 }
