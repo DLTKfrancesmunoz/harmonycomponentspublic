@@ -16,6 +16,27 @@ const __dirname = path.dirname(__filename);
 const rootDir = path.join(__dirname, '..');
 
 /**
+ * Read SVG file and extract content
+ */
+function readSvgContent(filePath) {
+  try {
+    const fullPath = path.join(rootDir, filePath);
+    if (fs.existsSync(fullPath)) {
+      const svgContent = fs.readFileSync(fullPath, 'utf-8');
+      // Extract inner content (everything between <svg> tags)
+      const match = svgContent.match(/<svg[^>]*>([\s\S]*?)<\/svg>/);
+      if (match) {
+        return match[1].trim();
+      }
+      return svgContent;
+    }
+  } catch (e) {
+    console.warn(`Could not read SVG file: ${filePath}`);
+  }
+  return null;
+}
+
+/**
  * Process an icon item and add source information
  */
 function processIconItem(item) {
@@ -26,21 +47,41 @@ function processIconItem(item) {
       ? `public${item.customSrc}`
       : `public/${item.customSrc}`;
     
-    return {
+    // Read the SVG content for custom icons (MCP needs it)
+    const svgContent = readSvgContent(customPath);
+    
+    const result = {
       ...item,
       iconSource: 'custom',
       iconPath: customPath
     };
+    
+    // Add SVG code if available
+    if (svgContent) {
+      result.iconSvg = svgContent;
+    }
+    
+    return result;
   }
 
   // Regular icon with icon name
   if (item.icon) {
     const sourceInfo = detectIconSource(item.icon);
-    return {
+    const result = {
       ...item,
       iconSource: sourceInfo.source,
       iconPath: sourceInfo.path
     };
+    
+    // For custom icons, also include SVG code
+    if (sourceInfo.source === 'custom' && sourceInfo.path) {
+      const svgContent = readSvgContent(sourceInfo.path);
+      if (svgContent) {
+        result.iconSvg = svgContent;
+      }
+    }
+    
+    return result;
   }
 
   // No icon field, return as-is
