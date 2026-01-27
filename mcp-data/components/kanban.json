@@ -80,7 +80,22 @@
     ],
     "darkMode": true
   },
-  "slots": {},
+  "slots": {
+    "title-bar-actions": {
+      "name": "title-bar-actions",
+      "required": false,
+      "location": null,
+      "description": null,
+      "conditional": null
+    },
+    "action-bar": {
+      "name": "action-bar",
+      "required": false,
+      "location": null,
+      "description": null,
+      "conditional": null
+    }
+  },
   "structure": {
     "root": {
       "element": "div",
@@ -126,118 +141,13 @@
                   },
                   "children": [
                     {
-                      "element": "button",
-                      "class": "kanban__title-bar-icon",
+                      "element": "slot",
+                      "class": null,
                       "spacing": {
                         "padding": "0",
                         "margin": "0"
                       },
-                      "children": [
-                        {
-                          "element": "Icon",
-                          "class": null,
-                          "spacing": {
-                            "padding": "0",
-                            "margin": "0"
-                          },
-                          "children": []
-                        }
-                      ]
-                    },
-                    {
-                      "element": "button",
-                      "class": "kanban__title-bar-icon",
-                      "spacing": {
-                        "padding": "0",
-                        "margin": "0"
-                      },
-                      "children": [
-                        {
-                          "element": "Icon",
-                          "class": null,
-                          "spacing": {
-                            "padding": "0",
-                            "margin": "0"
-                          },
-                          "children": []
-                        }
-                      ]
-                    },
-                    {
-                      "element": "button",
-                      "class": "kanban__title-bar-icon",
-                      "spacing": {
-                        "padding": "0",
-                        "margin": "0"
-                      },
-                      "children": [
-                        {
-                          "element": "Icon",
-                          "class": null,
-                          "spacing": {
-                            "padding": "0",
-                            "margin": "0"
-                          },
-                          "children": []
-                        }
-                      ]
-                    },
-                    {
-                      "element": "button",
-                      "class": "kanban__title-bar-icon",
-                      "spacing": {
-                        "padding": "0",
-                        "margin": "0"
-                      },
-                      "children": [
-                        {
-                          "element": "Icon",
-                          "class": null,
-                          "spacing": {
-                            "padding": "0",
-                            "margin": "0"
-                          },
-                          "children": []
-                        }
-                      ]
-                    },
-                    {
-                      "element": "button",
-                      "class": "kanban__title-bar-icon",
-                      "spacing": {
-                        "padding": "0",
-                        "margin": "0"
-                      },
-                      "children": [
-                        {
-                          "element": "Icon",
-                          "class": null,
-                          "spacing": {
-                            "padding": "0",
-                            "margin": "0"
-                          },
-                          "children": []
-                        }
-                      ]
-                    },
-                    {
-                      "element": "button",
-                      "class": "kanban__title-bar-icon",
-                      "spacing": {
-                        "padding": "0",
-                        "margin": "0"
-                      },
-                      "children": [
-                        {
-                          "element": "Icon",
-                          "class": null,
-                          "spacing": {
-                            "padding": "0",
-                            "margin": "0"
-                          },
-                          "children": []
-                        }
-                      ]
+                      "children": []
                     }
                   ]
                 }
@@ -260,7 +170,17 @@
                 "padding": "0",
                 "margin": "0"
               },
-              "children": []
+              "children": [
+                {
+                  "element": "slot",
+                  "class": null,
+                  "spacing": {
+                    "padding": "0",
+                    "margin": "0"
+                  },
+                  "children": []
+                }
+              ]
             }
           ]
         },
@@ -441,7 +361,7 @@
     "children": []
   },
   "_metadata": {
-    "lastGenerated": "2026-01-27T16:18:11.182Z",
+    "lastGenerated": "2026-01-27T17:18:36.308Z",
     "generatedWith": "@astrojs/compiler@2.13.0",
     "includesVisualSpecs": true,
     "availableVariants": []

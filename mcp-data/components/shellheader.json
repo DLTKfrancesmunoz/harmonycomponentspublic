@@ -29,6 +29,11 @@
       "optional": true,
       "default": null
     },
+    "companies": {
+      "type": "CompanyOption[]",
+      "optional": true,
+      "default": null
+    },
     "class": {
       "type": "string",
       "optional": true,
@@ -56,15 +61,7 @@
     "company-picker__name",
     "company-picker__chevron",
     "company-picker__menu",
-    "company-picker__option",
-    "company-picker__option--selected",
-    "company-picker__option-indicator",
-    "company-picker__option-indicator--acme",
     "company-picker__option-name",
-    "company-picker__option-indicator--ocean",
-    "company-picker__option-indicator--violet",
-    "company-picker__option-indicator--azure",
-    "company-picker__option-indicator--sunset",
     "divider",
     "header__gradient"
   ],
@@ -77,7 +74,15 @@
     ],
     "darkMode": true
   },
-  "slots": {},
+  "slots": {
+    "actions": {
+      "name": "actions",
+      "required": false,
+      "location": null,
+      "description": null,
+      "conditional": null
+    }
+  },
   "structure": {
     "root": {
       "element": "header",
@@ -136,7 +141,7 @@
           },
           "children": [
             {
-              "element": "Avatar",
+              "element": "slot",
               "class": null,
               "spacing": {
                 "padding": "0",
@@ -170,7 +175,7 @@
     ]
   },
   "_metadata": {
-    "lastGenerated": "2026-01-27T16:18:11.745Z",
+    "lastGenerated": "2026-01-27T17:18:36.941Z",
     "generatedWith": "@astrojs/compiler@2.13.0",
     "includesVisualSpecs": true,
     "availableVariants": []
