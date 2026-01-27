@@ -2,173 +2,56 @@
   "name": "ShellLayout",
   "type": "layout",
   "filePath": "src/layouts/ShellLayout.astro",
-  "description": "Complete application shell layout orchestrator that combines header, navigation, sidebars, footer, floating nav, page header, and panels into a cohesive application structure. Automatically adapts to different themes (CP, VP, PPM, Maconomy) with theme detection.",
+  "description": "Complete application shell layout with theme-specific composition",
   "props": {
     "productName": {
       "type": "string",
       "optional": true,
-      "default": "Harmony",
-      "description": "Header props - Product name displayed in header"
-    },
-    "logoSrc": {
-      "type": "string",
-      "optional": true,
-      "default": "/logos/CPVPLogo.svg",
-      "description": "Header props - Logo image source path"
-    },
-    "companyName": {
-      "type": "string",
-      "optional": true,
-      "default": "Company name",
-      "description": "Header props - Company name displayed in company picker"
-    },
-    "showCompanyPicker": {
-      "type": "boolean",
-      "optional": true,
-      "default": true,
-      "description": "Header props - Whether to show company picker dropdown"
-    },
-    "companyColor": {
-      "type": "string",
-      "optional": true,
-      "default": "",
-      "description": "Header props - Custom company color for gradient border"
+      "description": "Header props (passed to ShellHeader)",
+      "default": "'Harmony'"
     },
     "showFloatingNav": {
       "type": "boolean",
       "optional": true,
-      "default": "",
-      "description": "CP-specific props - Whether to show floating navigation toolbar (CP theme only)"
-    },
-    "floatingNavVariant": {
-      "type": "'full' | 'compact'",
-      "optional": true,
-      "default": "full",
-      "description": "CP-specific props - Floating nav variant: 'full' for all buttons or 'compact' for fewer buttons"
-    },
-    "showExecute": {
-      "type": "boolean",
-      "optional": true,
-      "default": true,
-      "description": "CP-specific props - Whether to show Execute button in floating nav"
-    },
-    "saveDisabled": {
-      "type": "boolean",
-      "optional": true,
-      "default": false,
-      "description": "CP-specific props - Whether Save button in floating nav is disabled"
+      "description": "CP-specific props",
+      "default": "isCP; // CP has floating nav"
     },
     "tabs": {
       "type": "Tab[]",
       "optional": true,
-      "default": [],
-      "description": "Standard theme props - Array of tab objects with { id, label, active, href } for footer navigation"
-    },
-    "showMoreTabs": {
-      "type": "boolean",
-      "optional": true,
-      "default": false,
-      "description": "Standard theme props - Whether to show 'More' dropdown in footer"
-    },
-    "moreCount": {
-      "type": "number",
-      "optional": true,
-      "default": 0,
-      "description": "Standard theme props - Number for 'More (N)' label in footer"
-    },
-    "overflowTabs": {
-      "type": "Tab[]",
-      "optional": true,
-      "default": [],
-      "description": "Standard theme props - Array of overflow tabs shown in footer dropdown"
-    },
-    "showAddTab": {
-      "type": "boolean",
-      "optional": true,
-      "default": true,
-      "description": "Standard theme props - Whether to show 'Add Tab' button in footer"
-    },
-    "footerVariant": {
-      "type": "'default' | 'compact'",
-      "optional": true,
-      "default": "default",
-      "description": "Standard theme props - Footer height variant: 'default' (48px) or 'compact' (40px)"
+      "description": "Standard theme props",
+      "default": "[]"
     },
     "leftSidebarVariant": {
       "type": "'cp' | 'vp' | 'ppm' | 'maconomy'",
       "optional": true,
-      "default": "",
-      "description": "Left sidebar props - Theme variant for left sidebar"
+      "description": "Left sidebar props",
+      "default": null
     },
     "rightSidebarVariant": {
       "type": "'cp' | 'vp' | 'ppm' | 'maconomy'",
       "optional": true,
-      "default": "",
-      "description": "Right sidebar props - Theme variant for right sidebar"
+      "description": "Right sidebar props",
+      "default": null
     },
     "pageHeaderTitle": {
       "type": "string",
       "optional": true,
-      "default": "",
-      "description": "Page header props - Title text for page header"
-    },
-    "pageHeaderSubtitle": {
-      "type": "string",
-      "optional": true,
-      "default": "",
-      "description": "Page header props - Subtitle text for page header"
-    },
-    "pageHeaderPrimaryButton": {
-      "type": "ButtonConfig",
-      "optional": true,
-      "default": "",
-      "description": "Page header props - Primary button configuration with { text, icon?, href? }"
-    },
-    "pageHeaderOutlineButton1": {
-      "type": "ButtonConfig",
-      "optional": true,
-      "default": "",
-      "description": "Page header props - First outline button configuration"
-    },
-    "pageHeaderOutlineButton2": {
-      "type": "ButtonConfig",
-      "optional": true,
-      "default": "",
-      "description": "Page header props - Second outline button configuration"
-    },
-    "pageHeaderOutlineButton3": {
-      "type": "ButtonConfig",
-      "optional": true,
-      "default": "",
-      "description": "Page header props - Third outline button configuration"
+      "description": "Page header props",
+      "default": null
     },
     "leftPanel": {
       "type": "PanelConfig",
       "optional": true,
-      "default": "",
-      "description": "Panel props - Left panel configuration with { side: 'left', open, title, titleIcon?, headerVariant?, width?, showClose?, showPopout?, id?, class? }"
-    },
-    "rightPanel": {
-      "type": "PanelConfig",
-      "optional": true,
-      "default": "",
-      "description": "Panel props - Right panel configuration with { side: 'right', open, title, titleIcon?, headerVariant?, width?, showClose?, showPopout?, id?, class? }"
+      "description": "Panel props",
+      "default": null
     },
     "class": {
       "type": "string",
       "optional": true,
-      "default": "",
-      "description": "General - Additional CSS classes to apply to root element"
+      "description": "General",
+      "default": "{`shell-layout ${className"
     }
-  },
-  "imports": {
-    "ShellHeader": "../components/ui/ShellHeader.astro",
-    "ShellFooter": "../components/ui/ShellFooter.astro",
-    "LeftSidebar": "../components/ui/LeftSidebar.astro",
-    "RightSidebar": "../components/ui/RightSidebar.astro",
-    "FloatingNav": "../components/ui/FloatingNav.astro",
-    "ShellPageHeader": "../components/ui/ShellPageHeader.astro",
-    "ShellPanel": "../components/ui/ShellPanel.astro"
   },
   "dependencies": [
     "ShellHeader",
@@ -177,3296 +60,524 @@
     "RightSidebar",
     "FloatingNav",
     "ShellPageHeader",
-    "ShellPanel",
-    "Icon",
-    "Avatar",
-    "TabStrip",
-    "Button",
-    "Tooltip"
+    "ShellPanel"
   ],
   "themeSupport": {
-    "themes": ["cp", "vp", "ppm", "maconomy"],
+    "themes": [
+      "cp",
+      "vp",
+      "ppm",
+      "maconomy"
+    ],
     "darkMode": true
   },
-  "cssClasses": [
-    "shell-layout",
-    "shell-layout__container",
-    "shell-layout__header",
-    "shell-layout__floating-nav-wrap",
-    "shell-layout__left-sidebar",
-    "shell-layout__right-sidebar",
-    "shell-layout__main",
-    "shell-layout__footer",
-    "shell-layout__left-panel",
-    "shell-layout__right-panel"
-  ],
-  "structure": {
-    "root": {
-      "element": "div",
-      "class": "shell-layout",
-      "spacing": {
-        "padding": "0",
-        "margin": "0"
-      },
-      "baseClass": "shell-layout",
-      "modifierClasses": {},
-      "children": [
+  "themeComposition": {
+    "cp": {
+      "productName": "Costpoint",
+      "logo": "/logos/CPVPLogo.svg",
+      "components": [
         {
-          "element": "div",
-          "class": "shell-layout__container",
-          "spacing": {
-            "padding": "0",
-            "margin": "0"
-          },
-          "children": [
-            {
-              "element": "ShellHeader",
-              "class": "shell-layout__header",
-              "spacing": {
-                "padding": "0",
-                "margin": "0"
-              }
-            },
-            {
-              "element": "div",
-              "class": "shell-layout__floating-nav-wrap",
-              "spacing": {
-                "padding": "0",
-                "margin": "0"
-              },
-              "conditional": "CP theme only"
-            },
-            {
-              "element": "LeftSidebar",
-              "class": "shell-layout__left-sidebar",
-              "spacing": {
-                "padding": "0",
-                "margin": "0"
-              }
-            },
-            {
-              "element": "RightSidebar",
-              "class": "shell-layout__right-sidebar",
-              "spacing": {
-                "padding": "0",
-                "margin": "0"
-              }
-            },
-            {
-              "element": "ShellPanel",
-              "class": "shell-layout__left-panel",
-              "spacing": {
-                "padding": "0",
-                "margin": "0"
-              },
-              "conditional": "When leftPanel prop is provided"
-            },
-            {
-              "element": "ShellPanel",
-              "class": "shell-layout__right-panel",
-              "spacing": {
-                "padding": "0",
-                "margin": "0"
-              },
-              "conditional": "When rightPanel prop is provided"
-            },
-            {
-              "element": "main",
-              "class": "shell-layout__main",
-              "spacing": {
-                "padding": "var(--shell-layout-padding-top) calc(var(--shell-layout-padding-side-default) + var(--space-5)) var(--space-6) calc(var(--shell-layout-padding-side-default) + var(--space-5))",
-                "margin": "0"
-              },
-              "children": [
-                {
-                  "element": "ShellPageHeader",
-                  "class": "",
-                  "spacing": {
-                    "padding": "0",
-                    "margin": "0"
-                  },
-                  "conditional": "When pageHeaderTitle is provided"
-                },
-                {
-                  "element": "slot",
-                  "class": "",
-                  "spacing": {
-                    "padding": "0",
-                    "margin": "0"
-                  }
-                }
-              ]
-            },
-            {
-              "element": "ShellFooter",
-              "class": "shell-layout__footer",
-              "spacing": {
-                "padding": "0",
-                "margin": "0"
-              },
-              "conditional": "VP/PPM/Maconomy themes only"
-            }
-          ]
+          "name": "ShellHeader",
+          "required": true,
+          "conditional": null
+        },
+        {
+          "name": "FloatingNav",
+          "required": false,
+          "conditional": "CP theme only"
+        },
+        {
+          "name": "LeftSidebar",
+          "required": true,
+          "conditional": null
+        },
+        {
+          "name": "RightSidebar",
+          "required": true,
+          "conditional": null
+        },
+        {
+          "name": "ShellPageHeader",
+          "required": false,
+          "conditional": "When pageHeaderTitle is provided"
+        },
+        {
+          "name": "ShellPanel",
+          "required": false,
+          "conditional": "When leftPanel or rightPanel is provided"
+        },
+        {
+          "name": "main",
+          "required": true,
+          "conditional": null
         }
-      ]
+      ],
+      "hasFooter": false,
+      "hasFloatingNav": true,
+      "gridRows": "var(--shell-header-height) 1fr",
+      "gridColumns": "1fr",
+      "mainPadding": {
+        "top": "var(--shell-layout-padding-top)",
+        "right": "calc(var(--shell-layout-padding-side-default) + var(--space-5))",
+        "bottom": "var(--space-6)",
+        "left": "calc(var(--shell-layout-padding-side-default) + var(--space-5))"
+      },
+      "description": "CP theme uses FloatingNav below header, no footer, 88px top padding"
+    },
+    "vp": {
+      "productName": "Vantagepoint",
+      "logo": "/logos/CPVPLogo.svg",
+      "components": [
+        {
+          "name": "ShellHeader",
+          "required": true,
+          "conditional": null
+        },
+        {
+          "name": "LeftSidebar",
+          "required": true,
+          "conditional": null
+        },
+        {
+          "name": "RightSidebar",
+          "required": true,
+          "conditional": null
+        },
+        {
+          "name": "ShellPageHeader",
+          "required": false,
+          "conditional": "When pageHeaderTitle is provided"
+        },
+        {
+          "name": "ShellPanel",
+          "required": false,
+          "conditional": "When leftPanel or rightPanel is provided"
+        },
+        {
+          "name": "main",
+          "required": true,
+          "conditional": null
+        },
+        {
+          "name": "ShellFooter",
+          "required": true,
+          "conditional": "VP/PPM/Maconomy themes"
+        }
+      ],
+      "hasFooter": true,
+      "hasFloatingNav": false,
+      "gridRows": "var(--shell-header-height) 1fr var(--shell-footer-height-default)",
+      "gridColumns": "1fr",
+      "mainPadding": {
+        "top": "var(--space-5)",
+        "right": "calc(var(--shell-layout-padding-side-default) + var(--space-5))",
+        "bottom": "var(--space-6)",
+        "left": "calc(var(--shell-layout-padding-side-default) + var(--space-5))"
+      },
+      "description": "VP theme uses footer for navigation, no FloatingNav, 20px top padding"
+    },
+    "ppm": {
+      "productName": "Project Performance Management",
+      "logo": "/logos/PPMLogo.svg",
+      "components": [
+        {
+          "name": "ShellHeader",
+          "required": true,
+          "conditional": null
+        },
+        {
+          "name": "LeftSidebar",
+          "required": true,
+          "conditional": null
+        },
+        {
+          "name": "RightSidebar",
+          "required": true,
+          "conditional": null
+        },
+        {
+          "name": "ShellPageHeader",
+          "required": false,
+          "conditional": "When pageHeaderTitle is provided"
+        },
+        {
+          "name": "ShellPanel",
+          "required": false,
+          "conditional": "When leftPanel or rightPanel is provided"
+        },
+        {
+          "name": "main",
+          "required": true,
+          "conditional": null
+        },
+        {
+          "name": "ShellFooter",
+          "required": true,
+          "conditional": "VP/PPM/Maconomy themes"
+        }
+      ],
+      "hasFooter": true,
+      "hasFloatingNav": false,
+      "gridRows": "var(--shell-header-height) 1fr var(--shell-footer-height-default)",
+      "gridColumns": "1fr",
+      "mainPadding": {
+        "top": "var(--space-5)",
+        "right": "calc(var(--shell-layout-padding-side-default) + var(--space-5))",
+        "bottom": "var(--space-6)",
+        "left": "calc(var(--shell-layout-padding-side-default) + var(--space-5))"
+      },
+      "description": "PPM theme uses footer for navigation, no FloatingNav, 20px top padding"
+    },
+    "maconomy": {
+      "productName": "Maconomy",
+      "logo": "/logos/MacLogo.svg",
+      "components": [
+        {
+          "name": "ShellHeader",
+          "required": true,
+          "conditional": null
+        },
+        {
+          "name": "LeftSidebar",
+          "required": true,
+          "conditional": null
+        },
+        {
+          "name": "RightSidebar",
+          "required": true,
+          "conditional": null
+        },
+        {
+          "name": "ShellPageHeader",
+          "required": false,
+          "conditional": "When pageHeaderTitle is provided"
+        },
+        {
+          "name": "ShellPanel",
+          "required": false,
+          "conditional": "When leftPanel or rightPanel is provided"
+        },
+        {
+          "name": "main",
+          "required": true,
+          "conditional": null
+        },
+        {
+          "name": "ShellFooter",
+          "required": true,
+          "conditional": "VP/PPM/Maconomy themes"
+        }
+      ],
+      "hasFooter": true,
+      "hasFloatingNav": false,
+      "gridRows": "var(--shell-header-height) 1fr var(--shell-footer-height-default)",
+      "gridColumns": "1fr",
+      "mainPadding": {
+        "top": "var(--space-5)",
+        "right": "calc(var(--shell-layout-padding-side-default) + var(--space-5))",
+        "bottom": "var(--space-6)",
+        "left": "calc(var(--shell-layout-padding-side-default) + var(--space-5))"
+      },
+      "description": "Maconomy theme uses footer for navigation, no FloatingNav, 20px top padding"
     }
   },
-  "_metadata": {
-    "lastGenerated": "2026-01-26T00:00:00.000Z",
-    "generatedWith": "manual",
-    "includesVisualSpecs": true,
-    "availableVariants": []
+  "spacingTokens": {
+    "headerHeight": {
+      "token": "--shell-header-height",
+      "value": "56px",
+      "resolved": "56px"
+    },
+    "footerHeightDefault": {
+      "token": "--shell-footer-height-default",
+      "value": "48px",
+      "resolved": "48px"
+    },
+    "footerHeightCompact": {
+      "token": "--shell-footer-height-compact",
+      "value": "40px",
+      "resolved": "40px"
+    },
+    "layoutPaddingTop": {
+      "token": "--shell-layout-padding-top",
+      "value": "88px",
+      "resolved": "88px"
+    },
+    "layoutPaddingSideDefault": {
+      "token": "--shell-layout-padding-side-default",
+      "value": "52px",
+      "resolved": "52px"
+    },
+    "layoutPaddingSideStandard": {
+      "token": "--shell-layout-padding-side-standard",
+      "value": "52px",
+      "resolved": "52px"
+    },
+    "layoutPaddingSideTablet": {
+      "token": "--shell-layout-padding-side-tablet",
+      "value": "32px",
+      "resolved": "32px"
+    },
+    "layoutPaddingSideMobile": {
+      "token": "--shell-layout-padding-side-mobile",
+      "value": "16px",
+      "resolved": "16px"
+    },
+    "footerTabHoverBg": {
+      "token": "--shell-footer-tab-hover-bg",
+      "value": "rgba(255, 255, 255, 0.1)",
+      "resolved": "rgba(255, 255, 255, 0.1)"
+    },
+    "footerBg": {
+      "token": "--shell-footer-bg",
+      "value": "#212631",
+      "resolved": "#212631"
+    },
+    "sidebarWidth": {
+      "token": "--sidebar-width",
+      "value": "52px",
+      "resolved": "52px"
+    },
+    "panelWidthNarrow": {
+      "token": "--panel-width-narrow",
+      "value": "596px",
+      "resolved": "596px"
+    },
+    "panelWidthFull": {
+      "token": "--panel-width-full",
+      "value": "1300px",
+      "resolved": "1300px"
+    }
   },
-  "visualSpecifications": {
-    "dimensions": {
-      "default": {
-        "height": "100vh",
-        "width": "100%",
-        "minWidth": "auto",
-        "maxWidth": "none"
-      }
+  "gridStructure": {
+    "withFooter": {
+      "rows": "var(--shell-header-height) 1fr var(--shell-footer-height-default)",
+      "columns": "1fr",
+      "description": "Used by VP, PPM, Maconomy themes"
     },
-    "spacing": {
-      "default": {
-        "paddingTop": "0",
-        "paddingRight": "0",
-        "paddingBottom": "0",
-        "paddingLeft": "0",
-        "gap": "0"
-      },
-      "mainWithFloatingNav": {
-        "paddingTop": "88px",
-        "paddingRight": "72px",
-        "paddingBottom": "24px",
-        "paddingLeft": "72px",
-        "gap": "0"
-      },
-      "mainWithoutFloatingNav": {
-        "paddingTop": "20px",
-        "paddingRight": "72px",
-        "paddingBottom": "24px",
-        "paddingLeft": "72px",
-        "gap": "0"
-      },
-      "mainMobileWithFloatingNav": {
-        "paddingTop": "88px",
-        "paddingRight": "16px",
-        "paddingBottom": "24px",
-        "paddingLeft": "16px",
-        "gap": "0"
-      },
-      "mainMobileWithoutFloatingNav": {
-        "paddingTop": "20px",
-        "paddingRight": "16px",
-        "paddingBottom": "24px",
-        "paddingLeft": "16px",
-        "gap": "0"
-      },
-      "mainTabletWithFloatingNav": {
-        "paddingTop": "88px",
-        "paddingRight": "52px",
-        "paddingBottom": "24px",
-        "paddingLeft": "52px",
-        "gap": "0"
-      },
-      "mainTabletWithoutFloatingNav": {
-        "paddingTop": "20px",
-        "paddingRight": "52px",
-        "paddingBottom": "24px",
-        "paddingLeft": "52px",
-        "gap": "0"
-      }
-    },
-    "typography": {
-      "fontFamily": "",
-      "fontWeight": "",
-      "lineHeight": "",
-      "letterSpacing": "",
-      "textTransform": "",
-      "sizes": {}
-    },
-    "borders": {
-      "width": "0",
-      "style": "none",
-      "radius": {
-        "default": "0"
-      }
-    },
-    "colors": {
-      "variants": {}
-    },
-    "elevation": {
-      "default": "none",
-      "hover": "none",
-      "active": "none",
-      "focus": "none"
-    },
-    "transitions": {
-      "default": "",
-      "properties": {}
-    },
-    "layout": {
-      "display": "relative",
-      "alignItems": "",
-      "justifyContent": "",
-      "gridTemplateColumns": "1fr",
-      "gridTemplateRowsWithFooter": "56px 1fr 48px",
-      "gridTemplateRowsWithoutFooter": "56px 1fr"
-    },
-    "iconSpecs": {}
+    "withoutFooter": {
+      "rows": "var(--shell-header-height) 1fr",
+      "columns": "1fr",
+      "description": "Used by CP theme"
+    }
   },
-  "components": {
+  "positioning": {
     "header": {
-      "name": "ShellHeader",
-      "filePath": "src/components/ui/ShellHeader.astro",
-      "props": {
-        "productName": {
-          "type": "string",
-          "optional": true,
-          "default": "Harmony"
-        },
-        "logoSrc": {
-          "type": "string",
-          "optional": true,
-          "default": "/logos/CPVPLogo.svg"
-        },
-        "companyName": {
-          "type": "string",
-          "optional": true,
-          "default": "Company name"
-        },
-        "showCompanyPicker": {
-          "type": "boolean",
-          "optional": true,
-          "default": true
-        },
-        "companyColor": {
-          "type": "string",
-          "optional": true,
-          "default": ""
-        },
-        "class": {
-          "type": "string",
-          "optional": true,
-          "default": ""
-        }
-      },
-      "visualSpecifications": {
-        "dimensions": {
-          "default": {
-            "height": "56px",
-            "width": "100%",
-            "minWidth": "auto",
-            "maxWidth": "none"
-          }
-        },
-        "spacing": {
-          "default": {
-            "paddingTop": "0",
-            "paddingRight": "16px",
-            "paddingBottom": "0",
-            "paddingLeft": "16px",
-            "gap": "0"
-          },
-          "tablet": {
-            "paddingTop": "0",
-            "paddingRight": "24px",
-            "paddingBottom": "0",
-            "paddingLeft": "24px",
-            "gap": "0"
-          }
-        },
-        "typography": {
-          "fontFamily": "'Lexend', sans-serif",
-          "fontWeight": "700",
-          "lineHeight": "",
-          "letterSpacing": "-0.025em",
-          "textTransform": "",
-          "sizes": {
-            "title": {
-              "fontSize": "0.875rem",
-              "lineHeight": ""
-            }
-          }
-        },
-        "borders": {
-          "width": "0",
-          "style": "none",
-          "radius": {
-            "default": "0"
-          },
-          "gradient": {
-            "height": "6px",
-            "width": "100%"
-          }
-        },
-        "colors": {
-          "variants": {
-            "default": {
-              "cp": {
-                "light": {
-                  "default": {
-                    "background": "#FCFDFF",
-                    "text": "#373F4E",
-                    "border": "transparent",
-                    "iconColor": "#525969"
-                  }
-                },
-                "dark": {
-                  "default": {
-                    "background": "#333D47",
-                    "text": "#E9ECEF",
-                    "border": "transparent",
-                    "iconColor": "#B6B6C4"
-                  }
-                }
-              },
-              "vp": {
-                "light": {
-                  "default": {
-                    "background": "#FCFDFF",
-                    "text": "#373F4E",
-                    "border": "transparent",
-                    "iconColor": "#525969"
-                  }
-                },
-                "dark": {
-                  "default": {
-                    "background": "#1A1C1F",
-                    "text": "#FAFAFA",
-                    "border": "transparent",
-                    "iconColor": "#B5B5BC"
-                  }
-                }
-              },
-              "ppm": {
-                "light": {
-                  "default": {
-                    "background": "#FCFDFF",
-                    "text": "#373F4E",
-                    "border": "transparent",
-                    "iconColor": "#525969"
-                  }
-                },
-                "dark": {
-                  "default": {
-                    "background": "#1A1C1F",
-                    "text": "#FAFAFA",
-                    "border": "transparent",
-                    "iconColor": "#B5B5BC"
-                  }
-                }
-              },
-              "maconomy": {
-                "light": {
-                  "default": {
-                    "background": "#FCFDFF",
-                    "text": "#373F4E",
-                    "border": "transparent",
-                    "iconColor": "#525969"
-                  }
-                },
-                "dark": {
-                  "default": {
-                    "background": "#1A1C1F",
-                    "text": "#FAFAFA",
-                    "border": "transparent",
-                    "iconColor": "#B5B5BC"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "elevation": {
-          "default": "none",
-          "hover": "none",
-          "active": "none",
-          "focus": "none"
-        },
-        "transitions": {
-          "default": "",
-          "properties": {}
-        },
-        "layout": {
-          "display": "flex",
-          "alignItems": "center",
-          "justifyContent": "space-between",
-          "position": "fixed",
-          "top": "0",
-          "left": "0",
-          "right": "0",
-          "zIndex": "50"
-        },
-        "iconSpecs": {
-          "logo": {
-            "size": "20px",
-            "width": "20px",
-            "height": "20px",
-            "borderRadius": "9999px"
-          },
-          "chevronDown": {
-            "name": "chevron-down",
-            "size": "sm",
-            "width": "16px",
-            "height": "16px",
-            "color": {
-              "cp": {
-                "light": "#6B7280",
-                "dark": "#BBBBC6"
-              },
-              "vp": {
-                "light": "#6B7280",
-                "dark": "#B5B5BC"
-              },
-              "ppm": {
-                "light": "#6B7280",
-                "dark": "#B5B5BC"
-              },
-              "maconomy": {
-                "light": "#6B7280",
-                "dark": "#B5B5BC"
-              }
-            }
-          }
-        }
-      },
-      "cssClassStyles": {
-        ".header": {
-          "width": "100%",
-          "height": "56px",
-          "background-color": "var(--nav-bg)",
-          "border-bottom": "none",
-          "display": "flex",
-          "align-items": "center",
-          "justify-content": "space-between",
-          "padding": "0 16px",
-          "position": "relative",
-          "z-index": "50",
-          "flex-shrink": "0"
-        },
-        ".header__brand": {
-          "display": "flex",
-          "align-items": "center",
-          "gap": "16px"
-        },
-        ".header__brand-link": {
-          "display": "flex",
-          "align-items": "center",
-          "gap": "8px",
-          "text-decoration": "none"
-        },
-        ".header__brand-link:hover": {
-          "text-decoration": "none"
-        },
-        ".header__logo": {
-          "width": "20px",
-          "height": "20px",
-          "border-radius": "9999px"
-        },
-        ".header__title": {
-          "font-family": "'Lexend', sans-serif",
-          "font-weight": "700",
-          "font-size": "0.875rem",
-          "color": "var(--text-primary)",
-          "letter-spacing": "-0.025em"
-        },
-        ".header__actions": {
-          "display": "flex",
-          "align-items": "center",
-          "gap": "12px"
-        },
-        ".company-picker": {
-          "position": "relative"
-        },
-        ".company-picker__btn": {
-          "display": "flex",
-          "align-items": "center",
-          "gap": "8px",
-          "padding": "8px 12px",
-          "background": "transparent",
-          "border": "none",
-          "border-radius": "6px",
-          "color": "var(--text-primary)",
-          "font-size": "0.875rem",
-          "font-weight": "500",
-          "cursor": "pointer",
-          "transition": "background-color 150ms ease"
-        },
-        ".company-picker__btn:hover": {
-          "background-color": "var(--hover-bg)"
-        },
-        ".company-picker__indicator": {
-          "width": "8px",
-          "height": "8px",
-          "border-radius": "50%",
-          "flex-shrink": "0"
-        },
-        ".company-picker__name": {
-          "max-width": "200px",
-          "overflow": "hidden",
-          "text-overflow": "ellipsis",
-          "white-space": "nowrap"
-        },
-        ".company-picker__chevron": {
-          "color": "var(--text-muted)",
-          "flex-shrink": "0"
-        },
-        ".company-picker__menu": {
-          "position": "absolute",
-          "top": "calc(100% + 8px)",
-          "right": "0",
-          "min-width": "240px",
-          "background-color": "var(--nav-bg)",
-          "border": "1px solid var(--border-color)",
-          "border-radius": "0.5rem",
-          "box-shadow": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)",
-          "padding": "8px",
-          "opacity": "0",
-          "visibility": "hidden",
-          "transform": "translateY(-8px)",
-          "transition": "all 150ms ease",
-          "z-index": "500"
-        },
-        ".company-picker__menu--open": {
-          "opacity": "1",
-          "visibility": "visible",
-          "transform": "translateY(0)"
-        },
-        ".company-picker__option": {
-          "display": "flex",
-          "align-items": "center",
-          "gap": "12px",
-          "width": "100%",
-          "padding": "8px 12px",
-          "background": "transparent",
-          "border": "none",
-          "border-radius": "0.375rem",
-          "color": "var(--text-secondary)",
-          "font-size": "0.875rem",
-          "text-align": "left",
-          "cursor": "pointer",
-          "transition": "all 150ms ease"
-        },
-        ".company-picker__option:hover": {
-          "background-color": "var(--hover-bg)",
-          "color": "var(--text-primary)"
-        },
-        ".company-picker__option--selected": {
-          "background-color": "var(--theme-primary-light)",
-          "color": "var(--theme-primary)"
-        },
-        ".company-picker__option-indicator": {
-          "width": "12px",
-          "height": "12px",
-          "border-radius": "50%",
-          "flex-shrink": "0",
-          "background-color": "var(--company-picker-indicator-default)"
-        },
-        ".company-picker__option-indicator--acme": {
-          "background-color": "#FF507B"
-        },
-        ".company-picker__option-indicator--ocean": {
-          "background-color": "#285F8C"
-        },
-        ".company-picker__option-indicator--violet": {
-          "background-color": "#DC50FF"
-        },
-        ".company-picker__option-indicator--azure": {
-          "background-color": "#5077FF"
-        },
-        ".company-picker__option-indicator--sunset": {
-          "background-color": "#FFAF50"
-        },
-        ".company-picker__option-name": {
-          "flex": "1"
-        },
-        ".header__gradient": {
-          "position": "absolute",
-          "bottom": "0",
-          "left": "0",
-          "width": "100%",
-          "height": "6px",
-          "pointer-events": "none"
-        },
-        ".divider": {
-          "width": "1px",
-          "height": "32px",
-          "background-color": "var(--border-color)"
-        }
-      }
-    },
-    "footer": {
-      "name": "ShellFooter",
-      "filePath": "src/components/ui/ShellFooter.astro",
-      "props": {
-        "tabs": {
-          "type": "Tab[]",
-          "optional": true,
-          "default": []
-        },
-        "showMore": {
-          "type": "boolean",
-          "optional": true,
-          "default": false
-        },
-        "moreCount": {
-          "type": "number",
-          "optional": true,
-          "default": 0
-        },
-        "overflowTabs": {
-          "type": "Tab[]",
-          "optional": true,
-          "default": []
-        },
-        "showAddTab": {
-          "type": "boolean",
-          "optional": true,
-          "default": true
-        },
-        "variant": {
-          "type": "'default' | 'compact'",
-          "optional": true,
-          "default": "default"
-        },
-        "class": {
-          "type": "string",
-          "optional": true,
-          "default": ""
-        }
-      },
-      "visualSpecifications": {
-        "dimensions": {
-          "default": {
-            "height": "48px",
-            "width": "100%",
-            "minWidth": "auto",
-            "maxWidth": "none"
-          },
-          "compact": {
-            "height": "40px",
-            "width": "100%",
-            "minWidth": "auto",
-            "maxWidth": "none"
-          }
-        },
-        "spacing": {
-          "default": {
-            "paddingTop": "0",
-            "paddingRight": "16px",
-            "paddingBottom": "0",
-            "paddingLeft": "16px",
-            "gap": "0"
-          }
-        },
-        "typography": {
-          "fontFamily": "'Figtree', sans-serif",
-          "fontWeight": "400",
-          "lineHeight": "",
-          "letterSpacing": "",
-          "textTransform": "",
-          "sizes": {}
-        },
-        "borders": {
-          "width": "1px",
-          "style": "solid",
-          "radius": {
-            "default": "0"
-          },
-          "top": {
-            "width": "1px",
-            "style": "solid",
-            "color": {
-              "cp": {
-                "light": "#BFC6D4",
-                "dark": "#5F6871"
-              },
-              "vp": {
-                "light": "#BFC6D4",
-                "dark": "#2A2D32"
-              },
-              "ppm": {
-                "light": "#BFC6D4",
-                "dark": "#2A2D32"
-              },
-              "maconomy": {
-                "light": "#BFC6D4",
-                "dark": "#2A2D32"
-              }
-            }
-          }
-        },
-        "colors": {
-          "variants": {
-            "default": {
-              "cp": {
-                "light": {
-                  "default": {
-                    "background": "#212631",
-                    "text": "#FFFFFF",
-                    "border": "#BFC6D4",
-                    "iconColor": "#4C92D9"
-                  },
-                  "hover": {
-                    "background": "#212631",
-                    "text": "#FFFFFF",
-                    "border": "#BFC6D4",
-                    "iconColor": "#4C92D9"
-                  },
-                  "active": {
-                    "background": "#212631",
-                    "text": "#FFFFFF",
-                    "border": "#4C92D9",
-                    "iconColor": "#4C92D9"
-                  }
-                },
-                "dark": {
-                  "default": {
-                    "background": "#212631",
-                    "text": "#E9ECEF",
-                    "border": "#5F6871",
-                    "iconColor": "#59ACFF"
-                  },
-                  "hover": {
-                    "background": "#212631",
-                    "text": "#E9ECEF",
-                    "border": "#5F6871",
-                    "iconColor": "#59ACFF"
-                  },
-                  "active": {
-                    "background": "#212631",
-                    "text": "#FFFFFF",
-                    "border": "#59ACFF",
-                    "iconColor": "#59ACFF"
-                  }
-                }
-              },
-              "vp": {
-                "light": {
-                  "default": {
-                    "background": "#212631",
-                    "text": "#FFFFFF",
-                    "border": "#BFC6D4",
-                    "iconColor": "#4C92D9"
-                  },
-                  "hover": {
-                    "background": "#212631",
-                    "text": "#FFFFFF",
-                    "border": "#BFC6D4",
-                    "iconColor": "#4C92D9"
-                  },
-                  "active": {
-                    "background": "#212631",
-                    "text": "#FFFFFF",
-                    "border": "#4C92D9",
-                    "iconColor": "#4C92D9"
-                  }
-                },
-                "dark": {
-                  "default": {
-                    "background": "#212631",
-                    "text": "#FAFAFA",
-                    "border": "#2A2D32",
-                    "iconColor": "#59ACFF"
-                  },
-                  "hover": {
-                    "background": "#212631",
-                    "text": "#FAFAFA",
-                    "border": "#2A2D32",
-                    "iconColor": "#59ACFF"
-                  },
-                  "active": {
-                    "background": "#212631",
-                    "text": "#FFFFFF",
-                    "border": "#59ACFF",
-                    "iconColor": "#59ACFF"
-                  }
-                }
-              },
-              "ppm": {
-                "light": {
-                  "default": {
-                    "background": "#212631",
-                    "text": "#FFFFFF",
-                    "border": "#BFC6D4",
-                    "iconColor": "#4C92D9"
-                  },
-                  "hover": {
-                    "background": "#212631",
-                    "text": "#FFFFFF",
-                    "border": "#BFC6D4",
-                    "iconColor": "#4C92D9"
-                  },
-                  "active": {
-                    "background": "#212631",
-                    "text": "#FFFFFF",
-                    "border": "#4C92D9",
-                    "iconColor": "#4C92D9"
-                  }
-                },
-                "dark": {
-                  "default": {
-                    "background": "#212631",
-                    "text": "#FAFAFA",
-                    "border": "#2A2D32",
-                    "iconColor": "#59ACFF"
-                  },
-                  "hover": {
-                    "background": "#212631",
-                    "text": "#FAFAFA",
-                    "border": "#2A2D32",
-                    "iconColor": "#59ACFF"
-                  },
-                  "active": {
-                    "background": "#212631",
-                    "text": "#FFFFFF",
-                    "border": "#59ACFF",
-                    "iconColor": "#59ACFF"
-                  }
-                }
-              },
-              "maconomy": {
-                "light": {
-                  "default": {
-                    "background": "#212631",
-                    "text": "#FFFFFF",
-                    "border": "#BFC6D4",
-                    "iconColor": "#4C92D9"
-                  },
-                  "hover": {
-                    "background": "#212631",
-                    "text": "#FFFFFF",
-                    "border": "#BFC6D4",
-                    "iconColor": "#4C92D9"
-                  },
-                  "active": {
-                    "background": "#212631",
-                    "text": "#FFFFFF",
-                    "border": "#4C92D9",
-                    "iconColor": "#4C92D9"
-                  }
-                },
-                "dark": {
-                  "default": {
-                    "background": "#212631",
-                    "text": "#FAFAFA",
-                    "border": "#2A2D32",
-                    "iconColor": "#59ACFF"
-                  },
-                  "hover": {
-                    "background": "#212631",
-                    "text": "#FAFAFA",
-                    "border": "#2A2D32",
-                    "iconColor": "#59ACFF"
-                  },
-                  "active": {
-                    "background": "#212631",
-                    "text": "#FFFFFF",
-                    "border": "#59ACFF",
-                    "iconColor": "#59ACFF"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "elevation": {
-          "default": "none",
-          "hover": "none",
-          "active": "none",
-          "focus": "none"
-        },
-        "transitions": {
-          "default": "",
-          "properties": {}
-        },
-        "layout": {
-          "display": "flex",
-          "alignItems": "center",
-          "justifyContent": "",
-          "position": "relative",
-          "gridRow": "3",
-          "gridColumn": "1",
-          "zIndex": "40"
-        },
-        "iconSpecs": {
-          "pin": {
-            "name": "pin",
-            "size": "sm",
-            "width": "16px",
-            "height": "16px",
-            "color": {
-              "cp": {
-                "light": "#4C92D9",
-                "dark": "#59ACFF"
-              },
-              "vp": {
-                "light": "#4C92D9",
-                "dark": "#59ACFF"
-              },
-              "ppm": {
-                "light": "#4C92D9",
-                "dark": "#59ACFF"
-              },
-              "maconomy": {
-                "light": "#4C92D9",
-                "dark": "#59ACFF"
-              }
-            },
-            "conditional": "Active tabs only"
-          }
-        }
-      },
-      "cssClassStyles": {
-        ".shell-footer": {
-          "background-color": "#212631",
-          "border-top": "1px solid var(--border-color)",
-          "height": "48px",
-          "width": "100%",
-          "padding": "0 16px",
-          "display": "flex",
-          "align-items": "center"
-        },
-        ".shell-footer[data-variant=\"compact\"]": {
-          "height": "40px"
-        }
-      }
-    },
-    "floatingNav": {
-      "name": "FloatingNav",
-      "filePath": "src/components/ui/FloatingNav.astro",
-      "props": {
-        "showExecute": {
-          "type": "boolean",
-          "optional": true,
-          "default": true
-        },
-        "saveDisabled": {
-          "type": "boolean",
-          "optional": true,
-          "default": false
-        },
-        "variant": {
-          "type": "'full' | 'compact'",
-          "optional": true,
-          "default": "full"
-        }
-      },
-      "visualSpecifications": {
-        "dimensions": {
-          "default": {
-            "height": "auto",
-            "width": "auto",
-            "minWidth": "auto",
-            "maxWidth": "none"
-          }
-        },
-        "spacing": {
-          "default": {
-            "paddingTop": "8px",
-            "paddingRight": "8px",
-            "paddingBottom": "12px",
-            "paddingLeft": "8px",
-            "gap": "10px"
-          }
-        },
-        "typography": {
-          "fontFamily": "'Figtree', sans-serif",
-          "fontWeight": "400",
-          "lineHeight": "16px",
-          "letterSpacing": "",
-          "textTransform": "",
-          "sizes": {
-            "button": {
-              "fontSize": "0.75rem",
-              "lineHeight": "16px"
-            }
-          }
-        },
-        "borders": {
-          "width": "1px",
-          "style": "solid",
-          "radius": {
-            "default": "0 0 16px 16px",
-            "button": "8px"
-          },
-          "top": {
-            "width": "0",
-            "style": "none"
-          }
-        },
-        "colors": {
-          "variants": {
-            "default": {
-              "cp": {
-                "light": {
-                  "default": {
-                    "background": "#FCFDFF",
-                    "text": "",
-                    "border": "#BFC6D4",
-                    "iconColor": ""
-                  }
-                },
-                "dark": {
-                  "default": {
-                    "background": "#333d47",
-                    "text": "",
-                    "border": "#4a5568",
-                    "iconColor": ""
-                  }
-                }
-              }
-            },
-            "buttonSecondary": {
-              "cp": {
-                "light": {
-                  "default": {
-                    "background": "transparent",
-                    "text": "#254e7a",
-                    "border": "#254e7a",
-                    "iconColor": "#254e7a"
-                  },
-                  "hover": {
-                    "background": "rgba(37, 78, 122, 0.08)",
-                    "text": "#254e7a",
-                    "border": "#254e7a",
-                    "iconColor": "#254e7a"
-                  },
-                  "active": {
-                    "background": "rgba(37, 78, 122, 0.12)",
-                    "text": "#254e7a",
-                    "border": "#254e7a",
-                    "iconColor": "#254e7a"
-                  }
-                },
-                "dark": {
-                  "default": {
-                    "background": "transparent",
-                    "text": "#59acff",
-                    "border": "#59acff",
-                    "iconColor": "#59acff"
-                  },
-                  "hover": {
-                    "background": "rgba(89, 172, 255, 0.12)",
-                    "text": "#59acff",
-                    "border": "#59acff",
-                    "iconColor": "#59acff"
-                  },
-                  "active": {
-                    "background": "rgba(89, 172, 255, 0.12)",
-                    "text": "#59acff",
-                    "border": "#59acff",
-                    "iconColor": "#59acff"
-                  }
-                }
-              }
-            },
-            "buttonPrimary": {
-              "cp": {
-                "light": {
-                  "default": {
-                    "background": "#ff507b",
-                    "text": "#ffffff",
-                    "border": "#ff507b",
-                    "iconColor": "#ffffff"
-                  },
-                  "hover": {
-                    "background": "#e64570",
-                    "text": "#ffffff",
-                    "border": "#e64570",
-                    "iconColor": "#ffffff"
-                  },
-                  "active": {
-                    "background": "#cc3d63",
-                    "text": "#ffffff",
-                    "border": "#cc3d63",
-                    "iconColor": "#ffffff"
-                  }
-                },
-                "dark": {
-                  "default": {
-                    "background": "#ff507b",
-                    "text": "#ffffff",
-                    "border": "#ff507b",
-                    "iconColor": "#ffffff"
-                  },
-                  "hover": {
-                    "background": "#e64570",
-                    "text": "#ffffff",
-                    "border": "#e64570",
-                    "iconColor": "#ffffff"
-                  },
-                  "active": {
-                    "background": "#cc3d63",
-                    "text": "#ffffff",
-                    "border": "#cc3d63",
-                    "iconColor": "#ffffff"
-                  }
-                }
-              }
-            },
-            "buttonDisabled": {
-              "cp": {
-                "light": {
-                  "default": {
-                    "background": "#e0e4eb",
-                    "text": "#bfc6d4",
-                    "border": "#e0e4eb",
-                    "iconColor": "#bfc6d4"
-                  }
-                },
-                "dark": {
-                  "default": {
-                    "background": "#4a5568",
-                    "text": "#6b7280",
-                    "border": "#4a5568",
-                    "iconColor": "#6b7280"
-                  }
-                }
-              }
-            },
-            "pin": {
-              "cp": {
-                "light": {
-                  "default": {
-                    "background": "transparent",
-                    "text": "",
-                    "border": "transparent",
-                    "iconColor": "#525969"
-                  },
-                  "hover": {
-                    "background": "transparent",
-                    "text": "",
-                    "border": "transparent",
-                    "iconColor": "#373F4E"
-                  }
-                },
-                "dark": {
-                  "default": {
-                    "background": "transparent",
-                    "text": "",
-                    "border": "transparent",
-                    "iconColor": "#a0aec0"
-                  },
-                  "hover": {
-                    "background": "transparent",
-                    "text": "",
-                    "border": "transparent",
-                    "iconColor": "#e9ecef"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "elevation": {
-          "default": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
-          "hover": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
-          "active": "none",
-          "focus": "none",
-          "dark": {
-            "default": "0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.2)"
-          }
-        },
-        "transitions": {
-          "default": "all 150ms ease",
-          "properties": {
-            "background-color": "background-color 150ms ease",
-            "color": "color 150ms ease"
-          }
-        },
-        "layout": {
-          "display": "inline-flex",
-          "flexDirection": "column",
-          "alignItems": "flex-start",
-          "justifyContent": "",
-          "position": "fixed",
-          "top": "56px",
-          "left": "50%",
-          "transform": "translateX(-50%)",
-          "zIndex": "40"
-        },
-        "iconSpecs": {
-          "chevronDown": {
-            "name": "chevron-down",
-            "size": "sm",
-            "width": "16px",
-            "height": "16px",
-            "color": {
-              "cp": {
-                "light": "inherit",
-                "dark": "inherit"
-              }
-            }
-          },
-          "arrowPath": {
-            "name": "arrow-path",
-            "size": "md",
-            "width": "20px",
-            "height": "20px",
-            "color": {
-              "cp": {
-                "light": "inherit",
-                "dark": "inherit"
-              }
-            }
-          },
-          "pin": {
-            "name": "pin",
-            "size": "md",
-            "width": "20px",
-            "height": "20px",
-            "transform": "rotate(-45deg)",
-            "color": {
-              "cp": {
-                "light": "#525969",
-                "dark": "#a0aec0"
-              }
-            }
-          }
-        }
-      },
-      "cssClassStyles": {
-        ".floating-nav": {
-          "background-color": "var(--nav-bg)",
-          "border": "1px solid var(--border-color)",
-          "border-top": "none",
-          "border-radius": "0 0 16px 16px",
-          "box-shadow": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
-          "padding": "8px 8px 12px 8px",
-          "display": "inline-flex",
-          "flex-direction": "column",
-          "gap": "10px",
-          "align-items": "flex-start"
-        },
-        ".floating-nav__toolbar": {
-          "display": "flex",
-          "align-items": "center",
-          "gap": "8px",
-          "width": "100%"
-        },
-        ".floating-nav__buttons": {
-          "display": "flex",
-          "align-items": "center",
-          "gap": "12px"
-        },
-        ".floating-nav__btn": {
-          "display": "inline-flex",
-          "align-items": "center",
-          "justify-content": "center",
-          "gap": "4px",
-          "padding": "8px",
-          "max-height": "32px",
-          "font-family": "'Figtree', sans-serif",
-          "font-size": "0.75rem",
-          "font-weight": "400",
-          "line-height": "16px",
-          "border-radius": "8px",
-          "cursor": "pointer",
-          "transition": "all 150ms ease",
-          "border": "1px solid transparent",
-          "background-color": "transparent"
-        },
-        ".floating-nav__btn--secondary": {
-          "color": "#254e7a",
-          "border-color": "#254e7a",
-          "background-color": "transparent"
-        },
-        ".floating-nav__btn--secondary:hover": {
-          "background-color": "rgba(37, 78, 122, 0.08)"
-        },
-        ".floating-nav__btn--secondary:active": {
-          "background-color": "rgba(37, 78, 122, 0.12)"
-        },
-        ".floating-nav__btn--primary": {
-          "color": "#ffffff",
-          "background-color": "#ff507b",
-          "border-color": "#ff507b"
-        },
-        ".floating-nav__btn--primary:hover": {
-          "background-color": "#e64570",
-          "border-color": "#e64570"
-        },
-        ".floating-nav__btn--primary:active": {
-          "background-color": "#cc3d63",
-          "border-color": "#cc3d63"
-        },
-        ".floating-nav__btn--disabled": {
-          "color": "#bfc6d4",
-          "background-color": "#e0e4eb",
-          "border-color": "#e0e4eb",
-          "cursor": "not-allowed",
-          "pointer-events": "none"
-        },
-        ".floating-nav__divider": {
-          "width": "2px",
-          "height": "33px",
-          "background-color": "var(--border-color)",
-          "position": "relative",
-          "flex-shrink": "0"
-        },
-        ".floating-nav__divider::before": {
-          "content": "''",
-          "position": "absolute",
-          "top": "0",
-          "left": "0",
-          "right": "0",
-          "height": "2px",
-          "background-color": "var(--border-light)"
-        },
-        ".floating-nav__pin": {
-          "display": "flex",
-          "align-items": "center",
-          "justify-content": "center",
-          "width": "18px",
-          "height": "18px",
-          "background": "transparent",
-          "border": "none",
-          "cursor": "pointer",
-          "padding": "0",
-          "color": "var(--text-secondary)",
-          "transition": "color 150ms ease"
-        },
-        ".floating-nav__pin:hover": {
-          "color": "var(--text-primary)"
-        },
-        ".floating-nav__pin-icon": {
-          "font-size": "18px",
-          "transform": "rotate(-45deg)"
-        },
-        "html.theme-cp.dark .floating-nav": {
-          "background-color": "#333d47",
-          "border-color": "#4a5568"
-        },
-        "html.theme-cp.dark .floating-nav__btn--secondary": {
-          "color": "#59acff",
-          "border-color": "#59acff"
-        },
-        "html.theme-cp.dark .floating-nav__btn--secondary:hover": {
-          "background-color": "rgba(89, 172, 255, 0.12)"
-        },
-        "html.theme-cp.dark .floating-nav__btn--disabled": {
-          "color": "#6b7280",
-          "background-color": "#4a5568",
-          "border-color": "#4a5568"
-        },
-        "html.theme-cp.dark .floating-nav__divider": {
-          "background-color": "#4a5568"
-        },
-        "html.theme-cp.dark .floating-nav__divider::before": {
-          "background-color": "#3d4a5c"
-        },
-        "html.theme-cp.dark .floating-nav__pin": {
-          "color": "#a0aec0"
-        },
-        "html.theme-cp.dark .floating-nav__pin:hover": {
-          "color": "#e9ecef"
-        }
-      }
-    },
-    "rightSidebar": {
-      "name": "RightSidebar",
-      "filePath": "src/components/ui/RightSidebar.astro",
-      "props": {
-        "variant": {
-          "type": "'cp' | 'vp' | 'ppm' | 'maconomy'",
-          "optional": true,
-          "default": "cp"
-        },
-        "sections": {
-          "type": "Section[]",
-          "optional": true,
-          "default": ""
-        },
-        "class": {
-          "type": "string",
-          "optional": true,
-          "default": ""
-        }
-      },
-      "visualSpecifications": {
-        "dimensions": {
-          "default": {
-            "height": "auto",
-            "width": "52px",
-            "minWidth": "52px",
-            "maxWidth": "220px"
-          },
-          "hover": {
-            "width": "220px"
-          }
-        },
-        "spacing": {
-          "default": {
-            "paddingTop": "0",
-            "paddingRight": "0",
-            "paddingBottom": "0",
-            "paddingLeft": "0",
-            "gap": "12px"
-          },
-          "section": {
-            "paddingTop": "12px",
-            "paddingRight": "8px",
-            "paddingBottom": "12px",
-            "paddingLeft": "8px",
-            "gap": "6px"
-          },
-          "item": {
-            "paddingTop": "6px",
-            "paddingRight": "6px",
-            "paddingBottom": "6px",
-            "paddingLeft": "6px",
-            "gap": "8px"
-          }
-        },
-        "typography": {
-          "fontFamily": "'Figtree', sans-serif",
-          "fontWeight": "400",
-          "lineHeight": "",
-          "letterSpacing": "",
-          "textTransform": "",
-          "sizes": {
-            "label": {
-              "fontSize": "0.875rem",
-              "lineHeight": ""
-            }
-          }
-        },
-        "borders": {
-          "width": "1px",
-          "style": "solid",
-          "radius": {
-            "default": "12px 0 0 12px",
-            "item": "8px",
-            "delaLogo": "50%"
-          },
-          "right": {
-            "width": "0",
-            "style": "none"
-          }
-        },
-        "colors": {
-          "variants": {
-            "default": {
-              "cp": {
-                "light": {
-                  "default": {
-                    "background": "#FCFDFF",
-                    "text": "#373F4E",
-                    "border": "#BFC6D4",
-                    "iconColor": "#373F4E"
-                  },
-                  "hover": {
-                    "background": "#E5E7EB",
-                    "text": "#373F4E",
-                    "border": "#BFC6D4",
-                    "iconColor": "#373F4E"
-                  },
-                  "active": {
-                    "background": "#4C92D9",
-                    "text": "#FFFFFF",
-                    "border": "#4C92D9",
-                    "iconColor": "#FFFFFF"
-                  }
-                },
-                "dark": {
-                  "default": {
-                    "background": "#333D47",
-                    "text": "#E9ECEF",
-                    "border": "#5F6871",
-                    "iconColor": "#E9ECEF"
-                  },
-                  "hover": {
-                    "background": "#3D4A5C",
-                    "text": "#E9ECEF",
-                    "border": "#5F6871",
-                    "iconColor": "#E9ECEF"
-                  },
-                  "active": {
-                    "background": "#59ACFF",
-                    "text": "#1F252E",
-                    "border": "#59ACFF",
-                    "iconColor": "#1F252E"
-                  }
-                }
-              },
-              "vp": {
-                "light": {
-                  "default": {
-                    "background": "#FCFDFF",
-                    "text": "#373F4E",
-                    "border": "#BFC6D4",
-                    "iconColor": "#373F4E"
-                  },
-                  "hover": {
-                    "background": "#E5E7EB",
-                    "text": "#373F4E",
-                    "border": "#BFC6D4",
-                    "iconColor": "#373F4E"
-                  },
-                  "active": {
-                    "background": "#4C92D9",
-                    "text": "#FFFFFF",
-                    "border": "#4C92D9",
-                    "iconColor": "#FFFFFF"
-                  }
-                },
-                "dark": {
-                  "default": {
-                    "background": "#1A1C1F",
-                    "text": "#FAFAFA",
-                    "border": "#2A2D32",
-                    "iconColor": "#FAFAFA"
-                  },
-                  "hover": {
-                    "background": "#2A2D32",
-                    "text": "#FAFAFA",
-                    "border": "#2A2D32",
-                    "iconColor": "#FAFAFA"
-                  },
-                  "active": {
-                    "background": "#59ACFF",
-                    "text": "#15171A",
-                    "border": "#59ACFF",
-                    "iconColor": "#15171A"
-                  }
-                }
-              },
-              "ppm": {
-                "light": {
-                  "default": {
-                    "background": "#FCFDFF",
-                    "text": "#373F4E",
-                    "border": "#BFC6D4",
-                    "iconColor": "#373F4E"
-                  },
-                  "hover": {
-                    "background": "#E5E7EB",
-                    "text": "#373F4E",
-                    "border": "#BFC6D4",
-                    "iconColor": "#373F4E"
-                  },
-                  "active": {
-                    "background": "#4C92D9",
-                    "text": "#FFFFFF",
-                    "border": "#4C92D9",
-                    "iconColor": "#FFFFFF"
-                  }
-                },
-                "dark": {
-                  "default": {
-                    "background": "#1A1C1F",
-                    "text": "#FAFAFA",
-                    "border": "#2A2D32",
-                    "iconColor": "#FAFAFA"
-                  },
-                  "hover": {
-                    "background": "#2A2D32",
-                    "text": "#FAFAFA",
-                    "border": "#2A2D32",
-                    "iconColor": "#FAFAFA"
-                  },
-                  "active": {
-                    "background": "#59ACFF",
-                    "text": "#15171A",
-                    "border": "#59ACFF",
-                    "iconColor": "#15171A"
-                  }
-                }
-              },
-              "maconomy": {
-                "light": {
-                  "default": {
-                    "background": "#FCFDFF",
-                    "text": "#373F4E",
-                    "border": "#BFC6D4",
-                    "iconColor": "#373F4E"
-                  },
-                  "hover": {
-                    "background": "#E5E7EB",
-                    "text": "#373F4E",
-                    "border": "#BFC6D4",
-                    "iconColor": "#373F4E"
-                  },
-                  "active": {
-                    "background": "#4C92D9",
-                    "text": "#FFFFFF",
-                    "border": "#4C92D9",
-                    "iconColor": "#FFFFFF"
-                  }
-                },
-                "dark": {
-                  "default": {
-                    "background": "#1A1C1F",
-                    "text": "#FAFAFA",
-                    "border": "#2A2D32",
-                    "iconColor": "#FAFAFA"
-                  },
-                  "hover": {
-                    "background": "#2A2D32",
-                    "text": "#FAFAFA",
-                    "border": "#2A2D32",
-                    "iconColor": "#FAFAFA"
-                  },
-                  "active": {
-                    "background": "#59ACFF",
-                    "text": "#15171A",
-                    "border": "#59ACFF",
-                    "iconColor": "#15171A"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "elevation": {
-          "default": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
-          "hover": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
-          "active": "none",
-          "focus": "none",
-          "dark": {
-            "default": "0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3)"
-          },
-          "panelOpen": {
-            "default": "none"
-          }
-        },
-        "transitions": {
-          "default": "width 0.2s ease",
-          "properties": {
-            "width": "width 0.2s ease",
-            "opacity": "opacity 0.2s ease, visibility 0.2s ease",
-            "background-color": "background-color 150ms ease"
-          }
-        },
-        "layout": {
-          "display": "flex",
-          "flexDirection": "column",
-          "alignItems": "",
-          "justifyContent": "",
-          "position": "fixed",
-          "right": "0",
-          "top": "50%",
-          "transform": "translateY(-50%)",
-          "zIndex": "200"
-        },
-        "iconSpecs": {
-          "default": {
-            "size": "24px",
-            "width": "24px",
-            "height": "24px",
-            "color": {
-              "cp": {
-                "light": "#373F4E",
-                "dark": "#E9ECEF"
-              },
-              "vp": {
-                "light": "#373F4E",
-                "dark": "#FAFAFA"
-              },
-              "ppm": {
-                "light": "#373F4E",
-                "dark": "#FAFAFA"
-              },
-              "maconomy": {
-                "light": "#373F4E",
-                "dark": "#FAFAFA"
-              }
-            }
-          },
-          "delaLogo": {
-            "name": "DelaD.svg",
-            "size": "36px",
-            "width": "36px",
-            "height": "36px",
-            "borderRadius": "50%",
-            "type": "custom",
-            "src": "/logos/DelaD.svg"
-          },
-          "active": {
-            "color": {
-              "cp": {
-                "light": "#FFFFFF",
-                "dark": "#1F252E"
-              },
-              "vp": {
-                "light": "#FFFFFF",
-                "dark": "#15171A"
-              },
-              "ppm": {
-                "light": "#FFFFFF",
-                "dark": "#15171A"
-              },
-              "maconomy": {
-                "light": "#FFFFFF",
-                "dark": "#15171A"
-              }
-            }
-          }
-        }
-      },
-      "cssClassStyles": {
-        ".right-sidebar": {
-          "position": "fixed",
-          "right": "0",
-          "top": "50%",
-          "transform": "translateY(-50%)",
-          "z-index": "200",
-          "display": "flex",
-          "flex-direction": "column",
-          "gap": "12px",
-          "width": "52px",
-          "transition": "width 0.2s ease",
-          "overflow": "visible"
-        },
-        ".right-sidebar:hover": {
-          "width": "220px"
-        },
-        ".right-sidebar__section": {
-          "background-color": "var(--nav-bg)",
-          "border": "1px solid var(--border-color)",
-          "border-right": "none",
-          "border-radius": "12px 0 0 12px",
-          "box-shadow": "var(--shadow-xl)",
-          "padding": "12px 8px",
-          "display": "flex",
-          "flex-direction": "column",
-          "align-items": "flex-end",
-          "gap": "6px",
-          "overflow": "visible"
-        },
-        ".right-sidebar__item": {
-          "display": "flex",
-          "align-items": "center",
-          "justify-content": "flex-end",
-          "gap": "8px",
-          "padding": "6px",
-          "border-radius": "8px",
-          "text-decoration": "none",
-          "color": "var(--text-primary)",
-          "white-space": "nowrap",
-          "width": "100%",
-          "transition": "background-color 150ms ease"
-        },
-        ".right-sidebar__item:hover": {
-          "background-color": "var(--hover-bg)",
-          "text-decoration": "none"
-        },
-        ".right-sidebar__icon": {
-          "flex-shrink": "0",
-          "width": "24px",
-          "height": "24px",
-          "display": "flex",
-          "align-items": "center",
-          "justify-content": "center"
-        },
-        ".right-sidebar__icon svg": {
-          "width": "24px",
-          "height": "24px"
-        },
-        ".right-sidebar__dela-logo": {
-          "width": "36px",
-          "height": "36px",
-          "border-radius": "50%"
-        },
-        ".right-sidebar__label": {
-          "font-family": "'Figtree', sans-serif",
-          "font-size": "0.875rem",
-          "font-weight": "400",
-          "opacity": "0",
-          "visibility": "hidden",
-          "transition": "opacity 0.2s ease, visibility 0.2s ease",
-          "flex": "1",
-          "text-align": "right"
-        },
-        ".right-sidebar:hover .right-sidebar__label": {
-          "opacity": "1",
-          "visibility": "visible"
-        },
-        ".right-sidebar[data-panel-open=\"true\"] .right-sidebar__section": {
-          "box-shadow": "none",
-          "border": "none",
-          "background-color": "transparent",
-          "border-radius": "0"
-        },
-        ".right-sidebar[data-panel-open=\"true\"]:hover": {
-          "width": "52px"
-        },
-        ".right-sidebar[data-panel-open=\"true\"] .right-sidebar__label": {
-          "opacity": "0",
-          "visibility": "hidden"
-        },
-        ".right-sidebar[data-panel-open=\"true\"] .right-sidebar__item[data-active=\"true\"]": {
-          "background-color": "var(--theme-primary)",
-          "color": "var(--text-inverse)"
-        },
-        ".right-sidebar[data-panel-open=\"true\"] .right-sidebar__item[data-active=\"true\"] .right-sidebar__icon": {
-          "color": "var(--text-inverse)"
-        },
-        ".right-sidebar[data-panel-open=\"true\"] .right-sidebar__item[data-active=\"true\"]:hover": {
-          "background-color": "var(--theme-primary-hover)"
-        }
-      }
-    },
-    "leftSidebar": {
-      "name": "LeftSidebar",
-      "filePath": "src/components/ui/LeftSidebar.astro",
-      "props": {
-        "variant": {
-          "type": "'cp' | 'vp' | 'ppm' | 'maconomy'",
-          "optional": true,
-          "default": "cp"
-        },
-        "sections": {
-          "type": "Section[]",
-          "optional": true,
-          "default": ""
-        },
-        "class": {
-          "type": "string",
-          "optional": true,
-          "default": ""
-        }
-      },
-      "visualSpecifications": {
-        "dimensions": {
-          "default": {
-            "height": "auto",
-            "width": "52px",
-            "minWidth": "52px",
-            "maxWidth": "220px"
-          },
-          "hover": {
-            "width": "220px"
-          }
-        },
-        "spacing": {
-          "default": {
-            "paddingTop": "0",
-            "paddingRight": "0",
-            "paddingBottom": "0",
-            "paddingLeft": "0",
-            "gap": "16px"
-          },
-          "section": {
-            "paddingTop": "8px",
-            "paddingRight": "8px",
-            "paddingBottom": "8px",
-            "paddingLeft": "8px",
-            "gap": "16px"
-          },
-          "item": {
-            "paddingTop": "6px",
-            "paddingRight": "6px",
-            "paddingBottom": "6px",
-            "paddingLeft": "6px",
-            "gap": "8px"
-          }
-        },
-        "typography": {
-          "fontFamily": "'Figtree', sans-serif",
-          "fontWeight": "400",
-          "lineHeight": "",
-          "letterSpacing": "",
-          "textTransform": "",
-          "sizes": {
-            "label": {
-              "fontSize": "0.875rem",
-              "lineHeight": ""
-            }
-          }
-        },
-        "borders": {
-          "width": "1px",
-          "style": "solid",
-          "radius": {
-            "default": "0 12px 12px 0",
-            "item": "8px"
-          },
-          "left": {
-            "width": "0",
-            "style": "none"
-          }
-        },
-        "colors": {
-          "variants": {
-            "default": {
-              "cp": {
-                "light": {
-                  "default": {
-                    "background": "#FCFDFF",
-                    "text": "#373F4E",
-                    "border": "#BFC6D4",
-                    "iconColor": "#373F4E"
-                  },
-                  "hover": {
-                    "background": "#E5E7EB",
-                    "text": "#373F4E",
-                    "border": "#BFC6D4",
-                    "iconColor": "#373F4E"
-                  },
-                  "active": {
-                    "background": "#4C92D9",
-                    "text": "#FFFFFF",
-                    "border": "#4C92D9",
-                    "iconColor": "#FFFFFF"
-                  }
-                },
-                "dark": {
-                  "default": {
-                    "background": "#333D47",
-                    "text": "#E9ECEF",
-                    "border": "#5F6871",
-                    "iconColor": "#E9ECEF"
-                  },
-                  "hover": {
-                    "background": "#3D4A5C",
-                    "text": "#E9ECEF",
-                    "border": "#5F6871",
-                    "iconColor": "#E9ECEF"
-                  },
-                  "active": {
-                    "background": "#59ACFF",
-                    "text": "#1F252E",
-                    "border": "#59ACFF",
-                    "iconColor": "#1F252E"
-                  }
-                }
-              },
-              "vp": {
-                "light": {
-                  "default": {
-                    "background": "#FCFDFF",
-                    "text": "#373F4E",
-                    "border": "#BFC6D4",
-                    "iconColor": "#373F4E"
-                  },
-                  "hover": {
-                    "background": "#E5E7EB",
-                    "text": "#373F4E",
-                    "border": "#BFC6D4",
-                    "iconColor": "#373F4E"
-                  },
-                  "active": {
-                    "background": "#4C92D9",
-                    "text": "#FFFFFF",
-                    "border": "#4C92D9",
-                    "iconColor": "#FFFFFF"
-                  }
-                },
-                "dark": {
-                  "default": {
-                    "background": "#1A1C1F",
-                    "text": "#FAFAFA",
-                    "border": "#2A2D32",
-                    "iconColor": "#FAFAFA"
-                  },
-                  "hover": {
-                    "background": "#2A2D32",
-                    "text": "#FAFAFA",
-                    "border": "#2A2D32",
-                    "iconColor": "#FAFAFA"
-                  },
-                  "active": {
-                    "background": "#59ACFF",
-                    "text": "#15171A",
-                    "border": "#59ACFF",
-                    "iconColor": "#15171A"
-                  }
-                }
-              },
-              "ppm": {
-                "light": {
-                  "default": {
-                    "background": "#FCFDFF",
-                    "text": "#373F4E",
-                    "border": "#BFC6D4",
-                    "iconColor": "#373F4E"
-                  },
-                  "hover": {
-                    "background": "#E5E7EB",
-                    "text": "#373F4E",
-                    "border": "#BFC6D4",
-                    "iconColor": "#373F4E"
-                  },
-                  "active": {
-                    "background": "#4C92D9",
-                    "text": "#FFFFFF",
-                    "border": "#4C92D9",
-                    "iconColor": "#FFFFFF"
-                  }
-                },
-                "dark": {
-                  "default": {
-                    "background": "#1A1C1F",
-                    "text": "#FAFAFA",
-                    "border": "#2A2D32",
-                    "iconColor": "#FAFAFA"
-                  },
-                  "hover": {
-                    "background": "#2A2D32",
-                    "text": "#FAFAFA",
-                    "border": "#2A2D32",
-                    "iconColor": "#FAFAFA"
-                  },
-                  "active": {
-                    "background": "#59ACFF",
-                    "text": "#15171A",
-                    "border": "#59ACFF",
-                    "iconColor": "#15171A"
-                  }
-                }
-              },
-              "maconomy": {
-                "light": {
-                  "default": {
-                    "background": "#FCFDFF",
-                    "text": "#373F4E",
-                    "border": "#BFC6D4",
-                    "iconColor": "#373F4E"
-                  },
-                  "hover": {
-                    "background": "#E5E7EB",
-                    "text": "#373F4E",
-                    "border": "#BFC6D4",
-                    "iconColor": "#373F4E"
-                  },
-                  "active": {
-                    "background": "#4C92D9",
-                    "text": "#FFFFFF",
-                    "border": "#4C92D9",
-                    "iconColor": "#FFFFFF"
-                  }
-                },
-                "dark": {
-                  "default": {
-                    "background": "#1A1C1F",
-                    "text": "#FAFAFA",
-                    "border": "#2A2D32",
-                    "iconColor": "#FAFAFA"
-                  },
-                  "hover": {
-                    "background": "#2A2D32",
-                    "text": "#FAFAFA",
-                    "border": "#2A2D32",
-                    "iconColor": "#FAFAFA"
-                  },
-                  "active": {
-                    "background": "#59ACFF",
-                    "text": "#15171A",
-                    "border": "#59ACFF",
-                    "iconColor": "#15171A"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "elevation": {
-          "default": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
-          "hover": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
-          "active": "none",
-          "focus": "none",
-          "dark": {
-            "default": "0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3)"
-          },
-          "panelOpen": {
-            "default": "none"
-          }
-        },
-        "transitions": {
-          "default": "width 0.2s ease",
-          "properties": {
-            "width": "width 0.2s ease",
-            "opacity": "opacity 0.2s ease, visibility 0.2s ease",
-            "background-color": "background-color 150ms ease"
-          }
-        },
-        "layout": {
-          "display": "flex",
-          "flexDirection": "column",
-          "alignItems": "",
-          "justifyContent": "",
-          "position": "fixed",
-          "left": "0",
-          "top": "50%",
-          "transform": "translateY(-50%)",
-          "zIndex": "200"
-        },
-        "iconSpecs": {
-          "default": {
-            "size": "24px",
-            "width": "24px",
-            "height": "24px",
-            "color": {
-              "cp": {
-                "light": "#373F4E",
-                "dark": "#E9ECEF"
-              },
-              "vp": {
-                "light": "#373F4E",
-                "dark": "#FAFAFA"
-              },
-              "ppm": {
-                "light": "#373F4E",
-                "dark": "#FAFAFA"
-              },
-              "maconomy": {
-                "light": "#373F4E",
-                "dark": "#FAFAFA"
-              }
-            }
-          },
-          "active": {
-            "color": {
-              "cp": {
-                "light": "#FFFFFF",
-                "dark": "#1F252E"
-              },
-              "vp": {
-                "light": "#FFFFFF",
-                "dark": "#15171A"
-              },
-              "ppm": {
-                "light": "#FFFFFF",
-                "dark": "#15171A"
-              },
-              "maconomy": {
-                "light": "#FFFFFF",
-                "dark": "#15171A"
-              }
-            }
-          }
-        }
-      },
-      "cssClassStyles": {
-        ".left-sidebar": {
-          "position": "fixed",
-          "left": "0",
-          "top": "50%",
-          "transform": "translateY(-50%)",
-          "z-index": "200",
-          "display": "flex",
-          "flex-direction": "column",
-          "gap": "16px",
-          "width": "52px",
-          "transition": "width 0.2s ease",
-          "overflow": "visible"
-        },
-        ".left-sidebar:hover": {
-          "width": "220px"
-        },
-        ".left-sidebar__section": {
-          "background-color": "var(--nav-bg)",
-          "border": "1px solid var(--border-color)",
-          "border-left": "none",
-          "border-radius": "0 12px 12px 0",
-          "box-shadow": "var(--shadow-xl)",
-          "padding": "8px 8px",
-          "display": "flex",
-          "flex-direction": "column",
-          "gap": "16px",
-          "overflow": "visible"
-        },
-        ".left-sidebar__item": {
-          "display": "flex",
-          "align-items": "center",
-          "gap": "8px",
-          "padding": "6px",
-          "border-radius": "8px",
-          "text-decoration": "none",
-          "color": "var(--text-primary)",
-          "white-space": "nowrap",
-          "transition": "background-color 150ms ease"
-        },
-        ".left-sidebar__item:hover": {
-          "background-color": "var(--hover-bg)",
-          "text-decoration": "none"
-        },
-        ".left-sidebar__item--active": {
-          "background-color": "var(--theme-primary)",
-          "color": "var(--text-inverse)"
-        },
-        ".left-sidebar__item--active:hover": {
-          "background-color": "var(--theme-primary-hover)",
-          "color": "var(--text-inverse)"
-        },
-        ".left-sidebar__icon": {
-          "flex-shrink": "0",
-          "width": "24px",
-          "height": "24px",
-          "display": "flex",
-          "align-items": "center",
-          "justify-content": "center"
-        },
-        ".left-sidebar__icon svg": {
-          "width": "24px",
-          "height": "24px"
-        },
-        ".left-sidebar__label": {
-          "font-family": "'Figtree', sans-serif",
-          "font-size": "0.875rem",
-          "font-weight": "400",
-          "opacity": "0",
-          "visibility": "hidden",
-          "transition": "opacity 0.2s ease, visibility 0.2s ease"
-        },
-        ".left-sidebar:hover .left-sidebar__label": {
-          "opacity": "1",
-          "visibility": "visible"
-        },
-        ".left-sidebar__item--active .left-sidebar__icon": {
-          "color": "var(--text-inverse)"
-        },
-        ".left-sidebar[data-panel-open=\"true\"] .left-sidebar__section": {
-          "box-shadow": "none",
-          "border": "none",
-          "background-color": "transparent",
-          "border-radius": "0"
-        },
-        ".left-sidebar[data-panel-open=\"true\"]:hover": {
-          "width": "52px"
-        },
-        ".left-sidebar[data-panel-open=\"true\"] .left-sidebar__label": {
-          "opacity": "0",
-          "visibility": "hidden"
-        },
-        ".left-sidebar[data-panel-open=\"true\"] .left-sidebar__item[data-active=\"true\"]": {
-          "background-color": "var(--theme-primary)",
-          "color": "var(--text-inverse)"
-        },
-        ".left-sidebar[data-panel-open=\"true\"] .left-sidebar__item[data-active=\"true\"] .left-sidebar__icon": {
-          "color": "var(--text-inverse)"
-        },
-        ".left-sidebar[data-panel-open=\"true\"] .left-sidebar__item[data-active=\"true\"]:hover": {
-          "background-color": "var(--theme-primary-hover)"
-        }
-      }
-    },
-    "pageHeader": {
-      "name": "ShellPageHeader",
-      "filePath": "src/components/ui/ShellPageHeader.astro",
-      "props": {
-        "title": {
-          "type": "string",
-          "optional": false,
-          "default": ""
-        },
-        "subtitle": {
-          "type": "string",
-          "optional": true,
-          "default": ""
-        },
-        "primaryButton": {
-          "type": "ButtonConfig",
-          "optional": true,
-          "default": ""
-        },
-        "outlineButton1": {
-          "type": "ButtonConfig",
-          "optional": true,
-          "default": ""
-        },
-        "outlineButton2": {
-          "type": "ButtonConfig",
-          "optional": true,
-          "default": ""
-        },
-        "outlineButton3": {
-          "type": "ButtonConfig",
-          "optional": true,
-          "default": ""
-        },
-        "class": {
-          "type": "string",
-          "optional": true,
-          "default": ""
-        }
-      },
-      "visualSpecifications": {
-        "dimensions": {
-          "default": {
-            "height": "auto",
-            "width": "100%",
-            "minWidth": "auto",
-            "maxWidth": "none"
-          }
-        },
-        "spacing": {
-          "default": {
-            "paddingTop": "12px",
-            "paddingRight": "0",
-            "paddingBottom": "12px",
-            "paddingLeft": "0",
-            "gap": "16px"
-          },
-          "left": {
-            "gap": "4px"
-          },
-          "actions": {
-            "gap": "8px"
-          }
-        },
-        "typography": {
-          "fontFamily": {
-            "title": "'Lexend', sans-serif",
-            "subtitle": "'Figtree', sans-serif"
-          },
-          "fontWeight": {
-            "title": "600",
-            "subtitle": "400"
-          },
-          "lineHeight": {
-            "title": "1.375",
-            "subtitle": "1.5"
-          },
-          "letterSpacing": "",
-          "textTransform": "",
-          "sizes": {
-            "title": {
-              "fontSize": "1.5rem",
-              "lineHeight": "1.375"
-            },
-            "subtitle": {
-              "fontSize": "1rem",
-              "lineHeight": "1.5"
-            }
-          }
-        },
-        "borders": {
-          "width": "0",
-          "style": "none",
-          "radius": {
-            "default": "0"
-          }
-        },
-        "colors": {
-          "variants": {
-            "default": {
-              "cp": {
-                "light": {
-                  "default": {
-                    "background": "transparent",
-                    "text": "#373F4E",
-                    "border": "transparent",
-                    "iconColor": ""
-                  }
-                },
-                "dark": {
-                  "default": {
-                    "background": "transparent",
-                    "text": "#E9ECEF",
-                    "border": "transparent",
-                    "iconColor": ""
-                  }
-                }
-              },
-              "vp": {
-                "light": {
-                  "default": {
-                    "background": "transparent",
-                    "text": "#373F4E",
-                    "border": "transparent",
-                    "iconColor": ""
-                  }
-                },
-                "dark": {
-                  "default": {
-                    "background": "transparent",
-                    "text": "#FAFAFA",
-                    "border": "transparent",
-                    "iconColor": ""
-                  }
-                }
-              },
-              "ppm": {
-                "light": {
-                  "default": {
-                    "background": "transparent",
-                    "text": "#373F4E",
-                    "border": "transparent",
-                    "iconColor": ""
-                  }
-                },
-                "dark": {
-                  "default": {
-                    "background": "transparent",
-                    "text": "#FAFAFA",
-                    "border": "transparent",
-                    "iconColor": ""
-                  }
-                }
-              },
-              "maconomy": {
-                "light": {
-                  "default": {
-                    "background": "transparent",
-                    "text": "#373F4E",
-                    "border": "transparent",
-                    "iconColor": ""
-                  }
-                },
-                "dark": {
-                  "default": {
-                    "background": "transparent",
-                    "text": "#FAFAFA",
-                    "border": "transparent",
-                    "iconColor": ""
-                  }
-                }
-              }
-            },
-            "subtitle": {
-              "cp": {
-                "light": {
-                  "default": {
-                    "background": "transparent",
-                    "text": "#525969",
-                    "border": "transparent",
-                    "iconColor": ""
-                  }
-                },
-                "dark": {
-                  "default": {
-                    "background": "transparent",
-                    "text": "#B6B6C4",
-                    "border": "transparent",
-                    "iconColor": ""
-                  }
-                }
-              },
-              "vp": {
-                "light": {
-                  "default": {
-                    "background": "transparent",
-                    "text": "#525969",
-                    "border": "transparent",
-                    "iconColor": ""
-                  }
-                },
-                "dark": {
-                  "default": {
-                    "background": "transparent",
-                    "text": "#B5B5BC",
-                    "border": "transparent",
-                    "iconColor": ""
-                  }
-                }
-              },
-              "ppm": {
-                "light": {
-                  "default": {
-                    "background": "transparent",
-                    "text": "#525969",
-                    "border": "transparent",
-                    "iconColor": ""
-                  }
-                },
-                "dark": {
-                  "default": {
-                    "background": "transparent",
-                    "text": "#B5B5BC",
-                    "border": "transparent",
-                    "iconColor": ""
-                  }
-                }
-              },
-              "maconomy": {
-                "light": {
-                  "default": {
-                    "background": "transparent",
-                    "text": "#525969",
-                    "border": "transparent",
-                    "iconColor": ""
-                  }
-                },
-                "dark": {
-                  "default": {
-                    "background": "transparent",
-                    "text": "#B5B5BC",
-                    "border": "transparent",
-                    "iconColor": ""
-                  }
-                }
-              }
-            }
-          }
-        },
-        "elevation": {
-          "default": "none",
-          "hover": "none",
-          "active": "none",
-          "focus": "none"
-        },
-        "transitions": {
-          "default": "",
-          "properties": {}
-        },
-        "layout": {
-          "display": "flex",
-          "alignItems": "center",
-          "justifyContent": "space-between",
-          "position": "relative"
-        },
-        "iconSpecs": {}
-      },
-      "cssClassStyles": {
-        ".shell-page-header": {
-          "display": "flex",
-          "justify-content": "space-between",
-          "align-items": "center",
-          "padding": "12px 0",
-          "margin-bottom": "12px",
-          "gap": "16px"
-        },
-        ".shell-page-header__left": {
-          "display": "flex",
-          "flex-direction": "column",
-          "gap": "4px",
-          "flex": "1",
-          "min-width": "0"
-        },
-        ".shell-page-header__title": {
-          "font-family": "'Lexend', sans-serif",
-          "font-size": "1.5rem",
-          "font-weight": "600",
-          "line-height": "1.375",
-          "color": "var(--text-primary)",
-          "margin": "0"
-        },
-        ".shell-page-header__subtitle": {
-          "font-family": "'Figtree', sans-serif",
-          "font-size": "1rem",
-          "font-weight": "400",
-          "line-height": "1.5",
-          "color": "var(--text-secondary)",
-          "margin": "0"
-        },
-        ".shell-page-header__actions": {
-          "display": "flex",
-          "align-items": "center",
-          "gap": "8px",
-          "flex-shrink": "0"
-        },
-        ".shell-page-header__actions .btn--page-header.btn--secondary": {
-          "background-color": "transparent"
-        },
-        ".shell-page-header__actions .btn--page-header.btn--secondary:hover": {
-          "background-color": "var(--page-header-btn-secondary-hover-bg)"
-        }
-      }
-    },
-    "panel": {
-      "name": "ShellPanel",
-      "filePath": "src/components/ui/ShellPanel.astro",
-      "props": {
-        "side": {
-          "type": "'left' | 'right'",
-          "optional": false,
-          "default": "left"
-        },
-        "open": {
-          "type": "boolean",
-          "optional": false,
-          "default": false
-        },
-        "title": {
-          "type": "string",
-          "optional": false,
-          "default": ""
-        },
-        "titleIcon": {
-          "type": "string",
-          "optional": true,
-          "default": ""
-        },
-        "headerVariant": {
-          "type": "'theme' | 'default'",
-          "optional": true,
-          "default": "theme"
-        },
-        "width": {
-          "type": "'narrow' | 'full'",
-          "optional": true,
-          "default": "narrow"
-        },
-        "showClose": {
-          "type": "boolean",
-          "optional": true,
-          "default": true
-        },
-        "showPopout": {
-          "type": "boolean",
-          "optional": true,
-          "default": true
-        },
-        "id": {
-          "type": "string",
-          "optional": true,
-          "default": ""
-        },
-        "class": {
-          "type": "string",
-          "optional": true,
-          "default": ""
-        }
-      },
-      "visualSpecifications": {
-        "dimensions": {
-          "narrow": {
-            "height": "auto",
-            "width": "596px",
-            "minWidth": "auto",
-            "maxWidth": "none"
-          },
-          "full": {
-            "height": "auto",
-            "width": "100vw",
-            "minWidth": "auto",
-            "maxWidth": "none"
-          }
-        },
-        "spacing": {
-          "default": {
-            "paddingTop": "0",
-            "paddingRight": "0",
-            "paddingBottom": "0",
-            "paddingLeft": "0",
-            "gap": "0"
-          },
-          "header": {
-            "paddingTop": "8px",
-            "paddingRight": "16px",
-            "paddingBottom": "8px",
-            "paddingLeft": "16px",
-            "gap": "16px"
-          },
-          "content": {
-            "paddingTop": "0",
-            "paddingRight": "0",
-            "paddingBottom": "0",
-            "paddingLeft": "0",
-            "gap": "0"
-          }
-        },
-        "typography": {
-          "fontFamily": {
-            "title": "'Lexend', sans-serif"
-          },
-          "fontWeight": {
-            "title": "600"
-          },
-          "lineHeight": {
-            "title": "1.25"
-          },
-          "letterSpacing": "",
-          "textTransform": "",
-          "sizes": {
-            "title": {
-              "fontSize": "1.125rem",
-              "lineHeight": "1.25"
-            }
-          }
-        },
-        "borders": {
-          "width": "0",
-          "style": "none",
-          "radius": {
-            "left": "0 16px 16px 0",
-            "right": "16px 0 0 16px"
-          }
-        },
-        "colors": {
-          "variants": {
-            "headerTheme": {
-              "cp": {
-                "light": {
-                  "default": {
-                    "background": "#4C92D9",
-                    "text": "#FFFFFF",
-                    "border": "transparent",
-                    "iconColor": "#FFFFFF"
-                  }
-                },
-                "dark": {
-                  "default": {
-                    "background": "#59ACFF",
-                    "text": "#1F252E",
-                    "border": "transparent",
-                    "iconColor": "#1F252E"
-                  }
-                }
-              },
-              "vp": {
-                "light": {
-                  "default": {
-                    "background": "#4C92D9",
-                    "text": "#FFFFFF",
-                    "border": "transparent",
-                    "iconColor": "#FFFFFF"
-                  }
-                },
-                "dark": {
-                  "default": {
-                    "background": "#59ACFF",
-                    "text": "#15171A",
-                    "border": "transparent",
-                    "iconColor": "#15171A"
-                  }
-                }
-              },
-              "ppm": {
-                "light": {
-                  "default": {
-                    "background": "#4C92D9",
-                    "text": "#FFFFFF",
-                    "border": "transparent",
-                    "iconColor": "#FFFFFF"
-                  }
-                },
-                "dark": {
-                  "default": {
-                    "background": "#59ACFF",
-                    "text": "#15171A",
-                    "border": "transparent",
-                    "iconColor": "#15171A"
-                  }
-                }
-              },
-              "maconomy": {
-                "light": {
-                  "default": {
-                    "background": "#4C92D9",
-                    "text": "#FFFFFF",
-                    "border": "transparent",
-                    "iconColor": "#FFFFFF"
-                  }
-                },
-                "dark": {
-                  "default": {
-                    "background": "#59ACFF",
-                    "text": "#15171A",
-                    "border": "transparent",
-                    "iconColor": "#15171A"
-                  }
-                }
-              }
-            },
-            "headerDefault": {
-              "cp": {
-                "light": {
-                  "default": {
-                    "background": "#F7F8FA",
-                    "text": "#373F4E",
-                    "border": "#BFC6D4",
-                    "iconColor": "#373F4E"
-                  }
-                },
-                "dark": {
-                  "default": {
-                    "background": "#37424D",
-                    "text": "#E9ECEF",
-                    "border": "#5F6871",
-                    "iconColor": "#E9ECEF"
-                  }
-                }
-              },
-              "vp": {
-                "light": {
-                  "default": {
-                    "background": "#F7F8FA",
-                    "text": "#373F4E",
-                    "border": "#BFC6D4",
-                    "iconColor": "#373F4E"
-                  }
-                },
-                "dark": {
-                  "default": {
-                    "background": "#1F2124",
-                    "text": "#FAFAFA",
-                    "border": "#2A2D32",
-                    "iconColor": "#FAFAFA"
-                  }
-                }
-              },
-              "ppm": {
-                "light": {
-                  "default": {
-                    "background": "#F7F8FA",
-                    "text": "#373F4E",
-                    "border": "#BFC6D4",
-                    "iconColor": "#373F4E"
-                  }
-                },
-                "dark": {
-                  "default": {
-                    "background": "#1F2124",
-                    "text": "#FAFAFA",
-                    "border": "#2A2D32",
-                    "iconColor": "#FAFAFA"
-                  }
-                }
-              },
-              "maconomy": {
-                "light": {
-                  "default": {
-                    "background": "#F7F8FA",
-                    "text": "#373F4E",
-                    "border": "#BFC6D4",
-                    "iconColor": "#373F4E"
-                  }
-                },
-                "dark": {
-                  "default": {
-                    "background": "#1F2124",
-                    "text": "#FAFAFA",
-                    "border": "#2A2D32",
-                    "iconColor": "#FAFAFA"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "elevation": {
-          "default": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
-          "hover": "none",
-          "active": "none",
-          "focus": "none",
-          "dark": {
-            "default": "0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3)"
-          }
-        },
-        "transitions": {
-          "default": "transform 200ms ease",
-          "properties": {
-            "transform": "transform 200ms ease",
-            "width": "width 200ms ease"
-          }
-        },
-        "layout": {
-          "display": "flex",
-          "flexDirection": "column",
-          "alignItems": "",
-          "justifyContent": "",
-          "position": "fixed",
-          "top": "calc(56px + 2.5px)",
-          "bottom": "calc(48px + 2.5px)",
-          "zIndex": "44"
-        },
-        "iconSpecs": {
-          "titleIcon": {
-            "size": "md",
-            "width": "20px",
-            "height": "20px"
-          },
-          "closeIcon": {
-            "name": "x-mark",
-            "size": "lg",
-            "width": "24px",
-            "height": "24px"
-          },
-          "popoutIcon": {
-            "name": "arrow-top-right-on-square",
-            "size": "md",
-            "width": "20px",
-            "height": "20px"
-          },
-          "toggleWidthIcon": {
-            "name": "arrows-pointing-out",
-            "size": "md",
-            "width": "20px",
-            "height": "20px"
-          }
-        }
-      },
-      "cssClassStyles": {
-        ".shell-panel": {
-          "position": "fixed",
-          "top": "calc(56px + 2.5px)",
-          "bottom": "calc(48px + 2.5px)",
-          "z-index": "44",
-          "display": "flex",
-          "flex-direction": "column",
-          "background-color": "var(--elevated-bg)",
-          "box-shadow": "var(--shadow-xl)",
-          "overflow": "hidden",
-          "transition": "transform 200ms ease",
-          "pointer-events": "none"
-        },
-        ".shell-panel--left": {
-          "left": "0",
-          "border-radius": "0 16px 16px 0",
-          "transform": "translateX(-100%)",
-          "visibility": "hidden"
-        },
-        ".shell-panel--left.shell-panel--open": {
-          "transform": "translateX(0)",
-          "visibility": "visible",
-          "pointer-events": "auto"
-        },
-        ".shell-panel--right": {
-          "right": "0",
-          "border-radius": "16px 0 0 16px",
-          "transform": "translateX(100%)",
-          "visibility": "hidden"
-        },
-        ".shell-panel--right.shell-panel--open": {
-          "transform": "translateX(0)",
-          "visibility": "visible",
-          "pointer-events": "auto"
-        },
-        ".shell-panel--narrow": {
-          "width": "596px"
-        },
-        ".shell-panel--full": {
-          "width": "100vw"
-        },
-        ".shell-panel__header": {
-          "flex-shrink": "0",
-          "min-height": "calc(16px * 2 + 24px)",
-          "display": "flex",
-          "align-items": "center"
-        },
-        ".shell-panel__header-content": {
-          "display": "flex",
-          "align-items": "center",
-          "gap": "16px",
-          "width": "100%"
-        },
-        ".shell-panel__header--theme": {
-          "background-color": "var(--theme-primary)",
-          "color": "var(--text-inverse)",
-          "padding": "8px 16px",
-          "width": "100%"
-        },
-        ".shell-panel__header--default": {
-          "background-color": "var(--elevated-bg)",
-          "color": "var(--text-primary)",
-          "padding": "8px 16px",
-          "width": "100%",
-          "border-bottom": "1px solid var(--border-color)"
-        },
-        ".shell-panel__title": {
-          "flex": "1",
-          "font-family": "'Lexend', sans-serif",
-          "font-size": "1.125rem",
-          "font-weight": "600",
-          "line-height": "1.25",
-          "margin": "0",
-          "white-space": "nowrap",
-          "overflow": "hidden",
-          "text-overflow": "ellipsis"
-        },
-        ".shell-panel__content": {
-          "flex": "1",
-          "overflow-y": "auto",
-          "overflow-x": "hidden"
-        }
-      }
-    }
-  },
-  "cssClassStyles": {
-    ".shell-layout": {
-      "position": "relative",
-      "width": "100%",
-      "height": "100vh",
-      "overflow": "hidden"
-    },
-    ".shell-layout__container": {
-      "position": "relative",
-      "height": "100vh",
-      "display": "grid",
-      "grid-template-columns": "1fr",
-      "overflow": "hidden"
-    },
-    ".shell-layout__container[data-has-footer=\"true\"]": {
-      "grid-template-rows": "56px 1fr 48px"
-    },
-    ".shell-layout__container[data-has-footer=\"false\"]": {
-      "grid-template-rows": "56px 1fr"
-    },
-    ".shell-layout__header": {
-      "grid-row": "1",
-      "grid-column": "1",
       "position": "fixed",
       "top": "0",
       "left": "0",
       "right": "0",
-      "z-index": "50"
+      "zIndex": "var(--z-50)",
+      "gridRow": "1",
+      "gridColumn": "1"
     },
-    ".shell-layout__floating-nav-wrap": {
+    "floatingNav": {
       "position": "fixed",
-      "top": "56px",
+      "top": "var(--shell-header-height)",
       "left": "50%",
       "transform": "translateX(-50%)",
-      "z-index": "40",
-      "pointer-events": "none"
+      "zIndex": "var(--z-40)",
+      "conditional": "CP theme only"
     },
-    ".shell-layout__floating-nav-wrap > *": {
-      "pointer-events": "auto"
-    },
-    ".shell-layout__left-sidebar": {
+    "leftSidebar": {
       "position": "fixed",
       "left": "0",
-      "z-index": "45"
+      "zIndex": "var(--z-45)"
     },
-    ".shell-layout__right-sidebar": {
+    "rightSidebar": {
       "position": "fixed",
       "right": "0",
       "top": "50%",
       "transform": "translateY(-50%)",
-      "z-index": "45"
+      "zIndex": "var(--z-45)"
     },
-    ".shell-layout__main": {
-      "grid-row": "2",
-      "grid-column": "1",
-      "overflow-y": "auto",
-      "overflow-x": "hidden",
+    "main": {
+      "position": "relative",
+      "gridRow": "2",
+      "gridColumn": "1",
+      "overflow": "auto",
       "display": "flex",
-      "flex-direction": "column",
-      "align-items": "stretch",
-      "align-self": "start"
+      "flexDirection": "column"
     },
-    ".shell-layout__container[data-has-floating-nav=\"true\"] .shell-layout__main": {
-      "padding": "88px calc(52px + 20px) 24px calc(52px + 20px)"
+    "footer": {
+      "position": "relative",
+      "gridRow": "3",
+      "gridColumn": "1",
+      "zIndex": "var(--z-40)",
+      "conditional": "VP/PPM/Maconomy themes only"
     },
-    ".shell-layout__container[data-has-floating-nav=\"false\"] .shell-layout__main": {
-      "padding-top": "20px",
-      "padding-right": "calc(52px + 20px)",
-      "padding-bottom": "24px",
-      "padding-left": "calc(52px + 20px)"
-    },
-    ".shell-layout__footer": {
-      "grid-row": "3",
-      "grid-column": "1",
-      "z-index": "40"
-    },
-    ".shell-layout__container[data-has-footer=\"false\"] .shell-layout__footer": {
-      "display": "none !important"
-    },
-    ".shell-layout__container[data-has-floating-nav=\"false\"] .shell-layout__floating-nav-wrap": {
-      "display": "none"
+    "panels": {
+      "position": "fixed",
+      "zIndex": "var(--z-30)",
+      "conditional": "Optional, when leftPanel or rightPanel props are provided"
     }
   },
   "responsive": {
-    "breakpoints": {
-      "md": {
-        "value": "768px",
-        "cssVar": "--breakpoint-md"
-      },
-      "lg": {
-        "value": "1024px",
-        "cssVar": "--breakpoint-lg"
-      }
-    },
     "mobile": {
+      "breakpoint": "var(--breakpoint-md)",
       "maxWidth": "768px",
-      "behaviors": {
-        "hideSidebars": {
-          "leftSidebar": {
-            "display": "none"
-          },
-          "rightSidebar": {
-            "display": "none"
-          }
-        },
-        "adjustMainPadding": {
-          "withFloatingNav": {
-            "padding": "88px 16px 24px 16px"
-          },
-          "withoutFloatingNav": {
-            "padding": "20px 16px 24px 16px"
-          }
-        }
+      "changes": [
+        "Hide left and right sidebars",
+        "Adjust main padding to var(--shell-layout-padding-side-mobile) (16px)",
+        "Maintain FloatingNav on CP theme",
+        "Maintain footer on VP/PPM/Maconomy themes"
+      ],
+      "mainPaddingWithFloatingNav": {
+        "top": "var(--shell-layout-padding-top)",
+        "right": "var(--shell-layout-padding-side-mobile)",
+        "bottom": "var(--space-6)",
+        "left": "var(--shell-layout-padding-side-mobile)"
+      },
+      "mainPaddingWithoutFloatingNav": {
+        "top": "var(--space-5)",
+        "right": "var(--shell-layout-padding-side-mobile)",
+        "bottom": "var(--space-6)",
+        "left": "var(--shell-layout-padding-side-mobile)"
       }
     },
     "tablet": {
-      "minWidth": "769px",
+      "breakpoint": "var(--breakpoint-lg)",
       "maxWidth": "1024px",
-      "behaviors": {
-        "reduceSidePadding": {
-          "withFloatingNav": {
-            "padding": "88px calc(32px + 20px) 24px calc(32px + 20px)"
-          },
-          "withoutFloatingNav": {
-            "padding": "20px calc(32px + 20px) 24px calc(32px + 20px)"
-          }
-        }
-      }
-    },
-    "desktop": {
-      "minWidth": "1025px",
-      "behaviors": {
-        "fullLayout": {
-          "sidebarsVisible": true,
-          "fullPadding": true
-        }
+      "changes": [
+        "Reduce side padding to var(--shell-layout-padding-side-tablet) (32px)",
+        "Keep sidebars visible"
+      ],
+      "mainPaddingWithFloatingNav": {
+        "top": "var(--shell-layout-padding-top)",
+        "right": "calc(var(--shell-layout-padding-side-tablet) + var(--space-5))",
+        "bottom": "var(--space-6)",
+        "left": "calc(var(--shell-layout-padding-side-tablet) + var(--space-5))"
+      },
+      "mainPaddingWithoutFloatingNav": {
+        "top": "var(--space-5)",
+        "right": "calc(var(--shell-layout-padding-side-tablet) + var(--space-5))",
+        "bottom": "var(--space-6)",
+        "left": "calc(var(--shell-layout-padding-side-tablet) + var(--space-5))"
       }
     }
   },
-  "interactivity": {
-    "hasInteractivity": true,
-    "initialization": {
-      "function": "Theme detection function (anonymous IIFE)",
-      "triggers": [
-        "DOMContentLoaded (implicit via script execution)",
-        "Theme change detection (MutationObserver)"
-      ],
-      "condition": "Only runs if data-use-theme-detection='true'",
-      "preventDoubleInit": false,
-      "description": "Detects theme from html class and updates layout dynamically"
-    },
-    "state": {
-      "detectedTheme": {
-        "type": "string",
-        "values": ["cp", "vp", "ppm", "maconomy", null],
-        "managedBy": "detectTheme() function",
-        "source": "document.documentElement.classList (checks for theme-* classes)",
-        "description": "Currently detected theme from HTML element"
-      },
-      "hasFooter": {
-        "type": "boolean",
-        "managedBy": "data attribute on container",
-        "attribute": "data-has-footer",
-        "values": ["true", "false"],
-        "description": "Controls footer visibility (CP has no footer, others do)"
-      },
-      "hasFloatingNav": {
-        "type": "boolean",
-        "managedBy": "data attribute on container",
-        "attribute": "data-has-floating-nav",
-        "values": ["true", "false"],
-        "description": "Controls floating nav visibility (CP has floating nav, others don't)"
-      },
-      "isCPVariant": {
-        "type": "boolean",
-        "managedBy": "data attribute on layout root",
-        "attribute": "data-cp-variant",
-        "values": ["true", "false"],
-        "description": "Indicates if current theme is CP (affects spacing and layout)"
-      }
-    },
-    "eventHandlers": [],
-    "keyboardSupport": {},
-    "dataAttributes": {
-      "data-use-theme-detection": {
-        "purpose": "Enables/disables automatic theme detection",
-        "values": ["true", "false"],
-        "default": "true if sidebar variant or floating nav not explicitly set",
-        "description": "If false, uses props directly without theme detection"
-      },
-      "data-cp-variant": {
-        "purpose": "Indicates if current theme is CP",
-        "values": ["true", "false"],
-        "setBy": "Theme detection script",
-        "usedBy": "CSS for CP-specific spacing adjustments"
-      },
-      "data-has-footer": {
-        "purpose": "Controls footer visibility",
-        "values": ["true", "false"],
-        "setBy": "Theme detection script or props",
-        "usedBy": "CSS grid template rows and footer display"
-      },
-      "data-has-floating-nav": {
-        "purpose": "Controls floating nav visibility",
-        "values": ["true", "false"],
-        "setBy": "Theme detection script or props",
-        "usedBy": "CSS for floating nav display and main content padding"
-      },
-      "data-footer-variant": {
-        "purpose": "Stores footer height variant",
-        "values": ["default", "compact"],
-        "setBy": "Props"
-      }
-    },
-    "globalFunctions": {},
-    "customEvents": [],
-    "dependencies": {
-      "internal": [
-        "detectTheme function",
-        "updateLayout function",
-        "MutationObserver"
-      ],
-      "external": [
-        "ShellHeader component",
-        "LeftSidebar component",
-        "RightSidebar component",
-        "ShellFooter component",
-        "FloatingNav component"
-      ]
-    },
-    "coordination": {
-      "themeDetection": {
-        "method": "Reads html class for theme classes (theme-cp, theme-vp, theme-ppm, theme-maconomy)",
-        "triggers": [
-          "Initial page load",
-          "Theme class changes on document.documentElement (via MutationObserver)"
-        ],
-        "updates": [
-          "Sidebar variant classes (left-sidebar--{theme}, right-sidebar--{theme})",
-          "Header product name and logo",
-          "Container data-has-footer attribute",
-          "Container data-has-floating-nav attribute",
-          "Layout data-cp-variant attribute"
-        ]
-      },
-      "withShellHeader": {
-        "updates": [
-          "Product name (.header__title textContent)",
-          "Logo image source (.header__logo src)"
-        ],
-        "mapping": {
-          "cp": { "name": "Costpoint", "logo": "/logos/CPVPLogo.svg" },
-          "vp": { "name": "Vantagepoint", "logo": "/logos/CPVPLogo.svg" },
-          "ppm": { "name": "Project Performance Management", "logo": "/logos/PPMLogo.svg" },
-          "maconomy": { "name": "Maconomy", "logo": "/logos/MacLogo.svg" }
-        }
-      },
-      "withSidebars": {
-        "updates": [
-          "LeftSidebar variant classes (removes all, adds current theme)",
-          "RightSidebar variant classes (removes all, adds current theme)"
-        ],
-        "note": "Sidebars handle their own panel opening logic - ShellLayout just updates variant classes"
-      },
-      "withFooter": {
-        "controls": "Footer visibility via data-has-footer",
-        "logic": "CP theme: hasFooter = false, others: hasFooter = true"
-      },
-      "withFloatingNav": {
-        "controls": "Floating nav visibility via data-has-floating-nav",
-        "logic": "CP theme: showFloatingNav = true, others: showFloatingNav = false"
-      },
-      "sidebarToPanelStructure": {
-        "description": "ShellLayout provides structural context for sidebar-to-panel coordination",
-        "note": "LeftSidebar and RightSidebar components contain the actual logic to open ShellPanel",
-        "structure": "ShellLayout renders ShellPanel components, sidebars handle opening them"
-      },
-      "responsiveBehavior": {
-        "mobile": {
-          "maxWidth": "768px",
-          "actions": ["Hides sidebars via CSS", "Adjusts main content padding"]
+  "slots": {
+    "default": {
+      "name": "default",
+      "location": "main.shell-layout__main",
+      "description": "Main page content area",
+      "required": true
+    }
+  },
+  "visualSpecifications": {
+    "cp": {
+      "componentDimensions": {
+        "header": {
+          "height": "56px"
         },
-        "tablet": {
-          "minWidth": "769px",
-          "maxWidth": "1024px",
-          "actions": ["Reduces side padding"]
+        "footer": null,
+        "sidebar": {
+          "width": "52px"
+        },
+        "floatingNav": {
+          "top": "56px"
         }
+      },
+      "mainSpacing": {
+        "paddingTop": "88px",
+        "paddingRight": "72px",
+        "paddingBottom": "24px",
+        "paddingLeft": "72px"
+      },
+      "gridStructure": {
+        "rows": "56px 1fr",
+        "columns": "1fr"
       }
     },
-    "implementationNotes": [
-      "Theme detection only runs if data-use-theme-detection='true'",
-      "If props are explicitly set (leftSidebarVariant, showFloatingNav), theme detection may be disabled",
-      "Uses MutationObserver to watch for theme class changes on document.documentElement",
-      "Observer watches only 'class' attribute changes",
-      "Initial layout update runs immediately on script execution",
-      "Sidebar variant classes are updated dynamically (not via props - direct DOM manipulation)",
-      "Header product name and logo are updated via direct DOM manipulation",
-      "Layout provides structure but sidebars contain the logic to open panels",
-      "Responsive behavior hides sidebars on mobile via CSS media queries",
-      "Main content padding adjusts based on floating nav presence and breakpoint"
-    ]
+    "vp": {
+      "componentDimensions": {
+        "header": {
+          "height": "56px"
+        },
+        "footer": {
+          "height": "48px",
+          "heightCompact": "40px"
+        },
+        "sidebar": {
+          "width": "52px"
+        },
+        "floatingNav": null
+      },
+      "mainSpacing": {
+        "paddingTop": "20px",
+        "paddingRight": "72px",
+        "paddingBottom": "24px",
+        "paddingLeft": "72px"
+      },
+      "gridStructure": {
+        "rows": "56px 1fr 48px",
+        "columns": "1fr"
+      }
+    },
+    "ppm": {
+      "componentDimensions": {
+        "header": {
+          "height": "56px"
+        },
+        "footer": {
+          "height": "48px",
+          "heightCompact": "40px"
+        },
+        "sidebar": {
+          "width": "52px"
+        },
+        "floatingNav": null
+      },
+      "mainSpacing": {
+        "paddingTop": "20px",
+        "paddingRight": "72px",
+        "paddingBottom": "24px",
+        "paddingLeft": "72px"
+      },
+      "gridStructure": {
+        "rows": "56px 1fr 48px",
+        "columns": "1fr"
+      }
+    },
+    "maconomy": {
+      "componentDimensions": {
+        "header": {
+          "height": "56px"
+        },
+        "footer": {
+          "height": "48px",
+          "heightCompact": "40px"
+        },
+        "sidebar": {
+          "width": "52px"
+        },
+        "floatingNav": null
+      },
+      "mainSpacing": {
+        "paddingTop": "20px",
+        "paddingRight": "72px",
+        "paddingBottom": "24px",
+        "paddingLeft": "72px"
+      },
+      "gridStructure": {
+        "rows": "56px 1fr 48px",
+        "columns": "1fr"
+      }
+    }
+  },
+  "usage": {
+    "importPath": "./src/layouts/ShellLayout.astro",
+    "description": "Use ShellLayout as the root layout for application pages",
+    "themeDetection": "Layout automatically adapts based on theme-cp, theme-vp, theme-ppm, or theme-maconomy class on <html>",
+    "example": {
+      "cp": "Apply class=\"theme-cp\" to <html> for CP layout with FloatingNav",
+      "vp": "Apply class=\"theme-vp\" to <html> for VP layout with footer",
+      "ppm": "Apply class=\"theme-ppm\" to <html> for PPM layout with footer",
+      "maconomy": "Apply class=\"theme-maconomy\" to <html> for Maconomy layout with footer"
+    }
+  },
+  "_metadata": {
+    "lastGenerated": "2026-01-26T21:42:19.968Z",
+    "version": "1.0.0",
+    "includesVisualSpecs": true
   }
 }

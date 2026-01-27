@@ -7,57 +7,57 @@
     "value": {
       "type": "number",
       "optional": true,
-      "default": 0
+      "default": null
     },
     "min": {
       "type": "number",
       "optional": true,
-      "default": ""
+      "default": null
     },
     "max": {
       "type": "number",
       "optional": true,
-      "default": ""
+      "default": null
     },
     "step": {
       "type": "number",
       "optional": true,
-      "default": 1
+      "default": null
     },
     "name": {
       "type": "string",
       "optional": true,
-      "default": ""
+      "default": null
     },
     "id": {
       "type": "string",
       "optional": true,
-      "default": ""
+      "default": null
     },
     "disabled": {
       "type": "boolean",
       "optional": true,
-      "default": false
+      "default": null
     },
     "label": {
       "type": "string",
       "optional": true,
-      "default": ""
+      "default": null
     },
     "labelVariant": {
       "type": "'inline' | 'stacked'",
       "optional": true,
-      "default": ""
+      "default": null
     },
     "labelFor": {
       "type": "string",
       "optional": true,
-      "default": ""
+      "default": null
     },
     "class": {
       "type": "string",
       "optional": true,
-      "default": ""
+      "default": null
     }
   },
   "imports": {
@@ -69,11 +69,8 @@
     "Label"
   ],
   "cssClasses": [
-    "number-input-form-wrapper",
-    "number-input-form-wrapper--inline",
-    "number-input-form-wrapper--stacked",
+    "inline",
     "number-input-form-wrapper__label",
-    "number-input",
     "number-input__btn",
     "number-input__input"
   ],
@@ -90,20 +87,17 @@
   "structure": {
     "root": {
       "element": "div",
-      "class": "number-input-form-wrapper",
+      "class": "wrapperClasses",
       "spacing": {
         "padding": "0",
         "margin": "0"
       },
-      "baseClass": "number-input-form-wrapper",
-      "modifierClasses": {
-        "inline": "number-input-form-wrapper--inline",
-        "stacked": "number-input-form-wrapper--stacked"
-      },
+      "baseClass": null,
+      "modifierClasses": {},
       "children": [
         {
           "element": "Label",
-          "class": "number-input-form-wrapper__label",
+          "class": "(finalLabelVariant === 'inline' || !finalLabelVariant) ? 'number-input-form-wrapper__label' : ''",
           "spacing": {
             "padding": "0",
             "margin": "0"
@@ -112,7 +106,7 @@
         },
         {
           "element": "div",
-          "class": "number-input",
+          "class": "classes",
           "spacing": {
             "padding": "0",
             "margin": "0"
@@ -128,7 +122,7 @@
               "children": [
                 {
                   "element": "Icon",
-                  "class": "",
+                  "class": null,
                   "spacing": {
                     "padding": "0",
                     "margin": "0"
@@ -156,7 +150,7 @@
               "children": [
                 {
                   "element": "Icon",
-                  "class": "",
+                  "class": null,
                   "spacing": {
                     "padding": "0",
                     "margin": "0"
@@ -172,7 +166,7 @@
     "children": [
       {
         "element": "script",
-        "class": "",
+        "class": null,
         "spacing": {
           "padding": "0",
           "margin": "0"
@@ -182,7 +176,7 @@
     ]
   },
   "_metadata": {
-    "lastGenerated": "2026-01-23T01:33:50.768Z",
+    "lastGenerated": "2026-01-26T21:42:17.990Z",
     "generatedWith": "@astrojs/compiler@2.13.0",
     "includesVisualSpecs": true,
     "availableVariants": [
@@ -193,26 +187,26 @@
   "visualSpecifications": {
     "dimensions": {
       "xs": {
-        "height": "40px",
-        "width": "auto",
+        "height": null,
+        "width": null,
         "minWidth": "auto",
         "maxWidth": "none"
       },
       "sm": {
-        "height": "40px",
-        "width": "auto",
+        "height": null,
+        "width": null,
         "minWidth": "auto",
         "maxWidth": "none"
       },
       "md": {
-        "height": "40px",
-        "width": "auto",
+        "height": null,
+        "width": null,
         "minWidth": "auto",
         "maxWidth": "none"
       },
       "lg": {
-        "height": "40px",
-        "width": "auto",
+        "height": null,
+        "width": null,
         "minWidth": "auto",
         "maxWidth": "none"
       }
@@ -249,493 +243,182 @@
     },
     "typography": {
       "fontFamily": "'Figtree', sans-serif",
-      "fontWeight": "400",
-      "lineHeight": "1.5",
-      "letterSpacing": "0",
-      "textTransform": "none",
+      "fontWeight": null,
+      "lineHeight": null,
+      "letterSpacing": null,
+      "textTransform": null,
       "sizes": {
         "xs": {
-          "fontSize": "0.75rem",
-          "lineHeight": "1.5"
+          "fontSize": "16px",
+          "lineHeight": null
         },
         "sm": {
-          "fontSize": "0.75rem",
-          "lineHeight": "1.5"
+          "fontSize": "16px",
+          "lineHeight": null
         },
         "md": {
-          "fontSize": "1rem",
-          "lineHeight": "1.5"
+          "fontSize": "16px",
+          "lineHeight": null
         },
         "lg": {
-          "fontSize": "1rem",
-          "lineHeight": "1.5"
+          "fontSize": "16px",
+          "lineHeight": null
         }
       }
     },
     "borders": {
-      "width": "1px",
-      "style": "solid",
+      "width": null,
+      "style": null,
       "radius": {
-        "default": "0.5rem",
-        "cp": "0.5rem"
+        "default": "0.5rem"
       }
     },
     "colors": {
       "variants": {
-        "default": {
+        "inline": {
           "cp": {
             "light": {
               "default": {
-                "container": {
-                  "background": "transparent",
-                  "border": "#BFC6D4",
-                  "borderRadius": "0.5rem"
-                },
-                "button": {
-                  "background": "#F7F8FA",
-                  "text": "#525969",
-                  "border": "transparent",
-                  "iconColor": "#525969",
-                  "width": "40px",
-                  "minWidth": "44px",
-                  "minHeight": "44px"
-                },
-                "input": {
-                  "background": "#FFFFFF",
-                  "text": "#373F4E",
-                  "border": "none",
-                  "borderLeft": "1px solid #BFC6D4",
-                  "borderRight": "1px solid #BFC6D4",
-                  "width": "60px",
-                  "height": "40px",
-                  "minHeight": "44px",
-                  "fontSize": "1rem"
-                }
-              },
-              "hover": {
-                "button": {
-                  "background": "#E5E7EB",
-                  "text": "#373F4E",
-                  "iconColor": "#373F4E"
-                }
-              },
-              "focus": {
-                "container": {
-                  "border": "#4C92D9",
-                  "boxShadow": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA"
-                },
-                "input": {
-                  "outline": "none"
-                }
-              },
-              "disabled": {
-                "button": {
-                  "text": "#6B7280",
-                  "iconColor": "#6B7280",
-                  "cursor": "not-allowed"
-                },
-                "input": {
-                  "background": "#EAEAEA",
-                  "cursor": "not-allowed"
-                }
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
               }
             },
             "dark": {
               "default": {
-                "container": {
-                  "background": "transparent",
-                  "border": "#5F6871",
-                  "borderRadius": "0.5rem"
-                },
-                "button": {
-                  "background": "#37424D",
-                  "text": "#B6B6C4",
-                  "border": "transparent",
-                  "iconColor": "#B6B6C4",
-                  "width": "40px",
-                  "minWidth": "44px",
-                  "minHeight": "44px"
-                },
-                "input": {
-                  "background": "#1F252E",
-                  "text": "#E9ECEF",
-                  "border": "none",
-                  "borderLeft": "1px solid #5F6871",
-                  "borderRight": "1px solid #5F6871",
-                  "width": "60px",
-                  "height": "40px",
-                  "minHeight": "44px",
-                  "fontSize": "1rem"
-                }
-              },
-              "hover": {
-                "button": {
-                  "background": "#3D4A5C",
-                  "text": "#E9ECEF",
-                  "iconColor": "#E9ECEF"
-                }
-              },
-              "focus": {
-                "container": {
-                  "border": "#59ACFF",
-                  "boxShadow": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #37424D"
-                },
-                "input": {
-                  "outline": "none"
-                }
-              },
-              "disabled": {
-                "button": {
-                  "text": "#BBBBC6",
-                  "iconColor": "#BBBBC6",
-                  "cursor": "not-allowed"
-                },
-                "input": {
-                  "background": "#333D47",
-                  "cursor": "not-allowed"
-                }
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
               }
             }
           },
           "vp": {
             "light": {
               "default": {
-                "container": {
-                  "background": "transparent",
-                  "border": "#BFC6D4",
-                  "borderRadius": "0.5rem"
-                },
-                "button": {
-                  "background": "#F7F8FA",
-                  "text": "#525969",
-                  "border": "transparent",
-                  "iconColor": "#525969",
-                  "width": "40px",
-                  "minWidth": "44px",
-                  "minHeight": "44px"
-                },
-                "input": {
-                  "background": "#FFFFFF",
-                  "text": "#373F4E",
-                  "border": "none",
-                  "borderLeft": "1px solid #BFC6D4",
-                  "borderRight": "1px solid #BFC6D4",
-                  "width": "60px",
-                  "height": "40px",
-                  "minHeight": "44px",
-                  "fontSize": "1rem"
-                }
-              },
-              "hover": {
-                "button": {
-                  "background": "#E5E7EB",
-                  "text": "#373F4E",
-                  "iconColor": "#373F4E"
-                }
-              },
-              "focus": {
-                "container": {
-                  "border": "#4C92D9",
-                  "boxShadow": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA"
-                },
-                "input": {
-                  "outline": "none"
-                }
-              },
-              "disabled": {
-                "button": {
-                  "text": "#6B7280",
-                  "iconColor": "#6B7280",
-                  "cursor": "not-allowed"
-                },
-                "input": {
-                  "background": "#EAEAEA",
-                  "cursor": "not-allowed"
-                }
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
               }
             },
             "dark": {
               "default": {
-                "container": {
-                  "background": "transparent",
-                  "border": "#2A2D32",
-                  "borderRadius": "0.5rem"
-                },
-                "button": {
-                  "background": "#1F2124",
-                  "text": "#B5B5BC",
-                  "border": "transparent",
-                  "iconColor": "#B5B5BC",
-                  "width": "40px",
-                  "minWidth": "44px",
-                  "minHeight": "44px"
-                },
-                "input": {
-                  "background": "#1F2124",
-                  "text": "#FAFAFA",
-                  "border": "none",
-                  "borderLeft": "1px solid #2A2D32",
-                  "borderRight": "1px solid #2A2D32",
-                  "width": "60px",
-                  "height": "40px",
-                  "minHeight": "44px",
-                  "fontSize": "1rem"
-                }
-              },
-              "hover": {
-                "button": {
-                  "background": "#2A2D32",
-                  "text": "#FAFAFA",
-                  "iconColor": "#FAFAFA"
-                }
-              },
-              "focus": {
-                "container": {
-                  "border": "#59ACFF",
-                  "boxShadow": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #1F2124"
-                },
-                "input": {
-                  "outline": "none"
-                }
-              },
-              "disabled": {
-                "button": {
-                  "text": "#B5B5BC",
-                  "iconColor": "#B5B5BC",
-                  "cursor": "not-allowed"
-                },
-                "input": {
-                  "background": "#2A2D32",
-                  "cursor": "not-allowed"
-                }
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
               }
             }
           },
           "ppm": {
             "light": {
               "default": {
-                "container": {
-                  "background": "transparent",
-                  "border": "#BFC6D4",
-                  "borderRadius": "0.5rem"
-                },
-                "button": {
-                  "background": "#F7F8FA",
-                  "text": "#525969",
-                  "border": "transparent",
-                  "iconColor": "#525969",
-                  "width": "40px",
-                  "minWidth": "44px",
-                  "minHeight": "44px"
-                },
-                "input": {
-                  "background": "#FFFFFF",
-                  "text": "#373F4E",
-                  "border": "none",
-                  "borderLeft": "1px solid #BFC6D4",
-                  "borderRight": "1px solid #BFC6D4",
-                  "width": "60px",
-                  "height": "40px",
-                  "minHeight": "44px",
-                  "fontSize": "1rem"
-                }
-              },
-              "hover": {
-                "button": {
-                  "background": "#E5E7EB",
-                  "text": "#373F4E",
-                  "iconColor": "#373F4E"
-                }
-              },
-              "focus": {
-                "container": {
-                  "border": "#4C92D9",
-                  "boxShadow": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA"
-                },
-                "input": {
-                  "outline": "none"
-                }
-              },
-              "disabled": {
-                "button": {
-                  "text": "#6B7280",
-                  "iconColor": "#6B7280",
-                  "cursor": "not-allowed"
-                },
-                "input": {
-                  "background": "#EAEAEA",
-                  "cursor": "not-allowed"
-                }
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
               }
             },
             "dark": {
               "default": {
-                "container": {
-                  "background": "transparent",
-                  "border": "#2A2D32",
-                  "borderRadius": "0.5rem"
-                },
-                "button": {
-                  "background": "#1F2124",
-                  "text": "#B5B5BC",
-                  "border": "transparent",
-                  "iconColor": "#B5B5BC",
-                  "width": "40px",
-                  "minWidth": "44px",
-                  "minHeight": "44px"
-                },
-                "input": {
-                  "background": "#1F2124",
-                  "text": "#FAFAFA",
-                  "border": "none",
-                  "borderLeft": "1px solid #2A2D32",
-                  "borderRight": "1px solid #2A2D32",
-                  "width": "60px",
-                  "height": "40px",
-                  "minHeight": "44px",
-                  "fontSize": "1rem"
-                }
-              },
-              "hover": {
-                "button": {
-                  "background": "#2A2D32",
-                  "text": "#FAFAFA",
-                  "iconColor": "#FAFAFA"
-                }
-              },
-              "focus": {
-                "container": {
-                  "border": "#59ACFF",
-                  "boxShadow": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #1F2124"
-                },
-                "input": {
-                  "outline": "none"
-                }
-              },
-              "disabled": {
-                "button": {
-                  "text": "#B5B5BC",
-                  "iconColor": "#B5B5BC",
-                  "cursor": "not-allowed"
-                },
-                "input": {
-                  "background": "#2A2D32",
-                  "cursor": "not-allowed"
-                }
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
               }
             }
           },
           "maconomy": {
             "light": {
               "default": {
-                "container": {
-                  "background": "transparent",
-                  "border": "#BFC6D4",
-                  "borderRadius": "0.5rem"
-                },
-                "button": {
-                  "background": "#F7F8FA",
-                  "text": "#525969",
-                  "border": "transparent",
-                  "iconColor": "#525969",
-                  "width": "40px",
-                  "minWidth": "44px",
-                  "minHeight": "44px"
-                },
-                "input": {
-                  "background": "#FFFFFF",
-                  "text": "#373F4E",
-                  "border": "none",
-                  "borderLeft": "1px solid #BFC6D4",
-                  "borderRight": "1px solid #BFC6D4",
-                  "width": "60px",
-                  "height": "40px",
-                  "minHeight": "44px",
-                  "fontSize": "1rem"
-                }
-              },
-              "hover": {
-                "button": {
-                  "background": "#E5E7EB",
-                  "text": "#373F4E",
-                  "iconColor": "#373F4E"
-                }
-              },
-              "focus": {
-                "container": {
-                  "border": "#4C92D9",
-                  "boxShadow": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA"
-                },
-                "input": {
-                  "outline": "none"
-                }
-              },
-              "disabled": {
-                "button": {
-                  "text": "#6B7280",
-                  "iconColor": "#6B7280",
-                  "cursor": "not-allowed"
-                },
-                "input": {
-                  "background": "#EAEAEA",
-                  "cursor": "not-allowed"
-                }
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
               }
             },
             "dark": {
               "default": {
-                "container": {
-                  "background": "transparent",
-                  "border": "#2A2D32",
-                  "borderRadius": "0.5rem"
-                },
-                "button": {
-                  "background": "#1F2124",
-                  "text": "#B5B5BC",
-                  "border": "transparent",
-                  "iconColor": "#B5B5BC",
-                  "width": "40px",
-                  "minWidth": "44px",
-                  "minHeight": "44px"
-                },
-                "input": {
-                  "background": "#1F2124",
-                  "text": "#FAFAFA",
-                  "border": "none",
-                  "borderLeft": "1px solid #2A2D32",
-                  "borderRight": "1px solid #2A2D32",
-                  "width": "60px",
-                  "height": "40px",
-                  "minHeight": "44px",
-                  "fontSize": "1rem"
-                }
-              },
-              "hover": {
-                "button": {
-                  "background": "#2A2D32",
-                  "text": "#FAFAFA",
-                  "iconColor": "#FAFAFA"
-                }
-              },
-              "focus": {
-                "container": {
-                  "border": "#59ACFF",
-                  "boxShadow": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #1F2124"
-                },
-                "input": {
-                  "outline": "none"
-                }
-              },
-              "disabled": {
-                "button": {
-                  "text": "#B5B5BC",
-                  "iconColor": "#B5B5BC",
-                  "cursor": "not-allowed"
-                },
-                "input": {
-                  "background": "#2A2D32",
-                  "cursor": "not-allowed"
-                }
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            }
+          }
+        },
+        "stacked": {
+          "cp": {
+            "light": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            },
+            "dark": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            }
+          },
+          "vp": {
+            "light": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            },
+            "dark": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            }
+          },
+          "ppm": {
+            "light": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            },
+            "dark": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            }
+          },
+          "maconomy": {
+            "light": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            },
+            "dark": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
               }
             }
           }
@@ -744,209 +427,29 @@
     },
     "elevation": {
       "default": "none",
-      "hover": "none",
-      "active": "none",
-      "focus": {
-        "cp": {
-          "light": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA",
-          "dark": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #37424D"
-        },
-        "vp": {
-          "light": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA",
-          "dark": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #1F2124"
-        },
-        "ppm": {
-          "light": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA",
-          "dark": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #1F2124"
-        },
-        "maconomy": {
-          "light": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA",
-          "dark": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #1F2124"
-        }
-      }
+      "hover": null,
+      "active": null,
+      "focus": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA"
     },
     "transitions": {
       "default": "all 150ms ease",
-      "properties": {
-        "background-color": "background-color 150ms ease",
-        "color": "color 150ms ease",
-        "border-color": "border-color 150ms ease",
-        "box-shadow": "box-shadow 150ms ease"
-      }
+      "properties": {}
     },
     "layout": {
-      "display": "inline-flex",
-      "alignItems": "stretch",
-      "justifyContent": "flex-start",
-      "flexDirection": "row"
+      "display": "flex",
+      "alignItems": "center",
+      "justifyContent": "center"
     },
-    "iconSpecs": {
-      "decrement": {
-        "name": "minus",
-        "size": "md",
-        "width": "20px",
-        "height": "20px",
-        "variant": "outline",
-        "strokeWidth": "1.5",
-        "color": "currentColor"
-      },
-      "increment": {
-        "name": "plus",
-        "size": "md",
-        "width": "20px",
-        "height": "20px",
-        "variant": "outline",
-        "strokeWidth": "1.5",
-        "color": "currentColor"
-      },
-      "states": {
-        "default": {
-          "cp": {
-            "light": {
-              "iconColor": "#525969"
-            },
-            "dark": {
-              "iconColor": "#B6B6C4"
-            }
-          },
-          "vp": {
-            "light": {
-              "iconColor": "#525969"
-            },
-            "dark": {
-              "iconColor": "#B5B5BC"
-            }
-          },
-          "ppm": {
-            "light": {
-              "iconColor": "#525969"
-            },
-            "dark": {
-              "iconColor": "#B5B5BC"
-            }
-          },
-          "maconomy": {
-            "light": {
-              "iconColor": "#525969"
-            },
-            "dark": {
-              "iconColor": "#B5B5BC"
-            }
-          }
-        },
-        "hover": {
-          "cp": {
-            "light": {
-              "iconColor": "#373F4E"
-            },
-            "dark": {
-              "iconColor": "#E9ECEF"
-            }
-          },
-          "vp": {
-            "light": {
-              "iconColor": "#373F4E"
-            },
-            "dark": {
-              "iconColor": "#FAFAFA"
-            }
-          },
-          "ppm": {
-            "light": {
-              "iconColor": "#373F4E"
-            },
-            "dark": {
-              "iconColor": "#FAFAFA"
-            }
-          },
-          "maconomy": {
-            "light": {
-              "iconColor": "#373F4E"
-            },
-            "dark": {
-              "iconColor": "#FAFAFA"
-            }
-          }
-        },
-        "disabled": {
-          "cp": {
-            "light": {
-              "iconColor": "#6B7280"
-            },
-            "dark": {
-              "iconColor": "#BBBBC6"
-            }
-          },
-          "vp": {
-            "light": {
-              "iconColor": "#6B7280"
-            },
-            "dark": {
-              "iconColor": "#B5B5BC"
-            }
-          },
-          "ppm": {
-            "light": {
-              "iconColor": "#6B7280"
-            },
-            "dark": {
-              "iconColor": "#B5B5BC"
-            }
-          },
-          "maconomy": {
-            "light": {
-              "iconColor": "#6B7280"
-            },
-            "dark": {
-              "iconColor": "#B5B5BC"
-            }
-          }
-        }
-      }
-    }
+    "iconSpecs": null
   },
   "accessibility": {
-    "role": "",
-    "tabIndex": "",
-    "keyboardSupport": {
-      "arrowUp": "Increment value",
-      "arrowDown": "Decrement value",
-      "enter": "Submit value",
-      "escape": "Cancel editing"
-    },
-    "ariaAttributes": {
-      "button": {
-        "aria-label": "Decrease/Increase",
-        "aria-disabled": "true when disabled"
-      },
-      "input": {
-        "aria-label": "Number input",
-        "aria-valuemin": "min value",
-        "aria-valuemax": "max value",
-        "aria-valuenow": "current value"
-      }
-    },
-    "focusVisible": {
-      "container": "Focus ring on container when input is focused",
-      "button": "No focus ring (uses container focus)"
-    }
+    "role": null,
+    "tabIndex": null,
+    "keyboardSupport": {},
+    "ariaAttributes": {},
+    "focusVisible": {}
   },
   "cssClassStyles": {
-    ".number-input-form-wrapper": {
-      "display": "flex",
-      "flex-direction": "column"
-    },
-    ".number-input-form-wrapper--inline": {
-      "display": "flex",
-      "flex-direction": "row",
-      "align-items": "center",
-      "gap": "4px"
-    },
-    ".number-input-form-wrapper--stacked": {
-      "display": "flex",
-      "flex-direction": "column",
-      "gap": "6px"
-    },
     ".number-input-form-wrapper__label": {
       "margin-bottom": "0",
       "white-space": "nowrap"
@@ -970,9 +473,7 @@
       "cursor": "pointer",
       "transition": "all 150ms ease",
       "min-width": "44px",
-      "min-height": "44px",
-      "border": "none",
-      "padding": "0"
+      "min-height": "44px"
     },
     ".number-input__btn:hover": {
       "background-color": "#E5E7EB",
@@ -980,22 +481,20 @@
     },
     ".number-input__btn:disabled": {
       "color": "#6B7280",
-      "cursor": "not-allowed",
-      "opacity": "1"
+      "cursor": "not-allowed"
     },
     ".number-input__input": {
       "width": "60px",
       "height": "40px",
       "text-align": "center",
       "font-family": "'Figtree', sans-serif",
-      "font-size": "1rem",
+      "font-size": "16px",
       "color": "#373F4E",
       "background-color": "#FFFFFF",
       "border": "none",
       "border-left": "1px solid #BFC6D4",
       "border-right": "1px solid #BFC6D4",
-      "min-height": "44px",
-      "padding": "0"
+      "min-height": "44px"
     },
     ".number-input__input:focus": {
       "outline": "none"
@@ -1004,316 +503,182 @@
       "border-color": "#4C92D9",
       "box-shadow": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA"
     },
-    ".theme-cp .number-input": {
-      "border": "1px solid #BFC6D4"
-    },
     ".theme-cp .number-input__input": {
       "height": "20px",
       "width": "40px",
-      "font-size": "0.75rem",
-      "min-height": "20px"
+      "font-size": "0.75rem"
     },
     ".theme-cp .number-input__btn": {
       "width": "20px",
-      "font-size": "0.75rem",
-      "min-width": "20px",
-      "min-height": "20px"
-    },
-    ".theme-cp.dark .number-input": {
-      "border": "1px solid #5F6871"
-    },
-    ".theme-cp.dark .number-input__input": {
-      "background-color": "#1F252E",
-      "color": "#E9ECEF",
-      "border-left": "1px solid #5F6871",
-      "border-right": "1px solid #5F6871"
-    },
-    ".theme-cp.dark .number-input__btn": {
-      "background-color": "#37424D",
-      "color": "#B6B6C4"
-    },
-    ".theme-cp.dark .number-input__btn:hover": {
-      "background-color": "#3D4A5C",
-      "color": "#E9ECEF"
-    },
-    ".theme-cp.dark .number-input__btn:disabled": {
-      "color": "#BBBBC6"
-    },
-    ".theme-cp.dark .number-input:has(.number-input__input:focus)": {
-      "border-color": "#59ACFF",
-      "box-shadow": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #37424D"
-    },
-    ".theme-vp.dark .number-input": {
-      "border": "1px solid #2A2D32"
-    },
-    ".theme-vp.dark .number-input__input": {
-      "background-color": "#1F2124",
-      "color": "#FAFAFA",
-      "border-left": "1px solid #2A2D32",
-      "border-right": "1px solid #2A2D32"
-    },
-    ".theme-vp.dark .number-input__btn": {
-      "background-color": "#1F2124",
-      "color": "#B5B5BC"
-    },
-    ".theme-vp.dark .number-input__btn:hover": {
-      "background-color": "#2A2D32",
-      "color": "#FAFAFA"
-    },
-    ".theme-vp.dark .number-input:has(.number-input__input:focus)": {
-      "border-color": "#59ACFF",
-      "box-shadow": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #1F2124"
-    },
-    ".theme-ppm.dark .number-input": {
-      "border": "1px solid #2A2D32"
-    },
-    ".theme-ppm.dark .number-input__input": {
-      "background-color": "#1F2124",
-      "color": "#FAFAFA",
-      "border-left": "1px solid #2A2D32",
-      "border-right": "1px solid #2A2D32"
-    },
-    ".theme-ppm.dark .number-input__btn": {
-      "background-color": "#1F2124",
-      "color": "#B5B5BC"
-    },
-    ".theme-ppm.dark .number-input__btn:hover": {
-      "background-color": "#2A2D32",
-      "color": "#FAFAFA"
-    },
-    ".theme-ppm.dark .number-input:has(.number-input__input:focus)": {
-      "border-color": "#59ACFF",
-      "box-shadow": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #1F2124"
-    },
-    ".theme-maconomy.dark .number-input": {
-      "border": "1px solid #2A2D32"
-    },
-    ".theme-maconomy.dark .number-input__input": {
-      "background-color": "#1F2124",
-      "color": "#FAFAFA",
-      "border-left": "1px solid #2A2D32",
-      "border-right": "1px solid #2A2D32"
-    },
-    ".theme-maconomy.dark .number-input__btn": {
-      "background-color": "#1F2124",
-      "color": "#B5B5BC"
-    },
-    ".theme-maconomy.dark .number-input__btn:hover": {
-      "background-color": "#2A2D32",
-      "color": "#FAFAFA"
-    },
-    ".theme-maconomy.dark .number-input:has(.number-input__input:focus)": {
-      "border-color": "#59ACFF",
-      "box-shadow": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #1F2124"
+      "font-size": "0.75rem"
     }
   },
-  "_variantIndex": {},
+  "_variantIndex": {
+    "cp-inline": {
+      "variant": "inline",
+      "theme": "cp",
+      "light": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      },
+      "dark": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      }
+    },
+    "vp-inline": {
+      "variant": "inline",
+      "theme": "vp",
+      "light": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      },
+      "dark": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      }
+    },
+    "ppm-inline": {
+      "variant": "inline",
+      "theme": "ppm",
+      "light": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      },
+      "dark": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      }
+    },
+    "maconomy-inline": {
+      "variant": "inline",
+      "theme": "maconomy",
+      "light": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      },
+      "dark": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      }
+    },
+    "cp-stacked": {
+      "variant": "stacked",
+      "theme": "cp",
+      "light": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      },
+      "dark": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      }
+    },
+    "vp-stacked": {
+      "variant": "stacked",
+      "theme": "vp",
+      "light": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      },
+      "dark": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      }
+    },
+    "ppm-stacked": {
+      "variant": "stacked",
+      "theme": "ppm",
+      "light": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      },
+      "dark": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      }
+    },
+    "maconomy-stacked": {
+      "variant": "stacked",
+      "theme": "maconomy",
+      "light": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      },
+      "dark": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      }
+    }
+  },
   "_variantMetadata": {
     "availableVariants": [
       "inline",
       "stacked"
     ]
-  },
-  "interactivity": {
-    "hasInteractivity": true,
-    "initialization": {
-      "function": "initNumberInputs",
-      "triggers": [
-        "DOMContentLoaded (implicit via immediate call)",
-        "astro:page-load"
-      ],
-      "preventDoubleInit": true,
-      "preventDoubleInitMethod": "data-init attribute on number input container",
-      "description": "Initializes all number input components on the page. Sets up increment/decrement button handlers and button state management."
-    },
-    "state": {
-      "inputValue": {
-        "type": "number",
-        "managedBy": "value attribute on input element",
-        "element": ".number-input__input",
-        "default": 0,
-        "description": "Current numeric value in the input field",
-        "updatedBy": "Increment/decrement button clicks, direct input typing, updateButtons function"
-      },
-      "decrementButtonDisabled": {
-        "type": "boolean",
-        "managedBy": "disabled attribute on decrement button",
-        "element": "[data-number-input-decrement]",
-        "description": "Decrement button is disabled when input is disabled OR value is at or below minimum",
-        "calculation": "input.disabled || (min !== undefined && value <= min)",
-        "updatedBy": "updateButtons function (called on input change and button click)"
-      },
-      "incrementButtonDisabled": {
-        "type": "boolean",
-        "managedBy": "disabled attribute on increment button",
-        "element": "[data-number-input-increment]",
-        "description": "Increment button is disabled when input is disabled OR value is at or above maximum",
-        "calculation": "input.disabled || (max !== undefined && value >= max)",
-        "updatedBy": "updateButtons function (called on input change and button click)"
-      }
-    },
-    "eventHandlers": [
-      {
-        "element": "[data-number-input-decrement]",
-        "event": "click",
-        "handler": "decrementValue",
-        "description": "Decrements input value by step amount",
-        "condition": "Button is not disabled",
-        "actions": [
-          "Get current input value (parseFloat(input.value) || 0)",
-          "Calculate new value: currentValue - step",
-          "Check if new value is >= min (if min is defined)",
-          "If valid: Set input.value to new value (as string)",
-          "Dispatch 'input' event on input element (bubbles: true)",
-          "Call updateButtons() to sync button states"
-        ],
-        "note": "Only updates value if new value is >= min (when min is defined)"
-      },
-      {
-        "element": "[data-number-input-increment]",
-        "event": "click",
-        "handler": "incrementValue",
-        "description": "Increments input value by step amount",
-        "condition": "Button is not disabled",
-        "actions": [
-          "Get current input value (parseFloat(input.value) || 0)",
-          "Calculate new value: currentValue + step",
-          "Check if new value is <= max (if max is defined)",
-          "If valid: Set input.value to new value (as string)",
-          "Dispatch 'input' event on input element (bubbles: true)",
-          "Call updateButtons() to sync button states"
-        ],
-        "note": "Only updates value if new value is <= max (when max is defined)"
-      },
-      {
-        "element": ".number-input__input",
-        "event": "input",
-        "handler": "updateButtons",
-        "description": "Updates button disabled states when input value changes",
-        "native": true,
-        "actions": [
-          "Get current input value (parseFloat(input.value) || 0)",
-          "Update decrementBtn.disabled based on: input.disabled || (min !== undefined && val <= min)",
-          "Update incrementBtn.disabled based on: input.disabled || (max !== undefined && val >= max)"
-        ],
-        "note": "Listens to native input event (fired on value change, including direct typing)"
-      }
-    ],
-    "keyboardSupport": {
-      "native": {
-        "description": "Uses native number input keyboard behavior",
-        "ArrowUp": "Increments value by step (native browser behavior)",
-        "ArrowDown": "Decrements value by step (native browser behavior)",
-        "Tab": "Navigates to next focusable element",
-        "Shift+Tab": "Navigates to previous focusable element",
-        "Enter": "No special action (native form behavior)",
-        "Number keys": "Allow direct value entry (native input behavior)"
-      },
-      "custom": {
-        "description": "Button state management responds to keyboard input changes via input event"
-      }
-    },
-    "dataAttributes": {
-      "data-number-input": {
-        "purpose": "Identifies number input container element for initialization",
-        "required": true,
-        "usedBy": "initNumberInputs function to find all number input instances"
-      },
-      "data-number-input-decrement": {
-        "purpose": "Identifies decrement button element",
-        "location": "On decrement button",
-        "usedBy": "Initialization to find button and attach click handler"
-      },
-      "data-number-input-increment": {
-        "purpose": "Identifies increment button element",
-        "location": "On increment button",
-        "usedBy": "Initialization to find button and attach click handler"
-      },
-      "data-init": {
-        "purpose": "Prevents double initialization",
-        "values": [
-          "true"
-        ],
-        "setBy": "initNumberInputs function after first initialization",
-        "checkedBy": "initNumberInputs checks hasAttribute('data-init') before initializing"
-      }
-    },
-    "globalFunctions": {},
-    "customEvents": [],
-    "dependencies": {
-      "internal": [
-        "initNumberInputs function",
-        "updateButtons function (per-instance)",
-        "querySelector/querySelectorAll for element selection"
-      ],
-      "external": []
-    },
-    "coordination": {
-      "buttonStateManagement": {
-        "method": "updateButtons() function called on input change and button click",
-        "decrementLogic": "Disabled if input.disabled OR (min defined AND value <= min)",
-        "incrementLogic": "Disabled if input.disabled OR (max defined AND value >= max)",
-        "description": "Button states automatically sync with input value and min/max constraints"
-      },
-      "valueConstraints": {
-        "min": "Read from input.min attribute (parseFloat), undefined if not set",
-        "max": "Read from input.max attribute (parseFloat), undefined if not set",
-        "step": "Read from input.step attribute (parseFloat), defaults to 1 if not set",
-        "description": "Constraints are read from native input attributes and enforced in button handlers"
-      },
-      "eventPropagation": {
-        "inputEvent": "Dispatched after value change (bubbles: true)",
-        "purpose": "Allows parent components to listen for value changes",
-        "description": "Native 'input' event is dispatched to maintain compatibility with form libraries"
-      },
-      "formSubmission": {
-        "method": "Native number input participates in form submission",
-        "name": "Uses name prop for form field name",
-        "value": "Current numeric value submitted with form",
-        "description": "Component uses native input element for form integration"
-      }
-    },
-    "implementationNotes": [
-      "Initialization runs immediately on script load AND on astro:page-load for SPA navigation",
-      "Double initialization prevented by checking data-init attribute before setting up handlers",
-      "Step, min, and max values are read from input element attributes (not props) during initialization",
-      "Step defaults to 1 if not specified in input.step attribute",
-      "Min and max are undefined if not specified (allows unlimited range)",
-      "Button disabled states are calculated dynamically based on current value and constraints",
-      "updateButtons() is called after every value change (button click or direct input)",
-      "Value parsing uses parseFloat() with fallback to 0 if value is empty/invalid",
-      "New values are converted to string before setting input.value",
-      "Input event is dispatched manually after programmatic value changes to trigger form validation",
-      "Button handlers check constraints before updating value (prevents invalid values)",
-      "If constraint would be violated, value is not updated and buttons remain in current state",
-      "Direct keyboard input (typing numbers) triggers input event, which updates button states",
-      "Native browser arrow key increment/decrement also triggers input event",
-      "Buttons are disabled in initial render if value is at min/max (checked via disabled prop calculation)",
-      "Component supports both controlled (value prop) and uncontrolled (no value prop) usage",
-      "All value calculations use parseFloat to handle decimal step values correctly"
-    ]
-  },
-  "iconPaths": {
-    "controlIcons": {
-      "decrement": {
-        "name": "minus",
-        "source": "heroicons",
-        "path": "node_modules/heroicons/24/outline/minus.svg"
-      },
-      "increment": {
-        "name": "plus",
-        "source": "heroicons",
-        "path": "node_modules/heroicons/24/outline/plus.svg"
-      }
-    }
-  },
-  "_iconPathMetadata": {
-    "description": "Icon paths document where hardcoded/default icons come from (heroicons or custom SVG)",
-    "resolutionOrder": [
-      "heroicons",
-      "custom",
-      "unknown"
-    ],
-    "lastUpdated": "2026-01-26T21:35:36.790Z"
   }
 }
