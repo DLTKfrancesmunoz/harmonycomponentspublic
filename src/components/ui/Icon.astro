@@ -20,76 +20,98 @@ const sizeDimensions: Record<string, { width: number; height: number }> = {
   xl: { width: 32, height: 32 }, // matches --icon-xl
 };
 
-// Load Hero Icon SVG from heroicons package
+// Resolution order: Heroicons (default) → Tabler (when Hero has no mapping or icon not in library) → public/{name}.svg
+// Tabler is used only when Hero doesn't resolve. Pin is the Tabler icon used in ShellFooter and FloatingNav.
 let svgContent = '';
 let isCustomIcon = false;
 let isFilledIcon = false;
 let customViewBox = '0 0 24 24';
 let useComplexSvg = false;
 
-try {
-  const heroiconsPath = path.join(process.cwd(), 'node_modules', 'heroicons', '24', variant, `${name}.svg`);
-  const svgFile = fs.readFileSync(heroiconsPath, 'utf-8');
-  // Extract just the inner content (path elements)
-  const pathMatch = svgFile.match(/<svg[^>]*>([\s\S]*?)<\/svg>/);
-  if (pathMatch) {
-    svgContent = pathMatch[1].trim();
-  }
-} catch (e) {
-  // Heroicon not found, try loading custom SVG from public folder
-  if (!svgContent) {
-    try {
-      const customPath = path.join(process.cwd(), 'public', `${name}.svg`);
-      const customSvg = fs.readFileSync(customPath, 'utf-8');
-
-      // Extract viewBox from original SVG
-      const viewBoxMatch = customSvg.match(/viewBox="([^"]*)"/);
-      if (viewBoxMatch) {
-        customViewBox = viewBoxMatch[1];
-      }
-
-      // Extract inner content
-      const pathMatch = customSvg.match(/<svg[^>]*>([\s\S]*?)<\/svg>/);
-      if (pathMatch) {
-        isCustomIcon = true;
-        const innerContent = pathMatch[1].trim();
-
-        // Check if this is a complex SVG (has gradients, patterns, or non-standard viewBox)
-        const hasGradients = /url\(#[^)]+\)/.test(innerContent);
-        const isNonStandardViewBox = customViewBox !== '0 0 24 24';
-        useComplexSvg = hasGradients || isNonStandardViewBox;
-
-        if (useComplexSvg) {
-          // For complex SVGs, preserve them as-is
-          svgContent = innerContent;
-        } else {
-          // Detect if this is a filled icon (has fill with hex color but no stroke)
-          const hasFill = /fill="(#[0-9A-Fa-f]{6}|#[0-9A-Fa-f]{3})"/i.test(innerContent);
-          const hasStroke = /stroke="(#[0-9A-Fa-f]{6}|#[0-9A-Fa-f]{3})"/i.test(innerContent);
-          isFilledIcon = hasFill && !hasStroke;
-
-          // Preserve <defs> content as-is (clip-paths, masks, etc. need original colors)
-          const defsMatch = innerContent.match(/(<defs>[\s\S]*?<\/defs>)/);
-          const defsContent = defsMatch ? defsMatch[1] : '';
-          const contentWithoutDefs = innerContent.replace(/(<defs>[\s\S]*?<\/defs>)/, '');
-
-          // Process only the non-defs content
-          const processedContent = contentWithoutDefs
-            // Replace stroke colors with currentColor
-            .replace(/stroke="(#[0-9A-Fa-f]{6}|#[0-9A-Fa-f]{3})"/gi, 'stroke="currentColor"')
-            // Replace fill colors with currentColor
-            .replace(/fill="(#[0-9A-Fa-f]{6}|#[0-9A-Fa-f]{3})"/gi, 'fill="currentColor"')
-            .trim();
-
-          // Recombine with defs
-          svgContent = processedContent + (defsContent ? '\n' + defsContent : '');
-        }
-      }
-    } catch (customError) {
-      // Neither heroicon nor custom icon found
-      console.warn(`Icon "${name}" not found in heroicons or custom icons`);
+function tryHeroicons(): boolean {
+  try {
+    const heroiconsPath = path.join(process.cwd(), 'node_modules', 'heroicons', '24', variant, `${name}.svg`);
+    const svgFile = fs.readFileSync(heroiconsPath, 'utf-8');
+    const pathMatch = svgFile.match(/<svg[^>]*>([\s\S]*?)<\/svg>/);
+    if (pathMatch) {
+      svgContent = pathMatch[1].trim();
+      return true;
     }
+  } catch {
+    // Heroicon not found
   }
+  return false;
+}
+
+function tryTabler(): boolean {
+  try {
+    const tablerVariant = variant === 'solid' ? 'filled' : 'outline';
+    const tablerPath = path.join(process.cwd(), 'node_modules', '@tabler', 'icons', 'icons', tablerVariant, `${name}.svg`);
+    const svgFile = fs.readFileSync(tablerPath, 'utf-8');
+    const pathMatch = svgFile.match(/<svg[^>]*>([\s\S]*?)<\/svg>/);
+    if (pathMatch) {
+      svgContent = pathMatch[1].trim();
+      return true;
+    }
+  } catch {
+    // Tabler icon not found
+  }
+  return false;
+}
+
+function tryPublic(): boolean {
+  try {
+    const customPath = path.join(process.cwd(), 'public', `${name}.svg`);
+    const customSvg = fs.readFileSync(customPath, 'utf-8');
+
+    const viewBoxMatch = customSvg.match(/viewBox="([^"]*)"/);
+    if (viewBoxMatch) {
+      customViewBox = viewBoxMatch[1];
+    }
+
+    const pathMatch = customSvg.match(/<svg[^>]*>([\s\S]*?)<\/svg>/);
+    if (pathMatch) {
+      isCustomIcon = true;
+      const innerContent = pathMatch[1].trim();
+
+      const hasGradients = /url\(#[^)]+\)/.test(innerContent);
+      const isNonStandardViewBox = customViewBox !== '0 0 24 24';
+      useComplexSvg = hasGradients || isNonStandardViewBox;
+
+      if (useComplexSvg) {
+        svgContent = innerContent;
+      } else {
+        const hasFill = /fill="(#[0-9A-Fa-f]{6}|#[0-9A-Fa-f]{3})"/i.test(innerContent);
+        const hasStroke = /stroke="(#[0-9A-Fa-f]{6}|#[0-9A-Fa-f]{3})"/i.test(innerContent);
+        isFilledIcon = hasFill && !hasStroke;
+
+        const defsMatch = innerContent.match(/(<defs>[\s\S]*?<\/defs>)/);
+        const defsContent = defsMatch ? defsMatch[1] : '';
+        const contentWithoutDefs = innerContent.replace(/(<defs>[\s\S]*?<\/defs>)/, '');
+
+        const processedContent = contentWithoutDefs
+          .replace(/stroke="(#[0-9A-Fa-f]{6}|#[0-9A-Fa-f]{3})"/gi, 'stroke="currentColor"')
+          .replace(/fill="(#[0-9A-Fa-f]{6}|#[0-9A-Fa-f]{3})"/gi, 'fill="currentColor"')
+          .trim();
+
+        svgContent = processedContent + (defsContent ? '\n' + defsContent : '');
+      }
+      return true;
+    }
+  } catch {
+    // Custom icon not found
+  }
+  return false;
+}
+
+if (tryHeroicons()) {
+  // resolved from Heroicons
+} else if (tryTabler()) {
+  // resolved from Tabler (used when Hero has no mapping or icon not in library)
+} else if (tryPublic()) {
+  // resolved from public/{name}.svg
+} else {
+  console.warn(`Icon "${name}" not found in heroicons, tabler, or custom icons`);
 }
 
 const dimensions = sizeDimensions[size] || sizeDimensions.md;

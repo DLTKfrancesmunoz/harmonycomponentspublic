@@ -48,6 +48,32 @@ When you use sparse checkout with the command above, you'll get:
 
 - **`package.json`** - Dependencies
 
+## Icons and assets
+
+The `Icon` component resolves icons in this order:
+
+1. **Heroicons (default)** – primary icon library (`heroicons` npm package).
+2. **Tabler** – used only when a Hero icon is not mapped, the icon is not in the Hero library, or otherwise specified (`@tabler/icons` npm package).
+3. **Custom** – `public/{name}.svg` for design-system–specific icons.
+4. **Visual fallback** – "?" with `--icon-fallback-*` styling when none of the above resolve.
+
+**Pin** is the only Tabler icon used so far. It appears in ShellFooter (active tab) and FloatingNav (pin button) and resolves from Tabler when `@tabler/icons` is installed.
+
+**Required npm dependencies** when using Icon, LeftSidebar, RightSidebar, ShellFooter, or FloatingNav:
+
+- `heroicons`
+- `@tabler/icons`
+
+**Required public assets** when using default section configs (filenames must match exactly):
+
+- Custom SVGs: `Risk Shield.svg`, `Report.svg`, `Resource.svg`, `related.svg`, `template.svg`, `mic-slash.svg` (and `pin.svg` only if you do not install `@tabler/icons`).
+- Logos: `logos/DelaD.svg`; `logos/CPVPLogo.svg` if using ShellHeader’s default `logoSrc`.
+
+**Sparse checkout vs copy:**
+
+- **Sparse checkout and build from repo root:** Include `public` in the sparse set and run `npm install` (so `heroicons` and `@tabler/icons` are present). No extra steps.
+- **Copying components into another project:** Add `heroicons` and `@tabler/icons` to that project, and place the required SVGs above (or the full design-system `public/`) into that project’s `public/` (or equivalent static root).
+
 ## What Gets Excluded
 
 The following are NOT included (documentation site files):
