@@ -45,6 +45,9 @@ const {
   class: className = '',
   showAddButton = true,
 } = Astro.props;
+
+const hasTitleBarActionsSlot = Astro.slots.has('title-bar-actions');
+const hasActionBarSlot = Astro.slots.has('action-bar');
 ---
 
 <div class={`kanban__container ${className}`}>
@@ -53,24 +56,30 @@ const {
     <div class="kanban__title-bar-content">
       <h1 class="kanban__title">{title}</h1>
       <div class="kanban__title-bar-actions">
-        <button type="button" class="kanban__title-bar-icon" aria-label="Expand view">
-          <Icon name="arrows-pointing-out" size="sm" />
-        </button>
-        <button type="button" class="kanban__title-bar-icon" aria-label="Collapse view">
-          <Icon name="arrows-pointing-in" size="sm" />
-        </button>
-        <button type="button" class="kanban__title-bar-icon" aria-label="Help">
-          <Icon name="question-mark-circle" size="sm" />
-        </button>
-        <button type="button" class="kanban__title-bar-icon" aria-label="Minimize">
-          <Icon name="minimize" size="sm" />
-        </button>
-        <button type="button" class="kanban__title-bar-icon" aria-label="Window">
-          <Icon name="window-plain" size="sm" />
-        </button>
-        <button type="button" class="kanban__title-bar-icon" aria-label="Close">
-          <Icon name="x-mark" size="sm" />
-        </button>
+        {hasTitleBarActionsSlot ? (
+          <slot name="title-bar-actions" />
+        ) : (
+          <>
+            <button type="button" class="kanban__title-bar-icon" aria-label="Expand view">
+              <Icon name="arrows-pointing-out" size="sm" />
+            </button>
+            <button type="button" class="kanban__title-bar-icon" aria-label="Collapse view">
+              <Icon name="arrows-pointing-in" size="sm" />
+            </button>
+            <button type="button" class="kanban__title-bar-icon" aria-label="Help">
+              <Icon name="question-mark-circle" size="sm" />
+            </button>
+            <button type="button" class="kanban__title-bar-icon" aria-label="Minimize">
+              <Icon name="minimize" size="sm" />
+            </button>
+            <button type="button" class="kanban__title-bar-icon" aria-label="Window">
+              <Icon name="window-plain" size="sm" />
+            </button>
+            <button type="button" class="kanban__title-bar-icon" aria-label="Close">
+              <Icon name="x-mark" size="sm" />
+            </button>
+          </>
+        )}
       </div>
     </div>
   </div>
@@ -78,7 +87,9 @@ const {
   <!-- Action Bar -->
   <div class="kanban__action-bar">
     <div class="kanban__action-items">
-      {actionButtons.length > 0 ? (
+      {hasActionBarSlot ? (
+        <slot name="action-bar" />
+      ) : actionButtons.length > 0 ? (
         actionButtons.map((button, index) => (
           <>
             {index > 0 && <span class="kanban__action-divider">|</span>}

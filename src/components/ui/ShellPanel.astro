@@ -59,9 +59,14 @@ const headerClasses = [
   'shell-panel__header',
   `shell-panel__header--${finalHeaderVariant}`,
 ].filter(Boolean);
+
+const hasHeaderSlot = Astro.slots.has('header');
 ---
 
 <div id={id} class:list={panelClasses} data-side={side} data-open={open} data-width={width}>
+  {hasHeaderSlot ? (
+    <slot name="header" />
+  ) : (
   <div 
     class:list={headerClasses}
     data-header-variant={finalHeaderVariant}
@@ -106,6 +111,7 @@ const headerClasses = [
       </div>
     </div>
   </div>
+  )}
   <div class="shell-panel__content">
     <slot />
   </div>

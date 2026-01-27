@@ -14,10 +14,12 @@ import Icon from './Icon.astro';
 import Tooltip from './Tooltip.astro';
 
 interface NavItem {
-  icon: string;
+  icon?: string;
   label: string;
   href?: string;
   active?: boolean;
+  isCustom?: boolean; // Custom image URL instead of Icon name
+  customSrc?: string; // Path to custom icon image
   panelTitle?: string; // Panel title when item is clicked (defaults to label)
   panelIcon?: string; // Panel icon when item is clicked (defaults to item icon)
   panelContentId?: string; // Content identifier for contextual content
@@ -173,7 +175,11 @@ const shouldRenderAllVariants = !sections;
                 >
                   <Tooltip text={item.label} position="right" class="left-sidebar__item-tooltip">
                     <span class="left-sidebar__icon">
-                      <Icon name={item.icon} />
+                      {item.isCustom && item.customSrc ? (
+                        <img src={item.customSrc} alt={item.label} class="left-sidebar__custom-icon" />
+                      ) : item.icon ? (
+                        <Icon name={item.icon} />
+                      ) : null}
                     </span>
                   </Tooltip>
                   <span class="left-sidebar__label">{item.label}</span>
@@ -206,7 +212,11 @@ const shouldRenderAllVariants = !sections;
                 >
                   <Tooltip text={item.label} position="right" class="left-sidebar__item-tooltip">
                     <span class="left-sidebar__icon">
-                      <Icon name={item.icon} />
+                      {item.isCustom && item.customSrc ? (
+                        <img src={item.customSrc} alt={item.label} class="left-sidebar__custom-icon" />
+                      ) : item.icon ? (
+                        <Icon name={item.icon} />
+                      ) : null}
                     </span>
                   </Tooltip>
                   <span class="left-sidebar__label">{item.label}</span>
@@ -239,7 +249,11 @@ const shouldRenderAllVariants = !sections;
                 >
                   <Tooltip text={item.label} position="right" class="left-sidebar__item-tooltip">
                     <span class="left-sidebar__icon">
-                      <Icon name={item.icon} />
+                      {item.isCustom && item.customSrc ? (
+                        <img src={item.customSrc} alt={item.label} class="left-sidebar__custom-icon" />
+                      ) : item.icon ? (
+                        <Icon name={item.icon} />
+                      ) : null}
                     </span>
                   </Tooltip>
                   <span class="left-sidebar__label">{item.label}</span>
@@ -272,7 +286,11 @@ const shouldRenderAllVariants = !sections;
                 >
                   <Tooltip text={item.label} position="right" class="left-sidebar__item-tooltip">
                     <span class="left-sidebar__icon">
-                      <Icon name={item.icon} />
+                      {item.isCustom && item.customSrc ? (
+                        <img src={item.customSrc} alt={item.label} class="left-sidebar__custom-icon" />
+                      ) : item.icon ? (
+                        <Icon name={item.icon} />
+                      ) : null}
                     </span>
                   </Tooltip>
                   <span class="left-sidebar__label">{item.label}</span>
@@ -304,7 +322,11 @@ const shouldRenderAllVariants = !sections;
             >
               <Tooltip text={item.label} position="right" class="left-sidebar__item-tooltip">
                 <span class="left-sidebar__icon">
-                  <Icon name={item.icon} />
+                  {item.isCustom && item.customSrc ? (
+                    <img src={item.customSrc} alt={item.label} class="left-sidebar__custom-icon" />
+                  ) : item.icon ? (
+                    <Icon name={item.icon} />
+                  ) : null}
                 </span>
               </Tooltip>
               <span class="left-sidebar__label">{item.label}</span>
@@ -404,12 +426,15 @@ const shouldRenderAllVariants = !sections;
                 existingIcon.remove();
               }
               
-              // Try to find and clone icon from the clicked item
-              const sourceIcon = link.querySelector('.left-sidebar__icon svg') as HTMLElement | null;
+              // Try to find and clone icon from the clicked item (svg or custom img)
+              const sourceIcon = link.querySelector('.left-sidebar__icon svg, .left-sidebar__icon img') as HTMLElement | null;
               if (sourceIcon) {
                 const clonedIcon = sourceIcon.cloneNode(true) as HTMLElement;
                 // Ensure proper sizing for panel header
                 if (clonedIcon.tagName === 'SVG') {
+                  clonedIcon.setAttribute('width', '20');
+                  clonedIcon.setAttribute('height', '20');
+                } else if (clonedIcon.tagName === 'IMG') {
                   clonedIcon.setAttribute('width', '20');
                   clonedIcon.setAttribute('height', '20');
                 }

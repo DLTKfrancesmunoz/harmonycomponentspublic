@@ -3,6 +3,7 @@
  * Dropdown Component
  *
  * Dropdown select menu with custom styling.
+ * Optional slots: "trigger" (replaces default trigger), "option-0" … "option-9" (custom content per option, first 10).
  */
 import Icon from './Icon.astro';
 import Label from './Label.astro';
@@ -44,6 +45,8 @@ const {
 const dropdownId = id || `dropdown-${Math.random().toString(36).substr(2, 9)}`;
 const selectedOption = options.find(opt => opt.value === value);
 
+const hasTriggerSlot = Astro.slots.has('trigger');
+
 // Determine label variant
 // If explicitly provided, use that; otherwise CSS will handle default (inline for CP theme, stacked for others)
 const finalLabelVariant = labelVariant;
@@ -69,14 +72,20 @@ const classes = ['dropdown', className].filter(Boolean).join(' ');
         aria-haspopup="listbox"
         aria-expanded="false"
       >
-        <span class="dropdown__value">
-          {selectedOption ? selectedOption.label : placeholder}
-        </span>
-        <Icon name="chevron-down" class="dropdown__chevron" />
+        {hasTriggerSlot ? (
+          <slot name="trigger" />
+        ) : (
+          <>
+            <span class="dropdown__value">
+              {selectedOption ? selectedOption.label : placeholder}
+            </span>
+            <Icon name="chevron-down" class="dropdown__chevron" />
+          </>
+        )}
       </button>
       
       <div class="dropdown__menu" role="listbox">
-        {options.map((option) => (
+        {options.map((option, optIndex) => (
           <button
             type="button"
             class={`dropdown__item ${option.value === value ? 'is-selected' : ''} ${option.disabled ? 'dropdown__item--disabled' : ''}`}
@@ -85,7 +94,7 @@ const classes = ['dropdown', className].filter(Boolean).join(' ');
             role="option"
             aria-selected={option.value === value}
           >
-            {option.label}
+            {optIndex === 0 && Astro.slots.has('option-0') ? <slot name="option-0" /> : optIndex === 1 && Astro.slots.has('option-1') ? <slot name="option-1" /> : optIndex === 2 && Astro.slots.has('option-2') ? <slot name="option-2" /> : optIndex === 3 && Astro.slots.has('option-3') ? <slot name="option-3" /> : optIndex === 4 && Astro.slots.has('option-4') ? <slot name="option-4" /> : optIndex === 5 && Astro.slots.has('option-5') ? <slot name="option-5" /> : optIndex === 6 && Astro.slots.has('option-6') ? <slot name="option-6" /> : optIndex === 7 && Astro.slots.has('option-7') ? <slot name="option-7" /> : optIndex === 8 && Astro.slots.has('option-8') ? <slot name="option-8" /> : optIndex === 9 && Astro.slots.has('option-9') ? <slot name="option-9" /> : option.label}
           </button>
         ))}
       </div>
@@ -102,14 +111,20 @@ const classes = ['dropdown', className].filter(Boolean).join(' ');
       aria-haspopup="listbox"
       aria-expanded="false"
     >
-      <span class="dropdown__value">
-        {selectedOption ? selectedOption.label : placeholder}
-      </span>
-      <Icon name="chevron-down" class="dropdown__chevron" />
+      {hasTriggerSlot ? (
+        <slot name="trigger" />
+      ) : (
+        <>
+          <span class="dropdown__value">
+            {selectedOption ? selectedOption.label : placeholder}
+          </span>
+          <Icon name="chevron-down" class="dropdown__chevron" />
+        </>
+      )}
     </button>
     
     <div class="dropdown__menu" role="listbox">
-      {options.map((option) => (
+      {options.map((option, optIndex) => (
         <button
           type="button"
           class={`dropdown__item ${option.value === value ? 'is-selected' : ''} ${option.disabled ? 'dropdown__item--disabled' : ''}`}
@@ -118,7 +133,7 @@ const classes = ['dropdown', className].filter(Boolean).join(' ');
           role="option"
           aria-selected={option.value === value}
         >
-          {option.label}
+          {optIndex === 0 && Astro.slots.has('option-0') ? <slot name="option-0" /> : optIndex === 1 && Astro.slots.has('option-1') ? <slot name="option-1" /> : optIndex === 2 && Astro.slots.has('option-2') ? <slot name="option-2" /> : optIndex === 3 && Astro.slots.has('option-3') ? <slot name="option-3" /> : optIndex === 4 && Astro.slots.has('option-4') ? <slot name="option-4" /> : optIndex === 5 && Astro.slots.has('option-5') ? <slot name="option-5" /> : optIndex === 6 && Astro.slots.has('option-6') ? <slot name="option-6" /> : optIndex === 7 && Astro.slots.has('option-7') ? <slot name="option-7" /> : optIndex === 8 && Astro.slots.has('option-8') ? <slot name="option-8" /> : optIndex === 9 && Astro.slots.has('option-9') ? <slot name="option-9" /> : option.label}
         </button>
       ))}
     </div>

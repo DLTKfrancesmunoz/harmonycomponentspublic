@@ -22,10 +22,16 @@ const {
   saveDisabled = false,
   variant = 'full'
 } = Astro.props;
+
+const hasActionsSlot = Astro.slots.has('actions');
 ---
 
 <div class="floating-nav">
   <div class="floating-nav__toolbar">
+    {hasActionsSlot ? (
+      <slot name="actions" />
+    ) : (
+    <>
     <!-- Action Buttons Group -->
     <div class="floating-nav__buttons">
       {showExecute && variant === 'full' && (
@@ -65,5 +71,7 @@ const {
     <button class="floating-nav__pin" type="button" aria-label="Pin navigation">
       <Icon name="pin" size="md" class="floating-nav__pin-icon" />
     </button>
+    </>
+    )}
   </div>
 </div>

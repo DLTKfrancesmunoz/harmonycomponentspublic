@@ -35,6 +35,9 @@ const {
 
 // Collect all outline buttons in order
 const outlineButtons = [outlineButton1, outlineButton2, outlineButton3].filter(Boolean);
+
+const hasActionsSlot = Astro.slots.has('actions');
+const showDefaultActions = outlineButtons.length > 0 || primaryButton;
 ---
 
 <header class={`shell-page-header ${className}`}>
@@ -43,7 +46,11 @@ const outlineButtons = [outlineButton1, outlineButton2, outlineButton3].filter(B
     {subtitle && <p class="shell-page-header__subtitle">{subtitle}</p>}
   </div>
   
-  {(outlineButtons.length > 0 || primaryButton) && (
+  {hasActionsSlot ? (
+    <div class="shell-page-header__actions">
+      <slot name="actions" />
+    </div>
+  ) : showDefaultActions ? (
     <div class="shell-page-header__actions">
       {outlineButtons.map((button) => (
         <Button
@@ -68,7 +75,7 @@ const outlineButtons = [outlineButton1, outlineButton2, outlineButton3].filter(B
         </Button>
       )}
     </div>
-  )}
+  ) : null}
 </header>
 
 <style>

@@ -3,6 +3,8 @@
  * Accordion Component
  *
  * Collapsible content sections.
+ * Optional per-item body: use named slots "item-0", "item-1", … "item-9" for custom content
+ * (first 10 items only; Astro requires static slot names). When a slot is absent, item.content is rendered as text.
  */
 import Icon from './Icon.astro';
 
@@ -29,7 +31,11 @@ const classes = ['accordion', className].filter(Boolean).join(' ');
 ---
 
 <div class={classes} data-accordion {...(allowMultiple && { 'data-allow-multiple': true })}>
-  {items.map((item, index) => (
+  {items.map((item, index) => {
+    const slotNames = ['item-0', 'item-1', 'item-2', 'item-3', 'item-4', 'item-5', 'item-6', 'item-7', 'item-8', 'item-9'] as const;
+    const slotName = index < slotNames.length ? slotNames[index] : null;
+    const hasItemSlot = slotName != null && Astro.slots.has(slotName);
+    return (
     <div class={`accordion__item ${item.defaultOpen ? 'is-open' : ''}`} data-accordion-item>
       <button
         type="button"
@@ -45,10 +51,11 @@ const classes = ['accordion', className].filter(Boolean).join(' ');
         id={`${accordionId}-panel-${index}`}
         role="region"
       >
-        {item.content}
+        {hasItemSlot && slotName === 'item-0' ? <slot name="item-0" /> : hasItemSlot && slotName === 'item-1' ? <slot name="item-1" /> : hasItemSlot && slotName === 'item-2' ? <slot name="item-2" /> : hasItemSlot && slotName === 'item-3' ? <slot name="item-3" /> : hasItemSlot && slotName === 'item-4' ? <slot name="item-4" /> : hasItemSlot && slotName === 'item-5' ? <slot name="item-5" /> : hasItemSlot && slotName === 'item-6' ? <slot name="item-6" /> : hasItemSlot && slotName === 'item-7' ? <slot name="item-7" /> : hasItemSlot && slotName === 'item-8' ? <slot name="item-8" /> : hasItemSlot && slotName === 'item-9' ? <slot name="item-9" /> : item.content}
       </div>
     </div>
-  ))}
+    );
+  })}
 </div>
 
 <script>

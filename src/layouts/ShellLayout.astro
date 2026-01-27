@@ -33,6 +33,23 @@ interface PanelConfig {
   class?: string;
 }
 
+/** Section shape passed to LeftSidebar/RightSidebar when products provide custom sidebar content */
+interface SidebarSectionItem {
+  icon?: string;
+  label: string;
+  href?: string;
+  active?: boolean;
+  isCustom?: boolean;
+  customSrc?: string;
+  panelTitle?: string;
+  panelIcon?: string;
+  panelContentId?: string;
+  useGradientHeader?: boolean;
+}
+interface SidebarSection {
+  items: SidebarSectionItem[];
+}
+
 interface Props {
   // Header props (passed to ShellHeader)
   productName?: string;
@@ -57,10 +74,14 @@ interface Props {
 
   // Left sidebar props
   leftSidebarVariant?: 'cp' | 'vp' | 'ppm' | 'maconomy';
+  /** When provided, drives left sidebar content; when not passed, LeftSidebar uses its default/theme content */
+  leftSidebarSections?: SidebarSection[];
 
   // Right sidebar props
   rightSidebarVariant?: 'cp' | 'vp' | 'ppm' | 'maconomy';
   showRightSidebar?: boolean;
+  /** When provided, drives right sidebar content; when not passed, RightSidebar uses its default/theme content */
+  rightSidebarSections?: SidebarSection[];
 
   // Footer visibility (when false, footer never renders; when undefined, use existing tabs/theme logic)
   showFooter?: boolean;
@@ -98,8 +119,10 @@ const {
   showAddTab = true,
   footerVariant = 'default',
   leftSidebarVariant,
+  leftSidebarSections,
   rightSidebarVariant,
   showRightSidebar = true,
+  rightSidebarSections,
   showFooter,
   pageHeaderTitle,
   pageHeaderSubtitle,
@@ -193,14 +216,16 @@ const effectiveHasFooter = showFooter === false ? false : hasFooter;
       )
     )}
 
-    <LeftSidebar 
-      variant={effectiveLeftSidebarVariant} 
-      class="shell-layout__left-sidebar" 
+    <LeftSidebar
+      variant={effectiveLeftSidebarVariant}
+      class="shell-layout__left-sidebar"
+      {...(leftSidebarSections != null && { sections: leftSidebarSections })}
     />
     {showRightSidebar && (
-      <RightSidebar 
-        variant={effectiveRightSidebarVariant} 
-        class="shell-layout__right-sidebar" 
+      <RightSidebar
+        variant={effectiveRightSidebarVariant}
+        class="shell-layout__right-sidebar"
+        {...(rightSidebarSections != null && { sections: rightSidebarSections })}
       />
     )}
 
