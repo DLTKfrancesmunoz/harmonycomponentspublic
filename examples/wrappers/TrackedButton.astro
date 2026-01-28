@@ -1,0 +1,113 @@
+---
+/**
+ * TrackedButton - Wrapper Component Example (Tier 2)
+ *
+ * This is a REFERENCE IMPLEMENTATION showing how to wrap a Harmony component
+ * to add custom behavior without modifying the base component.
+ *
+ * Wraps Harmony Button component and adds analytics tracking functionality.
+ * This is a Tier 2 wrapper - it extends the base component without modifying it.
+ *
+ * Base Component: @deltek/harmony-components/ui/Button
+ * Pattern: Behavior Addition
+ *
+ * CUSTOM PROPS:
+ * - trackEvent: Event name to send to analytics
+ * - trackData: Additional data to include with the event
+ * - trackCategory: Optional category for grouping events
+ *
+ * USAGE EXAMPLE:
+ * ```astro
+ * ---
+ * import TrackedButton from '../components/composed/TrackedButton.astro';
+ * ---
+ *
+ * <TrackedButton
+ *   variant="primary"
+ *   trackEvent="cta_click"
+ *   trackData={{ page: 'home', section: 'hero' }}
+ *   trackCategory="engagement"
+ * >
+ *   Get Started
+ * </TrackedButton>
+ * ```
+ *
+ * All standard Button props (variant, size, disabled, etc.) are passed through.
+ *
+ * TO USE THIS EXAMPLE:
+ * 1. Copy this file to your project: src/components/composed/TrackedButton.astro
+ * 2. Adjust import path if needed (see note below)
+ * 3. Customize tracking logic for your analytics provider
+ * 4. Test in production build
+ */
+
+import Button from '../../../node_modules/@deltek/harmony-components/src/components/ui/Button.astro';
+
+interface Props {
+  // Custom tracking props
+  trackEvent?: string;
+  trackData?: Record<string, any>;
+  trackCategory?: string;
+
+  // Pass through all Button props
+  [key: string]: any;
+}
+
+const { trackEvent, trackData, trackCategory, ...buttonProps } = Astro.props;
+
+// Build tracking data object
+const trackingPayload = trackEvent
+  ? JSON.stringify({
+      event: trackEvent,
+      category: trackCategory || 'interaction',
+      data: trackData || {},
+      timestamp: new Date().toISOString()
+    })
+  : null;
+
+// Generate onclick handler that calls analytics
+const trackingHandler = trackEvent
+  ? `
+    (function(e) {
+      if (window.analytics && window.analytics.track) {
+        try {
+          const payload = ${trackingPayload};
+          window.analytics.track(payload.event, {
+            category: payload.category,
+            ...payload.data,
+            timestamp: payload.timestamp
+          });
+        } catch (err) {
+          console.warn('[TrackedButton] Analytics tracking failed:', err);
+        }
+      } else {
+        console.warn('[TrackedButton] Analytics not available');
+      }
+    })(event)
+  `.trim()
+  : undefined;
+---
+
+<Button
+  {...buttonProps}
+  data-tracked={trackEvent ? 'true' : undefined}
+  data-track-event={trackEvent}
+  data-track-category={trackCategory}
+  onclick={trackingHandler}
+>
+  <slot />
+</Button>
+
+<!--
+  IMPLEMENTATION NOTES:
+  - If the base Button already has an onclick, this will override it.
+    For advanced use cases, you may need to merge onclick handlers.
+  - Requires analytics library (e.g., Segment, Mixpanel) with window.analytics.track()
+  - Falls back gracefully if analytics is not available (logs warning to console)
+  - data-* attributes allow CSS targeting: button[data-tracked] { ... }
+
+  IMPORT PATH NOTE:
+  - This example uses: ../../../node_modules/@deltek/harmony-components/src/components/ui/Button.astro
+  - Some projects may be able to use: @deltek/harmony-components/ui/Button.astro
+  - If the package subpath doesn't work, use the full node_modules path shown above
+-->

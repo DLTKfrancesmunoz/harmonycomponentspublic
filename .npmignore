@@ -10,17 +10,37 @@ src/content/
 src/data/
 mcp-data/
 
-# Scripts
-scripts/
+# Build and automation scripts (exclude these)
+scripts/changelog/
+scripts/extract-design-tokens.js
+scripts/generate-*.js
+scripts/audit-*.js
+scripts/compare-*.js
+scripts/validate-*.js
+scripts/apply-*.js
+scripts/fix-*.js
+scripts/add-*.js
+scripts/detect-*.js
+scripts/*-parser.js
+scripts/*-helper.js
+scripts/test-*.js
+scripts/css-component-map.json
+
+# Helper scripts for consumers (include - don't exclude!)
+# scripts/copy-harmony-component.cjs
+# scripts/check-harmony-updates.cjs
+# scripts/diff-harmony-component.cjs
 
 # Config files
 astro.config.mjs
 tsconfig.json
 
-# Documentation (keep only README)
+# Documentation (include specific paths)
 *.md
 !README.md
 !CHANGELOG.md
+!docs/customization/*.md
+!examples/**/*.md
 
 # Development artifacts
 *.log

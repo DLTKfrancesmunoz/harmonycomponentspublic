@@ -22,7 +22,13 @@
     "src/styles",
     "src/tokens",
     "public",
-    "CHANGELOG.md"
+    "docs/customization",
+    "scripts/copy-harmony-component.cjs",
+    "scripts/check-harmony-updates.cjs",
+    "scripts/diff-harmony-component.cjs",
+    "examples",
+    "CHANGELOG.md",
+    "README.md"
   ],
   "exports": {
     "./ui": "./src/components/ui/index.ts",
@@ -47,7 +53,10 @@
     "astro": "astro",
     "changelog": "node scripts/changelog/run-automation.js",
     "changelog:snapshot": "node scripts/changelog/generate-snapshot.js",
-    "generate:mcp-data": "node scripts/extract-design-tokens.js && node scripts/generate-mcp-data.js && node scripts/generate-layout-data.js && node scripts/generate-manifest.js"
+    "generate:mcp-data": "node scripts/extract-design-tokens.js && node scripts/generate-mcp-data.js && node scripts/generate-layout-data.js && node scripts/generate-manifest.js",
+    "harmony:copy": "node scripts/copy-harmony-component.cjs",
+    "harmony:check-updates": "node scripts/check-harmony-updates.cjs",
+    "harmony:diff": "node scripts/diff-harmony-component.cjs"
   },
   "devDependencies": {
     "astro": "^5.16.7",

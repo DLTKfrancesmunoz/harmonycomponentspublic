@@ -224,42 +224,98 @@ Dark mode is automatically applied based on user system preferences using `prefe
 
 ## Customization
 
-### Extension Points
+Harmony provides a formal **four-tier customization system** for safely customizing components without breaking production builds or losing upgrade paths.
 
-Harmony components are designed to be used as-is, with customization through:
+### The Four Tiers
 
-1. **Props** - All components accept standard HTML attributes
-2. **Slots** - Layouts and complex components provide named slots
-3. **CSS Custom Properties** - Override design tokens via CSS variables
-4. **Class Names** - Add custom classes via the `class` prop
+| Tier | Method | Use Case | Maintenance |
+|------|--------|----------|-------------|
+| **Tier 0** | CSS Variables | Colors, spacing, styling | Zero |
+| **Tier 1** | Direct Import | Component works as-is | Zero |
+| **Tier 2** | Wrapper Components | Add behavior, tracking, defaults | Low |
+| **Tier 3** | Component Forks | Modify markup/template | Medium |
 
-### DO NOT Modify Source
+### Quick Example
 
-**Important**: Do not copy and modify component source files. This breaks the upgrade path and prevents bug fixes. Instead:
-
-- Use props to configure behavior
-- Use slots to inject custom content
-- Use CSS custom properties to adjust styling
-- Wrap components if you need additional functionality
-
-### Example: Custom Button Style
+```css
+/* Tier 0: CSS customization (preferred) */
+html.theme-myproject {
+  --theme-primary: #4C92D9;
+  --btn-border-radius: 8px;
+}
+```
 
 ```astro
----
-import { Button } from '@deltek/harmony-components/ui';
----
-
-<style>
-  .my-custom-button {
-    --button-padding: 1rem 2rem;
-    --button-border-radius: 0.5rem;
-  }
-</style>
-
-<Button class="my-custom-button" variant="primary">
-  Custom Styled Button
-</Button>
+<!-- Tier 1: Direct import (default) -->
+<Button variant="primary">Click me</Button>
 ```
+
+```astro
+<!-- Tier 2: Wrapper for added functionality -->
+<TrackedButton variant="primary" trackEvent="cta_click">
+  Get Started
+</TrackedButton>
+```
+
+### Getting Started with Customization
+
+**For consuming projects**, see the complete guides:
+
+- **[Customization Guide](docs/customization/CUSTOMIZATION_GUIDE.md)** - Complete guide for all tiers
+- **[Component Patterns](docs/customization/COMPONENT_PATTERNS.md)** - Real-world examples
+- **[Handling Updates](docs/customization/HARMONY_UPDATES.md)** - Update procedures
+- **[For Consuming Projects](docs/customization/FOR_CONSUMING_PROJECTS.md)** - Setup guide
+
+### Helper Scripts
+
+Harmony includes helper scripts for managing customizations:
+
+```bash
+# Helper scripts are included in the published package
+# Copy them to your project's scripts folder:
+mkdir -p scripts
+cp node_modules/@deltek/harmony-components/scripts/copy-harmony-component.cjs scripts/
+cp node_modules/@deltek/harmony-components/scripts/check-harmony-updates.cjs scripts/
+cp node_modules/@deltek/harmony-components/scripts/diff-harmony-component.cjs scripts/
+
+# Add to your package.json:
+{
+  "scripts": {
+    "harmony:copy": "node scripts/copy-harmony-component.cjs",
+    "harmony:check-updates": "node scripts/check-harmony-updates.cjs",
+    "harmony:diff": "node scripts/diff-harmony-component.cjs"
+  }
+}
+```
+
+### Examples
+
+The package includes reference wrapper components in `examples/`:
+
+```bash
+# View available examples
+ls node_modules/@deltek/harmony-components/examples/wrappers/
+
+# Copy an example to your project
+cp node_modules/@deltek/harmony-components/examples/wrappers/TrackedButton.astro \
+   src/components/composed/
+```
+
+**Available Examples:**
+- **TrackedButton.astro** - Button wrapper with analytics tracking (Tier 2)
+- **ProjectCard.astro** - Card wrapper with project-specific status display (Tier 2)
+
+See [examples/README.md](./examples/README.md) for detailed documentation and usage patterns.
+
+### Why This System?
+
+**⚠️ Never edit `node_modules/@deltek/harmony-components/` directly:**
+- Changes are wiped on `npm install`
+- Custom props don't exist in published package
+- Production builds fail
+- No git tracking
+
+The four-tier system keeps customizations **safe, persistent, and production-ready**.
 
 ## Updating the Design System
 
