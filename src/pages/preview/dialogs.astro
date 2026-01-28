@@ -27,10 +27,11 @@ import Button from '../../components/ui/Button.astro';
   </head>
   <body>
     <Button onclick="openDialog('preview-dialog')">Open Dialog</Button>
-    
+    <Button onclick="openDialog('preview-dialog-long')" style="margin-left: 12px;">Open Long Content</Button>
+
     <Dialog id="preview-dialog" title="Dialog Title">
       <p class="text-secondary">
-        This is a basic dialog with some content. You can add any content here including forms, images, or other components.
+        This is a basic dialog with sticky header and footer. Min width 600px, default 700px; all styles use design tokens.
       </p>
       <div slot="footer">
         <Button variant="ghost" onclick="closeDialog('preview-dialog')">Cancel</Button>
@@ -38,12 +39,24 @@ import Button from '../../components/ui/Button.astro';
       </div>
     </Dialog>
 
+    <Dialog id="preview-dialog-long" title="Sticky Header & Footer">
+      <div class="space-y-4">
+        <p class="text-secondary">Only the body scrolls; header and footer stay visible.</p>
+        <p class="text-secondary">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+        <p class="text-secondary">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
+      </div>
+      <div slot="footer">
+        <Button onclick="closeDialog('preview-dialog-long')">Confirm</Button>
+        <Button variant="ghost" onclick="closeDialog('preview-dialog-long')">Cancel</Button>
+      </div>
+    </Dialog>
+
     <script>
-      function openDialog(id) {
-        document.getElementById(id)?.setAttribute('open', '');
+      function openDialog(id: string) {
+        document.getElementById(id + '-overlay')?.classList.add('is-open');
       }
-      function closeDialog(id) {
-        document.getElementById(id)?.removeAttribute('open');
+      function closeDialog(id: string) {
+        document.getElementById(id + '-overlay')?.classList.remove('is-open');
       }
     </script>
   </body>

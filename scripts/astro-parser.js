@@ -267,7 +267,105 @@ export function extractProps(ast) {
     };
   }
 
+  // Extract defaults from Astro.props destructuring
+  const destructuringDefaults = extractDefaultsFromDestructuring(frontmatter);
+
+  // Merge destructuring defaults into props (they override interface defaults)
+  for (const [propName, defaultValue] of Object.entries(destructuringDefaults)) {
+    if (props[propName]) {
+      props[propName].default = defaultValue;
+    }
+  }
+
   return props;
+}
+
+/**
+ * Extract default values from Astro.props destructuring
+ * @param {string} frontmatter - Frontmatter code
+ * @returns {Object} Map of prop names to their default values
+ */
+export function extractDefaultsFromDestructuring(frontmatter) {
+  if (!frontmatter) return {};
+
+  const defaults = {};
+
+  // Match: const { ... } = Astro.props;
+  // Need to handle multiline destructuring
+  const destructureMatch = frontmatter.match(/const\s*\{([^}]+(?:\{[^}]*\}[^}]*)*)\}\s*=\s*Astro\.props/s);
+  if (!destructureMatch) return defaults;
+
+  const destructureBody = destructureMatch[1];
+
+  // Parse each prop in the destructuring
+  // Pattern: propName = defaultValue, or just propName, or propName: renamedProp = defaultValue
+
+  // Split by comma, but respect nested objects and strings
+  const props = [];
+  let currentProp = '';
+  let depth = 0;
+  let inString = false;
+  let stringChar = '';
+
+  for (let i = 0; i < destructureBody.length; i++) {
+    const char = destructureBody[i];
+    const prevChar = i > 0 ? destructureBody[i - 1] : '';
+
+    // Handle string literals
+    if ((char === '"' || char === "'" || char === '`') && prevChar !== '\\') {
+      if (!inString) {
+        inString = true;
+        stringChar = char;
+      } else if (char === stringChar) {
+        inString = false;
+        stringChar = '';
+      }
+    }
+
+    if (!inString) {
+      if (char === '{' || char === '[') depth++;
+      else if (char === '}' || char === ']') depth--;
+      else if (char === ',' && depth === 0) {
+        props.push(currentProp.trim());
+        currentProp = '';
+        continue;
+      }
+    }
+
+    currentProp += char;
+  }
+
+  // Add last prop
+  if (currentProp.trim()) {
+    props.push(currentProp.trim());
+  }
+
+  // Parse each prop to extract name and default
+  for (const prop of props) {
+    // Skip spread operators
+    if (prop.startsWith('...')) continue;
+
+    // Handle renamed props: class: className = ''
+    const renameMatch = prop.match(/^(\w+)\s*:\s*(\w+)(?:\s*=\s*(.+))?$/s);
+    if (renameMatch) {
+      const [, originalName, , defaultValue] = renameMatch;
+      if (defaultValue !== undefined) {
+        defaults[originalName] = defaultValue.trim();
+      }
+      continue;
+    }
+
+    // Handle regular props: propName = defaultValue
+    const regularMatch = prop.match(/^(\w+)(?:\s*=\s*(.+))?$/s);
+    if (regularMatch) {
+      const [, propName, defaultValue] = regularMatch;
+      if (defaultValue !== undefined) {
+        defaults[propName] = defaultValue.trim();
+      }
+    }
+  }
+
+  return defaults;
 }
 
 /**

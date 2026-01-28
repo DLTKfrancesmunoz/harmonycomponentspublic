@@ -17,17 +17,17 @@
     "class": {
       "type": "string",
       "optional": true,
-      "default": null
+      "default": "''"
     },
     "buttonAlignment": {
       "type": "'left' | 'right'",
       "optional": true,
-      "default": null
+      "default": "'left'"
     },
     "headerVariant": {
       "type": "'default' | 'primary'",
       "optional": true,
-      "default": null
+      "default": "'default'"
     }
   },
   "imports": {
@@ -171,7 +171,7 @@
     ]
   },
   "_metadata": {
-    "lastGenerated": "2026-01-27T18:09:53.948Z",
+    "lastGenerated": "2026-01-28T17:38:03.619Z",
     "generatedWith": "@astrojs/compiler@2.13.0",
     "includesVisualSpecs": true,
     "availableVariants": [
@@ -437,7 +437,9 @@
       "display": "flex",
       "alignItems": "center",
       "justifyContent": "flex-start",
-      "position": "fixed"
+      "position": "fixed",
+      "flexDirection": "column",
+      "flexShrink": "0"
     },
     "iconSpecs": null
   },
@@ -473,9 +475,12 @@
       "visibility": "visible"
     },
     ".dialog": {
+      "display": "flex",
+      "flex-direction": "column",
       "background-color": "#F7F8FA",
       "border-radius": "0.75rem",
       "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+      "min-width": "600px",
       "max-width": "90vw",
       "width": "calc(100vw - 32px)",
       "max-height": "calc(100vh - 32px)",
@@ -488,6 +493,7 @@
       "transform": "scale(1)"
     },
     ".dialog__header": {
+      "flex-shrink": "0",
       "display": "flex",
       "align-items": "center",
       "justify-content": "space-between",
@@ -524,12 +530,14 @@
       "color": "#373F4E"
     },
     ".dialog__body": {
+      "flex": "1 1 0",
+      "min-height": "0",
       "padding": "16px",
       "overflow-y": "auto",
-      "color": "#525969",
-      "max-height": "calc(100vh - 200px)"
+      "color": "#525969"
     },
     ".dialog__footer": {
+      "flex-shrink": "0",
       "display": "flex",
       "justify-content": "flex-start",
       "gap": "8px",
@@ -546,7 +554,7 @@
     },
     ".dialog__footer .btn": {
       "flex": "1",
-      "min-width": "120px"
+      "min-width": "calc(80px + 40px)"
     }
   },
   "_variantIndex": {

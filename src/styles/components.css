@@ -2550,9 +2550,12 @@
 }
 
 .dialog {
+  display: flex;
+  flex-direction: column;
   background-color: var(--card-bg);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-xl);
+  min-width: var(--dialog-min-width);
   max-width: var(--dialog-max-width-default);
   width: var(--dialog-width-percentage);
   max-height: var(--dialog-max-height);
@@ -2566,6 +2569,7 @@
 }
 
 .dialog__header {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -2610,12 +2614,15 @@
 }
 
 .dialog__body {
+  flex: 1 1 0;
+  min-height: 0;
   padding: var(--space-6);
   overflow-y: auto;
   color: var(--text-secondary);
 }
 
 .dialog__footer {
+  flex-shrink: 0;
   display: flex;
   justify-content: flex-start;
   gap: var(--space-3);
@@ -2635,10 +2642,10 @@
 /* Dialog Responsive Styles */
 @media (max-width: var(--breakpoint-md)) {
   .dialog {
-    width: calc(100vw - 32px);
+    width: calc(100vw - var(--dialog-margin-horizontal));
     max-width: 100%;
-    margin: 16px;
-    max-height: calc(100vh - 32px);
+    margin: var(--dialog-margin);
+    max-height: calc(100vh - var(--dialog-margin-vertical));
   }
 
   .dialog__header {
@@ -2647,7 +2654,6 @@
 
   .dialog__body {
     padding: var(--space-4);
-    max-height: calc(100vh - 200px);
   }
 
   .dialog__footer {
@@ -2658,13 +2664,13 @@
 
   .dialog__footer .btn {
     flex: 1;
-    min-width: 120px;
+    min-width: var(--dialog-footer-btn-min-width);
   }
 }
 
 @media (min-width: var(--breakpoint-md)) and (max-width: var(--breakpoint-lg)) {
   .dialog {
-    max-width: 90vw;
+    max-width: var(--dialog-max-width-medium);
   }
 }
 

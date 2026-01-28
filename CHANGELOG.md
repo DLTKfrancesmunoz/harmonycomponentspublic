@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2026-01-28
+
+### Changed
+- **Dialog**: Sticky header and footer (always visible); only the body scrolls when content overflows.
+- **Dialog**: Min width 600px, default max width 700px (design tokens).
+- **Dialog**: All dialog styles use design tokens only (no hardcoded pixel/vw values in component CSS); new tokens: `--dialog-min-width`, `--dialog-max-width-default`, `--dialog-margin`, `--dialog-margin-horizontal`, `--dialog-margin-vertical`, `--dialog-max-width-medium`, `--dialog-footer-btn-min-width`.
+
 ## [1.0.0] - 2026-01-27
 
 ### Added
@@ -58,4 +65,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Auto-updates available via npm update
 - Documentation for developers on installation and usage
 
+[1.0.1]: https://github.com/DLTKfrancesmunoz/harmonycomponents/releases/tag/v1.0.1
 [1.0.0]: https://github.com/DLTKfrancesmunoz/harmonycomponents/releases/tag/v1.0.0
