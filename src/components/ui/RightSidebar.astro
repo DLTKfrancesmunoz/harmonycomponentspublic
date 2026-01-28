@@ -10,6 +10,10 @@
  * @prop {string} variant - Theme variant: 'cp' | 'vp' | 'ppm' | 'maconomy'
  * @prop {Array} sections - Optional custom sections configuration
  * @prop {string} class - Additional CSS classes to apply
+ *
+ * @usagePattern theme-variant-icons Each theme variant (cp, vp, ppm, maconomy) has its own predefined icon set. All themes start with DelaD.svg custom logo as the first item. CP has 3 sections with 3, 2, and 4 items (lines 42-64). VP, PPM, and Maconomy have 3 sections with 8, 3, and 3 items respectively (currently identical configurations). The appropriate variant is shown via CSS based on html theme class (lines 369-393).
+ * @usagePattern custom-icon-support Navigation items support two icon approaches: standard Icon component (icon: 'icon-name') or custom images (isCustom: true, customSrc: '/path/to/image.svg') like the DelaD.svg logo. Custom images are rendered as <img> tags with class right-sidebar__dela-logo, while standard icons use the Icon component. All theme variants automatically include the Dela AI custom logo as the first item.
+ * @usagePattern panel-data-attributes Items use data attributes to control ShellPanel behavior: panelTitle (defaults to label), panelIcon (defaults to item icon), panelContentId (optional identifier), and useGradientHeader (boolean). The script automatically detects Dela AI items (by title or DelaD.svg icon) and applies gradient header without explicit useGradientHeader attribute (lines 423-428).
  */
 import Icon from './Icon.astro';
 import Tooltip from './Tooltip.astro';

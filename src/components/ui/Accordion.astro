@@ -5,6 +5,10 @@
  * Collapsible content sections.
  * Optional per-item body: use named slots "item-0", "item-1", … "item-9" for custom content
  * (first 10 items only; Astro requires static slot names). When a slot is absent, item.content is rendered as text.
+ *
+ * @usagePattern named-slots-content Use named slots item-0 through item-9 (max 10 items) to provide custom HTML content for accordion bodies. When a named slot exists for an item index, it takes precedence and the item.content string is ignored. If no named slot exists, the item.content string is rendered as plain text. Do not provide both slot and content for the same item.
+ * @usagePattern allow-multiple-behavior When allowMultiple prop is false (default), clicking an accordion item automatically closes all other open items, allowing only one section open at a time. When allowMultiple is true, multiple sections can remain open simultaneously. This affects the click handler behavior in lines 76-81.
+ * @usagePattern default-open-state Set defaultOpen: true on individual items in the items array to have them open when the accordion first renders. In single-open mode (allowMultiple=false), only the last item with defaultOpen: true will remain open. In multi-open mode, all items marked defaultOpen will be open initially.
  */
 import Icon from './Icon.astro';
 

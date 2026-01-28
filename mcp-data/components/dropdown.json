@@ -252,9 +252,13 @@
       }
     ]
   },
-  "usagePatterns": {},
+  "usagePatterns": {
+    "trigger-slot-override": "The trigger slot (lines 75-76, 114-115) completely replaces the default trigger button, including the selected value display and chevron icon. When using a custom trigger, you are responsible for displaying the current selection state and any visual indicators. The default trigger (lines 78-82, 117-121) shows selectedOption.label or placeholder with a chevron-down icon.",
+    "option-slots-limitation": "Custom option content is supported via named slots option-0 through option-9 for the first 10 options only. These slots replace the option.label text but the option.value is still used for selection. Beyond 10 options, only standard label rendering is available due to Astro's static slot name requirement.",
+    "label-variant-layout": "When label prop is provided, labelVariant controls layout: 'inline' places label and dropdown side-by-side (default for CP theme), 'stacked' places label above dropdown (default for other themes). The wrapper gets class dropdown-wrapper--inline or dropdown-wrapper--stacked. Without explicit labelVariant, CSS handles theme-specific defaults (lines 50-56)."
+  },
   "_metadata": {
-    "lastGenerated": "2026-01-28T18:14:46.800Z",
+    "lastGenerated": "2026-01-28T18:59:35.738Z",
     "generatedWith": "@astrojs/compiler@2.13.0",
     "includesVisualSpecs": true,
     "availableVariants": [

@@ -4,6 +4,11 @@
  *
  * A flexible tab component with icon positioning, overflow handling, and Add Tab functionality.
  *
+ * @usagePattern icon-position-consistency All tabs must use either inline icon positioning (left/right) OR stacked (top), but cannot mix both. Use the component-level iconPosition prop to enforce consistency across all tabs, or ensure individual tab iconPosition values follow this rule. The component will log a warning if mixed positions are detected (lines 52-68).
+ * @usagePattern overflow-modes The overflowMode prop has three behaviors: 'auto' (default) uses ResizeObserver to automatically detect and move tabs to dropdown when they don't fit; 'manual' requires you to provide overflowTabs prop with specific tabs to show in dropdown; 'none' disables overflow handling entirely and may cause horizontal scrolling.
+ * @usagePattern named-slots-limitation Custom tab content can only be provided via named slots tab-0 through tab-9, supporting a maximum of 10 tabs with custom content. This is an Astro limitation requiring static slot names. For tabs beyond index 9, only the standard tab rendering is available.
+ * @usagePattern custom-events TabStrip dispatches three custom events: 'tab-strip:tab-selected' (bubbles, includes tabId), 'tab-strip:close-tab' (from overflow dropdown close action), and 'tab-strip:open-new-window' (from overflow dropdown). Listen for these events on the TabStrip container to handle user interactions. The 'tab-strip:add-tab' event is dispatched when the optional Add Tab button is clicked.
+ *
  * @prop {Array} tabs - Array of tab objects
  * @prop {boolean} showAddTab - Whether to show "Add Tab" button (default: false)
  * @prop {string} addTabLabel - Label for Add Tab button (default: "Add Tab")

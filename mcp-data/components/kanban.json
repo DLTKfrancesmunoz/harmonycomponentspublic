@@ -360,9 +360,13 @@
     },
     "children": []
   },
-  "usagePatterns": {},
+  "usagePatterns": {
+    "slot-areas-customization": "Kanban provides three customization slots: 'title-bar-actions' (lines 59-82) replaces default title bar icons (expand, collapse, help, minimize, window, close), 'action-bar' (lines 91-127) replaces default action buttons and filters, and 'action-dropdown' for dropdown controls. When slots are not provided, default UI elements are rendered. Title bar actions include 6 icon buttons, action bar includes delete, group, customize, and view controls.",
+    "column-and-card-structure": "Kanban uses KanbanColumn array (id, title, cards[]) where each column contains KanbanCardProps array. Columns are wrapped in Card components (line 145) and rendered in a horizontal scrollable layout (kanban__columns-wrapper, lines 133-221). Column title determines border color via conditional classes: titles containing 'in progress' get kanban__column-card--in-progress, 'done' gets kanban__column-card--done (lines 136-142).",
+    "action-buttons-vs-dropdowns": "The action bar supports two prop patterns: actionButtons array with {text, icon} for Button components (lines 93-105), or actionDropdowns array with {text, options, value} for Dropdown components. When neither is provided, default actions are rendered (lines 108-127). Use actionButtons for simple click actions, actionDropdowns for selection-based filters or view changes."
+  },
   "_metadata": {
-    "lastGenerated": "2026-01-28T18:14:46.945Z",
+    "lastGenerated": "2026-01-28T18:59:35.760Z",
     "generatedWith": "@astrojs/compiler@2.13.0",
     "includesVisualSpecs": true,
     "availableVariants": []

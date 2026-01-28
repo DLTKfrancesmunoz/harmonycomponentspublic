@@ -15,6 +15,11 @@
  * @prop {boolean} showClose - Show close button (default: true)
  * @prop {boolean} showPopout - Show popout/detach button (default: true, only for theme header)
  * @prop {string} class - Additional CSS classes to apply
+ *
+ * @usagePattern header-variant-capabilities The headerVariant prop controls header appearance and features. 'theme' (default) provides gradient-capable header with popout button (showPopout=true), width toggle, and close button—designed for sidebar integration. 'default' provides simple header styling without gradient support or popout functionality. Only theme variant headers respond to data-gradient-header attribute for Dela AI styling (lines 70-113).
+ * @usagePattern width-modes-behavior Panel supports two width modes via width prop: 'narrow' (default) provides focused side panel width, 'full' expands to maximum available width. Users can toggle between modes using the arrows-pointing-out/arrows-pointing-in button (data-panel-toggle-width, lines 156-174). The toggle dynamically updates classes (shell-panel--narrow/shell-panel--full) and data-width attribute.
+ * @usagePattern header-slot-override The header slot (lines 67-68) completely replaces the default header structure including title, icon, and all action buttons. When using header slot, you are responsible for providing your own close/popout/width-toggle functionality. The default header (lines 70-113) provides complete panel management UI with icon container, title, and action buttons.
+ * @usagePattern dynamic-updates-api Global functions updateShellPanel(selector, title, icon), openShellPanel(selector), and closeShellPanel(selector) enable programmatic panel control. The sidebar components use these APIs to dynamically update panel content when navigation items are clicked (lines 177-222). Data attributes data-panel-icon-container and data-panel-close enable this dynamic behavior.
  */
 import Icon from './Icon.astro';
 

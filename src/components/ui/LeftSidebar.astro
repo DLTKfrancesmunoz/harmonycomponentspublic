@@ -9,6 +9,11 @@
  * @prop {string} variant - Theme variant: 'cp' | 'vp' | 'ppm' | 'maconomy'
  * @prop {Array} sections - Optional custom sections configuration
  * @prop {string} class - Additional CSS classes to apply
+ *
+ * @usagePattern theme-variant-icons Each theme variant (cp, vp, ppm, maconomy) has its own predefined icon set and section structure. CP has 2 sections (lines 42-66), while VP, PPM, and Maconomy have 1 section each with identical icons currently. The appropriate variant is shown via CSS based on html theme class (lines 342-365). Custom sections override all theme defaults when provided.
+ * @usagePattern custom-icon-support Navigation items support two icon approaches: standard Icon component (icon: 'icon-name') or custom images (isCustom: true, customSrc: '/path/to/image.svg'). Custom images are rendered as <img> tags (lines 179, 216, 252, 288) with class left-sidebar__custom-icon, while standard icons use the Icon component. For custom images, set both isCustom and customSrc properties.
+ * @usagePattern panel-data-attributes Items use data attributes to control ShellPanel behavior when clicked: panelTitle (defaults to label), panelIcon (defaults to item icon), panelContentId (optional content identifier), and useGradientHeader (boolean, auto-applied for Dela AI). The sidebar script (lines 369-526) reads these attributes and dynamically updates the associated ShellPanel header and content.
+ * @usagePattern active-state-management The sidebar manages two types of active states: class-based (left-sidebar__item--active) for initially active items, and data-attribute-based (data-active) for runtime panel interactions. When a panel is opened, the script clears class-based active states and sets data-active on the clicked item (lines 483-489). This prevents conflicts between static and dynamic active states.
  */
 import Icon from './Icon.astro';
 import Tooltip from './Tooltip.astro';

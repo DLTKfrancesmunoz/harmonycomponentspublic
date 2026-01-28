@@ -4,6 +4,11 @@
  *
  * Displays progress through a sequence of logical and numbered steps.
  * Supports horizontal and vertical orientation, linear and non-linear modes.
+ *
+ * @usagePattern state-indicator-priority Step components display state through props in priority order: error (highest) > warning > success > completed > default number display (lowest). When multiple state props are true, only the highest priority indicator icon is shown. Custom icon prop overrides all state indicators. This priority is implemented in lines 60-71 of Step.astro with conditional icon rendering.
+ * @usagePattern linear-vs-nonlinear-mode When nonLinear prop is false (default linear mode), the script automatically disables future steps beyond activeStep by adding is-disabled class and data-disabled attribute (lines 70-73). In nonLinear mode (nonLinear=true), all steps remain clickable unless explicitly disabled via step's disabled prop, and clicking dispatches 'stepper:step-clicked' custom event with stepIndex (lines 76-107).
+ * @usagePattern step-number-vs-icon Individual Step components display either a sequential number (auto-generated, lines 110-113) or a custom icon (if icon prop provided, lines 54-55). When error/warning/success/completed props are set without custom icon, the appropriate state icon replaces the number. The step number is calculated from the step's index position within the Stepper (line 112: index + 1).
+ * @usagePattern connector-line-state Connector lines between steps (step__connector) receive is-active class when the current step is completed, or when the next step is active or completed (lines 116-132). This creates visual continuity showing progress through the stepper sequence. In vertical orientation, connectors appear below each step; in horizontal, they appear to the right.
  */
 export interface Props {
   activeStep?: number;
