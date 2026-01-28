@@ -19,9 +19,11 @@ export async function parseComponent(filePath, cssSpacingMap = null) {
   const ast = result.ast; // parse() returns { ast: ... }
 
   // Extract basic data
+  const frontmatter = extractFrontmatter(ast);
   const imports = extractImports(ast);
   const props = extractProps(ast);
   const cssClasses = extractCSSClasses(ast);
+  const usagePatterns = extractUsagePatterns(frontmatter);
 
   // Extract enhanced structure with spacing and slot locations
   const structure = extractDetailedStructure(ast, cssSpacingMap, props);
@@ -31,12 +33,13 @@ export async function parseComponent(filePath, cssSpacingMap = null) {
 
   return {
     filePath,
-    frontmatter: extractFrontmatter(ast),
+    frontmatter,
     imports,
     props,
     slots,
     structure,
     cssClasses,
+    usagePatterns,
   };
 }
 
@@ -366,6 +369,42 @@ export function extractDefaultsFromDestructuring(frontmatter) {
   }
 
   return defaults;
+}
+
+/**
+ * Extract usage patterns from JSDoc comments
+ * @param {string} frontmatter - Frontmatter code
+ * @returns {Object} Usage patterns keyed by pattern name
+ */
+export function extractUsagePatterns(frontmatter) {
+  if (!frontmatter) return {};
+
+  const patterns = {};
+
+  // Match @usagePattern tags in JSDoc comments
+  const docCommentMatch = frontmatter.match(/\/\*\*[\s\S]*?\*\//);
+  if (!docCommentMatch) return patterns;
+
+  const docComment = docCommentMatch[0];
+
+  // Pattern: @usagePattern <key> <description>
+  // Description continues until next @ tag or end of comment
+  const patternRegex = /@usagePattern\s+([a-z0-9-]+)\s+(.+?)(?=\n\s*\*\s*@|\n\s*\*\/)/gs;
+  const matches = docComment.matchAll(patternRegex);
+
+  for (const match of matches) {
+    const [, key, description] = match;
+    // Clean up the description: remove * from line starts, trim whitespace
+    const cleanDescription = description
+      .split('\n')
+      .map(line => line.replace(/^\s*\*\s?/, ''))
+      .join(' ')
+      .trim()
+      .replace(/\s+/g, ' ');
+    patterns[key] = cleanDescription;
+  }
+
+  return patterns;
 }
 
 /**
@@ -1039,4 +1078,6 @@ export default {
   loadCssSpacing,
   extractEnhancedSlots,
   extractDetailedStructure,
+  extractUsagePatterns,
+  extractDefaultsFromDestructuring,
 };

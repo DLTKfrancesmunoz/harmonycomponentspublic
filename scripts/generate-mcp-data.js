@@ -117,6 +117,9 @@ async function generateComponentData(componentPath, cssSpacingMap, parsedCSS, va
       slots: parsed.slots || {},
       structure: parsed.structure || null,
 
+      // Usage patterns (Plan 3 - usage conventions)
+      usagePatterns: parsed.usagePatterns || {},
+
       _metadata: {
         lastGenerated: new Date().toISOString(),
         generatedWith: '@astrojs/compiler@2.13.0',
