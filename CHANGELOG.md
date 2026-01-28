@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - **Card Component**: Added missing neutral styles for header elements (`.card__header-title`, `.card__header-subtitle`, `.card__header-content`, `.card__header-actions`). Cards using `headerTitle` prop now have proper font-sizing (18px) instead of falling back to browser h2 defaults (24-32px).
+- **CSS Reset**: Removed font-size declarations from h1-h6 in reset.css. Typography sizing is now controlled exclusively by component classes and design token utilities, preventing conflicts between semantic HTML tags and component styling. This architectural fix ensures components have full control over their typography without reset interference.
 
 ### Migration Guide
 If you were using `withHeader` and expecting a colored header bar with white text, you can achieve this with custom styling:
