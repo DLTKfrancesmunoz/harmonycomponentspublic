@@ -42,6 +42,9 @@ jobs:
       - name: Generate MCP data with visual specifications
         run: npm run generate:mcp-data
 
+      - name: Verify generation produced valid output
+        run: node scripts/verify-mcp-generation.cjs
+
       - name: Commit MCP data updates
         run: |
           git config user.name "MCP Data Bot"

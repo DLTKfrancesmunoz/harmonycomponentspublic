@@ -37,6 +37,8 @@
     "right-sidebar__item-tooltip",
     "right-sidebar__icon",
     "right-sidebar__dela-logo",
+    "right-sidebar__dela-logo--default",
+    "right-sidebar__dela-logo--active",
     "right-sidebar__variant--vp",
     "right-sidebar__variant--ppm",
     "right-sidebar__variant--maconomy"
@@ -134,15 +136,17 @@
     ]
   },
   "usagePatterns": {
-    "theme-variant-icons": "Each theme variant (cp, vp, ppm, maconomy) has its own predefined icon set. All themes start with DStar_LM.svg custom logo as the first item. CP has 3 sections with 3, 2, and 4 items (lines 42-64). VP, PPM, and Maconomy have 3 sections with 8, 3, and 3 items respectively (currently identical configurations). The appropriate variant is shown via CSS based on html theme class (lines 369-393).",
-    "custom-icon-support": "Navigation items support two icon approaches: standard Icon component (icon: 'icon-name') or custom images (isCustom: true, customSrc: '/path/to/image.svg') like the DStar_LM.svg logo. Custom images are rendered as <img> tags with class right-sidebar__dela-logo, while standard icons use the Icon component. All theme variants automatically include the Dela AI custom logo as the first item.",
-    "panel-data-attributes": "Items use data attributes to control ShellPanel behavior: panelTitle (defaults to label), panelIcon (defaults to item icon), panelContentId (optional identifier), and useGradientHeader (boolean). The script automatically detects Dela AI items (by title or DStar_LM.svg icon) and applies gradient header without explicit useGradientHeader attribute (lines 423-428)."
+    "theme-variant-icons": "Each theme variant (cp, vp, ppm, maconomy) has its own predefined icon set. All themes start with Dela custom logo (RS_DelaDefault.svg default, RS_Dela_Active.svg active) as the first item. CP has 3 sections with 3, 2, and 4 items (lines 42-64). VP, PPM, and Maconomy have 3 sections with 8, 3, and 3 items respectively (currently identical configurations). The appropriate variant is shown via CSS based on html theme class (lines 369-393).",
+    "custom-icon-support": "Navigation items support two icon approaches: standard Icon component (icon: 'icon-name') or custom images (isCustom: true, customSrc: '/path/to/image.svg', optional customSrcActive for active state) like the Dela logo (RS_DelaDefault.svg / RS_Dela_Active.svg). Custom images are rendered as <img> tags with class right-sidebar__dela-logo, while standard icons use the Icon component. All theme variants automatically include the Dela AI custom logo as the first item.",
+    "panel-data-attributes": "Items use data attributes to control ShellPanel behavior: panelTitle (defaults to label), panelIcon (defaults to item icon), panelContentId (optional identifier), and useGradientHeader (boolean). The script automatically detects Dela AI items (by title or .right-sidebar__dela-logo) and applies gradient header without explicit useGradientHeader attribute (lines 423-428)."
   },
   "_metadata": {
-    "lastGenerated": "2026-01-29T21:35:19.157Z",
+    "lastGenerated": "2026-01-29T22:05:42.269Z",
     "generatedWith": "@astrojs/compiler@2.13.0",
     "includesVisualSpecs": true,
     "availableVariants": [
+      "default",
+      "active",
       "cp",
       "vp",
       "ppm",
@@ -240,6 +244,154 @@
     },
     "colors": {
       "variants": {
+        "default": {
+          "cp": {
+            "light": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            },
+            "dark": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            }
+          },
+          "vp": {
+            "light": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            },
+            "dark": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            }
+          },
+          "ppm": {
+            "light": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            },
+            "dark": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            }
+          },
+          "maconomy": {
+            "light": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            },
+            "dark": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            }
+          }
+        },
+        "active": {
+          "cp": {
+            "light": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            },
+            "dark": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            }
+          },
+          "vp": {
+            "light": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            },
+            "dark": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            }
+          },
+          "ppm": {
+            "light": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            },
+            "dark": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            }
+          },
+          "maconomy": {
+            "light": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            },
+            "dark": {
+              "default": {
+                "background": "transparent",
+                "text": null,
+                "border": "transparent",
+                "iconColor": null
+              }
+            }
+          }
+        },
         "cp": {
           "cp": {
             "light": {
@@ -644,6 +796,15 @@
       "height": "36px",
       "border-radius": "12px"
     },
+    ".right-sidebar__dela-logo--active": {
+      "display": "none"
+    },
+    ".right-sidebar__item[data-active=\"true\"]:has(.right-sidebar__dela-logo) .right-sidebar__dela-logo--default": {
+      "display": "none"
+    },
+    ".right-sidebar__item[data-active=\"true\"]:has(.right-sidebar__dela-logo) .right-sidebar__dela-logo--active": {
+      "display": "block"
+    },
     ".right-sidebar__label": {
       "font-family": "'Figtree', sans-serif",
       "font-size": "0.875rem",
@@ -712,14 +873,171 @@
     ".right-sidebar[data-panel-open=\"true\"] .right-sidebar__item[data-active=\"true\"]:has(.right-sidebar__dela-logo) .right-sidebar__icon": {
       "color": "#FFFFFF"
     },
-    ".right-sidebar[data-panel-open=\"true\"] .right-sidebar__item[data-active=\"true\"]:has(.right-sidebar__dela-logo) .right-sidebar__icon .right-sidebar__dela-logo": {
-      "filter": "brightness(0) invert(1)"
-    },
     "html.dark .right-sidebar__item:hover": {
       "background-color": "#E5E7EB"
     }
   },
   "_variantIndex": {
+    "cp-default": {
+      "variant": "default",
+      "theme": "cp",
+      "light": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      },
+      "dark": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      }
+    },
+    "vp-default": {
+      "variant": "default",
+      "theme": "vp",
+      "light": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      },
+      "dark": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      }
+    },
+    "ppm-default": {
+      "variant": "default",
+      "theme": "ppm",
+      "light": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      },
+      "dark": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      }
+    },
+    "maconomy-default": {
+      "variant": "default",
+      "theme": "maconomy",
+      "light": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      },
+      "dark": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      }
+    },
+    "cp-active": {
+      "variant": "active",
+      "theme": "cp",
+      "light": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      },
+      "dark": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      }
+    },
+    "vp-active": {
+      "variant": "active",
+      "theme": "vp",
+      "light": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      },
+      "dark": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      }
+    },
+    "ppm-active": {
+      "variant": "active",
+      "theme": "ppm",
+      "light": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      },
+      "dark": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      }
+    },
+    "maconomy-active": {
+      "variant": "active",
+      "theme": "maconomy",
+      "light": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      },
+      "dark": {
+        "default": {
+          "background": "transparent",
+          "text": null,
+          "border": "transparent",
+          "iconColor": null
+        }
+      }
+    },
     "cp-cp": {
       "variant": "cp",
       "theme": "cp",
@@ -1043,6 +1361,8 @@
   },
   "_variantMetadata": {
     "availableVariants": [
+      "default",
+      "active",
       "cp",
       "vp",
       "ppm",

@@ -16,7 +16,7 @@ const props = [
   { name: 'width', type: "'narrow' | 'full'", default: "'narrow'", description: 'Panel width mode' },
   { name: 'showClose', type: 'boolean', default: 'true', description: 'Show close button' },
   { name: 'showPopout', type: 'boolean', default: 'true', description: 'Show popout/detach button (only for theme header)' },
-  { name: 'variant', type: "'default' | 'dela'", default: "'default'", description: "When 'dela', panel is for the Digital Assistant; RightSidebar only sets gradient and title and does not replace header/content when opening from DStar_LM.svg" },
+  { name: 'variant', type: "'default' | 'dela'", default: "'default'", description: "When 'dela', panel is for the Digital Assistant; RightSidebar only sets gradient and title and does not replace header/content when opening from Dela AI item (RS_DelaDefault.svg / RS_Dela_Active.svg)" },
   { name: 'id', type: 'string', default: '—', description: 'Optional ID for the panel element' },
   { name: 'class', type: 'string', default: '—', description: 'Additional CSS classes to apply' },
 ];
@@ -72,11 +72,13 @@ const props = [
             >
               <div style="padding: var(--space-4);">
                 <p class="text-secondary">Panel content goes here. This is a narrow panel with a theme header.</p>
-                <Card style="margin-top: var(--space-4);">
+                <div style="margin-top: var(--space-4);">
+                <Card>
                   <div class="card__body">
                     <p>You can add any content inside the panel slot.</p>
                   </div>
                 </Card>
+              </div>
               </div>
             </ShellPanel>
           </div>
@@ -229,7 +231,7 @@ const props = [
         <div>
           <h3 class="text-lg font-semibold text-primary mb-2">Dela Variant</h3>
           <p class="text-sm text-secondary mb-2">
-            Use <code>variant="dela"</code> when the panel is the Ask Dela / Digital Assistant panel opened from the right sidebar's DStar_LM.svg icon. The Dela icon's active state uses a gradient background (--linear-new) with white inverted icon, same pattern as other sidebar icons. The RightSidebar will only set the gradient and title and will not replace the header or content, so your pre-rendered Dela layout is preserved. The header shows the title plus width toggle and close only; the pencil (New chat) and question-mark (Help) icons sit above the first message, left-aligned (<code>dela-panel__toolbar</code>). The content area uses a white background; the chat input is docked to the bottom in a single white input box that contains the text field plus attach (paperclip), microphone, and send icons. For a full example, see the <a href="/foundation/dela#demo" class="link">Dela foundation page</a>.
+            Use <code>variant="dela"</code> when the panel is the Ask Dela / Digital Assistant panel opened from the right sidebar's Dela AI item (RS_DelaDefault.svg default, RS_Dela_Active.svg when active). The Dela icon's active state uses a gradient background (--linear-new) and shows RS_Dela_Active.svg. The RightSidebar will only set the gradient and title and will not replace the header or content, so your pre-rendered Dela layout is preserved. The header shows the title plus width toggle and close only; the pencil (New chat) and question-mark (Help) icons sit above the first message, left-aligned (<code>dela-panel__toolbar</code>). The content area uses a white background; the chat input is docked to the bottom in a single white input box that contains the text field plus attach (paperclip), microphone, and send icons. For a full example, see the <a href="/foundation/dela#demo" class="link">Dela foundation page</a>.
           </p>
         </div>
 

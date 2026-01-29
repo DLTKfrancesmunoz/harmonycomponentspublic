@@ -5,15 +5,15 @@
  * A unified right navigation sidebar that supports multiple themes (cp, vp, ppm, maconomy).
  * Shows only icons when collapsed, expands on hover to show text labels + icons.
  * Supports configurable sections and icons per theme.
- * All themes start with the DStar_LM.svg logo as the first icon.
+ * All themes start with the Dela logo (RS_DelaDefault.svg / RS_Dela_Active.svg) as the first icon.
  *
  * @prop {string} variant - Theme variant: 'cp' | 'vp' | 'ppm' | 'maconomy'
  * @prop {Array} sections - Optional custom sections configuration
  * @prop {string} class - Additional CSS classes to apply
  *
- * @usagePattern theme-variant-icons Each theme variant (cp, vp, ppm, maconomy) has its own predefined icon set. All themes start with DStar_LM.svg custom logo as the first item. CP has 3 sections with 3, 2, and 4 items (lines 42-64). VP, PPM, and Maconomy have 3 sections with 8, 3, and 3 items respectively (currently identical configurations). The appropriate variant is shown via CSS based on html theme class (lines 369-393).
- * @usagePattern custom-icon-support Navigation items support two icon approaches: standard Icon component (icon: 'icon-name') or custom images (isCustom: true, customSrc: '/path/to/image.svg') like the DStar_LM.svg logo. Custom images are rendered as <img> tags with class right-sidebar__dela-logo, while standard icons use the Icon component. All theme variants automatically include the Dela AI custom logo as the first item.
- * @usagePattern panel-data-attributes Items use data attributes to control ShellPanel behavior: panelTitle (defaults to label), panelIcon (defaults to item icon), panelContentId (optional identifier), and useGradientHeader (boolean). The script automatically detects Dela AI items (by title or DStar_LM.svg icon) and applies gradient header without explicit useGradientHeader attribute (lines 423-428).
+ * @usagePattern theme-variant-icons Each theme variant (cp, vp, ppm, maconomy) has its own predefined icon set. All themes start with Dela custom logo (RS_DelaDefault.svg default, RS_Dela_Active.svg active) as the first item. CP has 3 sections with 3, 2, and 4 items (lines 42-64). VP, PPM, and Maconomy have 3 sections with 8, 3, and 3 items respectively (currently identical configurations). The appropriate variant is shown via CSS based on html theme class (lines 369-393).
+ * @usagePattern custom-icon-support Navigation items support two icon approaches: standard Icon component (icon: 'icon-name') or custom images (isCustom: true, customSrc: '/path/to/image.svg', optional customSrcActive for active state) like the Dela logo (RS_DelaDefault.svg / RS_Dela_Active.svg). Custom images are rendered as <img> tags with class right-sidebar__dela-logo, while standard icons use the Icon component. All theme variants automatically include the Dela AI custom logo as the first item.
+ * @usagePattern panel-data-attributes Items use data attributes to control ShellPanel behavior: panelTitle (defaults to label), panelIcon (defaults to item icon), panelContentId (optional identifier), and useGradientHeader (boolean). The script automatically detects Dela AI items (by title or .right-sidebar__dela-logo) and applies gradient header without explicit useGradientHeader attribute (lines 423-428).
  */
 import Icon from './Icon.astro';
 import Tooltip from './Tooltip.astro';
@@ -22,8 +22,9 @@ interface NavItem {
   icon?: string;
   label: string;
   href?: string;
-  isCustom?: boolean; // For DStar_LM.svg logo
-  customSrc?: string; // Path to custom icon
+  isCustom?: boolean; // For Dela/custom logo
+  customSrc?: string; // Path to custom icon (default state)
+  customSrcActive?: string; // Path to custom icon when item is active (e.g. RS_Dela_Active.svg)
   panelTitle?: string; // Panel title when item is clicked (defaults to label)
   panelIcon?: string; // Panel icon when item is clicked (defaults to item icon)
   panelContentId?: string; // Content identifier for contextual content
@@ -46,7 +47,7 @@ const { variant = 'cp', sections, class: className = '' } = Astro.props;
 const cpSections: Section[] = [
   {
     items: [
-      { label: 'Dela AI', isCustom: true, customSrc: '/DStar_LM.svg' },
+      { label: 'Dela AI', isCustom: true, customSrc: '/RS_DelaDefault.svg', customSrcActive: '/RS_Dela_Active.svg' },
       { icon: 'bell', label: 'Notifications' },
       { icon: 'arrow-up-tray', label: 'Files' },
     ],
@@ -67,11 +68,11 @@ const cpSections: Section[] = [
   },
 ];
 
-// Default PPM configuration (3 sections) - ALL start with DStar_LM.svg
+// Default PPM configuration (3 sections) - ALL start with Dela logo (RS_DelaDefault / RS_Dela_Active)
 const ppmSections: Section[] = [
   {
     items: [
-      { label: 'Dela AI', isCustom: true, customSrc: '/DStar_LM.svg' },
+      { label: 'Dela AI', isCustom: true, customSrc: '/RS_DelaDefault.svg', customSrcActive: '/RS_Dela_Active.svg' },
       { icon: 'pencil-square', label: 'Edit' },
       { icon: 'magnifying-glass', label: 'Search' },
       { icon: 'ellipsis-horizontal-circle', label: 'Actions' },
@@ -101,7 +102,7 @@ const ppmSections: Section[] = [
 const vpSections: Section[] = [
   {
     items: [
-      { label: 'Dela AI', isCustom: true, customSrc: '/DStar_LM.svg' },
+      { label: 'Dela AI', isCustom: true, customSrc: '/RS_DelaDefault.svg', customSrcActive: '/RS_Dela_Active.svg' },
       { icon: 'pencil-square', label: 'Edit' },
       { icon: 'magnifying-glass', label: 'Search' },
       { icon: 'ellipsis-horizontal-circle', label: 'Actions' },
@@ -131,7 +132,7 @@ const vpSections: Section[] = [
 const maconomySections: Section[] = [
   {
     items: [
-      { label: 'Dela AI', isCustom: true, customSrc: '/DStar_LM.svg' },
+      { label: 'Dela AI', isCustom: true, customSrc: '/RS_DelaDefault.svg', customSrcActive: '/RS_Dela_Active.svg' },
       { icon: 'pencil-square', label: 'Edit' },
       { icon: 'magnifying-glass', label: 'Search' },
       { icon: 'ellipsis-horizontal-circle', label: 'Actions' },
@@ -209,7 +210,14 @@ const shouldRenderAllVariants = !sections;
                   <Tooltip text={item.label} position="left" class="right-sidebar__item-tooltip">
                     <span class="right-sidebar__icon">
                       {item.isCustom && item.customSrc ? (
-                        <img src={item.customSrc} alt={item.label} class="right-sidebar__dela-logo" />
+                        item.customSrcActive ? (
+                          <>
+                            <img src={item.customSrc} alt={item.label} class="right-sidebar__dela-logo right-sidebar__dela-logo--default" />
+                            <img src={item.customSrcActive} alt={item.label} class="right-sidebar__dela-logo right-sidebar__dela-logo--active" />
+                          </>
+                        ) : (
+                          <img src={item.customSrc} alt={item.label} class="right-sidebar__dela-logo" />
+                        )
                       ) : item.icon ? (
                         <Icon name={item.icon} />
                       ) : null}
@@ -246,7 +254,14 @@ const shouldRenderAllVariants = !sections;
                   <Tooltip text={item.label} position="left" class="right-sidebar__item-tooltip">
                     <span class="right-sidebar__icon">
                       {item.isCustom && item.customSrc ? (
-                        <img src={item.customSrc} alt={item.label} class="right-sidebar__dela-logo" />
+                        item.customSrcActive ? (
+                          <>
+                            <img src={item.customSrc} alt={item.label} class="right-sidebar__dela-logo right-sidebar__dela-logo--default" />
+                            <img src={item.customSrcActive} alt={item.label} class="right-sidebar__dela-logo right-sidebar__dela-logo--active" />
+                          </>
+                        ) : (
+                          <img src={item.customSrc} alt={item.label} class="right-sidebar__dela-logo" />
+                        )
                       ) : item.icon ? (
                         <Icon name={item.icon} />
                       ) : null}
@@ -283,7 +298,14 @@ const shouldRenderAllVariants = !sections;
                   <Tooltip text={item.label} position="left" class="right-sidebar__item-tooltip">
                     <span class="right-sidebar__icon">
                       {item.isCustom && item.customSrc ? (
-                        <img src={item.customSrc} alt={item.label} class="right-sidebar__dela-logo" />
+                        item.customSrcActive ? (
+                          <>
+                            <img src={item.customSrc} alt={item.label} class="right-sidebar__dela-logo right-sidebar__dela-logo--default" />
+                            <img src={item.customSrcActive} alt={item.label} class="right-sidebar__dela-logo right-sidebar__dela-logo--active" />
+                          </>
+                        ) : (
+                          <img src={item.customSrc} alt={item.label} class="right-sidebar__dela-logo" />
+                        )
                       ) : item.icon ? (
                         <Icon name={item.icon} />
                       ) : null}
@@ -320,7 +342,14 @@ const shouldRenderAllVariants = !sections;
                   <Tooltip text={item.label} position="left" class="right-sidebar__item-tooltip">
                     <span class="right-sidebar__icon">
                       {item.isCustom && item.customSrc ? (
-                        <img src={item.customSrc} alt={item.label} class="right-sidebar__dela-logo" />
+                        item.customSrcActive ? (
+                          <>
+                            <img src={item.customSrc} alt={item.label} class="right-sidebar__dela-logo right-sidebar__dela-logo--default" />
+                            <img src={item.customSrcActive} alt={item.label} class="right-sidebar__dela-logo right-sidebar__dela-logo--active" />
+                          </>
+                        ) : (
+                          <img src={item.customSrc} alt={item.label} class="right-sidebar__dela-logo" />
+                        )
                       ) : item.icon ? (
                         <Icon name={item.icon} />
                       ) : null}
@@ -356,7 +385,14 @@ const shouldRenderAllVariants = !sections;
               <Tooltip text={item.label} position="left" class="right-sidebar__item-tooltip">
                 <span class="right-sidebar__icon">
                   {item.isCustom && item.customSrc ? (
-                    <img src={item.customSrc} alt={item.label} class="right-sidebar__dela-logo" />
+                    item.customSrcActive ? (
+                      <>
+                        <img src={item.customSrc} alt={item.label} class="right-sidebar__dela-logo right-sidebar__dela-logo--default" />
+                        <img src={item.customSrcActive} alt={item.label} class="right-sidebar__dela-logo right-sidebar__dela-logo--active" />
+                      </>
+                    ) : (
+                      <img src={item.customSrc} alt={item.label} class="right-sidebar__dela-logo" />
+                    )
                   ) : item.icon ? (
                     <Icon name={item.icon} />
                   ) : null}
@@ -426,7 +462,7 @@ const shouldRenderAllVariants = !sections;
           
           // Check if this is Dela AI item (automatic detection)
           const isDelaAI = title === 'Dela AI' || 
-            (link.querySelector('.right-sidebar__icon img[src*="DStar_LM.svg"]') !== null);
+            (link.querySelector('.right-sidebar__dela-logo') !== null);
           
           // Determine if gradient should be applied
           const shouldUseGradient = useGradientHeader || isDelaAI;
@@ -453,7 +489,7 @@ const shouldRenderAllVariants = !sections;
               titleElement.textContent = title;
             }
 
-            // For Dela panel opened from DStar_LM: only gradient and title were set above; do not replace icon or content
+            // For Dela panel opened from Dela AI item: only gradient and title were set above; do not replace icon or content
             if (!preserveDelaLayout) {
               // Update icon - find the icon container and update the icon
               const iconContainer = rightPanel.querySelector('[data-panel-icon-container]') as HTMLElement | null;

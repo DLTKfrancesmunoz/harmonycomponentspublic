@@ -351,6 +351,8 @@ import type { Props as CardProps } from '@deltek/harmony-components/ui/Card.astr
 
 This package is maintained by the Deltek Design Systems team. For issues, feature requests, or contributions, please contact the design systems team or open an issue in the GitHub repository.
 
+**MCP data and documentation sync:** When you change components or styles in this repo, just commit and push. MCP data updates automatically—a pre-commit hook regenerates and stages `mcp-data/` when you commit relevant files, and the GitHub Action does the same on push to `main`. You don't need to run `npm run generate:mcp-data` or any other command.
+
 ## License
 
 UNLICENSED - Internal use only for Deltek projects.

@@ -1,0 +1,8 @@
+#!/bin/sh
+# Run MCP data generation when staged files affect components, styles, tokens, layouts, or generation scripts.
+# Matches the same paths as .github/workflows/generate-mcp-data.yml
+
+if git diff --cached --name-only | grep -qE '^src/components/ui/|^src/styles/|^src/tokens/|^src/layouts/|^scripts/(generate-mcp-data|extract-design-tokens|generate-layout-data|generate-manifest|css-parser|visual-spec-extractor)\.js$'; then
+  npm run generate:mcp-data
+  git add mcp-data/
+fi

@@ -13,7 +13,8 @@ const delaDemoSections = [
       { 
         label: 'Dela AI', 
         isCustom: true, 
-        customSrc: '/DStar_LM.svg',
+        customSrc: '/RS_DelaDefault.svg',
+        customSrcActive: '/RS_Dela_Active.svg',
         panelTitle: 'Dela AI',
         useGradientHeader: true
       },
@@ -230,11 +231,11 @@ const delaDemoSections = [
         <div>
           <h3 class="text-lg font-semibold text-primary mb-2">Accessing the Dela Panel</h3>
           <p class="text-sm text-secondary mb-4">
-            The Dela AI panel is accessible from the right sidebar in all themes. The Dela icon (DStar_LM.svg) appears as the first icon in the first section of the right sidebar.
+            The Dela AI panel is accessible from the right sidebar in all themes. The Dela icon (RS_DelaDefault.svg default, RS_Dela_Active.svg when active) appears as the first icon in the first section of the right sidebar.
           </p>
           <ul class="space-y-2 text-sm text-secondary">
             <li>• <strong>Location:</strong> Right sidebar, first icon in Section 1</li>
-            <li>• <strong>Icon:</strong> DStar_LM.svg (36px with 12px rounded corners; active state: gradient background on item, white inverted icon)</li>
+            <li>• <strong>Icon:</strong> RS_DelaDefault.svg (default), RS_Dela_Active.svg (active); 36px with 12px rounded corners; active state: gradient background on item</li>
             <li>• <strong>Label:</strong> "Dela AI" (visible on hover when sidebar expands)</li>
             <li>• <strong>Activation:</strong> Click the icon to open the panel</li>
           </ul>
@@ -291,7 +292,7 @@ const delaDemoSections = [
             The Dela panel integrates seamlessly with the right sidebar component:
           </p>
           <ul class="space-y-2 text-sm text-secondary">
-            <li>• <strong>Automatic Detection:</strong> The RightSidebar component automatically detects the Dela AI item by checking for "Dela AI" title or DStar_LM.svg image</li>
+            <li>• <strong>Automatic Detection:</strong> The RightSidebar component automatically detects the Dela AI item by checking for "Dela AI" title or .right-sidebar__dela-logo</li>
             <li>• <strong>Gradient Header:</strong> When Dela is clicked, the panel header automatically receives the gradient styling</li>
             <li>• <strong>Active State:</strong> The Dela icon in the sidebar shows an active state when the panel is open</li>
             <li>• <strong>Theme Support:</strong> Works consistently across all themes (CP, VP, PPM, Maconomy)</li>
@@ -547,9 +548,7 @@ const delaDemoSections = [
   .dela-demo-container :global(.right-sidebar[data-panel-open="true"] .right-sidebar__item[data-active="true"]:has(.right-sidebar__dela-logo) .right-sidebar__icon) {
     color: var(--text-inverse);
   }
-  .dela-demo-container :global(.right-sidebar[data-panel-open="true"] .right-sidebar__item[data-active="true"]:has(.right-sidebar__dela-logo) .right-sidebar__icon .right-sidebar__dela-logo) {
-    filter: brightness(0) invert(1);
-  }
+  /* Active Dela uses RS_Dela_Active.svg in demo; no filter */
 
   /* Sidebar sections styling when panel is open */
   .dela-demo-container :global(.right-sidebar[data-panel-open="true"] .right-sidebar__section) {

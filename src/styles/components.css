@@ -5182,6 +5182,19 @@ html.dark .left-sidebar__item:hover {
   border-radius: 12px;
 }
 
+/* Two-image Dela logo: show default when not active, active when item has data-active */
+.right-sidebar__dela-logo--active {
+  display: none;
+}
+
+.right-sidebar__item[data-active="true"]:has(.right-sidebar__dela-logo) .right-sidebar__dela-logo--default {
+  display: none;
+}
+
+.right-sidebar__item[data-active="true"]:has(.right-sidebar__dela-logo) .right-sidebar__dela-logo--active {
+  display: block;
+}
+
 .right-sidebar__label {
   font-family: var(--font-sans);
   font-size: var(--text-sm);
@@ -5265,7 +5278,7 @@ html.dark .left-sidebar__item:hover {
   background-color: var(--theme-primary-hover);
 }
 
-/* Active Dela item: gradient background on item (same pattern as other icons), white inverted icon */
+/* Active Dela item: gradient background on item (same pattern as other icons) */
 .right-sidebar[data-panel-open="true"] .right-sidebar__item[data-active="true"]:has(.right-sidebar__dela-logo) {
   background: var(--linear-new, linear-gradient(136deg, #00BBC6 9.15%, #7133FF 57.36%, #CD21FF 80.6%));
   border-radius: 12px;
@@ -5281,9 +5294,7 @@ html.dark .left-sidebar__item:hover {
   color: var(--text-inverse);
 }
 
-.right-sidebar[data-panel-open="true"] .right-sidebar__item[data-active="true"]:has(.right-sidebar__dela-logo) .right-sidebar__icon .right-sidebar__dela-logo {
-  filter: brightness(0) invert(1);
-}
+/* Active Dela uses RS_Dela_Active.svg (no filter); default uses RS_DelaDefault.svg */
 
 /* Dark mode adjustments for all themes */
 /* Dark mode handled by --shadow-xl token */
