@@ -134,13 +134,13 @@
     ]
   },
   "usagePatterns": {
-    "theme-variant-icons": "Each theme variant (cp, vp, ppm, maconomy) has its own predefined icon set. All themes start with D_64x64.svg custom logo as the first item. CP has 3 sections with 3, 2, and 4 items (lines 42-64). VP, PPM, and Maconomy have 3 sections with 8, 3, and 3 items respectively (currently identical configurations). The appropriate variant is shown via CSS based on html theme class (lines 369-393).",
-    "custom-icon-support": "Navigation items support two icon approaches: standard Icon component (icon: 'icon-name') or custom images (isCustom: true, customSrc: '/path/to/image.svg') like the D_64x64.svg logo. Custom images are rendered as <img> tags with class right-sidebar__dela-logo, while standard icons use the Icon component. All theme variants automatically include the Dela AI custom logo as the first item.",
-    "panel-data-attributes": "Items use data attributes to control ShellPanel behavior: panelTitle (defaults to label), panelIcon (defaults to item icon), panelContentId (optional identifier), and useGradientHeader (boolean). The script automatically detects Dela AI items (by title or D_64x64.svg icon) and applies gradient header without explicit useGradientHeader attribute (lines 423-428)."
+    "theme-variant-icons": "Each theme variant (cp, vp, ppm, maconomy) has its own predefined icon set. All themes start with DStar_LM.svg custom logo as the first item. CP has 3 sections with 3, 2, and 4 items (lines 42-64). VP, PPM, and Maconomy have 3 sections with 8, 3, and 3 items respectively (currently identical configurations). The appropriate variant is shown via CSS based on html theme class (lines 369-393).",
+    "custom-icon-support": "Navigation items support two icon approaches: standard Icon component (icon: 'icon-name') or custom images (isCustom: true, customSrc: '/path/to/image.svg') like the DStar_LM.svg logo. Active state for Dela: gradient background (--linear-new) on item, 12px radius, white inverted icon (same pattern as other icons). Custom images are rendered as <img> tags with class right-sidebar__dela-logo, while standard icons use the Icon component. All theme variants automatically include the Dela AI custom logo as the first item.",
+    "panel-data-attributes": "Items use data attributes to control ShellPanel behavior: panelTitle (defaults to label), panelIcon (defaults to item icon), panelContentId (optional identifier), and useGradientHeader (boolean). The script automatically detects Dela AI items (by title or DStar_LM.svg icon) and applies gradient header without explicit useGradientHeader attribute. When the opened panel has data-dela-panel=\"true\" and the clicked item is Dela (DStar_LM.svg), only gradient and title are updated; header icon and content are left as pre-rendered. Dela active state: gradient background on item, 12px radius, white inverted icon. The right sidebar does not scroll; only the panel content scrolls (scrollbar is between the panel header and the chat message box). Dela panel content area, suggested cards, and input box use design tokens (theme and dark mode). Pencil (New chat) and Help icons are above the first message, left-aligned (dela-panel__toolbar). The input is in a bottom-docked input box with attach (paperclip), microphone, and send icons."
   },
   "requiredPublicAssets": {
     "description": "Dela logo and design-system-only icons for default sections. Copy from node_modules/@deltek/harmony-components/public/ into the app's public/. Re-copy after upgrading the package.",
-    "paths": ["D_64x64.svg", "related.svg", "template.svg"]
+    "paths": ["DStar_LM.svg", "related.svg", "template.svg"]
   },
   "_metadata": {
     "lastGenerated": "2026-01-29T17:20:26.063Z",
@@ -646,7 +646,7 @@
     ".right-sidebar__dela-logo": {
       "width": "36px",
       "height": "36px",
-      "border-radius": "50%"
+      "border-radius": "12px"
     },
     ".right-sidebar__label": {
       "font-family": "'Figtree', sans-serif",
@@ -703,6 +703,17 @@
     },
     ".right-sidebar[data-panel-open=\"true\"] .right-sidebar__item[data-active=\"true\"]:hover": {
       "background-color": "#3D7BC4"
+    },
+    ".right-sidebar[data-panel-open=\"true\"] .right-sidebar__item[data-active=\"true\"]:has(.right-sidebar__dela-logo)": {
+      "background": "var(--linear-new, linear-gradient(136deg, #00BBC6 9.15%, #7133FF 57.36%, #CD21FF 80.6%))",
+      "border-radius": "12px",
+      "color": "#FFFFFF"
+    },
+    ".right-sidebar[data-panel-open=\"true\"] .right-sidebar__item[data-active=\"true\"]:has(.right-sidebar__dela-logo) .right-sidebar__icon": {
+      "color": "#FFFFFF"
+    },
+    ".right-sidebar[data-panel-open=\"true\"] .right-sidebar__item[data-active=\"true\"]:has(.right-sidebar__dela-logo) .right-sidebar__icon .right-sidebar__dela-logo": {
+      "filter": "brightness(0) invert(1)"
     },
     "html.dark .right-sidebar__item:hover": {
       "background-color": "#E5E7EB"

@@ -81,7 +81,9 @@ npm install heroicons @tabler/icons
 
 | Asset | Purpose |
 |-------|---------|
-| `D_64x64.svg` | Dela AI logo (first item in right sidebar) |
+| `DStar_LM.svg` | Dela AI logo (first item in right sidebar). Active state: gradient background (--linear-new), 12px radius, white inverted icon. |
+| `DelaChat.svg` | Dela panel content (circular icon next to Dela's messages) |
+| `Stars.svg` | Dela button variants (dela, dela-pill) |
 | `Risk Shield.svg` | Left sidebar (PPM/VP/Maconomy) |
 | `Report.svg` | Left sidebar (PPM/VP/Maconomy) |
 | `Resource.svg` | Left sidebar (PPM/VP/Maconomy) |
@@ -92,7 +94,9 @@ Optional (if using ShellHeader’s default `logoSrc`): `logos/CPVPLogo.svg`, `lo
 
 ```bash
 # From your project root – copy required assets from the package
-cp node_modules/@deltek/harmony-components/public/D_64x64.svg public/
+cp node_modules/@deltek/harmony-components/public/DStar_LM.svg public/
+cp node_modules/@deltek/harmony-components/public/DelaChat.svg public/
+cp node_modules/@deltek/harmony-components/public/Stars.svg public/
 cp node_modules/@deltek/harmony-components/public/Risk\ Shield.svg public/
 cp node_modules/@deltek/harmony-components/public/Report.svg public/
 cp node_modules/@deltek/harmony-components/public/Resource.svg public/

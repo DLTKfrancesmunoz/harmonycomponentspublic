@@ -44,6 +44,11 @@
       "optional": true,
       "default": "true"
     },
+    "variant": {
+      "type": "'default' | 'dela'",
+      "optional": true,
+      "default": "'default'"
+    },
     "id": {
       "type": "string",
       "optional": true,
@@ -72,7 +77,26 @@
     "shell-panel__icon-minimize",
     "shell-panel__action--popout",
     "shell-panel__action--close",
-    "shell-panel__content"
+    "shell-panel__content",
+    "dela-panel__body",
+    "dela-panel__scroll",
+    "dela-panel__toolbar",
+    "dela-panel__toolbar-action",
+    "dela-panel__message-row",
+    "dela-panel__message-row--user",
+    "dela-panel__message-icon",
+    "dela-panel__bubble",
+    "dela-panel__bubble--dela",
+    "dela-panel__bubble--user",
+    "dela-panel__avatar",
+    "dela-panel__suggested-label",
+    "dela-panel__suggested-cards",
+    "dela-panel__suggested-card",
+    "dela-panel__input-row",
+    "dela-panel__input-box",
+    "dela-panel__input",
+    "dela-panel__input-action",
+    "dela-panel__footer"
   ],
   "themeSupport": {
     "themes": [
@@ -143,7 +167,8 @@
     "header-variant-capabilities": "The headerVariant prop controls header appearance and features. 'theme' (default) provides gradient-capable header with popout button (showPopout=true), width toggle, and close button—designed for sidebar integration. 'default' provides simple header styling without gradient support or popout functionality. Only theme variant headers respond to data-gradient-header attribute for Dela AI styling (lines 70-113).",
     "width-modes-behavior": "Panel supports two width modes via width prop: 'narrow' (default) provides focused side panel width, 'full' expands to maximum available width. Users can toggle between modes using the arrows-pointing-out/arrows-pointing-in button (data-panel-toggle-width, lines 156-174). The toggle dynamically updates classes (shell-panel--narrow/shell-panel--full) and data-width attribute.",
     "header-slot-override": "The header slot (lines 67-68) completely replaces the default header structure including title, icon, and all action buttons. When using header slot, you are responsible for providing your own close/popout/width-toggle functionality. The default header (lines 70-113) provides complete panel management UI with icon container, title, and action buttons.",
-    "dynamic-updates-api": "Global functions updateShellPanel(selector, title, icon), openShellPanel(selector), and closeShellPanel(selector) enable programmatic panel control. The sidebar components use these APIs to dynamically update panel content when navigation items are clicked (lines 177-222). Data attributes data-panel-icon-container and data-panel-close enable this dynamic behavior."
+    "dynamic-updates-api": "Global functions updateShellPanel(selector, title, icon), openShellPanel(selector), and closeShellPanel(selector) enable programmatic panel control. The sidebar components use these APIs to dynamically update panel content when navigation items are clicked (lines 177-222). Data attributes data-panel-icon-container and data-panel-close enable this dynamic behavior.",
+    "dela-variant": "When variant=\"dela\", the panel is for the Digital Assistant (Ask Dela). The panel root gets data-dela-panel=\"true\". The right sidebar does not scroll; only the panel content scrolls. The shell panel scrollbar is between the header and the chat message box (scrollable region is dela-panel__scroll; header and input row stay fixed). The gradient header (data-gradient-header=\"true\") content (title, icons) always uses light color for contrast in all themes and dark mode (token --dela-header-content-fg). The header shows title and actions (toggle width, close) only; pencil (New chat) and question-mark (Help) icons are in a left-aligned toolbar (dela-panel__toolbar, dela-panel__toolbar-action) with no top padding, directly under the header, above the first message. Content area, suggested cards, and input box use design tokens (--dela-panel-content-bg, --dela-panel-card-bg, --dela-panel-input-bg) for theme and dark mode. User avatar uses theme primary (--dela-panel-avatar-bg) with rounded corners (border-radius: var(--radius-lg)), not circular and not square. The input is docked to the bottom in a single input box (dela-panel__input-box) with attach, microphone, and send icons (dela-panel__input-action). RightSidebar only sets gradient and title when opening from DStar_LM.svg and does not replace header or content. Dela icon active state: gradient background (--linear-new) on item, 12px radius, white inverted icon. Full example on the Dela foundation page."
   },
   "_metadata": {
     "lastGenerated": "2026-01-29T17:20:26.103Z",
@@ -154,7 +179,8 @@
       "right",
       "narrow",
       "theme",
-      "default"
+      "default",
+      "dela"
     ]
   },
   "visualSpecifications": {
@@ -797,16 +823,16 @@
     },
     ".shell-panel__header[data-gradient-header=\"true\"]": {
       "background": "linear-gradient(119deg, #8A33C2 17.59%, #423FE2 77.78%)",
-      "color": "#FFFFFF"
+      "color": "var(--dela-header-content-fg)"
     },
     ".shell-panel__header[data-gradient-header=\"true\"] .shell-panel__title": {
-      "color": "#FFFFFF"
+      "color": "var(--dela-header-content-fg)"
     },
     ".shell-panel__header[data-gradient-header=\"true\"] .shell-panel__header-icon": {
-      "color": "#FFFFFF"
+      "color": "var(--dela-header-content-fg)"
     },
     ".shell-panel__header[data-gradient-header=\"true\"] .shell-panel__action": {
-      "color": "#FFFFFF"
+      "color": "var(--dela-header-content-fg)"
     },
     ".shell-panel__header[data-gradient-header=\"true\"] .shell-panel__action:hover": {
       "background-color": "rgba(255, 255, 255, 0.1)"
@@ -940,6 +966,71 @@
     },
     ".shell-panel__content::-webkit-scrollbar-thumb:hover": {
       "background-color": "#525969"
+    },
+    ".shell-panel[data-dela-panel=\"true\"] .shell-panel__content": {
+      "background-color": "var(--dela-panel-content-bg)"
+    },
+    ".dela-panel__suggested-card": {
+      "background-color": "var(--dela-panel-card-bg)"
+    },
+    ".dela-panel__input-box": {
+      "background-color": "var(--dela-panel-input-bg)"
+    },
+    ".dela-panel__bubble--dela": {
+      "background-color": "rgba(138, 51, 194, 0.12)"
+    },
+    ".dela-panel__bubble--user": {
+      "background-color": "rgba(100, 116, 139, 0.15)"
+    },
+    ".dela-panel__avatar": {
+      "border-radius": "var(--radius-lg)"
+    }
+  },
+  "delaVariantSpec": {
+    "description": "When variant=\"dela\", the default slot content uses the following assets, icons, colors, and typography. The right sidebar does not scroll; only the panel content scrolls. The shell panel scrollbar is between the header and the chat message box (scrollable region is dela-panel__scroll). The gradient header content (title, icons) always uses light color for contrast in all themes and dark mode (token --dela-header-content-fg). The header shows title and width/close actions only; pencil (New chat) and question-mark (Help) icons are in a left-aligned toolbar (dela-panel__toolbar, dela-panel__toolbar-action) with no top margin or padding, directly under the header, above the first message. User avatar has rounded corners (border-radius: var(--radius-lg)), not circular and not square. Full example on the Dela foundation page.",
+    "scrollBehavior": "Only the panel content scrolls; the right sidebar is fixed and does not scroll. The scrollbar appears in the region between the header and the chat message box (dela-panel__scroll).",
+    "requiredPublicAssets": {
+      "description": "Copy into app public/ when using Dela panel content.",
+      "paths": [
+        "DelaChat.svg"
+      ],
+      "usage": {
+        "DelaChat.svg": "Dela message icon (dela-panel__message-icon), shown next to Dela messages; size var(--space-10)."
+      }
+    },
+    "icons": {
+      "header": ["arrows-pointing-out", "arrows-pointing-in", "x-mark"],
+      "headerLabels": ["Toggle width", "Close"],
+      "toolbarAboveFirstMessage": ["pencil", "question-mark-circle"],
+      "toolbarLabels": ["New chat", "Help"],
+      "inputBox": ["paper-clip", "microphone", "paper-airplane"],
+      "inputBoxLabels": ["Attach", "Microphone", "Send"],
+      "footer": "information-circle"
+    },
+    "colors": {
+      "headerContentFg": "var(--dela-header-content-fg)",
+      "contentArea": "var(--dela-panel-content-bg)",
+      "suggestedCard": "var(--dela-panel-card-bg)",
+      "inputBox": "var(--dela-panel-input-bg)",
+      "delaBubble": "var(--dela-bubble-bg) / rgba(138, 51, 194, 0.12)",
+      "userBubble": "var(--dela-user-bubble-bg) / rgba(100, 116, 139, 0.15)",
+      "avatarBackground": "var(--dela-panel-avatar-bg)",
+      "suggestedLabel": "var(--text-secondary)",
+      "inputPlaceholder": "var(--text-secondary)",
+      "inputText": "var(--text-primary)"
+    },
+    "typography": {
+      "messageBubble": "var(--text-sm), var(--leading-normal), var(--text-primary)",
+      "suggestedLabel": "var(--text-sm), var(--font-semibold)",
+      "suggestedCard": "var(--text-sm), var(--text-primary)",
+      "input": "var(--text-sm)"
+    },
+    "avatar": {
+      "class": "dela-panel__avatar",
+      "size": "var(--space-8)",
+      "borderRadius": "var(--radius-lg)",
+      "background": "var(--dela-panel-avatar-bg)",
+      "usage": "User avatar next to user messages (dela-panel__message-row--user). Rounded corners (border-radius: var(--radius-lg)), not circular and not square. Use a container (e.g. div with class dela-panel__avatar) with background from token and Icon name=\"user\" for theme-aware primary color; optional asset Header Avatar.svg if using image."
     }
   },
   "_variantIndex": {
@@ -1446,7 +1537,8 @@
       "right",
       "narrow",
       "theme",
-      "default"
+      "default",
+      "dela"
     ]
   }
 }

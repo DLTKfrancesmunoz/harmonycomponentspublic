@@ -32,6 +32,8 @@ export interface Props {
   width?: 'narrow' | 'full';
   showClose?: boolean;
   showPopout?: boolean;
+  /** When 'dela', panel is for the Digital Assistant; RightSidebar only sets gradient and title and does not replace header/content when opening from D_64x64. */
+  variant?: 'default' | 'dela';
   id?: string;
   class?: string;
 }
@@ -45,6 +47,7 @@ const {
   width = 'narrow',
   showClose = true,
   showPopout = true,
+  variant = 'default',
   id,
   class: className = '',
 } = Astro.props;
@@ -68,7 +71,7 @@ const headerClasses = [
 const hasHeaderSlot = Astro.slots.has('header');
 ---
 
-<div id={id} class:list={panelClasses} data-side={side} data-open={open} data-width={width}>
+<div id={id} class:list={panelClasses} data-side={side} data-open={open} data-width={width} data-dela-panel={variant === 'dela' ? 'true' : undefined}>
   {hasHeaderSlot ? (
     <slot name="header" />
   ) : (

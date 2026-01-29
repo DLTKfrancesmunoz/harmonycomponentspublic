@@ -119,7 +119,7 @@
     "loading-state-behavior": "When loading is true, the button displays a spinner and optional loadingText, completely replacing any icon and default slot content. The button is automatically disabled (disabled || loading) to prevent multiple submissions. Set loadingText prop to show text alongside the spinner during loading.",
     "icon-size-mapping": "Button sizes (xs, sm, md, lg) map to icon sizes using iconSizeMap: xs→xs(12px), sm→sm(16px), md→sm(16px), lg→md(20px). The Icon component automatically receives the appropriate size prop based on the button size, ensuring visual consistency without manual size specification.",
     "href-button-element": "When href prop is provided, the component renders an <a> tag instead of <button> tag, maintaining identical visual styling and behavior. This allows buttons to function as navigation links while preserving semantics. The type prop is ignored when href is set, as <a> tags don't have a type attribute.",
-    "dela-variants": "Dela variants (dela, dela-pill) use the Dela gradient background and Stars graphic for launching AI or Dela features. variant='dela' uses 4px border radius; variant='dela-pill' is fully rounded. Both render the Stars image left of the label. Do not use buttonType='pageHeader' with Dela variants."
+    "dela-variants": "Dela variants (dela, dela-pill) use the Dela gradient background and Stars graphic for launching AI or Dela features. variant='dela' uses 4px border radius; variant='dela-pill' is fully rounded. Both render the Stars image left of the label. Text and icon color use --dela-header-content-fg so they stay white in light and dark mode. Do not use buttonType='pageHeader' with Dela variants."
   },
   "_metadata": {
     "lastGenerated": "2026-01-29T17:20:25.725Z",
@@ -3050,6 +3050,14 @@
       "outline": "1px solid #F7F8FA",
       "outline-offset": "0",
       "box-shadow": "0 0 0 1px #BFC6D4, 0 0 0 3px rgba(216, 49, 72, 0.32)"
+    },
+    ".btn--dela": {
+      "background": "var(--gradient-dela)",
+      "color": "var(--dela-header-content-fg)"
+    },
+    ".btn--dela-pill": {
+      "background": "var(--gradient-dela)",
+      "color": "var(--dela-header-content-fg)"
     },
     ".btn:disabled,\n.btn--disabled": {
       "cursor": "not-allowed",

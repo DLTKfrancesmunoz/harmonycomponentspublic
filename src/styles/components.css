@@ -327,7 +327,7 @@
 .btn--dela {
   position: relative;
   background: var(--gradient-dela);
-  color: var(--text-inverse);
+  color: var(--dela-header-content-fg);
   border: none;
   border-radius: var(--radius-04);
 }
@@ -358,7 +358,7 @@
 
 .btn--dela-pill {
   background: var(--gradient-dela);
-  color: var(--text-inverse);
+  color: var(--dela-header-content-fg);
   border: none;
   border-radius: var(--radius-full);
   position: relative;
@@ -5109,6 +5109,7 @@ html.dark .left-sidebar__item:hover {
 /* ===========================================
    UNIFIED RIGHT SIDEBAR (All Themes)
    =========================================== */
+/* The right sidebar does not scroll; it stays fixed. Only the shell panel content scrolls. */
 
 .right-sidebar {
   position: fixed;
@@ -5178,7 +5179,7 @@ html.dark .left-sidebar__item:hover {
 .right-sidebar__dela-logo {
   width: 36px;
   height: 36px;
-  border-radius: 50%;
+  border-radius: 12px;
 }
 
 .right-sidebar__label {
@@ -5262,6 +5263,26 @@ html.dark .left-sidebar__item:hover {
 
 .right-sidebar[data-panel-open="true"] .right-sidebar__item[data-active="true"]:hover {
   background-color: var(--theme-primary-hover);
+}
+
+/* Active Dela item: gradient background on item (same pattern as other icons), white inverted icon */
+.right-sidebar[data-panel-open="true"] .right-sidebar__item[data-active="true"]:has(.right-sidebar__dela-logo) {
+  background: var(--linear-new, linear-gradient(136deg, #00BBC6 9.15%, #7133FF 57.36%, #CD21FF 80.6%));
+  border-radius: 12px;
+  color: var(--text-inverse);
+}
+
+.right-sidebar[data-panel-open="true"] .right-sidebar__item[data-active="true"]:has(.right-sidebar__dela-logo):hover {
+  background: var(--linear-new, linear-gradient(136deg, #00BBC6 9.15%, #7133FF 57.36%, #CD21FF 80.6%));
+  color: var(--text-inverse);
+}
+
+.right-sidebar[data-panel-open="true"] .right-sidebar__item[data-active="true"]:has(.right-sidebar__dela-logo) .right-sidebar__icon {
+  color: var(--text-inverse);
+}
+
+.right-sidebar[data-panel-open="true"] .right-sidebar__item[data-active="true"]:has(.right-sidebar__dela-logo) .right-sidebar__icon .right-sidebar__dela-logo {
+  filter: brightness(0) invert(1);
 }
 
 /* Dark mode adjustments for all themes */
@@ -5832,7 +5853,7 @@ html.dark .right-sidebar__item:hover {
 }
 
 .shell-layout .shell-panel--full {
-  width: 100vw; /* Fill full browser width */
+  width: var(--shell-panel-width-full);
 }
 
 /* When right panel is full-width, it should go over the left sidebar */
@@ -5914,19 +5935,19 @@ div.shell-panel__header.shell-panel__header--theme,
 /* Gradient header variant - applies when data-gradient-header="true" */
 .shell-panel__header[data-gradient-header="true"] {
   background: var(--gradient-dela);
-  color: var(--text-inverse);
+  color: var(--dela-header-content-fg);
 }
 
 .shell-panel__header[data-gradient-header="true"] .shell-panel__title {
-  color: var(--text-inverse);
+  color: var(--dela-header-content-fg);
 }
 
 .shell-panel__header[data-gradient-header="true"] .shell-panel__header-icon {
-  color: var(--text-inverse);
+  color: var(--dela-header-content-fg);
 }
 
 .shell-panel__header[data-gradient-header="true"] .shell-panel__action {
-  color: var(--text-inverse);
+  color: var(--dela-header-content-fg);
 }
 
 .shell-panel__header[data-gradient-header="true"] .shell-panel__action:hover {
@@ -6068,7 +6089,7 @@ div.shell-panel__header.shell-panel__header--theme,
   box-shadow: var(--focus-ring-primary);
 }
 
-/* Content area */
+/* Content area - only the panel content scrolls; the right sidebar does not scroll */
 .shell-panel__content {
   flex: 1;
   overflow-y: auto;
@@ -6111,6 +6132,231 @@ div.shell-panel__header.shell-panel__header--theme,
 
 .shell-panel__content::-webkit-scrollbar-thumb:hover {
   background-color: var(--text-secondary);
+}
+
+/* Dela panel content area (Ask Dela / Digital Assistant) - use design tokens only.
+   No scroll on this wrapper so only dela-panel__scroll (between header and chat message box) scrolls. */
+.shell-panel[data-dela-panel="true"] .shell-panel__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-height: 0;
+  overflow: hidden;
+  background-color: var(--dela-panel-content-bg);
+}
+
+.dela-panel__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  padding: 0 var(--space-4) var(--space-4);
+  gap: var(--space-4);
+}
+
+/* Scrollable chat region inside the panel only; right sidebar stays fixed and does not scroll */
+.dela-panel__scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.dela-panel__scroll::-webkit-scrollbar {
+  width: var(--space-2);
+}
+
+.dela-panel__scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dela-panel__scroll::-webkit-scrollbar-thumb {
+  background-color: var(--border-color);
+  border-radius: var(--radius-04);
+}
+
+.dela-panel__scroll::-webkit-scrollbar-thumb:hover {
+  background-color: var(--text-secondary);
+}
+
+.dela-panel__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+.dela-panel__toolbar-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-1-5);
+  border: none;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.dela-panel__toolbar-action:hover {
+  color: var(--text-primary);
+  background-color: var(--elevated-bg);
+}
+
+.dela-panel__toolbar-action:focus-visible {
+  outline: 2px solid var(--theme-primary);
+  outline-offset: 2px;
+}
+
+.dela-panel__message-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.dela-panel__message-row--user {
+  flex-direction: row-reverse;
+}
+
+.dela-panel__message-icon {
+  flex-shrink: 0;
+  width: var(--space-10);
+  height: var(--space-10);
+  object-fit: contain;
+}
+
+.dela-panel__bubble {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-xl);
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+  color: var(--text-primary);
+  max-width: 85%;
+}
+
+.dela-panel__bubble--dela {
+  background-color: var(--dela-bubble-bg);
+}
+
+.dela-panel__bubble--user {
+  background-color: var(--dela-user-bubble-bg);
+}
+
+/* Dela panel user avatar - container pattern (primary color, theme-aware); rounded corners, not circular */
+.dela-panel__avatar {
+  flex-shrink: 0;
+  width: var(--space-8);
+  height: var(--space-8);
+  min-width: var(--space-8);
+  min-height: var(--space-8);
+  border-radius: var(--radius-lg);
+  background-color: var(--dela-panel-avatar-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-inverse);
+}
+
+.dela-panel__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.dela-panel__suggested-label {
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-2);
+}
+
+.dela-panel__suggested-cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.dela-panel__suggested-card {
+  padding: var(--space-3) var(--space-4);
+  border: var(--border-width-thin) solid var(--border-color);
+  border-radius: var(--radius-lg);
+  background-color: var(--dela-panel-card-bg);
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}
+
+.dela-panel__input-row {
+  display: flex;
+  align-items: center;
+  padding: var(--space-2) 0;
+  flex-shrink: 0;
+}
+
+.dela-panel__input-box {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-1) var(--space-3);
+  border: var(--border-width-thin) solid var(--border-color);
+  border-radius: var(--radius-lg);
+  background-color: var(--dela-panel-input-bg);
+}
+
+.dela-panel__input-box .dela-panel__input {
+  flex: 1;
+  min-width: 0;
+  padding: var(--space-2) 0;
+  border: none;
+  border-radius: 0;
+  font-size: var(--text-sm);
+  background-color: transparent;
+  color: var(--text-primary);
+}
+
+.dela-panel__input-box .dela-panel__input::placeholder {
+  color: var(--text-secondary);
+}
+
+.dela-panel__input-box .dela-panel__input:focus {
+  outline: none;
+}
+
+.dela-panel__input-action {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-1);
+  border: none;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.dela-panel__input-action:hover {
+  color: var(--text-primary);
+  background-color: var(--elevated-bg);
+}
+
+.dela-panel__input-action:focus-visible {
+  outline: 2px solid var(--theme-primary);
+  outline-offset: 2px;
+}
+
+.dela-panel__footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  padding: var(--space-2) 0;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  flex-shrink: 0;
 }
 
 
