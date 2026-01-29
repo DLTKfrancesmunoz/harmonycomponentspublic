@@ -10,11 +10,12 @@ This guide explains how to set up the four-tier customization system in your pro
 
 1. [Overview](#overview)
 2. [Initial Setup](#initial-setup)
-3. [Directory Structure](#directory-structure)
-4. [Helper Scripts](#helper-scripts)
-5. [Package.json Scripts](#packagejson-scripts)
-6. [Your First Customization](#your-first-customization)
-7. [Verification](#verification)
+3. [Icons and Static Assets (Shell Layout)](#icons-and-static-assets-shell-layout)
+4. [Directory Structure](#directory-structure)
+5. [Helper Scripts](#helper-scripts)
+6. [Package.json Scripts](#packagejson-scripts)
+7. [Your First Customization](#your-first-customization)
+8. [Verification](#verification)
 
 ---
 
@@ -65,6 +66,41 @@ Add these scripts to your `package.json`:
   }
 }
 ```
+
+### Step 4: Install Peer Dependencies (Shell Layout / Sidebars)
+
+If you use Shell Layout with default left or right sidebars, install the icon libraries and copy design-system-only assets so all sidebar icons display.
+
+**Install peer dependencies** (in your project):
+
+```bash
+npm install heroicons @tabler/icons
+```
+
+**Copy required public assets** from the package into your app’s `public/` folder. These are the icons that are always missing until you copy them (custom names and the Dela logo are not in Heroicons/Tabler):
+
+| Asset | Purpose |
+|-------|---------|
+| `D_64x64.svg` | Dela AI logo (first item in right sidebar) |
+| `Risk Shield.svg` | Left sidebar (PPM/VP/Maconomy) |
+| `Report.svg` | Left sidebar (PPM/VP/Maconomy) |
+| `Resource.svg` | Left sidebar (PPM/VP/Maconomy) |
+| `related.svg` | Right sidebar (PPM/VP/Maconomy) |
+| `template.svg` | Right sidebar (PPM/VP/Maconomy) |
+
+Optional (if using ShellHeader’s default `logoSrc`): `logos/CPVPLogo.svg`, `logos/PPMLogo.svg`, `logos/MacLogo.svg`.
+
+```bash
+# From your project root – copy required assets from the package
+cp node_modules/@deltek/harmony-components/public/D_64x64.svg public/
+cp node_modules/@deltek/harmony-components/public/Risk\ Shield.svg public/
+cp node_modules/@deltek/harmony-components/public/Report.svg public/
+cp node_modules/@deltek/harmony-components/public/Resource.svg public/
+cp node_modules/@deltek/harmony-components/public/related.svg public/
+cp node_modules/@deltek/harmony-components/public/template.svg public/
+```
+
+**Re-copy after upgrading.** When you upgrade the design system package (`npm update @deltek/harmony-components` or reinstall), the package’s `public/` folder gets updated (e.g. new or replaced logos). Re-run the copy commands above (or use a copy script) so your app’s `public/` stays in sync with the design system’s icons and logos.
 
 ---
 

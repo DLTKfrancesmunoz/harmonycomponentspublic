@@ -5,7 +5,7 @@
   "description": "Button Component",
   "props": {
     "variant": {
-      "type": "'primary' | 'secondary' | 'tertiary' | 'outline' | 'ghost' | 'destructive'",
+      "type": "'primary' | 'secondary' | 'tertiary' | 'outline' | 'ghost' | 'destructive' | 'dela' | 'dela-pill'",
       "optional": true,
       "default": "'primary'"
     },
@@ -78,6 +78,7 @@
   ],
   "cssClasses": [
     "btn__spinner",
+    "btn__dela-stars",
     "opacity-25",
     "opacity-75"
   ],
@@ -117,7 +118,8 @@
     "icon-only-detection": "When an icon prop is provided but no text content is passed to the default slot and loading is false, the button automatically switches to icon-only mode using btn--icon-{size} classes instead of btn--{size} classes. This ensures proper square dimensions and centering for icon-only buttons.",
     "loading-state-behavior": "When loading is true, the button displays a spinner and optional loadingText, completely replacing any icon and default slot content. The button is automatically disabled (disabled || loading) to prevent multiple submissions. Set loadingText prop to show text alongside the spinner during loading.",
     "icon-size-mapping": "Button sizes (xs, sm, md, lg) map to icon sizes using iconSizeMap: xs→xs(12px), sm→sm(16px), md→sm(16px), lg→md(20px). The Icon component automatically receives the appropriate size prop based on the button size, ensuring visual consistency without manual size specification.",
-    "href-button-element": "When href prop is provided, the component renders an <a> tag instead of <button> tag, maintaining identical visual styling and behavior. This allows buttons to function as navigation links while preserving semantics. The type prop is ignored when href is set, as <a> tags don't have a type attribute."
+    "href-button-element": "When href prop is provided, the component renders an <a> tag instead of <button> tag, maintaining identical visual styling and behavior. This allows buttons to function as navigation links while preserving semantics. The type prop is ignored when href is set, as <a> tags don't have a type attribute.",
+    "dela-variants": "Dela variants (dela, dela-pill) use the Dela gradient background and Stars graphic for launching AI or Dela features. variant='dela' uses 4px border radius; variant='dela-pill' is fully rounded. Both render the Stars image left of the label. Do not use buttonType='pageHeader' with Dela variants."
   },
   "_metadata": {
     "lastGenerated": "2026-01-29T17:20:25.725Z",
@@ -137,6 +139,8 @@
       "outline",
       "ghost",
       "destructive",
+      "dela",
+      "dela-pill",
       "button",
       "submit",
       "reset"
@@ -5710,6 +5714,8 @@
       "outline",
       "ghost",
       "destructive",
+      "dela",
+      "dela-pill",
       "button",
       "submit",
       "reset"

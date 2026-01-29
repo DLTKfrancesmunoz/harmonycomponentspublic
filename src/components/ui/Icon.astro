@@ -25,6 +25,7 @@ const sizeDimensions: Record<string, { width: number; height: number }> = {
 let svgContent = '';
 let isCustomIcon = false;
 let isFilledIcon = false;
+let isMixedCustomIcon = false; // custom icon with both fill and stroke paths (e.g. mic-slash) — outer svg must not add stroke
 let customViewBox = '0 0 24 24';
 let useComplexSvg = false;
 
@@ -74,7 +75,7 @@ function tryPublic(): boolean {
       isCustomIcon = true;
       const innerContent = pathMatch[1].trim();
 
-      const hasGradients = /url\(#[^)]+\)/.test(innerContent);
+      const hasGradients = /(fill|stroke)="url\(#[^)]+\)"/.test(innerContent);
       const isNonStandardViewBox = customViewBox !== '0 0 24 24';
       useComplexSvg = hasGradients || isNonStandardViewBox;
 
@@ -84,6 +85,7 @@ function tryPublic(): boolean {
         const hasFill = /fill="(#[0-9A-Fa-f]{6}|#[0-9A-Fa-f]{3})"/i.test(innerContent);
         const hasStroke = /stroke="(#[0-9A-Fa-f]{6}|#[0-9A-Fa-f]{3})"/i.test(innerContent);
         isFilledIcon = hasFill && !hasStroke;
+        isMixedCustomIcon = hasFill && hasStroke; // paths have both fill and stroke; don't add outer stroke
 
         const defsMatch = innerContent.match(/(<defs>[\s\S]*?<\/defs>)/);
         const defsContent = defsMatch ? defsMatch[1] : '';
@@ -122,12 +124,12 @@ const dimensions = sizeDimensions[size] || sizeDimensions.md;
     xmlns="http://www.w3.org/2000/svg"
     fill={useComplexSvg ? 'none' : (isFilledIcon ? 'currentColor' : 'none')}
     viewBox={customViewBox}
-    stroke-width={useComplexSvg ? undefined : (isFilledIcon ? undefined : '1.5')}
-    stroke={useComplexSvg ? undefined : (isFilledIcon ? 'none' : 'currentColor')}
+    stroke-width={useComplexSvg || isMixedCustomIcon ? undefined : (isFilledIcon ? undefined : '1.5')}
+    stroke={useComplexSvg ? undefined : (isFilledIcon || isMixedCustomIcon ? 'none' : 'currentColor')}
     width={dimensions.width}
     height={dimensions.height}
     class={className}
-    style={useComplexSvg || isFilledIcon ? undefined : `stroke-width: var(--icon-stroke-width);`}
+    style={useComplexSvg || isFilledIcon || isMixedCustomIcon ? undefined : `stroke-width: var(--icon-stroke-width);`}
     aria-hidden="true"
     data-icon={name}
     set:html={svgContent}

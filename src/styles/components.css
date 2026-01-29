@@ -323,6 +323,78 @@
   box-shadow: var(--focus-ring-error);
 }
 
+/* Dela button variants (AI/Dela features) */
+.btn--dela {
+  position: relative;
+  background: var(--gradient-dela);
+  color: var(--text-inverse);
+  border: none;
+  border-radius: var(--radius-04);
+}
+
+.btn--dela:hover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-dela-hover-bg);
+  border-radius: var(--radius-04);
+  pointer-events: none;
+}
+
+.btn--dela:active {
+  box-shadow: var(--shadow-inset-md);
+}
+
+.btn--dela:focus-visible {
+  outline: 1px solid var(--card-bg);
+  outline-offset: 0;
+  box-shadow: var(--focus-ring-primary);
+}
+
+.btn--dela:disabled,
+.btn--dela.btn--disabled {
+  opacity: 0.6;
+}
+
+.btn--dela-pill {
+  background: var(--gradient-dela);
+  color: var(--text-inverse);
+  border: none;
+  border-radius: var(--radius-full);
+  position: relative;
+}
+
+.btn--dela-pill:hover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-dela-hover-bg);
+  border-radius: var(--radius-full);
+  pointer-events: none;
+}
+
+.btn--dela-pill:active {
+  box-shadow: var(--shadow-inset-md);
+}
+
+.btn--dela-pill:focus-visible {
+  outline: 1px solid var(--card-bg);
+  outline-offset: 0;
+  box-shadow: var(--focus-ring-primary);
+}
+
+.btn--dela-pill:disabled,
+.btn--dela-pill.btn--disabled {
+  opacity: 0.6;
+}
+
+.btn__dela-stars {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  filter: brightness(0) invert(1);
+}
+
 /* Button States */
 .btn:disabled,
 .btn--disabled {
