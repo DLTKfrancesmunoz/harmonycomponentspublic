@@ -286,6 +286,45 @@ This creates bidirectional links:
 - Component → Recipe (via aiContext.typicalCompositions)
 - Recipe → Component (via recipe.components)
 
+## Component JSON Extensions (interactivity and examples)
+
+Component JSON files may include two optional fields for MCP tooling (e.g. get_specs): **interactivity** and **examples**. These are merged at generation time from hand-maintained and recipe-derived data.
+
+### interactivity (optional)
+
+Describes client-side events and state for components that have meaningful interactive behavior.
+
+```typescript
+interface Interactivity {
+  events?: Array<{ name: string; description?: string }>;   // e.g. click, close, change
+  state?: Array<{ name: string; type?: string; description?: string }>;  // e.g. open (boolean), value (string)
+}
+```
+
+- **events**: User-facing or DOM events (e.g. `click`, `close`, `change`). `description` explains when/how the event is triggered.
+- **state**: Client-side state the component manages (e.g. `open` boolean, `value` string). `type` is optional; `description` explains how state is controlled (e.g. CSS class, attribute).
+
+Only components with client-side behavior need this field. Source: **mcp-data/interactivity.json** (component name → interactivity object), merged by the generator.
+
+### examples (optional)
+
+Component-level examples for get_specs. Can be recipe-linked or standalone.
+
+```typescript
+interface ComponentExample {
+  name: string;
+  description?: string;
+  recipeId?: string;   // Links to a recipe that uses this component (recipe examples resolved by MCP)
+  snippet?: string;    // Optional short code or usage hint for component-only examples
+}
+```
+
+- **recipeId**: References a recipe that uses this component; the recipe’s own `examples` can be resolved by MCP for full context.
+- **snippet**: Optional inline code or usage hint when there is no recipe.
+
+Source: (1) Derived from recipes (each recipe’s `examples` are attributed to every component used in that recipe); (2) optional **mcp-data/component-examples.json** for manual entries. The generator merges these into each component’s `examples` array.
+
 ## Version History
 
 - **v1.0** (2026-01-28): Initial schema definition for Phase 2
+- **v1.1** (2026-01-30): Component JSON extensions (interactivity, examples)

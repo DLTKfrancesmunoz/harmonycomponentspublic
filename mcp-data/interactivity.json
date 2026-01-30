@@ -1,0 +1,368 @@
+{
+  "Accordion": {
+    "events": [
+      { "name": "toggle", "description": "Triggered when an accordion item header is clicked; toggles that section open/closed" }
+    ],
+    "state": [
+      { "name": "openItems", "type": "string[]", "description": "Which items are expanded; controlled via .is-open on accordion__item. With allowMultiple=false only one can be open." }
+    ]
+  },
+  "Alert": {
+    "events": [
+      { "name": "dismiss", "description": "Triggered when the close button is clicked (dismissible=true); removes the alert from the DOM" }
+    ]
+  },
+  "Avatar": {
+    "events": [],
+    "state": [
+      { "name": "—", "type": "—", "description": "Display only; no client-side state or events." }
+    ]
+  },
+  "Badge": {
+    "events": [],
+    "state": [
+      { "name": "—", "type": "—", "description": "Display only; no client-side state or events." }
+    ]
+  },
+  "Button": {
+    "events": [
+      { "name": "click", "description": "Native click; use for actions, form submit/reset, or opening dialogs" }
+    ]
+  },
+  "ButtonGroup": {
+    "events": [],
+    "state": [
+      { "name": "—", "type": "—", "description": "Layout only; wraps buttons. No client state; each button handles its own click." }
+    ]
+  },
+  "Card": {
+    "events": [
+      { "name": "click", "description": "When interactive=true, card is clickable; handle click on the root element or use as link wrapper" }
+    ],
+    "state": [
+      { "name": "—", "type": "—", "description": "No internal state; interactive prop adds hover styling and pointer cursor." }
+    ]
+  },
+  "Checkbox": {
+    "events": [
+      { "name": "change", "description": "Native change when checked state toggles; use for form binding" }
+    ],
+    "state": [
+      { "name": "checked", "type": "boolean", "description": "Controlled via checked prop or form value" }
+    ]
+  },
+  "CheckboxGroup": {
+    "events": [
+      { "name": "change", "description": "Native change on any child checkbox; parent form or script receives change" }
+    ],
+    "state": [
+      { "name": "checkedValues", "type": "string[]", "description": "Values of checked checkboxes; read from form or controlled state" }
+    ]
+  },
+  "Chip": {
+    "events": [
+      { "name": "click", "description": "Chip or remove button click; when removable=true parent typically handles remove" }
+    ],
+    "state": [
+      { "name": "selected", "type": "boolean", "description": "Optional selected prop for fill styling; no internal state" }
+    ]
+  },
+  "DateInput": {
+    "events": [
+      { "name": "change", "description": "Triggered when user selects a date or edits the input" },
+      { "name": "focus", "description": "Input focus; may open picker depending on implementation" }
+    ],
+    "state": [
+      { "name": "value", "type": "string", "description": "Selected date value; bound via input value" },
+      { "name": "pickerOpen", "type": "boolean", "description": "Whether the date picker popup is open" }
+    ]
+  },
+  "DatePicker": {
+    "events": [
+      { "name": "change", "description": "Triggered when a date is selected" }
+    ],
+    "state": [
+      { "name": "value", "type": "string", "description": "Selected date" },
+      { "name": "viewMonth", "type": "string", "description": "Currently displayed month/year in calendar view" }
+    ]
+  },
+  "DateTimePicker": {
+    "events": [
+      { "name": "change", "description": "Triggered when date or time is selected" }
+    ],
+    "state": [
+      { "name": "value", "type": "string", "description": "Selected date-time" }
+    ]
+  },
+  "Dialog": {
+    "events": [
+      { "name": "close", "description": "Triggered by close button, overlay click, or Escape key" }
+    ],
+    "state": [
+      { "name": "open", "type": "boolean", "description": "Controlled via .is-open class on the overlay element" }
+    ]
+  },
+  "Dropdown": {
+    "events": [
+      { "name": "open", "description": "Triggered when the trigger button is clicked to open the list" },
+      { "name": "close", "description": "Triggered when an option is selected or focus leaves the dropdown" },
+      { "name": "change", "description": "Triggered when an option is selected; form submits the selected value" }
+    ],
+    "state": [
+      { "name": "open", "type": "boolean", "description": "Whether the listbox is expanded (aria-expanded)" },
+      { "name": "value", "type": "string", "description": "Selected option value; bound via name/value on the hidden input" }
+    ]
+  },
+  "FloatingNav": {
+    "events": [
+      { "name": "click", "description": "Item click for navigation or action" }
+    ],
+    "state": [
+      { "name": "expanded", "type": "boolean", "description": "Whether the floating nav is expanded or collapsed (if applicable)" }
+    ]
+  },
+  "Icon": {
+    "events": [],
+    "state": [
+      { "name": "—", "type": "—", "description": "Display only; no client-side state or events." }
+    ]
+  },
+  "Input": {
+    "events": [
+      { "name": "change", "description": "Native change when value changes" },
+      { "name": "focus", "description": "Input received focus" },
+      { "name": "blur", "description": "Input lost focus" }
+    ],
+    "state": [
+      { "name": "value", "type": "string", "description": "Current input value; controlled via value prop or form" }
+    ]
+  },
+  "Kanban": {
+    "events": [
+      { "name": "click", "description": "Clicks on action buttons, dropdowns, or cards; implement drag/drop in parent if needed" }
+    ],
+    "state": [
+      { "name": "—", "type": "—", "description": "Column and card data passed as props; reorder/state managed by parent." }
+    ]
+  },
+  "KanbanCard": {
+    "events": [
+      { "name": "click", "description": "Card or action click; parent handles selection or navigation" }
+    ],
+    "state": [
+      { "name": "—", "type": "—", "description": "Display only; state managed by parent Kanban or app." }
+    ]
+  },
+  "Label": {
+    "events": [],
+    "state": [
+      { "name": "—", "type": "—", "description": "Display only; associates with form control via for attribute." }
+    ]
+  },
+  "LeftSidebar": {
+    "events": [
+      { "name": "click", "description": "Navigation item click; sidebar toggle if present" }
+    ],
+    "state": [
+      { "name": "collapsed", "type": "boolean", "description": "Whether sidebar is collapsed (if toggle exists)" }
+    ]
+  },
+  "Link": {
+    "events": [
+      { "name": "click", "description": "Native click; navigates to href (or preventDefault for SPA)" }
+    ],
+    "state": [
+      { "name": "—", "type": "—", "description": "No internal state; navigation handled by browser or router." }
+    ]
+  },
+  "ListMenu": {
+    "events": [
+      { "name": "click", "description": "Item click; when as='link' navigates, when as='button' use for selection/action" }
+    ],
+    "state": [
+      { "name": "activeItem", "type": "string", "description": "Optional; indicate active item via items[].active prop" }
+    ]
+  },
+  "MonthPicker": {
+    "events": [
+      { "name": "change", "description": "Triggered when a month is selected" }
+    ],
+    "state": [
+      { "name": "value", "type": "string", "description": "Selected month (e.g. YYYY-MM)" }
+    ]
+  },
+  "NotificationBadge": {
+    "events": [],
+    "state": [
+      { "name": "—", "type": "—", "description": "Display only; shows count or dot. Update count via prop." }
+    ]
+  },
+  "NumberInput": {
+    "events": [
+      { "name": "change", "description": "Triggered when value changes (keyboard or stepper)" }
+    ],
+    "state": [
+      { "name": "value", "type": "number", "description": "Current numeric value; controlled via value prop or form" }
+    ]
+  },
+  "PickerPopup": {
+    "events": [
+      { "name": "open", "description": "Popup opened" },
+      { "name": "close", "description": "Popup closed (outside click, Escape, or selection)" }
+    ],
+    "state": [
+      { "name": "open", "type": "boolean", "description": "Whether the popup is visible" }
+    ]
+  },
+  "ProgressBar": {
+    "events": [],
+    "state": [
+      { "name": "—", "type": "—", "description": "Display only; progress value set via prop." }
+    ]
+  },
+  "RadioButton": {
+    "events": [
+      { "name": "change", "description": "Native change when this option is selected" }
+    ],
+    "state": [
+      { "name": "checked", "type": "boolean", "description": "Controlled via checked prop or shared name in RadioGroup" }
+    ]
+  },
+  "RadioGroup": {
+    "events": [
+      { "name": "change", "description": "Triggered when selected option changes" }
+    ],
+    "state": [
+      { "name": "value", "type": "string", "description": "Selected option value; one of the radio values in the group" }
+    ]
+  },
+  "RangeInput": {
+    "events": [
+      { "name": "change", "description": "Triggered when slider value changes" },
+      { "name": "input", "description": "Fired continuously while dragging" }
+    ],
+    "state": [
+      { "name": "value", "type": "number", "description": "Current slider value; controlled via value prop or form" }
+    ]
+  },
+  "RightSidebar": {
+    "events": [
+      { "name": "click", "description": "Item click or sidebar toggle" }
+    ],
+    "state": [
+      { "name": "collapsed", "type": "boolean", "description": "Whether sidebar is collapsed (if toggle exists)" }
+    ]
+  },
+  "ShellFooter": {
+    "events": [
+      { "name": "click", "description": "Clicks on footer links or actions" }
+    ],
+    "state": [
+      { "name": "—", "type": "—", "description": "Layout slot; no internal state." }
+    ]
+  },
+  "ShellHeader": {
+    "events": [
+      { "name": "click", "description": "Header actions, nav, or menu clicks" }
+    ],
+    "state": [
+      { "name": "menuOpen", "type": "boolean", "description": "Mobile or dropdown menu open state if applicable" }
+    ]
+  },
+  "ShellPageHeader": {
+    "events": [
+      { "name": "click", "description": "Title, breadcrumb, or action button clicks" }
+    ],
+    "state": [
+      { "name": "—", "type": "—", "description": "Layout slot; state in slots." }
+    ]
+  },
+  "ShellPanel": {
+    "events": [
+      { "name": "click", "description": "Panel content or close/toggle" }
+    ],
+    "state": [
+      { "name": "open", "type": "boolean", "description": "Whether panel is open or collapsed" }
+    ]
+  },
+  "Spinner": {
+    "events": [],
+    "state": [
+      { "name": "—", "type": "—", "description": "Display only; no client-side state or events." }
+    ]
+  },
+  "Step": {
+    "events": [
+      { "name": "click", "description": "Step indicator click when stepper is interactive" }
+    ],
+    "state": [
+      { "name": "status", "type": "string", "description": "completed | current | upcoming; passed from parent Stepper" }
+    ]
+  },
+  "Stepper": {
+    "events": [
+      { "name": "stepChange", "description": "When step is clicked; parent controls current step" }
+    ],
+    "state": [
+      { "name": "currentStep", "type": "number", "description": "Index of current step; controlled by parent" }
+    ]
+  },
+  "TabStrip": {
+    "events": [
+      { "name": "change", "description": "Triggered when user selects a different tab" }
+    ],
+    "state": [
+      { "name": "activeTab", "type": "string", "description": "Id or index of the active tab; controlled via props or script" }
+    ]
+  },
+  "Table": {
+    "events": [
+      { "name": "click", "description": "Row or cell clicks; implement sort/select in parent or slots" }
+    ],
+    "state": [
+      { "name": "—", "type": "—", "description": "Layout only; sort/selection state in parent." }
+    ]
+  },
+  "Textarea": {
+    "events": [
+      { "name": "change", "description": "Native change when value changes" },
+      { "name": "focus", "description": "Textarea received focus" },
+      { "name": "blur", "description": "Textarea lost focus" }
+    ],
+    "state": [
+      { "name": "value", "type": "string", "description": "Current text; controlled via value prop or form" }
+    ]
+  },
+  "TimePicker": {
+    "events": [
+      { "name": "change", "description": "Triggered when time is selected" }
+    ],
+    "state": [
+      { "name": "value", "type": "string", "description": "Selected time" }
+    ]
+  },
+  "Toggle": {
+    "events": [
+      { "name": "change", "description": "Native change when the switch is toggled; use for form binding or controlled state" }
+    ],
+    "state": [
+      { "name": "checked", "type": "boolean", "description": "Controlled via the checked prop or form value" }
+    ]
+  },
+  "Tooltip": {
+    "events": [
+      { "name": "hover", "description": "CSS :hover shows tooltip; no JavaScript. Does not work on touch without extra script." }
+    ],
+    "state": [
+      { "name": "visible", "type": "boolean", "description": "Implicit via CSS hover; not controllable in base implementation" }
+    ]
+  },
+  "WeekPicker": {
+    "events": [
+      { "name": "change", "description": "Triggered when a week is selected" }
+    ],
+    "state": [
+      { "name": "value", "type": "string", "description": "Selected week (e.g. year and week number)" }
+    ]
+  }
+}

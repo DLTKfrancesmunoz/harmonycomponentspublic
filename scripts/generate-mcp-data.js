@@ -31,6 +31,10 @@ const OUTPUT_DIR = path.join(rootDir, 'mcp-data/components');
 const CACHE_FILE = path.join(rootDir, '.cache/components-regeneration-cache.json');
 const CSS_DIR = path.join(rootDir, 'src/styles');
 const TOKENS_CSS = path.join(rootDir, 'src/styles/tokens.css');
+const MCP_DATA_DIR = path.join(rootDir, 'mcp-data');
+const INTERACTIVITY_FILE = path.join(MCP_DATA_DIR, 'interactivity.json');
+const RECIPES_INDEX = path.join(MCP_DATA_DIR, 'recipes', 'index.json');
+const COMPONENT_EXAMPLES_FILE = path.join(MCP_DATA_DIR, 'component-examples.json');
 
 // Theme configuration
 const THEME_SUPPORT = {
@@ -61,6 +65,69 @@ function saveCache(cache) {
     fs.mkdirSync(cacheDir, { recursive: true });
   }
   fs.writeFileSync(CACHE_FILE, JSON.stringify(cache, null, 2), 'utf-8');
+}
+
+/**
+ * Load interactivity map from mcp-data/interactivity.json (component name -> { events, state })
+ */
+function loadInteractivityMap() {
+  try {
+    if (fs.existsSync(INTERACTIVITY_FILE)) {
+      return JSON.parse(fs.readFileSync(INTERACTIVITY_FILE, 'utf-8'));
+    }
+  } catch (error) {
+    console.warn('⚠️  Could not load interactivity map:', error.message);
+  }
+  return {};
+}
+
+/**
+ * Build component -> examples map from recipes (each recipe's examples attributed to every component in that recipe)
+ */
+function buildComponentToExamples() {
+  const componentToExamples = {};
+  try {
+    if (!fs.existsSync(RECIPES_INDEX)) return componentToExamples;
+    const index = JSON.parse(fs.readFileSync(RECIPES_INDEX, 'utf-8'));
+    const recipes = index.recipes || [];
+    for (const recipe of recipes) {
+      const filePath = path.join(rootDir, recipe.filePath);
+      if (!fs.existsSync(filePath)) continue;
+      const recipeData = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+      const recipeId = recipeData.id || recipe.id;
+      const examples = recipeData.examples || [];
+      const componentNames = new Set((recipeData.components || []).map((c) => (typeof c === 'string' ? c : c.name)));
+      for (const compName of componentNames) {
+        if (!componentToExamples[compName]) componentToExamples[compName] = [];
+        for (const ex of examples) {
+          componentToExamples[compName].push({
+            name: ex.name,
+            description: ex.description || undefined,
+            recipeId: recipeId,
+          });
+        }
+      }
+    }
+    // Append manual overrides from component-examples.json if present
+    if (fs.existsSync(COMPONENT_EXAMPLES_FILE)) {
+      const overrides = JSON.parse(fs.readFileSync(COMPONENT_EXAMPLES_FILE, 'utf-8'));
+      for (const [compName, extraExamples] of Object.entries(overrides)) {
+        if (!Array.isArray(extraExamples)) continue;
+        if (!componentToExamples[compName]) componentToExamples[compName] = [];
+        for (const ex of extraExamples) {
+          componentToExamples[compName].push({
+            name: ex.name,
+            description: ex.description || undefined,
+            recipeId: ex.recipeId || undefined,
+            snippet: ex.snippet || undefined,
+          });
+        }
+      }
+    }
+  } catch (error) {
+    console.warn('⚠️  Could not build component examples from recipes:', error.message);
+  }
+  return componentToExamples;
 }
 
 /**
@@ -210,6 +277,13 @@ async function generateMCPData() {
     console.log(`✅ Created output directory: ${OUTPUT_DIR}\n`);
   }
 
+  // Load interactivity map and component->examples (from recipes + optional component-examples.json)
+  const interactivityMap = loadInteractivityMap();
+  const componentToExamples = buildComponentToExamples();
+  const interactivityCount = Object.keys(interactivityMap).length;
+  const examplesComponentCount = Object.keys(componentToExamples).length;
+  console.log(`📎 Loaded interactivity for ${interactivityCount} components, examples for ${examplesComponentCount} components\n`);
+
   // Get all .astro component files
   const componentFiles = fs
     .readdirSync(COMPONENTS_DIR)
@@ -241,6 +315,12 @@ async function generateMCPData() {
       // Generate component data (with CSS spacing and visual specs)
       const componentData = await generateComponentData(componentPath, cssSpacingMap, parsedCSS, variableMap);
 
+      // Merge interactivity and examples (from mcp-data/interactivity.json and recipes)
+      if (interactivityMap[componentName]) {
+        componentData.interactivity = interactivityMap[componentName];
+      }
+      componentData.examples = componentToExamples[componentName] || [];
+
       // Write to file
       writeComponentJSON(componentName, componentData);
 
@@ -258,6 +338,39 @@ async function generateMCPData() {
       console.error(`${progress} ❌ Failed to generate ${componentName}`);
       console.error(`    Error: ${error.message}`);
       failed++;
+    }
+  }
+
+  // Post-pass: merge interactivity and examples into all component JSONs (including skipped ones)
+  if (fs.existsSync(OUTPUT_DIR)) {
+    const outputFiles = fs.readdirSync(OUTPUT_DIR).filter((f) => f.endsWith('.json'));
+    let merged = 0;
+    for (const file of outputFiles) {
+      const outputPath = path.join(OUTPUT_DIR, file);
+      try {
+        const data = JSON.parse(fs.readFileSync(outputPath, 'utf-8'));
+        const componentName = data.name;
+        if (!componentName) continue;
+        let changed = false;
+        if (interactivityMap[componentName]) {
+          data.interactivity = interactivityMap[componentName];
+          changed = true;
+        }
+        const examples = componentToExamples[componentName] || [];
+        if (JSON.stringify(data.examples) !== JSON.stringify(examples)) {
+          data.examples = examples;
+          changed = true;
+        }
+        if (changed) {
+          fs.writeFileSync(outputPath, JSON.stringify(data, null, 2), 'utf-8');
+          merged++;
+        }
+      } catch (err) {
+        console.warn(`⚠️  Could not merge interactivity/examples into ${file}:`, err.message);
+      }
+    }
+    if (merged > 0) {
+      console.log(`\n📎 Merged interactivity/examples into ${merged} existing component JSON(s)\n`);
     }
   }
 

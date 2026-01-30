@@ -373,5 +373,32 @@
   "_variantIndex": {},
   "_variantMetadata": {
     "availableVariants": []
-  }
+  },
+  "interactivity": {
+    "events": [
+      {
+        "name": "toggle",
+        "description": "Triggered when an accordion item header is clicked; toggles that section open/closed"
+      }
+    ],
+    "state": [
+      {
+        "name": "openItems",
+        "type": "string[]",
+        "description": "Which items are expanded; controlled via .is-open on accordion__item. With allowMultiple=false only one can be open."
+      }
+    ]
+  },
+  "examples": [
+    {
+      "name": "Basic accordion",
+      "description": "Single open section at a time",
+      "snippet": "<Accordion items={[{ title: 'Section 1', content: '...' }, { title: 'Section 2', content: '...' }]} />"
+    },
+    {
+      "name": "Multiple open",
+      "description": "Allow multiple sections open",
+      "snippet": "<Accordion items={...} allowMultiple />"
+    }
+  ]
 }
