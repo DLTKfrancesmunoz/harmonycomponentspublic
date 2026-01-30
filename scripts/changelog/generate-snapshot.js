@@ -162,6 +162,35 @@ export function generateComponentsSnapshot() {
 }
 
 /**
+ * Generate snapshot of design system style files (CSS)
+ */
+export function generateStylesSnapshot() {
+  const stylesDir = path.join(__dirname, '../../src/styles');
+  const styleFiles = ['components.css', 'global.css', 'layout.css', 'reset.css', 'tokens.css', 'utilities.css'];
+  const styles = {};
+
+  if (!fs.existsSync(stylesDir)) {
+    console.warn('Styles directory not found');
+    return styles;
+  }
+
+  for (const file of styleFiles) {
+    const filePath = path.join(stylesDir, file);
+    if (!fs.existsSync(filePath)) continue;
+    const fileContent = fs.readFileSync(filePath, 'utf-8');
+    styles[file] = {
+      filePath: `src/styles/${file}`,
+      hash: computeFileHash(fileContent)
+    };
+  }
+
+  if (Object.keys(styles).length > 0) {
+    console.log(`✅ Parsed ${Object.keys(styles).length} style files`);
+  }
+  return styles;
+}
+
+/**
  * Generate snapshot of design tokens
  */
 export function generateTokensSnapshot() {
@@ -203,6 +232,7 @@ export async function generateSnapshot() {
   const snapshot = {
     components: generateComponentsSnapshot(),
     tokens: generateTokensSnapshot(),
+    styles: generateStylesSnapshot(),
     timestamp: Date.now(),
     date: new Date().toISOString()
   };

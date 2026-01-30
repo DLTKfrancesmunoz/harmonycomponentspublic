@@ -38,6 +38,12 @@ export const templates = {
         `Remove ${propName} '${variantName}' from ${target}`
     }
   },
+  system: {
+    changed: {
+      styles_modified: (target) =>
+        `Update design system styles (e.g. components.css, layout.css)`
+    }
+  },
   token: {
     added: (target, path) =>
       `Add ${path} to ${target} tokens`,
@@ -100,6 +106,14 @@ export function generateDescription(change) {
       if (changeType === 'variant_added' || changeType === 'variant_removed') {
         return template(target, change.propName, change.variantName);
       }
+    }
+
+    if (type === 'system') {
+      const template = categoryTemplates?.[changeType];
+      if (template && changeType === 'styles_modified') {
+        return template(target);
+      }
+      return `${category} in ${target}`;
     }
 
     if (type === 'token') {

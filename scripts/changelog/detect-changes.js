@@ -240,6 +240,49 @@ function detectFileModified(currentSnapshot, previousSnapshot) {
 }
 
 /**
+ * Detect style (CSS) file changes.
+ * Only emits an entry when a previously tracked style file's content changed
+ * (not on first run when previous styles snapshot is empty).
+ */
+function detectStyleChanges(currentSnapshot, previousSnapshot) {
+  const changes = [];
+  const current = currentSnapshot.styles || {};
+  const previous = previousSnapshot.styles || {};
+  const changedFiles = [];
+
+  const allFiles = new Set([...Object.keys(current), ...Object.keys(previous)]);
+
+  for (const file of allFiles) {
+    const curr = current[file];
+    const prev = previous[file];
+
+    if (!curr && prev) {
+      changedFiles.push(prev.filePath || file);
+    } else if (curr && !prev) {
+      changedFiles.push(curr.filePath || file);
+    } else if (curr && prev && curr.hash !== prev.hash) {
+      changedFiles.push(curr.filePath || file);
+    }
+  }
+
+  // Only emit when we have a previous styles snapshot (so we don't add noise on first run)
+  const hadPreviousStyles = Object.keys(previous).length > 0;
+  if (hadPreviousStyles && changedFiles.length > 0) {
+    changes.push({
+      type: 'system',
+      category: 'changed',
+      target: 'Styles',
+      change: 'styles_modified',
+      filePath: changedFiles[0],
+      files: changedFiles,
+      breaking: false
+    });
+  }
+
+  return changes;
+}
+
+/**
  * Detect token changes
  */
 function detectTokenChanges(currentSnapshot, previousSnapshot) {
@@ -288,6 +331,7 @@ export function detectChanges(currentSnapshot, previousSnapshot) {
     ...detectPropsChanges(currentSnapshot, previousSnapshot),
     ...detectVariantChanges(currentSnapshot, previousSnapshot),
     ...detectFileModified(currentSnapshot, previousSnapshot),
+    ...detectStyleChanges(currentSnapshot, previousSnapshot),
     ...detectTokenChanges(currentSnapshot, previousSnapshot)
   ];
 
