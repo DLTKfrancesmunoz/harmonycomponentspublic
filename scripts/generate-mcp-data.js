@@ -193,6 +193,17 @@ async function generateMCPData() {
   // Load cache
   const cache = loadCache();
 
+  // Invalidate component cache when any CSS file has changed (so CSS-only edits update JSON)
+  const cssFiles = fs.readdirSync(CSS_DIR).filter((f) => f.endsWith('.css'));
+  const cssDirMtime = cssFiles.reduce((max, f) => {
+    const m = fs.statSync(path.join(CSS_DIR, f)).mtimeMs;
+    return m > max ? m : max;
+  }, 0);
+  if (cache.cssDirMtime != null && cssDirMtime > cache.cssDirMtime) {
+    cache.componentMtimes = {};
+  }
+  cache.cssDirMtime = cssDirMtime;
+
   // Create output directory
   if (!fs.existsSync(OUTPUT_DIR)) {
     fs.mkdirSync(OUTPUT_DIR, { recursive: true });
