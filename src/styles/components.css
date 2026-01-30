@@ -4919,15 +4919,35 @@ html.theme-cp.dark .floating-nav__pin:hover {
   transform: none;
   /* Reduce gap between sections to fit above footer */
   gap: var(--space-2);
-  /* Add max-height to prevent overlap with footer (accounting for header gradient) */
-  max-height: calc(100vh - var(--shell-header-height) - 6px - var(--space-2) - var(--shell-footer-height-default));
   overflow: visible; /* Both axes visible for shadow rendering - icons never exceed available space */
+}
+
+/* CP left sidebar: max-height footer-aware (start position unchanged) */
+.shell-layout[data-cp-variant="true"] .shell-layout__container[data-has-footer="true"] .shell-layout__left-sidebar {
+  max-height: calc(100vh - var(--shell-header-height) - 6px - var(--space-2) - var(--shell-footer-height-default) - calc(var(--space-2-5) / 2));
+}
+.shell-layout[data-cp-variant="true"] .shell-layout__container[data-has-footer="false"] .shell-layout__left-sidebar {
+  max-height: calc(100vh - var(--shell-header-height) - 6px - var(--space-2) - calc(var(--space-2-5) / 2));
+}
+.shell-layout[data-cp-variant="true"] .shell-layout__container[data-has-footer="true"][data-footer-variant="compact"] .shell-layout__left-sidebar {
+  max-height: calc(100vh - var(--shell-header-height) - 6px - var(--space-2) - var(--shell-footer-height-compact) - calc(var(--space-2-5) / 2));
 }
 
 /* Standard variants (VP/PPM/Maconomy): 20px gap from header */
 .shell-layout[data-cp-variant="false"] .shell-layout__left-sidebar {
   top: calc(var(--shell-header-height) + var(--space-5));
   transform: none;
+}
+
+/* Left sidebar non-CP in shell: max-height (footer-aware); start position unchanged */
+.shell-layout[data-cp-variant="false"] .shell-layout__container[data-has-footer="true"] .shell-layout__left-sidebar {
+  max-height: calc(100vh - var(--shell-header-height) - var(--space-5) - var(--shell-footer-height-default) - calc(var(--space-2-5) / 2));
+}
+.shell-layout[data-cp-variant="false"] .shell-layout__container[data-has-footer="false"] .shell-layout__left-sidebar {
+  max-height: calc(100vh - var(--shell-header-height) - var(--space-5) - calc(var(--space-2-5) / 2));
+}
+.shell-layout[data-cp-variant="false"] .shell-layout__container[data-has-footer="true"][data-footer-variant="compact"] .shell-layout__left-sidebar {
+  max-height: calc(100vh - var(--shell-header-height) - var(--space-5) - var(--shell-footer-height-compact) - calc(var(--space-2-5) / 2));
 }
 
 .left-sidebar:hover {
@@ -5772,6 +5792,75 @@ html.dark .right-sidebar__item:hover {
 .shell-layout__right-sidebar {
   z-index: var(--z-45); /* Higher than panel (44) so icons appear on top */
   isolation: isolate; /* Create new stacking context to ensure tooltips appear above panel */
+}
+
+/* Right sidebar in shell: max-height only (footer-aware); vertical centering unchanged */
+.shell-layout__container[data-has-footer="true"] .shell-layout__right-sidebar {
+  max-height: calc(100vh - var(--shell-header-height) - var(--shell-footer-height-default) - var(--space-2-5));
+}
+.shell-layout__container[data-has-footer="false"] .shell-layout__right-sidebar {
+  max-height: calc(100vh - var(--shell-header-height) - var(--space-2-5));
+}
+.shell-layout__container[data-has-footer="true"][data-footer-variant="compact"] .shell-layout__right-sidebar {
+  max-height: calc(100vh - var(--shell-header-height) - var(--shell-footer-height-compact) - var(--space-2-5));
+}
+
+/* Compact sidebars in shell: smaller icons and padding so strip fits in header-footer band (no scroll) */
+@media (max-width: var(--breakpoint-lg)) {
+  .shell-layout .shell-layout__left-sidebar {
+    width: var(--left-sidebar-width-compact);
+    gap: var(--space-1-5);
+  }
+  .shell-layout .shell-layout__left-sidebar:hover {
+    width: 220px;
+  }
+  .shell-layout .shell-layout__left-sidebar[data-panel-open="true"]:hover {
+    width: var(--left-sidebar-width-compact);
+  }
+  .shell-layout .shell-layout__left-sidebar .left-sidebar__section {
+    padding: var(--space-2) var(--space-1-5);
+    gap: var(--space-1-5);
+  }
+  .shell-layout .shell-layout__left-sidebar .left-sidebar__item {
+    padding: var(--space-1);
+  }
+  .shell-layout .shell-layout__left-sidebar .left-sidebar__icon,
+  .shell-layout .shell-layout__left-sidebar .left-sidebar__icon svg,
+  .shell-layout .shell-layout__left-sidebar .left-sidebar__icon .left-sidebar__custom-icon {
+    width: var(--left-sidebar-icon-size-compact);
+    height: var(--left-sidebar-icon-size-compact);
+  }
+
+  .shell-layout .shell-layout__right-sidebar {
+    width: var(--right-sidebar-width-compact);
+    gap: var(--space-2);
+  }
+  .shell-layout .shell-layout__right-sidebar:hover {
+    width: 220px;
+  }
+  .shell-layout .shell-layout__right-sidebar[data-panel-open="true"]:hover {
+    width: var(--right-sidebar-width-compact);
+  }
+  .shell-layout .shell-layout__right-sidebar .right-sidebar__section {
+    padding: var(--space-2) var(--space-1-5);
+    gap: var(--space-1-5);
+  }
+  .shell-layout .shell-layout__right-sidebar .right-sidebar__item {
+    padding: var(--space-1);
+  }
+  .shell-layout .shell-layout__right-sidebar .right-sidebar__icon {
+    width: var(--right-sidebar-icon-size-compact);
+    height: var(--right-sidebar-icon-size-compact);
+  }
+  .shell-layout .shell-layout__right-sidebar .right-sidebar__icon svg {
+    width: var(--right-sidebar-icon-size-compact);
+    height: var(--right-sidebar-icon-size-compact);
+  }
+  .shell-layout .shell-layout__right-sidebar .right-sidebar__dela-logo {
+    width: var(--right-sidebar-dela-size-compact);
+    height: var(--right-sidebar-dela-size-compact);
+    border-radius: 10px;
+  }
 }
 
 /* Ensure left sidebar is above panel when open (narrow only - full-width handled separately) */
