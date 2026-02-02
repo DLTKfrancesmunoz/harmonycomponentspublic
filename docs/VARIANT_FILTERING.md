@@ -1,5 +1,7 @@
 # Variant Filtering Helper
 
+**Retired.** Canonical lookup is defined in [SPEC_CONTRACT.md](SPEC_CONTRACT.md) § 6: compute spec key from (variant, theme, mode, size) and read `specs[key]`; use `defaults` when params omitted. This doc is kept for historical reference only.
+
 ## Overview
 
 All component JSON files now include variant metadata and helper functions to make it easy for MCPs to filter component data by variant. This solves the issue where `structuredContent.component` contains all variants instead of just the requested one.

@@ -40,1002 +40,1065 @@
       "default": "''"
     }
   },
-  "imports": {},
-  "dependencies": [],
-  "cssClasses": [
-    "card__header",
-    "card__header-content",
-    "card__header-title",
-    "card__header-subtitle",
-    "card__header-actions",
-    "card__body",
-    "card__footer"
-  ],
-  "themeSupport": {
-    "themes": [
-      "cp",
-      "vp",
-      "ppm",
-      "maconomy"
-    ],
-    "darkMode": true
+  "defaults": {
+    "theme": "cp",
+    "mode": "light"
   },
-  "slots": {
-    "header": {
-      "name": "header",
-      "required": false,
-      "location": "card__header",
-      "description": null,
-      "conditional": null
-    },
-    "header-actions": {
-      "name": "header-actions",
-      "required": false,
-      "location": "card__header-actions",
-      "description": null,
-      "conditional": null
-    },
-    "default": {
-      "name": "default",
-      "required": true,
-      "location": "card__body",
-      "description": null,
-      "conditional": null
-    },
-    "footer": {
-      "name": "footer",
-      "required": false,
-      "location": "card__footer",
-      "description": null,
-      "conditional": null
-    }
-  },
-  "structure": {
-    "root": {
-      "element": "div",
-      "class": "classes",
-      "spacing": {
-        "padding": "0",
-        "margin": "0"
-      },
-      "baseClass": null,
-      "modifierClasses": {},
-      "children": [
-        {
-          "element": "div",
-          "class": "card__header",
-          "spacing": {
-            "padding": "var(--space-4)",
-            "margin": "0"
-          },
-          "children": [
-            {
-              "element": "slot",
-              "slotName": "header",
-              "class": null
-            },
-            {
-              "element": "div",
-              "class": "card__header-actions",
-              "spacing": {
-                "padding": "0",
-                "margin": "0"
-              },
-              "children": [
-                {
-                  "element": "slot",
-                  "slotName": "header-actions",
-                  "class": null
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "element": "div",
-          "class": "card__body",
-          "spacing": {
-            "padding": "var(--space-3)",
-            "margin": "0"
-          },
-          "children": [
-            {
-              "element": "slot",
-              "slotName": "default",
-              "class": null
-            }
-          ]
-        },
-        {
-          "element": "div",
-          "class": "card__footer",
-          "spacing": {
-            "padding": "var(--space-4)",
-            "margin": "0"
-          },
-          "children": [
-            {
-              "element": "slot",
-              "slotName": "footer",
-              "class": null
-            }
-          ]
-        }
-      ]
-    },
-    "children": []
-  },
-  "usagePatterns": {
-    "header-slot-precedence": "The card header can be created two ways: (1) using the header slot for custom content, or (2) using headerTitle and headerSubtitle props for automatic rendering. The header slot takes precedence and will completely replace any headerTitle/headerSubtitle props. When using props, set withHeader=true to render the header section.",
-    "header-actions-slot": "The header-actions slot is independent of the main header slot and always renders in the top-right corner of the header when provided. It's typically used for action buttons or icons (e.g., close button, settings icon). This slot works with both custom header slot content and prop-based headers (headerTitle/headerSubtitle).",
-    "variant-combinations": "Card variants can be combined: elevated adds shadow elevation, interactive adds hover effects and pointer cursor, and primary adds a 6px top border in the theme primary color. Multiple variants can be applied simultaneously (e.g., elevated + interactive + primary) for layered visual effects.",
-    "slot-structure": "The card uses three slots: 'header' (optional, for custom header content), 'default' (card body, always rendered in card__body), and 'footer' (optional, conditionally rendered only when Astro.slots.has('footer') is true). The default slot is the unnamed slot and receives all non-slotted content."
-  },
-  "_metadata": {
-    "lastGenerated": "2026-02-02T20:32:10.618Z",
-    "generatedWith": "@astrojs/compiler@2.13.0",
-    "includesVisualSpecs": true,
-    "availableVariants": [
-      "elevated",
-      "interactive",
-      "primary"
-    ]
-  },
-  "visualSpecifications": {
-    "dimensions": {
-      "xs": {
-        "height": null,
-        "width": null,
-        "minWidth": "auto",
-        "maxWidth": "none"
-      },
-      "sm": {
-        "height": null,
-        "width": null,
-        "minWidth": "auto",
-        "maxWidth": "none"
-      },
-      "md": {
-        "height": null,
-        "width": null,
-        "minWidth": "auto",
-        "maxWidth": "none"
-      },
-      "lg": {
-        "height": null,
-        "width": null,
-        "minWidth": "auto",
-        "maxWidth": "none"
-      }
-    },
-    "spacing": {
-      "xs": {
-        "paddingTop": "12px",
-        "paddingRight": "12px",
-        "paddingBottom": "12px",
-        "paddingLeft": "12px",
-        "gap": "12px"
-      },
-      "sm": {
-        "paddingTop": "12px",
-        "paddingRight": "12px",
-        "paddingBottom": "12px",
-        "paddingLeft": "12px",
-        "gap": "12px"
-      },
-      "md": {
-        "paddingTop": "12px",
-        "paddingRight": "12px",
-        "paddingBottom": "12px",
-        "paddingLeft": "12px",
-        "gap": "12px"
-      },
-      "lg": {
-        "paddingTop": "12px",
-        "paddingRight": "12px",
-        "paddingBottom": "12px",
-        "paddingLeft": "12px",
-        "gap": "12px"
-      }
-    },
-    "typography": {
-      "fontFamily": "'Lexend', sans-serif",
-      "fontWeight": "600",
-      "lineHeight": "20px",
-      "letterSpacing": null,
-      "textTransform": null,
-      "sizes": {
-        "xs": {
-          "fontSize": "1.125rem",
-          "lineHeight": "20px"
-        },
-        "sm": {
-          "fontSize": "1.125rem",
-          "lineHeight": "20px"
-        },
-        "md": {
-          "fontSize": "1.125rem",
-          "lineHeight": "20px"
-        },
-        "lg": {
-          "fontSize": "1.125rem",
-          "lineHeight": "20px"
-        }
-      }
-    },
-    "borders": {
-      "width": null,
-      "style": null,
-      "radius": {
-        "default": "0.75rem"
-      }
-    },
-    "colors": {
-      "variants": {
+  "specs": {
+    "base-cp-light": {
+      "props": {
         "elevated": {
-          "cp": {
-            "light": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {}
-            },
-            "dark": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {}
-            }
-          },
-          "vp": {
-            "light": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {}
-            },
-            "dark": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {}
-            }
-          },
-          "ppm": {
-            "light": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {}
-            },
-            "dark": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {}
-            }
-          },
-          "maconomy": {
-            "light": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {}
-            },
-            "dark": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {}
-            }
-          }
+          "type": "boolean",
+          "optional": true,
+          "default": "false"
         },
         "interactive": {
-          "cp": {
-            "light": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {
-                "background": "transparent",
-                "text": null,
-                "border": "#4C92D9",
-                "iconColor": null
-              },
-              "active": {},
-              "focus": {},
-              "disabled": {}
-            },
-            "dark": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {
-                "background": "transparent",
-                "text": null,
-                "border": "#59ACFF",
-                "iconColor": null
-              },
-              "active": {},
-              "focus": {},
-              "disabled": {}
-            }
-          },
-          "vp": {
-            "light": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {
-                "background": "transparent",
-                "text": null,
-                "border": "#4C92D9",
-                "iconColor": null
-              },
-              "active": {},
-              "focus": {},
-              "disabled": {}
-            },
-            "dark": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {
-                "background": "transparent",
-                "text": null,
-                "border": "#59ACFF",
-                "iconColor": null
-              },
-              "active": {},
-              "focus": {},
-              "disabled": {}
-            }
-          },
-          "ppm": {
-            "light": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {
-                "background": "transparent",
-                "text": null,
-                "border": "#4C92D9",
-                "iconColor": null
-              },
-              "active": {},
-              "focus": {},
-              "disabled": {}
-            },
-            "dark": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {
-                "background": "transparent",
-                "text": null,
-                "border": "#59ACFF",
-                "iconColor": null
-              },
-              "active": {},
-              "focus": {},
-              "disabled": {}
-            }
-          },
-          "maconomy": {
-            "light": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {
-                "background": "transparent",
-                "text": null,
-                "border": "#4C92D9",
-                "iconColor": null
-              },
-              "active": {},
-              "focus": {},
-              "disabled": {}
-            },
-            "dark": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {
-                "background": "transparent",
-                "text": null,
-                "border": "#59ACFF",
-                "iconColor": null
-              },
-              "active": {},
-              "focus": {},
-              "disabled": {}
-            }
-          }
+          "type": "boolean",
+          "optional": true,
+          "default": "false"
         },
         "primary": {
-          "cp": {
-            "light": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {}
-            },
-            "dark": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {}
-            }
-          },
-          "vp": {
-            "light": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {}
-            },
-            "dark": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {}
-            }
-          },
-          "ppm": {
-            "light": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {}
-            },
-            "dark": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {}
-            }
-          },
-          "maconomy": {
-            "light": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {}
-            },
-            "dark": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {}
-            }
-          }
+          "type": "boolean",
+          "optional": true,
+          "default": "false"
+        },
+        "withHeader": {
+          "type": "boolean",
+          "optional": true,
+          "default": "false"
+        },
+        "headerTitle": {
+          "type": "string",
+          "optional": true,
+          "default": "''"
+        },
+        "headerSubtitle": {
+          "type": "string",
+          "optional": true,
+          "default": "''"
+        },
+        "class": {
+          "type": "string",
+          "optional": true,
+          "default": "''"
+        }
+      },
+      "layout": {
+        "display": "block",
+        "flexDirection": "column",
+        "alignItems": "stretch",
+        "justifyContent": "flex-start",
+        "gap": "0"
+      },
+      "spacing": {
+        "paddingTop": "0",
+        "paddingRight": "0",
+        "paddingBottom": "0",
+        "paddingLeft": "0"
+      },
+      "dimensions": {
+        "height": "auto",
+        "minWidth": "auto",
+        "maxWidth": "none"
+      },
+      "typography": {
+        "fontFamily": "'Lexend', sans-serif",
+        "fontSize": "1.125rem",
+        "fontWeight": "600",
+        "lineHeight": "24px"
+      },
+      "borders": {
+        "width": "1px",
+        "style": "solid",
+        "radius": "12px",
+        "border": "1px solid #BFC6D4"
+      },
+      "states": {
+        "default": {
+          "background": "#F7F8FA",
+          "text": "#373F4E",
+          "border": "1px solid #BFC6D4",
+          "iconColor": "#373F4E",
+          "boxShadow": "0 1px 2px 0 rgb(15 23 42 / 0.05)"
+        },
+        "hover": {
+          "background": "#F7F8FA",
+          "text": "#373F4E",
+          "border": "1px solid #BFC6D4",
+          "iconColor": "#373F4E",
+          "boxShadow": "0 1px 2px 0 rgb(15 23 42 / 0.05)"
+        },
+        "active": {
+          "background": "#F7F8FA",
+          "text": "#373F4E",
+          "border": "1px solid #BFC6D4",
+          "iconColor": "#373F4E",
+          "boxShadow": "0 1px 2px 0 rgb(15 23 42 / 0.05)"
+        },
+        "focus": {
+          "background": "#F7F8FA",
+          "text": "#373F4E",
+          "border": "1px solid #BFC6D4",
+          "iconColor": "#373F4E",
+          "boxShadow": "0 1px 2px 0 rgb(15 23 42 / 0.05)"
+        },
+        "disabled": {
+          "background": "#F7F8FA",
+          "text": "#373F4E",
+          "border": "1px solid #BFC6D4",
+          "iconColor": "#373F4E",
+          "boxShadow": "0 1px 2px 0 rgb(15 23 42 / 0.05)"
+        }
+      },
+      "structure": {
+        "root": {
+          "element": "div",
+          "class": "card"
+        },
+        "header": {
+          "element": "div",
+          "class": "card__header",
+          "padding": "16px",
+          "borderBottom": "1px solid #BFC6D4"
+        },
+        "body": {
+          "element": "div",
+          "class": "card__body",
+          "padding": "16px"
+        },
+        "footer": {
+          "element": "div",
+          "class": "card__footer",
+          "padding": "16px",
+          "borderTop": "1px solid #BFC6D4",
+          "background": "#F7F8FA"
         }
       }
     },
-    "elevation": {
-      "default": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)",
-      "hover": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)",
-      "active": null,
-      "focus": null
+    "base-cp-dark": {
+      "props": {
+        "elevated": {
+          "type": "boolean",
+          "optional": true,
+          "default": "false"
+        },
+        "interactive": {
+          "type": "boolean",
+          "optional": true,
+          "default": "false"
+        },
+        "primary": {
+          "type": "boolean",
+          "optional": true,
+          "default": "false"
+        },
+        "withHeader": {
+          "type": "boolean",
+          "optional": true,
+          "default": "false"
+        },
+        "headerTitle": {
+          "type": "string",
+          "optional": true,
+          "default": "''"
+        },
+        "headerSubtitle": {
+          "type": "string",
+          "optional": true,
+          "default": "''"
+        },
+        "class": {
+          "type": "string",
+          "optional": true,
+          "default": "''"
+        }
+      },
+      "layout": {
+        "display": "block",
+        "flexDirection": "column",
+        "alignItems": "stretch",
+        "justifyContent": "flex-start",
+        "gap": "0"
+      },
+      "spacing": {
+        "paddingTop": "0",
+        "paddingRight": "0",
+        "paddingBottom": "0",
+        "paddingLeft": "0"
+      },
+      "dimensions": {
+        "height": "auto",
+        "minWidth": "auto",
+        "maxWidth": "none"
+      },
+      "typography": {
+        "fontFamily": "'Lexend', sans-serif",
+        "fontSize": "1.125rem",
+        "fontWeight": "600",
+        "lineHeight": "24px"
+      },
+      "borders": {
+        "width": "1px",
+        "style": "solid",
+        "radius": "12px",
+        "border": "1px solid #5F6871"
+      },
+      "states": {
+        "default": {
+          "background": "#37424D",
+          "text": "#E9ECEF",
+          "border": "1px solid #5F6871",
+          "iconColor": "#E9ECEF",
+          "boxShadow": "0 1px 2px 0 rgba(0, 0, 0, 0.3)"
+        },
+        "hover": {
+          "background": "#37424D",
+          "text": "#E9ECEF",
+          "border": "1px solid #5F6871",
+          "iconColor": "#E9ECEF",
+          "boxShadow": "0 1px 2px 0 rgba(0, 0, 0, 0.3)"
+        },
+        "active": {
+          "background": "#37424D",
+          "text": "#E9ECEF",
+          "border": "1px solid #5F6871",
+          "iconColor": "#E9ECEF",
+          "boxShadow": "0 1px 2px 0 rgba(0, 0, 0, 0.3)"
+        },
+        "focus": {
+          "background": "#37424D",
+          "text": "#E9ECEF",
+          "border": "1px solid #5F6871",
+          "iconColor": "#E9ECEF",
+          "boxShadow": "0 1px 2px 0 rgba(0, 0, 0, 0.3)"
+        },
+        "disabled": {
+          "background": "#37424D",
+          "text": "#E9ECEF",
+          "border": "1px solid #5F6871",
+          "iconColor": "#E9ECEF",
+          "boxShadow": "0 1px 2px 0 rgba(0, 0, 0, 0.3)"
+        }
+      },
+      "structure": {
+        "root": {
+          "element": "div",
+          "class": "card"
+        },
+        "header": {
+          "element": "div",
+          "class": "card__header",
+          "padding": "16px",
+          "borderBottom": "1px solid #5F6871"
+        },
+        "body": {
+          "element": "div",
+          "class": "card__body",
+          "padding": "16px"
+        },
+        "footer": {
+          "element": "div",
+          "class": "card__footer",
+          "padding": "16px",
+          "borderTop": "1px solid #5F6871",
+          "background": "#37424D"
+        }
+      }
     },
-    "transitions": {
-      "default": "all 150ms ease",
-      "properties": {}
+    "elevated-cp-light": {
+      "props": {
+        "elevated": {
+          "type": "boolean",
+          "optional": true,
+          "default": "true"
+        },
+        "interactive": {
+          "type": "boolean",
+          "optional": true,
+          "default": "false"
+        },
+        "primary": {
+          "type": "boolean",
+          "optional": true,
+          "default": "false"
+        },
+        "withHeader": {
+          "type": "boolean",
+          "optional": true,
+          "default": "false"
+        },
+        "headerTitle": {
+          "type": "string",
+          "optional": true,
+          "default": "''"
+        },
+        "headerSubtitle": {
+          "type": "string",
+          "optional": true,
+          "default": "''"
+        },
+        "class": {
+          "type": "string",
+          "optional": true,
+          "default": "''"
+        }
+      },
+      "layout": {
+        "display": "block",
+        "flexDirection": "column",
+        "alignItems": "stretch",
+        "justifyContent": "flex-start",
+        "gap": "0"
+      },
+      "spacing": {
+        "paddingTop": "0",
+        "paddingRight": "0",
+        "paddingBottom": "0",
+        "paddingLeft": "0"
+      },
+      "dimensions": {
+        "height": "auto",
+        "minWidth": "auto",
+        "maxWidth": "none"
+      },
+      "typography": {
+        "fontFamily": "'Lexend', sans-serif",
+        "fontSize": "1.125rem",
+        "fontWeight": "600",
+        "lineHeight": "24px"
+      },
+      "borders": {
+        "width": "1px",
+        "style": "solid",
+        "radius": "12px",
+        "border": "1px solid #BFC6D4"
+      },
+      "states": {
+        "default": {
+          "background": "#F7F8FA",
+          "text": "#373F4E",
+          "border": "1px solid #BFC6D4",
+          "iconColor": "#373F4E",
+          "boxShadow": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)"
+        },
+        "hover": {
+          "background": "#F7F8FA",
+          "text": "#373F4E",
+          "border": "1px solid #BFC6D4",
+          "iconColor": "#373F4E",
+          "boxShadow": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)"
+        },
+        "active": {
+          "background": "#F7F8FA",
+          "text": "#373F4E",
+          "border": "1px solid #BFC6D4",
+          "iconColor": "#373F4E",
+          "boxShadow": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)"
+        },
+        "focus": {
+          "background": "#F7F8FA",
+          "text": "#373F4E",
+          "border": "1px solid #BFC6D4",
+          "iconColor": "#373F4E",
+          "boxShadow": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)"
+        },
+        "disabled": {
+          "background": "#F7F8FA",
+          "text": "#373F4E",
+          "border": "1px solid #BFC6D4",
+          "iconColor": "#373F4E",
+          "boxShadow": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)"
+        }
+      },
+      "structure": {
+        "root": {
+          "element": "div",
+          "class": "card card--elevated"
+        },
+        "header": {
+          "element": "div",
+          "class": "card__header",
+          "padding": "16px",
+          "borderBottom": "1px solid #BFC6D4"
+        },
+        "body": {
+          "element": "div",
+          "class": "card__body",
+          "padding": "16px"
+        },
+        "footer": {
+          "element": "div",
+          "class": "card__footer",
+          "padding": "16px",
+          "borderTop": "1px solid #BFC6D4",
+          "background": "#F7F8FA"
+        }
+      }
     },
-    "layout": {
-      "display": "flex",
-      "flexDirection": "column",
-      "alignItems": "center"
+    "elevated-cp-dark": {
+      "props": {
+        "elevated": {
+          "type": "boolean",
+          "optional": true,
+          "default": "true"
+        },
+        "interactive": {
+          "type": "boolean",
+          "optional": true,
+          "default": "false"
+        },
+        "primary": {
+          "type": "boolean",
+          "optional": true,
+          "default": "false"
+        },
+        "withHeader": {
+          "type": "boolean",
+          "optional": true,
+          "default": "false"
+        },
+        "headerTitle": {
+          "type": "string",
+          "optional": true,
+          "default": "''"
+        },
+        "headerSubtitle": {
+          "type": "string",
+          "optional": true,
+          "default": "''"
+        },
+        "class": {
+          "type": "string",
+          "optional": true,
+          "default": "''"
+        }
+      },
+      "layout": {
+        "display": "block",
+        "flexDirection": "column",
+        "alignItems": "stretch",
+        "justifyContent": "flex-start",
+        "gap": "0"
+      },
+      "spacing": {
+        "paddingTop": "0",
+        "paddingRight": "0",
+        "paddingBottom": "0",
+        "paddingLeft": "0"
+      },
+      "dimensions": {
+        "height": "auto",
+        "minWidth": "auto",
+        "maxWidth": "none"
+      },
+      "typography": {
+        "fontFamily": "'Lexend', sans-serif",
+        "fontSize": "1.125rem",
+        "fontWeight": "600",
+        "lineHeight": "24px"
+      },
+      "borders": {
+        "width": "1px",
+        "style": "solid",
+        "radius": "12px",
+        "border": "1px solid #5F6871"
+      },
+      "states": {
+        "default": {
+          "background": "#37424D",
+          "text": "#E9ECEF",
+          "border": "1px solid #5F6871",
+          "iconColor": "#E9ECEF",
+          "boxShadow": "0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.3)"
+        },
+        "hover": {
+          "background": "#37424D",
+          "text": "#E9ECEF",
+          "border": "1px solid #5F6871",
+          "iconColor": "#E9ECEF",
+          "boxShadow": "0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.3)"
+        },
+        "active": {
+          "background": "#37424D",
+          "text": "#E9ECEF",
+          "border": "1px solid #5F6871",
+          "iconColor": "#E9ECEF",
+          "boxShadow": "0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.3)"
+        },
+        "focus": {
+          "background": "#37424D",
+          "text": "#E9ECEF",
+          "border": "1px solid #5F6871",
+          "iconColor": "#E9ECEF",
+          "boxShadow": "0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.3)"
+        },
+        "disabled": {
+          "background": "#37424D",
+          "text": "#E9ECEF",
+          "border": "1px solid #5F6871",
+          "iconColor": "#E9ECEF",
+          "boxShadow": "0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.3)"
+        }
+      },
+      "structure": {
+        "root": {
+          "element": "div",
+          "class": "card card--elevated"
+        },
+        "header": {
+          "element": "div",
+          "class": "card__header",
+          "padding": "16px",
+          "borderBottom": "1px solid #5F6871"
+        },
+        "body": {
+          "element": "div",
+          "class": "card__body",
+          "padding": "16px"
+        },
+        "footer": {
+          "element": "div",
+          "class": "card__footer",
+          "padding": "16px",
+          "borderTop": "1px solid #5F6871",
+          "background": "#37424D"
+        }
+      }
     },
-    "iconSpecs": null
-  },
-  "accessibility": {
-    "role": null,
-    "tabIndex": null,
-    "keyboardSupport": {},
-    "ariaAttributes": {},
-    "focusVisible": {}
-  },
-  "cssClassStyles": {
-    ".card": {
-      "background-color": "var(--card-bg)",
-      "border": "1px solid var(--border-color)",
-      "border-radius": "var(--radius-xl)",
-      "overflow": "hidden",
-      "box-shadow": "var(--shadow-sm)"
+    "interactive-cp-light": {
+      "props": {
+        "elevated": {
+          "type": "boolean",
+          "optional": true,
+          "default": "false"
+        },
+        "interactive": {
+          "type": "boolean",
+          "optional": true,
+          "default": "true"
+        },
+        "primary": {
+          "type": "boolean",
+          "optional": true,
+          "default": "false"
+        },
+        "withHeader": {
+          "type": "boolean",
+          "optional": true,
+          "default": "false"
+        },
+        "headerTitle": {
+          "type": "string",
+          "optional": true,
+          "default": "''"
+        },
+        "headerSubtitle": {
+          "type": "string",
+          "optional": true,
+          "default": "''"
+        },
+        "class": {
+          "type": "string",
+          "optional": true,
+          "default": "''"
+        }
+      },
+      "layout": {
+        "display": "block",
+        "flexDirection": "column",
+        "alignItems": "stretch",
+        "justifyContent": "flex-start",
+        "gap": "0"
+      },
+      "spacing": {
+        "paddingTop": "0",
+        "paddingRight": "0",
+        "paddingBottom": "0",
+        "paddingLeft": "0"
+      },
+      "dimensions": {
+        "height": "auto",
+        "minWidth": "auto",
+        "maxWidth": "none"
+      },
+      "typography": {
+        "fontFamily": "'Lexend', sans-serif",
+        "fontSize": "1.125rem",
+        "fontWeight": "600",
+        "lineHeight": "24px"
+      },
+      "borders": {
+        "width": "1px",
+        "style": "solid",
+        "radius": "12px",
+        "border": "1px solid #BFC6D4"
+      },
+      "states": {
+        "default": {
+          "background": "#F7F8FA",
+          "text": "#373F4E",
+          "border": "1px solid #BFC6D4",
+          "iconColor": "#373F4E",
+          "boxShadow": "0 1px 2px 0 rgb(15 23 42 / 0.05)"
+        },
+        "hover": {
+          "background": "#F7F8FA",
+          "text": "#373F4E",
+          "border": "1px solid #4C92D9",
+          "iconColor": "#373F4E",
+          "boxShadow": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)"
+        },
+        "active": {
+          "background": "#F7F8FA",
+          "text": "#373F4E",
+          "border": "1px solid #4C92D9",
+          "iconColor": "#373F4E",
+          "boxShadow": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)"
+        },
+        "focus": {
+          "background": "#F7F8FA",
+          "text": "#373F4E",
+          "border": "1px solid #4C92D9",
+          "iconColor": "#373F4E",
+          "boxShadow": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)"
+        },
+        "disabled": {
+          "background": "#F7F8FA",
+          "text": "#373F4E",
+          "border": "1px solid #BFC6D4",
+          "iconColor": "#373F4E",
+          "boxShadow": "0 1px 2px 0 rgb(15 23 42 / 0.05)"
+        }
+      },
+      "structure": {
+        "root": {
+          "element": "div",
+          "class": "card card--interactive"
+        },
+        "header": {
+          "element": "div",
+          "class": "card__header",
+          "padding": "16px",
+          "borderBottom": "1px solid #BFC6D4"
+        },
+        "body": {
+          "element": "div",
+          "class": "card__body",
+          "padding": "16px"
+        },
+        "footer": {
+          "element": "div",
+          "class": "card__footer",
+          "padding": "16px",
+          "borderTop": "1px solid #BFC6D4",
+          "background": "#F7F8FA"
+        }
+      }
     },
-    ".card--elevated": {
-      "box-shadow": "var(--shadow-lg)"
+    "interactive-cp-dark": {
+      "props": {
+        "elevated": {
+          "type": "boolean",
+          "optional": true,
+          "default": "false"
+        },
+        "interactive": {
+          "type": "boolean",
+          "optional": true,
+          "default": "true"
+        },
+        "primary": {
+          "type": "boolean",
+          "optional": true,
+          "default": "false"
+        },
+        "withHeader": {
+          "type": "boolean",
+          "optional": true,
+          "default": "false"
+        },
+        "headerTitle": {
+          "type": "string",
+          "optional": true,
+          "default": "''"
+        },
+        "headerSubtitle": {
+          "type": "string",
+          "optional": true,
+          "default": "''"
+        },
+        "class": {
+          "type": "string",
+          "optional": true,
+          "default": "''"
+        }
+      },
+      "layout": {
+        "display": "block",
+        "flexDirection": "column",
+        "alignItems": "stretch",
+        "justifyContent": "flex-start",
+        "gap": "0"
+      },
+      "spacing": {
+        "paddingTop": "0",
+        "paddingRight": "0",
+        "paddingBottom": "0",
+        "paddingLeft": "0"
+      },
+      "dimensions": {
+        "height": "auto",
+        "minWidth": "auto",
+        "maxWidth": "none"
+      },
+      "typography": {
+        "fontFamily": "'Lexend', sans-serif",
+        "fontSize": "1.125rem",
+        "fontWeight": "600",
+        "lineHeight": "24px"
+      },
+      "borders": {
+        "width": "1px",
+        "style": "solid",
+        "radius": "12px",
+        "border": "1px solid #5F6871"
+      },
+      "states": {
+        "default": {
+          "background": "#37424D",
+          "text": "#E9ECEF",
+          "border": "1px solid #5F6871",
+          "iconColor": "#E9ECEF",
+          "boxShadow": "0 1px 2px 0 rgba(0, 0, 0, 0.3)"
+        },
+        "hover": {
+          "background": "#37424D",
+          "text": "#E9ECEF",
+          "border": "1px solid #59ACFF",
+          "iconColor": "#E9ECEF",
+          "boxShadow": "0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.3)"
+        },
+        "active": {
+          "background": "#37424D",
+          "text": "#E9ECEF",
+          "border": "1px solid #59ACFF",
+          "iconColor": "#E9ECEF",
+          "boxShadow": "0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.3)"
+        },
+        "focus": {
+          "background": "#37424D",
+          "text": "#E9ECEF",
+          "border": "1px solid #59ACFF",
+          "iconColor": "#E9ECEF",
+          "boxShadow": "0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.3)"
+        },
+        "disabled": {
+          "background": "#37424D",
+          "text": "#E9ECEF",
+          "border": "1px solid #5F6871",
+          "iconColor": "#E9ECEF",
+          "boxShadow": "0 1px 2px 0 rgba(0, 0, 0, 0.3)"
+        }
+      },
+      "structure": {
+        "root": {
+          "element": "div",
+          "class": "card card--interactive"
+        },
+        "header": {
+          "element": "div",
+          "class": "card__header",
+          "padding": "16px",
+          "borderBottom": "1px solid #5F6871"
+        },
+        "body": {
+          "element": "div",
+          "class": "card__body",
+          "padding": "16px"
+        },
+        "footer": {
+          "element": "div",
+          "class": "card__footer",
+          "padding": "16px",
+          "borderTop": "1px solid #5F6871",
+          "background": "#37424D"
+        }
+      }
     },
-    ".card--interactive": {
-      "cursor": "pointer",
-      "transition": "all var(--transition-fast)"
+    "primary-cp-light": {
+      "props": {
+        "elevated": {
+          "type": "boolean",
+          "optional": true,
+          "default": "false"
+        },
+        "interactive": {
+          "type": "boolean",
+          "optional": true,
+          "default": "false"
+        },
+        "primary": {
+          "type": "boolean",
+          "optional": true,
+          "default": "true"
+        },
+        "withHeader": {
+          "type": "boolean",
+          "optional": true,
+          "default": "false"
+        },
+        "headerTitle": {
+          "type": "string",
+          "optional": true,
+          "default": "''"
+        },
+        "headerSubtitle": {
+          "type": "string",
+          "optional": true,
+          "default": "''"
+        },
+        "class": {
+          "type": "string",
+          "optional": true,
+          "default": "''"
+        }
+      },
+      "layout": {
+        "display": "block",
+        "flexDirection": "column",
+        "alignItems": "stretch",
+        "justifyContent": "flex-start",
+        "gap": "0"
+      },
+      "spacing": {
+        "paddingTop": "0",
+        "paddingRight": "0",
+        "paddingBottom": "0",
+        "paddingLeft": "0"
+      },
+      "dimensions": {
+        "height": "auto",
+        "minWidth": "auto",
+        "maxWidth": "none"
+      },
+      "typography": {
+        "fontFamily": "'Lexend', sans-serif",
+        "fontSize": "1.125rem",
+        "fontWeight": "600",
+        "lineHeight": "24px"
+      },
+      "borders": {
+        "width": "1px",
+        "style": "solid",
+        "radius": "12px",
+        "border": "1px solid #BFC6D4",
+        "borderTop": "4px solid #4C92D9"
+      },
+      "states": {
+        "default": {
+          "background": "#F7F8FA",
+          "text": "#373F4E",
+          "border": "1px solid #BFC6D4",
+          "iconColor": "#373F4E",
+          "boxShadow": "0 1px 2px 0 rgb(15 23 42 / 0.05)"
+        },
+        "hover": {
+          "background": "#F7F8FA",
+          "text": "#373F4E",
+          "border": "1px solid #BFC6D4",
+          "iconColor": "#373F4E",
+          "boxShadow": "0 1px 2px 0 rgb(15 23 42 / 0.05)"
+        },
+        "active": {
+          "background": "#F7F8FA",
+          "text": "#373F4E",
+          "border": "1px solid #BFC6D4",
+          "iconColor": "#373F4E",
+          "boxShadow": "0 1px 2px 0 rgb(15 23 42 / 0.05)"
+        },
+        "focus": {
+          "background": "#F7F8FA",
+          "text": "#373F4E",
+          "border": "1px solid #BFC6D4",
+          "iconColor": "#373F4E",
+          "boxShadow": "0 1px 2px 0 rgb(15 23 42 / 0.05)"
+        },
+        "disabled": {
+          "background": "#F7F8FA",
+          "text": "#373F4E",
+          "border": "1px solid #BFC6D4",
+          "iconColor": "#373F4E",
+          "boxShadow": "0 1px 2px 0 rgb(15 23 42 / 0.05)"
+        }
+      },
+      "structure": {
+        "root": {
+          "element": "div",
+          "class": "card card--primary"
+        },
+        "header": {
+          "element": "div",
+          "class": "card__header",
+          "padding": "16px",
+          "borderBottom": "1px solid #BFC6D4"
+        },
+        "body": {
+          "element": "div",
+          "class": "card__body",
+          "padding": "16px"
+        },
+        "footer": {
+          "element": "div",
+          "class": "card__footer",
+          "padding": "16px",
+          "borderTop": "1px solid #BFC6D4",
+          "background": "#F7F8FA"
+        }
+      }
     },
-    ".card--interactive:hover": {
-      "border-color": "var(--theme-primary)",
-      "box-shadow": "var(--shadow-lg)"
-    },
-    ".card--primary": {
-      "border-top": "var(--space-1) solid var(--theme-primary)"
-    },
-    ".card__header": {
-      "padding": "var(--space-4)",
-      "border-bottom": "1px solid var(--border-color)"
-    },
-    ".card__header-content": {
-      "display": "flex",
-      "flex-direction": "column",
-      "gap": "var(--space-1)",
-      "flex": "1"
-    },
-    ".card__header-title": {
-      "font-family": "var(--font-display)",
-      "font-size": "var(--heading-s)",
-      "font-weight": "var(--font-semibold)",
-      "line-height": "var(--space-6)",
-      "color": "var(--text-primary)",
-      "margin": "0"
-    },
-    ".card__header-subtitle": {
-      "font-family": "var(--font-sans)",
-      "font-size": "var(--label)",
-      "line-height": "var(--space-5)",
-      "color": "var(--text-secondary)",
-      "margin": "0"
-    },
-    ".card__header-actions": {
-      "display": "flex",
-      "align-items": "center",
-      "gap": "var(--space-2)"
-    },
-    ".card__title": {
-      "font-family": "var(--font-display)",
-      "font-size": "var(--text-lg)",
-      "font-weight": "var(--font-semibold)",
-      "color": "var(--text-primary)"
-    },
-    ".card__subtitle": {
-      "font-size": "var(--text-sm)",
-      "color": "var(--text-secondary)",
-      "margin-top": "var(--space-1)"
-    },
-    ".card__body": {
-      "padding": "var(--space-4)"
-    },
-    ".card__footer": {
-      "padding": "var(--space-4)",
-      "border-top": "1px solid var(--border-color)",
-      "background-color": "var(--elevated-bg)"
-    },
-    ".kanban__column-card .card__body": {
-      "padding": "0",
-      "display": "flex",
-      "flex-direction": "column",
-      "height": "100%"
-    },
-    ".kanban-card .card__body": {
-      "padding": "var(--space-3)",
-      "display": "flex",
-      "flex-direction": "column",
-      "gap": "var(--space-3)"
+    "primary-cp-dark": {
+      "props": {
+        "elevated": {
+          "type": "boolean",
+          "optional": true,
+          "default": "false"
+        },
+        "interactive": {
+          "type": "boolean",
+          "optional": true,
+          "default": "false"
+        },
+        "primary": {
+          "type": "boolean",
+          "optional": true,
+          "default": "true"
+        },
+        "withHeader": {
+          "type": "boolean",
+          "optional": true,
+          "default": "false"
+        },
+        "headerTitle": {
+          "type": "string",
+          "optional": true,
+          "default": "''"
+        },
+        "headerSubtitle": {
+          "type": "string",
+          "optional": true,
+          "default": "''"
+        },
+        "class": {
+          "type": "string",
+          "optional": true,
+          "default": "''"
+        }
+      },
+      "layout": {
+        "display": "block",
+        "flexDirection": "column",
+        "alignItems": "stretch",
+        "justifyContent": "flex-start",
+        "gap": "0"
+      },
+      "spacing": {
+        "paddingTop": "0",
+        "paddingRight": "0",
+        "paddingBottom": "0",
+        "paddingLeft": "0"
+      },
+      "dimensions": {
+        "height": "auto",
+        "minWidth": "auto",
+        "maxWidth": "none"
+      },
+      "typography": {
+        "fontFamily": "'Lexend', sans-serif",
+        "fontSize": "1.125rem",
+        "fontWeight": "600",
+        "lineHeight": "24px"
+      },
+      "borders": {
+        "width": "1px",
+        "style": "solid",
+        "radius": "12px",
+        "border": "1px solid #5F6871",
+        "borderTop": "4px solid #59ACFF"
+      },
+      "states": {
+        "default": {
+          "background": "#37424D",
+          "text": "#E9ECEF",
+          "border": "1px solid #5F6871",
+          "iconColor": "#E9ECEF",
+          "boxShadow": "0 1px 2px 0 rgba(0, 0, 0, 0.3)"
+        },
+        "hover": {
+          "background": "#37424D",
+          "text": "#E9ECEF",
+          "border": "1px solid #5F6871",
+          "iconColor": "#E9ECEF",
+          "boxShadow": "0 1px 2px 0 rgba(0, 0, 0, 0.3)"
+        },
+        "active": {
+          "background": "#37424D",
+          "text": "#E9ECEF",
+          "border": "1px solid #5F6871",
+          "iconColor": "#E9ECEF",
+          "boxShadow": "0 1px 2px 0 rgba(0, 0, 0, 0.3)"
+        },
+        "focus": {
+          "background": "#37424D",
+          "text": "#E9ECEF",
+          "border": "1px solid #5F6871",
+          "iconColor": "#E9ECEF",
+          "boxShadow": "0 1px 2px 0 rgba(0, 0, 0, 0.3)"
+        },
+        "disabled": {
+          "background": "#37424D",
+          "text": "#E9ECEF",
+          "border": "1px solid #5F6871",
+          "iconColor": "#E9ECEF",
+          "boxShadow": "0 1px 2px 0 rgba(0, 0, 0, 0.3)"
+        }
+      },
+      "structure": {
+        "root": {
+          "element": "div",
+          "class": "card card--primary"
+        },
+        "header": {
+          "element": "div",
+          "class": "card__header",
+          "padding": "16px",
+          "borderBottom": "1px solid #5F6871"
+        },
+        "body": {
+          "element": "div",
+          "class": "card__body",
+          "padding": "16px"
+        },
+        "footer": {
+          "element": "div",
+          "class": "card__footer",
+          "padding": "16px",
+          "borderTop": "1px solid #5F6871",
+          "background": "#37424D"
+        }
+      }
     }
   },
-  "_variantIndex": {
-    "cp-elevated": {
-      "variant": "elevated",
-      "theme": "cp",
-      "light": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      },
-      "dark": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      }
+  "guidance": {
+    "patterns": {
+      "header-slot-precedence": "The card header can be created two ways: (1) using the header slot for custom content, or (2) using headerTitle and headerSubtitle props for automatic rendering. The header slot takes precedence and will completely replace any headerTitle/headerSubtitle props. When using props, set withHeader=true to render the header section.",
+      "header-actions-slot": "The header-actions slot is independent of the main header slot and always renders in the top-right corner of the header when provided. It works with both custom header slot content and prop-based headers.",
+      "variant-combinations": "Card variants can be combined: elevated adds shadow elevation, interactive adds hover effects and pointer cursor, and primary adds a 6px top border in the theme primary color. Multiple variants can be applied simultaneously (e.g., elevated + interactive + primary).",
+      "slot-structure": "The card uses three slots: header (optional), default (card body, always in card__body), and footer (optional, only when Astro.slots.has('footer'))."
     },
-    "vp-elevated": {
-      "variant": "elevated",
-      "theme": "vp",
-      "light": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      },
-      "dark": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      }
-    },
-    "ppm-elevated": {
-      "variant": "elevated",
-      "theme": "ppm",
-      "light": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      },
-      "dark": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      }
-    },
-    "maconomy-elevated": {
-      "variant": "elevated",
-      "theme": "maconomy",
-      "light": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      },
-      "dark": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      }
-    },
-    "cp-interactive": {
-      "variant": "interactive",
-      "theme": "cp",
-      "light": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        },
-        "hover": {
-          "background": "transparent",
-          "text": null,
-          "border": "#4C92D9",
-          "iconColor": null
-        }
-      },
-      "dark": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        },
-        "hover": {
-          "background": "transparent",
-          "text": null,
-          "border": "#59ACFF",
-          "iconColor": null
-        }
-      }
-    },
-    "vp-interactive": {
-      "variant": "interactive",
-      "theme": "vp",
-      "light": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        },
-        "hover": {
-          "background": "transparent",
-          "text": null,
-          "border": "#4C92D9",
-          "iconColor": null
-        }
-      },
-      "dark": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        },
-        "hover": {
-          "background": "transparent",
-          "text": null,
-          "border": "#59ACFF",
-          "iconColor": null
-        }
-      }
-    },
-    "ppm-interactive": {
-      "variant": "interactive",
-      "theme": "ppm",
-      "light": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        },
-        "hover": {
-          "background": "transparent",
-          "text": null,
-          "border": "#4C92D9",
-          "iconColor": null
-        }
-      },
-      "dark": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        },
-        "hover": {
-          "background": "transparent",
-          "text": null,
-          "border": "#59ACFF",
-          "iconColor": null
-        }
-      }
-    },
-    "maconomy-interactive": {
-      "variant": "interactive",
-      "theme": "maconomy",
-      "light": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        },
-        "hover": {
-          "background": "transparent",
-          "text": null,
-          "border": "#4C92D9",
-          "iconColor": null
-        }
-      },
-      "dark": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        },
-        "hover": {
-          "background": "transparent",
-          "text": null,
-          "border": "#59ACFF",
-          "iconColor": null
-        }
-      }
-    },
-    "cp-primary": {
-      "variant": "primary",
-      "theme": "cp",
-      "light": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      },
-      "dark": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      }
-    },
-    "vp-primary": {
-      "variant": "primary",
-      "theme": "vp",
-      "light": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      },
-      "dark": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      }
-    },
-    "ppm-primary": {
-      "variant": "primary",
-      "theme": "ppm",
-      "light": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      },
-      "dark": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      }
-    },
-    "maconomy-primary": {
-      "variant": "primary",
-      "theme": "maconomy",
-      "light": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      },
-      "dark": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      }
+    "guidelines": {
+      "when-to-use": "Use Card for grouped content with optional header and footer. Use elevated for emphasis, interactive for clickable cards, primary for highlighted top border.",
+      "composition": "Compose with header slot or headerTitle/headerSubtitle; use footer slot for actions or secondary content."
     }
-  },
-  "_variantMetadata": {
-    "availableVariants": [
-      "elevated",
-      "interactive",
-      "primary"
-    ]
   },
   "interactivity": {
     "events": [

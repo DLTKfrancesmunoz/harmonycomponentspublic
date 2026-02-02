@@ -1,5 +1,7 @@
 # MCP Variant Filtering Implementation Guide
 
+**Retired.** get_specs and build_component behavior are defined in [SPEC_CONTRACT.md](SPEC_CONTRACT.md) and [EXACT_BUILD_MCP.md](EXACT_BUILD_MCP.md). This doc is kept for historical reference only.
+
 ## Problem Solved
 
 Previously, when `get_component_basic` was called with `variant="secondary"`:

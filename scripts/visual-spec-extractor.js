@@ -1,6 +1,11 @@
 /**
- * Visual Specifications Extractor
- * Combines CSS parsing with component data to generate complete visual specs
+ * DEPRECATED for canonical spec data. The canonical format uses `specs` in each
+ * component JSON (authored manually or via scripts/migrate-to-canonical-json.js);
+ * get_specs reads specs and guidance directly. Do not use this extractor to feed
+ * exact-build data. See docs/SPEC_CONTRACT.md.
+ *
+ * Legacy: Visual Specifications Extractor - combines CSS parsing with component
+ * data to generate visualSpecifications. Not used for canonical spec.
  */
 
 import {

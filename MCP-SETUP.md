@@ -76,6 +76,33 @@ When Harmony data is successfully loaded, these 5 tools become available:
 4. **get_component_structure** - DOM structure and slots ✨ NEW
 5. **get_layout_data** - Layout composition data ✨ NEW
 
+## Exact builds and canonical spec
+
+For **exact builds** (component, template, recipe, or apply tokens to a framework), use the canonical build spec and design system overview so the AI applies values verbatim with no deviations.
+
+### Design system overview (read first)
+
+- **Location:** `mcp-data/DESIGN_SYSTEM_OVERVIEW.md` and `mcp-data/design-system-overview.json`
+- **Contents:** Fonts (Figtree, Lexend, JetBrains Mono), icons (Heroicons, paths, sizes), fallback icons (behavior and CSS vars), themes (cp, vp, ppm, maconomy), modes (light, dark), spacing scale, typography scale, radius/elevation.
+- **Use:** Expose this as an MCP resource or return it when the AI builds; the AI should apply these global rules before applying per-component specs.
+
+### Canonical spec and guidance (per component)
+
+- **Location:** Each component JSON in `mcp-data/components/*.json` uses the **canonical format** (see [docs/SPEC_CONTRACT.md](docs/SPEC_CONTRACT.md)):
+  - **specs** – Keyed by `[variant]-[theme]-[mode]-[size]` (e.g. `primary-cp-light-md`, `cp-light`, `base-cp-light`). Each value is one complete spec object: props, layout (with gap), spacing, dimensions, typography, borders, states (default, hover, active, focus, disabled, item/icon/label where applicable), icons; and when applicable **template** (exact default content, e.g. sections/items/icons) and **structure** (DOM + BEM classes). All values are resolved (no null, no transparent, no `var()`).
+  - **guidance** – `patterns` (behavior: icon-only, loading, href) and `guidelines` (when to use, composition, anti-patterns).
+- **get_specs / get_build_spec (intended behavior):** Read **only** `specs` and `guidance` from the component JSON. Return **one** spec for the requested (componentName, variant, theme, mode, size) from `specs[key]`, plus **guidance**, in one response, e.g. `{ buildSpec: { ... }, defaultsUsed?: { variant, theme, mode, size }, guidance: { patterns: { ... }, guidelines: { ... } } }`. Use component `defaults` when variant/theme/mode/size are omitted.
+- **build_component (intended behavior):** Apply the spec from get_specs **to the letter**: same structure (DOM + classes), same template (sections/items/icons when present), same layout/spacing/gaps, same states. Use **guidance** for behavior and composition only; no deviations from the spec.
+
+### Spec contract
+
+- **Location:** [docs/SPEC_CONTRACT.md](docs/SPEC_CONTRACT.md)
+- **Contents:** Canonical JSON schema, states contract (all states always documented), usage patterns and guidelines, defaults, and how MCP uses this for the four build targets (component, template, recipe, apply tokens to framework).
+
+### Canonical spec data (no script regeneration)
+
+The canonical format uses **specs** (not legacy `buildSpecs`) with hardcoded, resolved values. Component JSON files (e.g. `card.json`, `rightsidebar.json`) are the source of truth. They are authored manually from tokens + component CSS (see [docs/SPEC_CONTRACT.md](docs/SPEC_CONTRACT.md) § 1.3 Provenance), or by one auditable script. **Do not** run `generate-build-specs` or other spec-extraction scripts for this data; get_specs reads `specs` and `guidance` directly from the component JSON.
+
 ## Regenerating MCP Data
 
 **Automated:** When you push to `main` (e.g. after changing components, styles, or tokens), CI runs one workflow that regenerates both MCP and changelog data and pushes a single commit. You do not need to run any scripts or commit `mcp-data/` or `changelog-data/` yourself—doing that can cause branch divergence.

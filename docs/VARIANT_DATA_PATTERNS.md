@@ -1,5 +1,7 @@
 # Variant Data Patterns
 
+**Retired.** The canonical format uses `specs` only (no visualSpecifications). See [SPEC_CONTRACT.md](SPEC_CONTRACT.md). This doc is kept for historical reference only.
+
 This document explains the different patterns of variant data completeness in Harmony component JSON files. Understanding these patterns helps MCP tool implementers handle variant data display gracefully.
 
 ## Overview

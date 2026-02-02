@@ -20,1857 +20,1542 @@
       "default": "''"
     }
   },
-  "imports": {
-    "Icon": "./Icon.astro",
-    "Tooltip": "./Tooltip.astro"
+  "defaults": {
+    "theme": "cp",
+    "mode": "light"
   },
-  "dependencies": [
-    "Icon",
-    "Tooltip"
-  ],
-  "cssClasses": [
-    "right-sidebar__variant",
-    "right-sidebar__variant--cp",
-    "right-sidebar__section",
-    "right-sidebar__item",
-    "right-sidebar__label",
-    "right-sidebar__item-tooltip",
-    "right-sidebar__icon",
-    "right-sidebar__dela-logo",
-    "right-sidebar__dela-logo--default",
-    "right-sidebar__dela-logo--active",
-    "right-sidebar__variant--vp",
-    "right-sidebar__variant--ppm",
-    "right-sidebar__variant--maconomy"
-  ],
-  "themeSupport": {
-    "themes": [
-      "cp",
-      "vp",
-      "ppm",
-      "maconomy"
-    ],
-    "darkMode": true
-  },
-  "slots": {},
-  "structure": {
-    "root": {
-      "element": "nav",
-      "class": null,
+  "specs": {
+    "cp-light": {
+      "props": {
+        "variant": {
+          "type": "'cp' | 'vp' | 'ppm' | 'maconomy'",
+          "optional": true,
+          "default": "'cp'"
+        },
+        "sections": {
+          "type": "Section[]",
+          "optional": true,
+          "default": null
+        },
+        "class": {
+          "type": "string",
+          "optional": true,
+          "default": "''"
+        }
+      },
+      "layout": {
+        "display": "flex",
+        "flexDirection": "column",
+        "alignItems": "stretch",
+        "justifyContent": "flex-start",
+        "gap": "12px"
+      },
       "spacing": {
-        "padding": "0",
-        "margin": "0"
+        "paddingTop": "12px",
+        "paddingRight": "8px",
+        "paddingBottom": "12px",
+        "paddingLeft": "8px"
       },
-      "baseClass": null,
-      "modifierClasses": {},
-      "children": [
-        {
-          "element": "div",
-          "class": "right-sidebar__section",
-          "spacing": {
-            "padding": "var(--space-2) var(--space-1-5)",
-            "margin": "0"
-          },
-          "children": [
-            {
-              "element": "a",
-              "class": "right-sidebar__item",
-              "spacing": {
-                "padding": "var(--space-1)",
-                "margin": "0"
-              },
-              "children": [
-                {
-                  "element": "span",
-                  "class": "right-sidebar__label",
-                  "spacing": {
-                    "padding": "0",
-                    "margin": "0"
-                  },
-                  "children": []
-                },
-                {
-                  "element": "Tooltip",
-                  "class": "right-sidebar__item-tooltip",
-                  "spacing": {
-                    "padding": "0",
-                    "margin": "0"
-                  },
-                  "children": [
-                    {
-                      "element": "span",
-                      "class": "right-sidebar__icon",
-                      "spacing": {
-                        "padding": "0",
-                        "margin": "0"
-                      },
-                      "children": []
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    "children": [
-      {
-        "element": "style",
-        "class": null,
-        "spacing": {
-          "padding": "0",
-          "margin": "0"
-        },
-        "children": []
+      "dimensions": {
+        "height": "auto",
+        "minWidth": "52px",
+        "maxWidth": "220px"
       },
-      {
-        "element": "script",
-        "class": null,
-        "spacing": {
-          "padding": "0",
-          "margin": "0"
-        },
-        "children": []
-      }
-    ]
-  },
-  "usagePatterns": {
-    "theme-variant-icons": "Each theme variant (cp, vp, ppm, maconomy) has its own predefined icon set. All themes start with Dela custom logo (RS_DelaDefault.svg default, RS_Dela_Active.svg active) as the first item. CP has 3 sections with 3, 2, and 4 items (lines 42-64). VP, PPM, and Maconomy have 3 sections with 8, 3, and 3 items respectively (currently identical configurations). The appropriate variant is shown via CSS based on html theme class (lines 369-393).",
-    "custom-icon-support": "Navigation items support two icon approaches: standard Icon component (icon: 'icon-name') or custom images (isCustom: true, customSrc: '/path/to/image.svg', optional customSrcActive for active state) like the Dela logo (RS_DelaDefault.svg / RS_Dela_Active.svg). Custom images are rendered as <img> tags with class right-sidebar__dela-logo, while standard icons use the Icon component. All theme variants automatically include the Dela AI custom logo as the first item.",
-    "panel-data-attributes": "Items use data attributes to control ShellPanel behavior: panelTitle (defaults to label), panelIcon (defaults to item icon), panelContentId (optional identifier), and useGradientHeader (boolean). The script automatically detects Dela AI items (by title or .right-sidebar__dela-logo) and applies gradient header without explicit useGradientHeader attribute (lines 423-428)."
-  },
-  "_metadata": {
-    "lastGenerated": "2026-02-02T20:32:10.916Z",
-    "generatedWith": "@astrojs/compiler@2.13.0",
-    "includesVisualSpecs": true,
-    "availableVariants": [
-      "default",
-      "active",
-      "cp",
-      "vp",
-      "ppm",
-      "maconomy"
-    ]
-  },
-  "visualSpecifications": {
-    "dimensions": {
-      "xs": {
-        "height": null,
-        "width": null,
-        "minWidth": "auto",
-        "maxWidth": "none"
+      "typography": {
+        "fontFamily": "'Figtree', sans-serif",
+        "fontSize": "0.875rem",
+        "fontWeight": "400",
+        "lineHeight": "1.5"
       },
-      "sm": {
-        "height": null,
-        "width": null,
-        "minWidth": "auto",
-        "maxWidth": "none"
+      "borders": {
+        "width": "1px",
+        "style": "solid",
+        "radius": "12px",
+        "border": "1px solid #BFC6D4"
       },
-      "md": {
-        "height": null,
-        "width": null,
-        "minWidth": "auto",
-        "maxWidth": "none"
-      },
-      "lg": {
-        "height": null,
-        "width": null,
-        "minWidth": "auto",
-        "maxWidth": "none"
-      }
-    },
-    "spacing": {
-      "xs": {
-        "paddingTop": "4px",
-        "paddingRight": "4px",
-        "paddingBottom": "4px",
-        "paddingLeft": "4px",
-        "gap": "6px"
-      },
-      "sm": {
-        "paddingTop": "4px",
-        "paddingRight": "4px",
-        "paddingBottom": "4px",
-        "paddingLeft": "4px",
-        "gap": "6px"
-      },
-      "md": {
-        "paddingTop": "4px",
-        "paddingRight": "4px",
-        "paddingBottom": "4px",
-        "paddingLeft": "4px",
-        "gap": "6px"
-      },
-      "lg": {
-        "paddingTop": "4px",
-        "paddingRight": "4px",
-        "paddingBottom": "4px",
-        "paddingLeft": "4px",
-        "gap": "6px"
-      }
-    },
-    "typography": {
-      "fontFamily": "'Figtree', sans-serif",
-      "fontWeight": "400",
-      "lineHeight": null,
-      "letterSpacing": null,
-      "textTransform": null,
-      "sizes": {
-        "xs": {
-          "fontSize": "0.875rem",
-          "lineHeight": null
-        },
-        "sm": {
-          "fontSize": "0.875rem",
-          "lineHeight": null
-        },
-        "md": {
-          "fontSize": "0.875rem",
-          "lineHeight": null
-        },
-        "lg": {
-          "fontSize": "0.875rem",
-          "lineHeight": null
-        }
-      }
-    },
-    "borders": {
-      "width": null,
-      "style": null,
-      "radius": {
-        "default": "10px"
-      }
-    },
-    "colors": {
-      "variants": {
+      "states": {
         "default": {
-          "cp": {
-            "light": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            },
-            "dark": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            }
-          },
-          "vp": {
-            "light": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            },
-            "dark": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            }
-          },
-          "ppm": {
-            "light": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            },
-            "dark": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            }
-          },
-          "maconomy": {
-            "light": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            },
-            "dark": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            }
-          }
+          "background": "#FCFDFF",
+          "text": "#373F4E",
+          "border": "1px solid #BFC6D4",
+          "iconColor": "#373F4E"
+        },
+        "hover": {
+          "background": "#E5E7EB",
+          "text": "#373F4E",
+          "border": "1px solid #BFC6D4",
+          "iconColor": "#373F4E"
         },
         "active": {
-          "cp": {
-            "light": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            },
-            "dark": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            }
-          },
-          "vp": {
-            "light": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            },
-            "dark": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            }
-          },
-          "ppm": {
-            "light": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            },
-            "dark": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            }
-          },
-          "maconomy": {
-            "light": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            },
-            "dark": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            }
-          }
+          "background": "#E5E7EB",
+          "text": "#373F4E",
+          "border": "1px solid #BFC6D4",
+          "iconColor": "#373F4E"
         },
-        "cp": {
-          "cp": {
-            "light": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            },
-            "dark": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            }
-          },
-          "vp": {
-            "light": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            },
-            "dark": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            }
-          },
-          "ppm": {
-            "light": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            },
-            "dark": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            }
-          },
-          "maconomy": {
-            "light": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            },
-            "dark": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            }
-          }
+        "focus": {
+          "background": "#FCFDFF",
+          "text": "#373F4E",
+          "border": "1px solid #BFC6D4",
+          "iconColor": "#373F4E"
         },
-        "vp": {
-          "cp": {
-            "light": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            },
-            "dark": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            }
-          },
-          "vp": {
-            "light": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            },
-            "dark": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            }
-          },
-          "ppm": {
-            "light": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            },
-            "dark": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            }
-          },
-          "maconomy": {
-            "light": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            },
-            "dark": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            }
-          }
+        "disabled": {
+          "background": "#FCFDFF",
+          "text": "#373F4E",
+          "border": "1px solid #BFC6D4",
+          "iconColor": "#373F4E"
         },
-        "ppm": {
-          "cp": {
-            "light": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
+        "item": {
+          "background": "#4C92D9",
+          "text": "#FFFFFF",
+          "border": "none",
+          "iconColor": "#FFFFFF"
+        }
+      },
+      "icons": {
+        "iconSizePx": "24",
+        "gapBetweenIconAndText": "8"
+      },
+      "template": {
+        "sections": [
+          {
+            "items": [
+              {
+                "label": "Dela AI",
+                "isCustom": true,
+                "customSrc": "/RS_DelaDefault.svg",
+                "customSrcActive": "/RS_Dela_Active.svg"
               },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            },
-            "dark": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
+              {
+                "icon": "bell",
+                "label": "Notifications"
               },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
+              {
+                "icon": "arrow-up-tray",
+                "label": "Files"
               }
-            }
+            ]
           },
-          "vp": {
-            "light": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
+          {
+            "items": [
+              {
+                "icon": "printer",
+                "label": "Print"
               },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
+              {
+                "icon": "view-columns",
+                "label": "Layout Options"
               }
-            },
-            "dark": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            }
+            ]
           },
-          "ppm": {
-            "light": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
+          {
+            "items": [
+              {
+                "icon": "mic-slash",
+                "label": "Microphone"
               },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            },
-            "dark": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
+              {
+                "icon": "signal-slash",
+                "label": "Offline"
               },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            }
-          },
-          "maconomy": {
-            "light": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
+              {
+                "icon": "command-line",
+                "label": "Keyboard Shortcuts"
               },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
+              {
+                "icon": "question-mark-circle",
+                "label": "Help"
               }
-            },
-            "dark": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            }
+            ]
           }
+        ]
+      },
+      "structure": {
+        "root": {
+          "element": "nav",
+          "class": "right-sidebar right-sidebar__variant right-sidebar__variant--cp"
         },
-        "maconomy": {
-          "cp": {
-            "light": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            },
-            "dark": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            }
-          },
-          "vp": {
-            "light": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            },
-            "dark": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            }
-          },
-          "ppm": {
-            "light": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            },
-            "dark": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            }
-          },
-          "maconomy": {
-            "light": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            },
-            "dark": {
-              "default": {
-                "background": "transparent",
-                "text": null,
-                "border": "transparent",
-                "iconColor": null
-              },
-              "hover": {},
-              "active": {},
-              "focus": {},
-              "disabled": {},
-              "item": {
-                "background": "var(--theme-primary)",
-                "text": "var(--text-inverse)",
-                "border": "transparent",
-                "iconColor": "var(--text-inverse)"
-              }
-            }
-          }
+        "section": {
+          "element": "div",
+          "class": "right-sidebar__section"
+        },
+        "item": {
+          "element": "a",
+          "class": "right-sidebar__item"
+        },
+        "icon": {
+          "element": "span",
+          "class": "right-sidebar__icon"
+        },
+        "label": {
+          "element": "span",
+          "class": "right-sidebar__label"
+        },
+        "delaLogo": {
+          "element": "img",
+          "class": "right-sidebar__dela-logo right-sidebar__dela-logo--default"
+        },
+        "delaLogoActive": {
+          "element": "img",
+          "class": "right-sidebar__dela-logo right-sidebar__dela-logo--active"
         }
       }
     },
-    "elevation": {
-      "default": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
-      "hover": null,
-      "active": null,
-      "focus": null
-    },
-    "transitions": {
-      "default": "opacity 0.2s ease, visibility 0.2s ease",
-      "properties": {
-        "width": "width 0.2s ease",
-        "background-color": "background-color 150ms ease",
-        "opacity": "opacity 0.2s ease",
-        "visibility": "visibility 0.2s ease"
+    "cp-dark": {
+      "props": {
+        "variant": {
+          "type": "'cp' | 'vp' | 'ppm' | 'maconomy'",
+          "optional": true,
+          "default": "'cp'"
+        },
+        "sections": {
+          "type": "Section[]",
+          "optional": true,
+          "default": null
+        },
+        "class": {
+          "type": "string",
+          "optional": true,
+          "default": "''"
+        }
+      },
+      "layout": {
+        "display": "flex",
+        "flexDirection": "column",
+        "alignItems": "stretch",
+        "justifyContent": "flex-start",
+        "gap": "12px"
+      },
+      "spacing": {
+        "paddingTop": "12px",
+        "paddingRight": "8px",
+        "paddingBottom": "12px",
+        "paddingLeft": "8px"
+      },
+      "dimensions": {
+        "height": "auto",
+        "minWidth": "52px",
+        "maxWidth": "220px"
+      },
+      "typography": {
+        "fontFamily": "'Figtree', sans-serif",
+        "fontSize": "0.875rem",
+        "fontWeight": "400",
+        "lineHeight": "1.5"
+      },
+      "borders": {
+        "width": "1px",
+        "style": "solid",
+        "radius": "12px",
+        "border": "1px solid #5F6871"
+      },
+      "states": {
+        "default": {
+          "background": "#333D47",
+          "text": "#E9ECEF",
+          "border": "1px solid #5F6871",
+          "iconColor": "#E9ECEF"
+        },
+        "hover": {
+          "background": "#3D4A5C",
+          "text": "#E9ECEF",
+          "border": "1px solid #5F6871",
+          "iconColor": "#E9ECEF"
+        },
+        "active": {
+          "background": "#3D4A5C",
+          "text": "#E9ECEF",
+          "border": "1px solid #5F6871",
+          "iconColor": "#E9ECEF"
+        },
+        "focus": {
+          "background": "#333D47",
+          "text": "#E9ECEF",
+          "border": "1px solid #5F6871",
+          "iconColor": "#E9ECEF"
+        },
+        "disabled": {
+          "background": "#333D47",
+          "text": "#E9ECEF",
+          "border": "1px solid #5F6871",
+          "iconColor": "#E9ECEF"
+        },
+        "item": {
+          "background": "#59ACFF",
+          "text": "#FFFFFF",
+          "border": "none",
+          "iconColor": "#FFFFFF"
+        }
+      },
+      "icons": {
+        "iconSizePx": "24",
+        "gapBetweenIconAndText": "8"
+      },
+      "template": {
+        "sections": [
+          {
+            "items": [
+              {
+                "label": "Dela AI",
+                "isCustom": true,
+                "customSrc": "/RS_DelaDefault.svg",
+                "customSrcActive": "/RS_Dela_Active.svg"
+              },
+              {
+                "icon": "bell",
+                "label": "Notifications"
+              },
+              {
+                "icon": "arrow-up-tray",
+                "label": "Files"
+              }
+            ]
+          },
+          {
+            "items": [
+              {
+                "icon": "printer",
+                "label": "Print"
+              },
+              {
+                "icon": "view-columns",
+                "label": "Layout Options"
+              }
+            ]
+          },
+          {
+            "items": [
+              {
+                "icon": "mic-slash",
+                "label": "Microphone"
+              },
+              {
+                "icon": "signal-slash",
+                "label": "Offline"
+              },
+              {
+                "icon": "command-line",
+                "label": "Keyboard Shortcuts"
+              },
+              {
+                "icon": "question-mark-circle",
+                "label": "Help"
+              }
+            ]
+          }
+        ]
+      },
+      "structure": {
+        "root": {
+          "element": "nav",
+          "class": "right-sidebar right-sidebar__variant right-sidebar__variant--cp"
+        },
+        "section": {
+          "element": "div",
+          "class": "right-sidebar__section"
+        },
+        "item": {
+          "element": "a",
+          "class": "right-sidebar__item"
+        },
+        "icon": {
+          "element": "span",
+          "class": "right-sidebar__icon"
+        },
+        "label": {
+          "element": "span",
+          "class": "right-sidebar__label"
+        },
+        "delaLogo": {
+          "element": "img",
+          "class": "right-sidebar__dela-logo right-sidebar__dela-logo--default"
+        },
+        "delaLogoActive": {
+          "element": "img",
+          "class": "right-sidebar__dela-logo right-sidebar__dela-logo--active"
+        }
       }
     },
-    "layout": {
-      "display": "inline-flex",
-      "flexDirection": "column",
-      "position": "relative",
-      "alignItems": "center",
-      "justifyContent": "center",
-      "flexShrink": "0"
-    },
-    "iconSpecs": {
-      "sizes": {},
-      "position": {
-        "left": {
-          "marginRight": "gap"
+    "vp-light": {
+      "props": {
+        "variant": {
+          "type": "'cp' | 'vp' | 'ppm' | 'maconomy'",
+          "optional": true,
+          "default": "'vp'"
         },
-        "right": {
-          "marginLeft": "gap"
+        "sections": {
+          "type": "Section[]",
+          "optional": true,
+          "default": null
+        },
+        "class": {
+          "type": "string",
+          "optional": true,
+          "default": "''"
+        }
+      },
+      "layout": {
+        "display": "flex",
+        "flexDirection": "column",
+        "alignItems": "stretch",
+        "justifyContent": "flex-start",
+        "gap": "12px"
+      },
+      "spacing": {
+        "paddingTop": "12px",
+        "paddingRight": "8px",
+        "paddingBottom": "12px",
+        "paddingLeft": "8px"
+      },
+      "dimensions": {
+        "height": "auto",
+        "minWidth": "52px",
+        "maxWidth": "220px"
+      },
+      "typography": {
+        "fontFamily": "'Figtree', sans-serif",
+        "fontSize": "0.875rem",
+        "fontWeight": "400",
+        "lineHeight": "1.5"
+      },
+      "borders": {
+        "width": "1px",
+        "style": "solid",
+        "radius": "12px",
+        "border": "1px solid #BFC6D4"
+      },
+      "states": {
+        "default": {
+          "background": "#FCFDFF",
+          "text": "#373F4E",
+          "border": "1px solid #BFC6D4",
+          "iconColor": "#373F4E"
+        },
+        "hover": {
+          "background": "#E5E7EB",
+          "text": "#373F4E",
+          "border": "1px solid #BFC6D4",
+          "iconColor": "#373F4E"
+        },
+        "active": {
+          "background": "#E5E7EB",
+          "text": "#373F4E",
+          "border": "1px solid #BFC6D4",
+          "iconColor": "#373F4E"
+        },
+        "focus": {
+          "background": "#FCFDFF",
+          "text": "#373F4E",
+          "border": "1px solid #BFC6D4",
+          "iconColor": "#373F4E"
+        },
+        "disabled": {
+          "background": "#FCFDFF",
+          "text": "#373F4E",
+          "border": "1px solid #BFC6D4",
+          "iconColor": "#373F4E"
+        },
+        "item": {
+          "background": "#4C92D9",
+          "text": "#FFFFFF",
+          "border": "none",
+          "iconColor": "#FFFFFF"
+        }
+      },
+      "icons": {
+        "iconSizePx": "24",
+        "gapBetweenIconAndText": "8"
+      },
+      "template": {
+        "sections": [
+          {
+            "items": [
+              {
+                "label": "Dela AI",
+                "isCustom": true,
+                "customSrc": "/RS_DelaDefault.svg",
+                "customSrcActive": "/RS_Dela_Active.svg"
+              },
+              {
+                "icon": "pencil-square",
+                "label": "Edit"
+              },
+              {
+                "icon": "magnifying-glass",
+                "label": "Search"
+              },
+              {
+                "icon": "ellipsis-horizontal-circle",
+                "label": "Actions"
+              },
+              {
+                "icon": "related",
+                "label": "Related"
+              },
+              {
+                "icon": "template",
+                "label": "Templates"
+              },
+              {
+                "icon": "cloud-arrow-up",
+                "label": "Upload"
+              },
+              {
+                "icon": "cloud-arrow-down",
+                "label": "Download"
+              }
+            ]
+          },
+          {
+            "items": [
+              {
+                "icon": "bell",
+                "label": "Notifications"
+              },
+              {
+                "icon": "question-mark-circle",
+                "label": "Help"
+              },
+              {
+                "icon": "share",
+                "label": "Share"
+              }
+            ]
+          },
+          {
+            "items": [
+              {
+                "icon": "globe-alt",
+                "label": "Accessibility"
+              },
+              {
+                "icon": "language",
+                "label": "Language"
+              },
+              {
+                "icon": "moon",
+                "label": "Dark Mode"
+              }
+            ]
+          }
+        ]
+      },
+      "structure": {
+        "root": {
+          "element": "nav",
+          "class": "right-sidebar right-sidebar__variant right-sidebar__variant--vp"
+        },
+        "section": {
+          "element": "div",
+          "class": "right-sidebar__section"
+        },
+        "item": {
+          "element": "a",
+          "class": "right-sidebar__item"
+        },
+        "icon": {
+          "element": "span",
+          "class": "right-sidebar__icon"
+        },
+        "label": {
+          "element": "span",
+          "class": "right-sidebar__label"
+        },
+        "delaLogo": {
+          "element": "img",
+          "class": "right-sidebar__dela-logo right-sidebar__dela-logo--default"
+        },
+        "delaLogoActive": {
+          "element": "img",
+          "class": "right-sidebar__dela-logo right-sidebar__dela-logo--active"
+        }
+      }
+    },
+    "vp-dark": {
+      "props": {
+        "variant": {
+          "type": "'cp' | 'vp' | 'ppm' | 'maconomy'",
+          "optional": true,
+          "default": "'vp'"
+        },
+        "sections": {
+          "type": "Section[]",
+          "optional": true,
+          "default": null
+        },
+        "class": {
+          "type": "string",
+          "optional": true,
+          "default": "''"
+        }
+      },
+      "layout": {
+        "display": "flex",
+        "flexDirection": "column",
+        "alignItems": "stretch",
+        "justifyContent": "flex-start",
+        "gap": "12px"
+      },
+      "spacing": {
+        "paddingTop": "12px",
+        "paddingRight": "8px",
+        "paddingBottom": "12px",
+        "paddingLeft": "8px"
+      },
+      "dimensions": {
+        "height": "auto",
+        "minWidth": "52px",
+        "maxWidth": "220px"
+      },
+      "typography": {
+        "fontFamily": "'Figtree', sans-serif",
+        "fontSize": "0.875rem",
+        "fontWeight": "400",
+        "lineHeight": "1.5"
+      },
+      "borders": {
+        "width": "1px",
+        "style": "solid",
+        "radius": "12px",
+        "border": "1px solid #2A2D32"
+      },
+      "states": {
+        "default": {
+          "background": "#1A1C1F",
+          "text": "#FAFAFA",
+          "border": "1px solid #2A2D32",
+          "iconColor": "#FAFAFA"
+        },
+        "hover": {
+          "background": "#2A2D32",
+          "text": "#FAFAFA",
+          "border": "1px solid #2A2D32",
+          "iconColor": "#FAFAFA"
+        },
+        "active": {
+          "background": "#2A2D32",
+          "text": "#FAFAFA",
+          "border": "1px solid #2A2D32",
+          "iconColor": "#FAFAFA"
+        },
+        "focus": {
+          "background": "#1A1C1F",
+          "text": "#FAFAFA",
+          "border": "1px solid #2A2D32",
+          "iconColor": "#FAFAFA"
+        },
+        "disabled": {
+          "background": "#1A1C1F",
+          "text": "#FAFAFA",
+          "border": "1px solid #2A2D32",
+          "iconColor": "#FAFAFA"
+        },
+        "item": {
+          "background": "#59ACFF",
+          "text": "#FFFFFF",
+          "border": "none",
+          "iconColor": "#FFFFFF"
+        }
+      },
+      "icons": {
+        "iconSizePx": "24",
+        "gapBetweenIconAndText": "8"
+      },
+      "template": {
+        "sections": [
+          {
+            "items": [
+              {
+                "label": "Dela AI",
+                "isCustom": true,
+                "customSrc": "/RS_DelaDefault.svg",
+                "customSrcActive": "/RS_Dela_Active.svg"
+              },
+              {
+                "icon": "pencil-square",
+                "label": "Edit"
+              },
+              {
+                "icon": "magnifying-glass",
+                "label": "Search"
+              },
+              {
+                "icon": "ellipsis-horizontal-circle",
+                "label": "Actions"
+              },
+              {
+                "icon": "related",
+                "label": "Related"
+              },
+              {
+                "icon": "template",
+                "label": "Templates"
+              },
+              {
+                "icon": "cloud-arrow-up",
+                "label": "Upload"
+              },
+              {
+                "icon": "cloud-arrow-down",
+                "label": "Download"
+              }
+            ]
+          },
+          {
+            "items": [
+              {
+                "icon": "bell",
+                "label": "Notifications"
+              },
+              {
+                "icon": "question-mark-circle",
+                "label": "Help"
+              },
+              {
+                "icon": "share",
+                "label": "Share"
+              }
+            ]
+          },
+          {
+            "items": [
+              {
+                "icon": "globe-alt",
+                "label": "Accessibility"
+              },
+              {
+                "icon": "language",
+                "label": "Language"
+              },
+              {
+                "icon": "moon",
+                "label": "Dark Mode"
+              }
+            ]
+          }
+        ]
+      },
+      "structure": {
+        "root": {
+          "element": "nav",
+          "class": "right-sidebar right-sidebar__variant right-sidebar__variant--vp"
+        },
+        "section": {
+          "element": "div",
+          "class": "right-sidebar__section"
+        },
+        "item": {
+          "element": "a",
+          "class": "right-sidebar__item"
+        },
+        "icon": {
+          "element": "span",
+          "class": "right-sidebar__icon"
+        },
+        "label": {
+          "element": "span",
+          "class": "right-sidebar__label"
+        },
+        "delaLogo": {
+          "element": "img",
+          "class": "right-sidebar__dela-logo right-sidebar__dela-logo--default"
+        },
+        "delaLogoActive": {
+          "element": "img",
+          "class": "right-sidebar__dela-logo right-sidebar__dela-logo--active"
+        }
+      }
+    },
+    "ppm-light": {
+      "props": {
+        "variant": {
+          "type": "'cp' | 'vp' | 'ppm' | 'maconomy'",
+          "optional": true,
+          "default": "'ppm'"
+        },
+        "sections": {
+          "type": "Section[]",
+          "optional": true,
+          "default": null
+        },
+        "class": {
+          "type": "string",
+          "optional": true,
+          "default": "''"
+        }
+      },
+      "layout": {
+        "display": "flex",
+        "flexDirection": "column",
+        "alignItems": "stretch",
+        "justifyContent": "flex-start",
+        "gap": "12px"
+      },
+      "spacing": {
+        "paddingTop": "12px",
+        "paddingRight": "8px",
+        "paddingBottom": "12px",
+        "paddingLeft": "8px"
+      },
+      "dimensions": {
+        "height": "auto",
+        "minWidth": "52px",
+        "maxWidth": "220px"
+      },
+      "typography": {
+        "fontFamily": "'Figtree', sans-serif",
+        "fontSize": "0.875rem",
+        "fontWeight": "400",
+        "lineHeight": "1.5"
+      },
+      "borders": {
+        "width": "1px",
+        "style": "solid",
+        "radius": "12px",
+        "border": "1px solid #BFC6D4"
+      },
+      "states": {
+        "default": {
+          "background": "#FCFDFF",
+          "text": "#373F4E",
+          "border": "1px solid #BFC6D4",
+          "iconColor": "#373F4E"
+        },
+        "hover": {
+          "background": "#E5E7EB",
+          "text": "#373F4E",
+          "border": "1px solid #BFC6D4",
+          "iconColor": "#373F4E"
+        },
+        "active": {
+          "background": "#E5E7EB",
+          "text": "#373F4E",
+          "border": "1px solid #BFC6D4",
+          "iconColor": "#373F4E"
+        },
+        "focus": {
+          "background": "#FCFDFF",
+          "text": "#373F4E",
+          "border": "1px solid #BFC6D4",
+          "iconColor": "#373F4E"
+        },
+        "disabled": {
+          "background": "#FCFDFF",
+          "text": "#373F4E",
+          "border": "1px solid #BFC6D4",
+          "iconColor": "#373F4E"
+        },
+        "item": {
+          "background": "#4C92D9",
+          "text": "#FFFFFF",
+          "border": "none",
+          "iconColor": "#FFFFFF"
+        }
+      },
+      "icons": {
+        "iconSizePx": "24",
+        "gapBetweenIconAndText": "8"
+      },
+      "template": {
+        "sections": [
+          {
+            "items": [
+              {
+                "label": "Dela AI",
+                "isCustom": true,
+                "customSrc": "/RS_DelaDefault.svg",
+                "customSrcActive": "/RS_Dela_Active.svg"
+              },
+              {
+                "icon": "pencil-square",
+                "label": "Edit"
+              },
+              {
+                "icon": "magnifying-glass",
+                "label": "Search"
+              },
+              {
+                "icon": "ellipsis-horizontal-circle",
+                "label": "Actions"
+              },
+              {
+                "icon": "related",
+                "label": "Related"
+              },
+              {
+                "icon": "template",
+                "label": "Templates"
+              },
+              {
+                "icon": "cloud-arrow-up",
+                "label": "Upload"
+              },
+              {
+                "icon": "cloud-arrow-down",
+                "label": "Download"
+              }
+            ]
+          },
+          {
+            "items": [
+              {
+                "icon": "bell",
+                "label": "Notifications"
+              },
+              {
+                "icon": "question-mark-circle",
+                "label": "Help"
+              },
+              {
+                "icon": "share",
+                "label": "Share"
+              }
+            ]
+          },
+          {
+            "items": [
+              {
+                "icon": "globe-alt",
+                "label": "Accessibility"
+              },
+              {
+                "icon": "language",
+                "label": "Language"
+              },
+              {
+                "icon": "moon",
+                "label": "Dark Mode"
+              }
+            ]
+          }
+        ]
+      },
+      "structure": {
+        "root": {
+          "element": "nav",
+          "class": "right-sidebar right-sidebar__variant right-sidebar__variant--ppm"
+        },
+        "section": {
+          "element": "div",
+          "class": "right-sidebar__section"
+        },
+        "item": {
+          "element": "a",
+          "class": "right-sidebar__item"
+        },
+        "icon": {
+          "element": "span",
+          "class": "right-sidebar__icon"
+        },
+        "label": {
+          "element": "span",
+          "class": "right-sidebar__label"
+        },
+        "delaLogo": {
+          "element": "img",
+          "class": "right-sidebar__dela-logo right-sidebar__dela-logo--default"
+        },
+        "delaLogoActive": {
+          "element": "img",
+          "class": "right-sidebar__dela-logo right-sidebar__dela-logo--active"
+        }
+      }
+    },
+    "ppm-dark": {
+      "props": {
+        "variant": {
+          "type": "'cp' | 'vp' | 'ppm' | 'maconomy'",
+          "optional": true,
+          "default": "'ppm'"
+        },
+        "sections": {
+          "type": "Section[]",
+          "optional": true,
+          "default": null
+        },
+        "class": {
+          "type": "string",
+          "optional": true,
+          "default": "''"
+        }
+      },
+      "layout": {
+        "display": "flex",
+        "flexDirection": "column",
+        "alignItems": "stretch",
+        "justifyContent": "flex-start",
+        "gap": "12px"
+      },
+      "spacing": {
+        "paddingTop": "12px",
+        "paddingRight": "8px",
+        "paddingBottom": "12px",
+        "paddingLeft": "8px"
+      },
+      "dimensions": {
+        "height": "auto",
+        "minWidth": "52px",
+        "maxWidth": "220px"
+      },
+      "typography": {
+        "fontFamily": "'Figtree', sans-serif",
+        "fontSize": "0.875rem",
+        "fontWeight": "400",
+        "lineHeight": "1.5"
+      },
+      "borders": {
+        "width": "1px",
+        "style": "solid",
+        "radius": "12px",
+        "border": "1px solid #2A2D32"
+      },
+      "states": {
+        "default": {
+          "background": "#1A1C1F",
+          "text": "#FAFAFA",
+          "border": "1px solid #2A2D32",
+          "iconColor": "#FAFAFA"
+        },
+        "hover": {
+          "background": "#2A2D32",
+          "text": "#FAFAFA",
+          "border": "1px solid #2A2D32",
+          "iconColor": "#FAFAFA"
+        },
+        "active": {
+          "background": "#2A2D32",
+          "text": "#FAFAFA",
+          "border": "1px solid #2A2D32",
+          "iconColor": "#FAFAFA"
+        },
+        "focus": {
+          "background": "#1A1C1F",
+          "text": "#FAFAFA",
+          "border": "1px solid #2A2D32",
+          "iconColor": "#FAFAFA"
+        },
+        "disabled": {
+          "background": "#1A1C1F",
+          "text": "#FAFAFA",
+          "border": "1px solid #2A2D32",
+          "iconColor": "#FAFAFA"
+        },
+        "item": {
+          "background": "#59ACFF",
+          "text": "#FFFFFF",
+          "border": "none",
+          "iconColor": "#FFFFFF"
+        }
+      },
+      "icons": {
+        "iconSizePx": "24",
+        "gapBetweenIconAndText": "8"
+      },
+      "template": {
+        "sections": [
+          {
+            "items": [
+              {
+                "label": "Dela AI",
+                "isCustom": true,
+                "customSrc": "/RS_DelaDefault.svg",
+                "customSrcActive": "/RS_Dela_Active.svg"
+              },
+              {
+                "icon": "pencil-square",
+                "label": "Edit"
+              },
+              {
+                "icon": "magnifying-glass",
+                "label": "Search"
+              },
+              {
+                "icon": "ellipsis-horizontal-circle",
+                "label": "Actions"
+              },
+              {
+                "icon": "related",
+                "label": "Related"
+              },
+              {
+                "icon": "template",
+                "label": "Templates"
+              },
+              {
+                "icon": "cloud-arrow-up",
+                "label": "Upload"
+              },
+              {
+                "icon": "cloud-arrow-down",
+                "label": "Download"
+              }
+            ]
+          },
+          {
+            "items": [
+              {
+                "icon": "bell",
+                "label": "Notifications"
+              },
+              {
+                "icon": "question-mark-circle",
+                "label": "Help"
+              },
+              {
+                "icon": "share",
+                "label": "Share"
+              }
+            ]
+          },
+          {
+            "items": [
+              {
+                "icon": "globe-alt",
+                "label": "Accessibility"
+              },
+              {
+                "icon": "language",
+                "label": "Language"
+              },
+              {
+                "icon": "moon",
+                "label": "Dark Mode"
+              }
+            ]
+          }
+        ]
+      },
+      "structure": {
+        "root": {
+          "element": "nav",
+          "class": "right-sidebar right-sidebar__variant right-sidebar__variant--ppm"
+        },
+        "section": {
+          "element": "div",
+          "class": "right-sidebar__section"
+        },
+        "item": {
+          "element": "a",
+          "class": "right-sidebar__item"
+        },
+        "icon": {
+          "element": "span",
+          "class": "right-sidebar__icon"
+        },
+        "label": {
+          "element": "span",
+          "class": "right-sidebar__label"
+        },
+        "delaLogo": {
+          "element": "img",
+          "class": "right-sidebar__dela-logo right-sidebar__dela-logo--default"
+        },
+        "delaLogoActive": {
+          "element": "img",
+          "class": "right-sidebar__dela-logo right-sidebar__dela-logo--active"
+        }
+      }
+    },
+    "maconomy-light": {
+      "props": {
+        "variant": {
+          "type": "'cp' | 'vp' | 'ppm' | 'maconomy'",
+          "optional": true,
+          "default": "'maconomy'"
+        },
+        "sections": {
+          "type": "Section[]",
+          "optional": true,
+          "default": null
+        },
+        "class": {
+          "type": "string",
+          "optional": true,
+          "default": "''"
+        }
+      },
+      "layout": {
+        "display": "flex",
+        "flexDirection": "column",
+        "alignItems": "stretch",
+        "justifyContent": "flex-start",
+        "gap": "12px"
+      },
+      "spacing": {
+        "paddingTop": "12px",
+        "paddingRight": "8px",
+        "paddingBottom": "12px",
+        "paddingLeft": "8px"
+      },
+      "dimensions": {
+        "height": "auto",
+        "minWidth": "52px",
+        "maxWidth": "220px"
+      },
+      "typography": {
+        "fontFamily": "'Figtree', sans-serif",
+        "fontSize": "0.875rem",
+        "fontWeight": "400",
+        "lineHeight": "1.5"
+      },
+      "borders": {
+        "width": "1px",
+        "style": "solid",
+        "radius": "12px",
+        "border": "1px solid #BFC6D4"
+      },
+      "states": {
+        "default": {
+          "background": "#FCFDFF",
+          "text": "#373F4E",
+          "border": "1px solid #BFC6D4",
+          "iconColor": "#373F4E"
+        },
+        "hover": {
+          "background": "#E5E7EB",
+          "text": "#373F4E",
+          "border": "1px solid #BFC6D4",
+          "iconColor": "#373F4E"
+        },
+        "active": {
+          "background": "#E5E7EB",
+          "text": "#373F4E",
+          "border": "1px solid #BFC6D4",
+          "iconColor": "#373F4E"
+        },
+        "focus": {
+          "background": "#FCFDFF",
+          "text": "#373F4E",
+          "border": "1px solid #BFC6D4",
+          "iconColor": "#373F4E"
+        },
+        "disabled": {
+          "background": "#FCFDFF",
+          "text": "#373F4E",
+          "border": "1px solid #BFC6D4",
+          "iconColor": "#373F4E"
+        },
+        "item": {
+          "background": "#4C92D9",
+          "text": "#FFFFFF",
+          "border": "none",
+          "iconColor": "#FFFFFF"
+        }
+      },
+      "icons": {
+        "iconSizePx": "24",
+        "gapBetweenIconAndText": "8"
+      },
+      "template": {
+        "sections": [
+          {
+            "items": [
+              {
+                "label": "Dela AI",
+                "isCustom": true,
+                "customSrc": "/RS_DelaDefault.svg",
+                "customSrcActive": "/RS_Dela_Active.svg"
+              },
+              {
+                "icon": "pencil-square",
+                "label": "Edit"
+              },
+              {
+                "icon": "magnifying-glass",
+                "label": "Search"
+              },
+              {
+                "icon": "ellipsis-horizontal-circle",
+                "label": "Actions"
+              },
+              {
+                "icon": "related",
+                "label": "Related"
+              },
+              {
+                "icon": "template",
+                "label": "Templates"
+              },
+              {
+                "icon": "cloud-arrow-up",
+                "label": "Upload"
+              },
+              {
+                "icon": "cloud-arrow-down",
+                "label": "Download"
+              }
+            ]
+          },
+          {
+            "items": [
+              {
+                "icon": "bell",
+                "label": "Notifications"
+              },
+              {
+                "icon": "question-mark-circle",
+                "label": "Help"
+              },
+              {
+                "icon": "share",
+                "label": "Share"
+              }
+            ]
+          },
+          {
+            "items": [
+              {
+                "icon": "globe-alt",
+                "label": "Accessibility"
+              },
+              {
+                "icon": "language",
+                "label": "Language"
+              },
+              {
+                "icon": "moon",
+                "label": "Dark Mode"
+              }
+            ]
+          }
+        ]
+      },
+      "structure": {
+        "root": {
+          "element": "nav",
+          "class": "right-sidebar right-sidebar__variant right-sidebar__variant--maconomy"
+        },
+        "section": {
+          "element": "div",
+          "class": "right-sidebar__section"
+        },
+        "item": {
+          "element": "a",
+          "class": "right-sidebar__item"
+        },
+        "icon": {
+          "element": "span",
+          "class": "right-sidebar__icon"
+        },
+        "label": {
+          "element": "span",
+          "class": "right-sidebar__label"
+        },
+        "delaLogo": {
+          "element": "img",
+          "class": "right-sidebar__dela-logo right-sidebar__dela-logo--default"
+        },
+        "delaLogoActive": {
+          "element": "img",
+          "class": "right-sidebar__dela-logo right-sidebar__dela-logo--active"
+        }
+      }
+    },
+    "maconomy-dark": {
+      "props": {
+        "variant": {
+          "type": "'cp' | 'vp' | 'ppm' | 'maconomy'",
+          "optional": true,
+          "default": "'maconomy'"
+        },
+        "sections": {
+          "type": "Section[]",
+          "optional": true,
+          "default": null
+        },
+        "class": {
+          "type": "string",
+          "optional": true,
+          "default": "''"
+        }
+      },
+      "layout": {
+        "display": "flex",
+        "flexDirection": "column",
+        "alignItems": "stretch",
+        "justifyContent": "flex-start",
+        "gap": "12px"
+      },
+      "spacing": {
+        "paddingTop": "12px",
+        "paddingRight": "8px",
+        "paddingBottom": "12px",
+        "paddingLeft": "8px"
+      },
+      "dimensions": {
+        "height": "auto",
+        "minWidth": "52px",
+        "maxWidth": "220px"
+      },
+      "typography": {
+        "fontFamily": "'Figtree', sans-serif",
+        "fontSize": "0.875rem",
+        "fontWeight": "400",
+        "lineHeight": "1.5"
+      },
+      "borders": {
+        "width": "1px",
+        "style": "solid",
+        "radius": "12px",
+        "border": "1px solid #2A2D32"
+      },
+      "states": {
+        "default": {
+          "background": "#1A1C1F",
+          "text": "#FAFAFA",
+          "border": "1px solid #2A2D32",
+          "iconColor": "#FAFAFA"
+        },
+        "hover": {
+          "background": "#2A2D32",
+          "text": "#FAFAFA",
+          "border": "1px solid #2A2D32",
+          "iconColor": "#FAFAFA"
+        },
+        "active": {
+          "background": "#2A2D32",
+          "text": "#FAFAFA",
+          "border": "1px solid #2A2D32",
+          "iconColor": "#FAFAFA"
+        },
+        "focus": {
+          "background": "#1A1C1F",
+          "text": "#FAFAFA",
+          "border": "1px solid #2A2D32",
+          "iconColor": "#FAFAFA"
+        },
+        "disabled": {
+          "background": "#1A1C1F",
+          "text": "#FAFAFA",
+          "border": "1px solid #2A2D32",
+          "iconColor": "#FAFAFA"
+        },
+        "item": {
+          "background": "#59ACFF",
+          "text": "#FFFFFF",
+          "border": "none",
+          "iconColor": "#FFFFFF"
+        }
+      },
+      "icons": {
+        "iconSizePx": "24",
+        "gapBetweenIconAndText": "8"
+      },
+      "template": {
+        "sections": [
+          {
+            "items": [
+              {
+                "label": "Dela AI",
+                "isCustom": true,
+                "customSrc": "/RS_DelaDefault.svg",
+                "customSrcActive": "/RS_Dela_Active.svg"
+              },
+              {
+                "icon": "pencil-square",
+                "label": "Edit"
+              },
+              {
+                "icon": "magnifying-glass",
+                "label": "Search"
+              },
+              {
+                "icon": "ellipsis-horizontal-circle",
+                "label": "Actions"
+              },
+              {
+                "icon": "related",
+                "label": "Related"
+              },
+              {
+                "icon": "template",
+                "label": "Templates"
+              },
+              {
+                "icon": "cloud-arrow-up",
+                "label": "Upload"
+              },
+              {
+                "icon": "cloud-arrow-down",
+                "label": "Download"
+              }
+            ]
+          },
+          {
+            "items": [
+              {
+                "icon": "bell",
+                "label": "Notifications"
+              },
+              {
+                "icon": "question-mark-circle",
+                "label": "Help"
+              },
+              {
+                "icon": "share",
+                "label": "Share"
+              }
+            ]
+          },
+          {
+            "items": [
+              {
+                "icon": "globe-alt",
+                "label": "Accessibility"
+              },
+              {
+                "icon": "language",
+                "label": "Language"
+              },
+              {
+                "icon": "moon",
+                "label": "Dark Mode"
+              }
+            ]
+          }
+        ]
+      },
+      "structure": {
+        "root": {
+          "element": "nav",
+          "class": "right-sidebar right-sidebar__variant right-sidebar__variant--maconomy"
+        },
+        "section": {
+          "element": "div",
+          "class": "right-sidebar__section"
+        },
+        "item": {
+          "element": "a",
+          "class": "right-sidebar__item"
+        },
+        "icon": {
+          "element": "span",
+          "class": "right-sidebar__icon"
+        },
+        "label": {
+          "element": "span",
+          "class": "right-sidebar__label"
+        },
+        "delaLogo": {
+          "element": "img",
+          "class": "right-sidebar__dela-logo right-sidebar__dela-logo--default"
+        },
+        "delaLogoActive": {
+          "element": "img",
+          "class": "right-sidebar__dela-logo right-sidebar__dela-logo--active"
         }
       }
     }
   },
-  "accessibility": {
-    "role": null,
-    "tabIndex": null,
-    "keyboardSupport": {},
-    "ariaAttributes": {},
-    "focusVisible": {}
-  },
-  "cssClassStyles": {
-    ".right-sidebar": {
-      "position": "fixed",
-      "right": "0",
-      "top": "50%",
-      "transform": "translateY(-50%)",
-      "z-index": "var(--z-sticky)",
-      "display": "flex",
-      "flex-direction": "column",
-      "gap": "var(--space-3)",
-      "width": "52px",
-      "transition": "width 0.2s ease",
-      "overflow": "visible"
+  "guidance": {
+    "patterns": {
+      "theme-variant-icons": "Each theme variant (cp, vp, ppm, maconomy) has its own predefined icon set. All themes start with Dela custom logo (RS_DelaDefault.svg default, RS_Dela_Active.svg active) as the first item. CP has 3 sections with 3, 2, and 4 items. VP, PPM, and Maconomy have 3 sections with 8, 3, and 3 items. Use the template in the spec for the exact sections and items.",
+      "custom-icon-support": "Navigation items support two icon approaches: standard Icon component (icon: Heroicons name) or custom images (isCustom: true, customSrc, customSrcActive). Custom images use right-sidebar__dela-logo classes.",
+      "panel-data-attributes": "Items use data attributes for ShellPanel: panelTitle, panelIcon, panelContentId, useGradientHeader. Dela AI items get gradient header automatically."
     },
-    ".right-sidebar:hover": {
-      "width": "220px"
-    },
-    ".right-sidebar__section": {
-      "background-color": "var(--nav-bg)",
-      "border": "1px solid var(--border-color)",
-      "border-right": "none",
-      "border-radius": "var(--radius-12) 0 0 var(--radius-12)",
-      "box-shadow": "var(--shadow-xl)",
-      "padding": "var(--space-3) var(--space-2)",
-      "display": "flex",
-      "flex-direction": "column",
-      "align-items": "flex-end",
-      "gap": "var(--space-1-5)",
-      "overflow": "visible"
-    },
-    ".right-sidebar__item": {
-      "display": "flex",
-      "align-items": "center",
-      "justify-content": "flex-end",
-      "gap": "var(--space-2)",
-      "padding": "var(--space-1-5)",
-      "border-radius": "var(--radius-08)",
-      "text-decoration": "none",
-      "color": "var(--text-primary)",
-      "white-space": "nowrap",
-      "width": "100%",
-      "transition": "background-color var(--transition-fast)"
-    },
-    ".right-sidebar__item:hover": {
-      "background-color": "var(--hover-bg)",
-      "text-decoration": "none"
-    },
-    ".right-sidebar__icon": {
-      "flex-shrink": "0",
-      "width": "24px",
-      "height": "24px",
-      "display": "flex",
-      "align-items": "center",
-      "justify-content": "center"
-    },
-    ".right-sidebar__icon svg": {
-      "width": "24px",
-      "height": "24px"
-    },
-    ".right-sidebar__dela-logo": {
-      "width": "36px",
-      "height": "36px",
-      "border-radius": "12px"
-    },
-    ".right-sidebar__dela-logo--active": {
-      "display": "none"
-    },
-    ".right-sidebar__item[data-active=\"true\"]:has(.right-sidebar__dela-logo) .right-sidebar__dela-logo--default": {
-      "display": "none"
-    },
-    ".right-sidebar__item[data-active=\"true\"]:has(.right-sidebar__dela-logo) .right-sidebar__dela-logo--active": {
-      "display": "block"
-    },
-    ".right-sidebar__label": {
-      "font-family": "var(--font-sans)",
-      "font-size": "var(--text-sm)",
-      "font-weight": "var(--font-normal)",
-      "opacity": "0",
-      "visibility": "hidden",
-      "transition": "opacity 0.2s ease, visibility 0.2s ease",
-      "flex": "1",
-      "text-align": "right"
-    },
-    ".right-sidebar:hover .right-sidebar__label": {
-      "opacity": "1",
-      "visibility": "visible"
-    },
-    ".right-sidebar[data-panel-open=\"true\"] .right-sidebar__section": {
-      "box-shadow": "none",
-      "border": "none",
-      "background-color": "transparent",
-      "border-radius": "0"
-    },
-    ".right-sidebar[data-panel-open=\"true\"] .right-sidebar__label": {
-      "opacity": "0",
-      "visibility": "hidden"
-    },
-    ".right-sidebar:not([data-panel-open=\"true\"]) .right-sidebar__item-tooltip .tooltip__content": {
-      "display": "none"
-    },
-    ".right-sidebar[data-panel-open=\"true\"] .right-sidebar__item-tooltip .tooltip__content": {
-      "display": "block",
-      "opacity": "0",
-      "visibility": "hidden",
-      "transition": "opacity 0.2s ease, visibility 0.2s ease"
-    },
-    ".right-sidebar[data-panel-open=\"true\"] .right-sidebar__item:hover .right-sidebar__item-tooltip .tooltip__content": {
-      "opacity": "1",
-      "visibility": "visible"
-    },
-    ".right-sidebar__item-tooltip": {
-      "position": "relative",
-      "display": "inline-flex",
-      "align-items": "center",
-      "justify-content": "center"
-    },
-    ".right-sidebar__item-tooltip .tooltip__content": {
-      "z-index": "var(--z-tooltip)"
-    },
-    ".right-sidebar[data-panel-open=\"true\"] .right-sidebar__item[data-active=\"true\"]": {
-      "background-color": "var(--theme-primary)",
-      "color": "var(--text-inverse)"
-    },
-    ".right-sidebar[data-panel-open=\"true\"] .right-sidebar__item[data-active=\"true\"] .right-sidebar__icon": {
-      "color": "var(--text-inverse)"
-    },
-    ".right-sidebar[data-panel-open=\"true\"] .right-sidebar__item[data-active=\"true\"]:hover": {
-      "background-color": "var(--theme-primary-hover)"
-    },
-    ".right-sidebar[data-panel-open=\"true\"] .right-sidebar__item[data-active=\"true\"]:has(.right-sidebar__dela-logo)": {
-      "background": "var(--linear-new, linear-gradient(136deg, #00BBC6 9.15%, #7133FF 57.36%, #CD21FF 80.6%))",
-      "border-radius": "12px",
-      "color": "var(--text-inverse)"
-    },
-    ".right-sidebar[data-panel-open=\"true\"] .right-sidebar__item[data-active=\"true\"]:has(.right-sidebar__dela-logo):hover": {
-      "background": "var(--linear-new, linear-gradient(136deg, #00BBC6 9.15%, #7133FF 57.36%, #CD21FF 80.6%))",
-      "color": "var(--text-inverse)"
-    },
-    ".right-sidebar[data-panel-open=\"true\"] .right-sidebar__item[data-active=\"true\"]:has(.right-sidebar__dela-logo) .right-sidebar__icon": {
-      "color": "var(--text-inverse)"
-    },
-    "html.dark .right-sidebar__dela-logo--default": {
-      "filter": "brightness(0) invert(1)"
-    },
-    "html.dark .right-sidebar__item:hover": {
-      "background-color": "var(--hover-bg)"
-    },
-    ".shell-layout .shell-layout__right-sidebar .right-sidebar__section": {
-      "padding": "var(--space-2) var(--space-1-5)",
-      "gap": "var(--space-1-5)"
-    },
-    ".shell-layout .shell-layout__right-sidebar .right-sidebar__item": {
-      "padding": "var(--space-1)"
-    },
-    ".shell-layout .shell-layout__right-sidebar .right-sidebar__icon": {
-      "width": "var(--right-sidebar-icon-size-compact)",
-      "height": "var(--right-sidebar-icon-size-compact)"
-    },
-    ".shell-layout .shell-layout__right-sidebar .right-sidebar__icon svg": {
-      "width": "var(--right-sidebar-icon-size-compact)",
-      "height": "var(--right-sidebar-icon-size-compact)"
-    },
-    ".shell-layout .shell-layout__right-sidebar .right-sidebar__dela-logo": {
-      "width": "var(--right-sidebar-dela-size-compact)",
-      "height": "var(--right-sidebar-dela-size-compact)",
-      "border-radius": "10px"
+    "guidelines": {
+      "when-to-use": "Use RightSidebar for unified right navigation. Collapsed shows icons only (52px); hover expands to 220px with labels. Theme variant controls which default sections/items are shown.",
+      "composition": "Place inside shell layout; connect to ShellPanel for panel content when item is clicked."
     }
-  },
-  "_variantIndex": {
-    "cp-default": {
-      "variant": "default",
-      "theme": "cp",
-      "light": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      },
-      "dark": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      }
-    },
-    "vp-default": {
-      "variant": "default",
-      "theme": "vp",
-      "light": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      },
-      "dark": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      }
-    },
-    "ppm-default": {
-      "variant": "default",
-      "theme": "ppm",
-      "light": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      },
-      "dark": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      }
-    },
-    "maconomy-default": {
-      "variant": "default",
-      "theme": "maconomy",
-      "light": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      },
-      "dark": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      }
-    },
-    "cp-active": {
-      "variant": "active",
-      "theme": "cp",
-      "light": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      },
-      "dark": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      }
-    },
-    "vp-active": {
-      "variant": "active",
-      "theme": "vp",
-      "light": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      },
-      "dark": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      }
-    },
-    "ppm-active": {
-      "variant": "active",
-      "theme": "ppm",
-      "light": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      },
-      "dark": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      }
-    },
-    "maconomy-active": {
-      "variant": "active",
-      "theme": "maconomy",
-      "light": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      },
-      "dark": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      }
-    },
-    "cp-cp": {
-      "variant": "cp",
-      "theme": "cp",
-      "light": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      },
-      "dark": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      }
-    },
-    "vp-cp": {
-      "variant": "cp",
-      "theme": "vp",
-      "light": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      },
-      "dark": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      }
-    },
-    "ppm-cp": {
-      "variant": "cp",
-      "theme": "ppm",
-      "light": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      },
-      "dark": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      }
-    },
-    "maconomy-cp": {
-      "variant": "cp",
-      "theme": "maconomy",
-      "light": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      },
-      "dark": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      }
-    },
-    "cp-vp": {
-      "variant": "vp",
-      "theme": "cp",
-      "light": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      },
-      "dark": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      }
-    },
-    "vp-vp": {
-      "variant": "vp",
-      "theme": "vp",
-      "light": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      },
-      "dark": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      }
-    },
-    "ppm-vp": {
-      "variant": "vp",
-      "theme": "ppm",
-      "light": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      },
-      "dark": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      }
-    },
-    "maconomy-vp": {
-      "variant": "vp",
-      "theme": "maconomy",
-      "light": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      },
-      "dark": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      }
-    },
-    "cp-ppm": {
-      "variant": "ppm",
-      "theme": "cp",
-      "light": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      },
-      "dark": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      }
-    },
-    "vp-ppm": {
-      "variant": "ppm",
-      "theme": "vp",
-      "light": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      },
-      "dark": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      }
-    },
-    "ppm-ppm": {
-      "variant": "ppm",
-      "theme": "ppm",
-      "light": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      },
-      "dark": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      }
-    },
-    "maconomy-ppm": {
-      "variant": "ppm",
-      "theme": "maconomy",
-      "light": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      },
-      "dark": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      }
-    },
-    "cp-maconomy": {
-      "variant": "maconomy",
-      "theme": "cp",
-      "light": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      },
-      "dark": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      }
-    },
-    "vp-maconomy": {
-      "variant": "maconomy",
-      "theme": "vp",
-      "light": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      },
-      "dark": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      }
-    },
-    "ppm-maconomy": {
-      "variant": "maconomy",
-      "theme": "ppm",
-      "light": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      },
-      "dark": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      }
-    },
-    "maconomy-maconomy": {
-      "variant": "maconomy",
-      "theme": "maconomy",
-      "light": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      },
-      "dark": {
-        "default": {
-          "background": "transparent",
-          "text": null,
-          "border": "transparent",
-          "iconColor": null
-        }
-      }
-    }
-  },
-  "_variantMetadata": {
-    "availableVariants": [
-      "default",
-      "active",
-      "cp",
-      "vp",
-      "ppm",
-      "maconomy"
-    ]
   },
   "interactivity": {
     "events": [

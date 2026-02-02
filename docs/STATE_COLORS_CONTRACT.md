@@ -1,5 +1,7 @@
 # State Colors Contract for MCP
 
+**Retired.** The canonical format and states contract are defined in [SPEC_CONTRACT.md](SPEC_CONTRACT.md). State data lives in `specs[key].states`; get_specs returns one spec from that. This doc is kept for historical reference only.
+
 This document defines how variant state colors (default, hover, active, focus, disabled, and optional item/icon/label) are stored in component JSON and how MCP tools (e.g. get_specs, build_component) should read and expose them.
 
 ## Where state colors live
