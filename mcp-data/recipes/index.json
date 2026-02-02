@@ -1,12 +1,12 @@
 {
   "version": "1.0.0",
   "generated": "2026-01-28T19:00:00.000Z",
-  "totalRecipes": 10,
+  "totalRecipes": 17,
   "categories": {
     "feedback": ["dialog-with-form-actions", "dialog-confirmation", "alert-with-action"],
     "forms": ["input-with-validation", "search-input", "form-field-group"],
     "display": ["card-with-badge", "card-with-actions"],
-    "layouts": ["shell-layout-cp", "shell-layout-standard"]
+    "layouts": ["shell-layout-cp", "shell-layout-standard", "shell-header", "shell-footer", "shell-page-header", "left-sidebar", "right-sidebar", "shell-panel", "floating-nav"]
   },
   "recipes": [
     {
@@ -110,10 +110,80 @@
       "filePath": "mcp-data/recipes/layouts/shell-layout-standard.json",
       "components": ["ShellHeader", "LeftSidebar", "ShellPageHeader", "RightSidebar", "ShellFooter"],
       "themeSpecific": ["vp", "ppm", "maconomy"]
+    },
+    {
+      "id": "shell-header",
+      "name": "Shell Header",
+      "description": "Application top bar with brand and optional company picker and avatar",
+      "category": "layouts",
+      "complexity": "molecule",
+      "tags": ["shell", "header", "navigation", "brand", "company-picker"],
+      "filePath": "mcp-data/recipes/layouts/shell-header.json",
+      "components": ["ShellHeader"]
+    },
+    {
+      "id": "shell-footer",
+      "name": "Shell Footer",
+      "description": "Bottom navigation bar with tabs (VP/PPM/Maconomy themes)",
+      "category": "layouts",
+      "complexity": "molecule",
+      "tags": ["shell", "footer", "navigation", "tabs", "bottom-nav"],
+      "filePath": "mcp-data/recipes/layouts/shell-footer.json",
+      "components": ["ShellFooter"]
+    },
+    {
+      "id": "shell-page-header",
+      "name": "Shell Page Header",
+      "description": "Page-level header with title, subtitle, and optional action buttons",
+      "category": "layouts",
+      "complexity": "molecule",
+      "tags": ["shell", "page-header", "title", "actions", "breadcrumb"],
+      "filePath": "mcp-data/recipes/layouts/shell-page-header.json",
+      "components": ["ShellPageHeader"]
+    },
+    {
+      "id": "left-sidebar",
+      "name": "Left Sidebar",
+      "description": "Left navigation sidebar with sections and optional collapsible items",
+      "category": "layouts",
+      "complexity": "molecule",
+      "tags": ["shell", "sidebar", "left", "navigation", "nav"],
+      "filePath": "mcp-data/recipes/layouts/left-sidebar.json",
+      "components": ["LeftSidebar"]
+    },
+    {
+      "id": "right-sidebar",
+      "name": "Right Sidebar",
+      "description": "Right-hand sidebar for secondary navigation or contextual content",
+      "category": "layouts",
+      "complexity": "molecule",
+      "tags": ["shell", "sidebar", "right", "navigation", "context"],
+      "filePath": "mcp-data/recipes/layouts/right-sidebar.json",
+      "components": ["RightSidebar"]
+    },
+    {
+      "id": "shell-panel",
+      "name": "Shell Panel",
+      "description": "Contextual slide-out panel (drawer) from left or right with header and content",
+      "category": "layouts",
+      "complexity": "molecule",
+      "tags": ["shell", "panel", "drawer", "sidebar", "overlay"],
+      "filePath": "mcp-data/recipes/layouts/shell-panel.json",
+      "components": ["ShellPanel"]
+    },
+    {
+      "id": "floating-nav",
+      "name": "Floating Nav",
+      "description": "Floating bottom navigation bar (CP theme primary navigation)",
+      "category": "layouts",
+      "complexity": "molecule",
+      "tags": ["shell", "floating-nav", "navigation", "cp", "bottom-nav"],
+      "filePath": "mcp-data/recipes/layouts/floating-nav.json",
+      "components": ["FloatingNav"]
     }
   ],
   "complexityDistribution": {
-    "molecule": 7,
+    "molecule": 14,
     "organism": 1,
     "template": 2
   },
@@ -121,6 +191,6 @@
     "feedback": 3,
     "forms": 3,
     "display": 2,
-    "layouts": 2
+    "layouts": 9
   }
 }

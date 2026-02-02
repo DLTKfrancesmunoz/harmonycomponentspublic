@@ -1,0 +1,62 @@
+{
+  "id": "shell-page-header",
+  "name": "Shell Page Header",
+  "description": "Page-level header with title, subtitle, and optional action buttons",
+  "category": "layouts",
+  "complexity": "molecule",
+  "tags": ["shell", "page-header", "title", "actions", "breadcrumb"],
+  "components": [
+    {
+      "name": "ShellPageHeader",
+      "role": "page-header",
+      "props": {
+        "title": "Page Title",
+        "subtitle": null
+      }
+    }
+  ],
+  "usageGuidance": {
+    "when": "Page or section needs a title bar with optional subtitle and primary/outline action buttons",
+    "antiPatterns": [
+      "Don't use more than one ShellPageHeader per page",
+      "Don't exceed 3 outline buttons - use dropdown for more actions"
+    ],
+    "notes": {
+      "slots": "Use actions slot for custom button layout; or use primaryButton, outlineButton1-3 props",
+      "order": "Place secondary/outline actions left, primary action right in DOM for visual order"
+    }
+  },
+  "validation": {
+    "required": ["ShellPageHeader"],
+    "maxCount": {
+      "ShellPageHeader": 1
+    },
+    "theme": "all",
+    "hierarchy": []
+  },
+  "examples": [
+    {
+      "name": "Title only",
+      "description": "Minimal page header with title",
+      "props": {
+        "page-header.title": "Dashboard"
+      }
+    },
+    {
+      "name": "Title and subtitle",
+      "description": "Page header with subtitle",
+      "props": {
+        "page-header.title": "Settings",
+        "page-header.subtitle": "Manage your preferences"
+      }
+    },
+    {
+      "name": "With primary action",
+      "description": "Page header with primary button",
+      "props": {
+        "page-header.title": "Items",
+        "page-header.primaryButton": { "text": "Add Item", "variant": "primary" }
+      }
+    }
+  ]
+}

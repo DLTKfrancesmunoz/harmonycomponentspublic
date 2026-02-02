@@ -1,0 +1,64 @@
+{
+  "id": "right-sidebar",
+  "name": "Right Sidebar",
+  "description": "Right-hand sidebar structured by sections: each section is a group of items (no visible section title in the API). Pass multiple sections so the sidebar is multiple grouped blocks, not one giant flat list.",
+  "category": "layouts",
+  "complexity": "molecule",
+  "tags": ["shell", "sidebar", "right", "navigation", "context", "sections"],
+  "components": [
+    {
+      "name": "RightSidebar",
+      "role": "right-sidebar",
+      "props": {
+        "variant": "cp",
+        "sections": null
+      }
+    }
+  ],
+  "usageGuidance": {
+    "when": "Application needs right-hand navigation or contextual panel; pass sections as an array of groups, each group being { items: [...] }, so the sidebar renders as multiple blocks (not one flat list).",
+    "antiPatterns": [
+      "Don't use multiple RightSidebar instances in the same layout",
+      "Don't implement as one giant sidebar - use the sections array: each section is { items: NavItem[] }; multiple sections = multiple grouped blocks.",
+      "Don't put primary navigation in right sidebar - use LeftSidebar for main nav"
+    ],
+    "notes": {
+      "variant": "Match theme (cp, vp, ppm, maconomy) for correct styling",
+      "sections": "Array of { items: NavItem[] }. Each section is one group of items (icon?, label, href?, isCustom?, customSrc?, etc.). No section title/label in the API; sections only define grouping."
+    }
+  },
+  "validation": {
+    "required": ["RightSidebar"],
+    "maxCount": {
+      "RightSidebar": 1
+    },
+    "theme": "all",
+    "hierarchy": []
+  },
+  "examples": [
+    {
+      "name": "Default right sidebar",
+      "description": "Right sidebar with default variant",
+      "props": {
+        "right-sidebar.variant": "cp"
+      }
+    },
+    {
+      "name": "PPM theme sidebar",
+      "description": "Right sidebar for PPM theme",
+      "props": {
+        "right-sidebar.variant": "ppm"
+      }
+    },
+    {
+      "name": "With sections",
+      "description": "Sidebar with multiple sections (each section is { items: [...] }; no section title in API)",
+      "props": {
+        "right-sidebar.sections": [
+          { "items": [{ "icon": "question-mark-circle", "label": "Help", "href": "/help" }] },
+          { "items": [{ "icon": "printer", "label": "Print" }, { "label": "Related", "href": "/related" }] }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "id": "shell-header",
+  "name": "Shell Header",
+  "description": "Application top bar with brand and optional company picker and avatar",
+  "category": "layouts",
+  "complexity": "molecule",
+  "tags": ["shell", "header", "navigation", "brand", "company-picker"],
+  "components": [
+    {
+      "name": "ShellHeader",
+      "role": "header",
+      "props": {
+        "productName": "Harmony",
+        "showCompanyPicker": true
+      }
+    }
+  ],
+  "usageGuidance": {
+    "when": "Building application shell; use as top bar with logo, product name, optional company picker, and actions slot",
+    "antiPatterns": [
+      "Don't omit ShellHeader in full shell layouts - it's required for branding",
+      "Don't use multiple ShellHeader instances in the same layout"
+    ],
+    "notes": {
+      "slots": "Use the actions slot for header buttons (e.g. user menu, notifications)",
+      "themes": "Works with all themes (cp, vp, ppm, maconomy)"
+    }
+  },
+  "validation": {
+    "required": ["ShellHeader"],
+    "maxCount": {
+      "ShellHeader": 1
+    },
+    "theme": "all",
+    "hierarchy": []
+  },
+  "examples": [
+    {
+      "name": "Default header",
+      "description": "Header with default product name and company picker",
+      "props": {}
+    },
+    {
+      "name": "Custom product name",
+      "description": "Header with custom app name",
+      "props": {
+        "header.productName": "My App"
+      }
+    },
+    {
+      "name": "Header without company picker",
+      "description": "Minimal header with brand only",
+      "props": {
+        "header.showCompanyPicker": false
+      }
+    }
+  ]
+}

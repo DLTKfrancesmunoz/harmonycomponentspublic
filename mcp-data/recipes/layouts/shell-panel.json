@@ -1,0 +1,68 @@
+{
+  "id": "shell-panel",
+  "name": "Shell Panel",
+  "description": "Contextual slide-out panel (drawer) from left or right with header and content",
+  "category": "layouts",
+  "complexity": "molecule",
+  "tags": ["shell", "panel", "drawer", "sidebar", "overlay"],
+  "components": [
+    {
+      "name": "ShellPanel",
+      "role": "panel",
+      "props": {
+        "side": "right",
+        "open": false,
+        "title": "Panel",
+        "showClose": true,
+        "showPopout": true,
+        "width": "narrow"
+      }
+    }
+  ],
+  "usageGuidance": {
+    "when": "Contextual details, filters, or secondary content in a slide-out panel; control open state from parent",
+    "antiPatterns": [
+      "Don't nest ShellPanel inside another ShellPanel",
+      "Don't use for primary navigation - use LeftSidebar or RightSidebar"
+    ],
+    "notes": {
+      "open": "Controlled by parent; toggle via class or state for visibility",
+      "slots": "Default slot for body content; header slot for custom header",
+      "width": "narrow for form/details; full for wide content"
+    }
+  },
+  "validation": {
+    "required": ["ShellPanel"],
+    "maxCount": {
+      "ShellPanel": 1
+    },
+    "theme": "all",
+    "hierarchy": []
+  },
+  "examples": [
+    {
+      "name": "Right panel",
+      "description": "Panel sliding in from the right",
+      "props": {
+        "panel.side": "right",
+        "panel.title": "Details"
+      }
+    },
+    {
+      "name": "Left panel",
+      "description": "Panel sliding in from the left",
+      "props": {
+        "panel.side": "left",
+        "panel.title": "Filters"
+      }
+    },
+    {
+      "name": "Full-width panel",
+      "description": "Wide panel for rich content",
+      "props": {
+        "panel.width": "full",
+        "panel.title": "Preview"
+      }
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "id": "floating-nav",
+  "name": "Floating Nav",
+  "description": "Floating bottom navigation bar (CP theme primary navigation)",
+  "category": "layouts",
+  "complexity": "molecule",
+  "tags": ["shell", "floating-nav", "navigation", "cp", "bottom-nav"],
+  "components": [
+    {
+      "name": "FloatingNav",
+      "role": "floating-nav",
+      "props": {
+        "variant": "full",
+        "showExecute": true,
+        "saveDisabled": false
+      }
+    }
+  ],
+  "usageGuidance": {
+    "when": "Building application shell for CP (Customer Portal) theme; use as primary bottom navigation with Execute/Save and optional actions slot",
+    "antiPatterns": [
+      "Don't use FloatingNav with VP/PPM/Maconomy themes - use ShellFooter instead",
+      "Don't use multiple FloatingNav instances in the same layout"
+    ],
+    "notes": {
+      "slots": "Use actions slot for custom buttons (e.g. Save, Execute, dropdown)",
+      "variant": "full for standard bar; compact for reduced height"
+    }
+  },
+  "validation": {
+    "required": ["FloatingNav"],
+    "maxCount": {
+      "FloatingNav": 1
+    },
+    "theme": "all",
+    "hierarchy": []
+  },
+  "examples": [
+    {
+      "name": "Default floating nav",
+      "description": "Full variant with Execute and actions",
+      "props": {}
+    },
+    {
+      "name": "Compact floating nav",
+      "description": "Reduced-height variant",
+      "props": {
+        "floating-nav.variant": "compact"
+      }
+    },
+    {
+      "name": "Save disabled",
+      "description": "Execute visible, Save disabled",
+      "props": {
+        "floating-nav.saveDisabled": true
+      }
+    }
+  ]
+}
