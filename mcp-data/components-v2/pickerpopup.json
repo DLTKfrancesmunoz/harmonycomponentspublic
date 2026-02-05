@@ -1127,36 +1127,14 @@
       ]
     }
   },
+  "contentOrder": [
+    ".picker-popup__header",
+    ".picker-popup__body"
+  ],
   "guidance": {
     "patterns": {},
     "guidelines": {}
   },
-  "interactivity": {
-    "events": [
-      {
-        "name": "open",
-        "description": "Popup opened"
-      },
-      {
-        "name": "close",
-        "description": "Popup closed (outside click, Escape, or selection)"
-      }
-    ],
-    "state": [
-      {
-        "name": "open",
-        "type": "boolean",
-        "description": "Whether the popup is visible"
-      }
-    ]
-  },
-  "examples": [
-    {
-      "name": "Popup picker",
-      "description": "Popover for picker",
-      "snippet": "<PickerPopup open={open} onclose={...}>...</PickerPopup>"
-    }
-  ],
   "specKeyOrder": [
     "theme",
     "mode"
@@ -1165,14 +1143,6 @@
     "theme": "cp",
     "mode": "light"
   },
-  "contentOrder": [
-    ".picker-popup__header",
-    ".picker-popup__body"
-  ],
-  "contentOrder.picker-popup__header": [
-    ".picker-popup__title",
-    ".picker-popup__close"
-  ],
   "structure": {
     "root": ".picker-popup",
     "children": [
@@ -1201,5 +1171,35 @@
   },
   "defaultContent": {
     "_rule": "No default content defined; do not invent labels, icons, or copy. Use only what is in the spec or leave slots empty."
-  }
+  },
+  "interactivity": {
+    "events": [
+      {
+        "name": "open",
+        "description": "Popup opened"
+      },
+      {
+        "name": "close",
+        "description": "Popup closed (outside click, Escape, or selection)"
+      }
+    ],
+    "state": [
+      {
+        "name": "open",
+        "type": "boolean",
+        "description": "Whether the popup is visible"
+      }
+    ]
+  },
+  "examples": [
+    {
+      "name": "Popup picker",
+      "description": "Popover for picker",
+      "snippet": "<PickerPopup open={open} onclose={...}>...</PickerPopup>"
+    }
+  ],
+  "contentOrder.picker-popup__header": [
+    ".picker-popup__title",
+    ".picker-popup__close"
+  ]
 }

@@ -1454,32 +1454,14 @@
       ]
     }
   },
+  "contentOrder": [
+    ".month-picker__header",
+    ".month-picker__grid"
+  ],
   "guidance": {
     "patterns": {},
     "guidelines": {}
   },
-  "interactivity": {
-    "events": [
-      {
-        "name": "change",
-        "description": "Triggered when a month is selected"
-      }
-    ],
-    "state": [
-      {
-        "name": "value",
-        "type": "string",
-        "description": "Selected month (e.g. YYYY-MM)"
-      }
-    ]
-  },
-  "examples": [
-    {
-      "name": "Month selection",
-      "description": "Pick month",
-      "snippet": "<MonthPicker value={...} />"
-    }
-  ],
   "specKeyOrder": [
     "theme",
     "mode"
@@ -1488,18 +1470,6 @@
     "theme": "cp",
     "mode": "light"
   },
-  "contentOrder": [
-    ".month-picker__header",
-    ".month-picker__grid"
-  ],
-  "contentOrder.month-picker__header": [
-    ".month-picker__nav-btn",
-    ".month-picker__year",
-    ".month-picker__nav-btn"
-  ],
-  "contentOrder.month-picker__grid": [
-    ".monthClasses"
-  ],
   "structure": {
     "root": ".month-picker",
     "children": [
@@ -1537,5 +1507,35 @@
   },
   "defaultContent": {
     "_rule": "No default content defined; do not invent labels, icons, or copy. Use only what is in the spec or leave slots empty."
-  }
+  },
+  "interactivity": {
+    "events": [
+      {
+        "name": "change",
+        "description": "Triggered when a month is selected"
+      }
+    ],
+    "state": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": "Selected month (e.g. YYYY-MM)"
+      }
+    ]
+  },
+  "examples": [
+    {
+      "name": "Month selection",
+      "description": "Pick month",
+      "snippet": "<MonthPicker value={...} />"
+    }
+  ],
+  "contentOrder.month-picker__grid": [
+    ".monthClasses"
+  ],
+  "contentOrder.month-picker__header": [
+    ".month-picker__nav-btn",
+    ".month-picker__year",
+    ".month-picker__nav-btn"
+  ]
 }

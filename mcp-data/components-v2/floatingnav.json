@@ -3867,6 +3867,9 @@
       ]
     }
   },
+  "contentOrder": [
+    ".floating-nav__toolbar"
+  ],
   "guidance": {
     "patterns": {
       "variant-button-visibility": "The variant prop controls which buttons render: variant='full' (default) shows all 4 buttons (Execute, Actions, Refresh, Save), while variant='compact' hides the Execute button even if showExecute=true. The showExecute prop only takes effect when variant='full'. Actions, Refresh (with dropdown), and Save buttons always render regardless of variant. Compact mode is used for narrow viewports or simplified interfaces.",
@@ -3875,6 +3878,33 @@
       "save-button-states": "The saveDisabled prop controls the Save button's disabled state and visual variant. When saveDisabled=true, the button receives floating-nav__btn--disabled class and disabled attribute. When saveDisabled=false (default), it receives floating-nav__btn--primary class for prominent styling. The Save button always has a dropdown chevron, suggesting multiple save options in the dropdown menu."
     },
     "guidelines": {}
+  },
+  "specKeyOrder": [
+    "variant",
+    "theme",
+    "mode"
+  ],
+  "dimensionDefaults": {
+    "variant": "full",
+    "theme": "cp",
+    "mode": "light"
+  },
+  "structure": {
+    "root": ".floating-nav",
+    "children": [
+      {
+        "class": ".floating-nav__toolbar",
+        "children": []
+      }
+    ]
+  },
+  "fonts": {
+    "Figtree": "https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap",
+    "Lexend": "https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap",
+    "JetBrains Mono": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
+  },
+  "defaultContent": {
+    "_rule": "No default content defined; do not invent labels, icons, or copy. Use only what is in the spec or leave slots empty."
   },
   "interactivity": {
     "events": [
@@ -3927,35 +3957,5 @@
       "description": "Floating navigation",
       "snippet": "<FloatingNav items={[...]} />"
     }
-  ],
-  "specKeyOrder": [
-    "variant",
-    "theme",
-    "mode"
-  ],
-  "dimensionDefaults": {
-    "variant": "full",
-    "theme": "cp",
-    "mode": "light"
-  },
-  "contentOrder": [
-    ".floating-nav__toolbar"
-  ],
-  "structure": {
-    "root": ".floating-nav",
-    "children": [
-      {
-        "class": ".floating-nav__toolbar",
-        "children": []
-      }
-    ]
-  },
-  "fonts": {
-    "Figtree": "https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap",
-    "Lexend": "https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap",
-    "JetBrains Mono": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
-  },
-  "defaultContent": {
-    "_rule": "No default content defined; do not invent labels, icons, or copy. Use only what is in the spec or leave slots empty."
-  }
+  ]
 }

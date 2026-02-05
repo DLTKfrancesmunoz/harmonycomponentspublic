@@ -3348,6 +3348,33 @@
       ]
     }
   },
+  "contentOrder": [
+    ".dialog__header",
+    ".dialog__body",
+    ".dialog__footer"
+  ],
+  "layoutRules": {
+    ".dialog__footer": {
+      "buttonAlignment": "left",
+      "buttonOrder": [
+        "primary",
+        "secondary"
+      ],
+      "buttonOrderByAlignment": {
+        "left": [
+          "primary",
+          "secondary"
+        ],
+        "right": [
+          "secondary",
+          "primary"
+        ]
+      }
+    }
+  },
+  "icons": {
+    "x-mark": "<svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\" stroke=\"currentColor\" aria-hidden=\"true\" data-slot=\"icon\"> <path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M6 18 18 6M6 6l12 12\"/> </svg>"
+  },
   "guidance": {
     "patterns": {
       "footer-buttons": "When buttonAlignment='left' (default), place primary action button first in footer slot, followed by secondary actions (e.g., Cancel). When buttonAlignment='right', place secondary actions first, then primary action button last. This ensures the visual alignment matches the semantic importance.",
@@ -3355,53 +3382,6 @@
     },
     "guidelines": {}
   },
-  "interactivity": {
-    "events": [
-      {
-        "name": "close",
-        "description": "Triggered by close button, overlay click, or Escape key"
-      }
-    ],
-    "state": [
-      {
-        "name": "open",
-        "type": "boolean",
-        "description": "Controlled via .is-open class on the overlay element"
-      }
-    ]
-  },
-  "examples": [
-    {
-      "name": "Delete confirmation",
-      "description": "Confirm before deleting an item",
-      "recipeId": "dialog-with-form-actions"
-    },
-    {
-      "name": "Save changes",
-      "description": "Confirm before saving changes",
-      "recipeId": "dialog-with-form-actions"
-    },
-    {
-      "name": "With three actions",
-      "description": "Dialog with tertiary action (max recommended)",
-      "recipeId": "dialog-with-form-actions"
-    },
-    {
-      "name": "Success message",
-      "description": "Confirm successful operation",
-      "recipeId": "dialog-confirmation"
-    },
-    {
-      "name": "Information alert",
-      "description": "Display important information",
-      "recipeId": "dialog-confirmation"
-    },
-    {
-      "name": "Basic dialog",
-      "description": "Standalone modal",
-      "snippet": "<Dialog id=\"my-dialog\" title=\"Title\"><p>Content</p></Dialog>"
-    }
-  ],
   "specKeyOrder": [
     "theme",
     "mode",
@@ -3412,15 +3392,6 @@
     "mode": "light",
     "headerVariant": "default"
   },
-  "contentOrder": [
-    ".dialog__header",
-    ".dialog__body",
-    ".dialog__footer"
-  ],
-  "contentOrder.dialog__header": [
-    ".dialog__title",
-    ".dialog__close"
-  ],
   "structure": {
     "root": ".dialog-overlay",
     "children": [
@@ -3479,26 +3450,55 @@
       ]
     }
   },
-  "layoutRules": {
-    ".dialog__footer": {
-      "buttonAlignment": "left",
-      "buttonOrder": [
-        "primary",
-        "secondary"
-      ],
-      "buttonOrderByAlignment": {
-        "left": [
-          "primary",
-          "secondary"
-        ],
-        "right": [
-          "secondary",
-          "primary"
-        ]
+  "interactivity": {
+    "events": [
+      {
+        "name": "close",
+        "description": "Triggered by close button, overlay click, or Escape key"
       }
-    }
+    ],
+    "state": [
+      {
+        "name": "open",
+        "type": "boolean",
+        "description": "Controlled via .is-open class on the overlay element"
+      }
+    ]
   },
-  "icons": {
-    "x-mark": "<svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\" stroke=\"currentColor\" aria-hidden=\"true\" data-slot=\"icon\"> <path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M6 18 18 6M6 6l12 12\"/> </svg>"
-  }
+  "examples": [
+    {
+      "name": "Delete confirmation",
+      "description": "Confirm before deleting an item",
+      "recipeId": "dialog-with-form-actions"
+    },
+    {
+      "name": "Save changes",
+      "description": "Confirm before saving changes",
+      "recipeId": "dialog-with-form-actions"
+    },
+    {
+      "name": "With three actions",
+      "description": "Dialog with tertiary action (max recommended)",
+      "recipeId": "dialog-with-form-actions"
+    },
+    {
+      "name": "Success message",
+      "description": "Confirm successful operation",
+      "recipeId": "dialog-confirmation"
+    },
+    {
+      "name": "Information alert",
+      "description": "Display important information",
+      "recipeId": "dialog-confirmation"
+    },
+    {
+      "name": "Basic dialog",
+      "description": "Standalone modal",
+      "snippet": "<Dialog id=\"my-dialog\" title=\"Title\"><p>Content</p></Dialog>"
+    }
+  ],
+  "contentOrder.dialog__header": [
+    ".dialog__title",
+    ".dialog__close"
+  ]
 }

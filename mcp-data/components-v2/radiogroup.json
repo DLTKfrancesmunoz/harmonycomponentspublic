@@ -1163,6 +1163,12 @@
       ]
     }
   },
+  "contentOrder": [
+    ".legendClasses",
+    ".radio-group-wrapper__content",
+    ".radio-group-wrapper__message",
+    ".radio-group-wrapper__message"
+  ],
   "guidance": {
     "patterns": {
       "required-name-prop": "The name prop is required (not optional) on RadioGroup because all RadioButton components within the group must share the same name attribute to function as a mutually exclusive set. Each RadioButton nested inside RadioGroup must receive the same name prop value to ensure only one can be selected at a time. This is enforced by HTML radio button semantics, not by JavaScript.",
@@ -1172,28 +1178,6 @@
     },
     "guidelines": {}
   },
-  "interactivity": {
-    "events": [
-      {
-        "name": "change",
-        "description": "Triggered when selected option changes"
-      }
-    ],
-    "state": [
-      {
-        "name": "value",
-        "type": "string",
-        "description": "Selected option value; one of the radio values in the group"
-      }
-    ]
-  },
-  "examples": [
-    {
-      "name": "Radio group",
-      "description": "Single choice from list",
-      "snippet": "<RadioGroup name=\"choice\" options={[{ value: 'a', label: 'A' }]} />"
-    }
-  ],
   "specKeyOrder": [
     "theme",
     "mode"
@@ -1202,15 +1186,6 @@
     "theme": "cp",
     "mode": "light"
   },
-  "contentOrder": [
-    ".legendClasses",
-    ".radio-group-wrapper__content",
-    ".radio-group-wrapper__message",
-    ".radio-group-wrapper__message"
-  ],
-  "contentOrder.radio-group-wrapper__message": [
-    ".radio-group-wrapper__message-icon"
-  ],
   "structure": {
     "root": ".wrapperClasses",
     "children": [
@@ -1246,5 +1221,30 @@
   },
   "defaultContent": {
     "_rule": "No default content defined; do not invent labels, icons, or copy. Use only what is in the spec or leave slots empty."
-  }
+  },
+  "interactivity": {
+    "events": [
+      {
+        "name": "change",
+        "description": "Triggered when selected option changes"
+      }
+    ],
+    "state": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": "Selected option value; one of the radio values in the group"
+      }
+    ]
+  },
+  "examples": [
+    {
+      "name": "Radio group",
+      "description": "Single choice from list",
+      "snippet": "<RadioGroup name=\"choice\" options={[{ value: 'a', label: 'A' }]} />"
+    }
+  ],
+  "contentOrder.radio-group-wrapper__message": [
+    ".radio-group-wrapper__message-icon"
+  ]
 }

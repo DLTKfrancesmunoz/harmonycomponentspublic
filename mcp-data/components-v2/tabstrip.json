@@ -932,6 +932,9 @@
       ]
     }
   },
+  "contentOrder": [
+    ".tabstrip__nav"
+  ],
   "guidance": {
     "patterns": {
       "icon-position-consistency": "All tabs must use either inline icon positioning (left/right) OR stacked (top), but cannot mix both. Use the component-level iconPosition prop to enforce consistency across all tabs, or ensure individual tab iconPosition values follow this rule. The component will log a warning if mixed positions are detected (lines 52-68).",
@@ -941,28 +944,6 @@
     },
     "guidelines": {}
   },
-  "interactivity": {
-    "events": [
-      {
-        "name": "change",
-        "description": "Triggered when user selects a different tab"
-      }
-    ],
-    "state": [
-      {
-        "name": "activeTab",
-        "type": "string",
-        "description": "Id or index of the active tab; controlled via props or script"
-      }
-    ]
-  },
-  "examples": [
-    {
-      "name": "Tabs",
-      "description": "Tab navigation",
-      "snippet": "<TabStrip tabs={[{ id: '1', label: 'Tab 1' }]} activeTab=\"1\" />"
-    }
-  ],
   "specKeyOrder": [
     "variant",
     "theme",
@@ -973,38 +954,6 @@
     "theme": "cp",
     "mode": "light"
   },
-  "contentOrder": [
-    ".tabstrip__nav"
-  ],
-  "contentOrder.tabstrip__nav": [
-    ".tabstrip__container"
-  ],
-  "contentOrder.tabstrip__container": [
-    ".tabstrip__tabs",
-    ".tab",
-    ".tabstrip__more-wrapper"
-  ],
-  "contentOrder.tabstrip__more-wrapper": [
-    ".tab",
-    ".tabstrip__dropdown"
-  ],
-  "contentOrder.tabstrip__dropdown": [
-    ".tabstrip__dropdown-section"
-  ],
-  "contentOrder.tabstrip__dropdown-section": [
-    ".tabstrip__dropdown-item"
-  ],
-  "contentOrder.tabstrip__dropdown-item": [
-    ".tabstrip__dropdown-item-label",
-    ".tabstrip__dropdown-item-actions"
-  ],
-  "contentOrder.tabstrip__dropdown-item-label": [
-    ".tabstrip__dropdown-item-icon"
-  ],
-  "contentOrder.tabstrip__dropdown-item-actions": [
-    ".tabstrip__dropdown-action-btn",
-    ".tabstrip__dropdown-action-btn"
-  ],
   "structure": {
     "root": ".tabstrip",
     "children": [
@@ -1081,5 +1030,56 @@
     "_rule": "No default content defined; do not invent labels, icons, or copy. Use only what is in the spec or leave slots empty.",
     "_behavior": "Overflow is driven by container/browser width. When overflowMode is 'auto', tabs that do not fit move to the More dropdown. When overflowMode is 'none', horizontal scrolling may occur. Do not rely on prose only for viewport/width behavior.",
     "_responsive": "Tab strip layout and overflow (tabs vs More dropdown) depend on available width; no fixed breakpoints—behavior is container-driven."
-  }
+  },
+  "interactivity": {
+    "events": [
+      {
+        "name": "change",
+        "description": "Triggered when user selects a different tab"
+      }
+    ],
+    "state": [
+      {
+        "name": "activeTab",
+        "type": "string",
+        "description": "Id or index of the active tab; controlled via props or script"
+      }
+    ]
+  },
+  "examples": [
+    {
+      "name": "Tabs",
+      "description": "Tab navigation",
+      "snippet": "<TabStrip tabs={[{ id: '1', label: 'Tab 1' }]} activeTab=\"1\" />"
+    }
+  ],
+  "contentOrder.tabstrip__container": [
+    ".tabstrip__tabs",
+    ".tab",
+    ".tabstrip__more-wrapper"
+  ],
+  "contentOrder.tabstrip__dropdown": [
+    ".tabstrip__dropdown-section"
+  ],
+  "contentOrder.tabstrip__dropdown-item": [
+    ".tabstrip__dropdown-item-label",
+    ".tabstrip__dropdown-item-actions"
+  ],
+  "contentOrder.tabstrip__dropdown-item-actions": [
+    ".tabstrip__dropdown-action-btn",
+    ".tabstrip__dropdown-action-btn"
+  ],
+  "contentOrder.tabstrip__dropdown-item-label": [
+    ".tabstrip__dropdown-item-icon"
+  ],
+  "contentOrder.tabstrip__dropdown-section": [
+    ".tabstrip__dropdown-item"
+  ],
+  "contentOrder.tabstrip__more-wrapper": [
+    ".tab",
+    ".tabstrip__dropdown"
+  ],
+  "contentOrder.tabstrip__nav": [
+    ".tabstrip__container"
+  ]
 }

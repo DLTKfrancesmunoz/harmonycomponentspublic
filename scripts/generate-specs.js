@@ -29,6 +29,28 @@ const V2_COMPONENTS_DIR = path.join(ROOT, 'mcp-data', 'components-v2');
 const DEFAULT_CONTENT_DIR = path.join(ROOT, 'mcp-data', 'default-content');
 const TYPOGRAPHY_PATH = path.join(ROOT, 'src', 'tokens', 'typography.json');
 
+/** Canonical root key order for component JSON (SPEC_CONTRACT). Identity, props/defaults/specs, then guidance/specKeyOrder/dimensionDefaults/structure/fonts/defaultContent, then optional. */
+const COMPONENT_JSON_KEY_ORDER = [
+  'name', 'type', 'filePath', 'description', 'props', 'defaults', 'specs',
+  'contentOrder', 'layoutRules', 'icons',
+  'guidance', 'specKeyOrder', 'dimensionDefaults', 'structure', 'fonts', 'defaultContent',
+  'interactivity', 'examples',
+];
+
+function orderComponentJSONKeys(obj) {
+  const ordered = {};
+  const keySet = new Set(Object.keys(obj));
+  for (const k of COMPONENT_JSON_KEY_ORDER) {
+    if (keySet.has(k)) {
+      ordered[k] = obj[k];
+      keySet.delete(k);
+    }
+  }
+  const rest = [...keySet].sort();
+  for (const k of rest) ordered[k] = obj[k];
+  return ordered;
+}
+
 /** Font name -> URL map from typography.json (lazy-loaded). */
 let fontUrlMap = null;
 
@@ -97,6 +119,50 @@ const CONTENT_ORDER_OVERRIDES = {
   ShellHeader: {
     contentOrder: ['.header__brand', '.header__actions', '.header__gradient'],
     'contentOrder.header__actions': ['.company-picker', '.divider', '.avatar'],
+  },
+  ShellPanel: {
+    contentOrder: ['.shell-panel__header', '.shell-panel__content'],
+    'contentOrder.shell-panel__header': ['.shell-panel__header-content'],
+    'contentOrder.shell-panel__header-content': ['.shell-panel__header-icon', '.shell-panel__title', '.shell-panel__actions'],
+  },
+  Accordion: {
+    contentOrder: ['.accordion__item'],
+    'contentOrder.accordion__item': ['.accordion__trigger', '.accordion__content'],
+    'contentOrder.accordion__trigger': ['.accordion__icon'],
+  },
+  Dropdown: {
+    contentOrder: ['.dropdown-wrapper__label', '.dropdown'],
+    'contentOrder.dropdown': ['.dropdown__trigger', '.dropdown__menu'],
+    'contentOrder.dropdown__trigger': ['.dropdown__value', '.dropdown__chevron'],
+  },
+  LeftSidebar: {
+    contentOrder: ['.left-sidebar__section'],
+    'contentOrder.left-sidebar__section': ['.left-sidebar__item'],
+    'contentOrder.left-sidebar__item': ['.left-sidebar__icon', '.left-sidebar__label', '.left-sidebar__custom-icon', '.left-sidebar__item-tooltip'],
+  },
+  ListMenu: {
+    contentOrder: ['.list-menu__item'],
+    'contentOrder.list-menu__item': ['.list-menu__item-icon', '.list-menu__custom-icon'],
+  },
+  PickerPopup: {
+    contentOrder: ['.picker-popup__header', '.picker-popup__body'],
+    'contentOrder.picker-popup__header': ['.picker-popup__title', '.picker-popup__close'],
+  },
+  Table: {
+    contentOrder: ['.table__title-bar', '.table__action-bar', '.table'],
+    'contentOrder.table__title-bar': ['.table__title-bar-content'],
+    'contentOrder.table__title-bar-content': ['.table__title-bar-icons'],
+  },
+  Kanban: {
+    contentOrder: ['.kanban__title-bar', '.kanban__action-bar', '.kanban__columns-wrapper'],
+    'contentOrder.kanban__title-bar': ['.kanban__title-bar-content', '.kanban__title-bar-actions'],
+    'contentOrder.kanban__title-bar-content': ['.kanban__title'],
+    'contentOrder.kanban__title-bar-actions': ['.kanban__title-bar-icon'],
+    'contentOrder.kanban__action-bar': ['.kanban__action-items'],
+    'contentOrder.kanban__action-items': ['.kanban__action-button', '.kanban__action-divider', '.kanban__action-label', '.kanban__action-text-button'],
+  },
+  Tooltip: {
+    contentOrder: ['.tooltip__content'],
   },
 };
 
@@ -1258,9 +1324,10 @@ export async function generateComponentJSON(componentName) {
  */
 export async function writeComponentJSON(componentName, outputDir = 'mcp-data/components-v2') {
   const json = await generateComponentJSON(componentName);
+  const ordered = orderComponentJSONKeys(json);
   const outPath = path.join(ROOT, outputDir, `${componentName.toLowerCase()}.json`);
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
-  fs.writeFileSync(outPath, JSON.stringify(json, null, 2) + '\n', 'utf-8');
+  fs.writeFileSync(outPath, JSON.stringify(ordered, null, 2) + '\n', 'utf-8');
   return outPath;
 }
 
@@ -1381,9 +1448,10 @@ if (import.meta.url === `file://${process.argv[1]}`) {
         const validation = validateComponentSpecs(json.specs);
         result.valid = validation.valid;
         result.errors = validation.errors;
+        const ordered = orderComponentJSONKeys(json);
         const outPath = path.join(ROOT, 'mcp-data', 'components-v2', `${name.toLowerCase()}.json`);
         fs.mkdirSync(path.dirname(outPath), { recursive: true });
-        fs.writeFileSync(outPath, JSON.stringify(json, null, 2) + '\n', 'utf-8');
+        fs.writeFileSync(outPath, JSON.stringify(ordered, null, 2) + '\n', 'utf-8');
       } catch (err) {
         result.valid = false;
         result.errors = [err.message || String(err)];

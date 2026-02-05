@@ -8,6 +8,10 @@ This document defines the **canonical JSON format** for Harmony component specs,
 
 **Per-component file structure:** Each component has one JSON file (e.g. `mcp-data/components/card.json`, `rightsidebar.json`) with: **Identity** (`name`, `type`, `filePath`, `description`), **props**, **defaults** (`{ variant?, size?, theme?, mode? }`), **specs** (one complete spec object per build context), **guidance** (`patterns`, `guidelines`). **Dropped:** `visualSpecifications`, old `buildSpecs`, and any unresolved/inferred spec fields. **Rule:** Every value in `specs` is resolved (hardcoded). No `null`, no `transparent`, no `var()`.
 
+- **Null:** `null` is allowed only in `props.<propName>.default` for optional props with no default. It is not allowed inside `specs` (e.g. `_buildContract`, layout, states, template). That keeps build contracts deterministic.
+- **Props default format:** Optional props with no default use `default: null`. Other defaults are the value as in source (e.g. `'primary'`, `'md'`, `false`). Generators and consumers should align on this so prop schemas stay consistent.
+- **Key order (recommended):** Identity (`name`, `type`, `filePath`, `description`), then `props`, `defaults`, `specs`, then at end of file: `guidance`, `specKeyOrder`, `dimensionDefaults`, `structure`, `fonts`, `defaultContent`. Optional: document any component-specific root keys (e.g. `interactivity`, `examples`) in the same place.
+
 ### 1.1 Specs keying
 
 - **Key:** One spec per combination of **all** dimension props. Every component with **specs** must include **specKeyOrder** and **dimensionDefaults**. The key is built by joining resolved dimension values in **specKeyOrder** order (e.g. Alert `info-default-cp-light`, `info-enhanced-cp-light`; Button `primary-cp-light-md-theme`; Accordion `cp-light`). Resolution uses one model only; there is no fallback key shape.

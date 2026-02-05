@@ -1941,6 +1941,13 @@
       ]
     }
   },
+  "contentOrder": [
+    ".dropdown-wrapper__label",
+    ".dropdown"
+  ],
+  "icons": {
+    "chevron-down": "<svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\" stroke=\"currentColor\" aria-hidden=\"true\" data-slot=\"icon\"> <path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"m19.5 8.25-7.5 7.5-7.5-7.5\"/> </svg>"
+  },
   "guidance": {
     "patterns": {
       "trigger-slot-override": "The trigger slot (lines 75-76, 114-115) completely replaces the default trigger button, including the selected value display and chevron icon. When using a custom trigger, you are responsible for displaying the current selection state and any visual indicators. The default trigger (lines 78-82, 117-121) shows selectedOption.label or placeholder with a chevron-down icon.",
@@ -1949,41 +1956,6 @@
     },
     "guidelines": {}
   },
-  "interactivity": {
-    "events": [
-      {
-        "name": "open",
-        "description": "Triggered when the trigger button is clicked to open the list"
-      },
-      {
-        "name": "close",
-        "description": "Triggered when an option is selected or focus leaves the dropdown"
-      },
-      {
-        "name": "change",
-        "description": "Triggered when an option is selected; form submits the selected value"
-      }
-    ],
-    "state": [
-      {
-        "name": "open",
-        "type": "boolean",
-        "description": "Whether the listbox is expanded (aria-expanded)"
-      },
-      {
-        "name": "value",
-        "type": "string",
-        "description": "Selected option value; bound via name/value on the hidden input"
-      }
-    ]
-  },
-  "examples": [
-    {
-      "name": "Select options",
-      "description": "Single-select dropdown",
-      "snippet": "<Dropdown options={[{ value: '1', label: 'One' }]} placeholder=\"Choose\" />"
-    }
-  ],
   "specKeyOrder": [
     "theme",
     "mode"
@@ -1992,17 +1964,6 @@
     "theme": "cp",
     "mode": "light"
   },
-  "contentOrder": [
-    ".(finalLabelVariant",
-    ".classes"
-  ],
-  "contentOrder.classes": [
-    ".dropdown__trigger",
-    ".dropdown__menu"
-  ],
-  "contentOrder.dropdown__menu": [
-    ".dropdown__item"
-  ],
   "structure": {
     "root": ".wrapperClasses",
     "children": [
@@ -2042,7 +2003,47 @@
     },
     "_rule": "No default content defined; do not invent labels, icons, or copy. Use only what is in the spec or leave slots empty."
   },
-  "icons": {
-    "chevron-down": "<svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\" stroke=\"currentColor\" aria-hidden=\"true\" data-slot=\"icon\"> <path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"m19.5 8.25-7.5 7.5-7.5-7.5\"/> </svg>"
-  }
+  "interactivity": {
+    "events": [
+      {
+        "name": "open",
+        "description": "Triggered when the trigger button is clicked to open the list"
+      },
+      {
+        "name": "close",
+        "description": "Triggered when an option is selected or focus leaves the dropdown"
+      },
+      {
+        "name": "change",
+        "description": "Triggered when an option is selected; form submits the selected value"
+      }
+    ],
+    "state": [
+      {
+        "name": "open",
+        "type": "boolean",
+        "description": "Whether the listbox is expanded (aria-expanded)"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "Selected option value; bound via name/value on the hidden input"
+      }
+    ]
+  },
+  "examples": [
+    {
+      "name": "Select options",
+      "description": "Single-select dropdown",
+      "snippet": "<Dropdown options={[{ value: '1', label: 'One' }]} placeholder=\"Choose\" />"
+    }
+  ],
+  "contentOrder.dropdown": [
+    ".dropdown__trigger",
+    ".dropdown__menu"
+  ],
+  "contentOrder.dropdown__trigger": [
+    ".dropdown__value",
+    ".dropdown__chevron"
+  ]
 }

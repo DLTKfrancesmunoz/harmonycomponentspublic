@@ -2838,32 +2838,15 @@
       ]
     }
   },
+  "contentOrder": [
+    ".step__indicator",
+    ".step__connector",
+    ".step__label"
+  ],
   "guidance": {
     "patterns": {},
     "guidelines": {}
   },
-  "interactivity": {
-    "events": [
-      {
-        "name": "click",
-        "description": "Step indicator click when stepper is interactive"
-      }
-    ],
-    "state": [
-      {
-        "name": "status",
-        "type": "string",
-        "description": "completed | current | upcoming; passed from parent Stepper"
-      }
-    ]
-  },
-  "examples": [
-    {
-      "name": "Step indicator",
-      "description": "One step in stepper",
-      "snippet": "<Step status=\"completed\" label=\"Done\" />"
-    }
-  ],
   "specKeyOrder": [
     "theme",
     "mode"
@@ -2872,21 +2855,6 @@
     "theme": "cp",
     "mode": "light"
   },
-  "contentOrder": [
-    ".step__indicator",
-    ".step__connector",
-    ".step__label"
-  ],
-  "contentOrder.step__indicator": [
-    ".step__error-icon",
-    ".step__warning-icon",
-    ".step__success-icon",
-    ".step__check"
-  ],
-  "contentOrder.step__label": [
-    ".step__label-text",
-    ".step__description"
-  ],
   "structure": {
     "root": ".step",
     "children": [
@@ -2932,5 +2900,37 @@
   },
   "defaultContent": {
     "_rule": "No default content defined; do not invent labels, icons, or copy. Use only what is in the spec or leave slots empty."
-  }
+  },
+  "interactivity": {
+    "events": [
+      {
+        "name": "click",
+        "description": "Step indicator click when stepper is interactive"
+      }
+    ],
+    "state": [
+      {
+        "name": "status",
+        "type": "string",
+        "description": "completed | current | upcoming; passed from parent Stepper"
+      }
+    ]
+  },
+  "examples": [
+    {
+      "name": "Step indicator",
+      "description": "One step in stepper",
+      "snippet": "<Step status=\"completed\" label=\"Done\" />"
+    }
+  ],
+  "contentOrder.step__indicator": [
+    ".step__error-icon",
+    ".step__warning-icon",
+    ".step__success-icon",
+    ".step__check"
+  ],
+  "contentOrder.step__label": [
+    ".step__label-text",
+    ".step__description"
+  ]
 }

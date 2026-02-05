@@ -13699,6 +13699,10 @@
       ]
     }
   },
+  "contentOrder": [
+    ".shell-panel__header",
+    ".shell-panel__content"
+  ],
   "guidance": {
     "patterns": {
       "header-variant-capabilities": "The headerVariant prop controls header appearance and features. 'theme' (default) provides gradient-capable header with popout button (showPopout=true), width toggle, and close button—designed for sidebar integration. 'default' provides simple header styling without gradient support or popout functionality. Only theme variant headers respond to data-gradient-header attribute for Dela AI styling (lines 70-113).",
@@ -13707,6 +13711,37 @@
       "dynamic-updates-api": "Global functions updateShellPanel(selector, title, icon), openShellPanel(selector), and closeShellPanel(selector) enable programmatic panel control. The sidebar components use these APIs to dynamically update panel content when navigation items are clicked (lines 177-222). Data attributes data-panel-icon-container and data-panel-close enable this dynamic behavior."
     },
     "guidelines": {}
+  },
+  "specKeyOrder": [
+    "variant",
+    "theme",
+    "mode",
+    "headerVariant",
+    "width"
+  ],
+  "dimensionDefaults": {
+    "variant": "default",
+    "theme": "cp",
+    "mode": "light",
+    "headerVariant": "theme",
+    "width": "narrow"
+  },
+  "structure": {
+    "root": ".shell-panel",
+    "children": [
+      {
+        "class": ".shell-panel__content",
+        "children": []
+      }
+    ]
+  },
+  "fonts": {
+    "Figtree": "https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap",
+    "Lexend": "https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap",
+    "JetBrains Mono": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
+  },
+  "defaultContent": {
+    "_rule": "No default content defined; do not invent labels, icons, or copy. Use only what is in the spec or leave slots empty."
   },
   "interactivity": {
     "events": [
@@ -13745,38 +13780,12 @@
       "snippet": "<ShellPanel open={open}>Panel content</ShellPanel>"
     }
   ],
-  "specKeyOrder": [
-    "variant",
-    "theme",
-    "mode",
-    "headerVariant",
-    "width"
+  "contentOrder.shell-panel__header": [
+    ".shell-panel__header-content"
   ],
-  "dimensionDefaults": {
-    "variant": "default",
-    "theme": "cp",
-    "mode": "light",
-    "headerVariant": "theme",
-    "width": "narrow"
-  },
-  "contentOrder": [
-    ".shell-panel__content"
-  ],
-  "structure": {
-    "root": ".shell-panel",
-    "children": [
-      {
-        "class": ".shell-panel__content",
-        "children": []
-      }
-    ]
-  },
-  "fonts": {
-    "Figtree": "https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap",
-    "Lexend": "https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap",
-    "JetBrains Mono": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
-  },
-  "defaultContent": {
-    "_rule": "No default content defined; do not invent labels, icons, or copy. Use only what is in the spec or leave slots empty."
-  }
+  "contentOrder.shell-panel__header-content": [
+    ".shell-panel__header-icon",
+    ".shell-panel__title",
+    ".shell-panel__actions"
+  ]
 }

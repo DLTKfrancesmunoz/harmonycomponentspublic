@@ -6681,6 +6681,11 @@
       ]
     }
   },
+  "contentOrder": [
+    ".kanban__title-bar",
+    ".kanban__action-bar",
+    ".kanban__columns-wrapper"
+  ],
   "guidance": {
     "patterns": {
       "slot-areas-customization": "Kanban provides three customization slots: 'title-bar-actions' (lines 59-82) replaces default title bar icons (expand, collapse, help, minimize, window, close), 'action-bar' (lines 91-127) replaces default action buttons and filters, and 'action-dropdown' for dropdown controls. When slots are not provided, default UI elements are rendered. Title bar actions include 6 icon buttons, action bar includes delete, group, customize, and view controls.",
@@ -6689,28 +6694,6 @@
     },
     "guidelines": {}
   },
-  "interactivity": {
-    "events": [
-      {
-        "name": "click",
-        "description": "Clicks on action buttons, dropdowns, or cards; implement drag/drop in parent if needed"
-      }
-    ],
-    "state": [
-      {
-        "name": "—",
-        "type": "—",
-        "description": "Column and card data passed as props; reorder/state managed by parent."
-      }
-    ]
-  },
-  "examples": [
-    {
-      "name": "Kanban board",
-      "description": "Columns with cards",
-      "snippet": "<Kanban columns={[{ id: '1', title: 'To Do', cards: [...] }]} />"
-    }
-  ],
   "specKeyOrder": [
     "theme",
     "mode"
@@ -6719,49 +6702,6 @@
     "theme": "cp",
     "mode": "light"
   },
-  "contentOrder": [
-    ".kanban__title-bar",
-    ".kanban__action-bar",
-    ".kanban__columns-wrapper"
-  ],
-  "contentOrder.kanban__title-bar": [
-    ".kanban__title-bar-content"
-  ],
-  "contentOrder.kanban__title-bar-content": [
-    ".kanban__title",
-    ".kanban__title-bar-actions"
-  ],
-  "contentOrder.kanban__action-bar": [
-    ".kanban__action-items"
-  ],
-  "contentOrder.kanban__columns-wrapper": [
-    ".kanban__column-card",
-    ".kanban__add-column-button"
-  ],
-  "contentOrder.kanban__column-card": [
-    ".kanban__column"
-  ],
-  "contentOrder.kanban__column": [
-    ".kanban__column-header",
-    ".kanban__column-content"
-  ],
-  "contentOrder.kanban__column-header": [
-    ".kanban__column-header-content",
-    ".kanban__column-header-actions"
-  ],
-  "contentOrder.kanban__column-header-content": [
-    ".kanban__column-title",
-    ".kanban__column-count"
-  ],
-  "contentOrder.kanban__column-header-actions": [
-    ".kanban__column-action-icon",
-    ".kanban__column-action-icon",
-    ".kanban__column-action-icon"
-  ],
-  "contentOrder.kanban__column-content": [
-    ".card.class",
-    ".kanban__add-button"
-  ],
   "structure": {
     "root": ".kanban__container",
     "children": [
@@ -6862,5 +6802,46 @@
   },
   "defaultContent": {
     "_rule": "No default content defined; do not invent labels, icons, or copy. Use only what is in the spec or leave slots empty."
-  }
+  },
+  "interactivity": {
+    "events": [
+      {
+        "name": "click",
+        "description": "Clicks on action buttons, dropdowns, or cards; implement drag/drop in parent if needed"
+      }
+    ],
+    "state": [
+      {
+        "name": "—",
+        "type": "—",
+        "description": "Column and card data passed as props; reorder/state managed by parent."
+      }
+    ]
+  },
+  "examples": [
+    {
+      "name": "Kanban board",
+      "description": "Columns with cards",
+      "snippet": "<Kanban columns={[{ id: '1', title: 'To Do', cards: [...] }]} />"
+    }
+  ],
+  "contentOrder.kanban__action-bar": [
+    ".kanban__action-items"
+  ],
+  "contentOrder.kanban__action-items": [
+    ".kanban__action-button",
+    ".kanban__action-divider",
+    ".kanban__action-label",
+    ".kanban__action-text-button"
+  ],
+  "contentOrder.kanban__title-bar": [
+    ".kanban__title-bar-content",
+    ".kanban__title-bar-actions"
+  ],
+  "contentOrder.kanban__title-bar-actions": [
+    ".kanban__title-bar-icon"
+  ],
+  "contentOrder.kanban__title-bar-content": [
+    ".kanban__title"
+  ]
 }

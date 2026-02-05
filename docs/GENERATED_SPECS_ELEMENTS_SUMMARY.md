@@ -1,5 +1,11 @@
 # Generated specs – elements array summary
 
+## Status
+
+The issues described below have been addressed: multi-element structure is now provided via HARDCODED_STRUCTURE in [scripts/lib/component-discovery.js](../scripts/lib/component-discovery.js), and all component JSONs have been regenerated. This document is kept for historical context and for auditing which components were in scope.
+
+---
+
 ## 1. Requested specs (elements only)
 
 ### Alert (cp-light) — spec key `info-cp-light-xs` (Alert uses variant-theme-mode-size)

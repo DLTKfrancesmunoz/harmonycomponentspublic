@@ -1758,12 +1758,91 @@
       ]
     }
   },
+  "contentOrder": [
+    ".header__brand",
+    ".header__actions",
+    ".header__gradient"
+  ],
+  "layoutRules": {
+    ".header__actions": {
+      "description": "When actions slot is not used: company picker, then divider (if showCompanyPicker), then Avatar. Do not reorder."
+    }
+  },
   "guidance": {
     "patterns": {
       "actions-slot-override": "When the actions slot is provided, it completely replaces the default right-side content (company picker and Avatar). When the slot is not used, the header shows the company picker when showCompanyPicker is true and the Avatar. Use the companies prop to supply custom company options and companyColor for the selected indicator and gradient bar.",
       "company-picker-customization": "The companies prop overrides the default company list; companyColor sets the selected company indicator and the header gradient bar color."
     },
     "guidelines": {}
+  },
+  "specKeyOrder": [
+    "theme",
+    "mode"
+  ],
+  "dimensionDefaults": {
+    "theme": "cp",
+    "mode": "light"
+  },
+  "structure": {
+    "root": ".header",
+    "children": [
+      {
+        "class": ".header__brand",
+        "children": [
+          {
+            "class": ".header__brand-link",
+            "children": [
+              {
+                "class": ".header__logo"
+              },
+              {
+                "class": ".header__title"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "class": ".header__actions",
+        "children": []
+      },
+      {
+        "class": ".header__gradient"
+      }
+    ]
+  },
+  "fonts": {
+    "Figtree": "https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap",
+    "Lexend": "https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap",
+    "JetBrains Mono": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
+  },
+  "defaultContent": {
+    "productName": "Harmony",
+    "logoSrc": "/logos/CPVPLogo.svg",
+    "companyName": "Company name",
+    "showCompanyPicker": true,
+    "companies": [
+      {
+        "id": "acme-corp",
+        "name": "Acme Corporation"
+      },
+      {
+        "id": "ocean-industries",
+        "name": "Ocean Industries"
+      },
+      {
+        "id": "violet-systems",
+        "name": "Violet Systems"
+      },
+      {
+        "id": "azure-dynamics",
+        "name": "Azure Dynamics"
+      },
+      {
+        "id": "sunset-corporation",
+        "name": "Sunset Corporation"
+      }
+    ]
   },
   "interactivity": {
     "events": [
@@ -1832,88 +1911,9 @@
       "snippet": "<ShellHeader>Logo and nav</ShellHeader>"
     }
   ],
-  "specKeyOrder": [
-    "theme",
-    "mode"
-  ],
-  "dimensionDefaults": {
-    "theme": "cp",
-    "mode": "light"
-  },
-  "contentOrder": [
-    ".header__brand",
-    ".header__actions",
-    ".header__gradient"
-  ],
   "contentOrder.header__actions": [
     ".company-picker",
     ".divider",
     ".avatar"
-  ],
-  "structure": {
-    "root": ".header",
-    "children": [
-      {
-        "class": ".header__brand",
-        "children": [
-          {
-            "class": ".header__brand-link",
-            "children": [
-              {
-                "class": ".header__logo"
-              },
-              {
-                "class": ".header__title"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "class": ".header__actions",
-        "children": []
-      },
-      {
-        "class": ".header__gradient"
-      }
-    ]
-  },
-  "fonts": {
-    "Figtree": "https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap",
-    "Lexend": "https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap",
-    "JetBrains Mono": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
-  },
-  "defaultContent": {
-    "productName": "Harmony",
-    "logoSrc": "/logos/CPVPLogo.svg",
-    "companyName": "Company name",
-    "showCompanyPicker": true,
-    "companies": [
-      {
-        "id": "acme-corp",
-        "name": "Acme Corporation"
-      },
-      {
-        "id": "ocean-industries",
-        "name": "Ocean Industries"
-      },
-      {
-        "id": "violet-systems",
-        "name": "Violet Systems"
-      },
-      {
-        "id": "azure-dynamics",
-        "name": "Azure Dynamics"
-      },
-      {
-        "id": "sunset-corporation",
-        "name": "Sunset Corporation"
-      }
-    ]
-  },
-  "layoutRules": {
-    ".header__actions": {
-      "description": "When actions slot is not used: company picker, then divider (if showCompanyPicker), then Avatar. Do not reorder."
-    }
-  }
+  ]
 }

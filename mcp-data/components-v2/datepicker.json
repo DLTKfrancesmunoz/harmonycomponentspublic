@@ -1886,37 +1886,15 @@
       ]
     }
   },
+  "contentOrder": [
+    ".date-picker__header",
+    ".date-picker__weekdays",
+    ".date-picker__grid"
+  ],
   "guidance": {
     "patterns": {},
     "guidelines": {}
   },
-  "interactivity": {
-    "events": [
-      {
-        "name": "change",
-        "description": "Triggered when a date is selected"
-      }
-    ],
-    "state": [
-      {
-        "name": "value",
-        "type": "string",
-        "description": "Selected date"
-      },
-      {
-        "name": "viewMonth",
-        "type": "string",
-        "description": "Currently displayed month/year in calendar view"
-      }
-    ]
-  },
-  "examples": [
-    {
-      "name": "Calendar picker",
-      "description": "Standalone calendar",
-      "snippet": "<DatePicker value={date} onchange={...} />"
-    }
-  ],
   "specKeyOrder": [
     "theme",
     "mode"
@@ -1925,23 +1903,6 @@
     "theme": "cp",
     "mode": "light"
   },
-  "contentOrder": [
-    ".date-picker__header",
-    ".date-picker__weekdays",
-    ".date-picker__grid"
-  ],
-  "contentOrder.date-picker__header": [
-    ".date-picker__nav-btn",
-    ".date-picker__month-year",
-    ".date-picker__nav-btn"
-  ],
-  "contentOrder.date-picker__month-year": [
-    ".date-picker__month",
-    ".date-picker__year"
-  ],
-  "contentOrder.date-picker__weekdays": [
-    ".date-picker__weekday"
-  ],
   "structure": {
     "root": ".date-picker",
     "children": [
@@ -1989,5 +1950,44 @@
   },
   "defaultContent": {
     "_rule": "No default content defined; do not invent labels, icons, or copy. Use only what is in the spec or leave slots empty."
-  }
+  },
+  "interactivity": {
+    "events": [
+      {
+        "name": "change",
+        "description": "Triggered when a date is selected"
+      }
+    ],
+    "state": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": "Selected date"
+      },
+      {
+        "name": "viewMonth",
+        "type": "string",
+        "description": "Currently displayed month/year in calendar view"
+      }
+    ]
+  },
+  "examples": [
+    {
+      "name": "Calendar picker",
+      "description": "Standalone calendar",
+      "snippet": "<DatePicker value={date} onchange={...} />"
+    }
+  ],
+  "contentOrder.date-picker__header": [
+    ".date-picker__nav-btn",
+    ".date-picker__month-year",
+    ".date-picker__nav-btn"
+  ],
+  "contentOrder.date-picker__month-year": [
+    ".date-picker__month",
+    ".date-picker__year"
+  ],
+  "contentOrder.date-picker__weekdays": [
+    ".date-picker__weekday"
+  ]
 }

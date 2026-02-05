@@ -695,6 +695,9 @@
       ]
     }
   },
+  "contentOrder": [
+    ".tooltip__content"
+  ],
   "guidance": {
     "patterns": {
       "position-prop-behavior": "The position prop ('top', 'bottom', 'left', 'right') controls which side of the trigger element the tooltip appears on. Default is 'top'. Each position adds a corresponding CSS class (tooltip__content--bottom, tooltip__content--left, tooltip__content--right) that uses absolute positioning and transforms to place the tooltip. Only 'top' has no additional class, as it's the base styling.",
@@ -703,6 +706,30 @@
       "slot-content-wrapper": "The default slot contains the trigger element (what the user hovers over), while the text prop contains the tooltip content. The text is rendered in a <span class=\"tooltip__content\"> that appears/disappears on hover. The tooltip component wraps everything in <span class=\"tooltip\">, so it's inline by default. For block-level triggers, wrap Tooltip in a block container or add display CSS."
     },
     "guidelines": {}
+  },
+  "specKeyOrder": [
+    "theme",
+    "mode"
+  ],
+  "dimensionDefaults": {
+    "theme": "cp",
+    "mode": "light"
+  },
+  "structure": {
+    "root": ".tooltip",
+    "children": [
+      {
+        "class": ".contentClasses"
+      }
+    ]
+  },
+  "fonts": {
+    "Figtree": "https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap",
+    "Lexend": "https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap",
+    "JetBrains Mono": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
+  },
+  "defaultContent": {
+    "_rule": "No default content defined; do not invent labels, icons, or copy. Use only what is in the spec or leave slots empty."
   },
   "interactivity": {
     "events": [
@@ -725,32 +752,5 @@
       "description": "Tooltip on hover",
       "snippet": "<Tooltip text=\"Help text\"><Button>Hover me</Button></Tooltip>"
     }
-  ],
-  "specKeyOrder": [
-    "theme",
-    "mode"
-  ],
-  "dimensionDefaults": {
-    "theme": "cp",
-    "mode": "light"
-  },
-  "contentOrder": [
-    ".contentClasses"
-  ],
-  "structure": {
-    "root": ".tooltip",
-    "children": [
-      {
-        "class": ".contentClasses"
-      }
-    ]
-  },
-  "fonts": {
-    "Figtree": "https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap",
-    "Lexend": "https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap",
-    "JetBrains Mono": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
-  },
-  "defaultContent": {
-    "_rule": "No default content defined; do not invent labels, icons, or copy. Use only what is in the spec or leave slots empty."
-  }
+  ]
 }

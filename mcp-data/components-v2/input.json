@@ -1345,6 +1345,10 @@
       ]
     }
   },
+  "contentOrder": [
+    ".(finalLabelVariant",
+    ".input-wrapper"
+  ],
   "guidance": {
     "patterns": {
       "label-layout-variants": "When a label prop is provided, the input renders in a form wrapper with Label component. The labelVariant prop ('inline' or 'stacked') controls layout: inline places label and input side-by-side (default for CP theme via CSS), stacked places label above input (default for other themes). If labelVariant is not explicitly set, CSS theme variables determine the default layout. When no label prop is provided, the input renders without a wrapper.",
@@ -1353,6 +1357,44 @@
       "error-state-accessibility": "When error=true and errorMessage is provided, the component creates an error paragraph with id={inputId}-error, applies aria-invalid='true' to the input, and links them via aria-describedby={inputId}-error. This ensures screen readers announce errors when the input receives focus. The errorMessage displays in input-wrapper__error class below the input field."
     },
     "guidelines": {}
+  },
+  "specKeyOrder": [
+    "theme",
+    "mode"
+  ],
+  "dimensionDefaults": {
+    "theme": "cp",
+    "mode": "light"
+  },
+  "structure": {
+    "root": ".wrapperClasses",
+    "children": [
+      {
+        "class": ".(finalLabelVariant"
+      },
+      {
+        "class": ".input-wrapper",
+        "children": [
+          {
+            "class": ".input-wrapper__icon"
+          },
+          {
+            "class": ".inputClasses"
+          },
+          {
+            "class": ".input-wrapper__error"
+          }
+        ]
+      }
+    ]
+  },
+  "fonts": {
+    "Figtree": "https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap",
+    "Lexend": "https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap",
+    "JetBrains Mono": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
+  },
+  "defaultContent": {
+    "_rule": "No default content defined; do not invent labels, icons, or copy. Use only what is in the spec or leave slots empty."
   },
   "interactivity": {
     "events": [
@@ -1429,51 +1471,9 @@
       "snippet": "<Input type=\"text\" placeholder=\"Enter text\" />"
     }
   ],
-  "specKeyOrder": [
-    "theme",
-    "mode"
-  ],
-  "dimensionDefaults": {
-    "theme": "cp",
-    "mode": "light"
-  },
-  "contentOrder": [
-    ".(finalLabelVariant",
-    ".input-wrapper"
-  ],
   "contentOrder.input-wrapper": [
     ".input-wrapper__icon",
     ".inputClasses",
     ".input-wrapper__error"
-  ],
-  "structure": {
-    "root": ".wrapperClasses",
-    "children": [
-      {
-        "class": ".(finalLabelVariant"
-      },
-      {
-        "class": ".input-wrapper",
-        "children": [
-          {
-            "class": ".input-wrapper__icon"
-          },
-          {
-            "class": ".inputClasses"
-          },
-          {
-            "class": ".input-wrapper__error"
-          }
-        ]
-      }
-    ]
-  },
-  "fonts": {
-    "Figtree": "https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap",
-    "Lexend": "https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap",
-    "JetBrains Mono": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
-  },
-  "defaultContent": {
-    "_rule": "No default content defined; do not invent labels, icons, or copy. Use only what is in the spec or leave slots empty."
-  }
+  ]
 }

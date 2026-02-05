@@ -639,12 +639,75 @@
       ]
     }
   },
+  "contentOrder": [
+    ".shell-footer__tabstrip"
+  ],
+  "layoutRules": {
+    ".tabstrip__container": {
+      "contentOrder": [
+        ".tabstrip__tabs",
+        ".tabstrip__add",
+        ".tabstrip__more-wrapper"
+      ],
+      "description": "Visible tabs first, then Add Tab button (when showAddTab), then More dropdown (when showMore and overflowTabs.length > 0). Do not reorder."
+    }
+  },
   "guidance": {
     "patterns": {
       "tabstrip-delegation": "ShellFooter wraps TabStrip and passes tabs, showAddTab, overflowMode, and overflowTabs. When showMore is true and overflowTabs has items, overflowMode is manual; otherwise none. Active tabs display a pin icon.",
       "variant-height": "The variant prop controls height: default uses --shell-footer-height-default, compact uses --shell-footer-height-compact."
     },
     "guidelines": {}
+  },
+  "specKeyOrder": [
+    "variant",
+    "theme",
+    "mode"
+  ],
+  "dimensionDefaults": {
+    "variant": "default",
+    "theme": "cp",
+    "mode": "light"
+  },
+  "structure": {
+    "root": ".shell-footer",
+    "children": [
+      {
+        "class": ".shell-footer__tabstrip"
+      }
+    ]
+  },
+  "fonts": {
+    "Figtree": "https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap",
+    "Lexend": "https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap",
+    "JetBrains Mono": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
+  },
+  "defaultContent": {
+    "tabs": [
+      {
+        "id": "home",
+        "label": "Home",
+        "active": true
+      },
+      {
+        "id": "projects",
+        "label": "Projects",
+        "active": false
+      }
+    ],
+    "showMore": false,
+    "moreCount": 0,
+    "overflowTabs": [],
+    "showAddTab": true,
+    "variant": "default",
+    "contentOrder": [
+      ".tabstrip__tabs",
+      ".tabstrip__add",
+      ".tabstrip__more-wrapper"
+    ],
+    "_contentOrderDescription": "Inside TabStrip container: visible tabs first, then Add Tab button (when showAddTab), then More dropdown (when showMore and overflowTabs.length > 0). Do not reorder.",
+    "_propsDescription": "showMore: show More dropdown; moreCount: number for More (N) label; overflowTabs: tabs shown in More dropdown when showMore is true; showAddTab: show Add Tab button; variant: default | compact (height). When showMore and overflowTabs have items, overflowMode is manual; otherwise none.",
+    "_behavior": "Footer does not scroll; overflow is driven by container/browser width."
   },
   "interactivity": {
     "events": [
@@ -697,68 +760,5 @@
       "description": "Shell footer slot",
       "snippet": "<ShellFooter>Links and copyright</ShellFooter>"
     }
-  ],
-  "specKeyOrder": [
-    "variant",
-    "theme",
-    "mode"
-  ],
-  "dimensionDefaults": {
-    "variant": "default",
-    "theme": "cp",
-    "mode": "light"
-  },
-  "contentOrder": [
-    ".shell-footer__tabstrip"
-  ],
-  "structure": {
-    "root": ".shell-footer",
-    "children": [
-      {
-        "class": ".shell-footer__tabstrip"
-      }
-    ]
-  },
-  "fonts": {
-    "Figtree": "https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap",
-    "Lexend": "https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap",
-    "JetBrains Mono": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
-  },
-  "defaultContent": {
-    "tabs": [
-      {
-        "id": "home",
-        "label": "Home",
-        "active": true
-      },
-      {
-        "id": "projects",
-        "label": "Projects",
-        "active": false
-      }
-    ],
-    "showMore": false,
-    "moreCount": 0,
-    "overflowTabs": [],
-    "showAddTab": true,
-    "variant": "default",
-    "contentOrder": [
-      ".tabstrip__tabs",
-      ".tabstrip__add",
-      ".tabstrip__more-wrapper"
-    ],
-    "_contentOrderDescription": "Inside TabStrip container: visible tabs first, then Add Tab button (when showAddTab), then More dropdown (when showMore and overflowTabs.length > 0). Do not reorder.",
-    "_propsDescription": "showMore: show More dropdown; moreCount: number for More (N) label; overflowTabs: tabs shown in More dropdown when showMore is true; showAddTab: show Add Tab button; variant: default | compact (height). When showMore and overflowTabs have items, overflowMode is manual; otherwise none.",
-    "_behavior": "Footer does not scroll; overflow is driven by container/browser width."
-  },
-  "layoutRules": {
-    ".tabstrip__container": {
-      "contentOrder": [
-        ".tabstrip__tabs",
-        ".tabstrip__add",
-        ".tabstrip__more-wrapper"
-      ],
-      "description": "Visible tabs first, then Add Tab button (when showAddTab), then More dropdown (when showMore and overflowTabs.length > 0). Do not reorder."
-    }
-  }
+  ]
 }

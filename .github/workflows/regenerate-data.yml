@@ -43,6 +43,12 @@ jobs:
       - name: Validate component specs
         run: node scripts/validate-all-specs.js
 
+      - name: Validate spec completeness (null, multi-element, specKeyOrder)
+        run: npm run validate:specs
+
+      - name: Validate spec selectors in CSS
+        run: npm run validate:specs:css
+
       - name: Run changelog automation
         run: npm run changelog
 

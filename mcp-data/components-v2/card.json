@@ -1606,6 +1606,16 @@
       ]
     }
   },
+  "contentOrder": [
+    ".card__header",
+    ".card__body",
+    ".card__footer"
+  ],
+  "layoutRules": {
+    ".card__footer": {
+      "defaultEmpty": true
+    }
+  },
   "guidance": {
     "patterns": {
       "header-slot-precedence": "The card header can be created two ways: (1) using the header slot for custom content, or (2) using headerTitle and headerSubtitle props for automatic rendering. The header slot takes precedence and will completely replace any headerTitle/headerSubtitle props. When using props, set withHeader=true to render the header section.",
@@ -1616,6 +1626,47 @@
     "guidelines": {
       "when-to-use": "Use Card for grouped content with optional header and footer. Use elevated for emphasis, interactive for clickable cards, primary for highlighted top border.",
       "composition": "Compose with header slot or headerTitle/headerSubtitle; use footer slot for actions or secondary content."
+    }
+  },
+  "specKeyOrder": [
+    "theme",
+    "mode"
+  ],
+  "dimensionDefaults": {
+    "theme": "cp",
+    "mode": "light"
+  },
+  "structure": {
+    "root": ".card",
+    "children": [
+      {
+        "class": ".card__header",
+        "children": [
+          {
+            "class": ".card__header-actions",
+            "children": []
+          }
+        ]
+      },
+      {
+        "class": ".card__body",
+        "children": []
+      },
+      {
+        "class": ".card__footer",
+        "children": []
+      }
+    ]
+  },
+  "fonts": {
+    "Figtree": "https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap",
+    "Lexend": "https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap",
+    "JetBrains Mono": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
+  },
+  "defaultContent": {
+    "footer": {
+      "defaultEmpty": true,
+      "description": "Footer slot is optional; when present use slot content only. Do not invent buttons or links."
     }
   },
   "interactivity": {
@@ -1670,58 +1721,7 @@
       "snippet": "<Card><p>Card body content.</p></Card>"
     }
   ],
-  "specKeyOrder": [
-    "theme",
-    "mode"
-  ],
-  "dimensionDefaults": {
-    "theme": "cp",
-    "mode": "light"
-  },
-  "contentOrder": [
-    ".card__header",
-    ".card__body",
-    ".card__footer"
-  ],
   "contentOrder.card__header": [
     ".card__header-actions"
-  ],
-  "structure": {
-    "root": ".card",
-    "children": [
-      {
-        "class": ".card__header",
-        "children": [
-          {
-            "class": ".card__header-actions",
-            "children": []
-          }
-        ]
-      },
-      {
-        "class": ".card__body",
-        "children": []
-      },
-      {
-        "class": ".card__footer",
-        "children": []
-      }
-    ]
-  },
-  "fonts": {
-    "Figtree": "https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap",
-    "Lexend": "https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap",
-    "JetBrains Mono": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
-  },
-  "defaultContent": {
-    "footer": {
-      "defaultEmpty": true,
-      "description": "Footer slot is optional; when present use slot content only. Do not invent buttons or links."
-    }
-  },
-  "layoutRules": {
-    ".card__footer": {
-      "defaultEmpty": true
-    }
-  }
+  ]
 }
