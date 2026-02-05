@@ -54,7 +54,15 @@ const hasActionBar = Astro.slots.has('action-bar');
   
   <!-- Table -->
   <table class={classes}>
-    <slot name="header" />
-    <slot name="body" />
+    <slot name="header">
+      <thead>
+        <tr><th scope="col">Column</th></tr>
+      </thead>
+    </slot>
+    <slot name="body">
+      <tbody>
+        <tr><td>Table body content. Override by passing header and body slots.</td></tr>
+      </tbody>
+    </slot>
   </table>
 </div>

@@ -58,7 +58,9 @@ const classes = [
     </div>
   )}
   <div class="card__body">
-    <slot />
+    <slot>
+      <p class="card__body-default">Card body content. Override by passing default slot content.</p>
+    </slot>
   </div>
   {Astro.slots.has('footer') && (
     <div class="card__footer">

@@ -72,7 +72,7 @@ const classes = [
         <div class="alert__text">
           {title && <div class="alert__title">{title}</div>}
           <div class="alert__message">
-            <slot />
+            <slot>Alert message. Override by passing default slot content.</slot>
           </div>
         </div>
         {dismissible && (
@@ -125,8 +125,8 @@ const classes = [
       <Icon name={alertIcon} class="alert__icon" />
       <div class="alert__content">
         {title && <div class="alert__title">{title}</div>}
-        <div class="alert__message">
-          <slot />
+<div class="alert__message">
+        <slot>Alert message. Override by passing default slot content.</slot>
         </div>
       </div>
       {dismissible && (
