@@ -76,6 +76,8 @@ When Harmony data is successfully loaded, these 5 tools become available:
 4. **get_component_structure** - DOM structure and slots ✨ NEW
 5. **get_layout_data** - Layout composition data ✨ NEW
 
+**Icon manifest and default state:** The theme-scoped icon manifest lives at `mcp-data/icon-mappings/icon-manifest.json` (themes: cp, vp, ppm, maconomy; each entry has `source` and `path`). Layout and component default state (including shell prepopulated defaults) is documented in layout JSON (e.g. `mcp-data/layouts/shelllayout.json` → `prepopulatedDefaults`) and in [docs/SPEC_CONTRACT.md](docs/SPEC_CONTRACT.md).
+
 ## Exact builds and canonical spec
 
 For **exact builds** (component, template, recipe, or apply tokens to a framework), use the canonical build spec so the AI applies values verbatim with no deviations. Global rules (fonts, icons, themes, modes, spacing, typography) are defined in [docs/SPEC_CONTRACT.md](docs/SPEC_CONTRACT.md) and in component JSON under `specs` and root-level fields.

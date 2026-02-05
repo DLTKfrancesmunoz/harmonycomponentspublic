@@ -46,6 +46,8 @@ This document defines the **canonical JSON format** for Harmony component specs,
 
 - **Full spec completeness:** All components in `mcp-data/components/` are audited for full spec completeness (layout, spacing, padding, radius, dimensions, typography, borders, states, and where applicable positioning, section, panelOpen/contexts). Exact rebuilds are possible from get_specs alone; no inference of missing values.
 
+- **Icon resolution (theme-scoped):** Icon resolution for get_specs/build_component is **theme-scoped**. Use `mcp-data/icon-mappings/icon-manifest.json` for the requested theme (cp, vp, ppm, maconomy). Each entry has `source` (`hero` | `tabler` | `custom`) and `path`; for `custom`, optional `svg` may be present. Template items that reference an icon by name should include **iconPath** (and optionally **iconSource**) resolved from this manifest so the build spec is self-contained. **Icon sizes** are not in the manifest; they are defined per usage in the component template (Icon `size` prop) and must be taken from the component source, not inferred.
+
 ---
 
 ## 2. States contract
