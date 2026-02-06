@@ -78,7 +78,7 @@ const effectiveCompanyColor = companyColor ?? companyOptions[0]?.color;
           <>
             <!-- Company Picker -->
             <div class="company-picker">
-              <button class="company-picker__btn" data-company-picker-btn>
+              <button type="button" class="company-picker__btn" data-company-picker-btn>
                 <span 
                   class="company-picker__indicator"
                   data-company-indicator
@@ -90,6 +90,7 @@ const effectiveCompanyColor = companyColor ?? companyOptions[0]?.color;
               <div class="company-picker__menu" data-company-picker-menu>
                 {companyOptions.map((company, index) => (
                   <button
+                    type="button"
                     class:list={['company-picker__option', index === 0 && 'company-picker__option--selected']}
                     data-company-option
                     data-company-id={company.id}
