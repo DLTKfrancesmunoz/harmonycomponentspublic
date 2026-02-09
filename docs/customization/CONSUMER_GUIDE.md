@@ -403,6 +403,8 @@ Components (especially shell) are **prepopulated** so that out of the box you se
 - **Icons:** Default content uses icons that resolve per theme. Icon resolution (source and path) is defined in the theme-scoped **icon manifest** (`src/data/icon-manifest.json` in the package). Each theme (cp, vp, ppm, maconomy) has its own set of icon names and sources (hero, tabler, or custom with path). Do not assume all icons are Heroicons.
 - **Canonical prepopulated shell:** The preview page `preview/shell-layout` (in the Harmony repo docs site) is the canonical example of the full prepopulated shell with all defaults visible. Default content and icon set depend on **theme**; **mode** (light/dark) does not change default structure or icon resolution.
 
+Preview files and the npm package: Preview pages (e.g. `src/pages/preview/*.astro`) exist in the full Harmony repo; the published npm package may not include them. When they are absent, shell conversion should use ShellLayout.astro, ShellFooter.astro, layout.css, components.css, and tokens.css, plus the documented Shell layout defaults and dark-mode sources—conversion is still valid without preview files.
+
 ### Tier 0: Brand Colors
 
 ```css
