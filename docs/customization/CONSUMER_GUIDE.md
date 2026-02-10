@@ -350,7 +350,7 @@ Harmony uses CSS custom properties you can override in your theme file.
 
 **Elevation:** `--shadow-sm`, `--shadow-md`, `--shadow-lg`, `--shadow-xl`
 
-**Shell footer and sidebars:** `--shell-footer-tab-label-color` (default `#ffffff` – tab labels and default icons on the dark footer bar), `--shell-footer-tab-icon-color-active` (default `var(--theme-primary)` – active tab icon), `--shell-sidebar-icon-color-on-primary` (default `#ffffff` – icon on primary background, e.g. active sidebar item in dark mode). Override these in your theme so footer and sidebar icon/label colors stay correct in both light and dark modes and after rebuilds.
+**Shell footer and sidebars:** `--shell-footer-tab-label-color` (default `#ffffff` – tab labels and default icons on the dark footer bar), `--shell-footer-tab-icon-color-active` (default `var(--theme-primary)` – active tab icon), `--shell-sidebar-icon-color-on-primary` (default `#ffffff` – icon on primary background, e.g. active sidebar item in dark mode). Override these in your theme so footer and sidebar icon/label colors stay correct in both light and dark modes and after rebuilds. Sidebar custom icons (img-based SVGs such as Risk, Reports, Resources, Related, Templates) are forced white in dark mode via a CSS filter so they match inline-SVG icons; override `filter` on `.left-sidebar__custom-icon` or `.right-sidebar__icon img` if you need different behavior.
 
 **Rule:** Use Harmony components and tokens first. Override with CSS variables in your theme file; don’t invent new token names in pages or components.
 

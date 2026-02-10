@@ -5144,6 +5144,10 @@ html.dark .left-sidebar__item--active .left-sidebar__icon {
   color: var(--shell-sidebar-icon-color-on-primary, #ffffff);
 }
 
+html.dark .left-sidebar__icon .left-sidebar__custom-icon {
+  filter: brightness(0) invert(1);
+}
+
 /* ===========================================
    LEFT SIDEBAR PANEL FUNCTIONALITY
    =========================================== */
@@ -5419,8 +5423,8 @@ html.dark .left-sidebar__item--active .left-sidebar__icon {
 
 /* Active Dela uses RS_Dela_Active.svg (no filter); default uses RS_DelaDefault.svg */
 
-/* Dark mode: default Dela logo (D + stars) should appear white on dark sidebar */
-html.dark .right-sidebar__dela-logo--default {
+/* Dark mode: img-based sidebar icons (Dela default, Related, Template, etc.) appear white; exclude active Dela (colored) */
+html.dark .right-sidebar__icon img:not(.right-sidebar__dela-logo--active) {
   filter: brightness(0) invert(1);
 }
 
