@@ -2819,6 +2819,83 @@
   height: var(--shell-footer-height-compact);
 }
 
+/* Shell footer tab label and icon colors - tokens so they persist across rebuilds and win over TabStrip */
+.shell-footer .tabstrip .tabstrip__tabs .tab,
+.shell-footer .tabstrip .tabstrip__add.tab,
+.shell-footer .tabstrip .tabstrip__more.tab {
+  color: var(--shell-footer-tab-label-color);
+}
+.shell-footer .tabstrip .tabstrip__tabs .tab .tab__label,
+.shell-footer .tabstrip .tabstrip__add.tab .tab__label,
+.shell-footer .tabstrip .tabstrip__more.tab .tab__label {
+  color: var(--shell-footer-tab-label-color);
+}
+.shell-footer .tabstrip .tabstrip__tabs .tab .tab__icon,
+.shell-footer .tabstrip .tabstrip__add.tab .tab__icon,
+.shell-footer .tabstrip .tabstrip__more.tab .tab__icon {
+  color: var(--shell-footer-tab-label-color);
+}
+.shell-footer .tabstrip .tabstrip__tabs .tab.is-active .tab__label,
+.shell-footer .tabstrip .tabstrip__add.tab.is-active .tab__label,
+.shell-footer .tabstrip .tabstrip__more.tab.is-active .tab__label {
+  color: var(--shell-footer-tab-label-color);
+}
+.shell-footer .tabstrip .tabstrip__tabs .tab.is-active .tab__icon,
+.shell-footer .tabstrip .tabstrip__add.tab.is-active .tab__icon,
+.shell-footer .tabstrip .tabstrip__more.tab.is-active .tab__icon {
+  color: var(--shell-footer-tab-icon-color-active);
+}
+.shell-footer .tabstrip .tabstrip__tabs .tab:hover .tab__label,
+.shell-footer .tabstrip .tabstrip__add.tab:hover .tab__label,
+.shell-footer .tabstrip .tabstrip__more.tab:hover .tab__label {
+  color: var(--shell-footer-tab-label-color);
+}
+.shell-footer .tabstrip .tabstrip__tabs .tab:hover .tab__icon,
+.shell-footer .tabstrip .tabstrip__add.tab:hover .tab__icon,
+.shell-footer .tabstrip .tabstrip__more.tab:hover .tab__icon {
+  color: var(--shell-footer-tab-label-color);
+}
+.shell-footer .tabstrip .tabstrip__tabs .tab.is-active:hover .tab__icon,
+.shell-footer .tabstrip .tabstrip__add.tab.is-active:hover .tab__icon,
+.shell-footer .tabstrip .tabstrip__more.tab.is-active:hover .tab__icon {
+  color: var(--shell-footer-tab-icon-color-active);
+}
+html.dark .shell-footer .tabstrip .tabstrip__tabs .tab,
+html.dark .shell-footer .tabstrip .tabstrip__add.tab,
+html.dark .shell-footer .tabstrip .tabstrip__more.tab {
+  color: var(--shell-footer-tab-label-color);
+}
+html.dark .shell-footer .tabstrip .tabstrip__tabs .tab .tab__label,
+html.dark .shell-footer .tabstrip .tabstrip__add.tab .tab__label,
+html.dark .shell-footer .tabstrip .tabstrip__more.tab .tab__label {
+  color: var(--shell-footer-tab-label-color);
+}
+html.dark .shell-footer .tabstrip .tabstrip__tabs .tab .tab__icon,
+html.dark .shell-footer .tabstrip .tabstrip__add.tab .tab__icon,
+html.dark .shell-footer .tabstrip .tabstrip__more.tab .tab__icon {
+  color: var(--shell-footer-tab-label-color);
+}
+html.dark .shell-footer .tabstrip .tabstrip__tabs .tab.is-active .tab__label,
+html.dark .shell-footer .tabstrip .tabstrip__add.tab.is-active .tab__label,
+html.dark .shell-footer .tabstrip .tabstrip__more.tab.is-active .tab__label {
+  color: var(--shell-footer-tab-label-color);
+}
+html.dark .shell-footer .tabstrip .tabstrip__tabs .tab.is-active .tab__icon,
+html.dark .shell-footer .tabstrip .tabstrip__add.tab.is-active .tab__icon,
+html.dark .shell-footer .tabstrip .tabstrip__more.tab.is-active .tab__icon {
+  color: var(--shell-footer-tab-icon-color-active);
+}
+html.dark .shell-footer .tabstrip .tabstrip__tabs .tab.is-active:hover .tab__label,
+html.dark .shell-footer .tabstrip .tabstrip__add.tab.is-active:hover .tab__label,
+html.dark .shell-footer .tabstrip .tabstrip__more.tab.is-active:hover .tab__label {
+  color: var(--shell-footer-tab-label-color);
+}
+html.dark .shell-footer .tabstrip .tabstrip__tabs .tab.is-active:hover .tab__icon,
+html.dark .shell-footer .tabstrip .tabstrip__add.tab.is-active:hover .tab__icon,
+html.dark .shell-footer .tabstrip .tabstrip__more.tab.is-active:hover .tab__icon {
+  color: var(--shell-footer-tab-icon-color-active);
+}
+
 /* ===========================================
    LINK
    =========================================== */
@@ -5060,6 +5137,13 @@ html.dark .left-sidebar__item:hover {
   background-color: var(--hover-bg);
 }
 
+html.dark .left-sidebar__item .left-sidebar__icon {
+  color: var(--text-primary);
+}
+html.dark .left-sidebar__item--active .left-sidebar__icon {
+  color: var(--shell-sidebar-icon-color-on-primary, #ffffff);
+}
+
 /* ===========================================
    LEFT SIDEBAR PANEL FUNCTIONALITY
    =========================================== */
@@ -5345,6 +5429,16 @@ html.dark .right-sidebar__dela-logo--default {
 
 html.dark .right-sidebar__item:hover {
   background-color: var(--hover-bg);
+}
+
+html.dark .right-sidebar__item .right-sidebar__icon {
+  color: var(--text-primary);
+}
+html.dark .right-sidebar[data-panel-open="true"] .right-sidebar__item[data-active="true"] .right-sidebar__icon {
+  color: var(--shell-sidebar-icon-color-on-primary, #ffffff);
+}
+html.dark .right-sidebar[data-panel-open="true"] .right-sidebar__item[data-active="true"]:has(.right-sidebar__dela-logo) .right-sidebar__icon {
+  color: var(--shell-sidebar-icon-color-on-primary, #ffffff);
 }
 
 /* Backward compatibility: CP-specific styles also apply to unified component */

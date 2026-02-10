@@ -350,6 +350,8 @@ Harmony uses CSS custom properties you can override in your theme file.
 
 **Elevation:** `--shadow-sm`, `--shadow-md`, `--shadow-lg`, `--shadow-xl`
 
+**Shell footer and sidebars:** `--shell-footer-tab-label-color` (default `#ffffff` – tab labels and default icons on the dark footer bar), `--shell-footer-tab-icon-color-active` (default `var(--theme-primary)` – active tab icon), `--shell-sidebar-icon-color-on-primary` (default `#ffffff` – icon on primary background, e.g. active sidebar item in dark mode). Override these in your theme so footer and sidebar icon/label colors stay correct in both light and dark modes and after rebuilds.
+
 **Rule:** Use Harmony components and tokens first. Override with CSS variables in your theme file; don’t invent new token names in pages or components.
 
 **Checklist for adding new UI:** (1) Check if an existing Harmony component (or wrapper/override) can do the job. (2) If yes, use it and style only with tokens and theme overrides; no new token names, no hex in CSS. (3) If no, create a component that wraps or composes Harmony components and uses only the tokens above. (4) Fork (Tier 3) only when markup/behavior must change and wrappers aren’t enough; keep using Harmony tokens inside the fork.
