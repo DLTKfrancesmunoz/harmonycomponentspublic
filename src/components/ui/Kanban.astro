@@ -98,6 +98,7 @@ const hasActionBarSlot = Astro.slots.has('action-bar');
           <>
             {index > 0 && <span class="kanban__action-divider">|</span>}
             <Button
+              buttonType="theme"
               variant="ghost"
               size="sm"
               icon={button.icon}
@@ -109,17 +110,17 @@ const hasActionBarSlot = Astro.slots.has('action-bar');
         ))
       ) : (
         <>
-          <Button variant="ghost" size="sm" icon="trash" class="kanban__action-button">
+          <Button buttonType="theme" variant="ghost" size="sm" icon="trash" class="kanban__action-button">
             Delete
           </Button>
-          <Button variant="ghost" size="sm" icon="list-tree" class="kanban__action-button">
+          <Button buttonType="theme" variant="ghost" size="sm" icon="list-tree" class="kanban__action-button">
             Group
           </Button>
-          <Button variant="ghost" size="sm" icon="chevron-up" iconPosition="right" class="kanban__action-button">
+          <Button buttonType="theme" variant="ghost" size="sm" icon="chevron-up" iconPosition="right" class="kanban__action-button">
             Subcards: Collapse all
           </Button>
           <span class="kanban__action-divider">|</span>
-          <Button variant="ghost" size="sm" icon="cog-6-tooth" class="kanban__action-button">
+          <Button buttonType="theme" variant="ghost" size="sm" icon="cog-6-tooth" class="kanban__action-button">
             Customize Columns
           </Button>
           <span class="kanban__action-label">All Filters</span>
@@ -201,6 +202,7 @@ const hasActionBarSlot = Astro.slots.has('action-bar');
             ))}
             {showAddButton && (
               <Button
+                buttonType="theme"
                 variant="tertiary"
                 size="sm"
                 icon="plus"
@@ -216,6 +218,7 @@ const hasActionBarSlot = Astro.slots.has('action-bar');
       );
     })}
     <Button
+      buttonType="theme"
       variant="secondary"
       size="sm"
       icon="plus"
