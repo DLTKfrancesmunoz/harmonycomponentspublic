@@ -4,7 +4,7 @@
  *
  * Compact element for tags, filters, or selections.
  * Supports multiple sizes, styles, states, and types.
- * Default slot: consumer-provided content (label). No fallback; consumer must pass content for a meaningful default state.
+ * Optional label prop defaults to "Chip" when no slot content is provided, so the chip always shows visible text.
  */
 import Icon from './Icon.astro';
 
@@ -15,6 +15,7 @@ export interface Props {
   state?: 'enabled' | 'disabled' | 'hover' | 'focused' | 'pressed';
   type?: 'chip' | 'horiz-dots' | 'vert-dots' | 'overflow';
   overflowCount?: number;
+  label?: string;
   // Legacy props (backward compatibility)
   selected?: boolean;
   removable?: boolean;
@@ -28,6 +29,7 @@ const {
   state = 'enabled',
   type = 'chip',
   overflowCount,
+  label = 'Chip',
   // Legacy props
   selected = false,
   removable = false,
@@ -74,7 +76,7 @@ const iconSize = size === 'sm' ? 'xs' : size === 'md' ? 'sm' : 'md';
       {type === 'overflow' ? (
         <span class="chip__overflow-text">+{overflowCount ?? 10}</span>
       ) : (
-        <slot />
+        <slot>{label}</slot>
       )}
       {removable && (
         <button type="button" class="chip__remove" aria-label="Remove">
