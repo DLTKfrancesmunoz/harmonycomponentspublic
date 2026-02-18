@@ -1,0 +1,70 @@
+{
+  "id": "dialog-confirmation",
+  "name": "Simple Confirmation Dialog",
+  "description": "Basic confirmation dialog with single action button",
+  "category": "feedback",
+  "complexity": "molecule",
+  "tags": ["dialog", "confirmation", "simple", "alert"],
+  "components": [
+    {
+      "name": "Dialog",
+      "role": "container",
+      "props": {
+        "id": "alert-dialog",
+        "title": "Alert",
+        "buttonAlignment": "left"
+      }
+    },
+    {
+      "name": "Button",
+      "role": "primary-action",
+      "parent": "Dialog",
+      "slot": "footer",
+      "props": {
+        "variant": "primary"
+      },
+      "content": "OK",
+      "order": 1
+    }
+  ],
+  "usageGuidance": {
+    "when": "Simple acknowledgment or information display that requires user to dismiss",
+    "antiPatterns": [
+      "Don't use for actions that can be undone - use dialog-with-form-actions instead",
+      "Don't use without a dismiss action - users need a way to close"
+    ],
+    "notes": {
+      "usage": "Best for informational messages, success confirmations, or simple alerts",
+      "alternative": "For yes/no choices, use dialog-with-form-actions with two buttons"
+    }
+  },
+  "validation": {
+    "required": ["Dialog", "Button"],
+    "maxCount": {
+      "Button": 1
+    },
+    "theme": "all",
+    "hierarchy": [
+      { "parent": "Dialog", "child": "Button", "required": true }
+    ]
+  },
+  "examples": [
+    {
+      "name": "Success message",
+      "description": "Confirm successful operation",
+      "props": {
+        "Dialog.title": "Success!",
+        "primary-action.content": "OK",
+        "primary-action.variant": "primary"
+      }
+    },
+    {
+      "name": "Information alert",
+      "description": "Display important information",
+      "props": {
+        "Dialog.title": "Important Information",
+        "primary-action.content": "I Understand"
+      }
+    }
+  ]
+}

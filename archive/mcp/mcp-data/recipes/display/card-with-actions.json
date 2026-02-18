@@ -1,0 +1,103 @@
+{
+  "id": "card-with-actions",
+  "name": "Card with Action Buttons",
+  "description": "Card component with action buttons in footer",
+  "category": "display",
+  "complexity": "molecule",
+  "tags": ["card", "actions", "buttons", "footer"],
+  "components": [
+    {
+      "name": "Card",
+      "role": "container",
+      "props": {
+        "variant": "default",
+        "padding": "md"
+      }
+    },
+    {
+      "name": "ButtonGroup",
+      "role": "actions",
+      "parent": "Card",
+      "slot": "footer",
+      "props": {
+        "alignment": "right"
+      }
+    },
+    {
+      "name": "Button",
+      "role": "primary-action",
+      "parent": "ButtonGroup",
+      "props": {
+        "variant": "primary",
+        "size": "sm"
+      },
+      "content": "Action",
+      "order": 1
+    },
+    {
+      "name": "Button",
+      "role": "secondary-action",
+      "parent": "ButtonGroup",
+      "props": {
+        "variant": "secondary",
+        "size": "sm"
+      },
+      "content": "Cancel",
+      "order": 2
+    }
+  ],
+  "usageGuidance": {
+    "when": "Card representing an item or entity that needs actions (edit, delete, view, etc.)",
+    "antiPatterns": [
+      "Don't put too many actions - max 2-3 buttons",
+      "Don't mix ButtonGroup with individual buttons - use one pattern",
+      "Don't use large buttons in card footer - use size='sm'"
+    ],
+    "notes": {
+      "buttonGroup": "ButtonGroup provides consistent spacing and alignment for multiple buttons",
+      "alignment": "Use alignment='right' for primary/secondary actions, 'left' for single actions",
+      "alternatives": "For single action, can use individual Button without ButtonGroup"
+    }
+  },
+  "validation": {
+    "required": ["Card", "Button"],
+    "maxCount": {
+      "Button": 3,
+      "ButtonGroup": 1
+    },
+    "theme": "all",
+    "hierarchy": [
+      { "parent": "Card", "child": "ButtonGroup", "required": false },
+      { "parent": "ButtonGroup", "child": "Button", "required": true }
+    ]
+  },
+  "examples": [
+    {
+      "name": "Edit and delete actions",
+      "description": "Card with edit and delete buttons",
+      "props": {
+        "primary-action.content": "Edit",
+        "secondary-action.content": "Delete",
+        "secondary-action.variant": "danger"
+      }
+    },
+    {
+      "name": "Single action",
+      "description": "Card with single view action",
+      "props": {
+        "primary-action.content": "View Details",
+        "actions.alignment": "left"
+      }
+    },
+    {
+      "name": "Three actions",
+      "description": "Card with view, edit, and delete",
+      "props": {
+        "primary-action.content": "View",
+        "secondary-action.content": "Edit",
+        "tertiary-action.content": "Delete",
+        "tertiary-action.variant": "danger"
+      }
+    }
+  ]
+}

@@ -50,19 +50,28 @@ export async function generateChangelogEntries(changes) {
       }
     };
 
-    // Add property details for component prop changes
+    // Add property details for component prop / variant changes
     if (change.propName) {
-      entry.properties = [{
+      const propEntry = {
         name: change.propName,
         change: change.change,
         before: change.before,
         after: change.after
-      }];
+      };
+      if (change.variantName != null) {
+        propEntry.variantName = change.variantName;
+      }
+      entry.properties = [propEntry];
     }
 
     // Add path details for token changes
     if (change.path) {
       entry.tokenPath = change.path;
+    }
+
+    // Add file path for file_modified changes
+    if (change.filePath) {
+      entry.filePath = change.filePath;
     }
 
     return entry;

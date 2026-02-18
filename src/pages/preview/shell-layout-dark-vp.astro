@@ -1,0 +1,63 @@
+---
+/**
+ * Shell Layout – VP Dark Mode Preview (with footer)
+ *
+ * Reference preview for converters: VP theme in dark mode with footer tabs.
+ * Access at: /preview/shell-layout-dark-vp
+ */
+import '../../styles/global.css';
+import ShellLayout from '../../layouts/ShellLayout.astro';
+import Card from '../../components/ui/Card.astro';
+
+const sampleTabs = [
+  { id: '1', label: 'Dashboard', active: true },
+  { id: '2', label: 'Projects', active: false },
+  { id: '3', label: 'Reports', active: false },
+  { id: '4', label: 'Settings', active: false },
+];
+---
+
+<!DOCTYPE html>
+<html lang="en" class="theme-vp dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shell Layout – VP Dark (Footer)</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { height: 100%; width: 100%; overflow: hidden; }
+    </style>
+  </head>
+  <body>
+    <ShellLayout
+      productName="Harmony"
+      logoSrc="/logos/CPVPLogo.svg"
+      companyName="Acme Corporation"
+      companyColor="#FF507B"
+      showCompanyPicker={true}
+      showFloatingNav={false}
+      leftSidebarVariant="vp"
+      rightSidebarVariant="vp"
+      tabs={sampleTabs}
+      showMoreTabs={false}
+      showAddTab={true}
+      footerVariant="default"
+      pageHeaderTitle="Shell Layout – VP Dark"
+      pageHeaderSubtitle="VP theme, dark mode, with footer tabs and icon colors"
+      pageHeaderOutlineButton1={{ text: "Export", icon: "arrow-down-tray" }}
+      pageHeaderOutlineButton2={{ text: "Share", icon: "share" }}
+      pageHeaderPrimaryButton={{ text: "Save", icon: "check" }}
+    >
+      <Card primary elevated>
+        <div class="card__body">
+          <h2 class="text-xl font-semibold mb-2">VP Dark Mode Reference</h2>
+          <p class="text-secondary">
+            Use this preview as the reference for shell layout in VP dark mode:
+            sidebars, header, footer tabs, and main content. Footer tab and icon colors follow dark tokens.
+          </p>
+        </div>
+      </Card>
+    </ShellLayout>
+  </body>
+</html>

@@ -11,6 +11,8 @@
  * @prop {Array} overflowTabs - Array of overflow tabs shown in dropdown (default: [])
  * @prop {boolean} showAddTab - Whether to show "Add Tab" button (default: true)
  * @prop {string} variant - 'default' | 'compact' (default: 'default')
+ * @usagePattern tabstrip-delegation ShellFooter wraps TabStrip and passes tabs, showAddTab, overflowMode, and overflowTabs. When showMore is true and overflowTabs has items, overflowMode is manual; otherwise none. Active tabs display a pin icon.
+ * @usagePattern variant-height The variant prop controls height: default uses --shell-footer-height-default, compact uses --shell-footer-height-compact.
  */
 import TabStrip, { type Tab } from './TabStrip.astro';
 
@@ -37,6 +39,7 @@ const {
 // Determine overflow mode based on showMore prop
 const overflowMode = showMore && overflowTabs.length > 0 ? 'manual' : 'none';
 
+// Icon names (e.g. pin for active tabs) resolve per theme-scoped icon manifest (src/data/icon-manifest.json).
 // Add pin icon to active tabs (preserve existing icons for non-active tabs)
 const tabsWithPinIcon = tabs.map(tab => ({
   ...tab,
@@ -52,7 +55,7 @@ const overflowTabsWithPinIcon = overflowTabs.map(tab => ({
 }));
 ---
 
-<div class={`shell-footer ${className}`.trim()} data-variant={variant}>
+<div class={`shell-footer ${variant === 'compact' ? 'shell-footer--compact' : ''} ${className}`.trim()} data-variant={variant}>
   <TabStrip
     tabs={tabsWithPinIcon}
     showAddTab={showAddTab}
@@ -84,7 +87,7 @@ const overflowTabsWithPinIcon = overflowTabs.map(tab => ({
   .shell-footer :global(.tabstrip) :global(.tabstrip__tabs) :global(.tab),
   .shell-footer :global(.tabstrip) :global(.tabstrip__add.tab),
   .shell-footer :global(.tabstrip) :global(.tabstrip__more.tab) {
-    color: var(--text-inverse);
+    color: var(--shell-footer-tab-label-color);
     border-bottom: var(--border-width-standard) solid transparent;
   }
 
@@ -92,7 +95,7 @@ const overflowTabsWithPinIcon = overflowTabs.map(tab => ({
   .shell-footer :global(.tabstrip) :global(.tabstrip__tabs) :global(.tab.is-active),
   .shell-footer :global(.tabstrip) :global(.tabstrip__add.tab.is-active),
   .shell-footer :global(.tabstrip) :global(.tabstrip__more.tab.is-active) {
-    color: var(--text-inverse);
+    color: var(--shell-footer-tab-label-color);
     border-bottom: var(--border-width-thick) solid var(--theme-primary);
   }
 
@@ -100,21 +103,21 @@ const overflowTabsWithPinIcon = overflowTabs.map(tab => ({
   .shell-footer :global(.tabstrip) :global(.tabstrip__tabs) :global(.tab.is-active) :global(.tab__label),
   .shell-footer :global(.tabstrip) :global(.tabstrip__add.tab.is-active) :global(.tab__label),
   .shell-footer :global(.tabstrip) :global(.tabstrip__more.tab.is-active) :global(.tab__label) {
-    color: var(--text-inverse);
+    color: var(--shell-footer-tab-label-color);
   }
 
   /* Active tab icon - primary color */
   .shell-footer :global(.tabstrip) :global(.tabstrip__tabs) :global(.tab.is-active) :global(.tab__icon),
   .shell-footer :global(.tabstrip) :global(.tabstrip__add.tab.is-active) :global(.tab__icon),
   .shell-footer :global(.tabstrip) :global(.tabstrip__more.tab.is-active) :global(.tab__icon) {
-    color: var(--theme-primary);
+    color: var(--shell-footer-tab-icon-color-active);
   }
 
   /* Hover state for non-active tabs - background and maintain white text */
   .shell-footer :global(.tabstrip) :global(.tabstrip__tabs) :global(.tab:hover:not(.is-active)),
   .shell-footer :global(.tabstrip) :global(.tabstrip__add.tab:hover:not(.is-active)),
   .shell-footer :global(.tabstrip) :global(.tabstrip__more.tab:hover:not(.is-active)) {
-    color: var(--text-inverse);
+    color: var(--shell-footer-tab-label-color);
     background-color: var(--shell-footer-tab-hover-bg);
     border-radius: var(--radius-sm);
     margin-top: var(--space-1);
@@ -127,7 +130,7 @@ const overflowTabsWithPinIcon = overflowTabs.map(tab => ({
   .shell-footer :global(.tabstrip) :global(.tabstrip__tabs) :global(.tab.is-active:hover),
   .shell-footer :global(.tabstrip) :global(.tabstrip__add.tab.is-active:hover),
   .shell-footer :global(.tabstrip) :global(.tabstrip__more.tab.is-active:hover) {
-    color: var(--text-inverse);
+    color: var(--shell-footer-tab-label-color);
     background-color: var(--shell-footer-tab-hover-bg);
     border-radius: var(--radius-sm);
     border-bottom: var(--border-width-thick) solid var(--theme-primary);
@@ -141,31 +144,55 @@ const overflowTabsWithPinIcon = overflowTabs.map(tab => ({
   .shell-footer :global(.tabstrip) :global(.tabstrip__tabs) :global(.tab.is-active:hover) :global(.tab__label),
   .shell-footer :global(.tabstrip) :global(.tabstrip__add.tab.is-active:hover) :global(.tab__label),
   .shell-footer :global(.tabstrip) :global(.tabstrip__more.tab.is-active:hover) :global(.tab__label) {
-    color: var(--text-inverse);
+    color: var(--shell-footer-tab-label-color);
   }
 
   /* Active tab hover - icon stays primary */
   .shell-footer :global(.tabstrip) :global(.tabstrip__tabs) :global(.tab.is-active:hover) :global(.tab__icon),
   .shell-footer :global(.tabstrip) :global(.tabstrip__add.tab.is-active:hover) :global(.tab__icon),
   .shell-footer :global(.tabstrip) :global(.tabstrip__more.tab.is-active:hover) :global(.tab__icon) {
-    color: var(--theme-primary);
+    color: var(--shell-footer-tab-icon-color-active);
   }
 
-  /* Dark mode override for non-active tabs - white text on dark background */
+  /* Dark mode - use tokens so tab/label/icon stay white; do not use --text-inverse (it flips to dark in theme dark). */
   html.dark .shell-footer :global(.tabstrip) :global(.tabstrip__tabs) :global(.tab:not(.is-active)),
   html.dark .shell-footer :global(.tabstrip) :global(.tabstrip__add.tab:not(.is-active)),
   html.dark .shell-footer :global(.tabstrip) :global(.tabstrip__more.tab:not(.is-active)) {
-    color: var(--text-primary);
+    color: var(--shell-footer-tab-label-color);
   }
-
-  /* Dark mode hover state for non-active tabs - maintain white text */
   html.dark .shell-footer :global(.tabstrip) :global(.tabstrip__tabs) :global(.tab:hover:not(.is-active)),
   html.dark .shell-footer :global(.tabstrip) :global(.tabstrip__add.tab:hover:not(.is-active)),
   html.dark .shell-footer :global(.tabstrip) :global(.tabstrip__more.tab:hover:not(.is-active)) {
-    color: var(--text-primary);
+    color: var(--shell-footer-tab-label-color);
+  }
+  html.dark .shell-footer :global(.tabstrip) :global(.tabstrip__tabs) :global(.tab.is-active),
+  html.dark .shell-footer :global(.tabstrip) :global(.tabstrip__add.tab.is-active),
+  html.dark .shell-footer :global(.tabstrip) :global(.tabstrip__more.tab.is-active) {
+    color: var(--shell-footer-tab-label-color);
+  }
+  html.dark .shell-footer :global(.tabstrip) :global(.tabstrip__tabs) :global(.tab.is-active) :global(.tab__label),
+  html.dark .shell-footer :global(.tabstrip) :global(.tabstrip__add.tab.is-active) :global(.tab__label),
+  html.dark .shell-footer :global(.tabstrip) :global(.tabstrip__more.tab.is-active) :global(.tab__label) {
+    color: var(--shell-footer-tab-label-color);
+  }
+  html.dark .shell-footer :global(.tabstrip) :global(.tabstrip__tabs) :global(.tab.is-active) :global(.tab__icon),
+  html.dark .shell-footer :global(.tabstrip) :global(.tabstrip__add.tab.is-active) :global(.tab__icon),
+  html.dark .shell-footer :global(.tabstrip) :global(.tabstrip__more.tab.is-active) :global(.tab__icon) {
+    color: var(--shell-footer-tab-icon-color-active);
+  }
+  html.dark .shell-footer :global(.tabstrip) :global(.tabstrip__tabs) :global(.tab.is-active:hover) :global(.tab__label),
+  html.dark .shell-footer :global(.tabstrip) :global(.tabstrip__add.tab.is-active:hover) :global(.tab__label),
+  html.dark .shell-footer :global(.tabstrip) :global(.tabstrip__more.tab.is-active:hover) :global(.tab__label) {
+    color: var(--shell-footer-tab-label-color);
+  }
+  html.dark .shell-footer :global(.tabstrip) :global(.tabstrip__tabs) :global(.tab.is-active:hover) :global(.tab__icon),
+  html.dark .shell-footer :global(.tabstrip) :global(.tabstrip__add.tab.is-active:hover) :global(.tab__icon),
+  html.dark .shell-footer :global(.tabstrip) :global(.tabstrip__more.tab.is-active:hover) :global(.tab__icon) {
+    color: var(--shell-footer-tab-icon-color-active);
   }
 
-  /* Compact variant */
+  /* Compact variant - styles applied via .shell-footer--compact for exact spec discovery */
+  .shell-footer--compact,
   .shell-footer[data-variant="compact"] {
     height: var(--shell-footer-height-compact);
   }

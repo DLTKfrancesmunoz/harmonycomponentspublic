@@ -1,0 +1,150 @@
+# /seed-patterns
+
+Generate draft pattern docs for common enterprise UI patterns using Harmony components. Patterns are grounded in actual Harmony component APIs, props, and variants — not theoretical.
+
+## Instructions
+
+1. **Check what exists.** Read the design-patterns registry (run `python .cursor/skills/design-patterns/scripts/search_patterns.py --patterns-dir .cursor/skills/design-patterns/reference --list`). Do not generate patterns that already exist.
+
+2. **Read Harmony sources.** For each pattern in the seed list, read the relevant Harmony component docs (`{harmonyRoot}/src/pages/components/*.astro`) to get actual prop names, variants, and usage guidelines. Use the harmony skill for root resolution and allowed sources.
+
+3. **Read the Harmony Functionality reference.** If available, read `reference/Harmony_Functionality.pdf` (or its extracted content) for shell anatomy, contextual toolbar behavior, page layout variations, and pattern details. Use this as the design intent reference — it defines how components compose in the Northstar vision.
+
+4. **Read the pattern template.** Use `.cursor/skills/design-patterns/reference/PATTERN_TEMPLATE.md` as the format for every generated pattern.
+
+5. **Generate each pattern doc** with the following sections filled in (not left as TODO):
+   - **Problem Statement**: Filled in with the real user need this pattern solves.
+   - **Anatomy**: ASCII diagram showing the component composition.
+   - **Component Tree**: Machine-readable tree using actual Harmony component names.
+   - **Key Elements table**: Required vs optional elements.
+   - **When to Use / When NOT to Use**: Filled in with concrete scenarios.
+   - **Implementation > Component Dependencies**: Actual Harmony imports.
+   - **Implementation > Props/Configuration**: Actual props from Harmony component docs.
+   - **Accessibility**: Filled in from Harmony component accessibility sections.
+   - **For AI Agents > Checklist**: Filled in with concrete steps.
+   - **Status**: `draft`
+   - **Product**: `cross-product` (unless the pattern is product-specific)
+   - **Category**: From the seed list below.
+
+6. **Save each pattern** to `.cursor/skills/design-patterns/reference/[pattern-name].md` (kebab-case).
+
+7. **Update the registry.** After all patterns are generated, run the create script's registry update or manually append each pattern to `reference/registry.md`.
+
+8. **Report.** List all generated patterns with file paths and a count. Remind the user to review each draft, refine language, and set status to `review` when ready.
+
+## Seed list
+
+Generate patterns in this order. Each entry lists the pattern name, category, and the primary Harmony components it uses.
+
+---
+
+### Data patterns
+
+| Pattern | Category | Primary Harmony Components | Notes |
+|---------|----------|---------------------------|-------|
+| CRUD Table | data-display | Table, Button, Dialog, Input, Label, ShellPageHeader | Main workspace view: page header with action buttons, filter bar, sortable table with linked names, summary row below table. See Harmony Functionality page 3 for reference anatomy. |
+| Master / Detail | layouts | Table, Card, Input, Label, Button, ShellPanel | Table on left, detail form in ShellPanel on right. Right panel is context-sensitive to selected row. |
+| Data Table with Filter Bar | data-display | Table, Input, Dropdown, DatePicker, Button, Chip | Filter bar above table with period, project, and category dropdowns. Chips for active filters. Clear button to reset. See Harmony Functionality page 52 filter bar. |
+| Bulk Action Bar | data-display | ButtonGroup, Chip, Button | Appears when table rows are selected. Shows selection count + contextual actions. |
+| Search Results | data-display | Input, Icon, Table or Card, Spinner, Badge | Search input with results displayed as table rows or card list. Loading state with Spinner. |
+| Kanban Board | data-display | Kanban, KanbanCard, Button, Dropdown | Column-based card view. Mentioned in Harmony Functionality page 20 as a "View data as" option (Board). |
+
+---
+
+### Form patterns
+
+| Pattern | Category | Primary Harmony Components | Notes |
+|---------|----------|---------------------------|-------|
+| Settings Form | forms | Card, Label, Input, Toggle, Checkbox, Button, ShellPageHeader | Grouped form sections with save/cancel. |
+| Multi-Section Form | forms | Card, Accordion, Label, Input, Textarea, NumberInput, Button | Collapsible sections for complex forms. |
+| Inline Edit | forms | Table, Input, Button, Icon | Edit table cells in place without opening a dialog. |
+| Filter Form (Sidebar) | forms | Card, Label, Input, Checkbox, CheckboxGroup, RadioButton, RadioGroup, DateInput, Button | Sidebar filter panel. Maps to the expanded left menu filter behavior in Harmony Functionality pages 12, 15-18. |
+
+---
+
+### Dialog patterns
+
+| Pattern | Category | Primary Harmony Components | Notes |
+|---------|----------|---------------------------|-------|
+| Confirmation Dialog | dialogs | Dialog, Button, Icon | Simple yes/no for destructive actions. |
+| Form Dialog | dialogs | Dialog, Label, Input, Textarea, Dropdown, Button | Modal form for creating/editing an entity. |
+| Stepper Wizard | dialogs | Dialog, Stepper, Step, Label, Input, Button | Linear multi-step flow with progress indicator. |
+| Detail Drawer | dialogs | ShellPanel, Card, Label, Input, Button | Right-side panel for viewing/editing entity details. Maps to Right Drawer Mini/Expanded in Harmony Functionality pages 30-31. |
+| Share Dialog | dialogs | Dialog, Input, Dropdown, Textarea, Chip, Button | Share with team members: recipient selector, message field, item badges. See Harmony Functionality page 28. |
+| Import Dialog | dialogs | Dialog, Button, Card, Icon, ProgressBar | Upload with drag-drop area, folder tabs (Upload, My Folders, All uploaded files), file list. See Harmony Functionality page 24. |
+
+---
+
+### Navigation patterns
+
+| Pattern | Category | Primary Harmony Components | Notes |
+|---------|----------|---------------------------|-------|
+| Tabbed Content | navigation | TabStrip, Card | Tab-based content switching within the page content area. |
+| Breadcrumb Trail | navigation | Link, Icon | Hierarchical navigation path. |
+| Floating Navigation | navigation | FloatingNav, Icon | Sticky floating nav for long pages. |
+| Expanded Menu with Filters | navigation | LeftSidebar, Input, Dropdown, Chip, Button, TabStrip | Left sidebar slide-out with search, filter bar, sort chips (Last modified, Owner, Alphabetical), grouped entity lists with optional images. Tabs at top (All, Tab 2, Tab 3). Primary + Secondary action buttons. See Harmony Functionality pages 10-18. |
+| Secondary / Tertiary Menu | navigation | LeftSidebar, ListMenu, Button | Nested menu levels from left sidebar. Secondary slides out from primary. Tertiary gets a sticky bar at bottom with flyout. See Harmony Functionality page 13. |
+| Tree Menu | navigation | LeftSidebar, ListMenu | Hierarchical tree structure in the left sidebar for products with deep navigation (e.g. Accounting > General Ledger > Manage Fiscal Years). See Harmony Functionality page 11. |
+| Actions / Related Content Panel | navigation | ShellPanel, Button, Chip, Dropdown, Icon, TabStrip | Right-side panel with "View data as" options (Board, Table, List, Calendar, Schedule, Gantt, Network graph), "View related content" chips, "Create/assign" action buttons. Context-sensitive to page selection. See Harmony Functionality pages 20, 22. |
+| Bottom Tab Navigation | navigation | TabStrip, ListMenu, Icon | Bottom bar with open tabs, overflow "More (N)" menu, Add Tab button. Tab ellipsis menu: Open in new window, Close tab, Set as default. See Harmony Functionality pages 32-33. |
+
+---
+
+### Layout patterns
+
+| Pattern | Category | Primary Harmony Components | Notes |
+|---------|----------|---------------------------|-------|
+| Widget Dashboard | layouts | ShellPageHeader, Card, Dropdown, DatePicker, Badge, Icon | Filter bar at top (Period, Project, Control accounts dropdowns). Stat cards in grid (4-col first row, 4-col with action icons second row, 3-col section-headed chart cards, full-width bottom card). See Harmony Functionality page 52. |
+| Empty State | layouts | Card, Icon, Button, ShellPageHeader | No data placeholder with call-to-action. |
+| Split View | layouts | Card (x2), Table, form fields | Two-panel side-by-side layout for comparison or list+detail without drawer. |
+| Card Grid | layouts | ShellPageHeader, Card (repeated), Badge | Grid of cards. Variations from Harmony Functionality pages 47-51: single card full-width, 4-column equal, 2x2 grid, 2-top + 1-bottom full-width, 3-top + 1-bottom full-width. Up to 4 page header buttons. |
+| Template Picker | layouts | ShellPanel, TabStrip, Chip, Card | Right-side panel with Default templates / My templates tabs. Templates grouped by category (e.g. Gantt charts, Burn down/up charts, Kanban boards, Pie charts, Heatmaps) with chip sub-filters. Drag and drop onto page. See Harmony Functionality page 23. |
+| Page Designer / Edit Mode | layouts | ShellPageHeader, Card, Button, Icon | Edit mode overlay: user can add widgets, drag-drop, resize, save as template. Column-based layout grid. See Harmony Functionality pages 34-37. |
+| Content Plus Right Navigation | layouts | ShellPageHeader, Card, ShellPanel, Table | Main content area with detachable right drawer showing context-sensitive data. Drawer content can be independent or tied to page selection (e.g. chart tied to table). See Harmony Functionality page 39. |
+
+---
+
+### Feedback patterns
+
+| Pattern | Category | Primary Harmony Components | Notes |
+|---------|----------|---------------------------|-------|
+| Toast / Notification | feedback | Alert, Icon, Button | Transient feedback messages. |
+| Loading State | feedback | Spinner, ProgressBar, Card | Loading indicators with context. |
+| Error State | feedback | Alert, Icon, Button, Card | Error display with recovery action. |
+| Status Indicator | feedback | Badge, NotificationBadge, Icon, Tooltip | Status badges and indicators. |
+| Notification Center | feedback | ShellPanel, TabStrip, Input, Badge, Card | Right-side panel with System/Workflow/Team tabs. Search bar. Read/Unread count with "Clear all". Categorized notification groups with "Show all" expansion. Inline notification actions. See Harmony Functionality page 26. |
+| Contextual Notification | feedback | Alert, Button, Link | Inline notification toast near the right toolbar with action link (e.g. "Go to workflows for progress"). Can expand to a form (e.g. Request Schedule Review with fields). See Harmony Functionality page 26. |
+
+---
+
+### Shell patterns
+
+| Pattern | Category | Primary Harmony Components | Notes |
+|---------|----------|---------------------------|-------|
+| App Switcher | navigation | Dropdown, ListMenu, Icon | Top-left dropdown listing products the user has access to (role-based). See Harmony Functionality page 6. |
+| Environment / System Switcher | navigation | Dropdown, Icon, Avatar | Top header: company/environment picker. Can be separate or combined dropdowns. Options: gradient bar, middle dropdown, no gradient bar / no color dot. See Harmony Functionality page 7. |
+| Contextual Toolbar | navigation | RightSidebar, Icon, Button, Tooltip | Right-side icon toolbar. Contextual items change based on page selection (Dela AI, Edit page, Search/Filter, Actions, Related content, Templates, Import, Export, Notifications, Help, Share). Static items always present (Accessibility, Language, Dark mode). See Harmony Functionality page 19. |
+| Search and Filter Panel | forms | ShellPanel, TabStrip, Input, Dropdown, Button | Right-side panel with Context search / Global search / Saved searches tabs. Filter dropdowns. Save search + Apply buttons. Clear link. See Harmony Functionality page 25. |
+| Help Panel | feedback | ShellPanel, Input, Link, Card, Button | Right-side help with search, context-sensitive articles, support links (Ask the Community, Chat, Product Tutorials, Video Tutorials, Submit Ticket), "Next steps" create/assign buttons. See Harmony Functionality page 27. |
+| User Customizations | navigation | LeftSidebar, ListMenu, Button, Icon | Add internal menu items from right-hand menu (if allowed, up to left menu limit). Add external URLs to left menu for quick browser tab launch. See Harmony Functionality page 14. |
+| Accessibility Panel | forms | ShellPanel, Toggle, RangeInput, Button | Right-side panel with accessibility profiles (Seizure safe, Vision impaired, ADHD friendly, Cognitive disability, Keyboard navigation, Blind users/Screen reader). Font sizing, line height, letter spacing sliders. Color adjustments (Dark/Light/High contrast, saturation, monochrome). Background and text color pickers. See Harmony Functionality page 29. |
+
+---
+
+## Total: ~45 patterns
+
+## Important
+
+- Every component reference must use actual Harmony component names from the component list (read from harmony skill or `src/components/ui/index.ts`).
+- Every prop in the Implementation section must come from the actual Harmony component docs, not invented.
+- If a pattern needs a component that doesn't exist in Harmony, note it in the pattern doc as "Not in Harmony — implement as custom component using Harmony tokens."
+- The Component Tree section is required for every pattern — the layout-builder skill reads it for composition.
+- Do not generate the Accordion Wizard pattern if "Wizard Dialog" already exists in the registry.
+- For patterns sourced from the Harmony Functionality PDF, reference the relevant page/section in the pattern doc's Design Decisions section so designers can trace back to the original spec.
+- Card Grid variations (1-col, 2-col, 2x2, 3+1, 4-col) should be documented as variants within the single Card Grid pattern, not as separate patterns.
+
+## Optional flags
+
+- `--category [name]`: Generate only patterns in that category (e.g. `--category forms`).
+- `--dry-run`: List the patterns that would be generated without creating files.
+- `--product [name]`: Override product (default: cross-product).

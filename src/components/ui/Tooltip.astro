@@ -1,8 +1,13 @@
 ---
 /**
  * Tooltip Component
- * 
+ *
  * Informational popup on hover.
+ *
+ * @usagePattern position-prop-behavior The position prop ('top', 'bottom', 'left', 'right') controls which side of the trigger element the tooltip appears on. Default is 'top'. Each position adds a corresponding CSS class (tooltip__content--bottom, tooltip__content--left, tooltip__content--right) that uses absolute positioning and transforms to place the tooltip. Only 'top' has no additional class, as it's the base styling.
+ * @usagePattern corner-variant-independence The cornerVariant prop ('top', 'bottom', 'left', 'right') controls which corner of the tooltip has sharp corners instead of rounded corners, creating a visual pointer effect. This is independent of position - you can set position='bottom' and cornerVariant='top' to show tooltip below with arrow pointing up. cornerVariant adds tooltip__content--corner-{variant} classes. If cornerVariant is not set, all corners remain rounded (default CSS).
+ * @usagePattern css-hover-trigger Tooltip visibility is controlled entirely by CSS :hover state on the parent .tooltip container. There is no JavaScript, no click handlers, and no aria-expanded. The tooltip appears on mouse hover and disappears on mouse out. This means tooltips don't work on touch devices without additional JavaScript, and keyboard users can't trigger them. For critical information, prefer visible labels.
+ * @usagePattern slot-content-wrapper The default slot contains the trigger element (what the user hovers over), while the text prop contains the tooltip content. The text is rendered in a <span class="tooltip__content"> that appears/disappears on hover. The tooltip component wraps everything in <span class="tooltip">, so it's inline by default. For block-level triggers, wrap Tooltip in a block container or add display CSS.
  */
 
 export interface Props {

@@ -1,0 +1,58 @@
+---
+/**
+ * Shell Layout – CP Dark Mode Preview
+ *
+ * Reference preview for converters: CP theme in dark mode, no footer (FloatingNav only).
+ * Access at: /preview/shell-layout-dark-cp
+ */
+import '../../styles/global.css';
+import ShellLayout from '../../layouts/ShellLayout.astro';
+import Card from '../../components/ui/Card.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en" class="theme-cp dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shell Layout – CP Dark</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { height: 100%; width: 100%; overflow: hidden; }
+    </style>
+  </head>
+  <body>
+    <ShellLayout
+      productName="Harmony"
+      logoSrc="/logos/CPVPLogo.svg"
+      companyName="Acme Corporation"
+      companyColor="#FF507B"
+      showCompanyPicker={true}
+      showFloatingNav={true}
+      floatingNavVariant="full"
+      showExecute={true}
+      saveDisabled={false}
+      leftSidebarVariant="cp"
+      rightSidebarVariant="cp"
+      showFooter={false}
+      tabs={[]}
+      footerVariant="default"
+      pageHeaderTitle="Shell Layout – CP Dark"
+      pageHeaderSubtitle="CP theme, dark mode, FloatingNav only (no footer)"
+      pageHeaderOutlineButton1={{ text: "Export", icon: "arrow-down-tray" }}
+      pageHeaderOutlineButton2={{ text: "Share", icon: "share" }}
+      pageHeaderPrimaryButton={{ text: "Save", icon: "check" }}
+    >
+      <Card primary elevated>
+        <div class="card__body">
+          <h2 class="text-xl font-semibold mb-2">CP Dark Mode Reference</h2>
+          <p class="text-secondary">
+            Use this preview as the reference for shell layout in CP dark mode:
+            sidebars, header, FloatingNav, and main content. No footer.
+          </p>
+        </div>
+      </Card>
+    </ShellLayout>
+  </body>
+</html>

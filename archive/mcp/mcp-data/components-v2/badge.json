@@ -1,0 +1,2608 @@
+{
+  "name": "Badge",
+  "type": "component",
+  "filePath": "src/components/ui/Badge.astro",
+  "description": "Badge Component",
+  "props": {
+    "variant": {
+      "type": "'default' | 'primary' | 'success' | 'warning' | 'error' | 'info' | 'orange' | 'pink' | 'disabled'",
+      "optional": true,
+      "default": "'default'"
+    },
+    "icon": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "class": {
+      "type": "string",
+      "optional": true,
+      "default": "''"
+    }
+  },
+  "defaults": {
+    "theme": "cp",
+    "mode": "light",
+    "variant": "'default'"
+  },
+  "specs": {
+    "default-cp-light": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#F7F8FA",
+            "color": "#525969",
+            "border": "1px solid #BFC6D4"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#F7F8FA",
+            "color": "#525969",
+            "border": "1px solid #BFC6D4"
+          }
+        }
+      ]
+    },
+    "default-cp-dark": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#37424D",
+            "color": "#B6B6C4",
+            "border": "1px solid #5F6871"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#37424D",
+            "color": "#B6B6C4",
+            "border": "1px solid #5F6871"
+          }
+        }
+      ]
+    },
+    "default-vp-light": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#F7F8FA",
+            "color": "#525969",
+            "border": "1px solid #BFC6D4"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#F7F8FA",
+            "color": "#525969",
+            "border": "1px solid #BFC6D4"
+          }
+        }
+      ]
+    },
+    "default-vp-dark": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#1F2124",
+            "color": "#B5B5BC",
+            "border": "1px solid #2A2D32"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#1F2124",
+            "color": "#B5B5BC",
+            "border": "1px solid #2A2D32"
+          }
+        }
+      ]
+    },
+    "default-ppm-light": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#F7F8FA",
+            "color": "#525969",
+            "border": "1px solid #BFC6D4"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#F7F8FA",
+            "color": "#525969",
+            "border": "1px solid #BFC6D4"
+          }
+        }
+      ]
+    },
+    "default-ppm-dark": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#1F2124",
+            "color": "#B5B5BC",
+            "border": "1px solid #2A2D32"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#1F2124",
+            "color": "#B5B5BC",
+            "border": "1px solid #2A2D32"
+          }
+        }
+      ]
+    },
+    "default-maconomy-light": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#F7F8FA",
+            "color": "#525969",
+            "border": "1px solid #BFC6D4"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#F7F8FA",
+            "color": "#525969",
+            "border": "1px solid #BFC6D4"
+          }
+        }
+      ]
+    },
+    "default-maconomy-dark": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#1F2124",
+            "color": "#B5B5BC",
+            "border": "1px solid #2A2D32"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#1F2124",
+            "color": "#B5B5BC",
+            "border": "1px solid #2A2D32"
+          }
+        }
+      ]
+    },
+    "primary-cp-light": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#c7f2ff",
+            "color": "#205a9e",
+            "border": "1px solid #205a9e"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#c7f2ff",
+            "color": "#205a9e",
+            "border": "1px solid #205a9e"
+          }
+        }
+      ]
+    },
+    "primary-cp-dark": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#c7f2ff",
+            "color": "#205a9e",
+            "border": "1px solid #205a9e"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#c7f2ff",
+            "color": "#205a9e",
+            "border": "1px solid #205a9e"
+          }
+        }
+      ]
+    },
+    "primary-vp-light": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#c7f2ff",
+            "color": "#205a9e",
+            "border": "1px solid #205a9e"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#c7f2ff",
+            "color": "#205a9e",
+            "border": "1px solid #205a9e"
+          }
+        }
+      ]
+    },
+    "primary-vp-dark": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#c7f2ff",
+            "color": "#205a9e",
+            "border": "1px solid #205a9e"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#c7f2ff",
+            "color": "#205a9e",
+            "border": "1px solid #205a9e"
+          }
+        }
+      ]
+    },
+    "primary-ppm-light": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#c7f2ff",
+            "color": "#205a9e",
+            "border": "1px solid #205a9e"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#c7f2ff",
+            "color": "#205a9e",
+            "border": "1px solid #205a9e"
+          }
+        }
+      ]
+    },
+    "primary-ppm-dark": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#c7f2ff",
+            "color": "#205a9e",
+            "border": "1px solid #205a9e"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#c7f2ff",
+            "color": "#205a9e",
+            "border": "1px solid #205a9e"
+          }
+        }
+      ]
+    },
+    "primary-maconomy-light": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#c7f2ff",
+            "color": "#205a9e",
+            "border": "1px solid #205a9e"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#c7f2ff",
+            "color": "#205a9e",
+            "border": "1px solid #205a9e"
+          }
+        }
+      ]
+    },
+    "primary-maconomy-dark": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#c7f2ff",
+            "color": "#205a9e",
+            "border": "1px solid #205a9e"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#c7f2ff",
+            "color": "#205a9e",
+            "border": "1px solid #205a9e"
+          }
+        }
+      ]
+    },
+    "success-cp-light": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#dbf9a8",
+            "color": "#316d15",
+            "border": "1px solid #316d15"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#dbf9a8",
+            "color": "#316d15",
+            "border": "1px solid #316d15"
+          }
+        }
+      ]
+    },
+    "success-cp-dark": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#dbf9a8",
+            "color": "#316d15",
+            "border": "1px solid #316d15"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#dbf9a8",
+            "color": "#316d15",
+            "border": "1px solid #316d15"
+          }
+        }
+      ]
+    },
+    "success-vp-light": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#dbf9a8",
+            "color": "#316d15",
+            "border": "1px solid #316d15"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#dbf9a8",
+            "color": "#316d15",
+            "border": "1px solid #316d15"
+          }
+        }
+      ]
+    },
+    "success-vp-dark": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#dbf9a8",
+            "color": "#316d15",
+            "border": "1px solid #316d15"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#dbf9a8",
+            "color": "#316d15",
+            "border": "1px solid #316d15"
+          }
+        }
+      ]
+    },
+    "success-ppm-light": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#dbf9a8",
+            "color": "#316d15",
+            "border": "1px solid #316d15"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#dbf9a8",
+            "color": "#316d15",
+            "border": "1px solid #316d15"
+          }
+        }
+      ]
+    },
+    "success-ppm-dark": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#dbf9a8",
+            "color": "#316d15",
+            "border": "1px solid #316d15"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#dbf9a8",
+            "color": "#316d15",
+            "border": "1px solid #316d15"
+          }
+        }
+      ]
+    },
+    "success-maconomy-light": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#dbf9a8",
+            "color": "#316d15",
+            "border": "1px solid #316d15"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#dbf9a8",
+            "color": "#316d15",
+            "border": "1px solid #316d15"
+          }
+        }
+      ]
+    },
+    "success-maconomy-dark": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#dbf9a8",
+            "color": "#316d15",
+            "border": "1px solid #316d15"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#dbf9a8",
+            "color": "#316d15",
+            "border": "1px solid #316d15"
+          }
+        }
+      ]
+    },
+    "warning-cp-light": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#fff1be",
+            "color": "#ad5400",
+            "border": "1px solid #ad5400"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#fff1be",
+            "color": "#ad5400",
+            "border": "1px solid #ad5400"
+          }
+        }
+      ]
+    },
+    "warning-cp-dark": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#fff1be",
+            "color": "#ad5400",
+            "border": "1px solid #ad5400"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#fff1be",
+            "color": "#ad5400",
+            "border": "1px solid #ad5400"
+          }
+        }
+      ]
+    },
+    "warning-vp-light": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#fff1be",
+            "color": "#ad5400",
+            "border": "1px solid #ad5400"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#fff1be",
+            "color": "#ad5400",
+            "border": "1px solid #ad5400"
+          }
+        }
+      ]
+    },
+    "warning-vp-dark": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#fff1be",
+            "color": "#ad5400",
+            "border": "1px solid #ad5400"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#fff1be",
+            "color": "#ad5400",
+            "border": "1px solid #ad5400"
+          }
+        }
+      ]
+    },
+    "warning-ppm-light": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#fff1be",
+            "color": "#ad5400",
+            "border": "1px solid #ad5400"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#fff1be",
+            "color": "#ad5400",
+            "border": "1px solid #ad5400"
+          }
+        }
+      ]
+    },
+    "warning-ppm-dark": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#fff1be",
+            "color": "#ad5400",
+            "border": "1px solid #ad5400"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#fff1be",
+            "color": "#ad5400",
+            "border": "1px solid #ad5400"
+          }
+        }
+      ]
+    },
+    "warning-maconomy-light": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#fff1be",
+            "color": "#ad5400",
+            "border": "1px solid #ad5400"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#fff1be",
+            "color": "#ad5400",
+            "border": "1px solid #ad5400"
+          }
+        }
+      ]
+    },
+    "warning-maconomy-dark": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#fff1be",
+            "color": "#ad5400",
+            "border": "1px solid #ad5400"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#fff1be",
+            "color": "#ad5400",
+            "border": "1px solid #ad5400"
+          }
+        }
+      ]
+    },
+    "error-cp-light": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#ffecef",
+            "color": "#c1253a",
+            "border": "1px solid #c1253a"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#ffecef",
+            "color": "#c1253a",
+            "border": "1px solid #c1253a"
+          }
+        }
+      ]
+    },
+    "error-cp-dark": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#ffecef",
+            "color": "#c1253a",
+            "border": "1px solid #c1253a"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#ffecef",
+            "color": "#c1253a",
+            "border": "1px solid #c1253a"
+          }
+        }
+      ]
+    },
+    "error-vp-light": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#ffecef",
+            "color": "#c1253a",
+            "border": "1px solid #c1253a"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#ffecef",
+            "color": "#c1253a",
+            "border": "1px solid #c1253a"
+          }
+        }
+      ]
+    },
+    "error-vp-dark": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#ffecef",
+            "color": "#c1253a",
+            "border": "1px solid #c1253a"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#ffecef",
+            "color": "#c1253a",
+            "border": "1px solid #c1253a"
+          }
+        }
+      ]
+    },
+    "error-ppm-light": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#ffecef",
+            "color": "#c1253a",
+            "border": "1px solid #c1253a"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#ffecef",
+            "color": "#c1253a",
+            "border": "1px solid #c1253a"
+          }
+        }
+      ]
+    },
+    "error-ppm-dark": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#ffecef",
+            "color": "#c1253a",
+            "border": "1px solid #c1253a"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#ffecef",
+            "color": "#c1253a",
+            "border": "1px solid #c1253a"
+          }
+        }
+      ]
+    },
+    "error-maconomy-light": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#ffecef",
+            "color": "#c1253a",
+            "border": "1px solid #c1253a"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#ffecef",
+            "color": "#c1253a",
+            "border": "1px solid #c1253a"
+          }
+        }
+      ]
+    },
+    "error-maconomy-dark": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#ffecef",
+            "color": "#c1253a",
+            "border": "1px solid #c1253a"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#ffecef",
+            "color": "#c1253a",
+            "border": "1px solid #c1253a"
+          }
+        }
+      ]
+    },
+    "info-cp-light": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#d0dfff",
+            "color": "#454bd4",
+            "border": "1px solid #454bd4"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#d0dfff",
+            "color": "#454bd4",
+            "border": "1px solid #454bd4"
+          }
+        }
+      ]
+    },
+    "info-cp-dark": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#d0dfff",
+            "color": "#454bd4",
+            "border": "1px solid #454bd4"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#d0dfff",
+            "color": "#454bd4",
+            "border": "1px solid #454bd4"
+          }
+        }
+      ]
+    },
+    "info-vp-light": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#d0dfff",
+            "color": "#454bd4",
+            "border": "1px solid #454bd4"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#d0dfff",
+            "color": "#454bd4",
+            "border": "1px solid #454bd4"
+          }
+        }
+      ]
+    },
+    "info-vp-dark": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#d0dfff",
+            "color": "#454bd4",
+            "border": "1px solid #454bd4"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#d0dfff",
+            "color": "#454bd4",
+            "border": "1px solid #454bd4"
+          }
+        }
+      ]
+    },
+    "info-ppm-light": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#d0dfff",
+            "color": "#454bd4",
+            "border": "1px solid #454bd4"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#d0dfff",
+            "color": "#454bd4",
+            "border": "1px solid #454bd4"
+          }
+        }
+      ]
+    },
+    "info-ppm-dark": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#d0dfff",
+            "color": "#454bd4",
+            "border": "1px solid #454bd4"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#d0dfff",
+            "color": "#454bd4",
+            "border": "1px solid #454bd4"
+          }
+        }
+      ]
+    },
+    "info-maconomy-light": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#d0dfff",
+            "color": "#454bd4",
+            "border": "1px solid #454bd4"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#d0dfff",
+            "color": "#454bd4",
+            "border": "1px solid #454bd4"
+          }
+        }
+      ]
+    },
+    "info-maconomy-dark": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#d0dfff",
+            "color": "#454bd4",
+            "border": "1px solid #454bd4"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#d0dfff",
+            "color": "#454bd4",
+            "border": "1px solid #454bd4"
+          }
+        }
+      ]
+    },
+    "orange-cp-light": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#ffe2c0",
+            "color": "#6c1f07",
+            "border": "1px solid #6c1f07"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#ffe2c0",
+            "color": "#6c1f07",
+            "border": "1px solid #6c1f07"
+          }
+        }
+      ]
+    },
+    "orange-cp-dark": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#ffe2c0",
+            "color": "#6c1f07",
+            "border": "1px solid #6c1f07"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#ffe2c0",
+            "color": "#6c1f07",
+            "border": "1px solid #6c1f07"
+          }
+        }
+      ]
+    },
+    "orange-vp-light": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#ffe2c0",
+            "color": "#6c1f07",
+            "border": "1px solid #6c1f07"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#ffe2c0",
+            "color": "#6c1f07",
+            "border": "1px solid #6c1f07"
+          }
+        }
+      ]
+    },
+    "orange-vp-dark": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#ffe2c0",
+            "color": "#6c1f07",
+            "border": "1px solid #6c1f07"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#ffe2c0",
+            "color": "#6c1f07",
+            "border": "1px solid #6c1f07"
+          }
+        }
+      ]
+    },
+    "orange-ppm-light": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#ffe2c0",
+            "color": "#6c1f07",
+            "border": "1px solid #6c1f07"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#ffe2c0",
+            "color": "#6c1f07",
+            "border": "1px solid #6c1f07"
+          }
+        }
+      ]
+    },
+    "orange-ppm-dark": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#ffe2c0",
+            "color": "#6c1f07",
+            "border": "1px solid #6c1f07"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#ffe2c0",
+            "color": "#6c1f07",
+            "border": "1px solid #6c1f07"
+          }
+        }
+      ]
+    },
+    "orange-maconomy-light": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#ffe2c0",
+            "color": "#6c1f07",
+            "border": "1px solid #6c1f07"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#ffe2c0",
+            "color": "#6c1f07",
+            "border": "1px solid #6c1f07"
+          }
+        }
+      ]
+    },
+    "orange-maconomy-dark": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#ffe2c0",
+            "color": "#6c1f07",
+            "border": "1px solid #6c1f07"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#ffe2c0",
+            "color": "#6c1f07",
+            "border": "1px solid #6c1f07"
+          }
+        }
+      ]
+    },
+    "pink-cp-light": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#ffddf3",
+            "color": "#b82890",
+            "border": "1px solid #b82890"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#ffddf3",
+            "color": "#b82890",
+            "border": "1px solid #b82890"
+          }
+        }
+      ]
+    },
+    "pink-cp-dark": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#ffddf3",
+            "color": "#b82890",
+            "border": "1px solid #b82890"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#ffddf3",
+            "color": "#b82890",
+            "border": "1px solid #b82890"
+          }
+        }
+      ]
+    },
+    "pink-vp-light": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#ffddf3",
+            "color": "#b82890",
+            "border": "1px solid #b82890"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#ffddf3",
+            "color": "#b82890",
+            "border": "1px solid #b82890"
+          }
+        }
+      ]
+    },
+    "pink-vp-dark": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#ffddf3",
+            "color": "#b82890",
+            "border": "1px solid #b82890"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#ffddf3",
+            "color": "#b82890",
+            "border": "1px solid #b82890"
+          }
+        }
+      ]
+    },
+    "pink-ppm-light": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#ffddf3",
+            "color": "#b82890",
+            "border": "1px solid #b82890"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#ffddf3",
+            "color": "#b82890",
+            "border": "1px solid #b82890"
+          }
+        }
+      ]
+    },
+    "pink-ppm-dark": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#ffddf3",
+            "color": "#b82890",
+            "border": "1px solid #b82890"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#ffddf3",
+            "color": "#b82890",
+            "border": "1px solid #b82890"
+          }
+        }
+      ]
+    },
+    "pink-maconomy-light": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#ffddf3",
+            "color": "#b82890",
+            "border": "1px solid #b82890"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#ffddf3",
+            "color": "#b82890",
+            "border": "1px solid #b82890"
+          }
+        }
+      ]
+    },
+    "pink-maconomy-dark": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#ffddf3",
+            "color": "#b82890",
+            "border": "1px solid #b82890"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#ffddf3",
+            "color": "#b82890",
+            "border": "1px solid #b82890"
+          }
+        }
+      ]
+    },
+    "disabled-cp-light": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#e0e4eb",
+            "color": "#94a3b8",
+            "border": "1px solid #bfc6d4"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#e0e4eb",
+            "color": "#94a3b8",
+            "border": "1px solid #bfc6d4"
+          }
+        }
+      ]
+    },
+    "disabled-cp-dark": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#e0e4eb",
+            "color": "#94a3b8",
+            "border": "1px solid #bfc6d4"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#e0e4eb",
+            "color": "#94a3b8",
+            "border": "1px solid #bfc6d4"
+          }
+        }
+      ]
+    },
+    "disabled-vp-light": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#e0e4eb",
+            "color": "#94a3b8",
+            "border": "1px solid #bfc6d4"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#e0e4eb",
+            "color": "#94a3b8",
+            "border": "1px solid #bfc6d4"
+          }
+        }
+      ]
+    },
+    "disabled-vp-dark": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#e0e4eb",
+            "color": "#94a3b8",
+            "border": "1px solid #bfc6d4"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#e0e4eb",
+            "color": "#94a3b8",
+            "border": "1px solid #bfc6d4"
+          }
+        }
+      ]
+    },
+    "disabled-ppm-light": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#e0e4eb",
+            "color": "#94a3b8",
+            "border": "1px solid #bfc6d4"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#e0e4eb",
+            "color": "#94a3b8",
+            "border": "1px solid #bfc6d4"
+          }
+        }
+      ]
+    },
+    "disabled-ppm-dark": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#e0e4eb",
+            "color": "#94a3b8",
+            "border": "1px solid #bfc6d4"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#e0e4eb",
+            "color": "#94a3b8",
+            "border": "1px solid #bfc6d4"
+          }
+        }
+      ]
+    },
+    "disabled-maconomy-light": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#e0e4eb",
+            "color": "#94a3b8",
+            "border": "1px solid #bfc6d4"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#e0e4eb",
+            "color": "#94a3b8",
+            "border": "1px solid #bfc6d4"
+          }
+        }
+      ]
+    },
+    "disabled-maconomy-dark": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".badge": {
+            "background-color": "#e0e4eb",
+            "color": "#94a3b8",
+            "border": "1px solid #bfc6d4"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".badge",
+          "tag": "span",
+          "styles": {
+            "background-color": "#e0e4eb",
+            "color": "#94a3b8",
+            "border": "1px solid #bfc6d4"
+          }
+        }
+      ]
+    }
+  },
+  "guidance": {
+    "patterns": {},
+    "guidelines": {}
+  },
+  "specKeyOrder": [
+    "variant",
+    "theme",
+    "mode"
+  ],
+  "dimensionDefaults": {
+    "variant": "default",
+    "theme": "cp",
+    "mode": "light"
+  },
+  "structure": {
+    "root": ".badge",
+    "children": []
+  },
+  "fonts": {
+    "Figtree": "https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap",
+    "Lexend": "https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap",
+    "JetBrains Mono": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
+  },
+  "defaultContent": {
+    "_rule": "No default content defined; do not invent labels, icons, or copy. Use only what is in the spec or leave slots empty."
+  },
+  "interactivity": {
+    "events": [],
+    "state": [
+      {
+        "name": "—",
+        "type": "—",
+        "description": "Display only; no client-side state or events."
+      }
+    ]
+  },
+  "examples": [
+    {
+      "name": "Status badge",
+      "description": "Card with status indicator",
+      "recipeId": "card-with-badge"
+    },
+    {
+      "name": "Category badge",
+      "description": "Card with category label",
+      "recipeId": "card-with-badge"
+    },
+    {
+      "name": "Multiple badges",
+      "description": "Card with status and priority badges",
+      "recipeId": "card-with-badge"
+    },
+    {
+      "name": "Status badge",
+      "description": "Standalone status badge",
+      "snippet": "<Badge variant=\"success\">Active</Badge>"
+    }
+  ]
+}

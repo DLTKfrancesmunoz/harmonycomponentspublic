@@ -1,0 +1,59 @@
+{
+  "id": "shell-footer",
+  "name": "Shell Footer",
+  "description": "Bottom navigation bar with tabs (VP/PPM/Maconomy themes)",
+  "category": "layouts",
+  "complexity": "molecule",
+  "tags": ["shell", "footer", "navigation", "tabs", "bottom-nav"],
+  "components": [
+    {
+      "name": "ShellFooter",
+      "role": "footer",
+      "props": {
+        "tabs": [],
+        "variant": "default",
+        "showAddTab": true
+      }
+    }
+  ],
+  "usageGuidance": {
+    "when": "Building application shell for VP, PPM, or Maconomy themes; use as primary bottom navigation with tab strip",
+    "antiPatterns": [
+      "Don't use ShellFooter with CP theme - use FloatingNav instead",
+      "Don't use multiple ShellFooter instances in the same layout"
+    ],
+    "notes": {
+      "tabs": "Pass tabs array with id, label, href, icon for each tab",
+      "variant": "Use 'compact' for reduced height; 'default' for full tab strip"
+    }
+  },
+  "validation": {
+    "required": ["ShellFooter"],
+    "maxCount": {
+      "ShellFooter": 1
+    },
+    "theme": "all",
+    "hierarchy": []
+  },
+  "examples": [
+    {
+      "name": "Default footer",
+      "description": "Footer with tab strip and add-tab button",
+      "props": {}
+    },
+    {
+      "name": "Compact footer",
+      "description": "Reduced-height footer variant",
+      "props": {
+        "footer.variant": "compact"
+      }
+    },
+    {
+      "name": "Footer without add tab",
+      "description": "Footer with fixed tabs only",
+      "props": {
+        "footer.showAddTab": false
+      }
+    }
+  ]
+}

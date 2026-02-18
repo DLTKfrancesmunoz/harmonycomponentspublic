@@ -1,0 +1,69 @@
+{
+  "id": "search-input",
+  "name": "Search Input with Icon",
+  "description": "Search input field with search icon",
+  "category": "forms",
+  "complexity": "molecule",
+  "tags": ["search", "input", "icon", "filter"],
+  "components": [
+    {
+      "name": "Input",
+      "role": "search-field",
+      "props": {
+        "type": "search",
+        "placeholder": "Search...",
+        "iconPosition": "left",
+        "icon": "magnifying-glass"
+      }
+    }
+  ],
+  "usageGuidance": {
+    "when": "Search or filter functionality needed in UI",
+    "antiPatterns": [
+      "Don't use label for search inputs - placeholder is sufficient",
+      "Don't use type='text' - use type='search' for semantic HTML",
+      "Don't forget to handle clear/reset functionality"
+    ],
+    "notes": {
+      "icon": "Use 'magnifying-glass' (Heroicons) or 'search' (Tabler) icon",
+      "iconPosition": "Icon typically on left for search inputs",
+      "clearable": "Consider adding clearable functionality to reset search",
+      "debounce": "Implement debouncing for search-as-you-type functionality"
+    }
+  },
+  "validation": {
+    "required": ["Input"],
+    "maxCount": {
+      "Input": 1
+    },
+    "theme": "all",
+    "hierarchy": []
+  },
+  "examples": [
+    {
+      "name": "Basic search",
+      "description": "Simple search input",
+      "props": {
+        "search-field.placeholder": "Search...",
+        "search-field.icon": "magnifying-glass"
+      }
+    },
+    {
+      "name": "Table filter",
+      "description": "Search input for filtering table data",
+      "props": {
+        "search-field.placeholder": "Filter records...",
+        "search-field.icon": "funnel"
+      }
+    },
+    {
+      "name": "User search",
+      "description": "Search input for finding users",
+      "props": {
+        "search-field.placeholder": "Search users...",
+        "search-field.icon": "magnifying-glass",
+        "search-field.iconPosition": "left"
+      }
+    }
+  ]
+}

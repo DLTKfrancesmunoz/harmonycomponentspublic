@@ -1,0 +1,3618 @@
+{
+  "name": "Dialog",
+  "type": "component",
+  "filePath": "src/components/ui/Dialog.astro",
+  "description": "Dialog Component",
+  "props": {
+    "id": {
+      "type": "string",
+      "optional": false,
+      "default": null
+    },
+    "title": {
+      "type": "string",
+      "optional": false,
+      "default": null
+    },
+    "class": {
+      "type": "string",
+      "optional": true,
+      "default": "''"
+    },
+    "buttonAlignment": {
+      "type": "'left' | 'right'",
+      "optional": true,
+      "default": "'left'"
+    },
+    "headerVariant": {
+      "type": "'default' | 'primary'",
+      "optional": true,
+      "default": "'default'"
+    }
+  },
+  "defaults": {
+    "theme": "cp",
+    "mode": "light"
+  },
+  "specs": {
+    "cp-light-default": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".dialog-overlay": {
+            "position": "fixed",
+            "inset": "0",
+            "background-color": "rgba(0, 0, 0, 0.5)",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "z-index": "300",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "all 150ms ease"
+          },
+          ".dialog": {
+            "display": "flex",
+            "flex-direction": "column",
+            "background-color": "#F7F8FA",
+            "border-radius": "0.75rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "min-width": "600px",
+            "max-width": "700px",
+            "width": "90%",
+            "max-height": "90vh",
+            "overflow": "hidden",
+            "transform": "scale(1)",
+            "transition": "transform 150ms ease"
+          },
+          ".dialog__body": {
+            "flex": "1 1 0",
+            "min-height": "100px",
+            "max-height": "600px",
+            "padding": "24px",
+            "overflow-y": "auto",
+            "color": "#525969"
+          },
+          ".dialog__close": {
+            "color": "#6B7280",
+            "cursor": "pointer",
+            "transition": "color 150ms ease"
+          },
+          ".dialog__footer": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "justify-content": "flex-start",
+            "gap": "12px",
+            "padding": "16px 24px",
+            "border-top": "1px solid #BFC6D4",
+            "background-color": "#F7F8FA"
+          },
+          ".dialog__header": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "padding": "16px 24px",
+            "border-bottom": "1px solid #BFC6D4",
+            "background-color": "#F7F8FA"
+          },
+          ".dialog__title": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#373F4E"
+          },
+          ".classes": {},
+          ".headerClasses": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".dialog-overlay",
+          "tag": "div",
+          "styles": {
+            "position": "fixed",
+            "inset": "0",
+            "background-color": "rgba(0, 0, 0, 0.5)",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "z-index": "300",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "all 150ms ease"
+          },
+          "children": [
+            ".dialog"
+          ]
+        },
+        {
+          "selector": ".dialog",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "background-color": "#F7F8FA",
+            "border-radius": "0.75rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "min-width": "600px",
+            "max-width": "700px",
+            "width": "90%",
+            "max-height": "90vh",
+            "overflow": "hidden",
+            "transform": "scale(1)",
+            "transition": "transform 150ms ease"
+          },
+          "children": [
+            ".dialog__body",
+            ".dialog__close",
+            ".dialog__footer",
+            ".dialog__header",
+            ".dialog__title"
+          ]
+        },
+        {
+          "selector": ".dialog__body",
+          "tag": "span",
+          "styles": {
+            "flex": "1 1 0",
+            "min-height": "100px",
+            "max-height": "600px",
+            "padding": "24px",
+            "overflow-y": "auto",
+            "color": "#525969"
+          },
+          "parent": ".classes"
+        },
+        {
+          "selector": ".dialog__close",
+          "tag": "span",
+          "styles": {
+            "color": "#6B7280",
+            "cursor": "pointer",
+            "transition": "color 150ms ease"
+          },
+          "parent": ".headerClasses",
+          "states": {
+            "hover": {
+              "color": "#373F4E",
+              "opacity": "0.8"
+            },
+            "focus": {
+              "background-color": "#F7F8FA",
+              "color": "#373F4E",
+              "border": "1px solid #BFC6D4"
+            }
+          }
+        },
+        {
+          "selector": ".dialog__footer",
+          "tag": "span",
+          "styles": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "justify-content": "flex-start",
+            "gap": "12px",
+            "padding": "16px 24px",
+            "border-top": "1px solid #BFC6D4",
+            "background-color": "#F7F8FA"
+          },
+          "parent": ".dialog"
+        },
+        {
+          "selector": ".dialog__header",
+          "tag": "span",
+          "styles": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "padding": "16px 24px",
+            "border-bottom": "1px solid #BFC6D4",
+            "background-color": "#F7F8FA"
+          },
+          "parent": ".dialog"
+        },
+        {
+          "selector": ".dialog__title",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#373F4E"
+          },
+          "parent": ".headerClasses"
+        },
+        {
+          "selector": ".classes",
+          "tag": "div",
+          "styles": {}
+        },
+        {
+          "selector": ".headerClasses",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    },
+    "cp-light-primary": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".dialog-overlay": {
+            "position": "fixed",
+            "inset": "0",
+            "background-color": "rgba(0, 0, 0, 0.5)",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "z-index": "300",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "all 150ms ease"
+          },
+          ".dialog": {
+            "display": "flex",
+            "flex-direction": "column",
+            "background-color": "#F7F8FA",
+            "border-radius": "0.75rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "min-width": "600px",
+            "max-width": "700px",
+            "width": "90%",
+            "max-height": "90vh",
+            "overflow": "hidden",
+            "transform": "scale(1)",
+            "transition": "transform 150ms ease"
+          },
+          ".dialog__body": {
+            "flex": "1 1 0",
+            "min-height": "100px",
+            "max-height": "600px",
+            "padding": "24px",
+            "overflow-y": "auto",
+            "color": "#525969"
+          },
+          ".dialog__close": {
+            "color": "#6B7280",
+            "cursor": "pointer",
+            "transition": "color 150ms ease"
+          },
+          ".dialog__footer": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "justify-content": "flex-start",
+            "gap": "12px",
+            "padding": "16px 24px",
+            "border-top": "1px solid #BFC6D4",
+            "background-color": "#F7F8FA"
+          },
+          ".dialog__header": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "padding": "16px 24px",
+            "border-bottom": "1px solid #BFC6D4",
+            "background-color": "#4C92D9",
+            "border-bottom-color": "#4C92D9"
+          },
+          ".dialog__title": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#373F4E"
+          },
+          ".classes": {},
+          ".headerClasses": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".dialog-overlay",
+          "tag": "div",
+          "styles": {
+            "position": "fixed",
+            "inset": "0",
+            "background-color": "rgba(0, 0, 0, 0.5)",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "z-index": "300",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "all 150ms ease"
+          },
+          "children": [
+            ".dialog"
+          ]
+        },
+        {
+          "selector": ".dialog",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "background-color": "#F7F8FA",
+            "border-radius": "0.75rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "min-width": "600px",
+            "max-width": "700px",
+            "width": "90%",
+            "max-height": "90vh",
+            "overflow": "hidden",
+            "transform": "scale(1)",
+            "transition": "transform 150ms ease"
+          },
+          "children": [
+            ".dialog__body",
+            ".dialog__close",
+            ".dialog__footer",
+            ".dialog__header",
+            ".dialog__title"
+          ]
+        },
+        {
+          "selector": ".dialog__body",
+          "tag": "span",
+          "styles": {
+            "flex": "1 1 0",
+            "min-height": "100px",
+            "max-height": "600px",
+            "padding": "24px",
+            "overflow-y": "auto",
+            "color": "#525969"
+          },
+          "parent": ".classes"
+        },
+        {
+          "selector": ".dialog__close",
+          "tag": "span",
+          "styles": {
+            "color": "#6B7280",
+            "cursor": "pointer",
+            "transition": "color 150ms ease"
+          },
+          "parent": ".headerClasses",
+          "states": {
+            "hover": {
+              "color": "#373F4E",
+              "opacity": "0.8"
+            },
+            "focus": {
+              "background-color": "#F7F8FA",
+              "color": "#373F4E",
+              "border": "1px solid #BFC6D4"
+            }
+          }
+        },
+        {
+          "selector": ".dialog__footer",
+          "tag": "span",
+          "styles": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "justify-content": "flex-start",
+            "gap": "12px",
+            "padding": "16px 24px",
+            "border-top": "1px solid #BFC6D4",
+            "background-color": "#F7F8FA"
+          },
+          "parent": ".dialog"
+        },
+        {
+          "selector": ".dialog__header",
+          "tag": "span",
+          "styles": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "padding": "16px 24px",
+            "border-bottom": "1px solid #BFC6D4",
+            "background-color": "#4C92D9",
+            "border-bottom-color": "#4C92D9"
+          },
+          "parent": ".dialog"
+        },
+        {
+          "selector": ".dialog__title",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#373F4E"
+          },
+          "parent": ".headerClasses"
+        },
+        {
+          "selector": ".classes",
+          "tag": "div",
+          "styles": {}
+        },
+        {
+          "selector": ".headerClasses",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    },
+    "cp-dark-default": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".dialog-overlay": {
+            "position": "fixed",
+            "inset": "0",
+            "background-color": "rgba(0, 0, 0, 0.5)",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "z-index": "300",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "all 150ms ease"
+          },
+          ".dialog": {
+            "display": "flex",
+            "flex-direction": "column",
+            "background-color": "#37424D",
+            "border-radius": "0.75rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "min-width": "600px",
+            "max-width": "700px",
+            "width": "90%",
+            "max-height": "90vh",
+            "overflow": "hidden",
+            "transform": "scale(1)",
+            "transition": "transform 150ms ease"
+          },
+          ".dialog__body": {
+            "flex": "1 1 0",
+            "min-height": "100px",
+            "max-height": "600px",
+            "padding": "24px",
+            "overflow-y": "auto",
+            "color": "#B6B6C4"
+          },
+          ".dialog__close": {
+            "color": "#BBBBC6",
+            "cursor": "pointer",
+            "transition": "color 150ms ease"
+          },
+          ".dialog__footer": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "justify-content": "flex-start",
+            "gap": "12px",
+            "padding": "16px 24px",
+            "border-top": "1px solid #5F6871",
+            "background-color": "#37424D"
+          },
+          ".dialog__header": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "padding": "16px 24px",
+            "border-bottom": "1px solid #5F6871",
+            "background-color": "#37424D"
+          },
+          ".dialog__title": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#E9ECEF"
+          },
+          ".classes": {},
+          ".headerClasses": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".dialog-overlay",
+          "tag": "div",
+          "styles": {
+            "position": "fixed",
+            "inset": "0",
+            "background-color": "rgba(0, 0, 0, 0.5)",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "z-index": "300",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "all 150ms ease"
+          },
+          "children": [
+            ".dialog"
+          ]
+        },
+        {
+          "selector": ".dialog",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "background-color": "#37424D",
+            "border-radius": "0.75rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "min-width": "600px",
+            "max-width": "700px",
+            "width": "90%",
+            "max-height": "90vh",
+            "overflow": "hidden",
+            "transform": "scale(1)",
+            "transition": "transform 150ms ease"
+          },
+          "children": [
+            ".dialog__body",
+            ".dialog__close",
+            ".dialog__footer",
+            ".dialog__header",
+            ".dialog__title"
+          ]
+        },
+        {
+          "selector": ".dialog__body",
+          "tag": "span",
+          "styles": {
+            "flex": "1 1 0",
+            "min-height": "100px",
+            "max-height": "600px",
+            "padding": "24px",
+            "overflow-y": "auto",
+            "color": "#B6B6C4"
+          },
+          "parent": ".classes"
+        },
+        {
+          "selector": ".dialog__close",
+          "tag": "span",
+          "styles": {
+            "color": "#BBBBC6",
+            "cursor": "pointer",
+            "transition": "color 150ms ease"
+          },
+          "parent": ".headerClasses",
+          "states": {
+            "hover": {
+              "color": "#E9ECEF",
+              "opacity": "0.8"
+            },
+            "focus": {
+              "background-color": "#37424D",
+              "color": "#E9ECEF",
+              "border": "1px solid #5F6871"
+            }
+          }
+        },
+        {
+          "selector": ".dialog__footer",
+          "tag": "span",
+          "styles": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "justify-content": "flex-start",
+            "gap": "12px",
+            "padding": "16px 24px",
+            "border-top": "1px solid #5F6871",
+            "background-color": "#37424D"
+          },
+          "parent": ".dialog"
+        },
+        {
+          "selector": ".dialog__header",
+          "tag": "span",
+          "styles": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "padding": "16px 24px",
+            "border-bottom": "1px solid #5F6871",
+            "background-color": "#37424D"
+          },
+          "parent": ".dialog"
+        },
+        {
+          "selector": ".dialog__title",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#E9ECEF"
+          },
+          "parent": ".headerClasses"
+        },
+        {
+          "selector": ".classes",
+          "tag": "div",
+          "styles": {}
+        },
+        {
+          "selector": ".headerClasses",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    },
+    "cp-dark-primary": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".dialog-overlay": {
+            "position": "fixed",
+            "inset": "0",
+            "background-color": "rgba(0, 0, 0, 0.5)",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "z-index": "300",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "all 150ms ease"
+          },
+          ".dialog": {
+            "display": "flex",
+            "flex-direction": "column",
+            "background-color": "#37424D",
+            "border-radius": "0.75rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "min-width": "600px",
+            "max-width": "700px",
+            "width": "90%",
+            "max-height": "90vh",
+            "overflow": "hidden",
+            "transform": "scale(1)",
+            "transition": "transform 150ms ease"
+          },
+          ".dialog__body": {
+            "flex": "1 1 0",
+            "min-height": "100px",
+            "max-height": "600px",
+            "padding": "24px",
+            "overflow-y": "auto",
+            "color": "#B6B6C4"
+          },
+          ".dialog__close": {
+            "color": "#BBBBC6",
+            "cursor": "pointer",
+            "transition": "color 150ms ease"
+          },
+          ".dialog__footer": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "justify-content": "flex-start",
+            "gap": "12px",
+            "padding": "16px 24px",
+            "border-top": "1px solid #5F6871",
+            "background-color": "#37424D"
+          },
+          ".dialog__header": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "padding": "16px 24px",
+            "border-bottom": "1px solid #5F6871",
+            "background-color": "#59ACFF",
+            "border-bottom-color": "#59ACFF"
+          },
+          ".dialog__title": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#E9ECEF"
+          },
+          ".classes": {},
+          ".headerClasses": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".dialog-overlay",
+          "tag": "div",
+          "styles": {
+            "position": "fixed",
+            "inset": "0",
+            "background-color": "rgba(0, 0, 0, 0.5)",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "z-index": "300",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "all 150ms ease"
+          },
+          "children": [
+            ".dialog"
+          ]
+        },
+        {
+          "selector": ".dialog",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "background-color": "#37424D",
+            "border-radius": "0.75rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "min-width": "600px",
+            "max-width": "700px",
+            "width": "90%",
+            "max-height": "90vh",
+            "overflow": "hidden",
+            "transform": "scale(1)",
+            "transition": "transform 150ms ease"
+          },
+          "children": [
+            ".dialog__body",
+            ".dialog__close",
+            ".dialog__footer",
+            ".dialog__header",
+            ".dialog__title"
+          ]
+        },
+        {
+          "selector": ".dialog__body",
+          "tag": "span",
+          "styles": {
+            "flex": "1 1 0",
+            "min-height": "100px",
+            "max-height": "600px",
+            "padding": "24px",
+            "overflow-y": "auto",
+            "color": "#B6B6C4"
+          },
+          "parent": ".classes"
+        },
+        {
+          "selector": ".dialog__close",
+          "tag": "span",
+          "styles": {
+            "color": "#BBBBC6",
+            "cursor": "pointer",
+            "transition": "color 150ms ease"
+          },
+          "parent": ".headerClasses",
+          "states": {
+            "hover": {
+              "color": "#E9ECEF",
+              "opacity": "0.8"
+            },
+            "focus": {
+              "background-color": "#37424D",
+              "color": "#E9ECEF",
+              "border": "1px solid #5F6871"
+            }
+          }
+        },
+        {
+          "selector": ".dialog__footer",
+          "tag": "span",
+          "styles": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "justify-content": "flex-start",
+            "gap": "12px",
+            "padding": "16px 24px",
+            "border-top": "1px solid #5F6871",
+            "background-color": "#37424D"
+          },
+          "parent": ".dialog"
+        },
+        {
+          "selector": ".dialog__header",
+          "tag": "span",
+          "styles": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "padding": "16px 24px",
+            "border-bottom": "1px solid #5F6871",
+            "background-color": "#59ACFF",
+            "border-bottom-color": "#59ACFF"
+          },
+          "parent": ".dialog"
+        },
+        {
+          "selector": ".dialog__title",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#E9ECEF"
+          },
+          "parent": ".headerClasses"
+        },
+        {
+          "selector": ".classes",
+          "tag": "div",
+          "styles": {}
+        },
+        {
+          "selector": ".headerClasses",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    },
+    "vp-light-default": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".dialog-overlay": {
+            "position": "fixed",
+            "inset": "0",
+            "background-color": "rgba(0, 0, 0, 0.5)",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "z-index": "300",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "all 150ms ease"
+          },
+          ".dialog": {
+            "display": "flex",
+            "flex-direction": "column",
+            "background-color": "#F7F8FA",
+            "border-radius": "0.75rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "min-width": "600px",
+            "max-width": "700px",
+            "width": "90%",
+            "max-height": "90vh",
+            "overflow": "hidden",
+            "transform": "scale(1)",
+            "transition": "transform 150ms ease"
+          },
+          ".dialog__body": {
+            "flex": "1 1 0",
+            "min-height": "100px",
+            "max-height": "600px",
+            "padding": "24px",
+            "overflow-y": "auto",
+            "color": "#525969"
+          },
+          ".dialog__close": {
+            "color": "#6B7280",
+            "cursor": "pointer",
+            "transition": "color 150ms ease"
+          },
+          ".dialog__footer": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "justify-content": "flex-start",
+            "gap": "12px",
+            "padding": "16px 24px",
+            "border-top": "1px solid #BFC6D4",
+            "background-color": "#F7F8FA"
+          },
+          ".dialog__header": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "padding": "16px 24px",
+            "border-bottom": "1px solid #BFC6D4",
+            "background-color": "#F7F8FA"
+          },
+          ".dialog__title": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#373F4E"
+          },
+          ".classes": {},
+          ".headerClasses": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".dialog-overlay",
+          "tag": "div",
+          "styles": {
+            "position": "fixed",
+            "inset": "0",
+            "background-color": "rgba(0, 0, 0, 0.5)",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "z-index": "300",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "all 150ms ease"
+          },
+          "children": [
+            ".dialog"
+          ]
+        },
+        {
+          "selector": ".dialog",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "background-color": "#F7F8FA",
+            "border-radius": "0.75rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "min-width": "600px",
+            "max-width": "700px",
+            "width": "90%",
+            "max-height": "90vh",
+            "overflow": "hidden",
+            "transform": "scale(1)",
+            "transition": "transform 150ms ease"
+          },
+          "children": [
+            ".dialog__body",
+            ".dialog__close",
+            ".dialog__footer",
+            ".dialog__header",
+            ".dialog__title"
+          ]
+        },
+        {
+          "selector": ".dialog__body",
+          "tag": "span",
+          "styles": {
+            "flex": "1 1 0",
+            "min-height": "100px",
+            "max-height": "600px",
+            "padding": "24px",
+            "overflow-y": "auto",
+            "color": "#525969"
+          },
+          "parent": ".classes"
+        },
+        {
+          "selector": ".dialog__close",
+          "tag": "span",
+          "styles": {
+            "color": "#6B7280",
+            "cursor": "pointer",
+            "transition": "color 150ms ease"
+          },
+          "parent": ".headerClasses",
+          "states": {
+            "hover": {
+              "color": "#373F4E",
+              "opacity": "0.8"
+            },
+            "focus": {
+              "background-color": "#F7F8FA",
+              "color": "#373F4E",
+              "border": "1px solid #BFC6D4"
+            }
+          }
+        },
+        {
+          "selector": ".dialog__footer",
+          "tag": "span",
+          "styles": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "justify-content": "flex-start",
+            "gap": "12px",
+            "padding": "16px 24px",
+            "border-top": "1px solid #BFC6D4",
+            "background-color": "#F7F8FA"
+          },
+          "parent": ".dialog"
+        },
+        {
+          "selector": ".dialog__header",
+          "tag": "span",
+          "styles": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "padding": "16px 24px",
+            "border-bottom": "1px solid #BFC6D4",
+            "background-color": "#F7F8FA"
+          },
+          "parent": ".dialog"
+        },
+        {
+          "selector": ".dialog__title",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#373F4E"
+          },
+          "parent": ".headerClasses"
+        },
+        {
+          "selector": ".classes",
+          "tag": "div",
+          "styles": {}
+        },
+        {
+          "selector": ".headerClasses",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    },
+    "vp-light-primary": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".dialog-overlay": {
+            "position": "fixed",
+            "inset": "0",
+            "background-color": "rgba(0, 0, 0, 0.5)",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "z-index": "300",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "all 150ms ease"
+          },
+          ".dialog": {
+            "display": "flex",
+            "flex-direction": "column",
+            "background-color": "#F7F8FA",
+            "border-radius": "0.75rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "min-width": "600px",
+            "max-width": "700px",
+            "width": "90%",
+            "max-height": "90vh",
+            "overflow": "hidden",
+            "transform": "scale(1)",
+            "transition": "transform 150ms ease"
+          },
+          ".dialog__body": {
+            "flex": "1 1 0",
+            "min-height": "100px",
+            "max-height": "600px",
+            "padding": "24px",
+            "overflow-y": "auto",
+            "color": "#525969"
+          },
+          ".dialog__close": {
+            "color": "#6B7280",
+            "cursor": "pointer",
+            "transition": "color 150ms ease"
+          },
+          ".dialog__footer": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "justify-content": "flex-start",
+            "gap": "12px",
+            "padding": "16px 24px",
+            "border-top": "1px solid #BFC6D4",
+            "background-color": "#F7F8FA"
+          },
+          ".dialog__header": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "padding": "16px 24px",
+            "border-bottom": "1px solid #BFC6D4",
+            "background-color": "#4C92D9",
+            "border-bottom-color": "#4C92D9"
+          },
+          ".dialog__title": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#373F4E"
+          },
+          ".classes": {},
+          ".headerClasses": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".dialog-overlay",
+          "tag": "div",
+          "styles": {
+            "position": "fixed",
+            "inset": "0",
+            "background-color": "rgba(0, 0, 0, 0.5)",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "z-index": "300",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "all 150ms ease"
+          },
+          "children": [
+            ".dialog"
+          ]
+        },
+        {
+          "selector": ".dialog",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "background-color": "#F7F8FA",
+            "border-radius": "0.75rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "min-width": "600px",
+            "max-width": "700px",
+            "width": "90%",
+            "max-height": "90vh",
+            "overflow": "hidden",
+            "transform": "scale(1)",
+            "transition": "transform 150ms ease"
+          },
+          "children": [
+            ".dialog__body",
+            ".dialog__close",
+            ".dialog__footer",
+            ".dialog__header",
+            ".dialog__title"
+          ]
+        },
+        {
+          "selector": ".dialog__body",
+          "tag": "span",
+          "styles": {
+            "flex": "1 1 0",
+            "min-height": "100px",
+            "max-height": "600px",
+            "padding": "24px",
+            "overflow-y": "auto",
+            "color": "#525969"
+          },
+          "parent": ".classes"
+        },
+        {
+          "selector": ".dialog__close",
+          "tag": "span",
+          "styles": {
+            "color": "#6B7280",
+            "cursor": "pointer",
+            "transition": "color 150ms ease"
+          },
+          "parent": ".headerClasses",
+          "states": {
+            "hover": {
+              "color": "#373F4E",
+              "opacity": "0.8"
+            },
+            "focus": {
+              "background-color": "#F7F8FA",
+              "color": "#373F4E",
+              "border": "1px solid #BFC6D4"
+            }
+          }
+        },
+        {
+          "selector": ".dialog__footer",
+          "tag": "span",
+          "styles": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "justify-content": "flex-start",
+            "gap": "12px",
+            "padding": "16px 24px",
+            "border-top": "1px solid #BFC6D4",
+            "background-color": "#F7F8FA"
+          },
+          "parent": ".dialog"
+        },
+        {
+          "selector": ".dialog__header",
+          "tag": "span",
+          "styles": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "padding": "16px 24px",
+            "border-bottom": "1px solid #BFC6D4",
+            "background-color": "#4C92D9",
+            "border-bottom-color": "#4C92D9"
+          },
+          "parent": ".dialog"
+        },
+        {
+          "selector": ".dialog__title",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#373F4E"
+          },
+          "parent": ".headerClasses"
+        },
+        {
+          "selector": ".classes",
+          "tag": "div",
+          "styles": {}
+        },
+        {
+          "selector": ".headerClasses",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    },
+    "vp-dark-default": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".dialog-overlay": {
+            "position": "fixed",
+            "inset": "0",
+            "background-color": "rgba(0, 0, 0, 0.5)",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "z-index": "300",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "all 150ms ease"
+          },
+          ".dialog": {
+            "display": "flex",
+            "flex-direction": "column",
+            "background-color": "#1F2124",
+            "border-radius": "0.75rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "min-width": "600px",
+            "max-width": "700px",
+            "width": "90%",
+            "max-height": "90vh",
+            "overflow": "hidden",
+            "transform": "scale(1)",
+            "transition": "transform 150ms ease"
+          },
+          ".dialog__body": {
+            "flex": "1 1 0",
+            "min-height": "100px",
+            "max-height": "600px",
+            "padding": "24px",
+            "overflow-y": "auto",
+            "color": "#B5B5BC"
+          },
+          ".dialog__close": {
+            "color": "#B5B5BC",
+            "cursor": "pointer",
+            "transition": "color 150ms ease"
+          },
+          ".dialog__footer": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "justify-content": "flex-start",
+            "gap": "12px",
+            "padding": "16px 24px",
+            "border-top": "1px solid #2A2D32",
+            "background-color": "#1F2124"
+          },
+          ".dialog__header": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "padding": "16px 24px",
+            "border-bottom": "1px solid #2A2D32",
+            "background-color": "#1F2124"
+          },
+          ".dialog__title": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#FAFAFA"
+          },
+          ".classes": {},
+          ".headerClasses": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".dialog-overlay",
+          "tag": "div",
+          "styles": {
+            "position": "fixed",
+            "inset": "0",
+            "background-color": "rgba(0, 0, 0, 0.5)",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "z-index": "300",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "all 150ms ease"
+          },
+          "children": [
+            ".dialog"
+          ]
+        },
+        {
+          "selector": ".dialog",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "background-color": "#1F2124",
+            "border-radius": "0.75rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "min-width": "600px",
+            "max-width": "700px",
+            "width": "90%",
+            "max-height": "90vh",
+            "overflow": "hidden",
+            "transform": "scale(1)",
+            "transition": "transform 150ms ease"
+          },
+          "children": [
+            ".dialog__body",
+            ".dialog__close",
+            ".dialog__footer",
+            ".dialog__header",
+            ".dialog__title"
+          ]
+        },
+        {
+          "selector": ".dialog__body",
+          "tag": "span",
+          "styles": {
+            "flex": "1 1 0",
+            "min-height": "100px",
+            "max-height": "600px",
+            "padding": "24px",
+            "overflow-y": "auto",
+            "color": "#B5B5BC"
+          },
+          "parent": ".classes"
+        },
+        {
+          "selector": ".dialog__close",
+          "tag": "span",
+          "styles": {
+            "color": "#B5B5BC",
+            "cursor": "pointer",
+            "transition": "color 150ms ease"
+          },
+          "parent": ".headerClasses",
+          "states": {
+            "hover": {
+              "color": "#FAFAFA",
+              "opacity": "0.8"
+            },
+            "focus": {
+              "background-color": "#1F2124",
+              "color": "#FAFAFA",
+              "border": "1px solid #2A2D32"
+            }
+          }
+        },
+        {
+          "selector": ".dialog__footer",
+          "tag": "span",
+          "styles": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "justify-content": "flex-start",
+            "gap": "12px",
+            "padding": "16px 24px",
+            "border-top": "1px solid #2A2D32",
+            "background-color": "#1F2124"
+          },
+          "parent": ".dialog"
+        },
+        {
+          "selector": ".dialog__header",
+          "tag": "span",
+          "styles": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "padding": "16px 24px",
+            "border-bottom": "1px solid #2A2D32",
+            "background-color": "#1F2124"
+          },
+          "parent": ".dialog"
+        },
+        {
+          "selector": ".dialog__title",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#FAFAFA"
+          },
+          "parent": ".headerClasses"
+        },
+        {
+          "selector": ".classes",
+          "tag": "div",
+          "styles": {}
+        },
+        {
+          "selector": ".headerClasses",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    },
+    "vp-dark-primary": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".dialog-overlay": {
+            "position": "fixed",
+            "inset": "0",
+            "background-color": "rgba(0, 0, 0, 0.5)",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "z-index": "300",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "all 150ms ease"
+          },
+          ".dialog": {
+            "display": "flex",
+            "flex-direction": "column",
+            "background-color": "#1F2124",
+            "border-radius": "0.75rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "min-width": "600px",
+            "max-width": "700px",
+            "width": "90%",
+            "max-height": "90vh",
+            "overflow": "hidden",
+            "transform": "scale(1)",
+            "transition": "transform 150ms ease"
+          },
+          ".dialog__body": {
+            "flex": "1 1 0",
+            "min-height": "100px",
+            "max-height": "600px",
+            "padding": "24px",
+            "overflow-y": "auto",
+            "color": "#B5B5BC"
+          },
+          ".dialog__close": {
+            "color": "#B5B5BC",
+            "cursor": "pointer",
+            "transition": "color 150ms ease"
+          },
+          ".dialog__footer": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "justify-content": "flex-start",
+            "gap": "12px",
+            "padding": "16px 24px",
+            "border-top": "1px solid #2A2D32",
+            "background-color": "#1F2124"
+          },
+          ".dialog__header": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "padding": "16px 24px",
+            "border-bottom": "1px solid #2A2D32",
+            "background-color": "#59ACFF",
+            "border-bottom-color": "#59ACFF"
+          },
+          ".dialog__title": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#FAFAFA"
+          },
+          ".classes": {},
+          ".headerClasses": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".dialog-overlay",
+          "tag": "div",
+          "styles": {
+            "position": "fixed",
+            "inset": "0",
+            "background-color": "rgba(0, 0, 0, 0.5)",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "z-index": "300",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "all 150ms ease"
+          },
+          "children": [
+            ".dialog"
+          ]
+        },
+        {
+          "selector": ".dialog",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "background-color": "#1F2124",
+            "border-radius": "0.75rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "min-width": "600px",
+            "max-width": "700px",
+            "width": "90%",
+            "max-height": "90vh",
+            "overflow": "hidden",
+            "transform": "scale(1)",
+            "transition": "transform 150ms ease"
+          },
+          "children": [
+            ".dialog__body",
+            ".dialog__close",
+            ".dialog__footer",
+            ".dialog__header",
+            ".dialog__title"
+          ]
+        },
+        {
+          "selector": ".dialog__body",
+          "tag": "span",
+          "styles": {
+            "flex": "1 1 0",
+            "min-height": "100px",
+            "max-height": "600px",
+            "padding": "24px",
+            "overflow-y": "auto",
+            "color": "#B5B5BC"
+          },
+          "parent": ".classes"
+        },
+        {
+          "selector": ".dialog__close",
+          "tag": "span",
+          "styles": {
+            "color": "#B5B5BC",
+            "cursor": "pointer",
+            "transition": "color 150ms ease"
+          },
+          "parent": ".headerClasses",
+          "states": {
+            "hover": {
+              "color": "#FAFAFA",
+              "opacity": "0.8"
+            },
+            "focus": {
+              "background-color": "#1F2124",
+              "color": "#FAFAFA",
+              "border": "1px solid #2A2D32"
+            }
+          }
+        },
+        {
+          "selector": ".dialog__footer",
+          "tag": "span",
+          "styles": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "justify-content": "flex-start",
+            "gap": "12px",
+            "padding": "16px 24px",
+            "border-top": "1px solid #2A2D32",
+            "background-color": "#1F2124"
+          },
+          "parent": ".dialog"
+        },
+        {
+          "selector": ".dialog__header",
+          "tag": "span",
+          "styles": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "padding": "16px 24px",
+            "border-bottom": "1px solid #2A2D32",
+            "background-color": "#59ACFF",
+            "border-bottom-color": "#59ACFF"
+          },
+          "parent": ".dialog"
+        },
+        {
+          "selector": ".dialog__title",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#FAFAFA"
+          },
+          "parent": ".headerClasses"
+        },
+        {
+          "selector": ".classes",
+          "tag": "div",
+          "styles": {}
+        },
+        {
+          "selector": ".headerClasses",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    },
+    "ppm-light-default": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".dialog-overlay": {
+            "position": "fixed",
+            "inset": "0",
+            "background-color": "rgba(0, 0, 0, 0.5)",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "z-index": "300",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "all 150ms ease"
+          },
+          ".dialog": {
+            "display": "flex",
+            "flex-direction": "column",
+            "background-color": "#F7F8FA",
+            "border-radius": "0.75rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "min-width": "600px",
+            "max-width": "700px",
+            "width": "90%",
+            "max-height": "90vh",
+            "overflow": "hidden",
+            "transform": "scale(1)",
+            "transition": "transform 150ms ease"
+          },
+          ".dialog__body": {
+            "flex": "1 1 0",
+            "min-height": "100px",
+            "max-height": "600px",
+            "padding": "24px",
+            "overflow-y": "auto",
+            "color": "#525969"
+          },
+          ".dialog__close": {
+            "color": "#6B7280",
+            "cursor": "pointer",
+            "transition": "color 150ms ease"
+          },
+          ".dialog__footer": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "justify-content": "flex-start",
+            "gap": "12px",
+            "padding": "16px 24px",
+            "border-top": "1px solid #BFC6D4",
+            "background-color": "#F7F8FA"
+          },
+          ".dialog__header": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "padding": "16px 24px",
+            "border-bottom": "1px solid #BFC6D4",
+            "background-color": "#F7F8FA"
+          },
+          ".dialog__title": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#373F4E"
+          },
+          ".classes": {},
+          ".headerClasses": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".dialog-overlay",
+          "tag": "div",
+          "styles": {
+            "position": "fixed",
+            "inset": "0",
+            "background-color": "rgba(0, 0, 0, 0.5)",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "z-index": "300",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "all 150ms ease"
+          },
+          "children": [
+            ".dialog"
+          ]
+        },
+        {
+          "selector": ".dialog",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "background-color": "#F7F8FA",
+            "border-radius": "0.75rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "min-width": "600px",
+            "max-width": "700px",
+            "width": "90%",
+            "max-height": "90vh",
+            "overflow": "hidden",
+            "transform": "scale(1)",
+            "transition": "transform 150ms ease"
+          },
+          "children": [
+            ".dialog__body",
+            ".dialog__close",
+            ".dialog__footer",
+            ".dialog__header",
+            ".dialog__title"
+          ]
+        },
+        {
+          "selector": ".dialog__body",
+          "tag": "span",
+          "styles": {
+            "flex": "1 1 0",
+            "min-height": "100px",
+            "max-height": "600px",
+            "padding": "24px",
+            "overflow-y": "auto",
+            "color": "#525969"
+          },
+          "parent": ".classes"
+        },
+        {
+          "selector": ".dialog__close",
+          "tag": "span",
+          "styles": {
+            "color": "#6B7280",
+            "cursor": "pointer",
+            "transition": "color 150ms ease"
+          },
+          "parent": ".headerClasses",
+          "states": {
+            "hover": {
+              "color": "#373F4E",
+              "opacity": "0.8"
+            },
+            "focus": {
+              "background-color": "#F7F8FA",
+              "color": "#373F4E",
+              "border": "1px solid #BFC6D4"
+            }
+          }
+        },
+        {
+          "selector": ".dialog__footer",
+          "tag": "span",
+          "styles": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "justify-content": "flex-start",
+            "gap": "12px",
+            "padding": "16px 24px",
+            "border-top": "1px solid #BFC6D4",
+            "background-color": "#F7F8FA"
+          },
+          "parent": ".dialog"
+        },
+        {
+          "selector": ".dialog__header",
+          "tag": "span",
+          "styles": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "padding": "16px 24px",
+            "border-bottom": "1px solid #BFC6D4",
+            "background-color": "#F7F8FA"
+          },
+          "parent": ".dialog"
+        },
+        {
+          "selector": ".dialog__title",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#373F4E"
+          },
+          "parent": ".headerClasses"
+        },
+        {
+          "selector": ".classes",
+          "tag": "div",
+          "styles": {}
+        },
+        {
+          "selector": ".headerClasses",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    },
+    "ppm-light-primary": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".dialog-overlay": {
+            "position": "fixed",
+            "inset": "0",
+            "background-color": "rgba(0, 0, 0, 0.5)",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "z-index": "300",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "all 150ms ease"
+          },
+          ".dialog": {
+            "display": "flex",
+            "flex-direction": "column",
+            "background-color": "#F7F8FA",
+            "border-radius": "0.75rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "min-width": "600px",
+            "max-width": "700px",
+            "width": "90%",
+            "max-height": "90vh",
+            "overflow": "hidden",
+            "transform": "scale(1)",
+            "transition": "transform 150ms ease"
+          },
+          ".dialog__body": {
+            "flex": "1 1 0",
+            "min-height": "100px",
+            "max-height": "600px",
+            "padding": "24px",
+            "overflow-y": "auto",
+            "color": "#525969"
+          },
+          ".dialog__close": {
+            "color": "#6B7280",
+            "cursor": "pointer",
+            "transition": "color 150ms ease"
+          },
+          ".dialog__footer": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "justify-content": "flex-start",
+            "gap": "12px",
+            "padding": "16px 24px",
+            "border-top": "1px solid #BFC6D4",
+            "background-color": "#F7F8FA"
+          },
+          ".dialog__header": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "padding": "16px 24px",
+            "border-bottom": "1px solid #BFC6D4",
+            "background-color": "#4C92D9",
+            "border-bottom-color": "#4C92D9"
+          },
+          ".dialog__title": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#373F4E"
+          },
+          ".classes": {},
+          ".headerClasses": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".dialog-overlay",
+          "tag": "div",
+          "styles": {
+            "position": "fixed",
+            "inset": "0",
+            "background-color": "rgba(0, 0, 0, 0.5)",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "z-index": "300",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "all 150ms ease"
+          },
+          "children": [
+            ".dialog"
+          ]
+        },
+        {
+          "selector": ".dialog",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "background-color": "#F7F8FA",
+            "border-radius": "0.75rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "min-width": "600px",
+            "max-width": "700px",
+            "width": "90%",
+            "max-height": "90vh",
+            "overflow": "hidden",
+            "transform": "scale(1)",
+            "transition": "transform 150ms ease"
+          },
+          "children": [
+            ".dialog__body",
+            ".dialog__close",
+            ".dialog__footer",
+            ".dialog__header",
+            ".dialog__title"
+          ]
+        },
+        {
+          "selector": ".dialog__body",
+          "tag": "span",
+          "styles": {
+            "flex": "1 1 0",
+            "min-height": "100px",
+            "max-height": "600px",
+            "padding": "24px",
+            "overflow-y": "auto",
+            "color": "#525969"
+          },
+          "parent": ".classes"
+        },
+        {
+          "selector": ".dialog__close",
+          "tag": "span",
+          "styles": {
+            "color": "#6B7280",
+            "cursor": "pointer",
+            "transition": "color 150ms ease"
+          },
+          "parent": ".headerClasses",
+          "states": {
+            "hover": {
+              "color": "#373F4E",
+              "opacity": "0.8"
+            },
+            "focus": {
+              "background-color": "#F7F8FA",
+              "color": "#373F4E",
+              "border": "1px solid #BFC6D4"
+            }
+          }
+        },
+        {
+          "selector": ".dialog__footer",
+          "tag": "span",
+          "styles": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "justify-content": "flex-start",
+            "gap": "12px",
+            "padding": "16px 24px",
+            "border-top": "1px solid #BFC6D4",
+            "background-color": "#F7F8FA"
+          },
+          "parent": ".dialog"
+        },
+        {
+          "selector": ".dialog__header",
+          "tag": "span",
+          "styles": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "padding": "16px 24px",
+            "border-bottom": "1px solid #BFC6D4",
+            "background-color": "#4C92D9",
+            "border-bottom-color": "#4C92D9"
+          },
+          "parent": ".dialog"
+        },
+        {
+          "selector": ".dialog__title",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#373F4E"
+          },
+          "parent": ".headerClasses"
+        },
+        {
+          "selector": ".classes",
+          "tag": "div",
+          "styles": {}
+        },
+        {
+          "selector": ".headerClasses",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    },
+    "ppm-dark-default": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".dialog-overlay": {
+            "position": "fixed",
+            "inset": "0",
+            "background-color": "rgba(0, 0, 0, 0.5)",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "z-index": "300",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "all 150ms ease"
+          },
+          ".dialog": {
+            "display": "flex",
+            "flex-direction": "column",
+            "background-color": "#1F2124",
+            "border-radius": "0.75rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "min-width": "600px",
+            "max-width": "700px",
+            "width": "90%",
+            "max-height": "90vh",
+            "overflow": "hidden",
+            "transform": "scale(1)",
+            "transition": "transform 150ms ease"
+          },
+          ".dialog__body": {
+            "flex": "1 1 0",
+            "min-height": "100px",
+            "max-height": "600px",
+            "padding": "24px",
+            "overflow-y": "auto",
+            "color": "#B5B5BC"
+          },
+          ".dialog__close": {
+            "color": "#B5B5BC",
+            "cursor": "pointer",
+            "transition": "color 150ms ease"
+          },
+          ".dialog__footer": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "justify-content": "flex-start",
+            "gap": "12px",
+            "padding": "16px 24px",
+            "border-top": "1px solid #2A2D32",
+            "background-color": "#1F2124"
+          },
+          ".dialog__header": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "padding": "16px 24px",
+            "border-bottom": "1px solid #2A2D32",
+            "background-color": "#1F2124"
+          },
+          ".dialog__title": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#FAFAFA"
+          },
+          ".classes": {},
+          ".headerClasses": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".dialog-overlay",
+          "tag": "div",
+          "styles": {
+            "position": "fixed",
+            "inset": "0",
+            "background-color": "rgba(0, 0, 0, 0.5)",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "z-index": "300",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "all 150ms ease"
+          },
+          "children": [
+            ".dialog"
+          ]
+        },
+        {
+          "selector": ".dialog",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "background-color": "#1F2124",
+            "border-radius": "0.75rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "min-width": "600px",
+            "max-width": "700px",
+            "width": "90%",
+            "max-height": "90vh",
+            "overflow": "hidden",
+            "transform": "scale(1)",
+            "transition": "transform 150ms ease"
+          },
+          "children": [
+            ".dialog__body",
+            ".dialog__close",
+            ".dialog__footer",
+            ".dialog__header",
+            ".dialog__title"
+          ]
+        },
+        {
+          "selector": ".dialog__body",
+          "tag": "span",
+          "styles": {
+            "flex": "1 1 0",
+            "min-height": "100px",
+            "max-height": "600px",
+            "padding": "24px",
+            "overflow-y": "auto",
+            "color": "#B5B5BC"
+          },
+          "parent": ".classes"
+        },
+        {
+          "selector": ".dialog__close",
+          "tag": "span",
+          "styles": {
+            "color": "#B5B5BC",
+            "cursor": "pointer",
+            "transition": "color 150ms ease"
+          },
+          "parent": ".headerClasses",
+          "states": {
+            "hover": {
+              "color": "#FAFAFA",
+              "opacity": "0.8"
+            },
+            "focus": {
+              "background-color": "#1F2124",
+              "color": "#FAFAFA",
+              "border": "1px solid #2A2D32"
+            }
+          }
+        },
+        {
+          "selector": ".dialog__footer",
+          "tag": "span",
+          "styles": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "justify-content": "flex-start",
+            "gap": "12px",
+            "padding": "16px 24px",
+            "border-top": "1px solid #2A2D32",
+            "background-color": "#1F2124"
+          },
+          "parent": ".dialog"
+        },
+        {
+          "selector": ".dialog__header",
+          "tag": "span",
+          "styles": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "padding": "16px 24px",
+            "border-bottom": "1px solid #2A2D32",
+            "background-color": "#1F2124"
+          },
+          "parent": ".dialog"
+        },
+        {
+          "selector": ".dialog__title",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#FAFAFA"
+          },
+          "parent": ".headerClasses"
+        },
+        {
+          "selector": ".classes",
+          "tag": "div",
+          "styles": {}
+        },
+        {
+          "selector": ".headerClasses",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    },
+    "ppm-dark-primary": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".dialog-overlay": {
+            "position": "fixed",
+            "inset": "0",
+            "background-color": "rgba(0, 0, 0, 0.5)",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "z-index": "300",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "all 150ms ease"
+          },
+          ".dialog": {
+            "display": "flex",
+            "flex-direction": "column",
+            "background-color": "#1F2124",
+            "border-radius": "0.75rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "min-width": "600px",
+            "max-width": "700px",
+            "width": "90%",
+            "max-height": "90vh",
+            "overflow": "hidden",
+            "transform": "scale(1)",
+            "transition": "transform 150ms ease"
+          },
+          ".dialog__body": {
+            "flex": "1 1 0",
+            "min-height": "100px",
+            "max-height": "600px",
+            "padding": "24px",
+            "overflow-y": "auto",
+            "color": "#B5B5BC"
+          },
+          ".dialog__close": {
+            "color": "#B5B5BC",
+            "cursor": "pointer",
+            "transition": "color 150ms ease"
+          },
+          ".dialog__footer": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "justify-content": "flex-start",
+            "gap": "12px",
+            "padding": "16px 24px",
+            "border-top": "1px solid #2A2D32",
+            "background-color": "#1F2124"
+          },
+          ".dialog__header": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "padding": "16px 24px",
+            "border-bottom": "1px solid #2A2D32",
+            "background-color": "#59ACFF",
+            "border-bottom-color": "#59ACFF"
+          },
+          ".dialog__title": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#FAFAFA"
+          },
+          ".classes": {},
+          ".headerClasses": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".dialog-overlay",
+          "tag": "div",
+          "styles": {
+            "position": "fixed",
+            "inset": "0",
+            "background-color": "rgba(0, 0, 0, 0.5)",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "z-index": "300",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "all 150ms ease"
+          },
+          "children": [
+            ".dialog"
+          ]
+        },
+        {
+          "selector": ".dialog",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "background-color": "#1F2124",
+            "border-radius": "0.75rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "min-width": "600px",
+            "max-width": "700px",
+            "width": "90%",
+            "max-height": "90vh",
+            "overflow": "hidden",
+            "transform": "scale(1)",
+            "transition": "transform 150ms ease"
+          },
+          "children": [
+            ".dialog__body",
+            ".dialog__close",
+            ".dialog__footer",
+            ".dialog__header",
+            ".dialog__title"
+          ]
+        },
+        {
+          "selector": ".dialog__body",
+          "tag": "span",
+          "styles": {
+            "flex": "1 1 0",
+            "min-height": "100px",
+            "max-height": "600px",
+            "padding": "24px",
+            "overflow-y": "auto",
+            "color": "#B5B5BC"
+          },
+          "parent": ".classes"
+        },
+        {
+          "selector": ".dialog__close",
+          "tag": "span",
+          "styles": {
+            "color": "#B5B5BC",
+            "cursor": "pointer",
+            "transition": "color 150ms ease"
+          },
+          "parent": ".headerClasses",
+          "states": {
+            "hover": {
+              "color": "#FAFAFA",
+              "opacity": "0.8"
+            },
+            "focus": {
+              "background-color": "#1F2124",
+              "color": "#FAFAFA",
+              "border": "1px solid #2A2D32"
+            }
+          }
+        },
+        {
+          "selector": ".dialog__footer",
+          "tag": "span",
+          "styles": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "justify-content": "flex-start",
+            "gap": "12px",
+            "padding": "16px 24px",
+            "border-top": "1px solid #2A2D32",
+            "background-color": "#1F2124"
+          },
+          "parent": ".dialog"
+        },
+        {
+          "selector": ".dialog__header",
+          "tag": "span",
+          "styles": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "padding": "16px 24px",
+            "border-bottom": "1px solid #2A2D32",
+            "background-color": "#59ACFF",
+            "border-bottom-color": "#59ACFF"
+          },
+          "parent": ".dialog"
+        },
+        {
+          "selector": ".dialog__title",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#FAFAFA"
+          },
+          "parent": ".headerClasses"
+        },
+        {
+          "selector": ".classes",
+          "tag": "div",
+          "styles": {}
+        },
+        {
+          "selector": ".headerClasses",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    },
+    "maconomy-light-default": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".dialog-overlay": {
+            "position": "fixed",
+            "inset": "0",
+            "background-color": "rgba(0, 0, 0, 0.5)",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "z-index": "300",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "all 150ms ease"
+          },
+          ".dialog": {
+            "display": "flex",
+            "flex-direction": "column",
+            "background-color": "#F7F8FA",
+            "border-radius": "0.75rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "min-width": "600px",
+            "max-width": "700px",
+            "width": "90%",
+            "max-height": "90vh",
+            "overflow": "hidden",
+            "transform": "scale(1)",
+            "transition": "transform 150ms ease"
+          },
+          ".dialog__body": {
+            "flex": "1 1 0",
+            "min-height": "100px",
+            "max-height": "600px",
+            "padding": "24px",
+            "overflow-y": "auto",
+            "color": "#525969"
+          },
+          ".dialog__close": {
+            "color": "#6B7280",
+            "cursor": "pointer",
+            "transition": "color 150ms ease"
+          },
+          ".dialog__footer": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "justify-content": "flex-start",
+            "gap": "12px",
+            "padding": "16px 24px",
+            "border-top": "1px solid #BFC6D4",
+            "background-color": "#F7F8FA"
+          },
+          ".dialog__header": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "padding": "16px 24px",
+            "border-bottom": "1px solid #BFC6D4",
+            "background-color": "#F7F8FA"
+          },
+          ".dialog__title": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#373F4E"
+          },
+          ".classes": {},
+          ".headerClasses": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".dialog-overlay",
+          "tag": "div",
+          "styles": {
+            "position": "fixed",
+            "inset": "0",
+            "background-color": "rgba(0, 0, 0, 0.5)",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "z-index": "300",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "all 150ms ease"
+          },
+          "children": [
+            ".dialog"
+          ]
+        },
+        {
+          "selector": ".dialog",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "background-color": "#F7F8FA",
+            "border-radius": "0.75rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "min-width": "600px",
+            "max-width": "700px",
+            "width": "90%",
+            "max-height": "90vh",
+            "overflow": "hidden",
+            "transform": "scale(1)",
+            "transition": "transform 150ms ease"
+          },
+          "children": [
+            ".dialog__body",
+            ".dialog__close",
+            ".dialog__footer",
+            ".dialog__header",
+            ".dialog__title"
+          ]
+        },
+        {
+          "selector": ".dialog__body",
+          "tag": "span",
+          "styles": {
+            "flex": "1 1 0",
+            "min-height": "100px",
+            "max-height": "600px",
+            "padding": "24px",
+            "overflow-y": "auto",
+            "color": "#525969"
+          },
+          "parent": ".classes"
+        },
+        {
+          "selector": ".dialog__close",
+          "tag": "span",
+          "styles": {
+            "color": "#6B7280",
+            "cursor": "pointer",
+            "transition": "color 150ms ease"
+          },
+          "parent": ".headerClasses",
+          "states": {
+            "hover": {
+              "color": "#373F4E",
+              "opacity": "0.8"
+            },
+            "focus": {
+              "background-color": "#F7F8FA",
+              "color": "#373F4E",
+              "border": "1px solid #BFC6D4"
+            }
+          }
+        },
+        {
+          "selector": ".dialog__footer",
+          "tag": "span",
+          "styles": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "justify-content": "flex-start",
+            "gap": "12px",
+            "padding": "16px 24px",
+            "border-top": "1px solid #BFC6D4",
+            "background-color": "#F7F8FA"
+          },
+          "parent": ".dialog"
+        },
+        {
+          "selector": ".dialog__header",
+          "tag": "span",
+          "styles": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "padding": "16px 24px",
+            "border-bottom": "1px solid #BFC6D4",
+            "background-color": "#F7F8FA"
+          },
+          "parent": ".dialog"
+        },
+        {
+          "selector": ".dialog__title",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#373F4E"
+          },
+          "parent": ".headerClasses"
+        },
+        {
+          "selector": ".classes",
+          "tag": "div",
+          "styles": {}
+        },
+        {
+          "selector": ".headerClasses",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    },
+    "maconomy-light-primary": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".dialog-overlay": {
+            "position": "fixed",
+            "inset": "0",
+            "background-color": "rgba(0, 0, 0, 0.5)",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "z-index": "300",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "all 150ms ease"
+          },
+          ".dialog": {
+            "display": "flex",
+            "flex-direction": "column",
+            "background-color": "#F7F8FA",
+            "border-radius": "0.75rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "min-width": "600px",
+            "max-width": "700px",
+            "width": "90%",
+            "max-height": "90vh",
+            "overflow": "hidden",
+            "transform": "scale(1)",
+            "transition": "transform 150ms ease"
+          },
+          ".dialog__body": {
+            "flex": "1 1 0",
+            "min-height": "100px",
+            "max-height": "600px",
+            "padding": "24px",
+            "overflow-y": "auto",
+            "color": "#525969"
+          },
+          ".dialog__close": {
+            "color": "#6B7280",
+            "cursor": "pointer",
+            "transition": "color 150ms ease"
+          },
+          ".dialog__footer": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "justify-content": "flex-start",
+            "gap": "12px",
+            "padding": "16px 24px",
+            "border-top": "1px solid #BFC6D4",
+            "background-color": "#F7F8FA"
+          },
+          ".dialog__header": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "padding": "16px 24px",
+            "border-bottom": "1px solid #BFC6D4",
+            "background-color": "#4C92D9",
+            "border-bottom-color": "#4C92D9"
+          },
+          ".dialog__title": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#373F4E"
+          },
+          ".classes": {},
+          ".headerClasses": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".dialog-overlay",
+          "tag": "div",
+          "styles": {
+            "position": "fixed",
+            "inset": "0",
+            "background-color": "rgba(0, 0, 0, 0.5)",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "z-index": "300",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "all 150ms ease"
+          },
+          "children": [
+            ".dialog"
+          ]
+        },
+        {
+          "selector": ".dialog",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "background-color": "#F7F8FA",
+            "border-radius": "0.75rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "min-width": "600px",
+            "max-width": "700px",
+            "width": "90%",
+            "max-height": "90vh",
+            "overflow": "hidden",
+            "transform": "scale(1)",
+            "transition": "transform 150ms ease"
+          },
+          "children": [
+            ".dialog__body",
+            ".dialog__close",
+            ".dialog__footer",
+            ".dialog__header",
+            ".dialog__title"
+          ]
+        },
+        {
+          "selector": ".dialog__body",
+          "tag": "span",
+          "styles": {
+            "flex": "1 1 0",
+            "min-height": "100px",
+            "max-height": "600px",
+            "padding": "24px",
+            "overflow-y": "auto",
+            "color": "#525969"
+          },
+          "parent": ".classes"
+        },
+        {
+          "selector": ".dialog__close",
+          "tag": "span",
+          "styles": {
+            "color": "#6B7280",
+            "cursor": "pointer",
+            "transition": "color 150ms ease"
+          },
+          "parent": ".headerClasses",
+          "states": {
+            "hover": {
+              "color": "#373F4E",
+              "opacity": "0.8"
+            },
+            "focus": {
+              "background-color": "#F7F8FA",
+              "color": "#373F4E",
+              "border": "1px solid #BFC6D4"
+            }
+          }
+        },
+        {
+          "selector": ".dialog__footer",
+          "tag": "span",
+          "styles": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "justify-content": "flex-start",
+            "gap": "12px",
+            "padding": "16px 24px",
+            "border-top": "1px solid #BFC6D4",
+            "background-color": "#F7F8FA"
+          },
+          "parent": ".dialog"
+        },
+        {
+          "selector": ".dialog__header",
+          "tag": "span",
+          "styles": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "padding": "16px 24px",
+            "border-bottom": "1px solid #BFC6D4",
+            "background-color": "#4C92D9",
+            "border-bottom-color": "#4C92D9"
+          },
+          "parent": ".dialog"
+        },
+        {
+          "selector": ".dialog__title",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#373F4E"
+          },
+          "parent": ".headerClasses"
+        },
+        {
+          "selector": ".classes",
+          "tag": "div",
+          "styles": {}
+        },
+        {
+          "selector": ".headerClasses",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    },
+    "maconomy-dark-default": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".dialog-overlay": {
+            "position": "fixed",
+            "inset": "0",
+            "background-color": "rgba(0, 0, 0, 0.5)",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "z-index": "300",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "all 150ms ease"
+          },
+          ".dialog": {
+            "display": "flex",
+            "flex-direction": "column",
+            "background-color": "#1F2124",
+            "border-radius": "0.75rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "min-width": "600px",
+            "max-width": "700px",
+            "width": "90%",
+            "max-height": "90vh",
+            "overflow": "hidden",
+            "transform": "scale(1)",
+            "transition": "transform 150ms ease"
+          },
+          ".dialog__body": {
+            "flex": "1 1 0",
+            "min-height": "100px",
+            "max-height": "600px",
+            "padding": "24px",
+            "overflow-y": "auto",
+            "color": "#B5B5BC"
+          },
+          ".dialog__close": {
+            "color": "#B5B5BC",
+            "cursor": "pointer",
+            "transition": "color 150ms ease"
+          },
+          ".dialog__footer": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "justify-content": "flex-start",
+            "gap": "12px",
+            "padding": "16px 24px",
+            "border-top": "1px solid #2A2D32",
+            "background-color": "#1F2124"
+          },
+          ".dialog__header": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "padding": "16px 24px",
+            "border-bottom": "1px solid #2A2D32",
+            "background-color": "#1F2124"
+          },
+          ".dialog__title": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#FAFAFA"
+          },
+          ".classes": {},
+          ".headerClasses": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".dialog-overlay",
+          "tag": "div",
+          "styles": {
+            "position": "fixed",
+            "inset": "0",
+            "background-color": "rgba(0, 0, 0, 0.5)",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "z-index": "300",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "all 150ms ease"
+          },
+          "children": [
+            ".dialog"
+          ]
+        },
+        {
+          "selector": ".dialog",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "background-color": "#1F2124",
+            "border-radius": "0.75rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "min-width": "600px",
+            "max-width": "700px",
+            "width": "90%",
+            "max-height": "90vh",
+            "overflow": "hidden",
+            "transform": "scale(1)",
+            "transition": "transform 150ms ease"
+          },
+          "children": [
+            ".dialog__body",
+            ".dialog__close",
+            ".dialog__footer",
+            ".dialog__header",
+            ".dialog__title"
+          ]
+        },
+        {
+          "selector": ".dialog__body",
+          "tag": "span",
+          "styles": {
+            "flex": "1 1 0",
+            "min-height": "100px",
+            "max-height": "600px",
+            "padding": "24px",
+            "overflow-y": "auto",
+            "color": "#B5B5BC"
+          },
+          "parent": ".classes"
+        },
+        {
+          "selector": ".dialog__close",
+          "tag": "span",
+          "styles": {
+            "color": "#B5B5BC",
+            "cursor": "pointer",
+            "transition": "color 150ms ease"
+          },
+          "parent": ".headerClasses",
+          "states": {
+            "hover": {
+              "color": "#FAFAFA",
+              "opacity": "0.8"
+            },
+            "focus": {
+              "background-color": "#1F2124",
+              "color": "#FAFAFA",
+              "border": "1px solid #2A2D32"
+            }
+          }
+        },
+        {
+          "selector": ".dialog__footer",
+          "tag": "span",
+          "styles": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "justify-content": "flex-start",
+            "gap": "12px",
+            "padding": "16px 24px",
+            "border-top": "1px solid #2A2D32",
+            "background-color": "#1F2124"
+          },
+          "parent": ".dialog"
+        },
+        {
+          "selector": ".dialog__header",
+          "tag": "span",
+          "styles": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "padding": "16px 24px",
+            "border-bottom": "1px solid #2A2D32",
+            "background-color": "#1F2124"
+          },
+          "parent": ".dialog"
+        },
+        {
+          "selector": ".dialog__title",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#FAFAFA"
+          },
+          "parent": ".headerClasses"
+        },
+        {
+          "selector": ".classes",
+          "tag": "div",
+          "styles": {}
+        },
+        {
+          "selector": ".headerClasses",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    },
+    "maconomy-dark-primary": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".dialog-overlay": {
+            "position": "fixed",
+            "inset": "0",
+            "background-color": "rgba(0, 0, 0, 0.5)",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "z-index": "300",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "all 150ms ease"
+          },
+          ".dialog": {
+            "display": "flex",
+            "flex-direction": "column",
+            "background-color": "#1F2124",
+            "border-radius": "0.75rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "min-width": "600px",
+            "max-width": "700px",
+            "width": "90%",
+            "max-height": "90vh",
+            "overflow": "hidden",
+            "transform": "scale(1)",
+            "transition": "transform 150ms ease"
+          },
+          ".dialog__body": {
+            "flex": "1 1 0",
+            "min-height": "100px",
+            "max-height": "600px",
+            "padding": "24px",
+            "overflow-y": "auto",
+            "color": "#B5B5BC"
+          },
+          ".dialog__close": {
+            "color": "#B5B5BC",
+            "cursor": "pointer",
+            "transition": "color 150ms ease"
+          },
+          ".dialog__footer": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "justify-content": "flex-start",
+            "gap": "12px",
+            "padding": "16px 24px",
+            "border-top": "1px solid #2A2D32",
+            "background-color": "#1F2124"
+          },
+          ".dialog__header": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "padding": "16px 24px",
+            "border-bottom": "1px solid #2A2D32",
+            "background-color": "#59ACFF",
+            "border-bottom-color": "#59ACFF"
+          },
+          ".dialog__title": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#FAFAFA"
+          },
+          ".classes": {},
+          ".headerClasses": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".dialog-overlay",
+          "tag": "div",
+          "styles": {
+            "position": "fixed",
+            "inset": "0",
+            "background-color": "rgba(0, 0, 0, 0.5)",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "z-index": "300",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "all 150ms ease"
+          },
+          "children": [
+            ".dialog"
+          ]
+        },
+        {
+          "selector": ".dialog",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "background-color": "#1F2124",
+            "border-radius": "0.75rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "min-width": "600px",
+            "max-width": "700px",
+            "width": "90%",
+            "max-height": "90vh",
+            "overflow": "hidden",
+            "transform": "scale(1)",
+            "transition": "transform 150ms ease"
+          },
+          "children": [
+            ".dialog__body",
+            ".dialog__close",
+            ".dialog__footer",
+            ".dialog__header",
+            ".dialog__title"
+          ]
+        },
+        {
+          "selector": ".dialog__body",
+          "tag": "span",
+          "styles": {
+            "flex": "1 1 0",
+            "min-height": "100px",
+            "max-height": "600px",
+            "padding": "24px",
+            "overflow-y": "auto",
+            "color": "#B5B5BC"
+          },
+          "parent": ".classes"
+        },
+        {
+          "selector": ".dialog__close",
+          "tag": "span",
+          "styles": {
+            "color": "#B5B5BC",
+            "cursor": "pointer",
+            "transition": "color 150ms ease"
+          },
+          "parent": ".headerClasses",
+          "states": {
+            "hover": {
+              "color": "#FAFAFA",
+              "opacity": "0.8"
+            },
+            "focus": {
+              "background-color": "#1F2124",
+              "color": "#FAFAFA",
+              "border": "1px solid #2A2D32"
+            }
+          }
+        },
+        {
+          "selector": ".dialog__footer",
+          "tag": "span",
+          "styles": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "justify-content": "flex-start",
+            "gap": "12px",
+            "padding": "16px 24px",
+            "border-top": "1px solid #2A2D32",
+            "background-color": "#1F2124"
+          },
+          "parent": ".dialog"
+        },
+        {
+          "selector": ".dialog__header",
+          "tag": "span",
+          "styles": {
+            "flex-shrink": "0",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "padding": "16px 24px",
+            "border-bottom": "1px solid #2A2D32",
+            "background-color": "#59ACFF",
+            "border-bottom-color": "#59ACFF"
+          },
+          "parent": ".dialog"
+        },
+        {
+          "selector": ".dialog__title",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#FAFAFA"
+          },
+          "parent": ".headerClasses"
+        },
+        {
+          "selector": ".classes",
+          "tag": "div",
+          "styles": {}
+        },
+        {
+          "selector": ".headerClasses",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    }
+  },
+  "contentOrder": [
+    ".dialog__header",
+    ".dialog__body",
+    ".dialog__footer"
+  ],
+  "layoutRules": {
+    ".dialog__footer": {
+      "buttonAlignment": "left",
+      "buttonOrder": [
+        "primary",
+        "secondary"
+      ],
+      "buttonOrderByAlignment": {
+        "left": [
+          "primary",
+          "secondary"
+        ],
+        "right": [
+          "secondary",
+          "primary"
+        ]
+      }
+    }
+  },
+  "icons": {
+    "x-mark": "<svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\" stroke=\"currentColor\" aria-hidden=\"true\" data-slot=\"icon\"> <path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M6 18 18 6M6 6l12 12\"/> </svg>"
+  },
+  "guidance": {
+    "patterns": {
+      "footer-buttons": "When buttonAlignment='left' (default), place primary action button first in footer slot, followed by secondary actions (e.g., Cancel). When buttonAlignment='right', place secondary actions first, then primary action button last. This ensures the visual alignment matches the semantic importance.",
+      "sticky-layout": "The dialog uses flexbox column layout with header and footer as flex-shrink: 0 (sticky), and body as flex: 1 with overflow-y: auto. Only the body scrolls when content exceeds available height."
+    },
+    "guidelines": {}
+  },
+  "specKeyOrder": [
+    "theme",
+    "mode",
+    "headerVariant"
+  ],
+  "dimensionDefaults": {
+    "theme": "cp",
+    "mode": "light",
+    "headerVariant": "default"
+  },
+  "structure": {
+    "root": ".dialog-overlay",
+    "children": [
+      {
+        "class": ".classes",
+        "children": [
+          {
+            "class": ".headerClasses",
+            "children": [
+              {
+                "class": ".dialog__title"
+              },
+              {
+                "class": ".dialog__close",
+                "children": []
+              }
+            ]
+          },
+          {
+            "class": ".dialog__body",
+            "children": []
+          },
+          {
+            "class": ".footerClasses",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  "fonts": {
+    "Figtree": "https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap",
+    "Lexend": "https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap",
+    "JetBrains Mono": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
+  },
+  "defaultContent": {
+    ".dialog__close": {
+      "type": "icon",
+      "icon": "x-mark",
+      "library": "heroicons",
+      "style": "outline"
+    },
+    ".dialog__title": {
+      "type": "text",
+      "placeholder": "Dialog title"
+    },
+    "footer": {
+      "buttonAlignmentDefault": "left",
+      "buttonOrderWhenLeft": [
+        "primary",
+        "secondary"
+      ],
+      "buttonOrderWhenRight": [
+        "secondary",
+        "primary"
+      ],
+      "_template": "Default footer content is two Harmony Button components: primary \"Confirm\" and ghost \"Cancel\"; both close the dialog via closeDialog(id). Do not use a raw button; use the Harmony Button component.",
+      "defaultDescription": "Use Harmony Button components (not a raw button) for default footer actions."
+    }
+  },
+  "interactivity": {
+    "events": [
+      {
+        "name": "close",
+        "description": "Triggered by close button, overlay click, or Escape key"
+      }
+    ],
+    "state": [
+      {
+        "name": "open",
+        "type": "boolean",
+        "description": "Controlled via .is-open class on the overlay element"
+      }
+    ]
+  },
+  "examples": [
+    {
+      "name": "Delete confirmation",
+      "description": "Confirm before deleting an item",
+      "recipeId": "dialog-with-form-actions"
+    },
+    {
+      "name": "Save changes",
+      "description": "Confirm before saving changes",
+      "recipeId": "dialog-with-form-actions"
+    },
+    {
+      "name": "With three actions",
+      "description": "Dialog with tertiary action (max recommended)",
+      "recipeId": "dialog-with-form-actions"
+    },
+    {
+      "name": "Success message",
+      "description": "Confirm successful operation",
+      "recipeId": "dialog-confirmation"
+    },
+    {
+      "name": "Information alert",
+      "description": "Display important information",
+      "recipeId": "dialog-confirmation"
+    },
+    {
+      "name": "Basic dialog",
+      "description": "Standalone modal",
+      "snippet": "<Dialog id=\"my-dialog\" title=\"Title\"><p>Content</p></Dialog>"
+    }
+  ],
+  "contentOrder.dialog__header": [
+    ".dialog__title",
+    ".dialog__close"
+  ]
+}

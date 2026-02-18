@@ -33,7 +33,7 @@ import { themeConfig } from '../../data/theme-config';
             <div class="header__actions">
               <!-- Company Dropdown -->
               <div class="company-picker" id="demo-company-picker">
-                <button id="demo-company-picker-btn" class="company-picker__btn">
+                <button type="button" id="demo-company-picker-btn" class="company-picker__btn">
                   <span id="demo-company-indicator" class="company-picker__indicator company-picker__option-indicator--acme"></span>
                   <span id="demo-company-name" class="company-picker__name">Acme Corporation</span>
                   <Icon name="chevron-down" size="sm" class="company-picker__chevron" />
@@ -185,7 +185,7 @@ import { themeConfig } from '../../data/theme-config';
     demoCompanyPickerMenu.innerHTML = demoCompanies.map(company => {
       const indicatorClass = companyClassMap[company.id] || '';
       return `
-        <button class="company-picker__option ${company.id === selectedDemoCompany ? 'company-picker__option--selected' : ''}"
+        <button type="button" class="company-picker__option ${company.id === selectedDemoCompany ? 'company-picker__option--selected' : ''}"
                 data-company-id="${company.id}">
           <span class="company-picker__option-indicator ${indicatorClass}"></span>
           <span class="company-picker__option-name">${company.name}</span>

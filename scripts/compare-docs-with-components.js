@@ -132,3 +132,7 @@ for (const [component, issues] of Object.entries(mismatches)) {
 }
 
 console.log(`\n📄 Full report written to: ${reportFile}`);
+
+if (Object.keys(mismatches).length > 0) {
+  process.exit(1);
+}

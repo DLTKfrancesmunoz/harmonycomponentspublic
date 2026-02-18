@@ -1,0 +1,3993 @@
+{
+  "name": "FloatingNav",
+  "type": "component",
+  "filePath": "src/components/ui/FloatingNav.astro",
+  "description": "FloatingNav Component",
+  "props": {
+    "showExecute": {
+      "type": "boolean",
+      "optional": true,
+      "default": "true"
+    },
+    "saveDisabled": {
+      "type": "boolean",
+      "optional": true,
+      "default": "false"
+    },
+    "variant": {
+      "type": "'full' | 'compact'",
+      "optional": true,
+      "default": "'full'"
+    }
+  },
+  "defaults": {
+    "theme": "cp",
+    "mode": "light",
+    "variant": "'full'"
+  },
+  "specs": {
+    "full-cp-light": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".floating-nav": {
+            "background-color": "#333d47",
+            "border": "1px solid #BFC6D4",
+            "border-top": "none",
+            "border-radius": "0 0 16px 16px",
+            "box-shadow": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+            "padding": "8px 8px 12px 8px",
+            "display": "inline-flex",
+            "flex-direction": "column",
+            "gap": "10px",
+            "align-items": "flex-start",
+            "border-color": "#4a5568"
+          },
+          ".floating-nav__btn": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "gap": "4px",
+            "padding": "8px",
+            "max-height": "32px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "font-weight": "400",
+            "line-height": "16px",
+            "border-radius": "8px",
+            "cursor": "pointer",
+            "transition": "all 150ms ease",
+            "border": "1px solid transparent",
+            "background-color": "rgba(0,0,0,0)"
+          },
+          ".floating-nav__btn-chevron": {
+            "font-size": "16px",
+            "margin-left": "-2px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__btn-icon": {
+            "font-size": "16px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__btn-text": {
+            "text-align": "center"
+          },
+          ".floating-nav__buttons": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "12px"
+          },
+          ".floating-nav__divider": {
+            "width": "2px",
+            "height": "33px",
+            "background-color": "#4a5568",
+            "position": "relative",
+            "flex-shrink": "0"
+          },
+          ".floating-nav__pin": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "18px",
+            "height": "18px",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "cursor": "pointer",
+            "padding": "0",
+            "color": "#a0aec0",
+            "transition": "color 150ms ease"
+          },
+          ".floating-nav__pin-icon": {
+            "font-size": "18px",
+            "transform": "rotate(-45deg)",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__toolbar": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".floating-nav",
+          "tag": "div",
+          "styles": {
+            "background-color": "#333d47",
+            "border": "1px solid #BFC6D4",
+            "border-top": "none",
+            "border-radius": "0 0 16px 16px",
+            "box-shadow": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+            "padding": "8px 8px 12px 8px",
+            "display": "inline-flex",
+            "flex-direction": "column",
+            "gap": "10px",
+            "align-items": "flex-start",
+            "border-color": "#4a5568"
+          },
+          "children": [
+            ".floating-nav__btn",
+            ".floating-nav__btn-chevron",
+            ".floating-nav__btn-icon",
+            ".floating-nav__btn-text",
+            ".floating-nav__buttons",
+            ".floating-nav__divider",
+            ".floating-nav__pin",
+            ".floating-nav__pin-icon",
+            ".floating-nav__toolbar"
+          ]
+        },
+        {
+          "selector": ".floating-nav__btn",
+          "tag": "span",
+          "styles": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "gap": "4px",
+            "padding": "8px",
+            "max-height": "32px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "font-weight": "400",
+            "line-height": "16px",
+            "border-radius": "8px",
+            "cursor": "pointer",
+            "transition": "all 150ms ease",
+            "border": "1px solid transparent",
+            "background-color": "rgba(0,0,0,0)"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-chevron",
+          "tag": "span",
+          "styles": {
+            "font-size": "16px",
+            "margin-left": "-2px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-icon",
+          "tag": "span",
+          "styles": {
+            "font-size": "16px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-text",
+          "tag": "span",
+          "styles": {
+            "text-align": "center"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__buttons",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "12px"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__divider",
+          "tag": "span",
+          "styles": {
+            "width": "2px",
+            "height": "33px",
+            "background-color": "#4a5568",
+            "position": "relative",
+            "flex-shrink": "0"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__pin",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "18px",
+            "height": "18px",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "cursor": "pointer",
+            "padding": "0",
+            "color": "#a0aec0",
+            "transition": "color 150ms ease"
+          },
+          "parent": ".floating-nav",
+          "states": {
+            "hover": {
+              "color": "#e9ecef"
+            }
+          }
+        },
+        {
+          "selector": ".floating-nav__pin-icon",
+          "tag": "span",
+          "styles": {
+            "font-size": "18px",
+            "transform": "rotate(-45deg)",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__toolbar",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%"
+          },
+          "parent": ".floating-nav"
+        }
+      ]
+    },
+    "full-cp-dark": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".floating-nav": {
+            "background-color": "#333d47",
+            "border": "1px solid #5F6871",
+            "border-top": "none",
+            "border-radius": "0 0 16px 16px",
+            "box-shadow": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+            "padding": "8px 8px 12px 8px",
+            "display": "inline-flex",
+            "flex-direction": "column",
+            "gap": "10px",
+            "align-items": "flex-start",
+            "border-color": "#4a5568"
+          },
+          ".floating-nav__btn": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "gap": "4px",
+            "padding": "8px",
+            "max-height": "32px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "font-weight": "400",
+            "line-height": "16px",
+            "border-radius": "8px",
+            "cursor": "pointer",
+            "transition": "all 150ms ease",
+            "border": "1px solid transparent",
+            "background-color": "rgba(0,0,0,0)"
+          },
+          ".floating-nav__btn-chevron": {
+            "font-size": "16px",
+            "margin-left": "-2px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__btn-icon": {
+            "font-size": "16px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__btn-text": {
+            "text-align": "center"
+          },
+          ".floating-nav__buttons": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "12px"
+          },
+          ".floating-nav__divider": {
+            "width": "2px",
+            "height": "33px",
+            "background-color": "#4a5568",
+            "position": "relative",
+            "flex-shrink": "0"
+          },
+          ".floating-nav__pin": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "18px",
+            "height": "18px",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "cursor": "pointer",
+            "padding": "0",
+            "color": "#a0aec0",
+            "transition": "color 150ms ease"
+          },
+          ".floating-nav__pin-icon": {
+            "font-size": "18px",
+            "transform": "rotate(-45deg)",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__toolbar": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".floating-nav",
+          "tag": "div",
+          "styles": {
+            "background-color": "#333d47",
+            "border": "1px solid #5F6871",
+            "border-top": "none",
+            "border-radius": "0 0 16px 16px",
+            "box-shadow": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+            "padding": "8px 8px 12px 8px",
+            "display": "inline-flex",
+            "flex-direction": "column",
+            "gap": "10px",
+            "align-items": "flex-start",
+            "border-color": "#4a5568"
+          },
+          "children": [
+            ".floating-nav__btn",
+            ".floating-nav__btn-chevron",
+            ".floating-nav__btn-icon",
+            ".floating-nav__btn-text",
+            ".floating-nav__buttons",
+            ".floating-nav__divider",
+            ".floating-nav__pin",
+            ".floating-nav__pin-icon",
+            ".floating-nav__toolbar"
+          ]
+        },
+        {
+          "selector": ".floating-nav__btn",
+          "tag": "span",
+          "styles": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "gap": "4px",
+            "padding": "8px",
+            "max-height": "32px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "font-weight": "400",
+            "line-height": "16px",
+            "border-radius": "8px",
+            "cursor": "pointer",
+            "transition": "all 150ms ease",
+            "border": "1px solid transparent",
+            "background-color": "rgba(0,0,0,0)"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-chevron",
+          "tag": "span",
+          "styles": {
+            "font-size": "16px",
+            "margin-left": "-2px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-icon",
+          "tag": "span",
+          "styles": {
+            "font-size": "16px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-text",
+          "tag": "span",
+          "styles": {
+            "text-align": "center"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__buttons",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "12px"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__divider",
+          "tag": "span",
+          "styles": {
+            "width": "2px",
+            "height": "33px",
+            "background-color": "#4a5568",
+            "position": "relative",
+            "flex-shrink": "0"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__pin",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "18px",
+            "height": "18px",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "cursor": "pointer",
+            "padding": "0",
+            "color": "#a0aec0",
+            "transition": "color 150ms ease"
+          },
+          "parent": ".floating-nav",
+          "states": {
+            "hover": {
+              "color": "#e9ecef"
+            }
+          }
+        },
+        {
+          "selector": ".floating-nav__pin-icon",
+          "tag": "span",
+          "styles": {
+            "font-size": "18px",
+            "transform": "rotate(-45deg)",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__toolbar",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%"
+          },
+          "parent": ".floating-nav"
+        }
+      ]
+    },
+    "full-vp-light": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".floating-nav": {
+            "background-color": "#333d47",
+            "border": "1px solid #BFC6D4",
+            "border-top": "none",
+            "border-radius": "0 0 16px 16px",
+            "box-shadow": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+            "padding": "8px 8px 12px 8px",
+            "display": "inline-flex",
+            "flex-direction": "column",
+            "gap": "10px",
+            "align-items": "flex-start",
+            "border-color": "#4a5568"
+          },
+          ".floating-nav__btn": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "gap": "4px",
+            "padding": "8px",
+            "max-height": "32px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "font-weight": "400",
+            "line-height": "16px",
+            "border-radius": "8px",
+            "cursor": "pointer",
+            "transition": "all 150ms ease",
+            "border": "1px solid transparent",
+            "background-color": "rgba(0,0,0,0)"
+          },
+          ".floating-nav__btn-chevron": {
+            "font-size": "16px",
+            "margin-left": "-2px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__btn-icon": {
+            "font-size": "16px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__btn-text": {
+            "text-align": "center"
+          },
+          ".floating-nav__buttons": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "12px"
+          },
+          ".floating-nav__divider": {
+            "width": "2px",
+            "height": "33px",
+            "background-color": "#4a5568",
+            "position": "relative",
+            "flex-shrink": "0"
+          },
+          ".floating-nav__pin": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "18px",
+            "height": "18px",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "cursor": "pointer",
+            "padding": "0",
+            "color": "#a0aec0",
+            "transition": "color 150ms ease"
+          },
+          ".floating-nav__pin-icon": {
+            "font-size": "18px",
+            "transform": "rotate(-45deg)",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__toolbar": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".floating-nav",
+          "tag": "div",
+          "styles": {
+            "background-color": "#333d47",
+            "border": "1px solid #BFC6D4",
+            "border-top": "none",
+            "border-radius": "0 0 16px 16px",
+            "box-shadow": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+            "padding": "8px 8px 12px 8px",
+            "display": "inline-flex",
+            "flex-direction": "column",
+            "gap": "10px",
+            "align-items": "flex-start",
+            "border-color": "#4a5568"
+          },
+          "children": [
+            ".floating-nav__btn",
+            ".floating-nav__btn-chevron",
+            ".floating-nav__btn-icon",
+            ".floating-nav__btn-text",
+            ".floating-nav__buttons",
+            ".floating-nav__divider",
+            ".floating-nav__pin",
+            ".floating-nav__pin-icon",
+            ".floating-nav__toolbar"
+          ]
+        },
+        {
+          "selector": ".floating-nav__btn",
+          "tag": "span",
+          "styles": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "gap": "4px",
+            "padding": "8px",
+            "max-height": "32px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "font-weight": "400",
+            "line-height": "16px",
+            "border-radius": "8px",
+            "cursor": "pointer",
+            "transition": "all 150ms ease",
+            "border": "1px solid transparent",
+            "background-color": "rgba(0,0,0,0)"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-chevron",
+          "tag": "span",
+          "styles": {
+            "font-size": "16px",
+            "margin-left": "-2px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-icon",
+          "tag": "span",
+          "styles": {
+            "font-size": "16px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-text",
+          "tag": "span",
+          "styles": {
+            "text-align": "center"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__buttons",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "12px"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__divider",
+          "tag": "span",
+          "styles": {
+            "width": "2px",
+            "height": "33px",
+            "background-color": "#4a5568",
+            "position": "relative",
+            "flex-shrink": "0"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__pin",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "18px",
+            "height": "18px",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "cursor": "pointer",
+            "padding": "0",
+            "color": "#a0aec0",
+            "transition": "color 150ms ease"
+          },
+          "parent": ".floating-nav",
+          "states": {
+            "hover": {
+              "color": "#e9ecef"
+            }
+          }
+        },
+        {
+          "selector": ".floating-nav__pin-icon",
+          "tag": "span",
+          "styles": {
+            "font-size": "18px",
+            "transform": "rotate(-45deg)",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__toolbar",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%"
+          },
+          "parent": ".floating-nav"
+        }
+      ]
+    },
+    "full-vp-dark": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".floating-nav": {
+            "background-color": "#333d47",
+            "border": "1px solid #2A2D32",
+            "border-top": "none",
+            "border-radius": "0 0 16px 16px",
+            "box-shadow": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+            "padding": "8px 8px 12px 8px",
+            "display": "inline-flex",
+            "flex-direction": "column",
+            "gap": "10px",
+            "align-items": "flex-start",
+            "border-color": "#4a5568"
+          },
+          ".floating-nav__btn": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "gap": "4px",
+            "padding": "8px",
+            "max-height": "32px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "font-weight": "400",
+            "line-height": "16px",
+            "border-radius": "8px",
+            "cursor": "pointer",
+            "transition": "all 150ms ease",
+            "border": "1px solid transparent",
+            "background-color": "rgba(0,0,0,0)"
+          },
+          ".floating-nav__btn-chevron": {
+            "font-size": "16px",
+            "margin-left": "-2px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__btn-icon": {
+            "font-size": "16px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__btn-text": {
+            "text-align": "center"
+          },
+          ".floating-nav__buttons": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "12px"
+          },
+          ".floating-nav__divider": {
+            "width": "2px",
+            "height": "33px",
+            "background-color": "#4a5568",
+            "position": "relative",
+            "flex-shrink": "0"
+          },
+          ".floating-nav__pin": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "18px",
+            "height": "18px",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "cursor": "pointer",
+            "padding": "0",
+            "color": "#a0aec0",
+            "transition": "color 150ms ease"
+          },
+          ".floating-nav__pin-icon": {
+            "font-size": "18px",
+            "transform": "rotate(-45deg)",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__toolbar": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".floating-nav",
+          "tag": "div",
+          "styles": {
+            "background-color": "#333d47",
+            "border": "1px solid #2A2D32",
+            "border-top": "none",
+            "border-radius": "0 0 16px 16px",
+            "box-shadow": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+            "padding": "8px 8px 12px 8px",
+            "display": "inline-flex",
+            "flex-direction": "column",
+            "gap": "10px",
+            "align-items": "flex-start",
+            "border-color": "#4a5568"
+          },
+          "children": [
+            ".floating-nav__btn",
+            ".floating-nav__btn-chevron",
+            ".floating-nav__btn-icon",
+            ".floating-nav__btn-text",
+            ".floating-nav__buttons",
+            ".floating-nav__divider",
+            ".floating-nav__pin",
+            ".floating-nav__pin-icon",
+            ".floating-nav__toolbar"
+          ]
+        },
+        {
+          "selector": ".floating-nav__btn",
+          "tag": "span",
+          "styles": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "gap": "4px",
+            "padding": "8px",
+            "max-height": "32px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "font-weight": "400",
+            "line-height": "16px",
+            "border-radius": "8px",
+            "cursor": "pointer",
+            "transition": "all 150ms ease",
+            "border": "1px solid transparent",
+            "background-color": "rgba(0,0,0,0)"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-chevron",
+          "tag": "span",
+          "styles": {
+            "font-size": "16px",
+            "margin-left": "-2px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-icon",
+          "tag": "span",
+          "styles": {
+            "font-size": "16px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-text",
+          "tag": "span",
+          "styles": {
+            "text-align": "center"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__buttons",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "12px"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__divider",
+          "tag": "span",
+          "styles": {
+            "width": "2px",
+            "height": "33px",
+            "background-color": "#4a5568",
+            "position": "relative",
+            "flex-shrink": "0"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__pin",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "18px",
+            "height": "18px",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "cursor": "pointer",
+            "padding": "0",
+            "color": "#a0aec0",
+            "transition": "color 150ms ease"
+          },
+          "parent": ".floating-nav",
+          "states": {
+            "hover": {
+              "color": "#e9ecef"
+            }
+          }
+        },
+        {
+          "selector": ".floating-nav__pin-icon",
+          "tag": "span",
+          "styles": {
+            "font-size": "18px",
+            "transform": "rotate(-45deg)",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__toolbar",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%"
+          },
+          "parent": ".floating-nav"
+        }
+      ]
+    },
+    "full-ppm-light": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".floating-nav": {
+            "background-color": "#333d47",
+            "border": "1px solid #BFC6D4",
+            "border-top": "none",
+            "border-radius": "0 0 16px 16px",
+            "box-shadow": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+            "padding": "8px 8px 12px 8px",
+            "display": "inline-flex",
+            "flex-direction": "column",
+            "gap": "10px",
+            "align-items": "flex-start",
+            "border-color": "#4a5568"
+          },
+          ".floating-nav__btn": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "gap": "4px",
+            "padding": "8px",
+            "max-height": "32px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "font-weight": "400",
+            "line-height": "16px",
+            "border-radius": "8px",
+            "cursor": "pointer",
+            "transition": "all 150ms ease",
+            "border": "1px solid transparent",
+            "background-color": "rgba(0,0,0,0)"
+          },
+          ".floating-nav__btn-chevron": {
+            "font-size": "16px",
+            "margin-left": "-2px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__btn-icon": {
+            "font-size": "16px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__btn-text": {
+            "text-align": "center"
+          },
+          ".floating-nav__buttons": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "12px"
+          },
+          ".floating-nav__divider": {
+            "width": "2px",
+            "height": "33px",
+            "background-color": "#4a5568",
+            "position": "relative",
+            "flex-shrink": "0"
+          },
+          ".floating-nav__pin": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "18px",
+            "height": "18px",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "cursor": "pointer",
+            "padding": "0",
+            "color": "#a0aec0",
+            "transition": "color 150ms ease"
+          },
+          ".floating-nav__pin-icon": {
+            "font-size": "18px",
+            "transform": "rotate(-45deg)",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__toolbar": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".floating-nav",
+          "tag": "div",
+          "styles": {
+            "background-color": "#333d47",
+            "border": "1px solid #BFC6D4",
+            "border-top": "none",
+            "border-radius": "0 0 16px 16px",
+            "box-shadow": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+            "padding": "8px 8px 12px 8px",
+            "display": "inline-flex",
+            "flex-direction": "column",
+            "gap": "10px",
+            "align-items": "flex-start",
+            "border-color": "#4a5568"
+          },
+          "children": [
+            ".floating-nav__btn",
+            ".floating-nav__btn-chevron",
+            ".floating-nav__btn-icon",
+            ".floating-nav__btn-text",
+            ".floating-nav__buttons",
+            ".floating-nav__divider",
+            ".floating-nav__pin",
+            ".floating-nav__pin-icon",
+            ".floating-nav__toolbar"
+          ]
+        },
+        {
+          "selector": ".floating-nav__btn",
+          "tag": "span",
+          "styles": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "gap": "4px",
+            "padding": "8px",
+            "max-height": "32px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "font-weight": "400",
+            "line-height": "16px",
+            "border-radius": "8px",
+            "cursor": "pointer",
+            "transition": "all 150ms ease",
+            "border": "1px solid transparent",
+            "background-color": "rgba(0,0,0,0)"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-chevron",
+          "tag": "span",
+          "styles": {
+            "font-size": "16px",
+            "margin-left": "-2px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-icon",
+          "tag": "span",
+          "styles": {
+            "font-size": "16px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-text",
+          "tag": "span",
+          "styles": {
+            "text-align": "center"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__buttons",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "12px"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__divider",
+          "tag": "span",
+          "styles": {
+            "width": "2px",
+            "height": "33px",
+            "background-color": "#4a5568",
+            "position": "relative",
+            "flex-shrink": "0"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__pin",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "18px",
+            "height": "18px",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "cursor": "pointer",
+            "padding": "0",
+            "color": "#a0aec0",
+            "transition": "color 150ms ease"
+          },
+          "parent": ".floating-nav",
+          "states": {
+            "hover": {
+              "color": "#e9ecef"
+            }
+          }
+        },
+        {
+          "selector": ".floating-nav__pin-icon",
+          "tag": "span",
+          "styles": {
+            "font-size": "18px",
+            "transform": "rotate(-45deg)",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__toolbar",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%"
+          },
+          "parent": ".floating-nav"
+        }
+      ]
+    },
+    "full-ppm-dark": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".floating-nav": {
+            "background-color": "#333d47",
+            "border": "1px solid #2A2D32",
+            "border-top": "none",
+            "border-radius": "0 0 16px 16px",
+            "box-shadow": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+            "padding": "8px 8px 12px 8px",
+            "display": "inline-flex",
+            "flex-direction": "column",
+            "gap": "10px",
+            "align-items": "flex-start",
+            "border-color": "#4a5568"
+          },
+          ".floating-nav__btn": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "gap": "4px",
+            "padding": "8px",
+            "max-height": "32px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "font-weight": "400",
+            "line-height": "16px",
+            "border-radius": "8px",
+            "cursor": "pointer",
+            "transition": "all 150ms ease",
+            "border": "1px solid transparent",
+            "background-color": "rgba(0,0,0,0)"
+          },
+          ".floating-nav__btn-chevron": {
+            "font-size": "16px",
+            "margin-left": "-2px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__btn-icon": {
+            "font-size": "16px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__btn-text": {
+            "text-align": "center"
+          },
+          ".floating-nav__buttons": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "12px"
+          },
+          ".floating-nav__divider": {
+            "width": "2px",
+            "height": "33px",
+            "background-color": "#4a5568",
+            "position": "relative",
+            "flex-shrink": "0"
+          },
+          ".floating-nav__pin": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "18px",
+            "height": "18px",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "cursor": "pointer",
+            "padding": "0",
+            "color": "#a0aec0",
+            "transition": "color 150ms ease"
+          },
+          ".floating-nav__pin-icon": {
+            "font-size": "18px",
+            "transform": "rotate(-45deg)",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__toolbar": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".floating-nav",
+          "tag": "div",
+          "styles": {
+            "background-color": "#333d47",
+            "border": "1px solid #2A2D32",
+            "border-top": "none",
+            "border-radius": "0 0 16px 16px",
+            "box-shadow": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+            "padding": "8px 8px 12px 8px",
+            "display": "inline-flex",
+            "flex-direction": "column",
+            "gap": "10px",
+            "align-items": "flex-start",
+            "border-color": "#4a5568"
+          },
+          "children": [
+            ".floating-nav__btn",
+            ".floating-nav__btn-chevron",
+            ".floating-nav__btn-icon",
+            ".floating-nav__btn-text",
+            ".floating-nav__buttons",
+            ".floating-nav__divider",
+            ".floating-nav__pin",
+            ".floating-nav__pin-icon",
+            ".floating-nav__toolbar"
+          ]
+        },
+        {
+          "selector": ".floating-nav__btn",
+          "tag": "span",
+          "styles": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "gap": "4px",
+            "padding": "8px",
+            "max-height": "32px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "font-weight": "400",
+            "line-height": "16px",
+            "border-radius": "8px",
+            "cursor": "pointer",
+            "transition": "all 150ms ease",
+            "border": "1px solid transparent",
+            "background-color": "rgba(0,0,0,0)"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-chevron",
+          "tag": "span",
+          "styles": {
+            "font-size": "16px",
+            "margin-left": "-2px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-icon",
+          "tag": "span",
+          "styles": {
+            "font-size": "16px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-text",
+          "tag": "span",
+          "styles": {
+            "text-align": "center"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__buttons",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "12px"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__divider",
+          "tag": "span",
+          "styles": {
+            "width": "2px",
+            "height": "33px",
+            "background-color": "#4a5568",
+            "position": "relative",
+            "flex-shrink": "0"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__pin",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "18px",
+            "height": "18px",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "cursor": "pointer",
+            "padding": "0",
+            "color": "#a0aec0",
+            "transition": "color 150ms ease"
+          },
+          "parent": ".floating-nav",
+          "states": {
+            "hover": {
+              "color": "#e9ecef"
+            }
+          }
+        },
+        {
+          "selector": ".floating-nav__pin-icon",
+          "tag": "span",
+          "styles": {
+            "font-size": "18px",
+            "transform": "rotate(-45deg)",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__toolbar",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%"
+          },
+          "parent": ".floating-nav"
+        }
+      ]
+    },
+    "full-maconomy-light": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".floating-nav": {
+            "background-color": "#333d47",
+            "border": "1px solid #BFC6D4",
+            "border-top": "none",
+            "border-radius": "0 0 16px 16px",
+            "box-shadow": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+            "padding": "8px 8px 12px 8px",
+            "display": "inline-flex",
+            "flex-direction": "column",
+            "gap": "10px",
+            "align-items": "flex-start",
+            "border-color": "#4a5568"
+          },
+          ".floating-nav__btn": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "gap": "4px",
+            "padding": "8px",
+            "max-height": "32px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "font-weight": "400",
+            "line-height": "16px",
+            "border-radius": "8px",
+            "cursor": "pointer",
+            "transition": "all 150ms ease",
+            "border": "1px solid transparent",
+            "background-color": "rgba(0,0,0,0)"
+          },
+          ".floating-nav__btn-chevron": {
+            "font-size": "16px",
+            "margin-left": "-2px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__btn-icon": {
+            "font-size": "16px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__btn-text": {
+            "text-align": "center"
+          },
+          ".floating-nav__buttons": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "12px"
+          },
+          ".floating-nav__divider": {
+            "width": "2px",
+            "height": "33px",
+            "background-color": "#4a5568",
+            "position": "relative",
+            "flex-shrink": "0"
+          },
+          ".floating-nav__pin": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "18px",
+            "height": "18px",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "cursor": "pointer",
+            "padding": "0",
+            "color": "#a0aec0",
+            "transition": "color 150ms ease"
+          },
+          ".floating-nav__pin-icon": {
+            "font-size": "18px",
+            "transform": "rotate(-45deg)",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__toolbar": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".floating-nav",
+          "tag": "div",
+          "styles": {
+            "background-color": "#333d47",
+            "border": "1px solid #BFC6D4",
+            "border-top": "none",
+            "border-radius": "0 0 16px 16px",
+            "box-shadow": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+            "padding": "8px 8px 12px 8px",
+            "display": "inline-flex",
+            "flex-direction": "column",
+            "gap": "10px",
+            "align-items": "flex-start",
+            "border-color": "#4a5568"
+          },
+          "children": [
+            ".floating-nav__btn",
+            ".floating-nav__btn-chevron",
+            ".floating-nav__btn-icon",
+            ".floating-nav__btn-text",
+            ".floating-nav__buttons",
+            ".floating-nav__divider",
+            ".floating-nav__pin",
+            ".floating-nav__pin-icon",
+            ".floating-nav__toolbar"
+          ]
+        },
+        {
+          "selector": ".floating-nav__btn",
+          "tag": "span",
+          "styles": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "gap": "4px",
+            "padding": "8px",
+            "max-height": "32px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "font-weight": "400",
+            "line-height": "16px",
+            "border-radius": "8px",
+            "cursor": "pointer",
+            "transition": "all 150ms ease",
+            "border": "1px solid transparent",
+            "background-color": "rgba(0,0,0,0)"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-chevron",
+          "tag": "span",
+          "styles": {
+            "font-size": "16px",
+            "margin-left": "-2px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-icon",
+          "tag": "span",
+          "styles": {
+            "font-size": "16px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-text",
+          "tag": "span",
+          "styles": {
+            "text-align": "center"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__buttons",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "12px"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__divider",
+          "tag": "span",
+          "styles": {
+            "width": "2px",
+            "height": "33px",
+            "background-color": "#4a5568",
+            "position": "relative",
+            "flex-shrink": "0"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__pin",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "18px",
+            "height": "18px",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "cursor": "pointer",
+            "padding": "0",
+            "color": "#a0aec0",
+            "transition": "color 150ms ease"
+          },
+          "parent": ".floating-nav",
+          "states": {
+            "hover": {
+              "color": "#e9ecef"
+            }
+          }
+        },
+        {
+          "selector": ".floating-nav__pin-icon",
+          "tag": "span",
+          "styles": {
+            "font-size": "18px",
+            "transform": "rotate(-45deg)",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__toolbar",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%"
+          },
+          "parent": ".floating-nav"
+        }
+      ]
+    },
+    "full-maconomy-dark": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".floating-nav": {
+            "background-color": "#333d47",
+            "border": "1px solid #2A2D32",
+            "border-top": "none",
+            "border-radius": "0 0 16px 16px",
+            "box-shadow": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+            "padding": "8px 8px 12px 8px",
+            "display": "inline-flex",
+            "flex-direction": "column",
+            "gap": "10px",
+            "align-items": "flex-start",
+            "border-color": "#4a5568"
+          },
+          ".floating-nav__btn": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "gap": "4px",
+            "padding": "8px",
+            "max-height": "32px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "font-weight": "400",
+            "line-height": "16px",
+            "border-radius": "8px",
+            "cursor": "pointer",
+            "transition": "all 150ms ease",
+            "border": "1px solid transparent",
+            "background-color": "rgba(0,0,0,0)"
+          },
+          ".floating-nav__btn-chevron": {
+            "font-size": "16px",
+            "margin-left": "-2px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__btn-icon": {
+            "font-size": "16px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__btn-text": {
+            "text-align": "center"
+          },
+          ".floating-nav__buttons": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "12px"
+          },
+          ".floating-nav__divider": {
+            "width": "2px",
+            "height": "33px",
+            "background-color": "#4a5568",
+            "position": "relative",
+            "flex-shrink": "0"
+          },
+          ".floating-nav__pin": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "18px",
+            "height": "18px",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "cursor": "pointer",
+            "padding": "0",
+            "color": "#a0aec0",
+            "transition": "color 150ms ease"
+          },
+          ".floating-nav__pin-icon": {
+            "font-size": "18px",
+            "transform": "rotate(-45deg)",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__toolbar": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".floating-nav",
+          "tag": "div",
+          "styles": {
+            "background-color": "#333d47",
+            "border": "1px solid #2A2D32",
+            "border-top": "none",
+            "border-radius": "0 0 16px 16px",
+            "box-shadow": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+            "padding": "8px 8px 12px 8px",
+            "display": "inline-flex",
+            "flex-direction": "column",
+            "gap": "10px",
+            "align-items": "flex-start",
+            "border-color": "#4a5568"
+          },
+          "children": [
+            ".floating-nav__btn",
+            ".floating-nav__btn-chevron",
+            ".floating-nav__btn-icon",
+            ".floating-nav__btn-text",
+            ".floating-nav__buttons",
+            ".floating-nav__divider",
+            ".floating-nav__pin",
+            ".floating-nav__pin-icon",
+            ".floating-nav__toolbar"
+          ]
+        },
+        {
+          "selector": ".floating-nav__btn",
+          "tag": "span",
+          "styles": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "gap": "4px",
+            "padding": "8px",
+            "max-height": "32px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "font-weight": "400",
+            "line-height": "16px",
+            "border-radius": "8px",
+            "cursor": "pointer",
+            "transition": "all 150ms ease",
+            "border": "1px solid transparent",
+            "background-color": "rgba(0,0,0,0)"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-chevron",
+          "tag": "span",
+          "styles": {
+            "font-size": "16px",
+            "margin-left": "-2px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-icon",
+          "tag": "span",
+          "styles": {
+            "font-size": "16px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-text",
+          "tag": "span",
+          "styles": {
+            "text-align": "center"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__buttons",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "12px"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__divider",
+          "tag": "span",
+          "styles": {
+            "width": "2px",
+            "height": "33px",
+            "background-color": "#4a5568",
+            "position": "relative",
+            "flex-shrink": "0"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__pin",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "18px",
+            "height": "18px",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "cursor": "pointer",
+            "padding": "0",
+            "color": "#a0aec0",
+            "transition": "color 150ms ease"
+          },
+          "parent": ".floating-nav",
+          "states": {
+            "hover": {
+              "color": "#e9ecef"
+            }
+          }
+        },
+        {
+          "selector": ".floating-nav__pin-icon",
+          "tag": "span",
+          "styles": {
+            "font-size": "18px",
+            "transform": "rotate(-45deg)",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__toolbar",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%"
+          },
+          "parent": ".floating-nav"
+        }
+      ]
+    },
+    "compact-cp-light": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".floating-nav": {
+            "background-color": "#333d47",
+            "border": "1px solid #BFC6D4",
+            "border-top": "none",
+            "border-radius": "0 0 16px 16px",
+            "box-shadow": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+            "padding": "8px 8px 12px 8px",
+            "display": "inline-flex",
+            "flex-direction": "column",
+            "gap": "10px",
+            "align-items": "flex-start",
+            "border-color": "#4a5568"
+          },
+          ".floating-nav__btn": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "gap": "4px",
+            "padding": "8px",
+            "max-height": "32px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "font-weight": "400",
+            "line-height": "16px",
+            "border-radius": "8px",
+            "cursor": "pointer",
+            "transition": "all 150ms ease",
+            "border": "1px solid transparent",
+            "background-color": "rgba(0,0,0,0)"
+          },
+          ".floating-nav__btn-chevron": {
+            "font-size": "16px",
+            "margin-left": "-2px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__btn-icon": {
+            "font-size": "16px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__btn-text": {
+            "text-align": "center"
+          },
+          ".floating-nav__buttons": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "12px"
+          },
+          ".floating-nav__divider": {
+            "width": "2px",
+            "height": "33px",
+            "background-color": "#4a5568",
+            "position": "relative",
+            "flex-shrink": "0"
+          },
+          ".floating-nav__pin": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "18px",
+            "height": "18px",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "cursor": "pointer",
+            "padding": "0",
+            "color": "#a0aec0",
+            "transition": "color 150ms ease"
+          },
+          ".floating-nav__pin-icon": {
+            "font-size": "18px",
+            "transform": "rotate(-45deg)",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__toolbar": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".floating-nav",
+          "tag": "div",
+          "styles": {
+            "background-color": "#333d47",
+            "border": "1px solid #BFC6D4",
+            "border-top": "none",
+            "border-radius": "0 0 16px 16px",
+            "box-shadow": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+            "padding": "8px 8px 12px 8px",
+            "display": "inline-flex",
+            "flex-direction": "column",
+            "gap": "10px",
+            "align-items": "flex-start",
+            "border-color": "#4a5568"
+          },
+          "children": [
+            ".floating-nav__btn",
+            ".floating-nav__btn-chevron",
+            ".floating-nav__btn-icon",
+            ".floating-nav__btn-text",
+            ".floating-nav__buttons",
+            ".floating-nav__divider",
+            ".floating-nav__pin",
+            ".floating-nav__pin-icon",
+            ".floating-nav__toolbar"
+          ]
+        },
+        {
+          "selector": ".floating-nav__btn",
+          "tag": "span",
+          "styles": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "gap": "4px",
+            "padding": "8px",
+            "max-height": "32px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "font-weight": "400",
+            "line-height": "16px",
+            "border-radius": "8px",
+            "cursor": "pointer",
+            "transition": "all 150ms ease",
+            "border": "1px solid transparent",
+            "background-color": "rgba(0,0,0,0)"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-chevron",
+          "tag": "span",
+          "styles": {
+            "font-size": "16px",
+            "margin-left": "-2px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-icon",
+          "tag": "span",
+          "styles": {
+            "font-size": "16px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-text",
+          "tag": "span",
+          "styles": {
+            "text-align": "center"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__buttons",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "12px"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__divider",
+          "tag": "span",
+          "styles": {
+            "width": "2px",
+            "height": "33px",
+            "background-color": "#4a5568",
+            "position": "relative",
+            "flex-shrink": "0"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__pin",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "18px",
+            "height": "18px",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "cursor": "pointer",
+            "padding": "0",
+            "color": "#a0aec0",
+            "transition": "color 150ms ease"
+          },
+          "parent": ".floating-nav",
+          "states": {
+            "hover": {
+              "color": "#e9ecef"
+            }
+          }
+        },
+        {
+          "selector": ".floating-nav__pin-icon",
+          "tag": "span",
+          "styles": {
+            "font-size": "18px",
+            "transform": "rotate(-45deg)",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__toolbar",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%"
+          },
+          "parent": ".floating-nav"
+        }
+      ]
+    },
+    "compact-cp-dark": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".floating-nav": {
+            "background-color": "#333d47",
+            "border": "1px solid #5F6871",
+            "border-top": "none",
+            "border-radius": "0 0 16px 16px",
+            "box-shadow": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+            "padding": "8px 8px 12px 8px",
+            "display": "inline-flex",
+            "flex-direction": "column",
+            "gap": "10px",
+            "align-items": "flex-start",
+            "border-color": "#4a5568"
+          },
+          ".floating-nav__btn": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "gap": "4px",
+            "padding": "8px",
+            "max-height": "32px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "font-weight": "400",
+            "line-height": "16px",
+            "border-radius": "8px",
+            "cursor": "pointer",
+            "transition": "all 150ms ease",
+            "border": "1px solid transparent",
+            "background-color": "rgba(0,0,0,0)"
+          },
+          ".floating-nav__btn-chevron": {
+            "font-size": "16px",
+            "margin-left": "-2px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__btn-icon": {
+            "font-size": "16px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__btn-text": {
+            "text-align": "center"
+          },
+          ".floating-nav__buttons": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "12px"
+          },
+          ".floating-nav__divider": {
+            "width": "2px",
+            "height": "33px",
+            "background-color": "#4a5568",
+            "position": "relative",
+            "flex-shrink": "0"
+          },
+          ".floating-nav__pin": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "18px",
+            "height": "18px",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "cursor": "pointer",
+            "padding": "0",
+            "color": "#a0aec0",
+            "transition": "color 150ms ease"
+          },
+          ".floating-nav__pin-icon": {
+            "font-size": "18px",
+            "transform": "rotate(-45deg)",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__toolbar": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".floating-nav",
+          "tag": "div",
+          "styles": {
+            "background-color": "#333d47",
+            "border": "1px solid #5F6871",
+            "border-top": "none",
+            "border-radius": "0 0 16px 16px",
+            "box-shadow": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+            "padding": "8px 8px 12px 8px",
+            "display": "inline-flex",
+            "flex-direction": "column",
+            "gap": "10px",
+            "align-items": "flex-start",
+            "border-color": "#4a5568"
+          },
+          "children": [
+            ".floating-nav__btn",
+            ".floating-nav__btn-chevron",
+            ".floating-nav__btn-icon",
+            ".floating-nav__btn-text",
+            ".floating-nav__buttons",
+            ".floating-nav__divider",
+            ".floating-nav__pin",
+            ".floating-nav__pin-icon",
+            ".floating-nav__toolbar"
+          ]
+        },
+        {
+          "selector": ".floating-nav__btn",
+          "tag": "span",
+          "styles": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "gap": "4px",
+            "padding": "8px",
+            "max-height": "32px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "font-weight": "400",
+            "line-height": "16px",
+            "border-radius": "8px",
+            "cursor": "pointer",
+            "transition": "all 150ms ease",
+            "border": "1px solid transparent",
+            "background-color": "rgba(0,0,0,0)"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-chevron",
+          "tag": "span",
+          "styles": {
+            "font-size": "16px",
+            "margin-left": "-2px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-icon",
+          "tag": "span",
+          "styles": {
+            "font-size": "16px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-text",
+          "tag": "span",
+          "styles": {
+            "text-align": "center"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__buttons",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "12px"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__divider",
+          "tag": "span",
+          "styles": {
+            "width": "2px",
+            "height": "33px",
+            "background-color": "#4a5568",
+            "position": "relative",
+            "flex-shrink": "0"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__pin",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "18px",
+            "height": "18px",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "cursor": "pointer",
+            "padding": "0",
+            "color": "#a0aec0",
+            "transition": "color 150ms ease"
+          },
+          "parent": ".floating-nav",
+          "states": {
+            "hover": {
+              "color": "#e9ecef"
+            }
+          }
+        },
+        {
+          "selector": ".floating-nav__pin-icon",
+          "tag": "span",
+          "styles": {
+            "font-size": "18px",
+            "transform": "rotate(-45deg)",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__toolbar",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%"
+          },
+          "parent": ".floating-nav"
+        }
+      ]
+    },
+    "compact-vp-light": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".floating-nav": {
+            "background-color": "#333d47",
+            "border": "1px solid #BFC6D4",
+            "border-top": "none",
+            "border-radius": "0 0 16px 16px",
+            "box-shadow": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+            "padding": "8px 8px 12px 8px",
+            "display": "inline-flex",
+            "flex-direction": "column",
+            "gap": "10px",
+            "align-items": "flex-start",
+            "border-color": "#4a5568"
+          },
+          ".floating-nav__btn": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "gap": "4px",
+            "padding": "8px",
+            "max-height": "32px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "font-weight": "400",
+            "line-height": "16px",
+            "border-radius": "8px",
+            "cursor": "pointer",
+            "transition": "all 150ms ease",
+            "border": "1px solid transparent",
+            "background-color": "rgba(0,0,0,0)"
+          },
+          ".floating-nav__btn-chevron": {
+            "font-size": "16px",
+            "margin-left": "-2px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__btn-icon": {
+            "font-size": "16px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__btn-text": {
+            "text-align": "center"
+          },
+          ".floating-nav__buttons": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "12px"
+          },
+          ".floating-nav__divider": {
+            "width": "2px",
+            "height": "33px",
+            "background-color": "#4a5568",
+            "position": "relative",
+            "flex-shrink": "0"
+          },
+          ".floating-nav__pin": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "18px",
+            "height": "18px",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "cursor": "pointer",
+            "padding": "0",
+            "color": "#a0aec0",
+            "transition": "color 150ms ease"
+          },
+          ".floating-nav__pin-icon": {
+            "font-size": "18px",
+            "transform": "rotate(-45deg)",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__toolbar": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".floating-nav",
+          "tag": "div",
+          "styles": {
+            "background-color": "#333d47",
+            "border": "1px solid #BFC6D4",
+            "border-top": "none",
+            "border-radius": "0 0 16px 16px",
+            "box-shadow": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+            "padding": "8px 8px 12px 8px",
+            "display": "inline-flex",
+            "flex-direction": "column",
+            "gap": "10px",
+            "align-items": "flex-start",
+            "border-color": "#4a5568"
+          },
+          "children": [
+            ".floating-nav__btn",
+            ".floating-nav__btn-chevron",
+            ".floating-nav__btn-icon",
+            ".floating-nav__btn-text",
+            ".floating-nav__buttons",
+            ".floating-nav__divider",
+            ".floating-nav__pin",
+            ".floating-nav__pin-icon",
+            ".floating-nav__toolbar"
+          ]
+        },
+        {
+          "selector": ".floating-nav__btn",
+          "tag": "span",
+          "styles": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "gap": "4px",
+            "padding": "8px",
+            "max-height": "32px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "font-weight": "400",
+            "line-height": "16px",
+            "border-radius": "8px",
+            "cursor": "pointer",
+            "transition": "all 150ms ease",
+            "border": "1px solid transparent",
+            "background-color": "rgba(0,0,0,0)"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-chevron",
+          "tag": "span",
+          "styles": {
+            "font-size": "16px",
+            "margin-left": "-2px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-icon",
+          "tag": "span",
+          "styles": {
+            "font-size": "16px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-text",
+          "tag": "span",
+          "styles": {
+            "text-align": "center"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__buttons",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "12px"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__divider",
+          "tag": "span",
+          "styles": {
+            "width": "2px",
+            "height": "33px",
+            "background-color": "#4a5568",
+            "position": "relative",
+            "flex-shrink": "0"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__pin",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "18px",
+            "height": "18px",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "cursor": "pointer",
+            "padding": "0",
+            "color": "#a0aec0",
+            "transition": "color 150ms ease"
+          },
+          "parent": ".floating-nav",
+          "states": {
+            "hover": {
+              "color": "#e9ecef"
+            }
+          }
+        },
+        {
+          "selector": ".floating-nav__pin-icon",
+          "tag": "span",
+          "styles": {
+            "font-size": "18px",
+            "transform": "rotate(-45deg)",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__toolbar",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%"
+          },
+          "parent": ".floating-nav"
+        }
+      ]
+    },
+    "compact-vp-dark": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".floating-nav": {
+            "background-color": "#333d47",
+            "border": "1px solid #2A2D32",
+            "border-top": "none",
+            "border-radius": "0 0 16px 16px",
+            "box-shadow": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+            "padding": "8px 8px 12px 8px",
+            "display": "inline-flex",
+            "flex-direction": "column",
+            "gap": "10px",
+            "align-items": "flex-start",
+            "border-color": "#4a5568"
+          },
+          ".floating-nav__btn": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "gap": "4px",
+            "padding": "8px",
+            "max-height": "32px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "font-weight": "400",
+            "line-height": "16px",
+            "border-radius": "8px",
+            "cursor": "pointer",
+            "transition": "all 150ms ease",
+            "border": "1px solid transparent",
+            "background-color": "rgba(0,0,0,0)"
+          },
+          ".floating-nav__btn-chevron": {
+            "font-size": "16px",
+            "margin-left": "-2px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__btn-icon": {
+            "font-size": "16px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__btn-text": {
+            "text-align": "center"
+          },
+          ".floating-nav__buttons": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "12px"
+          },
+          ".floating-nav__divider": {
+            "width": "2px",
+            "height": "33px",
+            "background-color": "#4a5568",
+            "position": "relative",
+            "flex-shrink": "0"
+          },
+          ".floating-nav__pin": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "18px",
+            "height": "18px",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "cursor": "pointer",
+            "padding": "0",
+            "color": "#a0aec0",
+            "transition": "color 150ms ease"
+          },
+          ".floating-nav__pin-icon": {
+            "font-size": "18px",
+            "transform": "rotate(-45deg)",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__toolbar": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".floating-nav",
+          "tag": "div",
+          "styles": {
+            "background-color": "#333d47",
+            "border": "1px solid #2A2D32",
+            "border-top": "none",
+            "border-radius": "0 0 16px 16px",
+            "box-shadow": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+            "padding": "8px 8px 12px 8px",
+            "display": "inline-flex",
+            "flex-direction": "column",
+            "gap": "10px",
+            "align-items": "flex-start",
+            "border-color": "#4a5568"
+          },
+          "children": [
+            ".floating-nav__btn",
+            ".floating-nav__btn-chevron",
+            ".floating-nav__btn-icon",
+            ".floating-nav__btn-text",
+            ".floating-nav__buttons",
+            ".floating-nav__divider",
+            ".floating-nav__pin",
+            ".floating-nav__pin-icon",
+            ".floating-nav__toolbar"
+          ]
+        },
+        {
+          "selector": ".floating-nav__btn",
+          "tag": "span",
+          "styles": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "gap": "4px",
+            "padding": "8px",
+            "max-height": "32px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "font-weight": "400",
+            "line-height": "16px",
+            "border-radius": "8px",
+            "cursor": "pointer",
+            "transition": "all 150ms ease",
+            "border": "1px solid transparent",
+            "background-color": "rgba(0,0,0,0)"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-chevron",
+          "tag": "span",
+          "styles": {
+            "font-size": "16px",
+            "margin-left": "-2px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-icon",
+          "tag": "span",
+          "styles": {
+            "font-size": "16px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-text",
+          "tag": "span",
+          "styles": {
+            "text-align": "center"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__buttons",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "12px"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__divider",
+          "tag": "span",
+          "styles": {
+            "width": "2px",
+            "height": "33px",
+            "background-color": "#4a5568",
+            "position": "relative",
+            "flex-shrink": "0"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__pin",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "18px",
+            "height": "18px",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "cursor": "pointer",
+            "padding": "0",
+            "color": "#a0aec0",
+            "transition": "color 150ms ease"
+          },
+          "parent": ".floating-nav",
+          "states": {
+            "hover": {
+              "color": "#e9ecef"
+            }
+          }
+        },
+        {
+          "selector": ".floating-nav__pin-icon",
+          "tag": "span",
+          "styles": {
+            "font-size": "18px",
+            "transform": "rotate(-45deg)",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__toolbar",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%"
+          },
+          "parent": ".floating-nav"
+        }
+      ]
+    },
+    "compact-ppm-light": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".floating-nav": {
+            "background-color": "#333d47",
+            "border": "1px solid #BFC6D4",
+            "border-top": "none",
+            "border-radius": "0 0 16px 16px",
+            "box-shadow": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+            "padding": "8px 8px 12px 8px",
+            "display": "inline-flex",
+            "flex-direction": "column",
+            "gap": "10px",
+            "align-items": "flex-start",
+            "border-color": "#4a5568"
+          },
+          ".floating-nav__btn": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "gap": "4px",
+            "padding": "8px",
+            "max-height": "32px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "font-weight": "400",
+            "line-height": "16px",
+            "border-radius": "8px",
+            "cursor": "pointer",
+            "transition": "all 150ms ease",
+            "border": "1px solid transparent",
+            "background-color": "rgba(0,0,0,0)"
+          },
+          ".floating-nav__btn-chevron": {
+            "font-size": "16px",
+            "margin-left": "-2px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__btn-icon": {
+            "font-size": "16px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__btn-text": {
+            "text-align": "center"
+          },
+          ".floating-nav__buttons": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "12px"
+          },
+          ".floating-nav__divider": {
+            "width": "2px",
+            "height": "33px",
+            "background-color": "#4a5568",
+            "position": "relative",
+            "flex-shrink": "0"
+          },
+          ".floating-nav__pin": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "18px",
+            "height": "18px",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "cursor": "pointer",
+            "padding": "0",
+            "color": "#a0aec0",
+            "transition": "color 150ms ease"
+          },
+          ".floating-nav__pin-icon": {
+            "font-size": "18px",
+            "transform": "rotate(-45deg)",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__toolbar": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".floating-nav",
+          "tag": "div",
+          "styles": {
+            "background-color": "#333d47",
+            "border": "1px solid #BFC6D4",
+            "border-top": "none",
+            "border-radius": "0 0 16px 16px",
+            "box-shadow": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+            "padding": "8px 8px 12px 8px",
+            "display": "inline-flex",
+            "flex-direction": "column",
+            "gap": "10px",
+            "align-items": "flex-start",
+            "border-color": "#4a5568"
+          },
+          "children": [
+            ".floating-nav__btn",
+            ".floating-nav__btn-chevron",
+            ".floating-nav__btn-icon",
+            ".floating-nav__btn-text",
+            ".floating-nav__buttons",
+            ".floating-nav__divider",
+            ".floating-nav__pin",
+            ".floating-nav__pin-icon",
+            ".floating-nav__toolbar"
+          ]
+        },
+        {
+          "selector": ".floating-nav__btn",
+          "tag": "span",
+          "styles": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "gap": "4px",
+            "padding": "8px",
+            "max-height": "32px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "font-weight": "400",
+            "line-height": "16px",
+            "border-radius": "8px",
+            "cursor": "pointer",
+            "transition": "all 150ms ease",
+            "border": "1px solid transparent",
+            "background-color": "rgba(0,0,0,0)"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-chevron",
+          "tag": "span",
+          "styles": {
+            "font-size": "16px",
+            "margin-left": "-2px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-icon",
+          "tag": "span",
+          "styles": {
+            "font-size": "16px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-text",
+          "tag": "span",
+          "styles": {
+            "text-align": "center"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__buttons",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "12px"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__divider",
+          "tag": "span",
+          "styles": {
+            "width": "2px",
+            "height": "33px",
+            "background-color": "#4a5568",
+            "position": "relative",
+            "flex-shrink": "0"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__pin",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "18px",
+            "height": "18px",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "cursor": "pointer",
+            "padding": "0",
+            "color": "#a0aec0",
+            "transition": "color 150ms ease"
+          },
+          "parent": ".floating-nav",
+          "states": {
+            "hover": {
+              "color": "#e9ecef"
+            }
+          }
+        },
+        {
+          "selector": ".floating-nav__pin-icon",
+          "tag": "span",
+          "styles": {
+            "font-size": "18px",
+            "transform": "rotate(-45deg)",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__toolbar",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%"
+          },
+          "parent": ".floating-nav"
+        }
+      ]
+    },
+    "compact-ppm-dark": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".floating-nav": {
+            "background-color": "#333d47",
+            "border": "1px solid #2A2D32",
+            "border-top": "none",
+            "border-radius": "0 0 16px 16px",
+            "box-shadow": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+            "padding": "8px 8px 12px 8px",
+            "display": "inline-flex",
+            "flex-direction": "column",
+            "gap": "10px",
+            "align-items": "flex-start",
+            "border-color": "#4a5568"
+          },
+          ".floating-nav__btn": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "gap": "4px",
+            "padding": "8px",
+            "max-height": "32px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "font-weight": "400",
+            "line-height": "16px",
+            "border-radius": "8px",
+            "cursor": "pointer",
+            "transition": "all 150ms ease",
+            "border": "1px solid transparent",
+            "background-color": "rgba(0,0,0,0)"
+          },
+          ".floating-nav__btn-chevron": {
+            "font-size": "16px",
+            "margin-left": "-2px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__btn-icon": {
+            "font-size": "16px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__btn-text": {
+            "text-align": "center"
+          },
+          ".floating-nav__buttons": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "12px"
+          },
+          ".floating-nav__divider": {
+            "width": "2px",
+            "height": "33px",
+            "background-color": "#4a5568",
+            "position": "relative",
+            "flex-shrink": "0"
+          },
+          ".floating-nav__pin": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "18px",
+            "height": "18px",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "cursor": "pointer",
+            "padding": "0",
+            "color": "#a0aec0",
+            "transition": "color 150ms ease"
+          },
+          ".floating-nav__pin-icon": {
+            "font-size": "18px",
+            "transform": "rotate(-45deg)",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__toolbar": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".floating-nav",
+          "tag": "div",
+          "styles": {
+            "background-color": "#333d47",
+            "border": "1px solid #2A2D32",
+            "border-top": "none",
+            "border-radius": "0 0 16px 16px",
+            "box-shadow": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+            "padding": "8px 8px 12px 8px",
+            "display": "inline-flex",
+            "flex-direction": "column",
+            "gap": "10px",
+            "align-items": "flex-start",
+            "border-color": "#4a5568"
+          },
+          "children": [
+            ".floating-nav__btn",
+            ".floating-nav__btn-chevron",
+            ".floating-nav__btn-icon",
+            ".floating-nav__btn-text",
+            ".floating-nav__buttons",
+            ".floating-nav__divider",
+            ".floating-nav__pin",
+            ".floating-nav__pin-icon",
+            ".floating-nav__toolbar"
+          ]
+        },
+        {
+          "selector": ".floating-nav__btn",
+          "tag": "span",
+          "styles": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "gap": "4px",
+            "padding": "8px",
+            "max-height": "32px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "font-weight": "400",
+            "line-height": "16px",
+            "border-radius": "8px",
+            "cursor": "pointer",
+            "transition": "all 150ms ease",
+            "border": "1px solid transparent",
+            "background-color": "rgba(0,0,0,0)"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-chevron",
+          "tag": "span",
+          "styles": {
+            "font-size": "16px",
+            "margin-left": "-2px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-icon",
+          "tag": "span",
+          "styles": {
+            "font-size": "16px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-text",
+          "tag": "span",
+          "styles": {
+            "text-align": "center"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__buttons",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "12px"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__divider",
+          "tag": "span",
+          "styles": {
+            "width": "2px",
+            "height": "33px",
+            "background-color": "#4a5568",
+            "position": "relative",
+            "flex-shrink": "0"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__pin",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "18px",
+            "height": "18px",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "cursor": "pointer",
+            "padding": "0",
+            "color": "#a0aec0",
+            "transition": "color 150ms ease"
+          },
+          "parent": ".floating-nav",
+          "states": {
+            "hover": {
+              "color": "#e9ecef"
+            }
+          }
+        },
+        {
+          "selector": ".floating-nav__pin-icon",
+          "tag": "span",
+          "styles": {
+            "font-size": "18px",
+            "transform": "rotate(-45deg)",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__toolbar",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%"
+          },
+          "parent": ".floating-nav"
+        }
+      ]
+    },
+    "compact-maconomy-light": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".floating-nav": {
+            "background-color": "#333d47",
+            "border": "1px solid #BFC6D4",
+            "border-top": "none",
+            "border-radius": "0 0 16px 16px",
+            "box-shadow": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+            "padding": "8px 8px 12px 8px",
+            "display": "inline-flex",
+            "flex-direction": "column",
+            "gap": "10px",
+            "align-items": "flex-start",
+            "border-color": "#4a5568"
+          },
+          ".floating-nav__btn": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "gap": "4px",
+            "padding": "8px",
+            "max-height": "32px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "font-weight": "400",
+            "line-height": "16px",
+            "border-radius": "8px",
+            "cursor": "pointer",
+            "transition": "all 150ms ease",
+            "border": "1px solid transparent",
+            "background-color": "rgba(0,0,0,0)"
+          },
+          ".floating-nav__btn-chevron": {
+            "font-size": "16px",
+            "margin-left": "-2px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__btn-icon": {
+            "font-size": "16px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__btn-text": {
+            "text-align": "center"
+          },
+          ".floating-nav__buttons": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "12px"
+          },
+          ".floating-nav__divider": {
+            "width": "2px",
+            "height": "33px",
+            "background-color": "#4a5568",
+            "position": "relative",
+            "flex-shrink": "0"
+          },
+          ".floating-nav__pin": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "18px",
+            "height": "18px",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "cursor": "pointer",
+            "padding": "0",
+            "color": "#a0aec0",
+            "transition": "color 150ms ease"
+          },
+          ".floating-nav__pin-icon": {
+            "font-size": "18px",
+            "transform": "rotate(-45deg)",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__toolbar": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".floating-nav",
+          "tag": "div",
+          "styles": {
+            "background-color": "#333d47",
+            "border": "1px solid #BFC6D4",
+            "border-top": "none",
+            "border-radius": "0 0 16px 16px",
+            "box-shadow": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+            "padding": "8px 8px 12px 8px",
+            "display": "inline-flex",
+            "flex-direction": "column",
+            "gap": "10px",
+            "align-items": "flex-start",
+            "border-color": "#4a5568"
+          },
+          "children": [
+            ".floating-nav__btn",
+            ".floating-nav__btn-chevron",
+            ".floating-nav__btn-icon",
+            ".floating-nav__btn-text",
+            ".floating-nav__buttons",
+            ".floating-nav__divider",
+            ".floating-nav__pin",
+            ".floating-nav__pin-icon",
+            ".floating-nav__toolbar"
+          ]
+        },
+        {
+          "selector": ".floating-nav__btn",
+          "tag": "span",
+          "styles": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "gap": "4px",
+            "padding": "8px",
+            "max-height": "32px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "font-weight": "400",
+            "line-height": "16px",
+            "border-radius": "8px",
+            "cursor": "pointer",
+            "transition": "all 150ms ease",
+            "border": "1px solid transparent",
+            "background-color": "rgba(0,0,0,0)"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-chevron",
+          "tag": "span",
+          "styles": {
+            "font-size": "16px",
+            "margin-left": "-2px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-icon",
+          "tag": "span",
+          "styles": {
+            "font-size": "16px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-text",
+          "tag": "span",
+          "styles": {
+            "text-align": "center"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__buttons",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "12px"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__divider",
+          "tag": "span",
+          "styles": {
+            "width": "2px",
+            "height": "33px",
+            "background-color": "#4a5568",
+            "position": "relative",
+            "flex-shrink": "0"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__pin",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "18px",
+            "height": "18px",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "cursor": "pointer",
+            "padding": "0",
+            "color": "#a0aec0",
+            "transition": "color 150ms ease"
+          },
+          "parent": ".floating-nav",
+          "states": {
+            "hover": {
+              "color": "#e9ecef"
+            }
+          }
+        },
+        {
+          "selector": ".floating-nav__pin-icon",
+          "tag": "span",
+          "styles": {
+            "font-size": "18px",
+            "transform": "rotate(-45deg)",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__toolbar",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%"
+          },
+          "parent": ".floating-nav"
+        }
+      ]
+    },
+    "compact-maconomy-dark": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".floating-nav": {
+            "background-color": "#333d47",
+            "border": "1px solid #2A2D32",
+            "border-top": "none",
+            "border-radius": "0 0 16px 16px",
+            "box-shadow": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+            "padding": "8px 8px 12px 8px",
+            "display": "inline-flex",
+            "flex-direction": "column",
+            "gap": "10px",
+            "align-items": "flex-start",
+            "border-color": "#4a5568"
+          },
+          ".floating-nav__btn": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "gap": "4px",
+            "padding": "8px",
+            "max-height": "32px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "font-weight": "400",
+            "line-height": "16px",
+            "border-radius": "8px",
+            "cursor": "pointer",
+            "transition": "all 150ms ease",
+            "border": "1px solid transparent",
+            "background-color": "rgba(0,0,0,0)"
+          },
+          ".floating-nav__btn-chevron": {
+            "font-size": "16px",
+            "margin-left": "-2px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__btn-icon": {
+            "font-size": "16px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__btn-text": {
+            "text-align": "center"
+          },
+          ".floating-nav__buttons": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "12px"
+          },
+          ".floating-nav__divider": {
+            "width": "2px",
+            "height": "33px",
+            "background-color": "#4a5568",
+            "position": "relative",
+            "flex-shrink": "0"
+          },
+          ".floating-nav__pin": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "18px",
+            "height": "18px",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "cursor": "pointer",
+            "padding": "0",
+            "color": "#a0aec0",
+            "transition": "color 150ms ease"
+          },
+          ".floating-nav__pin-icon": {
+            "font-size": "18px",
+            "transform": "rotate(-45deg)",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".floating-nav__toolbar": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".floating-nav",
+          "tag": "div",
+          "styles": {
+            "background-color": "#333d47",
+            "border": "1px solid #2A2D32",
+            "border-top": "none",
+            "border-radius": "0 0 16px 16px",
+            "box-shadow": "0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1)",
+            "padding": "8px 8px 12px 8px",
+            "display": "inline-flex",
+            "flex-direction": "column",
+            "gap": "10px",
+            "align-items": "flex-start",
+            "border-color": "#4a5568"
+          },
+          "children": [
+            ".floating-nav__btn",
+            ".floating-nav__btn-chevron",
+            ".floating-nav__btn-icon",
+            ".floating-nav__btn-text",
+            ".floating-nav__buttons",
+            ".floating-nav__divider",
+            ".floating-nav__pin",
+            ".floating-nav__pin-icon",
+            ".floating-nav__toolbar"
+          ]
+        },
+        {
+          "selector": ".floating-nav__btn",
+          "tag": "span",
+          "styles": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "gap": "4px",
+            "padding": "8px",
+            "max-height": "32px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "font-weight": "400",
+            "line-height": "16px",
+            "border-radius": "8px",
+            "cursor": "pointer",
+            "transition": "all 150ms ease",
+            "border": "1px solid transparent",
+            "background-color": "rgba(0,0,0,0)"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-chevron",
+          "tag": "span",
+          "styles": {
+            "font-size": "16px",
+            "margin-left": "-2px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-icon",
+          "tag": "span",
+          "styles": {
+            "font-size": "16px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__btn-text",
+          "tag": "span",
+          "styles": {
+            "text-align": "center"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__buttons",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "12px"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__divider",
+          "tag": "span",
+          "styles": {
+            "width": "2px",
+            "height": "33px",
+            "background-color": "#4a5568",
+            "position": "relative",
+            "flex-shrink": "0"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__pin",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "18px",
+            "height": "18px",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "cursor": "pointer",
+            "padding": "0",
+            "color": "#a0aec0",
+            "transition": "color 150ms ease"
+          },
+          "parent": ".floating-nav",
+          "states": {
+            "hover": {
+              "color": "#e9ecef"
+            }
+          }
+        },
+        {
+          "selector": ".floating-nav__pin-icon",
+          "tag": "span",
+          "styles": {
+            "font-size": "18px",
+            "transform": "rotate(-45deg)",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".floating-nav"
+        },
+        {
+          "selector": ".floating-nav__toolbar",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%"
+          },
+          "parent": ".floating-nav"
+        }
+      ]
+    }
+  },
+  "contentOrder": [
+    ".floating-nav__toolbar"
+  ],
+  "guidance": {
+    "patterns": {
+      "variant-button-visibility": "The variant prop controls which buttons render: variant='full' (default) shows all 4 buttons (Execute, Actions, Refresh, Save), while variant='compact' hides the Execute button even if showExecute=true. The showExecute prop only takes effect when variant='full'. Actions, Refresh (with dropdown), and Save buttons always render regardless of variant. Compact mode is used for narrow viewports or simplified interfaces.",
+      "actions-slot-override": "The actions slot provides complete override of the default button structure. When Astro.slots.has('actions') is true, the entire default button group (Execute, Actions, Refresh, Save, divider, pin) is replaced with custom slot content. This is an all-or-nothing override - you cannot selectively replace individual buttons while keeping others. Use the actions slot for fully custom toolbar layouts.",
+      "default-button-structure": "The default button structure (when no actions slot is provided) includes: (1) floating-nav__buttons wrapper with 4 buttons, (2) floating-nav__divider vertical separator, (3) floating-nav__pin button with pin icon. The Actions and Save buttons have dropdown chevrons (floating-nav__btn--dropdown), and Refresh is icon-only with dropdown (floating-nav__btn--icon-dropdown). This structure is CP-specific and matches Deltek CP application patterns.",
+      "save-button-states": "The saveDisabled prop controls the Save button's disabled state and visual variant. When saveDisabled=true, the button receives floating-nav__btn--disabled class and disabled attribute. When saveDisabled=false (default), it receives floating-nav__btn--primary class for prominent styling. The Save button always has a dropdown chevron, suggesting multiple save options in the dropdown menu."
+    },
+    "guidelines": {}
+  },
+  "specKeyOrder": [
+    "variant",
+    "theme",
+    "mode"
+  ],
+  "dimensionDefaults": {
+    "variant": "full",
+    "theme": "cp",
+    "mode": "light"
+  },
+  "structure": {
+    "root": ".floating-nav",
+    "children": [
+      {
+        "class": ".floating-nav__toolbar",
+        "children": []
+      }
+    ]
+  },
+  "fonts": {
+    "Figtree": "https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap",
+    "Lexend": "https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap",
+    "JetBrains Mono": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
+  },
+  "defaultContent": {
+    "_rule": "No default content defined; do not invent labels, icons, or copy. Use only what is in the spec or leave slots empty."
+  },
+  "interactivity": {
+    "events": [
+      {
+        "name": "click",
+        "description": "Item click for navigation or action"
+      }
+    ],
+    "state": [
+      {
+        "name": "expanded",
+        "type": "boolean",
+        "description": "Whether the floating nav is expanded or collapsed (if applicable)"
+      }
+    ]
+  },
+  "examples": [
+    {
+      "name": "CP with left sidebar",
+      "description": "CP layout with collapsible left sidebar",
+      "recipeId": "shell-layout-cp"
+    },
+    {
+      "name": "CP minimal",
+      "description": "Minimal CP layout with header and floating nav only",
+      "recipeId": "shell-layout-cp"
+    },
+    {
+      "name": "CP with page header",
+      "description": "CP layout with page-specific header",
+      "recipeId": "shell-layout-cp"
+    },
+    {
+      "name": "Default floating nav",
+      "description": "Full variant with Execute and actions",
+      "recipeId": "floating-nav"
+    },
+    {
+      "name": "Compact floating nav",
+      "description": "Reduced-height variant",
+      "recipeId": "floating-nav"
+    },
+    {
+      "name": "Save disabled",
+      "description": "Execute visible, Save disabled",
+      "recipeId": "floating-nav"
+    },
+    {
+      "name": "Floating nav",
+      "description": "Floating navigation",
+      "snippet": "<FloatingNav items={[...]} />"
+    }
+  ]
+}

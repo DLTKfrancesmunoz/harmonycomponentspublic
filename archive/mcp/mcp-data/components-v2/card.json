@@ -1,0 +1,1791 @@
+{
+  "name": "Card",
+  "type": "component",
+  "filePath": "src/components/ui/Card.astro",
+  "description": "Card Component",
+  "props": {
+    "elevated": {
+      "type": "boolean",
+      "optional": true,
+      "default": "false"
+    },
+    "interactive": {
+      "type": "boolean",
+      "optional": true,
+      "default": "false"
+    },
+    "primary": {
+      "type": "boolean",
+      "optional": true,
+      "default": "false"
+    },
+    "withHeader": {
+      "type": "boolean",
+      "optional": true,
+      "default": "true"
+    },
+    "headerTitle": {
+      "type": "string",
+      "optional": true,
+      "default": "'Card title'"
+    },
+    "headerSubtitle": {
+      "type": "string",
+      "optional": true,
+      "default": "''"
+    },
+    "class": {
+      "type": "string",
+      "optional": true,
+      "default": "''"
+    }
+  },
+  "defaults": {
+    "theme": "cp",
+    "mode": "light"
+  },
+  "specs": {
+    "cp-light": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".card": {
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.75rem",
+            "overflow": "hidden",
+            "box-shadow": "0 1px 2px 0 rgb(15 23 42 / 0.05)"
+          },
+          ".card__body": {
+            "padding": "16px",
+            "display": "flex",
+            "flex-direction": "column",
+            "height": "100%",
+            "gap": "12px"
+          },
+          ".card__footer": {
+            "padding": "16px",
+            "border-top": "1px solid #BFC6D4",
+            "background-color": "#F7F8FA"
+          },
+          ".card__header": {
+            "padding": "16px",
+            "border-bottom": "1px solid #BFC6D4"
+          },
+          ".card__header-actions": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px"
+          },
+          ".card__header-content": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "4px",
+            "flex": "1"
+          },
+          ".card__header-subtitle": {
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.875rem",
+            "line-height": "20px",
+            "color": "#525969",
+            "margin": "0"
+          },
+          ".card__header-title": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "line-height": "24px",
+            "color": "#373F4E",
+            "margin": "0"
+          },
+          ".card__subtitle": {
+            "font-size": "0.875rem",
+            "color": "#525969",
+            "margin-top": "4px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".card__title": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#373F4E"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".card",
+          "tag": "div",
+          "styles": {
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.75rem",
+            "overflow": "hidden",
+            "box-shadow": "0 1px 2px 0 rgb(15 23 42 / 0.05)"
+          },
+          "children": [
+            ".card__body",
+            ".card__footer",
+            ".card__header",
+            ".card__header-actions",
+            ".card__header-content",
+            ".card__header-subtitle",
+            ".card__header-title",
+            ".card__subtitle",
+            ".card__title"
+          ]
+        },
+        {
+          "selector": ".card__body",
+          "tag": "span",
+          "styles": {
+            "padding": "16px",
+            "display": "flex",
+            "flex-direction": "column",
+            "height": "100%",
+            "gap": "12px"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__footer",
+          "tag": "span",
+          "styles": {
+            "padding": "16px",
+            "border-top": "1px solid #BFC6D4",
+            "background-color": "#F7F8FA"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__header",
+          "tag": "span",
+          "styles": {
+            "padding": "16px",
+            "border-bottom": "1px solid #BFC6D4"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__header-actions",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px"
+          },
+          "parent": ".card__header"
+        },
+        {
+          "selector": ".card__header-content",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "4px",
+            "flex": "1"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__header-subtitle",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.875rem",
+            "line-height": "20px",
+            "color": "#525969",
+            "margin": "0"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__header-title",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "line-height": "24px",
+            "color": "#373F4E",
+            "margin": "0"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__subtitle",
+          "tag": "span",
+          "styles": {
+            "font-size": "0.875rem",
+            "color": "#525969",
+            "margin-top": "4px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__title",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#373F4E"
+          },
+          "parent": ".card"
+        }
+      ]
+    },
+    "cp-dark": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".card": {
+            "background-color": "#37424D",
+            "border": "1px solid #5F6871",
+            "border-radius": "0.75rem",
+            "overflow": "hidden",
+            "box-shadow": "0 1px 2px 0 rgb(15 23 42 / 0.05)"
+          },
+          ".card__body": {
+            "padding": "16px",
+            "display": "flex",
+            "flex-direction": "column",
+            "height": "100%",
+            "gap": "12px"
+          },
+          ".card__footer": {
+            "padding": "16px",
+            "border-top": "1px solid #5F6871",
+            "background-color": "#37424D"
+          },
+          ".card__header": {
+            "padding": "16px",
+            "border-bottom": "1px solid #5F6871"
+          },
+          ".card__header-actions": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px"
+          },
+          ".card__header-content": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "4px",
+            "flex": "1"
+          },
+          ".card__header-subtitle": {
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.875rem",
+            "line-height": "20px",
+            "color": "#B6B6C4",
+            "margin": "0"
+          },
+          ".card__header-title": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "line-height": "24px",
+            "color": "#E9ECEF",
+            "margin": "0"
+          },
+          ".card__subtitle": {
+            "font-size": "0.875rem",
+            "color": "#B6B6C4",
+            "margin-top": "4px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".card__title": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#E9ECEF"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".card",
+          "tag": "div",
+          "styles": {
+            "background-color": "#37424D",
+            "border": "1px solid #5F6871",
+            "border-radius": "0.75rem",
+            "overflow": "hidden",
+            "box-shadow": "0 1px 2px 0 rgb(15 23 42 / 0.05)"
+          },
+          "children": [
+            ".card__body",
+            ".card__footer",
+            ".card__header",
+            ".card__header-actions",
+            ".card__header-content",
+            ".card__header-subtitle",
+            ".card__header-title",
+            ".card__subtitle",
+            ".card__title"
+          ]
+        },
+        {
+          "selector": ".card__body",
+          "tag": "span",
+          "styles": {
+            "padding": "16px",
+            "display": "flex",
+            "flex-direction": "column",
+            "height": "100%",
+            "gap": "12px"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__footer",
+          "tag": "span",
+          "styles": {
+            "padding": "16px",
+            "border-top": "1px solid #5F6871",
+            "background-color": "#37424D"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__header",
+          "tag": "span",
+          "styles": {
+            "padding": "16px",
+            "border-bottom": "1px solid #5F6871"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__header-actions",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px"
+          },
+          "parent": ".card__header"
+        },
+        {
+          "selector": ".card__header-content",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "4px",
+            "flex": "1"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__header-subtitle",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.875rem",
+            "line-height": "20px",
+            "color": "#B6B6C4",
+            "margin": "0"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__header-title",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "line-height": "24px",
+            "color": "#E9ECEF",
+            "margin": "0"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__subtitle",
+          "tag": "span",
+          "styles": {
+            "font-size": "0.875rem",
+            "color": "#B6B6C4",
+            "margin-top": "4px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__title",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#E9ECEF"
+          },
+          "parent": ".card"
+        }
+      ]
+    },
+    "vp-light": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".card": {
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.75rem",
+            "overflow": "hidden",
+            "box-shadow": "0 1px 2px 0 rgb(15 23 42 / 0.05)"
+          },
+          ".card__body": {
+            "padding": "16px",
+            "display": "flex",
+            "flex-direction": "column",
+            "height": "100%",
+            "gap": "12px"
+          },
+          ".card__footer": {
+            "padding": "16px",
+            "border-top": "1px solid #BFC6D4",
+            "background-color": "#F7F8FA"
+          },
+          ".card__header": {
+            "padding": "16px",
+            "border-bottom": "1px solid #BFC6D4"
+          },
+          ".card__header-actions": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px"
+          },
+          ".card__header-content": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "4px",
+            "flex": "1"
+          },
+          ".card__header-subtitle": {
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.875rem",
+            "line-height": "20px",
+            "color": "#525969",
+            "margin": "0"
+          },
+          ".card__header-title": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "line-height": "24px",
+            "color": "#373F4E",
+            "margin": "0"
+          },
+          ".card__subtitle": {
+            "font-size": "0.875rem",
+            "color": "#525969",
+            "margin-top": "4px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".card__title": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#373F4E"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".card",
+          "tag": "div",
+          "styles": {
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.75rem",
+            "overflow": "hidden",
+            "box-shadow": "0 1px 2px 0 rgb(15 23 42 / 0.05)"
+          },
+          "children": [
+            ".card__body",
+            ".card__footer",
+            ".card__header",
+            ".card__header-actions",
+            ".card__header-content",
+            ".card__header-subtitle",
+            ".card__header-title",
+            ".card__subtitle",
+            ".card__title"
+          ]
+        },
+        {
+          "selector": ".card__body",
+          "tag": "span",
+          "styles": {
+            "padding": "16px",
+            "display": "flex",
+            "flex-direction": "column",
+            "height": "100%",
+            "gap": "12px"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__footer",
+          "tag": "span",
+          "styles": {
+            "padding": "16px",
+            "border-top": "1px solid #BFC6D4",
+            "background-color": "#F7F8FA"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__header",
+          "tag": "span",
+          "styles": {
+            "padding": "16px",
+            "border-bottom": "1px solid #BFC6D4"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__header-actions",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px"
+          },
+          "parent": ".card__header"
+        },
+        {
+          "selector": ".card__header-content",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "4px",
+            "flex": "1"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__header-subtitle",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.875rem",
+            "line-height": "20px",
+            "color": "#525969",
+            "margin": "0"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__header-title",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "line-height": "24px",
+            "color": "#373F4E",
+            "margin": "0"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__subtitle",
+          "tag": "span",
+          "styles": {
+            "font-size": "0.875rem",
+            "color": "#525969",
+            "margin-top": "4px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__title",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#373F4E"
+          },
+          "parent": ".card"
+        }
+      ]
+    },
+    "vp-dark": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".card": {
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.75rem",
+            "overflow": "hidden",
+            "box-shadow": "0 1px 2px 0 rgb(15 23 42 / 0.05)"
+          },
+          ".card__body": {
+            "padding": "16px",
+            "display": "flex",
+            "flex-direction": "column",
+            "height": "100%",
+            "gap": "12px"
+          },
+          ".card__footer": {
+            "padding": "16px",
+            "border-top": "1px solid #2A2D32",
+            "background-color": "#1F2124"
+          },
+          ".card__header": {
+            "padding": "16px",
+            "border-bottom": "1px solid #2A2D32"
+          },
+          ".card__header-actions": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px"
+          },
+          ".card__header-content": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "4px",
+            "flex": "1"
+          },
+          ".card__header-subtitle": {
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.875rem",
+            "line-height": "20px",
+            "color": "#B5B5BC",
+            "margin": "0"
+          },
+          ".card__header-title": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "line-height": "24px",
+            "color": "#FAFAFA",
+            "margin": "0"
+          },
+          ".card__subtitle": {
+            "font-size": "0.875rem",
+            "color": "#B5B5BC",
+            "margin-top": "4px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".card__title": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#FAFAFA"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".card",
+          "tag": "div",
+          "styles": {
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.75rem",
+            "overflow": "hidden",
+            "box-shadow": "0 1px 2px 0 rgb(15 23 42 / 0.05)"
+          },
+          "children": [
+            ".card__body",
+            ".card__footer",
+            ".card__header",
+            ".card__header-actions",
+            ".card__header-content",
+            ".card__header-subtitle",
+            ".card__header-title",
+            ".card__subtitle",
+            ".card__title"
+          ]
+        },
+        {
+          "selector": ".card__body",
+          "tag": "span",
+          "styles": {
+            "padding": "16px",
+            "display": "flex",
+            "flex-direction": "column",
+            "height": "100%",
+            "gap": "12px"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__footer",
+          "tag": "span",
+          "styles": {
+            "padding": "16px",
+            "border-top": "1px solid #2A2D32",
+            "background-color": "#1F2124"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__header",
+          "tag": "span",
+          "styles": {
+            "padding": "16px",
+            "border-bottom": "1px solid #2A2D32"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__header-actions",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px"
+          },
+          "parent": ".card__header"
+        },
+        {
+          "selector": ".card__header-content",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "4px",
+            "flex": "1"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__header-subtitle",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.875rem",
+            "line-height": "20px",
+            "color": "#B5B5BC",
+            "margin": "0"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__header-title",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "line-height": "24px",
+            "color": "#FAFAFA",
+            "margin": "0"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__subtitle",
+          "tag": "span",
+          "styles": {
+            "font-size": "0.875rem",
+            "color": "#B5B5BC",
+            "margin-top": "4px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__title",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#FAFAFA"
+          },
+          "parent": ".card"
+        }
+      ]
+    },
+    "ppm-light": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".card": {
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.75rem",
+            "overflow": "hidden",
+            "box-shadow": "0 1px 2px 0 rgb(15 23 42 / 0.05)"
+          },
+          ".card__body": {
+            "padding": "16px",
+            "display": "flex",
+            "flex-direction": "column",
+            "height": "100%",
+            "gap": "12px"
+          },
+          ".card__footer": {
+            "padding": "16px",
+            "border-top": "1px solid #BFC6D4",
+            "background-color": "#F7F8FA"
+          },
+          ".card__header": {
+            "padding": "16px",
+            "border-bottom": "1px solid #BFC6D4"
+          },
+          ".card__header-actions": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px"
+          },
+          ".card__header-content": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "4px",
+            "flex": "1"
+          },
+          ".card__header-subtitle": {
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.875rem",
+            "line-height": "20px",
+            "color": "#525969",
+            "margin": "0"
+          },
+          ".card__header-title": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "line-height": "24px",
+            "color": "#373F4E",
+            "margin": "0"
+          },
+          ".card__subtitle": {
+            "font-size": "0.875rem",
+            "color": "#525969",
+            "margin-top": "4px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".card__title": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#373F4E"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".card",
+          "tag": "div",
+          "styles": {
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.75rem",
+            "overflow": "hidden",
+            "box-shadow": "0 1px 2px 0 rgb(15 23 42 / 0.05)"
+          },
+          "children": [
+            ".card__body",
+            ".card__footer",
+            ".card__header",
+            ".card__header-actions",
+            ".card__header-content",
+            ".card__header-subtitle",
+            ".card__header-title",
+            ".card__subtitle",
+            ".card__title"
+          ]
+        },
+        {
+          "selector": ".card__body",
+          "tag": "span",
+          "styles": {
+            "padding": "16px",
+            "display": "flex",
+            "flex-direction": "column",
+            "height": "100%",
+            "gap": "12px"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__footer",
+          "tag": "span",
+          "styles": {
+            "padding": "16px",
+            "border-top": "1px solid #BFC6D4",
+            "background-color": "#F7F8FA"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__header",
+          "tag": "span",
+          "styles": {
+            "padding": "16px",
+            "border-bottom": "1px solid #BFC6D4"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__header-actions",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px"
+          },
+          "parent": ".card__header"
+        },
+        {
+          "selector": ".card__header-content",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "4px",
+            "flex": "1"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__header-subtitle",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.875rem",
+            "line-height": "20px",
+            "color": "#525969",
+            "margin": "0"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__header-title",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "line-height": "24px",
+            "color": "#373F4E",
+            "margin": "0"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__subtitle",
+          "tag": "span",
+          "styles": {
+            "font-size": "0.875rem",
+            "color": "#525969",
+            "margin-top": "4px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__title",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#373F4E"
+          },
+          "parent": ".card"
+        }
+      ]
+    },
+    "ppm-dark": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".card": {
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.75rem",
+            "overflow": "hidden",
+            "box-shadow": "0 1px 2px 0 rgb(15 23 42 / 0.05)"
+          },
+          ".card__body": {
+            "padding": "16px",
+            "display": "flex",
+            "flex-direction": "column",
+            "height": "100%",
+            "gap": "12px"
+          },
+          ".card__footer": {
+            "padding": "16px",
+            "border-top": "1px solid #2A2D32",
+            "background-color": "#1F2124"
+          },
+          ".card__header": {
+            "padding": "16px",
+            "border-bottom": "1px solid #2A2D32"
+          },
+          ".card__header-actions": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px"
+          },
+          ".card__header-content": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "4px",
+            "flex": "1"
+          },
+          ".card__header-subtitle": {
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.875rem",
+            "line-height": "20px",
+            "color": "#B5B5BC",
+            "margin": "0"
+          },
+          ".card__header-title": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "line-height": "24px",
+            "color": "#FAFAFA",
+            "margin": "0"
+          },
+          ".card__subtitle": {
+            "font-size": "0.875rem",
+            "color": "#B5B5BC",
+            "margin-top": "4px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".card__title": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#FAFAFA"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".card",
+          "tag": "div",
+          "styles": {
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.75rem",
+            "overflow": "hidden",
+            "box-shadow": "0 1px 2px 0 rgb(15 23 42 / 0.05)"
+          },
+          "children": [
+            ".card__body",
+            ".card__footer",
+            ".card__header",
+            ".card__header-actions",
+            ".card__header-content",
+            ".card__header-subtitle",
+            ".card__header-title",
+            ".card__subtitle",
+            ".card__title"
+          ]
+        },
+        {
+          "selector": ".card__body",
+          "tag": "span",
+          "styles": {
+            "padding": "16px",
+            "display": "flex",
+            "flex-direction": "column",
+            "height": "100%",
+            "gap": "12px"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__footer",
+          "tag": "span",
+          "styles": {
+            "padding": "16px",
+            "border-top": "1px solid #2A2D32",
+            "background-color": "#1F2124"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__header",
+          "tag": "span",
+          "styles": {
+            "padding": "16px",
+            "border-bottom": "1px solid #2A2D32"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__header-actions",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px"
+          },
+          "parent": ".card__header"
+        },
+        {
+          "selector": ".card__header-content",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "4px",
+            "flex": "1"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__header-subtitle",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.875rem",
+            "line-height": "20px",
+            "color": "#B5B5BC",
+            "margin": "0"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__header-title",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "line-height": "24px",
+            "color": "#FAFAFA",
+            "margin": "0"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__subtitle",
+          "tag": "span",
+          "styles": {
+            "font-size": "0.875rem",
+            "color": "#B5B5BC",
+            "margin-top": "4px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__title",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#FAFAFA"
+          },
+          "parent": ".card"
+        }
+      ]
+    },
+    "maconomy-light": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".card": {
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.75rem",
+            "overflow": "hidden",
+            "box-shadow": "0 1px 2px 0 rgb(15 23 42 / 0.05)"
+          },
+          ".card__body": {
+            "padding": "16px",
+            "display": "flex",
+            "flex-direction": "column",
+            "height": "100%",
+            "gap": "12px"
+          },
+          ".card__footer": {
+            "padding": "16px",
+            "border-top": "1px solid #BFC6D4",
+            "background-color": "#F7F8FA"
+          },
+          ".card__header": {
+            "padding": "16px",
+            "border-bottom": "1px solid #BFC6D4"
+          },
+          ".card__header-actions": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px"
+          },
+          ".card__header-content": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "4px",
+            "flex": "1"
+          },
+          ".card__header-subtitle": {
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.875rem",
+            "line-height": "20px",
+            "color": "#525969",
+            "margin": "0"
+          },
+          ".card__header-title": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "line-height": "24px",
+            "color": "#373F4E",
+            "margin": "0"
+          },
+          ".card__subtitle": {
+            "font-size": "0.875rem",
+            "color": "#525969",
+            "margin-top": "4px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".card__title": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#373F4E"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".card",
+          "tag": "div",
+          "styles": {
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.75rem",
+            "overflow": "hidden",
+            "box-shadow": "0 1px 2px 0 rgb(15 23 42 / 0.05)"
+          },
+          "children": [
+            ".card__body",
+            ".card__footer",
+            ".card__header",
+            ".card__header-actions",
+            ".card__header-content",
+            ".card__header-subtitle",
+            ".card__header-title",
+            ".card__subtitle",
+            ".card__title"
+          ]
+        },
+        {
+          "selector": ".card__body",
+          "tag": "span",
+          "styles": {
+            "padding": "16px",
+            "display": "flex",
+            "flex-direction": "column",
+            "height": "100%",
+            "gap": "12px"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__footer",
+          "tag": "span",
+          "styles": {
+            "padding": "16px",
+            "border-top": "1px solid #BFC6D4",
+            "background-color": "#F7F8FA"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__header",
+          "tag": "span",
+          "styles": {
+            "padding": "16px",
+            "border-bottom": "1px solid #BFC6D4"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__header-actions",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px"
+          },
+          "parent": ".card__header"
+        },
+        {
+          "selector": ".card__header-content",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "4px",
+            "flex": "1"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__header-subtitle",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.875rem",
+            "line-height": "20px",
+            "color": "#525969",
+            "margin": "0"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__header-title",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "line-height": "24px",
+            "color": "#373F4E",
+            "margin": "0"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__subtitle",
+          "tag": "span",
+          "styles": {
+            "font-size": "0.875rem",
+            "color": "#525969",
+            "margin-top": "4px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__title",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#373F4E"
+          },
+          "parent": ".card"
+        }
+      ]
+    },
+    "maconomy-dark": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".card": {
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.75rem",
+            "overflow": "hidden",
+            "box-shadow": "0 1px 2px 0 rgb(15 23 42 / 0.05)"
+          },
+          ".card__body": {
+            "padding": "16px",
+            "display": "flex",
+            "flex-direction": "column",
+            "height": "100%",
+            "gap": "12px"
+          },
+          ".card__footer": {
+            "padding": "16px",
+            "border-top": "1px solid #2A2D32",
+            "background-color": "#1F2124"
+          },
+          ".card__header": {
+            "padding": "16px",
+            "border-bottom": "1px solid #2A2D32"
+          },
+          ".card__header-actions": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px"
+          },
+          ".card__header-content": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "4px",
+            "flex": "1"
+          },
+          ".card__header-subtitle": {
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.875rem",
+            "line-height": "20px",
+            "color": "#B5B5BC",
+            "margin": "0"
+          },
+          ".card__header-title": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "line-height": "24px",
+            "color": "#FAFAFA",
+            "margin": "0"
+          },
+          ".card__subtitle": {
+            "font-size": "0.875rem",
+            "color": "#B5B5BC",
+            "margin-top": "4px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".card__title": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#FAFAFA"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".card",
+          "tag": "div",
+          "styles": {
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.75rem",
+            "overflow": "hidden",
+            "box-shadow": "0 1px 2px 0 rgb(15 23 42 / 0.05)"
+          },
+          "children": [
+            ".card__body",
+            ".card__footer",
+            ".card__header",
+            ".card__header-actions",
+            ".card__header-content",
+            ".card__header-subtitle",
+            ".card__header-title",
+            ".card__subtitle",
+            ".card__title"
+          ]
+        },
+        {
+          "selector": ".card__body",
+          "tag": "span",
+          "styles": {
+            "padding": "16px",
+            "display": "flex",
+            "flex-direction": "column",
+            "height": "100%",
+            "gap": "12px"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__footer",
+          "tag": "span",
+          "styles": {
+            "padding": "16px",
+            "border-top": "1px solid #2A2D32",
+            "background-color": "#1F2124"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__header",
+          "tag": "span",
+          "styles": {
+            "padding": "16px",
+            "border-bottom": "1px solid #2A2D32"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__header-actions",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px"
+          },
+          "parent": ".card__header"
+        },
+        {
+          "selector": ".card__header-content",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "4px",
+            "flex": "1"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__header-subtitle",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.875rem",
+            "line-height": "20px",
+            "color": "#B5B5BC",
+            "margin": "0"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__header-title",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "line-height": "24px",
+            "color": "#FAFAFA",
+            "margin": "0"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__subtitle",
+          "tag": "span",
+          "styles": {
+            "font-size": "0.875rem",
+            "color": "#B5B5BC",
+            "margin-top": "4px",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".card"
+        },
+        {
+          "selector": ".card__title",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1.125rem",
+            "font-weight": "600",
+            "color": "#FAFAFA"
+          },
+          "parent": ".card"
+        }
+      ]
+    }
+  },
+  "contentOrder": [
+    ".card__header",
+    ".card__body",
+    ".card__footer"
+  ],
+  "layoutRules": {
+    ".card__footer": {
+      "defaultEmpty": true
+    }
+  },
+  "guidance": {
+    "patterns": {
+      "header-slot-precedence": "The card header can be created two ways: (1) using the header slot for custom content, or (2) using headerTitle and headerSubtitle props for automatic rendering. The header slot takes precedence and will completely replace any headerTitle/headerSubtitle props. When using props, set withHeader=true to render the header section.",
+      "header-actions-slot": "The header-actions slot is independent of the main header slot and always renders in the top-right corner of the header when provided. It works with both custom header slot content and prop-based headers.",
+      "variant-combinations": "Card variants can be combined: elevated adds shadow elevation, interactive adds hover effects and pointer cursor, and primary adds a 6px top border in the theme primary color. Multiple variants can be applied simultaneously (e.g., elevated + interactive + primary).",
+      "slot-structure": "The card uses three slots: header (optional), default (card body, always in card__body), and footer (optional, only when Astro.slots.has('footer'))."
+    },
+    "guidelines": {
+      "when-to-use": "Use Card for grouped content with optional header and footer. Use elevated for emphasis, interactive for clickable cards, primary for highlighted top border.",
+      "composition": "Compose with header slot or headerTitle/headerSubtitle; use footer slot for actions or secondary content."
+    }
+  },
+  "specKeyOrder": [
+    "theme",
+    "mode"
+  ],
+  "dimensionDefaults": {
+    "theme": "cp",
+    "mode": "light"
+  },
+  "structure": {
+    "root": ".card",
+    "children": [
+      {
+        "class": ".card__header",
+        "children": [
+          {
+            "class": ".card__header-actions",
+            "children": []
+          }
+        ]
+      },
+      {
+        "class": ".card__body",
+        "children": []
+      },
+      {
+        "class": ".card__footer",
+        "children": []
+      }
+    ]
+  },
+  "fonts": {
+    "Figtree": "https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap",
+    "Lexend": "https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap",
+    "JetBrains Mono": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
+  },
+  "defaultContent": {
+    "footer": {
+      "defaultEmpty": true,
+      "description": "Footer slot is optional; when present use slot content only. Do not invent buttons or links."
+    }
+  },
+  "interactivity": {
+    "events": [
+      {
+        "name": "click",
+        "description": "When interactive=true, card is clickable; handle click on the root element or use as link wrapper"
+      }
+    ],
+    "state": [
+      {
+        "name": "—",
+        "type": "—",
+        "description": "No internal state; interactive prop adds hover styling and pointer cursor."
+      }
+    ]
+  },
+  "examples": [
+    {
+      "name": "Status badge",
+      "description": "Card with status indicator",
+      "recipeId": "card-with-badge"
+    },
+    {
+      "name": "Category badge",
+      "description": "Card with category label",
+      "recipeId": "card-with-badge"
+    },
+    {
+      "name": "Multiple badges",
+      "description": "Card with status and priority badges",
+      "recipeId": "card-with-badge"
+    },
+    {
+      "name": "Edit and delete actions",
+      "description": "Card with edit and delete buttons",
+      "recipeId": "card-with-actions"
+    },
+    {
+      "name": "Single action",
+      "description": "Card with single view action",
+      "recipeId": "card-with-actions"
+    },
+    {
+      "name": "Three actions",
+      "description": "Card with view, edit, and delete",
+      "recipeId": "card-with-actions"
+    },
+    {
+      "name": "Simple card",
+      "description": "Standalone content card",
+      "snippet": "<Card><p>Card body content.</p></Card>"
+    }
+  ],
+  "contentOrder.card__header": [
+    ".card__header-actions"
+  ]
+}

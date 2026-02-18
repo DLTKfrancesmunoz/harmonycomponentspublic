@@ -10,10 +10,10 @@
       "./Icon.astro"
     ],
     "cssClasses": [
+      "accordion__item",
       "accordion__trigger",
       "accordion__icon",
-      "accordion__content",
-      "accordion"
+      "accordion__content"
     ],
     "props": {
       "items": {
@@ -31,15 +31,15 @@
       "class": {
         "optional": true,
         "type": "string;",
-        "default": null,
+        "default": "''",
         "description": null
       }
     },
     "defaults": {
       "allowMultiple": "false",
-      "className": "''"
+      "class": "''"
     },
-    "rawInterface": "items: AccordionItem[];\n  allowMultiple?: boolean;\n  class?: string;"
+    "rawInterface": "items: AccordionItem[]\n  allowMultiple?: boolean\n  class?: string"
   },
   "Alert": {
     "hasProps": true,
@@ -67,9 +67,7 @@
       "alert__actions",
       "alert__buttons",
       "alert__link",
-      "alert__progress",
-      "alert",
-      "alert--enhanced"
+      "alert__progress"
     ],
     "props": {
       "variant": {
@@ -104,8 +102,38 @@
       },
       "primaryButton": {
         "optional": true,
-        "type": "{ text: string; href?: string; onClick?: string",
+        "type": "{ text: string; href?: string; onClick?: string };",
         "default": null,
+        "description": null
+      },
+      "secondaryButton": {
+        "optional": true,
+        "type": "{ text: string; href?: string; onClick?: string };",
+        "default": null,
+        "description": null
+      },
+      "linkText": {
+        "optional": true,
+        "type": "string;",
+        "default": null,
+        "description": null
+      },
+      "linkHref": {
+        "optional": true,
+        "type": "string;",
+        "default": null,
+        "description": null
+      },
+      "progressValue": {
+        "optional": true,
+        "type": "number;",
+        "default": null,
+        "description": null
+      },
+      "class": {
+        "optional": true,
+        "type": "string;",
+        "default": "''",
         "description": null
       }
     },
@@ -113,9 +141,9 @@
       "variant": "'info'",
       "style": "'default'",
       "dismissible": "false",
-      "className": "''"
+      "class": "''"
     },
-    "rawInterface": "variant?: 'info' | 'success' | 'warning' | 'error';\n  style?: 'default' | 'enhanced';\n  title?: string;\n  dismissible?: boolean;\n  icon?: string;\n  primaryButton?: { text: string; href?: string; onClick?: string"
+    "rawInterface": "variant?: 'info' | 'success' | 'warning' | 'error'\n  style?: 'default' | 'enhanced'\n  title?: string\n  dismissible?: boolean\n  icon?: string\n  primaryButton?: { text: string; href?: string; onClick?: string }\n  secondaryButton?: { text: string; href?: string; onClick?: string }\n  linkText?: string\n  linkHref?: string\n  progressValue?: number\n  class?: string"
   },
   "Avatar": {
     "hasProps": true,
@@ -128,10 +156,30 @@
       "./Icon.astro"
     ],
     "cssClasses": [
+      "avatar",
+      "avatar--",
+      "${className}",
       "avatar__icon"
     ],
-    "propsInterface": "size?: 'sm' | 'md' | 'lg';\n  class?: string;",
-    "raw": "interface Props {\n  size?: 'sm' | 'md' | 'lg';\n  class?: string;\n}"
+    "props": {
+      "size": {
+        "optional": true,
+        "type": "'sm' | 'md' | 'lg';",
+        "default": "'md'",
+        "description": null
+      },
+      "class": {
+        "optional": true,
+        "type": "string;",
+        "default": "''",
+        "description": null
+      }
+    },
+    "defaults": {
+      "size": "'md'",
+      "class": "''"
+    },
+    "rawInterface": "size?: 'sm' | 'md' | 'lg'\n  class?: string"
   },
   "Badge": {
     "hasProps": true,
@@ -143,9 +191,7 @@
     "imports": [
       "./Icon.astro"
     ],
-    "cssClasses": [
-      "badge"
-    ],
+    "cssClasses": [],
     "props": {
       "variant": {
         "optional": true,
@@ -157,20 +203,20 @@
         "optional": true,
         "type": "string;",
         "default": null,
-        "description": "Heroicon name (e.g., \"check\", \"x-mark\")"
+        "description": null
       },
       "class": {
         "optional": true,
         "type": "string;",
-        "default": null,
+        "default": "''",
         "description": null
       }
     },
     "defaults": {
       "variant": "'default'",
-      "className": "''"
+      "class": "''"
     },
-    "rawInterface": "variant?: 'default' | 'primary' | 'success' | 'warning' | 'error' | 'info' | 'orange' | 'pink' | 'disabled';\n  icon?: string; // Heroicon name (e.g., \"check\", \"x-mark\")\n  class?: string;"
+    "rawInterface": "variant?: 'default' | 'primary' | 'success' | 'warning' | 'error' | 'info' | 'orange' | 'pink' | 'disabled'\n  icon?: string\n  class?: string"
   },
   "Button": {
     "hasProps": true,
@@ -186,17 +232,12 @@
       "btn__spinner",
       "opacity-25",
       "opacity-75",
-      "btn",
-      "btn--page-header",
-      "btn--vertical",
-      "btn--disabled",
-      "btn--loading",
-      "btn--full"
+      "btn__dela-stars"
     ],
     "props": {
       "variant": {
         "optional": true,
-        "type": "'primary' | 'secondary' | 'tertiary' | 'outline' | 'ghost' | 'destructive';",
+        "type": "'primary' | 'secondary' | 'tertiary' | 'outline' | 'ghost' | 'destructive' | 'dela' | 'dela-pill';",
         "default": "'primary'",
         "description": null
       },
@@ -240,7 +281,7 @@
         "optional": true,
         "type": "string;",
         "default": null,
-        "description": "Heroicon name (e.g., \"plus\", \"arrow-right\")"
+        "description": null
       },
       "iconPosition": {
         "optional": true,
@@ -260,16 +301,16 @@
         "default": "false",
         "description": null
       },
-      "class": {
+      "href": {
         "optional": true,
         "type": "string;",
         "default": null,
         "description": null
       },
-      "key": {
-        "optional": false,
-        "type": "string]: any;",
-        "default": null,
+      "class": {
+        "optional": true,
+        "type": "string;",
+        "default": "''",
         "description": null
       }
     },
@@ -283,9 +324,9 @@
       "iconPosition": "'left'",
       "type": "'button'",
       "fullWidth": "false",
-      "className": "''"
+      "class": "''"
     },
-    "rawInterface": "variant?: 'primary' | 'secondary' | 'tertiary' | 'outline' | 'ghost' | 'destructive';\n  buttonType?: 'theme' | 'pageHeader';\n  size?: 'xs' | 'sm' | 'md' | 'lg';\n  orientation?: 'horizontal' | 'vertical';\n  disabled?: boolean;\n  loading?: boolean;\n  loadingText?: string;\n  icon?: string; // Heroicon name (e.g., \"plus\", \"arrow-right\")\n  iconPosition?: 'left' | 'right';\n  type?: 'button' | 'submit' | 'reset';\n  fullWidth?: boolean;\n  class?: string;\n  [key: string]: any;"
+    "rawInterface": "variant?: 'primary' | 'secondary' | 'tertiary' | 'outline' | 'ghost' | 'destructive' | 'dela' | 'dela-pill'\n  buttonType?: 'theme' | 'pageHeader'\n  size?: 'xs' | 'sm' | 'md' | 'lg'\n  orientation?: 'horizontal' | 'vertical'\n  disabled?: boolean\n  loading?: boolean\n  loadingText?: string\n  icon?: string\n  iconPosition?: 'left' | 'right'\n  type?: 'button' | 'submit' | 'reset'\n  fullWidth?: boolean\n  href?: string\n  class?: string"
   },
   "ButtonGroup": {
     "hasProps": true,
@@ -293,9 +334,7 @@
     "description": "ButtonGroup Component",
     "dependencies": [],
     "imports": [],
-    "cssClasses": [
-      "btn-group"
-    ],
+    "cssClasses": [],
     "props": {
       "variant": {
         "optional": true,
@@ -318,7 +357,7 @@
       "class": {
         "optional": true,
         "type": "string;",
-        "default": null,
+        "default": "''",
         "description": null
       }
     },
@@ -326,73 +365,25 @@
       "variant": "'default'",
       "size": "'md'",
       "orientation": "'horizontal'",
-      "className": "''"
+      "class": "''"
     },
-    "rawInterface": "variant?: 'default' | 'outline';\n  size?: 'sm' | 'md' | 'lg';\n  orientation?: 'horizontal' | 'vertical';\n  class?: string;"
-  },
-  "CPLeftSidebar": {
-    "hasProps": true,
-    "filePath": "src/components/ui/CPLeftSidebar.astro",
-    "description": "CPLeftSidebar Component",
-    "dependencies": [
-      "Icon"
-    ],
-    "imports": [
-      "./Icon.astro"
-    ],
-    "cssClasses": [
-      "cp-left-sidebar__section",
-      "cp-left-sidebar__item",
-      "cp-left-sidebar__icon",
-      "cp-left-sidebar__label"
-    ],
-    "propsInterface": "class?: string;",
-    "raw": "interface Props {\n  class?: string;\n}"
-  },
-  "CPRightSidebar": {
-    "hasProps": true,
-    "filePath": "src/components/ui/CPRightSidebar.astro",
-    "description": "CPRightSidebar Component",
-    "dependencies": [
-      "Icon"
-    ],
-    "imports": [
-      "./Icon.astro"
-    ],
-    "cssClasses": [
-      "cp-right-sidebar__section",
-      "cp-right-sidebar__item",
-      "cp-right-sidebar__label",
-      "cp-right-sidebar__icon",
-      "cp-right-sidebar__dela-logo"
-    ],
-    "propsInterface": "class?: string;",
-    "raw": "interface Props {\n  class?: string;\n}"
+    "rawInterface": "variant?: 'default' | 'outline'\n  size?: 'sm' | 'md' | 'lg'\n  orientation?: 'horizontal' | 'vertical'\n  class?: string"
   },
   "Card": {
     "hasProps": true,
     "filePath": "src/components/ui/Card.astro",
     "description": "Card Component",
-    "dependencies": [
-      "Icon"
-    ],
-    "imports": [
-      "./Icon.astro"
-    ],
+    "dependencies": [],
+    "imports": [],
     "cssClasses": [
       "card__header",
-      "card__header--colored",
       "card__header-content",
       "card__header-title",
       "card__header-subtitle",
       "card__header-actions",
       "card__body",
-      "card__footer",
-      "card",
-      "card--elevated",
-      "card--interactive",
-      "card--primary",
-      "card--with-header"
+      "card__body-default",
+      "card__footer"
     ],
     "props": {
       "elevated": {
@@ -416,13 +407,13 @@
       "withHeader": {
         "optional": true,
         "type": "boolean;",
-        "default": "false",
+        "default": "true",
         "description": null
       },
       "headerTitle": {
         "optional": true,
         "type": "string;",
-        "default": "''",
+        "default": "'Card title'",
         "description": null
       },
       "headerSubtitle": {
@@ -434,7 +425,7 @@
       "class": {
         "optional": true,
         "type": "string;",
-        "default": null,
+        "default": "''",
         "description": null
       }
     },
@@ -442,12 +433,12 @@
       "elevated": "false",
       "interactive": "false",
       "primary": "false",
-      "withHeader": "false",
-      "headerTitle": "''",
+      "withHeader": "true",
+      "headerTitle": "'Card title'",
       "headerSubtitle": "''",
-      "className": "''"
+      "class": "''"
     },
-    "rawInterface": "elevated?: boolean;\n  interactive?: boolean;\n  primary?: boolean;\n  withHeader?: boolean;\n  headerTitle?: string;\n  headerSubtitle?: string;\n  class?: string;"
+    "rawInterface": "elevated?: boolean\n  interactive?: boolean\n  primary?: boolean\n  withHeader?: boolean\n  headerTitle?: string\n  headerSubtitle?: string\n  class?: string"
   },
   "Checkbox": {
     "hasProps": true,
@@ -468,11 +459,7 @@
       "checkbox-wrapper__error",
       "checkbox-wrapper__error-icon",
       "checkbox-wrapper__warning",
-      "checkbox-wrapper__warning-icon",
-      "checkbox",
-      "checkbox--disabled",
-      "checkbox--warning",
-      "checkbox--error"
+      "checkbox-wrapper__warning-icon"
     ],
     "props": {
       "name": {
@@ -538,13 +525,7 @@
       "class": {
         "optional": true,
         "type": "string;",
-        "default": null,
-        "description": null
-      },
-      "key": {
-        "optional": false,
-        "type": "string]: any;",
-        "default": null,
+        "default": "''",
         "description": null
       }
     },
@@ -553,9 +534,9 @@
       "disabled": "false",
       "warning": "false",
       "error": "false",
-      "className": "''"
+      "class": "''"
     },
-    "rawInterface": "name?: string;\n  id?: string;\n  checked?: boolean;\n  disabled?: boolean;\n  label?: string;\n  value?: string;\n  warning?: boolean;\n  error?: boolean;\n  warningMessage?: string;\n  errorMessage?: string;\n  class?: string;\n  [key: string]: any;"
+    "rawInterface": "name?: string\n  id?: string\n  checked?: boolean\n  disabled?: boolean\n  label?: string\n  value?: string\n  warning?: boolean\n  error?: boolean\n  warningMessage?: string\n  errorMessage?: string\n  class?: string"
   },
   "CheckboxGroup": {
     "hasProps": true,
@@ -572,14 +553,7 @@
       "checkbox-group-wrapper__message",
       "checkbox-group-wrapper__message--error",
       "checkbox-group-wrapper__message-icon",
-      "checkbox-group-wrapper__message--warning",
-      "checkbox-group-wrapper",
-      "checkbox-group-wrapper--error",
-      "checkbox-group-wrapper--warning",
-      "checkbox-group-wrapper--horizontal",
-      "checkbox-group-wrapper__legend",
-      "checkbox-group-wrapper__legend--error",
-      "checkbox-group-wrapper__legend--warning"
+      "checkbox-group-wrapper__message--warning"
     ],
     "props": {
       "legend": {
@@ -621,7 +595,7 @@
       "class": {
         "optional": true,
         "type": "string;",
-        "default": null,
+        "default": "''",
         "description": null
       }
     },
@@ -629,9 +603,9 @@
       "error": "false",
       "warning": "false",
       "orientation": "'vertical'",
-      "className": "''"
+      "class": "''"
     },
-    "rawInterface": "legend?: string;\n  error?: boolean;\n  warning?: boolean;\n  errorMessage?: string;\n  warningMessage?: string;\n  orientation?: 'vertical' | 'horizontal';\n  class?: string;"
+    "rawInterface": "legend?: string\n  error?: boolean\n  warning?: boolean\n  errorMessage?: string\n  warningMessage?: string\n  orientation?: 'vertical' | 'horizontal'\n  class?: string"
   },
   "Chip": {
     "hasProps": true,
@@ -649,9 +623,7 @@
       "chip__dots-svg",
       "chip__dots--vert",
       "chip__overflow-text",
-      "chip__remove",
-      "chip",
-      "chip--selected"
+      "chip__remove"
     ],
     "props": {
       "size": {
@@ -678,6 +650,12 @@
         "default": "'chip'",
         "description": null
       },
+      "label": {
+        "optional": true,
+        "type": "string;",
+        "default": "'Chip'",
+        "description": null
+      },
       "overflowCount": {
         "optional": true,
         "type": "number;",
@@ -687,7 +665,7 @@
       "selected": {
         "optional": true,
         "type": "boolean;",
-        "default": "false",
+        "default": null,
         "description": null
       },
       "removable": {
@@ -705,7 +683,7 @@
       "class": {
         "optional": true,
         "type": "string;",
-        "default": null,
+        "default": "''",
         "description": null
       }
     },
@@ -714,11 +692,10 @@
       "variant": "'fill'",
       "state": "'enabled'",
       "type": "'chip'",
-      "selected": "false",
       "removable": "false",
-      "className": "''"
+      "class": "''"
     },
-    "rawInterface": "// New props\n  size?: 'sm' | 'md' | 'lg';\n  variant?: 'fill' | 'outline';\n  state?: 'enabled' | 'disabled' | 'hover' | 'focused' | 'pressed';\n  type?: 'chip' | 'horiz-dots' | 'vert-dots' | 'overflow';\n  overflowCount?: number;\n  // Legacy props (backward compatibility)\n  selected?: boolean;\n  removable?: boolean;\n  icon?: string;\n  class?: string;"
+    "rawInterface": "size?: 'sm' | 'md' | 'lg'\n  variant?: 'fill' | 'outline'\n  state?: 'enabled' | 'disabled' | 'hover' | 'focused' | 'pressed'\n  type?: 'chip' | 'horiz-dots' | 'vert-dots' | 'overflow'\n  overflowCount?: number\n  selected?: boolean\n  removable?: boolean\n  icon?: string\n  class?: string"
   },
   "DateInput": {
     "hasProps": true,
@@ -745,6 +722,8 @@
       "./PickerPopup.astro"
     ],
     "cssClasses": [
+      "inline",
+      "date-input-form-wrapper__label",
       "date-input-wrapper",
       "date-input-wrapper__icon",
       "date-input-popup"
@@ -831,13 +810,7 @@
       "class": {
         "optional": true,
         "type": "string;",
-        "default": null,
-        "description": null
-      },
-      "key": {
-        "optional": false,
-        "type": "string]: any;",
-        "default": null,
+        "default": "''",
         "description": null
       }
     },
@@ -847,9 +820,9 @@
       "required": "false",
       "timeFormat": "'24'",
       "locale": "'en-US'",
-      "className": "''"
+      "class": "''"
     },
-    "rawInterface": "type?: 'date' | 'time' | 'datetime-local' | 'month' | 'week';\n  value?: string;\n  name?: string;\n  id?: string;\n  disabled?: boolean;\n  min?: string;\n  max?: string;\n  required?: boolean;\n  label?: string;\n  labelVariant?: 'inline' | 'stacked';\n  labelFor?: string;\n  timeFormat?: '12' | '24';\n  locale?: string;\n  class?: string;\n  [key: string]: any;"
+    "rawInterface": "type?: 'date' | 'time' | 'datetime-local' | 'month' | 'week'\n  value?: string\n  name?: string\n  id?: string\n  disabled?: boolean\n  min?: string\n  max?: string\n  required?: boolean\n  label?: string\n  labelVariant?: 'inline' | 'stacked'\n  labelFor?: string\n  timeFormat?: '12' | '24'\n  locale?: string\n  class?: string"
   },
   "DatePicker": {
     "hasProps": true,
@@ -869,31 +842,26 @@
       "date-picker__year",
       "date-picker__weekdays",
       "date-picker__weekday",
-      "date-picker__grid",
-      "date-picker__day--other-month",
-      "date-picker__day--today",
-      "date-picker__day--selected",
-      "date-picker__day--disabled",
-      "tabindex"
+      "date-picker__grid"
     ],
     "props": {
       "value": {
         "optional": true,
         "type": "string;",
         "default": null,
-        "description": "ISO date string (YYYY-MM-DD)"
+        "description": null
       },
       "min": {
         "optional": true,
         "type": "string;",
         "default": null,
-        "description": "ISO date string"
+        "description": null
       },
       "max": {
         "optional": true,
         "type": "string;",
         "default": null,
-        "description": "ISO date string"
+        "description": null
       },
       "disabled": {
         "optional": true,
@@ -916,16 +884,16 @@
       "class": {
         "optional": true,
         "type": "string;",
-        "default": null,
+        "default": "''",
         "description": null
       }
     },
     "defaults": {
       "disabled": "false",
       "locale": "'en-US'",
-      "className": "''"
+      "class": "''"
     },
-    "rawInterface": "value?: string; // ISO date string (YYYY-MM-DD)\n  min?: string; // ISO date string\n  max?: string; // ISO date string\n  disabled?: boolean;\n  locale?: string;\n  id?: string;\n  class?: string;"
+    "rawInterface": "value?: string\n  min?: string\n  max?: string\n  disabled?: boolean\n  locale?: string\n  id?: string\n  class?: string"
   },
   "DateTimePicker": {
     "hasProps": true,
@@ -948,19 +916,19 @@
         "optional": true,
         "type": "string;",
         "default": null,
-        "description": "ISO datetime string (YYYY-MM-DDTHH:MM)"
+        "description": null
       },
       "min": {
         "optional": true,
         "type": "string;",
         "default": null,
-        "description": "ISO datetime string"
+        "description": null
       },
       "max": {
         "optional": true,
         "type": "string;",
         "default": null,
-        "description": "ISO datetime string"
+        "description": null
       },
       "disabled": {
         "optional": true,
@@ -989,7 +957,7 @@
       "class": {
         "optional": true,
         "type": "string;",
-        "default": null,
+        "default": "''",
         "description": null
       }
     },
@@ -997,28 +965,28 @@
       "disabled": "false",
       "timeFormat": "'24'",
       "locale": "'en-US'",
-      "className": "''"
+      "class": "''"
     },
-    "rawInterface": "value?: string; // ISO datetime string (YYYY-MM-DDTHH:MM)\n  min?: string; // ISO datetime string\n  max?: string; // ISO datetime string\n  disabled?: boolean;\n  timeFormat?: '12' | '24';\n  locale?: string;\n  id?: string;\n  class?: string;"
+    "rawInterface": "value?: string\n  min?: string\n  max?: string\n  disabled?: boolean\n  timeFormat?: '12' | '24'\n  locale?: string\n  id?: string\n  class?: string"
   },
   "Dialog": {
     "hasProps": true,
     "filePath": "src/components/ui/Dialog.astro",
     "description": "Dialog Component",
     "dependencies": [
-      "Icon"
+      "Icon",
+      "Button"
     ],
     "imports": [
-      "./Icon.astro"
+      "./Icon.astro",
+      "./Button.astro"
     ],
     "cssClasses": [
       "dialog-overlay",
       "dialog__title",
       "dialog__close",
       "dialog__body",
-      "dialog",
-      "dialog__header",
-      "dialog__footer"
+      "dialog__body-default"
     ],
     "props": {
       "id": {
@@ -1036,7 +1004,7 @@
       "class": {
         "optional": true,
         "type": "string;",
-        "default": null,
+        "default": "''",
         "description": null
       },
       "buttonAlignment": {
@@ -1053,11 +1021,11 @@
       }
     },
     "defaults": {
-      "className": "''",
+      "class": "''",
       "buttonAlignment": "'left'",
       "headerVariant": "'default'"
     },
-    "rawInterface": "id: string;\n  title: string;\n  class?: string;\n  buttonAlignment?: 'left' | 'right';\n  headerVariant?: 'default' | 'primary';"
+    "rawInterface": "id: string\n  title: string\n  class?: string\n  buttonAlignment?: 'left' | 'right'\n  headerVariant?: 'default' | 'primary'"
   },
   "Dropdown": {
     "hasProps": true,
@@ -1072,14 +1040,14 @@
       "./Label.astro"
     ],
     "cssClasses": [
+      "inline",
+      "dropdown-wrapper__label",
       "dropdown__trigger",
       "dropdown__value",
       "dropdown__chevron",
       "dropdown__menu",
-      "dropdown-wrapper",
-      "dropdown",
-      "dropdown-wrapper__label",
-      "dropdown__item--disabled"
+      "dropdown__item",
+      "${option.disabled"
     ],
     "props": {
       "options": {
@@ -1121,7 +1089,7 @@
       "class": {
         "optional": true,
         "type": "string;",
-        "default": null,
+        "default": "''",
         "description": null
       },
       "label": {
@@ -1141,20 +1109,14 @@
         "type": "string;",
         "default": null,
         "description": null
-      },
-      "key": {
-        "optional": false,
-        "type": "string]: any;",
-        "default": null,
-        "description": null
       }
     },
     "defaults": {
       "placeholder": "'Select an option'",
       "disabled": "false",
-      "className": "''"
+      "class": "''"
     },
-    "rawInterface": "options: Option[];\n  value?: string;\n  placeholder?: string;\n  name?: string;\n  id?: string;\n  disabled?: boolean;\n  class?: string;\n  label?: string;\n  labelVariant?: 'inline' | 'stacked';\n  labelFor?: string;\n  [key: string]: any;"
+    "rawInterface": "options: Option[]\n  value?: string\n  placeholder?: string\n  name?: string\n  id?: string\n  disabled?: boolean\n  class?: string\n  label?: string\n  labelVariant?: 'inline' | 'stacked'\n  labelFor?: string"
   },
   "FloatingNav": {
     "hasProps": true,
@@ -1179,22 +1141,78 @@
       "floating-nav__btn-icon",
       "floating-nav__divider",
       "floating-nav__pin",
-      "floating-nav__pin-icon",
-      "floating-nav__btn--disabled",
-      "floating-nav__btn--primary"
+      "floating-nav__pin-icon"
     ],
-    "propsInterface": "showExecute?: boolean;\n  saveDisabled?: boolean;\n  variant?: 'full' | 'compact';",
-    "raw": "interface Props {\n  showExecute?: boolean;\n  saveDisabled?: boolean;\n  variant?: 'full' | 'compact';\n}"
+    "props": {
+      "showExecute": {
+        "optional": true,
+        "type": "boolean;",
+        "default": "true",
+        "description": null
+      },
+      "saveDisabled": {
+        "optional": true,
+        "type": "boolean;",
+        "default": "false",
+        "description": null
+      },
+      "variant": {
+        "optional": true,
+        "type": "'full' | 'compact';",
+        "default": "'full'",
+        "description": null
+      }
+    },
+    "defaults": {
+      "showExecute": "true",
+      "saveDisabled": "false",
+      "variant": "'full'",
+      "className": "''"
+    },
+    "rawInterface": "showExecute?: boolean\n  saveDisabled?: boolean\n  variant?: 'full' | 'compact'"
   },
   "Icon": {
     "hasProps": true,
     "filePath": "src/components/ui/Icon.astro",
-    "description": "Size mapping - matches CSS token values",
+    "description": "Default icon resolution (source + path; for custom, optional svg) is defined in the theme-scoped",
     "dependencies": [],
-    "imports": [],
+    "imports": [
+      "fs",
+      "path"
+    ],
     "cssClasses": [],
-    "propsInterface": "name: string;\n  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';\n  class?: string;\n  variant?: 'outline' | 'solid';",
-    "raw": "interface Props {\n  name: string;\n  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';\n  class?: string;\n  variant?: 'outline' | 'solid';\n}"
+    "props": {
+      "name": {
+        "optional": false,
+        "type": "string;",
+        "default": null,
+        "description": null
+      },
+      "size": {
+        "optional": true,
+        "type": "'xs' | 'sm' | 'md' | 'lg' | 'xl';",
+        "default": "'md'",
+        "description": null
+      },
+      "class": {
+        "optional": true,
+        "type": "string;",
+        "default": "''",
+        "description": null
+      },
+      "variant": {
+        "optional": true,
+        "type": "'outline' | 'solid';",
+        "default": "'outline'",
+        "description": null
+      }
+    },
+    "defaults": {
+      "size": "'md'",
+      "class": "''",
+      "variant": "'outline'"
+    },
+    "rawInterface": "name: string\n  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'\n  class?: string\n  variant?: 'outline' | 'solid'"
   },
   "Input": {
     "hasProps": true,
@@ -1209,14 +1227,11 @@
       "./Label.astro"
     ],
     "cssClasses": [
+      "inline",
+      "input-form-wrapper__label",
       "input-wrapper",
       "input-wrapper__icon",
-      "input-wrapper__error",
-      "input",
-      "input--with-icon",
-      "input--error",
-      "input-form-wrapper",
-      "input-form-wrapper__label"
+      "input-wrapper__error"
     ],
     "props": {
       "type": {
@@ -1271,7 +1286,7 @@
         "optional": true,
         "type": "string;",
         "default": null,
-        "description": "Heroicon name (e.g., \"magnifying-glass\", \"envelope\")"
+        "description": null
       },
       "required": {
         "optional": true,
@@ -1300,13 +1315,7 @@
       "class": {
         "optional": true,
         "type": "string;",
-        "default": null,
-        "description": null
-      },
-      "key": {
-        "optional": false,
-        "type": "string]: any;",
-        "default": null,
+        "default": "''",
         "description": null
       }
     },
@@ -1315,9 +1324,9 @@
       "disabled": "false",
       "error": "false",
       "required": "false",
-      "className": "''"
+      "class": "''"
     },
-    "rawInterface": "type?: 'text' | 'email' | 'password' | 'number' | 'url' | 'search' | 'tel';\n  placeholder?: string;\n  value?: string;\n  name?: string;\n  id?: string;\n  disabled?: boolean;\n  error?: boolean;\n  errorMessage?: string;\n  icon?: string; // Heroicon name (e.g., \"magnifying-glass\", \"envelope\")\n  required?: boolean;\n  label?: string;\n  labelVariant?: 'inline' | 'stacked';\n  labelFor?: string;\n  class?: string;\n  [key: string]: any;"
+    "rawInterface": "type?: 'text' | 'email' | 'password' | 'number' | 'url' | 'search' | 'tel'\n  placeholder?: string\n  value?: string\n  name?: string\n  id?: string\n  disabled?: boolean\n  error?: boolean\n  errorMessage?: string\n  icon?: string\n  required?: boolean\n  label?: string\n  labelVariant?: 'inline' | 'stacked'\n  labelFor?: string\n  class?: string"
   },
   "Kanban": {
     "hasProps": true,
@@ -1334,6 +1343,7 @@
       "./Card.astro"
     ],
     "cssClasses": [
+      "kanban__container",
       "kanban__title-bar",
       "kanban__title-bar-content",
       "kanban__title",
@@ -1346,6 +1356,7 @@
       "kanban__action-label",
       "kanban__action-text-button",
       "kanban__columns-wrapper",
+      "kanban__column-card",
       "kanban__column",
       "kanban__column-header",
       "kanban__column-header-content",
@@ -1355,9 +1366,7 @@
       "kanban__column-action-icon",
       "kanban__column-content",
       "kanban__add-button",
-      "kanban__add-column-button",
-      "kanban__column-card--in-progress",
-      "kanban__column-card--done"
+      "kanban__add-column-button"
     ],
     "props": {
       "columns": {
@@ -1387,7 +1396,7 @@
       "class": {
         "optional": true,
         "type": "string;",
-        "default": null,
+        "default": "''",
         "description": null
       },
       "showAddButton": {
@@ -1401,13 +1410,13 @@
       "title": "'Kanban Board'",
       "actionButtons": "[]",
       "actionDropdowns": "[]",
-      "className": "''",
+      "class": "''",
       "showAddButton": "true"
     },
-    "rawInterface": "columns: KanbanColumn[];\n  title?: string;\n  actionButtons?: ActionButton[];\n  actionDropdowns?: ActionDropdown[];\n  class?: string;\n  showAddButton?: boolean;"
+    "rawInterface": "columns: KanbanColumn[]\n  title?: string\n  actionButtons?: ActionButton[]\n  actionDropdowns?: ActionDropdown[]\n  class?: string\n  showAddButton?: boolean"
   },
   "KanbanCard": {
-    "hasProps": false,
+    "hasProps": true,
     "filePath": "src/components/ui/KanbanCard.astro",
     "description": "KanbanCard Component",
     "dependencies": [
@@ -1425,6 +1434,7 @@
       "./ProgressBar.astro"
     ],
     "cssClasses": [
+      "kanban-card",
       "kanban-card__header",
       "kanban-card__avatar",
       "kanban-card__header-right",
@@ -1436,9 +1446,77 @@
       "kanban-card__progress",
       "kanban-card__date-time",
       "kanban-card__date",
-      "kanban-card__time"
+      "kanban-card__time",
+      "kanban-card__body-default"
     ],
-    "note": "No Props interface found"
+    "props": {
+      "id": {
+        "optional": false,
+        "type": "string;",
+        "default": null,
+        "description": null
+      },
+      "title": {
+        "optional": true,
+        "type": "string;",
+        "default": null,
+        "description": null
+      },
+      "description": {
+        "optional": true,
+        "type": "string;",
+        "default": null,
+        "description": null
+      },
+      "avatar": {
+        "optional": true,
+        "type": "{ name?: string; size?: 'sm' | 'md' | 'lg' };",
+        "default": null,
+        "description": null
+      },
+      "badges": {
+        "optional": true,
+        "type": "Array<{ label: string; variant?: BadgeVariant }>;",
+        "default": "[]",
+        "description": null
+      },
+      "progress": {
+        "optional": true,
+        "type": "number;",
+        "default": null,
+        "description": null
+      },
+      "icons": {
+        "optional": true,
+        "type": "Array<{ name: string; size?: 'xs' | 'sm' | 'md' }>;",
+        "default": "[]",
+        "description": null
+      },
+      "date": {
+        "optional": true,
+        "type": "string;",
+        "default": null,
+        "description": null
+      },
+      "time": {
+        "optional": true,
+        "type": "string;",
+        "default": null,
+        "description": null
+      },
+      "class": {
+        "optional": true,
+        "type": "string;",
+        "default": "''",
+        "description": null
+      }
+    },
+    "defaults": {
+      "badges": "[]",
+      "icons": "[]",
+      "class": "''"
+    },
+    "rawInterface": "id: string\n  title?: string\n  description?: string\n  avatar?: { name?: string; size?: 'sm' | 'md' | 'lg' }\n  badges?: Array<{ label: string; variant?: BadgeVariant }>\n  progress?: number\n  icons?: Array<{ name: string; size?: 'xs' | 'sm' | 'md' }>\n  date?: string\n  time?: string\n  class?: string"
   },
   "Label": {
     "hasProps": true,
@@ -1447,9 +1525,7 @@
     "dependencies": [],
     "imports": [],
     "cssClasses": [
-      "label__helper",
-      "label",
-      "label--required"
+      "label__helper"
     ],
     "props": {
       "for": {
@@ -1473,15 +1549,15 @@
       "class": {
         "optional": true,
         "type": "string;",
-        "default": null,
+        "default": "''",
         "description": null
       }
     },
     "defaults": {
       "required": "false",
-      "className": "''"
+      "class": "''"
     },
-    "rawInterface": "for?: string;\n  required?: boolean;\n  helper?: string;\n  class?: string;"
+    "rawInterface": "for?: string\n  required?: boolean\n  helper?: string\n  class?: string"
   },
   "LeftSidebar": {
     "hasProps": true,
@@ -1501,15 +1577,37 @@
       "left-sidebar__section",
       "left-sidebar__item-tooltip",
       "left-sidebar__icon",
+      "left-sidebar__custom-icon",
       "left-sidebar__label",
       "left-sidebar__variant--vp",
       "left-sidebar__variant--ppm",
-      "left-sidebar__variant--maconomy",
-      "left-sidebar__item--active",
-      "shell-panel--open"
+      "left-sidebar__variant--maconomy"
     ],
-    "propsInterface": "variant?: 'cp' | 'vp' | 'ppm' | 'maconomy';\n  sections?: Section[];\n  class?: string;",
-    "raw": "interface Props {\n  variant?: 'cp' | 'vp' | 'ppm' | 'maconomy';\n  sections?: Section[];\n  class?: string;\n}"
+    "props": {
+      "variant": {
+        "optional": true,
+        "type": "'cp' | 'vp' | 'ppm' | 'maconomy';",
+        "default": "'cp'",
+        "description": null
+      },
+      "sections": {
+        "optional": true,
+        "type": "Section[];",
+        "default": null,
+        "description": null
+      },
+      "class": {
+        "optional": true,
+        "type": "string;",
+        "default": "''",
+        "description": null
+      }
+    },
+    "defaults": {
+      "variant": "'cp'",
+      "class": "''"
+    },
+    "rawInterface": "variant?: 'cp' | 'vp' | 'ppm' | 'maconomy'\n  sections?: Section[]\n  class?: string"
   },
   "Link": {
     "hasProps": true,
@@ -1522,9 +1620,7 @@
       "./Icon.astro"
     ],
     "cssClasses": [
-      "ml-1",
-      "link",
-      "link--muted"
+      "ml-1"
     ],
     "props": {
       "href": {
@@ -1548,22 +1644,16 @@
       "class": {
         "optional": true,
         "type": "string;",
-        "default": null,
-        "description": null
-      },
-      "key": {
-        "optional": false,
-        "type": "string]: any;",
-        "default": null,
+        "default": "''",
         "description": null
       }
     },
     "defaults": {
       "external": "false",
       "muted": "false",
-      "className": "''"
+      "class": "''"
     },
-    "rawInterface": "href: string;\n  external?: boolean;\n  muted?: boolean;\n  class?: string;\n  [key: string]: any;"
+    "rawInterface": "href: string\n  external?: boolean\n  muted?: boolean\n  class?: string"
   },
   "ListMenu": {
     "hasProps": true,
@@ -1577,8 +1667,7 @@
     ],
     "cssClasses": [
       "list-menu__item-icon",
-      "link",
-      "list-menu--no-borders"
+      "list-menu__custom-icon"
     ],
     "props": {
       "items": {
@@ -1602,16 +1691,16 @@
       "class": {
         "optional": true,
         "type": "string;",
-        "default": null,
+        "default": "''",
         "description": null
       }
     },
     "defaults": {
       "as": "'button'",
       "variant": "'default'",
-      "className": "''"
+      "class": "''"
     },
-    "rawInterface": "items: MenuItem[];\n  as?: 'button' | 'link';\n  variant?: 'default' | 'no-borders';\n  class?: string;"
+    "rawInterface": "items: MenuItem[]\n  as?: 'button' | 'link'\n  variant?: 'default' | 'no-borders'\n  class?: string"
   },
   "MonthPicker": {
     "hasProps": true,
@@ -1627,29 +1716,26 @@
       "month-picker__header",
       "month-picker__nav-btn",
       "month-picker__year",
-      "month-picker__grid",
-      "month-picker__month--selected",
-      "month-picker__month--disabled",
-      "tabindex"
+      "month-picker__grid"
     ],
     "props": {
       "value": {
         "optional": true,
         "type": "string;",
         "default": null,
-        "description": "ISO month string (YYYY-MM)"
+        "description": null
       },
       "min": {
         "optional": true,
         "type": "string;",
         "default": null,
-        "description": "ISO month string"
+        "description": null
       },
       "max": {
         "optional": true,
         "type": "string;",
         "default": null,
-        "description": "ISO month string"
+        "description": null
       },
       "disabled": {
         "optional": true,
@@ -1672,16 +1758,16 @@
       "class": {
         "optional": true,
         "type": "string;",
-        "default": null,
+        "default": "''",
         "description": null
       }
     },
     "defaults": {
       "disabled": "false",
       "locale": "'en-US'",
-      "className": "''"
+      "class": "''"
     },
-    "rawInterface": "value?: string; // ISO month string (YYYY-MM)\n  min?: string; // ISO month string\n  max?: string; // ISO month string\n  disabled?: boolean;\n  locale?: string;\n  id?: string;\n  class?: string;"
+    "rawInterface": "value?: string\n  min?: string\n  max?: string\n  disabled?: boolean\n  locale?: string\n  id?: string\n  class?: string"
   },
   "NotificationBadge": {
     "hasProps": true,
@@ -1689,10 +1775,7 @@
     "description": "NotificationBadge Component",
     "dependencies": [],
     "imports": [],
-    "cssClasses": [
-      "notification-badge",
-      "notification-badge--border"
-    ],
+    "cssClasses": [],
     "props": {
       "type": {
         "optional": true,
@@ -1727,7 +1810,7 @@
       "class": {
         "optional": true,
         "type": "string;",
-        "default": null,
+        "default": "''",
         "description": null
       }
     },
@@ -1737,9 +1820,9 @@
       "variant": "'primary'",
       "value": "1",
       "border": "false",
-      "className": "''"
+      "class": "''"
     },
-    "rawInterface": "type?: 'dot' | 'number' | 'overflow';\n  size?: 'sm' | 'md' | 'lg';\n  variant?: 'error' | 'primary';\n  value?: string | number;\n  border?: boolean;\n  class?: string;"
+    "rawInterface": "type?: 'dot' | 'number' | 'overflow'\n  size?: 'sm' | 'md' | 'lg'\n  variant?: 'error' | 'primary'\n  value?: string | number\n  border?: boolean\n  class?: string"
   },
   "NumberInput": {
     "hasProps": true,
@@ -1754,9 +1837,10 @@
       "./Label.astro"
     ],
     "cssClasses": [
+      "inline",
+      "number-input-form-wrapper__label",
       "number-input__btn",
-      "number-input__input",
-      "input"
+      "number-input__input"
     ],
     "props": {
       "value": {
@@ -1822,13 +1906,7 @@
       "class": {
         "optional": true,
         "type": "string;",
-        "default": null,
-        "description": null
-      },
-      "key": {
-        "optional": false,
-        "type": "string]: any;",
-        "default": null,
+        "default": "''",
         "description": null
       }
     },
@@ -1836,9 +1914,9 @@
       "value": "0",
       "step": "1",
       "disabled": "false",
-      "className": "''"
+      "class": "''"
     },
-    "rawInterface": "value?: number;\n  min?: number;\n  max?: number;\n  step?: number;\n  name?: string;\n  id?: string;\n  disabled?: boolean;\n  label?: string;\n  labelVariant?: 'inline' | 'stacked';\n  labelFor?: string;\n  class?: string;\n  [key: string]: any;"
+    "rawInterface": "value?: number\n  min?: number\n  max?: number\n  step?: number\n  name?: string\n  id?: string\n  disabled?: boolean\n  label?: string\n  labelVariant?: 'inline' | 'stacked'\n  labelFor?: string\n  class?: string"
   },
   "PickerPopup": {
     "hasProps": true,
@@ -1855,7 +1933,7 @@
       "picker-popup__title",
       "picker-popup__close",
       "picker-popup__body",
-      "dialog"
+      "picker-popup__body-default"
     ],
     "props": {
       "id": {
@@ -1873,7 +1951,7 @@
       "class": {
         "optional": true,
         "type": "string;",
-        "default": null,
+        "default": "''",
         "description": null
       },
       "title": {
@@ -1884,9 +1962,9 @@
       }
     },
     "defaults": {
-      "className": "''"
+      "class": "''"
     },
-    "rawInterface": "id: string;\n  triggerId?: string;\n  class?: string;\n  title?: string;"
+    "rawInterface": "id: string\n  triggerId?: string\n  class?: string\n  title?: string"
   },
   "ProgressBar": {
     "hasProps": true,
@@ -1898,9 +1976,7 @@
       "progress__bar",
       "text-sm",
       "text-secondary",
-      "mt-1",
-      "progress",
-      "progressbar"
+      "mt-1"
     ],
     "props": {
       "value": {
@@ -1936,7 +2012,7 @@
       "class": {
         "optional": true,
         "type": "string;",
-        "default": null,
+        "default": "''",
         "description": null
       }
     },
@@ -1945,9 +2021,9 @@
       "size": "'md'",
       "variant": "'default'",
       "showLabel": "false",
-      "className": "''"
+      "class": "''"
     },
-    "rawInterface": "value: number;\n  max?: number;\n  size?: 'sm' | 'md' | 'lg';\n  variant?: 'default' | 'success' | 'warning' | 'error';\n  showLabel?: boolean;\n  class?: string;"
+    "rawInterface": "value: number\n  max?: number\n  size?: 'sm' | 'md' | 'lg'\n  variant?: 'default' | 'success' | 'warning' | 'error'\n  showLabel?: boolean\n  class?: string"
   },
   "RadioButton": {
     "hasProps": true,
@@ -1968,10 +2044,7 @@
       "radio-wrapper__error",
       "radio-wrapper__error-icon",
       "radio-wrapper__warning",
-      "radio-wrapper__warning-icon",
-      "radio--disabled",
-      "radio--warning",
-      "radio--error"
+      "radio-wrapper__warning-icon"
     ],
     "props": {
       "name": {
@@ -2037,13 +2110,7 @@
       "class": {
         "optional": true,
         "type": "string;",
-        "default": null,
-        "description": null
-      },
-      "key": {
-        "optional": false,
-        "type": "string]: any;",
-        "default": null,
+        "default": "''",
         "description": null
       }
     },
@@ -2052,9 +2119,9 @@
       "disabled": "false",
       "warning": "false",
       "error": "false",
-      "className": "''"
+      "class": "''"
     },
-    "rawInterface": "name: string;\n  id?: string;\n  checked?: boolean;\n  disabled?: boolean;\n  label?: string;\n  value: string;\n  warning?: boolean;\n  error?: boolean;\n  warningMessage?: string;\n  errorMessage?: string;\n  class?: string;\n  [key: string]: any;"
+    "rawInterface": "name: string\n  id?: string\n  checked?: boolean\n  disabled?: boolean\n  label?: string\n  value: string\n  warning?: boolean\n  error?: boolean\n  warningMessage?: string\n  errorMessage?: string\n  class?: string"
   },
   "RadioGroup": {
     "hasProps": true,
@@ -2071,12 +2138,7 @@
       "radio-group-wrapper__message",
       "radio-group-wrapper__message--error",
       "radio-group-wrapper__message-icon",
-      "radio-group-wrapper__message--warning",
-      "radio-group-wrapper--error",
-      "radio-group-wrapper--warning",
-      "radio-group-wrapper--horizontal",
-      "radio-group-wrapper__legend--error",
-      "radio-group-wrapper__legend--warning"
+      "radio-group-wrapper__message--warning"
     ],
     "props": {
       "name": {
@@ -2124,7 +2186,7 @@
       "class": {
         "optional": true,
         "type": "string;",
-        "default": null,
+        "default": "''",
         "description": null
       }
     },
@@ -2132,9 +2194,9 @@
       "error": "false",
       "warning": "false",
       "orientation": "'vertical'",
-      "className": "''"
+      "class": "''"
     },
-    "rawInterface": "name: string;\n  legend?: string;\n  error?: boolean;\n  warning?: boolean;\n  errorMessage?: string;\n  warningMessage?: string;\n  orientation?: 'vertical' | 'horizontal';\n  class?: string;"
+    "rawInterface": "name: string\n  legend?: string\n  error?: boolean\n  warning?: boolean\n  errorMessage?: string\n  warningMessage?: string\n  orientation?: 'vertical' | 'horizontal'\n  class?: string"
   },
   "RangeInput": {
     "hasProps": true,
@@ -2147,9 +2209,10 @@
       "./Label.astro"
     ],
     "cssClasses": [
+      "inline",
+      "range-input-form-wrapper__label",
       "range",
-      "range-value",
-      "input"
+      "range-value"
     ],
     "props": {
       "value": {
@@ -2233,13 +2296,7 @@
       "class": {
         "optional": true,
         "type": "string;",
-        "default": null,
-        "description": null
-      },
-      "key": {
-        "optional": false,
-        "type": "string]: any;",
-        "default": null,
+        "default": "''",
         "description": null
       }
     },
@@ -2252,9 +2309,9 @@
       "showPercent": "false",
       "prefix": "''",
       "suffix": "''",
-      "className": "''"
+      "class": "''"
     },
-    "rawInterface": "value?: number;\n  min?: number;\n  max?: number;\n  step?: number;\n  name?: string;\n  id?: string;\n  disabled?: boolean;\n  showPercent?: boolean;\n  prefix?: string;\n  suffix?: string;\n  label?: string;\n  labelVariant?: 'inline' | 'stacked';\n  labelFor?: string;\n  class?: string;\n  [key: string]: any;"
+    "rawInterface": "value?: number\n  min?: number\n  max?: number\n  step?: number\n  name?: string\n  id?: string\n  disabled?: boolean\n  showPercent?: boolean\n  prefix?: string\n  suffix?: string\n  label?: string\n  labelVariant?: 'inline' | 'stacked'\n  labelFor?: string\n  class?: string"
   },
   "RightSidebar": {
     "hasProps": true,
@@ -2277,13 +2334,37 @@
       "right-sidebar__item-tooltip",
       "right-sidebar__icon",
       "right-sidebar__dela-logo",
+      "right-sidebar__dela-logo--default",
+      "right-sidebar__dela-logo--active",
       "right-sidebar__variant--vp",
       "right-sidebar__variant--ppm",
-      "right-sidebar__variant--maconomy",
-      "shell-panel--open"
+      "right-sidebar__variant--maconomy"
     ],
-    "propsInterface": "variant?: 'cp' | 'vp' | 'ppm' | 'maconomy';\n  sections?: Section[];\n  class?: string;",
-    "raw": "interface Props {\n  variant?: 'cp' | 'vp' | 'ppm' | 'maconomy';\n  sections?: Section[];\n  class?: string;\n}"
+    "props": {
+      "variant": {
+        "optional": true,
+        "type": "'cp' | 'vp' | 'ppm' | 'maconomy';",
+        "default": "'cp'",
+        "description": null
+      },
+      "sections": {
+        "optional": true,
+        "type": "Section[];",
+        "default": null,
+        "description": null
+      },
+      "class": {
+        "optional": true,
+        "type": "string;",
+        "default": "''",
+        "description": null
+      }
+    },
+    "defaults": {
+      "variant": "'cp'",
+      "class": "''"
+    },
+    "rawInterface": "variant?: 'cp' | 'vp' | 'ppm' | 'maconomy'\n  sections?: Section[]\n  class?: string"
   },
   "ShellFooter": {
     "hasProps": true,
@@ -2293,15 +2374,68 @@
     "imports": [],
     "cssClasses": [
       "shell-footer",
+      "${className}",
       "shell-footer__tabstrip"
     ],
-    "propsInterface": "tabs: Tab[];\n  showMore?: boolean;\n  moreCount?: number;\n  overflowTabs?: Tab[];\n  showAddTab?: boolean;\n  variant?: 'default' | 'compact';",
-    "raw": "interface Props {\n  tabs: Tab[];\n  showMore?: boolean;\n  moreCount?: number;\n  overflowTabs?: Tab[];\n  showAddTab?: boolean;\n  variant?: 'default' | 'compact';\n}"
+    "props": {
+      "tabs": {
+        "optional": false,
+        "type": "Tab[];",
+        "default": "[]",
+        "description": null
+      },
+      "showMore": {
+        "optional": true,
+        "type": "boolean;",
+        "default": "false",
+        "description": null
+      },
+      "moreCount": {
+        "optional": true,
+        "type": "number;",
+        "default": "0",
+        "description": null
+      },
+      "overflowTabs": {
+        "optional": true,
+        "type": "Tab[];",
+        "default": "[]",
+        "description": null
+      },
+      "showAddTab": {
+        "optional": true,
+        "type": "boolean;",
+        "default": "true",
+        "description": null
+      },
+      "variant": {
+        "optional": true,
+        "type": "'default' | 'compact';",
+        "default": "'default'",
+        "description": null
+      },
+      "class": {
+        "optional": true,
+        "type": "string;",
+        "default": "''",
+        "description": null
+      }
+    },
+    "defaults": {
+      "tabs": "[]",
+      "showMore": "false",
+      "moreCount": "0",
+      "overflowTabs": "[]",
+      "showAddTab": "true",
+      "variant": "'default'",
+      "class": "''"
+    },
+    "rawInterface": "tabs: Tab[]\n  showMore?: boolean\n  moreCount?: number\n  overflowTabs?: Tab[]\n  showAddTab?: boolean\n  variant?: 'default' | 'compact'\n  class?: string"
   },
   "ShellHeader": {
     "hasProps": true,
     "filePath": "src/components/ui/ShellHeader.astro",
-    "description": "Helper: Convert RGB/RGBA to hex",
+    "description": "ShellHeader: top bar with brand and optional company picker + avatar.",
     "dependencies": [
       "Icon",
       "Avatar"
@@ -2311,6 +2445,7 @@
       "./Avatar.astro"
     ],
     "cssClasses": [
+      "header",
       "header__brand",
       "header__brand-link",
       "header__logo",
@@ -2322,21 +2457,62 @@
       "company-picker__name",
       "company-picker__chevron",
       "company-picker__menu",
-      "company-picker__option",
-      "company-picker__option--selected",
-      "company-picker__option-indicator",
-      "company-picker__option-indicator--acme",
       "company-picker__option-name",
-      "company-picker__option-indicator--ocean",
-      "company-picker__option-indicator--violet",
-      "company-picker__option-indicator--azure",
-      "company-picker__option-indicator--sunset",
       "divider",
-      "header__gradient",
-      "company-picker__menu--open"
+      "header__gradient"
     ],
-    "propsInterface": "productName?: string;\n  logoSrc?: string;\n  companyName?: string;\n  showCompanyPicker?: boolean;\n  companyColor?: string;\n  class?: string;",
-    "raw": "interface Props {\n  productName?: string;\n  logoSrc?: string;\n  companyName?: string;\n  showCompanyPicker?: boolean;\n  companyColor?: string;\n  class?: string;\n}"
+    "props": {
+      "productName": {
+        "optional": true,
+        "type": "string;",
+        "default": "'Harmony'",
+        "description": null
+      },
+      "logoSrc": {
+        "optional": true,
+        "type": "string;",
+        "default": "'/logos/CPVPLogo.svg'",
+        "description": null
+      },
+      "companyName": {
+        "optional": true,
+        "type": "string;",
+        "default": "'Company name'",
+        "description": null
+      },
+      "showCompanyPicker": {
+        "optional": true,
+        "type": "boolean;",
+        "default": "true",
+        "description": null
+      },
+      "companyColor": {
+        "optional": true,
+        "type": "string;",
+        "default": null,
+        "description": null
+      },
+      "companies": {
+        "optional": true,
+        "type": "CompanyOption[];",
+        "default": null,
+        "description": null
+      },
+      "class": {
+        "optional": true,
+        "type": "string;",
+        "default": "''",
+        "description": null
+      }
+    },
+    "defaults": {
+      "productName": "'Harmony'",
+      "logoSrc": "'/logos/CPVPLogo.svg'",
+      "companyName": "'Company name'",
+      "showCompanyPicker": "true",
+      "class": "''"
+    },
+    "rawInterface": "productName?: string\n  logoSrc?: string\n  companyName?: string\n  showCompanyPicker?: boolean\n  companyColor?: string\n  companies?: CompanyOption[]\n  class?: string"
   },
   "ShellPageHeader": {
     "hasProps": true,
@@ -2349,6 +2525,7 @@
       "./Button.astro"
     ],
     "cssClasses": [
+      "shell-page-header",
       "shell-page-header__left",
       "shell-page-header__title",
       "shell-page-header__subtitle",
@@ -2365,6 +2542,12 @@
         "optional": true,
         "type": "string;",
         "default": null,
+        "description": null
+      },
+      "showDefaultButtons": {
+        "optional": true,
+        "type": "boolean;",
+        "default": "true",
         "description": null
       },
       "primaryButton": {
@@ -2394,14 +2577,15 @@
       "class": {
         "optional": true,
         "type": "string;",
-        "default": null,
+        "default": "''",
         "description": null
       }
     },
     "defaults": {
-      "className": "''"
+      "showDefaultButtons": "true",
+      "class": "''"
     },
-    "rawInterface": "title: string;\n  subtitle?: string;\n  primaryButton?: ButtonConfig;\n  outlineButton1?: ButtonConfig;\n  outlineButton2?: ButtonConfig;\n  outlineButton3?: ButtonConfig;\n  class?: string;"
+    "rawInterface": "title: string\n  subtitle?: string\n  showDefaultButtons?: boolean\n  primaryButton?: ButtonConfig\n  outlineButton1?: ButtonConfig\n  outlineButton2?: ButtonConfig\n  outlineButton3?: ButtonConfig\n  class?: string"
   },
   "ShellPanel": {
     "hasProps": true,
@@ -2425,12 +2609,7 @@
       "shell-panel__action--popout",
       "shell-panel__action--close",
       "shell-panel__content",
-      "shell-panel",
-      "shell-panel--open",
-      "shell-panel__header",
-      "shell-panel--right",
-      "shell-panel--full",
-      "shell-panel--narrow"
+      "shell-panel__content-default"
     ],
     "props": {
       "side": {
@@ -2481,6 +2660,12 @@
         "default": "true",
         "description": null
       },
+      "variant": {
+        "optional": true,
+        "type": "'default' | 'dela';",
+        "default": "'default'",
+        "description": null
+      },
       "id": {
         "optional": true,
         "type": "string;",
@@ -2490,7 +2675,7 @@
       "class": {
         "optional": true,
         "type": "string;",
-        "default": null,
+        "default": "''",
         "description": null
       }
     },
@@ -2499,9 +2684,10 @@
       "width": "'narrow'",
       "showClose": "true",
       "showPopout": "true",
-      "className": "''"
+      "variant": "'default'",
+      "class": "''"
     },
-    "rawInterface": "side: 'left' | 'right';\n  open: boolean;\n  title: string;\n  titleIcon?: string;\n  headerVariant?: 'theme' | 'default';\n  width?: 'narrow' | 'full';\n  showClose?: boolean;\n  showPopout?: boolean;\n  id?: string;\n  class?: string;"
+    "rawInterface": "side: 'left' | 'right'\n  open: boolean\n  title: string\n  titleIcon?: string\n  headerVariant?: 'theme' | 'default'\n  width?: 'narrow' | 'full'\n  showClose?: boolean\n  showPopout?: boolean\n  variant?: 'default' | 'dela'\n  id?: string\n  class?: string"
   },
   "Spinner": {
     "hasProps": true,
@@ -2510,8 +2696,7 @@
     "dependencies": [],
     "imports": [],
     "cssClasses": [
-      "sr-only",
-      "spinner"
+      "sr-only"
     ],
     "props": {
       "size": {
@@ -2523,15 +2708,15 @@
       "class": {
         "optional": true,
         "type": "string;",
-        "default": null,
+        "default": "''",
         "description": null
       }
     },
     "defaults": {
       "size": "'md'",
-      "className": "''"
+      "class": "''"
     },
-    "rawInterface": "size?: 'sm' | 'md' | 'lg';\n  class?: string;"
+    "rawInterface": "size?: 'sm' | 'md' | 'lg'\n  class?: string"
   },
   "Step": {
     "hasProps": true,
@@ -2554,12 +2739,7 @@
       "step__connector",
       "step__label",
       "step__label-text",
-      "step__description",
-      "step--completed",
-      "step--disabled",
-      "step--error",
-      "step--warning",
-      "step--success"
+      "step__description"
     ],
     "props": {
       "completed": {
@@ -2601,7 +2781,7 @@
       "class": {
         "optional": true,
         "type": "string;",
-        "default": null,
+        "default": "''",
         "description": null
       }
     },
@@ -2611,9 +2791,9 @@
       "error": "false",
       "warning": "false",
       "success": "false",
-      "className": "''"
+      "class": "''"
     },
-    "rawInterface": "completed?: boolean;\n  disabled?: boolean;\n  error?: boolean;\n  warning?: boolean;\n  success?: boolean;\n  icon?: string;\n  class?: string;"
+    "rawInterface": "completed?: boolean\n  disabled?: boolean\n  error?: boolean\n  warning?: boolean\n  success?: boolean\n  icon?: string\n  class?: string"
   },
   "Stepper": {
     "hasProps": true,
@@ -2621,10 +2801,7 @@
     "description": "Stepper Component",
     "dependencies": [],
     "imports": [],
-    "cssClasses": [
-      "stepper--non-linear",
-      "tabindex"
-    ],
+    "cssClasses": [],
     "props": {
       "activeStep": {
         "optional": true,
@@ -2647,7 +2824,7 @@
       "class": {
         "optional": true,
         "type": "string;",
-        "default": null,
+        "default": "''",
         "description": null
       }
     },
@@ -2655,9 +2832,9 @@
       "activeStep": "0",
       "orientation": "'horizontal'",
       "nonLinear": "false",
-      "className": "''"
+      "class": "''"
     },
-    "rawInterface": "activeStep?: number;\n  orientation?: 'horizontal' | 'vertical';\n  nonLinear?: boolean;\n  class?: string;"
+    "rawInterface": "activeStep?: number\n  orientation?: 'horizontal' | 'vertical'\n  nonLinear?: boolean\n  class?: string"
   },
   "TabStrip": {
     "hasProps": true,
@@ -2670,6 +2847,8 @@
       "./Icon.astro"
     ],
     "cssClasses": [
+      "tabstrip",
+      "${className}",
       "tabstrip__nav",
       "tabstrip__container",
       "tabstrip__tabs",
@@ -2682,21 +2861,72 @@
       "tabstrip__more",
       "tabstrip__dropdown",
       "tabstrip__dropdown-section",
+      "tabstrip__dropdown-item",
       "tabstrip__dropdown-item-label",
       "tabstrip__dropdown-item-icon",
       "tabstrip__dropdown-item-actions",
-      "tabstrip__dropdown-action-btn",
-      "tabstrip__dropdown-item",
-      "${isActive",
-      "?",
-      "tablist",
-      "tab--icon-top",
-      "tab--icon-right",
-      "tab--icon-left",
-      "tab--disabled"
+      "tabstrip__dropdown-action-btn"
     ],
-    "propsInterface": "tabs: Tab[];\n  showAddTab?: boolean;\n  addTabLabel?: string;\n  overflowMode?: 'auto' | 'manual' | 'none';\n  overflowTabs?: Tab[];\n  variant?: 'default' | 'compact';\n  iconPosition?: 'left' | 'right' | 'top';\n  class?: string;",
-    "raw": "interface Props {\n  tabs: Tab[];\n  showAddTab?: boolean;\n  addTabLabel?: string;\n  overflowMode?: 'auto' | 'manual' | 'none';\n  overflowTabs?: Tab[];\n  variant?: 'default' | 'compact';\n  iconPosition?: 'left' | 'right' | 'top';\n  class?: string;\n}"
+    "props": {
+      "tabs": {
+        "optional": false,
+        "type": "Tab[];",
+        "default": "[]",
+        "description": null
+      },
+      "showAddTab": {
+        "optional": true,
+        "type": "boolean;",
+        "default": "false",
+        "description": null
+      },
+      "addTabLabel": {
+        "optional": true,
+        "type": "string;",
+        "default": "'Add Tab'",
+        "description": null
+      },
+      "overflowMode": {
+        "optional": true,
+        "type": "'auto' | 'manual' | 'none';",
+        "default": "'auto'",
+        "description": null
+      },
+      "overflowTabs": {
+        "optional": true,
+        "type": "Tab[];",
+        "default": "[]",
+        "description": null
+      },
+      "variant": {
+        "optional": true,
+        "type": "'default' | 'compact';",
+        "default": "'default'",
+        "description": null
+      },
+      "iconPosition": {
+        "optional": true,
+        "type": "'left' | 'right' | 'top';",
+        "default": null,
+        "description": null
+      },
+      "class": {
+        "optional": true,
+        "type": "string;",
+        "default": "''",
+        "description": null
+      }
+    },
+    "defaults": {
+      "tabs": "[]",
+      "showAddTab": "false",
+      "addTabLabel": "'Add Tab'",
+      "overflowMode": "'auto'",
+      "overflowTabs": "[]",
+      "variant": "'default'",
+      "class": "''"
+    },
+    "rawInterface": "tabs: Tab[]\n  showAddTab?: boolean\n  addTabLabel?: string\n  overflowMode?: 'auto' | 'manual' | 'none'\n  overflowTabs?: Tab[]\n  variant?: 'default' | 'compact'\n  iconPosition?: 'left' | 'right' | 'top'\n  class?: string"
   },
   "Table": {
     "hasProps": true,
@@ -2709,9 +2939,7 @@
       "table__title-bar",
       "table__title-bar-content",
       "table__title-bar-icons",
-      "table__action-bar",
-      "table",
-      "table--striped"
+      "table__action-bar"
     ],
     "props": {
       "headerVariant": {
@@ -2729,16 +2957,16 @@
       "class": {
         "optional": true,
         "type": "string;",
-        "default": null,
+        "default": "''",
         "description": null
       }
     },
     "defaults": {
       "headerVariant": "'gray'",
       "striped": "false",
-      "className": "''"
+      "class": "''"
     },
-    "rawInterface": "headerVariant?: 'gray' | 'white' | 'none';\n  striped?: boolean;\n  class?: string;"
+    "rawInterface": "headerVariant?: 'gray' | 'white' | 'none'\n  striped?: boolean\n  class?: string"
   },
   "Textarea": {
     "hasProps": true,
@@ -2751,8 +2979,7 @@
       "./Label.astro"
     ],
     "cssClasses": [
-      "textarea-form-wrapper",
-      "textarea",
+      "inline",
       "textarea-form-wrapper__label"
     ],
     "props": {
@@ -2819,13 +3046,7 @@
       "class": {
         "optional": true,
         "type": "string;",
-        "default": null,
-        "description": null
-      },
-      "key": {
-        "optional": false,
-        "type": "string]: any;",
-        "default": null,
+        "default": "''",
         "description": null
       }
     },
@@ -2833,9 +3054,9 @@
       "disabled": "false",
       "rows": "4",
       "required": "false",
-      "className": "''"
+      "class": "''"
     },
-    "rawInterface": "placeholder?: string;\n  value?: string;\n  name?: string;\n  id?: string;\n  disabled?: boolean;\n  rows?: number;\n  required?: boolean;\n  label?: string;\n  labelVariant?: 'inline' | 'stacked';\n  labelFor?: string;\n  class?: string;\n  [key: string]: any;"
+    "rawInterface": "placeholder?: string\n  value?: string\n  name?: string\n  id?: string\n  disabled?: boolean\n  rows?: number\n  required?: boolean\n  label?: string\n  labelVariant?: 'inline' | 'stacked'\n  labelFor?: string\n  class?: string"
   },
   "TimePicker": {
     "hasProps": true,
@@ -2856,26 +3077,26 @@
       "time-picker__separator",
       "time-picker__minute",
       "time-picker__period",
-      "time-picker__period-btn--active"
+      "time-picker__period-btn"
     ],
     "props": {
       "value": {
         "optional": true,
         "type": "string;",
         "default": null,
-        "description": "Time string (HH:MM or HH:MM:SS)"
+        "description": null
       },
       "min": {
         "optional": true,
         "type": "string;",
         "default": null,
-        "description": "Time string"
+        "description": null
       },
       "max": {
         "optional": true,
         "type": "string;",
         "default": null,
-        "description": "Time string"
+        "description": null
       },
       "disabled": {
         "optional": true,
@@ -2887,13 +3108,13 @@
         "optional": true,
         "type": "'12' | '24';",
         "default": "'24'",
-        "description": "12 or 24 hour format"
+        "description": null
       },
       "step": {
         "optional": true,
         "type": "number;",
         "default": "1",
-        "description": "Minutes step (default: 1)"
+        "description": null
       },
       "id": {
         "optional": true,
@@ -2904,7 +3125,7 @@
       "class": {
         "optional": true,
         "type": "string;",
-        "default": null,
+        "default": "''",
         "description": null
       }
     },
@@ -2912,9 +3133,9 @@
       "disabled": "false",
       "format": "'24'",
       "step": "1",
-      "className": "''"
+      "class": "''"
     },
-    "rawInterface": "value?: string; // Time string (HH:MM or HH:MM:SS)\n  min?: string; // Time string\n  max?: string; // Time string\n  disabled?: boolean;\n  format?: '12' | '24'; // 12 or 24 hour format\n  step?: number; // Minutes step (default: 1)\n  id?: string;\n  class?: string;"
+    "rawInterface": "value?: string\n  min?: string\n  max?: string\n  disabled?: boolean\n  format?: '12' | '24'\n  step?: number\n  id?: string\n  class?: string"
   },
   "Toggle": {
     "hasProps": true,
@@ -2926,11 +3147,7 @@
       "toggle__input",
       "toggle__track",
       "toggle__thumb",
-      "toggle__label",
-      "toggle",
-      "toggle--sm",
-      "toggle--disabled",
-      "checkbox"
+      "toggle__label"
     ],
     "props": {
       "name": {
@@ -2972,13 +3189,7 @@
       "class": {
         "optional": true,
         "type": "string;",
-        "default": null,
-        "description": null
-      },
-      "key": {
-        "optional": false,
-        "type": "string]: any;",
-        "default": null,
+        "default": "''",
         "description": null
       }
     },
@@ -2986,9 +3197,9 @@
       "checked": "false",
       "disabled": "false",
       "size": "'md'",
-      "className": "''"
+      "class": "''"
     },
-    "rawInterface": "name?: string;\n  id?: string;\n  checked?: boolean;\n  disabled?: boolean;\n  label?: string;\n  size?: 'sm' | 'md';\n  class?: string;\n  [key: string]: any;"
+    "rawInterface": "name?: string\n  id?: string\n  checked?: boolean\n  disabled?: boolean\n  label?: string\n  size?: 'sm' | 'md'\n  class?: string"
   },
   "Tooltip": {
     "hasProps": true,
@@ -2996,17 +3207,7 @@
     "description": "Tooltip Component",
     "dependencies": [],
     "imports": [],
-    "cssClasses": [
-      "tooltip__content",
-      "tooltip__content--bottom",
-      "tooltip__content--left",
-      "tooltip__content--right",
-      "tooltip__content--corner-top",
-      "tooltip__content--corner-bottom",
-      "tooltip__content--corner-left",
-      "tooltip__content--corner-right",
-      "tooltip"
-    ],
+    "cssClasses": [],
     "props": {
       "text": {
         "optional": false,
@@ -3029,15 +3230,15 @@
       "class": {
         "optional": true,
         "type": "string;",
-        "default": null,
+        "default": "''",
         "description": null
       }
     },
     "defaults": {
       "position": "'top'",
-      "className": "''"
+      "class": "''"
     },
-    "rawInterface": "text: string;\n  position?: 'top' | 'bottom' | 'left' | 'right';\n  cornerVariant?: 'top' | 'bottom' | 'left' | 'right';\n  class?: string;"
+    "rawInterface": "text: string\n  position?: 'top' | 'bottom' | 'left' | 'right'\n  cornerVariant?: 'top' | 'bottom' | 'left' | 'right'\n  class?: string"
   },
   "WeekPicker": {
     "hasProps": true,
@@ -3055,29 +3256,26 @@
       "week-picker__year",
       "week-picker__list",
       "week-picker__week-number",
-      "week-picker__week-range",
-      "week-picker__week--selected",
-      "week-picker__week--disabled",
-      "tabindex"
+      "week-picker__week-range"
     ],
     "props": {
       "value": {
         "optional": true,
         "type": "string;",
         "default": null,
-        "description": "ISO week string (YYYY-Www)"
+        "description": null
       },
       "min": {
         "optional": true,
         "type": "string;",
         "default": null,
-        "description": "ISO week string"
+        "description": null
       },
       "max": {
         "optional": true,
         "type": "string;",
         "default": null,
-        "description": "ISO week string"
+        "description": null
       },
       "disabled": {
         "optional": true,
@@ -3100,15 +3298,15 @@
       "class": {
         "optional": true,
         "type": "string;",
-        "default": null,
+        "default": "''",
         "description": null
       }
     },
     "defaults": {
       "disabled": "false",
       "locale": "'en-US'",
-      "className": "''"
+      "class": "''"
     },
-    "rawInterface": "value?: string; // ISO week string (YYYY-Www)\n  min?: string; // ISO week string\n  max?: string; // ISO week string\n  disabled?: boolean;\n  locale?: string;\n  id?: string;\n  class?: string;"
+    "rawInterface": "value?: string\n  min?: string\n  max?: string\n  disabled?: boolean\n  locale?: string\n  id?: string\n  class?: string"
   }
 }

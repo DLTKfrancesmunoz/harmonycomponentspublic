@@ -1,0 +1,1205 @@
+{
+  "name": "PickerPopup",
+  "type": "component",
+  "filePath": "src/components/ui/PickerPopup.astro",
+  "description": "PickerPopup Component",
+  "props": {
+    "id": {
+      "type": "string",
+      "optional": false,
+      "default": null
+    },
+    "triggerId": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "class": {
+      "type": "string",
+      "optional": true,
+      "default": "''"
+    },
+    "title": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    }
+  },
+  "defaults": {
+    "theme": "cp",
+    "mode": "light"
+  },
+  "specs": {
+    "cp-light": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".picker-popup": {
+            "display": "none",
+            "position": "absolute",
+            "top": "calc(100% + 8px)",
+            "left": "0",
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "padding": "16px",
+            "z-index": "400",
+            "min-width": "280px",
+            "max-width": "320px"
+          },
+          ".picker-popup__close": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "32px",
+            "height": "32px",
+            "padding": "0",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "border-radius": "0.375rem",
+            "color": "#525969",
+            "cursor": "pointer",
+            "transition": "all 150ms ease"
+          },
+          ".picker-popup__header": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "margin-bottom": "16px",
+            "padding-bottom": "12px",
+            "border-bottom": "1px solid #BFC6D4"
+          },
+          ".picker-popup__title": {
+            "font-size": "1rem",
+            "font-weight": "600",
+            "color": "#373F4E",
+            "margin": "0",
+            "font-family": "'Figtree', sans-serif"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".picker-popup",
+          "tag": "div",
+          "styles": {
+            "display": "none",
+            "position": "absolute",
+            "top": "calc(100% + 8px)",
+            "left": "0",
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "padding": "16px",
+            "z-index": "400",
+            "min-width": "280px",
+            "max-width": "320px"
+          },
+          "children": [
+            ".picker-popup__close",
+            ".picker-popup__header",
+            ".picker-popup__title"
+          ]
+        },
+        {
+          "selector": ".picker-popup__close",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "32px",
+            "height": "32px",
+            "padding": "0",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "border-radius": "0.375rem",
+            "color": "#525969",
+            "cursor": "pointer",
+            "transition": "all 150ms ease"
+          },
+          "parent": ".picker-popup__header",
+          "states": {
+            "hover": {
+              "background-color": "#E5E7EB",
+              "color": "#373F4E"
+            }
+          }
+        },
+        {
+          "selector": ".picker-popup__header",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "margin-bottom": "16px",
+            "padding-bottom": "12px",
+            "border-bottom": "1px solid #BFC6D4"
+          },
+          "parent": ".picker-popup"
+        },
+        {
+          "selector": ".picker-popup__title",
+          "tag": "span",
+          "styles": {
+            "font-size": "1rem",
+            "font-weight": "600",
+            "color": "#373F4E",
+            "margin": "0",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".picker-popup__header"
+        }
+      ]
+    },
+    "cp-dark": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".picker-popup": {
+            "display": "none",
+            "position": "absolute",
+            "top": "calc(100% + 8px)",
+            "left": "0",
+            "background-color": "#37424D",
+            "border": "1px solid #5F6871",
+            "border-radius": "0.5rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "padding": "16px",
+            "z-index": "400",
+            "min-width": "280px",
+            "max-width": "320px"
+          },
+          ".picker-popup__close": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "32px",
+            "height": "32px",
+            "padding": "0",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "border-radius": "0.375rem",
+            "color": "#B6B6C4",
+            "cursor": "pointer",
+            "transition": "all 150ms ease"
+          },
+          ".picker-popup__header": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "margin-bottom": "16px",
+            "padding-bottom": "12px",
+            "border-bottom": "1px solid #5F6871"
+          },
+          ".picker-popup__title": {
+            "font-size": "1rem",
+            "font-weight": "600",
+            "color": "#E9ECEF",
+            "margin": "0",
+            "font-family": "'Figtree', sans-serif"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".picker-popup",
+          "tag": "div",
+          "styles": {
+            "display": "none",
+            "position": "absolute",
+            "top": "calc(100% + 8px)",
+            "left": "0",
+            "background-color": "#37424D",
+            "border": "1px solid #5F6871",
+            "border-radius": "0.5rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "padding": "16px",
+            "z-index": "400",
+            "min-width": "280px",
+            "max-width": "320px"
+          },
+          "children": [
+            ".picker-popup__close",
+            ".picker-popup__header",
+            ".picker-popup__title"
+          ]
+        },
+        {
+          "selector": ".picker-popup__close",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "32px",
+            "height": "32px",
+            "padding": "0",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "border-radius": "0.375rem",
+            "color": "#B6B6C4",
+            "cursor": "pointer",
+            "transition": "all 150ms ease"
+          },
+          "parent": ".picker-popup__header",
+          "states": {
+            "hover": {
+              "background-color": "#3D4A5C",
+              "color": "#E9ECEF"
+            }
+          }
+        },
+        {
+          "selector": ".picker-popup__header",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "margin-bottom": "16px",
+            "padding-bottom": "12px",
+            "border-bottom": "1px solid #5F6871"
+          },
+          "parent": ".picker-popup"
+        },
+        {
+          "selector": ".picker-popup__title",
+          "tag": "span",
+          "styles": {
+            "font-size": "1rem",
+            "font-weight": "600",
+            "color": "#E9ECEF",
+            "margin": "0",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".picker-popup__header"
+        }
+      ]
+    },
+    "vp-light": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".picker-popup": {
+            "display": "none",
+            "position": "absolute",
+            "top": "calc(100% + 8px)",
+            "left": "0",
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "padding": "16px",
+            "z-index": "400",
+            "min-width": "280px",
+            "max-width": "320px"
+          },
+          ".picker-popup__close": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "32px",
+            "height": "32px",
+            "padding": "0",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "border-radius": "0.375rem",
+            "color": "#525969",
+            "cursor": "pointer",
+            "transition": "all 150ms ease"
+          },
+          ".picker-popup__header": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "margin-bottom": "16px",
+            "padding-bottom": "12px",
+            "border-bottom": "1px solid #BFC6D4"
+          },
+          ".picker-popup__title": {
+            "font-size": "1rem",
+            "font-weight": "600",
+            "color": "#373F4E",
+            "margin": "0",
+            "font-family": "'Figtree', sans-serif"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".picker-popup",
+          "tag": "div",
+          "styles": {
+            "display": "none",
+            "position": "absolute",
+            "top": "calc(100% + 8px)",
+            "left": "0",
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "padding": "16px",
+            "z-index": "400",
+            "min-width": "280px",
+            "max-width": "320px"
+          },
+          "children": [
+            ".picker-popup__close",
+            ".picker-popup__header",
+            ".picker-popup__title"
+          ]
+        },
+        {
+          "selector": ".picker-popup__close",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "32px",
+            "height": "32px",
+            "padding": "0",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "border-radius": "0.375rem",
+            "color": "#525969",
+            "cursor": "pointer",
+            "transition": "all 150ms ease"
+          },
+          "parent": ".picker-popup__header",
+          "states": {
+            "hover": {
+              "background-color": "#E5E7EB",
+              "color": "#373F4E"
+            }
+          }
+        },
+        {
+          "selector": ".picker-popup__header",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "margin-bottom": "16px",
+            "padding-bottom": "12px",
+            "border-bottom": "1px solid #BFC6D4"
+          },
+          "parent": ".picker-popup"
+        },
+        {
+          "selector": ".picker-popup__title",
+          "tag": "span",
+          "styles": {
+            "font-size": "1rem",
+            "font-weight": "600",
+            "color": "#373F4E",
+            "margin": "0",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".picker-popup__header"
+        }
+      ]
+    },
+    "vp-dark": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".picker-popup": {
+            "display": "none",
+            "position": "absolute",
+            "top": "calc(100% + 8px)",
+            "left": "0",
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "padding": "16px",
+            "z-index": "400",
+            "min-width": "280px",
+            "max-width": "320px"
+          },
+          ".picker-popup__close": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "32px",
+            "height": "32px",
+            "padding": "0",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "border-radius": "0.375rem",
+            "color": "#B5B5BC",
+            "cursor": "pointer",
+            "transition": "all 150ms ease"
+          },
+          ".picker-popup__header": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "margin-bottom": "16px",
+            "padding-bottom": "12px",
+            "border-bottom": "1px solid #2A2D32"
+          },
+          ".picker-popup__title": {
+            "font-size": "1rem",
+            "font-weight": "600",
+            "color": "#FAFAFA",
+            "margin": "0",
+            "font-family": "'Figtree', sans-serif"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".picker-popup",
+          "tag": "div",
+          "styles": {
+            "display": "none",
+            "position": "absolute",
+            "top": "calc(100% + 8px)",
+            "left": "0",
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "padding": "16px",
+            "z-index": "400",
+            "min-width": "280px",
+            "max-width": "320px"
+          },
+          "children": [
+            ".picker-popup__close",
+            ".picker-popup__header",
+            ".picker-popup__title"
+          ]
+        },
+        {
+          "selector": ".picker-popup__close",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "32px",
+            "height": "32px",
+            "padding": "0",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "border-radius": "0.375rem",
+            "color": "#B5B5BC",
+            "cursor": "pointer",
+            "transition": "all 150ms ease"
+          },
+          "parent": ".picker-popup__header",
+          "states": {
+            "hover": {
+              "background-color": "#2A2D32",
+              "color": "#FAFAFA"
+            }
+          }
+        },
+        {
+          "selector": ".picker-popup__header",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "margin-bottom": "16px",
+            "padding-bottom": "12px",
+            "border-bottom": "1px solid #2A2D32"
+          },
+          "parent": ".picker-popup"
+        },
+        {
+          "selector": ".picker-popup__title",
+          "tag": "span",
+          "styles": {
+            "font-size": "1rem",
+            "font-weight": "600",
+            "color": "#FAFAFA",
+            "margin": "0",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".picker-popup__header"
+        }
+      ]
+    },
+    "ppm-light": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".picker-popup": {
+            "display": "none",
+            "position": "absolute",
+            "top": "calc(100% + 8px)",
+            "left": "0",
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "padding": "16px",
+            "z-index": "400",
+            "min-width": "280px",
+            "max-width": "320px"
+          },
+          ".picker-popup__close": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "32px",
+            "height": "32px",
+            "padding": "0",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "border-radius": "0.375rem",
+            "color": "#525969",
+            "cursor": "pointer",
+            "transition": "all 150ms ease"
+          },
+          ".picker-popup__header": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "margin-bottom": "16px",
+            "padding-bottom": "12px",
+            "border-bottom": "1px solid #BFC6D4"
+          },
+          ".picker-popup__title": {
+            "font-size": "1rem",
+            "font-weight": "600",
+            "color": "#373F4E",
+            "margin": "0",
+            "font-family": "'Figtree', sans-serif"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".picker-popup",
+          "tag": "div",
+          "styles": {
+            "display": "none",
+            "position": "absolute",
+            "top": "calc(100% + 8px)",
+            "left": "0",
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "padding": "16px",
+            "z-index": "400",
+            "min-width": "280px",
+            "max-width": "320px"
+          },
+          "children": [
+            ".picker-popup__close",
+            ".picker-popup__header",
+            ".picker-popup__title"
+          ]
+        },
+        {
+          "selector": ".picker-popup__close",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "32px",
+            "height": "32px",
+            "padding": "0",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "border-radius": "0.375rem",
+            "color": "#525969",
+            "cursor": "pointer",
+            "transition": "all 150ms ease"
+          },
+          "parent": ".picker-popup__header",
+          "states": {
+            "hover": {
+              "background-color": "#E5E7EB",
+              "color": "#373F4E"
+            }
+          }
+        },
+        {
+          "selector": ".picker-popup__header",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "margin-bottom": "16px",
+            "padding-bottom": "12px",
+            "border-bottom": "1px solid #BFC6D4"
+          },
+          "parent": ".picker-popup"
+        },
+        {
+          "selector": ".picker-popup__title",
+          "tag": "span",
+          "styles": {
+            "font-size": "1rem",
+            "font-weight": "600",
+            "color": "#373F4E",
+            "margin": "0",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".picker-popup__header"
+        }
+      ]
+    },
+    "ppm-dark": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".picker-popup": {
+            "display": "none",
+            "position": "absolute",
+            "top": "calc(100% + 8px)",
+            "left": "0",
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "padding": "16px",
+            "z-index": "400",
+            "min-width": "280px",
+            "max-width": "320px"
+          },
+          ".picker-popup__close": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "32px",
+            "height": "32px",
+            "padding": "0",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "border-radius": "0.375rem",
+            "color": "#B5B5BC",
+            "cursor": "pointer",
+            "transition": "all 150ms ease"
+          },
+          ".picker-popup__header": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "margin-bottom": "16px",
+            "padding-bottom": "12px",
+            "border-bottom": "1px solid #2A2D32"
+          },
+          ".picker-popup__title": {
+            "font-size": "1rem",
+            "font-weight": "600",
+            "color": "#FAFAFA",
+            "margin": "0",
+            "font-family": "'Figtree', sans-serif"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".picker-popup",
+          "tag": "div",
+          "styles": {
+            "display": "none",
+            "position": "absolute",
+            "top": "calc(100% + 8px)",
+            "left": "0",
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "padding": "16px",
+            "z-index": "400",
+            "min-width": "280px",
+            "max-width": "320px"
+          },
+          "children": [
+            ".picker-popup__close",
+            ".picker-popup__header",
+            ".picker-popup__title"
+          ]
+        },
+        {
+          "selector": ".picker-popup__close",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "32px",
+            "height": "32px",
+            "padding": "0",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "border-radius": "0.375rem",
+            "color": "#B5B5BC",
+            "cursor": "pointer",
+            "transition": "all 150ms ease"
+          },
+          "parent": ".picker-popup__header",
+          "states": {
+            "hover": {
+              "background-color": "#2A2D32",
+              "color": "#FAFAFA"
+            }
+          }
+        },
+        {
+          "selector": ".picker-popup__header",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "margin-bottom": "16px",
+            "padding-bottom": "12px",
+            "border-bottom": "1px solid #2A2D32"
+          },
+          "parent": ".picker-popup"
+        },
+        {
+          "selector": ".picker-popup__title",
+          "tag": "span",
+          "styles": {
+            "font-size": "1rem",
+            "font-weight": "600",
+            "color": "#FAFAFA",
+            "margin": "0",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".picker-popup__header"
+        }
+      ]
+    },
+    "maconomy-light": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".picker-popup": {
+            "display": "none",
+            "position": "absolute",
+            "top": "calc(100% + 8px)",
+            "left": "0",
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "padding": "16px",
+            "z-index": "400",
+            "min-width": "280px",
+            "max-width": "320px"
+          },
+          ".picker-popup__close": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "32px",
+            "height": "32px",
+            "padding": "0",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "border-radius": "0.375rem",
+            "color": "#525969",
+            "cursor": "pointer",
+            "transition": "all 150ms ease"
+          },
+          ".picker-popup__header": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "margin-bottom": "16px",
+            "padding-bottom": "12px",
+            "border-bottom": "1px solid #BFC6D4"
+          },
+          ".picker-popup__title": {
+            "font-size": "1rem",
+            "font-weight": "600",
+            "color": "#373F4E",
+            "margin": "0",
+            "font-family": "'Figtree', sans-serif"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".picker-popup",
+          "tag": "div",
+          "styles": {
+            "display": "none",
+            "position": "absolute",
+            "top": "calc(100% + 8px)",
+            "left": "0",
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "padding": "16px",
+            "z-index": "400",
+            "min-width": "280px",
+            "max-width": "320px"
+          },
+          "children": [
+            ".picker-popup__close",
+            ".picker-popup__header",
+            ".picker-popup__title"
+          ]
+        },
+        {
+          "selector": ".picker-popup__close",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "32px",
+            "height": "32px",
+            "padding": "0",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "border-radius": "0.375rem",
+            "color": "#525969",
+            "cursor": "pointer",
+            "transition": "all 150ms ease"
+          },
+          "parent": ".picker-popup__header",
+          "states": {
+            "hover": {
+              "background-color": "#E5E7EB",
+              "color": "#373F4E"
+            }
+          }
+        },
+        {
+          "selector": ".picker-popup__header",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "margin-bottom": "16px",
+            "padding-bottom": "12px",
+            "border-bottom": "1px solid #BFC6D4"
+          },
+          "parent": ".picker-popup"
+        },
+        {
+          "selector": ".picker-popup__title",
+          "tag": "span",
+          "styles": {
+            "font-size": "1rem",
+            "font-weight": "600",
+            "color": "#373F4E",
+            "margin": "0",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".picker-popup__header"
+        }
+      ]
+    },
+    "maconomy-dark": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".picker-popup": {
+            "display": "none",
+            "position": "absolute",
+            "top": "calc(100% + 8px)",
+            "left": "0",
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "padding": "16px",
+            "z-index": "400",
+            "min-width": "280px",
+            "max-width": "320px"
+          },
+          ".picker-popup__close": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "32px",
+            "height": "32px",
+            "padding": "0",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "border-radius": "0.375rem",
+            "color": "#B5B5BC",
+            "cursor": "pointer",
+            "transition": "all 150ms ease"
+          },
+          ".picker-popup__header": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "margin-bottom": "16px",
+            "padding-bottom": "12px",
+            "border-bottom": "1px solid #2A2D32"
+          },
+          ".picker-popup__title": {
+            "font-size": "1rem",
+            "font-weight": "600",
+            "color": "#FAFAFA",
+            "margin": "0",
+            "font-family": "'Figtree', sans-serif"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".picker-popup",
+          "tag": "div",
+          "styles": {
+            "display": "none",
+            "position": "absolute",
+            "top": "calc(100% + 8px)",
+            "left": "0",
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "box-shadow": "0 20px 25px -5px rgb(15 23 42 / 0.1), 0 8px 10px -6px rgb(15 23 42 / 0.1)",
+            "padding": "16px",
+            "z-index": "400",
+            "min-width": "280px",
+            "max-width": "320px"
+          },
+          "children": [
+            ".picker-popup__close",
+            ".picker-popup__header",
+            ".picker-popup__title"
+          ]
+        },
+        {
+          "selector": ".picker-popup__close",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "32px",
+            "height": "32px",
+            "padding": "0",
+            "background": "rgba(0,0,0,0)",
+            "border": "none",
+            "border-radius": "0.375rem",
+            "color": "#B5B5BC",
+            "cursor": "pointer",
+            "transition": "all 150ms ease"
+          },
+          "parent": ".picker-popup__header",
+          "states": {
+            "hover": {
+              "background-color": "#2A2D32",
+              "color": "#FAFAFA"
+            }
+          }
+        },
+        {
+          "selector": ".picker-popup__header",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "margin-bottom": "16px",
+            "padding-bottom": "12px",
+            "border-bottom": "1px solid #2A2D32"
+          },
+          "parent": ".picker-popup"
+        },
+        {
+          "selector": ".picker-popup__title",
+          "tag": "span",
+          "styles": {
+            "font-size": "1rem",
+            "font-weight": "600",
+            "color": "#FAFAFA",
+            "margin": "0",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".picker-popup__header"
+        }
+      ]
+    }
+  },
+  "contentOrder": [
+    ".picker-popup__header",
+    ".picker-popup__body"
+  ],
+  "guidance": {
+    "patterns": {},
+    "guidelines": {}
+  },
+  "specKeyOrder": [
+    "theme",
+    "mode"
+  ],
+  "dimensionDefaults": {
+    "theme": "cp",
+    "mode": "light"
+  },
+  "structure": {
+    "root": ".picker-popup",
+    "children": [
+      {
+        "class": ".picker-popup__header",
+        "children": [
+          {
+            "class": ".picker-popup__title"
+          },
+          {
+            "class": ".picker-popup__close",
+            "children": []
+          }
+        ]
+      },
+      {
+        "class": ".picker-popup__body",
+        "children": []
+      }
+    ]
+  },
+  "fonts": {
+    "Figtree": "https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap",
+    "Lexend": "https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap",
+    "JetBrains Mono": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
+  },
+  "defaultContent": {
+    "_rule": "No default content defined; do not invent labels, icons, or copy. Use only what is in the spec or leave slots empty."
+  },
+  "interactivity": {
+    "events": [
+      {
+        "name": "open",
+        "description": "Popup opened"
+      },
+      {
+        "name": "close",
+        "description": "Popup closed (outside click, Escape, or selection)"
+      }
+    ],
+    "state": [
+      {
+        "name": "open",
+        "type": "boolean",
+        "description": "Whether the popup is visible"
+      }
+    ]
+  },
+  "examples": [
+    {
+      "name": "Popup picker",
+      "description": "Popover for picker",
+      "snippet": "<PickerPopup open={open} onclose={...}>...</PickerPopup>"
+    }
+  ],
+  "contentOrder.picker-popup__header": [
+    ".picker-popup__title",
+    ".picker-popup__close"
+  ]
+}

@@ -1,0 +1,696 @@
+{
+  "name": "ShellLayout",
+  "type": "layout",
+  "filePath": "src/layouts/ShellLayout.astro",
+  "description": "Complete application shell layout with theme-specific composition",
+  "props": {
+    "productName": {
+      "type": "string",
+      "optional": true,
+      "description": "Header props (passed to ShellHeader)",
+      "default": "'Harmony'"
+    },
+    "showFloatingNav": {
+      "type": "boolean",
+      "optional": true,
+      "description": "CP-specific props",
+      "default": "isCP; // CP has floating nav"
+    },
+    "tabs": {
+      "type": "Tab[]",
+      "optional": true,
+      "description": "Standard theme props",
+      "default": "[]"
+    },
+    "leftSidebarVariant": {
+      "type": "'cp' | 'vp' | 'ppm' | 'maconomy'",
+      "optional": true,
+      "description": "Left sidebar props",
+      "default": null
+    },
+    "rightSidebarVariant": {
+      "type": "'cp' | 'vp' | 'ppm' | 'maconomy'",
+      "optional": true,
+      "description": "Right sidebar props",
+      "default": null
+    },
+    "showFooter": {
+      "type": "boolean",
+      "optional": true,
+      "description": "Footer visibility (when false, footer never renders; when undefined, use existing tabs/theme logic)",
+      "default": "== false ? false : hasFooter;"
+    },
+    "pageHeaderTitle": {
+      "type": "string",
+      "optional": true,
+      "description": "Page header props",
+      "default": "'Page title'"
+    },
+    "leftPanel": {
+      "type": "PanelConfig",
+      "optional": true,
+      "description": "Panel props",
+      "default": null
+    },
+    "class": {
+      "type": "string",
+      "optional": true,
+      "description": "General",
+      "default": "{`shell-layout ${className"
+    }
+  },
+  "dependencies": [
+    "ShellHeader",
+    "ShellFooter",
+    "LeftSidebar",
+    "RightSidebar",
+    "FloatingNav",
+    "ShellPageHeader",
+    "ShellPanel"
+  ],
+  "themeSupport": {
+    "themes": [
+      "cp",
+      "vp",
+      "ppm",
+      "maconomy"
+    ],
+    "darkMode": true
+  },
+  "themeComposition": {
+    "cp": {
+      "productName": "Costpoint",
+      "logo": "/logos/CPVPLogo.svg",
+      "components": [
+        {
+          "name": "ShellHeader",
+          "required": true,
+          "conditional": null
+        },
+        {
+          "name": "FloatingNav",
+          "required": false,
+          "conditional": "CP theme only"
+        },
+        {
+          "name": "LeftSidebar",
+          "required": true,
+          "conditional": null
+        },
+        {
+          "name": "RightSidebar",
+          "required": true,
+          "conditional": null
+        },
+        {
+          "name": "ShellPageHeader",
+          "required": false,
+          "conditional": "When pageHeaderTitle is provided"
+        },
+        {
+          "name": "ShellPanel",
+          "required": false,
+          "conditional": "When leftPanel or rightPanel is provided"
+        },
+        {
+          "name": "main",
+          "required": true,
+          "conditional": null
+        }
+      ],
+      "hasFooter": false,
+      "hasFloatingNav": true,
+      "gridRows": "var(--shell-header-height) 1fr",
+      "gridColumns": "1fr",
+      "mainPadding": {
+        "top": "var(--shell-layout-padding-top)",
+        "right": "calc(var(--shell-layout-padding-side-default) + var(--space-5))",
+        "bottom": "var(--space-6)",
+        "left": "calc(var(--shell-layout-padding-side-default) + var(--space-5))"
+      },
+      "description": "CP theme uses FloatingNav below header, no footer, 88px top padding"
+    },
+    "vp": {
+      "productName": "Vantagepoint",
+      "logo": "/logos/CPVPLogo.svg",
+      "components": [
+        {
+          "name": "ShellHeader",
+          "required": true,
+          "conditional": null
+        },
+        {
+          "name": "LeftSidebar",
+          "required": true,
+          "conditional": null
+        },
+        {
+          "name": "RightSidebar",
+          "required": true,
+          "conditional": null
+        },
+        {
+          "name": "ShellPageHeader",
+          "required": false,
+          "conditional": "When pageHeaderTitle is provided"
+        },
+        {
+          "name": "ShellPanel",
+          "required": false,
+          "conditional": "When leftPanel or rightPanel is provided"
+        },
+        {
+          "name": "main",
+          "required": true,
+          "conditional": null
+        },
+        {
+          "name": "ShellFooter",
+          "required": true,
+          "conditional": "VP/PPM/Maconomy themes"
+        }
+      ],
+      "hasFooter": true,
+      "hasFloatingNav": false,
+      "gridRows": "var(--shell-header-height) 1fr var(--shell-footer-height-default)",
+      "gridColumns": "1fr",
+      "mainPadding": {
+        "top": "var(--space-5)",
+        "right": "calc(var(--shell-layout-padding-side-default) + var(--space-5))",
+        "bottom": "var(--space-6)",
+        "left": "calc(var(--shell-layout-padding-side-default) + var(--space-5))"
+      },
+      "description": "VP theme uses footer for navigation, no FloatingNav, 20px top padding"
+    },
+    "ppm": {
+      "productName": "Project Performance Management",
+      "logo": "/logos/PPMLogo.svg",
+      "components": [
+        {
+          "name": "ShellHeader",
+          "required": true,
+          "conditional": null
+        },
+        {
+          "name": "LeftSidebar",
+          "required": true,
+          "conditional": null
+        },
+        {
+          "name": "RightSidebar",
+          "required": true,
+          "conditional": null
+        },
+        {
+          "name": "ShellPageHeader",
+          "required": false,
+          "conditional": "When pageHeaderTitle is provided"
+        },
+        {
+          "name": "ShellPanel",
+          "required": false,
+          "conditional": "When leftPanel or rightPanel is provided"
+        },
+        {
+          "name": "main",
+          "required": true,
+          "conditional": null
+        },
+        {
+          "name": "ShellFooter",
+          "required": true,
+          "conditional": "VP/PPM/Maconomy themes"
+        }
+      ],
+      "hasFooter": true,
+      "hasFloatingNav": false,
+      "gridRows": "var(--shell-header-height) 1fr var(--shell-footer-height-default)",
+      "gridColumns": "1fr",
+      "mainPadding": {
+        "top": "var(--space-5)",
+        "right": "calc(var(--shell-layout-padding-side-default) + var(--space-5))",
+        "bottom": "var(--space-6)",
+        "left": "calc(var(--shell-layout-padding-side-default) + var(--space-5))"
+      },
+      "description": "PPM theme uses footer for navigation, no FloatingNav, 20px top padding"
+    },
+    "maconomy": {
+      "productName": "Maconomy",
+      "logo": "/logos/MacLogo.svg",
+      "components": [
+        {
+          "name": "ShellHeader",
+          "required": true,
+          "conditional": null
+        },
+        {
+          "name": "LeftSidebar",
+          "required": true,
+          "conditional": null
+        },
+        {
+          "name": "RightSidebar",
+          "required": true,
+          "conditional": null
+        },
+        {
+          "name": "ShellPageHeader",
+          "required": false,
+          "conditional": "When pageHeaderTitle is provided"
+        },
+        {
+          "name": "ShellPanel",
+          "required": false,
+          "conditional": "When leftPanel or rightPanel is provided"
+        },
+        {
+          "name": "main",
+          "required": true,
+          "conditional": null
+        },
+        {
+          "name": "ShellFooter",
+          "required": true,
+          "conditional": "VP/PPM/Maconomy themes"
+        }
+      ],
+      "hasFooter": true,
+      "hasFloatingNav": false,
+      "gridRows": "var(--shell-header-height) 1fr var(--shell-footer-height-default)",
+      "gridColumns": "1fr",
+      "mainPadding": {
+        "top": "var(--space-5)",
+        "right": "calc(var(--shell-layout-padding-side-default) + var(--space-5))",
+        "bottom": "var(--space-6)",
+        "left": "calc(var(--shell-layout-padding-side-default) + var(--space-5))"
+      },
+      "description": "Maconomy theme uses footer for navigation, no FloatingNav, 20px top padding"
+    }
+  },
+  "spacingTokens": {
+    "headerHeight": {
+      "token": "--shell-header-height",
+      "value": "56px",
+      "resolved": "56px"
+    },
+    "footerHeightDefault": {
+      "token": "--shell-footer-height-default",
+      "value": "48px",
+      "resolved": "48px"
+    },
+    "footerHeightCompact": {
+      "token": "--shell-footer-height-compact",
+      "value": "40px",
+      "resolved": "40px"
+    },
+    "layoutPaddingTop": {
+      "token": "--shell-layout-padding-top",
+      "value": "88px",
+      "resolved": "88px"
+    },
+    "layoutPaddingSideDefault": {
+      "token": "--shell-layout-padding-side-default",
+      "value": "52px",
+      "resolved": "52px"
+    },
+    "layoutPaddingSideStandard": {
+      "token": "--shell-layout-padding-side-standard",
+      "value": "52px",
+      "resolved": "52px"
+    },
+    "layoutPaddingSideTablet": {
+      "token": "--shell-layout-padding-side-tablet",
+      "value": "32px",
+      "resolved": "32px"
+    },
+    "layoutPaddingSideMobile": {
+      "token": "--shell-layout-padding-side-mobile",
+      "value": "16px",
+      "resolved": "16px"
+    },
+    "panelWidthFull": {
+      "token": "--panel-width-full",
+      "value": "1300px",
+      "resolved": "1300px"
+    },
+    "footerTabHoverBg": {
+      "token": "--shell-footer-tab-hover-bg",
+      "value": "rgba(255, 255, 255, 0.1)",
+      "resolved": "rgba(255, 255, 255, 0.1)"
+    },
+    "footerTabLabelColor": {
+      "token": "--shell-footer-tab-label-color",
+      "value": "#ffffff",
+      "resolved": "#ffffff"
+    },
+    "footerTabIconColorActive": {
+      "token": "--shell-footer-tab-icon-color-active",
+      "value": "var(--theme-primary)",
+      "resolved": "#4C92D9"
+    },
+    "sidebarIconColorOnPrimary": {
+      "token": "--shell-sidebar-icon-color-on-primary",
+      "value": "#ffffff",
+      "resolved": "#ffffff"
+    },
+    "footerBg": {
+      "token": "--shell-footer-bg",
+      "value": "#212631",
+      "resolved": "#212631"
+    },
+    "sidebarWidth": {
+      "token": "--sidebar-width",
+      "value": "52px",
+      "resolved": "52px"
+    },
+    "panelWidthNarrow": {
+      "token": "--panel-width-narrow",
+      "value": "596px",
+      "resolved": "596px"
+    }
+  },
+  "gridStructure": {
+    "withFooter": {
+      "rows": "var(--shell-header-height) 1fr var(--shell-footer-height-default)",
+      "columns": "1fr",
+      "description": "Used by VP, PPM, Maconomy themes"
+    },
+    "withoutFooter": {
+      "rows": "var(--shell-header-height) 1fr",
+      "columns": "1fr",
+      "description": "Used by CP theme"
+    }
+  },
+  "positioning": {
+    "header": {
+      "position": "fixed",
+      "top": "0",
+      "left": "0",
+      "right": "0",
+      "zIndex": "var(--z-50)",
+      "gridRow": "1",
+      "gridColumn": "1"
+    },
+    "floatingNav": {
+      "position": "fixed",
+      "top": "var(--shell-header-height)",
+      "left": "50%",
+      "transform": "translateX(-50%)",
+      "zIndex": "var(--z-40)",
+      "conditional": "CP theme only"
+    },
+    "leftSidebar": {
+      "position": "fixed",
+      "left": "0",
+      "zIndex": "var(--z-45)"
+    },
+    "rightSidebar": {
+      "position": "fixed",
+      "right": "0",
+      "top": "50%",
+      "transform": "translateY(-50%)",
+      "zIndex": "var(--z-45)"
+    },
+    "main": {
+      "position": "relative",
+      "gridRow": "2",
+      "gridColumn": "1",
+      "overflow": "auto",
+      "display": "flex",
+      "flexDirection": "column"
+    },
+    "footer": {
+      "position": "relative",
+      "gridRow": "3",
+      "gridColumn": "1",
+      "zIndex": "var(--z-40)",
+      "conditional": "VP/PPM/Maconomy themes only"
+    },
+    "panels": {
+      "position": "fixed",
+      "zIndex": "var(--z-30)",
+      "conditional": "Optional, when leftPanel or rightPanel props are provided"
+    }
+  },
+  "responsive": {
+    "mobile": {
+      "breakpoint": "var(--breakpoint-md)",
+      "maxWidth": "768px",
+      "changes": [
+        "Hide left and right sidebars",
+        "Adjust main padding to var(--shell-layout-padding-side-mobile) (16px)",
+        "Maintain FloatingNav on CP theme",
+        "Maintain footer on VP/PPM/Maconomy themes"
+      ],
+      "mainPaddingWithFloatingNav": {
+        "top": "var(--shell-layout-padding-top)",
+        "right": "var(--shell-layout-padding-side-mobile)",
+        "bottom": "var(--space-6)",
+        "left": "var(--shell-layout-padding-side-mobile)"
+      },
+      "mainPaddingWithoutFloatingNav": {
+        "top": "var(--space-5)",
+        "right": "var(--shell-layout-padding-side-mobile)",
+        "bottom": "var(--space-6)",
+        "left": "var(--shell-layout-padding-side-mobile)"
+      }
+    },
+    "tablet": {
+      "breakpoint": "var(--breakpoint-lg)",
+      "maxWidth": "1024px",
+      "changes": [
+        "Reduce side padding to var(--shell-layout-padding-side-tablet) (32px)",
+        "Keep sidebars visible"
+      ],
+      "mainPaddingWithFloatingNav": {
+        "top": "var(--shell-layout-padding-top)",
+        "right": "calc(var(--shell-layout-padding-side-tablet) + var(--space-5))",
+        "bottom": "var(--space-6)",
+        "left": "calc(var(--shell-layout-padding-side-tablet) + var(--space-5))"
+      },
+      "mainPaddingWithoutFloatingNav": {
+        "top": "var(--space-5)",
+        "right": "calc(var(--shell-layout-padding-side-tablet) + var(--space-5))",
+        "bottom": "var(--space-6)",
+        "left": "calc(var(--shell-layout-padding-side-tablet) + var(--space-5))"
+      }
+    }
+  },
+  "slots": {
+    "default": {
+      "name": "default",
+      "location": "main.shell-layout__main",
+      "description": "Main page content area",
+      "required": true
+    }
+  },
+  "contentOrder": [
+    ".shell-layout__header",
+    ".shell-layout__floating-nav-wrap",
+    ".shell-layout__left-sidebar",
+    ".shell-layout__right-sidebar",
+    ".shell-layout__right-panel",
+    ".shell-layout__left-panel",
+    ".shell-layout__main",
+    ".shell-layout__footer"
+  ],
+  "contentOrder.shell-layout__main": [
+    "ShellPageHeader (optional when pageHeaderTitle provided)",
+    "default slot (main content)"
+  ],
+  "defaultContent": {
+    "defaultProps": {
+      "productName": "Harmony",
+      "logoSrc": "/logos/CPVPLogo.svg",
+      "companyName": "Company name",
+      "showCompanyPicker": true,
+      "showRightSidebar": true,
+      "leftSidebarVariant": "cp",
+      "rightSidebarVariant": "cp",
+      "tabs": [],
+      "showAddTab": true,
+      "footerVariant": "default",
+      "floatingNavVariant": "full",
+      "showExecute": true,
+      "saveDisabled": false
+    },
+    "perTheme": {
+      "cp": {
+        "hasFooter": false,
+        "hasFloatingNav": true,
+        "productName": "Costpoint",
+        "gridRows": "var(--shell-header-height) 1fr",
+        "mainPadding": {
+          "top": "var(--shell-layout-padding-top)",
+          "right": "calc(var(--shell-layout-padding-side-default) + var(--space-5))",
+          "bottom": "var(--space-6)",
+          "left": "calc(var(--shell-layout-padding-side-default) + var(--space-5))"
+        }
+      },
+      "vp": {
+        "hasFooter": true,
+        "hasFloatingNav": false,
+        "productName": "Vantagepoint",
+        "gridRows": "var(--shell-header-height) 1fr var(--shell-footer-height-default)",
+        "mainPadding": {
+          "top": "var(--space-5)",
+          "right": "calc(var(--shell-layout-padding-side-default) + var(--space-5))",
+          "bottom": "var(--space-6)",
+          "left": "calc(var(--shell-layout-padding-side-default) + var(--space-5))"
+        }
+      },
+      "ppm": {
+        "hasFooter": true,
+        "hasFloatingNav": false,
+        "productName": "Project Performance Management",
+        "gridRows": "var(--shell-header-height) 1fr var(--shell-footer-height-default)",
+        "mainPadding": {
+          "top": "var(--space-5)",
+          "right": "calc(var(--shell-layout-padding-side-default) + var(--space-5))",
+          "bottom": "var(--space-6)",
+          "left": "calc(var(--shell-layout-padding-side-default) + var(--space-5))"
+        }
+      },
+      "maconomy": {
+        "hasFooter": true,
+        "hasFloatingNav": false,
+        "productName": "Maconomy",
+        "gridRows": "var(--shell-header-height) 1fr var(--shell-footer-height-default)",
+        "mainPadding": {
+          "top": "var(--space-5)",
+          "right": "calc(var(--shell-layout-padding-side-default) + var(--space-5))",
+          "bottom": "var(--space-6)",
+          "left": "calc(var(--shell-layout-padding-side-default) + var(--space-5))"
+        }
+      }
+    },
+    "_rule": "Use defaultProps when not overridden. For LeftSidebar/RightSidebar/ShellHeader/ShellFooter content, use each component's defaultContent from its component spec. Do not invent sections, tabs, labels, or company names."
+  },
+  "_buildContract": {
+    "forbiddenModifications": [
+      "Do not use Tailwind arbitrary values",
+      "Do not change hex colors to named colors",
+      "Do not simplify box-shadow values",
+      "Do not add CSS properties that are not in the layout spec or positioning/gridStructure",
+      "Do not reorder children: follow contentOrder exactly (header, floating-nav-wrap, left-sidebar, right-sidebar, panels, main, footer)",
+      "Build exactly what is in the spec: structure, styles, and defaultContent from the layout and child component specs only; no inference, no additions, no \"fixes\""
+    ]
+  },
+  "visualSpecifications": {
+    "cp": {
+      "componentDimensions": {
+        "header": {
+          "height": "56px"
+        },
+        "footer": null,
+        "sidebar": {
+          "width": "52px"
+        },
+        "floatingNav": {
+          "top": "56px"
+        }
+      },
+      "mainSpacing": {
+        "paddingTop": "88px",
+        "paddingRight": "72px",
+        "paddingBottom": "24px",
+        "paddingLeft": "72px"
+      },
+      "gridStructure": {
+        "rows": "56px 1fr",
+        "columns": "1fr"
+      }
+    },
+    "vp": {
+      "componentDimensions": {
+        "header": {
+          "height": "56px"
+        },
+        "footer": {
+          "height": "48px",
+          "heightCompact": "40px"
+        },
+        "sidebar": {
+          "width": "52px"
+        },
+        "floatingNav": null
+      },
+      "mainSpacing": {
+        "paddingTop": "20px",
+        "paddingRight": "72px",
+        "paddingBottom": "24px",
+        "paddingLeft": "72px"
+      },
+      "gridStructure": {
+        "rows": "56px 1fr 48px",
+        "columns": "1fr"
+      }
+    },
+    "ppm": {
+      "componentDimensions": {
+        "header": {
+          "height": "56px"
+        },
+        "footer": {
+          "height": "48px",
+          "heightCompact": "40px"
+        },
+        "sidebar": {
+          "width": "52px"
+        },
+        "floatingNav": null
+      },
+      "mainSpacing": {
+        "paddingTop": "20px",
+        "paddingRight": "72px",
+        "paddingBottom": "24px",
+        "paddingLeft": "72px"
+      },
+      "gridStructure": {
+        "rows": "56px 1fr 48px",
+        "columns": "1fr"
+      }
+    },
+    "maconomy": {
+      "componentDimensions": {
+        "header": {
+          "height": "56px"
+        },
+        "footer": {
+          "height": "48px",
+          "heightCompact": "40px"
+        },
+        "sidebar": {
+          "width": "52px"
+        },
+        "floatingNav": null
+      },
+      "mainSpacing": {
+        "paddingTop": "20px",
+        "paddingRight": "72px",
+        "paddingBottom": "24px",
+        "paddingLeft": "72px"
+      },
+      "gridStructure": {
+        "rows": "56px 1fr 48px",
+        "columns": "1fr"
+      }
+    }
+  },
+  "usage": {
+    "importPath": "./src/layouts/ShellLayout.astro",
+    "description": "Use ShellLayout as the root layout for application pages",
+    "themeDetection": "Layout automatically adapts based on theme-cp, theme-vp, theme-ppm, or theme-maconomy class on <html>",
+    "example": {
+      "cp": "Apply class=\"theme-cp\" to <html> for CP layout with FloatingNav",
+      "vp": "Apply class=\"theme-vp\" to <html> for VP layout with footer",
+      "ppm": "Apply class=\"theme-ppm\" to <html> for PPM layout with footer",
+      "maconomy": "Apply class=\"theme-maconomy\" to <html> for Maconomy layout with footer"
+    }
+  },
+  "_metadata": {
+    "lastGenerated": "2026-02-12T22:12:45.811Z",
+    "version": "1.0.0",
+    "includesVisualSpecs": true
+  }
+}

@@ -19,9 +19,11 @@ export async function parseComponent(filePath, cssSpacingMap = null) {
   const ast = result.ast; // parse() returns { ast: ... }
 
   // Extract basic data
+  const frontmatter = extractFrontmatter(ast);
   const imports = extractImports(ast);
   const props = extractProps(ast);
   const cssClasses = extractCSSClasses(ast);
+  const usagePatterns = extractUsagePatterns(frontmatter);
 
   // Extract enhanced structure with spacing and slot locations
   const structure = extractDetailedStructure(ast, cssSpacingMap, props);
@@ -31,12 +33,13 @@ export async function parseComponent(filePath, cssSpacingMap = null) {
 
   return {
     filePath,
-    frontmatter: extractFrontmatter(ast),
+    frontmatter,
     imports,
     props,
     slots,
     structure,
     cssClasses,
+    usagePatterns,
   };
 }
 
@@ -267,7 +270,141 @@ export function extractProps(ast) {
     };
   }
 
+  // Extract defaults from Astro.props destructuring
+  const destructuringDefaults = extractDefaultsFromDestructuring(frontmatter);
+
+  // Merge destructuring defaults into props (they override interface defaults)
+  for (const [propName, defaultValue] of Object.entries(destructuringDefaults)) {
+    if (props[propName]) {
+      props[propName].default = defaultValue;
+    }
+  }
+
   return props;
+}
+
+/**
+ * Extract default values from Astro.props destructuring
+ * @param {string} frontmatter - Frontmatter code
+ * @returns {Object} Map of prop names to their default values
+ */
+export function extractDefaultsFromDestructuring(frontmatter) {
+  if (!frontmatter) return {};
+
+  const defaults = {};
+
+  // Match: const { ... } = Astro.props;
+  // Need to handle multiline destructuring
+  const destructureMatch = frontmatter.match(/const\s*\{([^}]+(?:\{[^}]*\}[^}]*)*)\}\s*=\s*Astro\.props/s);
+  if (!destructureMatch) return defaults;
+
+  const destructureBody = destructureMatch[1];
+
+  // Parse each prop in the destructuring
+  // Pattern: propName = defaultValue, or just propName, or propName: renamedProp = defaultValue
+
+  // Split by comma, but respect nested objects and strings
+  const props = [];
+  let currentProp = '';
+  let depth = 0;
+  let inString = false;
+  let stringChar = '';
+
+  for (let i = 0; i < destructureBody.length; i++) {
+    const char = destructureBody[i];
+    const prevChar = i > 0 ? destructureBody[i - 1] : '';
+
+    // Handle string literals
+    if ((char === '"' || char === "'" || char === '`') && prevChar !== '\\') {
+      if (!inString) {
+        inString = true;
+        stringChar = char;
+      } else if (char === stringChar) {
+        inString = false;
+        stringChar = '';
+      }
+    }
+
+    if (!inString) {
+      if (char === '{' || char === '[') depth++;
+      else if (char === '}' || char === ']') depth--;
+      else if (char === ',' && depth === 0) {
+        props.push(currentProp.trim());
+        currentProp = '';
+        continue;
+      }
+    }
+
+    currentProp += char;
+  }
+
+  // Add last prop
+  if (currentProp.trim()) {
+    props.push(currentProp.trim());
+  }
+
+  // Parse each prop to extract name and default
+  for (const prop of props) {
+    // Skip spread operators
+    if (prop.startsWith('...')) continue;
+
+    // Handle renamed props: class: className = ''
+    const renameMatch = prop.match(/^(\w+)\s*:\s*(\w+)(?:\s*=\s*(.+))?$/s);
+    if (renameMatch) {
+      const [, originalName, , defaultValue] = renameMatch;
+      if (defaultValue !== undefined) {
+        defaults[originalName] = defaultValue.trim();
+      }
+      continue;
+    }
+
+    // Handle regular props: propName = defaultValue
+    const regularMatch = prop.match(/^(\w+)(?:\s*=\s*(.+))?$/s);
+    if (regularMatch) {
+      const [, propName, defaultValue] = regularMatch;
+      if (defaultValue !== undefined) {
+        defaults[propName] = defaultValue.trim();
+      }
+    }
+  }
+
+  return defaults;
+}
+
+/**
+ * Extract usage patterns from JSDoc comments
+ * @param {string} frontmatter - Frontmatter code
+ * @returns {Object} Usage patterns keyed by pattern name
+ */
+export function extractUsagePatterns(frontmatter) {
+  if (!frontmatter) return {};
+
+  const patterns = {};
+
+  // Match @usagePattern tags in JSDoc comments
+  const docCommentMatch = frontmatter.match(/\/\*\*[\s\S]*?\*\//);
+  if (!docCommentMatch) return patterns;
+
+  const docComment = docCommentMatch[0];
+
+  // Pattern: @usagePattern <key> <description>
+  // Description continues until next @ tag or end of comment
+  const patternRegex = /@usagePattern\s+([a-z0-9-]+)\s+(.+?)(?=\n\s*\*\s*@|\n\s*\*\/)/gs;
+  const matches = docComment.matchAll(patternRegex);
+
+  for (const match of matches) {
+    const [, key, description] = match;
+    // Clean up the description: remove * from line starts, trim whitespace
+    const cleanDescription = description
+      .split('\n')
+      .map(line => line.replace(/^\s*\*\s?/, ''))
+      .join(' ')
+      .trim()
+      .replace(/\s+/g, ' ');
+    patterns[key] = cleanDescription;
+  }
+
+  return patterns;
 }
 
 /**
@@ -926,6 +1063,75 @@ export function extractDetailedStructure(ast, cssSpacingMap = null, props = {}) 
   return structure;
 }
 
+/**
+ * Get first CSS class from class attribute value (static or template literal).
+ * @param {string|null|undefined} classValue
+ * @returns {string|null}
+ */
+export function firstClassFromClassAttr(classValue) {
+  if (classValue == null || typeof classValue !== 'string') return null;
+  const trimmed = classValue.trim();
+  if (!trimmed) return null;
+  const first = trimmed.split(/\s+/)[0];
+  if (!first) return null;
+  const beforeInterp = first.split('${')[0].replace(/`/g, '').trim();
+  return beforeInterp || null;
+}
+
+/**
+ * Get CSS selector for an AST structure node (from extractDetailedStructure).
+ * Returns e.g. ".alert__icon" or null for slots / nodes without a class.
+ * @param {Object} node - Node with .class and optional .element
+ * @returns {string|null}
+ */
+export function selectorFromAstNode(node) {
+  if (!node) return null;
+  if (node.element === 'slot') return null;
+  const cls = firstClassFromClassAttr(node.class);
+  if (!cls) return null;
+  return '.' + cls;
+}
+
+/**
+ * Build contentOrder and contentOrder.<parent> from extractDetailedStructure output.
+ * Recursively walks the full structure so every parent with children gets explicit order (canonical DOM order).
+ * @param {Object} structure - From extractDetailedStructure(ast, ...)
+ * @param {string} componentSlug - e.g. 'alert', 'dialog'
+ * @returns {Object} { contentOrder: string[], 'contentOrder.selector': string[], ... }
+ */
+export function getContentOrderFromStructure(structure, componentSlug) {
+  const out = {};
+  if (!structure?.root) return out;
+
+  function walk(node) {
+    const children = node?.children || [];
+    if (children.length === 0) return;
+    const childOrder = [];
+    for (const c of children) {
+      const sel = selectorFromAstNode(c);
+      if (sel) childOrder.push(sel);
+    }
+    if (childOrder.length === 0) return;
+    const parentSel = selectorFromAstNode(node);
+    if (parentSel) out['contentOrder.' + parentSel.slice(1)] = childOrder;
+    for (const c of children) walk(c);
+  }
+
+  const rootChildren = structure.root.children || [];
+  const topOrder = [];
+  for (const child of rootChildren) {
+    const sel = selectorFromAstNode(child);
+    if (sel) topOrder.push(sel);
+  }
+  if (topOrder.length) out.contentOrder = topOrder;
+
+  for (const child of rootChildren) {
+    walk(child);
+  }
+
+  return out;
+}
+
 export default {
   parseComponent,
   extractFrontmatter,
@@ -941,4 +1147,9 @@ export default {
   loadCssSpacing,
   extractEnhancedSlots,
   extractDetailedStructure,
+  extractUsagePatterns,
+  extractDefaultsFromDestructuring,
+  getContentOrderFromStructure,
+  firstClassFromClassAttr,
+  selectorFromAstNode,
 };

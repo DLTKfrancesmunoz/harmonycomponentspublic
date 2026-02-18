@@ -1,0 +1,98 @@
+<div [class]="alertClasses" role="alert">
+  @if (alertStyle() === 'enhanced') {
+    <div class="alert__border"></div>
+    <div class="alert__content">
+      <div class="alert__inner">
+        <span class="alert__icon" aria-hidden="true">
+          @switch (iconName) {
+            @case ('information-circle') {
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="alert__icon-svg"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" /></svg>
+            }
+            @case ('check-circle') {
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="alert__icon-svg"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
+            }
+            @case ('exclamation-triangle') {
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="alert__icon-svg"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" /></svg>
+            }
+            @case ('exclamation-circle') {
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="alert__icon-svg"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" /></svg>
+            }
+            @default {
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="alert__icon-svg"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" /></svg>
+            }
+          }
+        </span>
+        <div class="alert__text">
+          @if (title()) { <div class="alert__title">{{ title() }}</div> }
+          <div class="alert__message"><ng-content /></div>
+        </div>
+        @if (dismissible()) {
+          <button type="button" class="alert__close" aria-label="Dismiss" (click)="handleClose()">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="alert__icon-svg"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
+          </button>
+        }
+      </div>
+      @if (hasActions && alertStyle() === 'enhanced') {
+        <div class="alert__actions">
+          @if (primaryButton() || secondaryButton()) {
+            <div class="alert__buttons">
+              @if (primaryButton(); as pb) {
+                @if (pb.href) {
+                  <a [href]="pb.href" class="alert__btn alert__btn--primary">{{ pb.text }}</a>
+                } @else {
+                  <button type="button" class="alert__btn alert__btn--primary" (click)="pb.onClick?.()">{{ pb.text }}</button>
+                }
+              }
+              @if (secondaryButton(); as sb) {
+                @if (sb.href) {
+                  <a [href]="sb.href" class="alert__btn alert__btn--secondary">{{ sb.text }}</a>
+                } @else {
+                  <button type="button" class="alert__btn alert__btn--secondary" (click)="sb.onClick?.()">{{ sb.text }}</button>
+                }
+              }
+            </div>
+          }
+          @if (linkText() && linkHref()) {
+            <a [href]="linkHref()" class="alert__link">{{ linkText() }}</a>
+          }
+        </div>
+      }
+      @if (progressValueClamped != null && alertStyle() === 'enhanced') {
+        <div class="alert__progress">
+          <div class="alert-progress__track">
+            <div class="alert-progress__fill" [style.width.%]="progressValueClamped" role="progressbar" [attr.aria-valuenow]="progressValueClamped" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+      }
+    </div>
+  } @else {
+    <span class="alert__icon" aria-hidden="true">
+      @switch (iconName) {
+        @case ('information-circle') {
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="alert__icon-svg"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" /></svg>
+        }
+        @case ('check-circle') {
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="alert__icon-svg"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
+        }
+        @case ('exclamation-triangle') {
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="alert__icon-svg"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" /></svg>
+        }
+        @case ('exclamation-circle') {
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="alert__icon-svg"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" /></svg>
+        }
+        @default {
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="alert__icon-svg"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" /></svg>
+        }
+      }
+    </span>
+    <div class="alert__content">
+      @if (title()) { <div class="alert__title">{{ title() }}</div> }
+      <div class="alert__message"><ng-content /></div>
+    </div>
+    @if (dismissible()) {
+      <button type="button" class="alert__close" aria-label="Dismiss" (click)="handleClose()">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="alert__icon-svg"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
+      </button>
+    }
+  }
+</div>

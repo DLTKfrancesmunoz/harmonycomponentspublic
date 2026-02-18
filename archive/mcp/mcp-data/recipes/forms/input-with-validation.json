@@ -1,0 +1,83 @@
+{
+  "id": "input-with-validation",
+  "name": "Input with Validation",
+  "description": "Form input with label and validation error display",
+  "category": "forms",
+  "complexity": "molecule",
+  "tags": ["input", "form", "validation", "label", "error"],
+  "components": [
+    {
+      "name": "Label",
+      "role": "label",
+      "props": {
+        "for": "input-field"
+      },
+      "content": "Field Label"
+    },
+    {
+      "name": "Input",
+      "role": "input",
+      "props": {
+        "id": "input-field",
+        "type": "text",
+        "placeholder": "Enter value",
+        "required": true,
+        "state": "default"
+      }
+    }
+  ],
+  "usageGuidance": {
+    "when": "Any form input that needs a label and can have validation errors",
+    "antiPatterns": [
+      "Don't duplicate validation in multiple places - handle in one location",
+      "Don't use placeholder as label - always include Label component",
+      "Don't show error state without error message"
+    ],
+    "notes": {
+      "states": "Input state can be: 'default', 'error', 'success', 'disabled'",
+      "validation": "Set state='error' and include error message below input when validation fails",
+      "required": "Use required=true and show asterisk (*) in label for required fields",
+      "errorMessage": "Error messages should be specific and actionable"
+    }
+  },
+  "validation": {
+    "required": ["Input"],
+    "maxCount": {
+      "Label": 1,
+      "Input": 1
+    },
+    "theme": "all",
+    "hierarchy": []
+  },
+  "examples": [
+    {
+      "name": "Text input with label",
+      "description": "Basic text input with label",
+      "props": {
+        "label.content": "Email Address",
+        "input.type": "email",
+        "input.placeholder": "you@example.com",
+        "input.required": true
+      }
+    },
+    {
+      "name": "Input with error state",
+      "description": "Input showing validation error",
+      "props": {
+        "label.content": "Password",
+        "input.type": "password",
+        "input.state": "error",
+        "input.required": true
+      }
+    },
+    {
+      "name": "Input with success state",
+      "description": "Input showing validation success",
+      "props": {
+        "label.content": "Username",
+        "input.type": "text",
+        "input.state": "success"
+      }
+    }
+  ]
+}

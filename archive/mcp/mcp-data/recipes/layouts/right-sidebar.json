@@ -1,0 +1,64 @@
+{
+  "id": "right-sidebar",
+  "name": "Right Sidebar",
+  "description": "Right-hand sidebar implemented as one unit: multiple sections, each rendered as a visual block with its own elevation (box-shadow), stroke (border), and background. Gaps between sections. Full structure and styles are in the component JSON (structure, cssClassStyles).",
+  "category": "layouts",
+  "complexity": "molecule",
+  "tags": ["shell", "sidebar", "right", "navigation", "context", "sections"],
+  "components": [
+    {
+      "name": "RightSidebar",
+      "role": "right-sidebar",
+      "props": {
+        "variant": "cp",
+        "sections": null
+      }
+    }
+  ],
+  "usageGuidance": {
+    "when": "Application needs right-hand navigation or contextual panel. Implement as multiple section blocks (with gaps, elevation, stroke), not one giant strip. See component JSON for structure and cssClassStyles.",
+    "antiPatterns": [
+      "Don't use multiple RightSidebar instances in the same layout",
+      "Don't implement as one giant sidebar - use the sections array: each section is { items: NavItem[] }; multiple sections = multiple grouped blocks.",
+      "Don't put primary navigation in right sidebar - use LeftSidebar for main nav"
+    ],
+    "notes": {
+      "variant": "Match theme (cp, vp, ppm, maconomy) for correct styling",
+      "sections": "Each element of the sections array renders as one visual block (one right-sidebar__section div). Each block has: elevation (box-shadow), stroke (border, border-right none), background, border-radius. The nav has gap between section blocks (e.g. gap: var(--space-3) in component JSON cssClassStyles). They function as one unit (one nav, one component). API: each section is { items: NavItem[] }; no section title in the API. Full spec: component JSON structure (nav > section divs) and cssClassStyles (.right-sidebar, .right-sidebar__section)."
+    }
+  },
+  "validation": {
+    "required": ["RightSidebar"],
+    "maxCount": {
+      "RightSidebar": 1
+    },
+    "theme": "all",
+    "hierarchy": []
+  },
+  "examples": [
+    {
+      "name": "Default right sidebar",
+      "description": "Right sidebar with default variant",
+      "props": {
+        "right-sidebar.variant": "cp"
+      }
+    },
+    {
+      "name": "PPM theme sidebar",
+      "description": "Right sidebar for PPM theme",
+      "props": {
+        "right-sidebar.variant": "ppm"
+      }
+    },
+    {
+      "name": "With sections",
+      "description": "Multiple visual blocks with gaps, each with elevation and stroke (see component JSON).",
+      "props": {
+        "right-sidebar.sections": [
+          { "items": [{ "icon": "question-mark-circle", "label": "Help", "href": "/help" }] },
+          { "items": [{ "icon": "printer", "label": "Print" }, { "label": "Related", "href": "/related" }] }
+        ]
+      }
+    }
+  ]
+}

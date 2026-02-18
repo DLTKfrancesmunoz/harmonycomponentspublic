@@ -1,0 +1,1182 @@
+{
+  "name": "Accordion",
+  "type": "component",
+  "filePath": "src/components/ui/Accordion.astro",
+  "description": "Accordion Component",
+  "props": {
+    "items": {
+      "type": "AccordionItem[]",
+      "optional": false,
+      "default": null
+    },
+    "allowMultiple": {
+      "type": "boolean",
+      "optional": true,
+      "default": "false"
+    },
+    "class": {
+      "type": "string",
+      "optional": true,
+      "default": "''"
+    }
+  },
+  "defaults": {
+    "theme": "cp",
+    "mode": "light"
+  },
+  "specs": {
+    "cp-light": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".accordion": {
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          ".accordion__content": {
+            "display": "block",
+            "padding": "0 16px 16px",
+            "font-size": "0.875rem",
+            "color": "#525969",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".accordion__icon": {
+            "color": "#6B7280",
+            "transition": "transform 150ms ease",
+            "transform": "rotate(180deg)"
+          },
+          ".accordion__item": {
+            "border-bottom": "1px solid #BFC6D4"
+          },
+          ".accordion__trigger": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "width": "100%",
+            "padding": "16px",
+            "font-size": "1rem",
+            "font-weight": "500",
+            "color": "#373F4E",
+            "text-align": "left",
+            "background-color": "rgba(0,0,0,0)",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "font-family": "'Figtree', sans-serif"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".accordion",
+          "tag": "div",
+          "styles": {
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          "children": [
+            ".accordion__content",
+            ".accordion__icon",
+            ".accordion__item",
+            ".accordion__trigger"
+          ]
+        },
+        {
+          "selector": ".accordion__content",
+          "tag": "span",
+          "styles": {
+            "display": "block",
+            "padding": "0 16px 16px",
+            "font-size": "0.875rem",
+            "color": "#525969",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".accordion__item"
+        },
+        {
+          "selector": ".accordion__icon",
+          "tag": "span",
+          "styles": {
+            "color": "#6B7280",
+            "transition": "transform 150ms ease",
+            "transform": "rotate(180deg)"
+          },
+          "parent": ".accordion__trigger"
+        },
+        {
+          "selector": ".accordion__item",
+          "tag": "span",
+          "styles": {
+            "border-bottom": "1px solid #BFC6D4"
+          },
+          "parent": ".accordion"
+        },
+        {
+          "selector": ".accordion__trigger",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "width": "100%",
+            "padding": "16px",
+            "font-size": "1rem",
+            "font-weight": "500",
+            "color": "#373F4E",
+            "text-align": "left",
+            "background-color": "rgba(0,0,0,0)",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".accordion__item",
+          "states": {
+            "hover": {
+              "background-color": "#E5E7EB"
+            },
+            "focus": {
+              "background-color": "#F7F8FA",
+              "color": "#373F4E",
+              "border": "1px solid #BFC6D4"
+            }
+          }
+        }
+      ]
+    },
+    "cp-dark": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".accordion": {
+            "border": "1px solid #5F6871",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          ".accordion__content": {
+            "display": "block",
+            "padding": "0 16px 16px",
+            "font-size": "0.875rem",
+            "color": "#B6B6C4",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".accordion__icon": {
+            "color": "#BBBBC6",
+            "transition": "transform 150ms ease",
+            "transform": "rotate(180deg)"
+          },
+          ".accordion__item": {
+            "border-bottom": "1px solid #5F6871"
+          },
+          ".accordion__trigger": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "width": "100%",
+            "padding": "16px",
+            "font-size": "1rem",
+            "font-weight": "500",
+            "color": "#E9ECEF",
+            "text-align": "left",
+            "background-color": "rgba(0,0,0,0)",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "font-family": "'Figtree', sans-serif"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".accordion",
+          "tag": "div",
+          "styles": {
+            "border": "1px solid #5F6871",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          "children": [
+            ".accordion__content",
+            ".accordion__icon",
+            ".accordion__item",
+            ".accordion__trigger"
+          ]
+        },
+        {
+          "selector": ".accordion__content",
+          "tag": "span",
+          "styles": {
+            "display": "block",
+            "padding": "0 16px 16px",
+            "font-size": "0.875rem",
+            "color": "#B6B6C4",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".accordion__item"
+        },
+        {
+          "selector": ".accordion__icon",
+          "tag": "span",
+          "styles": {
+            "color": "#BBBBC6",
+            "transition": "transform 150ms ease",
+            "transform": "rotate(180deg)"
+          },
+          "parent": ".accordion__trigger"
+        },
+        {
+          "selector": ".accordion__item",
+          "tag": "span",
+          "styles": {
+            "border-bottom": "1px solid #5F6871"
+          },
+          "parent": ".accordion"
+        },
+        {
+          "selector": ".accordion__trigger",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "width": "100%",
+            "padding": "16px",
+            "font-size": "1rem",
+            "font-weight": "500",
+            "color": "#E9ECEF",
+            "text-align": "left",
+            "background-color": "rgba(0,0,0,0)",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".accordion__item",
+          "states": {
+            "hover": {
+              "background-color": "#3D4A5C"
+            },
+            "focus": {
+              "background-color": "#37424D",
+              "color": "#E9ECEF",
+              "border": "1px solid #5F6871"
+            }
+          }
+        }
+      ]
+    },
+    "vp-light": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".accordion": {
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          ".accordion__content": {
+            "display": "block",
+            "padding": "0 16px 16px",
+            "font-size": "0.875rem",
+            "color": "#525969",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".accordion__icon": {
+            "color": "#6B7280",
+            "transition": "transform 150ms ease",
+            "transform": "rotate(180deg)"
+          },
+          ".accordion__item": {
+            "border-bottom": "1px solid #BFC6D4"
+          },
+          ".accordion__trigger": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "width": "100%",
+            "padding": "16px",
+            "font-size": "1rem",
+            "font-weight": "500",
+            "color": "#373F4E",
+            "text-align": "left",
+            "background-color": "rgba(0,0,0,0)",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "font-family": "'Figtree', sans-serif"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".accordion",
+          "tag": "div",
+          "styles": {
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          "children": [
+            ".accordion__content",
+            ".accordion__icon",
+            ".accordion__item",
+            ".accordion__trigger"
+          ]
+        },
+        {
+          "selector": ".accordion__content",
+          "tag": "span",
+          "styles": {
+            "display": "block",
+            "padding": "0 16px 16px",
+            "font-size": "0.875rem",
+            "color": "#525969",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".accordion__item"
+        },
+        {
+          "selector": ".accordion__icon",
+          "tag": "span",
+          "styles": {
+            "color": "#6B7280",
+            "transition": "transform 150ms ease",
+            "transform": "rotate(180deg)"
+          },
+          "parent": ".accordion__trigger"
+        },
+        {
+          "selector": ".accordion__item",
+          "tag": "span",
+          "styles": {
+            "border-bottom": "1px solid #BFC6D4"
+          },
+          "parent": ".accordion"
+        },
+        {
+          "selector": ".accordion__trigger",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "width": "100%",
+            "padding": "16px",
+            "font-size": "1rem",
+            "font-weight": "500",
+            "color": "#373F4E",
+            "text-align": "left",
+            "background-color": "rgba(0,0,0,0)",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".accordion__item",
+          "states": {
+            "hover": {
+              "background-color": "#E5E7EB"
+            },
+            "focus": {
+              "background-color": "#F7F8FA",
+              "color": "#373F4E",
+              "border": "1px solid #BFC6D4"
+            }
+          }
+        }
+      ]
+    },
+    "vp-dark": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".accordion": {
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          ".accordion__content": {
+            "display": "block",
+            "padding": "0 16px 16px",
+            "font-size": "0.875rem",
+            "color": "#B5B5BC",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".accordion__icon": {
+            "color": "#B5B5BC",
+            "transition": "transform 150ms ease",
+            "transform": "rotate(180deg)"
+          },
+          ".accordion__item": {
+            "border-bottom": "1px solid #2A2D32"
+          },
+          ".accordion__trigger": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "width": "100%",
+            "padding": "16px",
+            "font-size": "1rem",
+            "font-weight": "500",
+            "color": "#FAFAFA",
+            "text-align": "left",
+            "background-color": "rgba(0,0,0,0)",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "font-family": "'Figtree', sans-serif"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".accordion",
+          "tag": "div",
+          "styles": {
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          "children": [
+            ".accordion__content",
+            ".accordion__icon",
+            ".accordion__item",
+            ".accordion__trigger"
+          ]
+        },
+        {
+          "selector": ".accordion__content",
+          "tag": "span",
+          "styles": {
+            "display": "block",
+            "padding": "0 16px 16px",
+            "font-size": "0.875rem",
+            "color": "#B5B5BC",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".accordion__item"
+        },
+        {
+          "selector": ".accordion__icon",
+          "tag": "span",
+          "styles": {
+            "color": "#B5B5BC",
+            "transition": "transform 150ms ease",
+            "transform": "rotate(180deg)"
+          },
+          "parent": ".accordion__trigger"
+        },
+        {
+          "selector": ".accordion__item",
+          "tag": "span",
+          "styles": {
+            "border-bottom": "1px solid #2A2D32"
+          },
+          "parent": ".accordion"
+        },
+        {
+          "selector": ".accordion__trigger",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "width": "100%",
+            "padding": "16px",
+            "font-size": "1rem",
+            "font-weight": "500",
+            "color": "#FAFAFA",
+            "text-align": "left",
+            "background-color": "rgba(0,0,0,0)",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".accordion__item",
+          "states": {
+            "hover": {
+              "background-color": "#2A2D32"
+            },
+            "focus": {
+              "background-color": "#1F2124",
+              "color": "#FAFAFA",
+              "border": "1px solid #2A2D32"
+            }
+          }
+        }
+      ]
+    },
+    "ppm-light": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".accordion": {
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          ".accordion__content": {
+            "display": "block",
+            "padding": "0 16px 16px",
+            "font-size": "0.875rem",
+            "color": "#525969",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".accordion__icon": {
+            "color": "#6B7280",
+            "transition": "transform 150ms ease",
+            "transform": "rotate(180deg)"
+          },
+          ".accordion__item": {
+            "border-bottom": "1px solid #BFC6D4"
+          },
+          ".accordion__trigger": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "width": "100%",
+            "padding": "16px",
+            "font-size": "1rem",
+            "font-weight": "500",
+            "color": "#373F4E",
+            "text-align": "left",
+            "background-color": "rgba(0,0,0,0)",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "font-family": "'Figtree', sans-serif"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".accordion",
+          "tag": "div",
+          "styles": {
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          "children": [
+            ".accordion__content",
+            ".accordion__icon",
+            ".accordion__item",
+            ".accordion__trigger"
+          ]
+        },
+        {
+          "selector": ".accordion__content",
+          "tag": "span",
+          "styles": {
+            "display": "block",
+            "padding": "0 16px 16px",
+            "font-size": "0.875rem",
+            "color": "#525969",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".accordion__item"
+        },
+        {
+          "selector": ".accordion__icon",
+          "tag": "span",
+          "styles": {
+            "color": "#6B7280",
+            "transition": "transform 150ms ease",
+            "transform": "rotate(180deg)"
+          },
+          "parent": ".accordion__trigger"
+        },
+        {
+          "selector": ".accordion__item",
+          "tag": "span",
+          "styles": {
+            "border-bottom": "1px solid #BFC6D4"
+          },
+          "parent": ".accordion"
+        },
+        {
+          "selector": ".accordion__trigger",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "width": "100%",
+            "padding": "16px",
+            "font-size": "1rem",
+            "font-weight": "500",
+            "color": "#373F4E",
+            "text-align": "left",
+            "background-color": "rgba(0,0,0,0)",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".accordion__item",
+          "states": {
+            "hover": {
+              "background-color": "#E5E7EB"
+            },
+            "focus": {
+              "background-color": "#F7F8FA",
+              "color": "#373F4E",
+              "border": "1px solid #BFC6D4"
+            }
+          }
+        }
+      ]
+    },
+    "ppm-dark": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".accordion": {
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          ".accordion__content": {
+            "display": "block",
+            "padding": "0 16px 16px",
+            "font-size": "0.875rem",
+            "color": "#B5B5BC",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".accordion__icon": {
+            "color": "#B5B5BC",
+            "transition": "transform 150ms ease",
+            "transform": "rotate(180deg)"
+          },
+          ".accordion__item": {
+            "border-bottom": "1px solid #2A2D32"
+          },
+          ".accordion__trigger": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "width": "100%",
+            "padding": "16px",
+            "font-size": "1rem",
+            "font-weight": "500",
+            "color": "#FAFAFA",
+            "text-align": "left",
+            "background-color": "rgba(0,0,0,0)",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "font-family": "'Figtree', sans-serif"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".accordion",
+          "tag": "div",
+          "styles": {
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          "children": [
+            ".accordion__content",
+            ".accordion__icon",
+            ".accordion__item",
+            ".accordion__trigger"
+          ]
+        },
+        {
+          "selector": ".accordion__content",
+          "tag": "span",
+          "styles": {
+            "display": "block",
+            "padding": "0 16px 16px",
+            "font-size": "0.875rem",
+            "color": "#B5B5BC",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".accordion__item"
+        },
+        {
+          "selector": ".accordion__icon",
+          "tag": "span",
+          "styles": {
+            "color": "#B5B5BC",
+            "transition": "transform 150ms ease",
+            "transform": "rotate(180deg)"
+          },
+          "parent": ".accordion__trigger"
+        },
+        {
+          "selector": ".accordion__item",
+          "tag": "span",
+          "styles": {
+            "border-bottom": "1px solid #2A2D32"
+          },
+          "parent": ".accordion"
+        },
+        {
+          "selector": ".accordion__trigger",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "width": "100%",
+            "padding": "16px",
+            "font-size": "1rem",
+            "font-weight": "500",
+            "color": "#FAFAFA",
+            "text-align": "left",
+            "background-color": "rgba(0,0,0,0)",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".accordion__item",
+          "states": {
+            "hover": {
+              "background-color": "#2A2D32"
+            },
+            "focus": {
+              "background-color": "#1F2124",
+              "color": "#FAFAFA",
+              "border": "1px solid #2A2D32"
+            }
+          }
+        }
+      ]
+    },
+    "maconomy-light": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".accordion": {
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          ".accordion__content": {
+            "display": "block",
+            "padding": "0 16px 16px",
+            "font-size": "0.875rem",
+            "color": "#525969",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".accordion__icon": {
+            "color": "#6B7280",
+            "transition": "transform 150ms ease",
+            "transform": "rotate(180deg)"
+          },
+          ".accordion__item": {
+            "border-bottom": "1px solid #BFC6D4"
+          },
+          ".accordion__trigger": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "width": "100%",
+            "padding": "16px",
+            "font-size": "1rem",
+            "font-weight": "500",
+            "color": "#373F4E",
+            "text-align": "left",
+            "background-color": "rgba(0,0,0,0)",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "font-family": "'Figtree', sans-serif"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".accordion",
+          "tag": "div",
+          "styles": {
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          "children": [
+            ".accordion__content",
+            ".accordion__icon",
+            ".accordion__item",
+            ".accordion__trigger"
+          ]
+        },
+        {
+          "selector": ".accordion__content",
+          "tag": "span",
+          "styles": {
+            "display": "block",
+            "padding": "0 16px 16px",
+            "font-size": "0.875rem",
+            "color": "#525969",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".accordion__item"
+        },
+        {
+          "selector": ".accordion__icon",
+          "tag": "span",
+          "styles": {
+            "color": "#6B7280",
+            "transition": "transform 150ms ease",
+            "transform": "rotate(180deg)"
+          },
+          "parent": ".accordion__trigger"
+        },
+        {
+          "selector": ".accordion__item",
+          "tag": "span",
+          "styles": {
+            "border-bottom": "1px solid #BFC6D4"
+          },
+          "parent": ".accordion"
+        },
+        {
+          "selector": ".accordion__trigger",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "width": "100%",
+            "padding": "16px",
+            "font-size": "1rem",
+            "font-weight": "500",
+            "color": "#373F4E",
+            "text-align": "left",
+            "background-color": "rgba(0,0,0,0)",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".accordion__item",
+          "states": {
+            "hover": {
+              "background-color": "#E5E7EB"
+            },
+            "focus": {
+              "background-color": "#F7F8FA",
+              "color": "#373F4E",
+              "border": "1px solid #BFC6D4"
+            }
+          }
+        }
+      ]
+    },
+    "maconomy-dark": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".accordion": {
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          ".accordion__content": {
+            "display": "block",
+            "padding": "0 16px 16px",
+            "font-size": "0.875rem",
+            "color": "#B5B5BC",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".accordion__icon": {
+            "color": "#B5B5BC",
+            "transition": "transform 150ms ease",
+            "transform": "rotate(180deg)"
+          },
+          ".accordion__item": {
+            "border-bottom": "1px solid #2A2D32"
+          },
+          ".accordion__trigger": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "width": "100%",
+            "padding": "16px",
+            "font-size": "1rem",
+            "font-weight": "500",
+            "color": "#FAFAFA",
+            "text-align": "left",
+            "background-color": "rgba(0,0,0,0)",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "font-family": "'Figtree', sans-serif"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".accordion",
+          "tag": "div",
+          "styles": {
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          "children": [
+            ".accordion__content",
+            ".accordion__icon",
+            ".accordion__item",
+            ".accordion__trigger"
+          ]
+        },
+        {
+          "selector": ".accordion__content",
+          "tag": "span",
+          "styles": {
+            "display": "block",
+            "padding": "0 16px 16px",
+            "font-size": "0.875rem",
+            "color": "#B5B5BC",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".accordion__item"
+        },
+        {
+          "selector": ".accordion__icon",
+          "tag": "span",
+          "styles": {
+            "color": "#B5B5BC",
+            "transition": "transform 150ms ease",
+            "transform": "rotate(180deg)"
+          },
+          "parent": ".accordion__trigger"
+        },
+        {
+          "selector": ".accordion__item",
+          "tag": "span",
+          "styles": {
+            "border-bottom": "1px solid #2A2D32"
+          },
+          "parent": ".accordion"
+        },
+        {
+          "selector": ".accordion__trigger",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "width": "100%",
+            "padding": "16px",
+            "font-size": "1rem",
+            "font-weight": "500",
+            "color": "#FAFAFA",
+            "text-align": "left",
+            "background-color": "rgba(0,0,0,0)",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".accordion__item",
+          "states": {
+            "hover": {
+              "background-color": "#2A2D32"
+            },
+            "focus": {
+              "background-color": "#1F2124",
+              "color": "#FAFAFA",
+              "border": "1px solid #2A2D32"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "contentOrder": [
+    ".accordion__item"
+  ],
+  "icons": {
+    "chevron-down": "<svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\" stroke=\"currentColor\" aria-hidden=\"true\" data-slot=\"icon\"> <path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"m19.5 8.25-7.5 7.5-7.5-7.5\"/> </svg>"
+  },
+  "guidance": {
+    "patterns": {
+      "named-slots-content": "Use named slots item-0 through item-9 (max 10 items) to provide custom HTML content for accordion bodies. When a named slot exists for an item index, it takes precedence and the item.content string is ignored. If no named slot exists, the item.content string is rendered as plain text. Do not provide both slot and content for the same item.",
+      "allow-multiple-behavior": "When allowMultiple prop is false (default), clicking an accordion item automatically closes all other open items, allowing only one section open at a time. When allowMultiple is true, multiple sections can remain open simultaneously. This affects the click handler behavior in lines 76-81.",
+      "default-open-state": "Set defaultOpen: true on individual items in the items array to have them open when the accordion first renders. In single-open mode (allowMultiple=false), only the last item with defaultOpen: true will remain open. In multi-open mode, all items marked defaultOpen will be open initially."
+    },
+    "guidelines": {}
+  },
+  "specKeyOrder": [
+    "theme",
+    "mode"
+  ],
+  "dimensionDefaults": {
+    "theme": "cp",
+    "mode": "light"
+  },
+  "structure": {
+    "root": ".accordion",
+    "children": [
+      {
+        "class": ".accordion__item",
+        "children": [
+          {
+            "class": ".accordion__trigger",
+            "children": [
+              {
+                "class": ".accordion__icon"
+              }
+            ]
+          },
+          {
+            "class": ".accordion__content"
+          }
+        ]
+      }
+    ]
+  },
+  "fonts": {
+    "Figtree": "https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap",
+    "Lexend": "https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap",
+    "JetBrains Mono": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
+  },
+  "defaultContent": {
+    ".accordion__icon": {
+      "type": "icon",
+      "icon": "chevron-down",
+      "library": "heroicons",
+      "style": "outline"
+    },
+    "_rule": "No default content defined; do not invent labels, icons, or copy. Use only what is in the spec or leave slots empty.",
+    "items": [
+      {
+        "title": "Section 1",
+        "content": "Placeholder content for section 1."
+      },
+      {
+        "title": "Section 2",
+        "content": "Placeholder content for section 2."
+      },
+      {
+        "title": "Section 3",
+        "content": "Placeholder content for section 3."
+      }
+    ]
+  },
+  "interactivity": {
+    "events": [
+      {
+        "name": "toggle",
+        "description": "Triggered when an accordion item header is clicked; toggles that section open/closed"
+      }
+    ],
+    "state": [
+      {
+        "name": "openItems",
+        "type": "string[]",
+        "description": "Which items are expanded; controlled via .is-open on accordion__item. With allowMultiple=false only one can be open."
+      }
+    ]
+  },
+  "examples": [
+    {
+      "name": "Basic accordion",
+      "description": "Single open section at a time",
+      "snippet": "<Accordion items={[{ title: 'Section 1', content: '...' }, { title: 'Section 2', content: '...' }]} />"
+    },
+    {
+      "name": "Multiple open",
+      "description": "Allow multiple sections open",
+      "snippet": "<Accordion items={...} allowMultiple />"
+    }
+  ],
+  "contentOrder.accordion__item": [
+    ".accordion__trigger",
+    ".accordion__content"
+  ],
+  "contentOrder.accordion__trigger": [
+    ".accordion__icon"
+  ]
+}

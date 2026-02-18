@@ -6,6 +6,7 @@ import RightSidebar from '../components/ui/RightSidebar.astro';
 import FloatingNav from '../components/ui/FloatingNav.astro';
 import ShellPageHeader from '../components/ui/ShellPageHeader.astro';
 import ShellPanel from '../components/ui/ShellPanel.astro';
+import Card from '../components/ui/Card.astro';
 
 interface Tab {
   id: string;
@@ -33,6 +34,23 @@ interface PanelConfig {
   class?: string;
 }
 
+/** Section shape passed to LeftSidebar/RightSidebar when products provide custom sidebar content */
+interface SidebarSectionItem {
+  icon?: string;
+  label: string;
+  href?: string;
+  active?: boolean;
+  isCustom?: boolean;
+  customSrc?: string;
+  panelTitle?: string;
+  panelIcon?: string;
+  panelContentId?: string;
+  useGradientHeader?: boolean;
+}
+interface SidebarSection {
+  items: SidebarSectionItem[];
+}
+
 interface Props {
   // Header props (passed to ShellHeader)
   productName?: string;
@@ -57,9 +75,17 @@ interface Props {
 
   // Left sidebar props
   leftSidebarVariant?: 'cp' | 'vp' | 'ppm' | 'maconomy';
+  /** When provided, drives left sidebar content; when not passed, LeftSidebar uses its default/theme content */
+  leftSidebarSections?: SidebarSection[];
 
   // Right sidebar props
   rightSidebarVariant?: 'cp' | 'vp' | 'ppm' | 'maconomy';
+  showRightSidebar?: boolean;
+  /** When provided, drives right sidebar content; when not passed, RightSidebar uses its default/theme content */
+  rightSidebarSections?: SidebarSection[];
+
+  // Footer visibility (when false, footer never renders; when undefined, use existing tabs/theme logic)
+  showFooter?: boolean;
 
   // Page header props
   pageHeaderTitle?: string;
@@ -94,8 +120,12 @@ const {
   showAddTab = true,
   footerVariant = 'default',
   leftSidebarVariant,
+  leftSidebarSections,
   rightSidebarVariant,
-  pageHeaderTitle,
+  showRightSidebar = true,
+  rightSidebarSections,
+  showFooter,
+  pageHeaderTitle = 'Page title',
   pageHeaderSubtitle,
   pageHeaderPrimaryButton,
   pageHeaderOutlineButton1,
@@ -106,8 +136,8 @@ const {
   class: className = ''
 } = Astro.props;
 
-// Determine if page header should be shown
-const showPageHeader = pageHeaderTitle !== undefined;
+// Determine if page header should be shown (default: true with default title; pass empty string to hide)
+const showPageHeader = pageHeaderTitle != null && pageHeaderTitle !== '';
 
 // Compute effective values - props override theme detection
 // Check if key props are explicitly provided
@@ -141,6 +171,9 @@ const effectiveShowFloatingNav = hasExplicitFloatingNav ? showFloatingNav : true
 
 // Determine if CP variant (for spacing)
 const isCPVariant = effectiveLeftSidebarVariant === 'cp';
+
+// Effective footer visibility: when showFooter is false, never show or reserve space for footer
+const effectiveHasFooter = showFooter === false ? false : hasFooter;
 ---
 
 <div 
@@ -150,8 +183,9 @@ const isCPVariant = effectiveLeftSidebarVariant === 'cp';
 >
   <div 
     class="shell-layout__container"
-    data-has-footer={String(hasFooter)}
+    data-has-footer={String(effectiveHasFooter)}
     data-has-floating-nav={String(effectiveShowFloatingNav)}
+    data-has-right-sidebar={String(showRightSidebar)}
     data-footer-variant={footerVariant}
   >
     <ShellHeader
@@ -183,14 +217,18 @@ const isCPVariant = effectiveLeftSidebarVariant === 'cp';
       )
     )}
 
-    <LeftSidebar 
-      variant={effectiveLeftSidebarVariant} 
-      class="shell-layout__left-sidebar" 
+    <LeftSidebar
+      variant={effectiveLeftSidebarVariant}
+      class="shell-layout__left-sidebar"
+      {...(leftSidebarSections != null && { sections: leftSidebarSections })}
     />
-    <RightSidebar 
-      variant={effectiveRightSidebarVariant} 
-      class="shell-layout__right-sidebar" 
-    />
+    {showRightSidebar && (
+      <RightSidebar
+        variant={effectiveRightSidebarVariant}
+        class="shell-layout__right-sidebar"
+        {...(rightSidebarSections != null && { sections: rightSidebarSections })}
+      />
+    )}
 
     {/* Right Panel - rendered when rightPanel prop is provided */}
     {rightPanel && (
@@ -205,7 +243,9 @@ const isCPVariant = effectiveLeftSidebarVariant === 'cp';
         showPopout={rightPanel.showPopout}
         id={rightPanel.id || 'right-panel'}
         class="shell-layout__right-panel"
-      />
+      >
+        <slot name="right-panel-content" />
+      </ShellPanel>
     )}
 
     {/* Left Panel - rendered when leftPanel prop is provided */}
@@ -221,13 +261,15 @@ const isCPVariant = effectiveLeftSidebarVariant === 'cp';
         showPopout={leftPanel.showPopout}
         id={leftPanel.id || 'left-panel'}
         class="shell-layout__left-panel"
-      />
+      >
+        <slot name="left-panel-content" />
+      </ShellPanel>
     )}
 
     <main class="shell-layout__main">
       {showPageHeader && (
         <ShellPageHeader
-          title={pageHeaderTitle!}
+          title={pageHeaderTitle}
           subtitle={pageHeaderSubtitle}
           primaryButton={pageHeaderPrimaryButton}
           outlineButton1={pageHeaderOutlineButton1}
@@ -235,10 +277,17 @@ const isCPVariant = effectiveLeftSidebarVariant === 'cp';
           outlineButton3={pageHeaderOutlineButton3}
         />
       )}
-      <slot />
+      <slot>
+        <Card primary elevated>
+          <div class="card__body">
+            <h2 class="text-xl font-semibold mb-2">Page Content Area</h2>
+            <p class="text-secondary">This is where your application content lives. The shell provides the structure, and you provide the content.</p>
+          </div>
+        </Card>
+      </slot>
     </main>
 
-    {useThemeDetection ? (
+    {showFooter !== false && (useThemeDetection ? (
       <ShellFooter
         tabs={tabs}
         showMore={showMoreTabs}
@@ -260,7 +309,7 @@ const isCPVariant = effectiveLeftSidebarVariant === 'cp';
           class="shell-layout__footer"
         />
       )
-    )}
+    ))}
   </div>
 </div>
 
@@ -355,9 +404,14 @@ const isCPVariant = effectiveLeftSidebarVariant === 'cp';
   /* We only need 20px padding-top to create the gap from the bottom of the header */
   .shell-layout__container[data-has-floating-nav="false"] .shell-layout__main {
     padding-top: var(--space-5);
-    padding-right: calc(var(--shell-layout-padding-side-default) + var(--space-5));
+    padding-right: var(--space-6);
     padding-bottom: var(--space-6);
     padding-left: calc(var(--shell-layout-padding-side-default) + var(--space-5));
+  }
+
+  /* Reserve space for right sidebar so page header and content do not sit under it. Required whenever right sidebar is present; do not remove. */
+  .shell-layout__container[data-has-right-sidebar="true"] .shell-layout__main {
+    padding-right: calc(var(--shell-layout-padding-side-default) + var(--space-5));
   }
 
   /* Footer - Grid row 3 */
@@ -405,7 +459,11 @@ const isCPVariant = effectiveLeftSidebarVariant === 'cp';
     }
 
     .shell-layout__container[data-has-floating-nav="false"] .shell-layout__main {
-      padding: var(--space-5) calc(var(--shell-layout-padding-side-tablet) + var(--space-5)) var(--space-6) calc(var(--shell-layout-padding-side-tablet) + var(--space-5));
+      padding: var(--space-5) var(--space-6) var(--space-6) calc(var(--shell-layout-padding-side-tablet) + var(--space-5));
+    }
+
+    .shell-layout__container[data-has-right-sidebar="true"] .shell-layout__main {
+      padding-right: calc(var(--shell-layout-padding-side-tablet) + var(--space-5));
     }
   }
 </style>

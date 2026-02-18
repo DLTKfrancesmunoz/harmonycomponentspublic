@@ -1,0 +1,651 @@
+{
+  "name": "ShellPageHeader",
+  "type": "component",
+  "filePath": "src/components/ui/ShellPageHeader.astro",
+  "description": "Shell Page Header Component. Shows one primary and one outline secondary button by default when no button props are passed; pass showDefaultButtons=false to hide or primaryButton/outlineButton1 to override.",
+  "props": {
+    "title": {
+      "type": "string",
+      "optional": false,
+      "default": null
+    },
+    "subtitle": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "showDefaultButtons": {
+      "type": "boolean",
+      "optional": true,
+      "default": "true"
+    },
+    "primaryButton": {
+      "type": "ButtonConfig",
+      "optional": true,
+      "default": null
+    },
+    "outlineButton1": {
+      "type": "ButtonConfig",
+      "optional": true,
+      "default": null
+    },
+    "outlineButton2": {
+      "type": "ButtonConfig",
+      "optional": true,
+      "default": null
+    },
+    "outlineButton3": {
+      "type": "ButtonConfig",
+      "optional": true,
+      "default": null
+    },
+    "class": {
+      "type": "string",
+      "optional": true,
+      "default": "''"
+    }
+  },
+  "defaults": {
+    "theme": "cp",
+    "mode": "light"
+  },
+  "specs": {
+    "cp-light": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".shell-page-header": {},
+          ".shell-page-header__left": {},
+          ".shell-page-header__title": {},
+          ".shell-page-header__subtitle": {},
+          ".shell-page-header__actions": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".shell-page-header",
+          "tag": "header",
+          "styles": {},
+          "children": [
+            ".shell-page-header__left",
+            ".shell-page-header__actions"
+          ]
+        },
+        {
+          "selector": ".shell-page-header__left",
+          "tag": "div",
+          "styles": {},
+          "parent": ".shell-page-header"
+        },
+        {
+          "selector": ".shell-page-header__title",
+          "tag": "h1",
+          "styles": {},
+          "parent": ".shell-page-header__left"
+        },
+        {
+          "selector": ".shell-page-header__subtitle",
+          "tag": "p",
+          "styles": {},
+          "parent": ".shell-page-header__left"
+        },
+        {
+          "selector": ".shell-page-header__actions",
+          "tag": "div",
+          "styles": {},
+          "parent": ".shell-page-header"
+        }
+      ]
+    },
+    "cp-dark": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".shell-page-header": {},
+          ".shell-page-header__left": {},
+          ".shell-page-header__title": {},
+          ".shell-page-header__subtitle": {},
+          ".shell-page-header__actions": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".shell-page-header",
+          "tag": "header",
+          "styles": {},
+          "children": [
+            ".shell-page-header__left",
+            ".shell-page-header__actions"
+          ]
+        },
+        {
+          "selector": ".shell-page-header__left",
+          "tag": "div",
+          "styles": {},
+          "parent": ".shell-page-header"
+        },
+        {
+          "selector": ".shell-page-header__title",
+          "tag": "h1",
+          "styles": {},
+          "parent": ".shell-page-header__left"
+        },
+        {
+          "selector": ".shell-page-header__subtitle",
+          "tag": "p",
+          "styles": {},
+          "parent": ".shell-page-header__left"
+        },
+        {
+          "selector": ".shell-page-header__actions",
+          "tag": "div",
+          "styles": {},
+          "parent": ".shell-page-header"
+        }
+      ]
+    },
+    "vp-light": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".shell-page-header": {},
+          ".shell-page-header__left": {},
+          ".shell-page-header__title": {},
+          ".shell-page-header__subtitle": {},
+          ".shell-page-header__actions": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".shell-page-header",
+          "tag": "header",
+          "styles": {},
+          "children": [
+            ".shell-page-header__left",
+            ".shell-page-header__actions"
+          ]
+        },
+        {
+          "selector": ".shell-page-header__left",
+          "tag": "div",
+          "styles": {},
+          "parent": ".shell-page-header"
+        },
+        {
+          "selector": ".shell-page-header__title",
+          "tag": "h1",
+          "styles": {},
+          "parent": ".shell-page-header__left"
+        },
+        {
+          "selector": ".shell-page-header__subtitle",
+          "tag": "p",
+          "styles": {},
+          "parent": ".shell-page-header__left"
+        },
+        {
+          "selector": ".shell-page-header__actions",
+          "tag": "div",
+          "styles": {},
+          "parent": ".shell-page-header"
+        }
+      ]
+    },
+    "vp-dark": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".shell-page-header": {},
+          ".shell-page-header__left": {},
+          ".shell-page-header__title": {},
+          ".shell-page-header__subtitle": {},
+          ".shell-page-header__actions": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".shell-page-header",
+          "tag": "header",
+          "styles": {},
+          "children": [
+            ".shell-page-header__left",
+            ".shell-page-header__actions"
+          ]
+        },
+        {
+          "selector": ".shell-page-header__left",
+          "tag": "div",
+          "styles": {},
+          "parent": ".shell-page-header"
+        },
+        {
+          "selector": ".shell-page-header__title",
+          "tag": "h1",
+          "styles": {},
+          "parent": ".shell-page-header__left"
+        },
+        {
+          "selector": ".shell-page-header__subtitle",
+          "tag": "p",
+          "styles": {},
+          "parent": ".shell-page-header__left"
+        },
+        {
+          "selector": ".shell-page-header__actions",
+          "tag": "div",
+          "styles": {},
+          "parent": ".shell-page-header"
+        }
+      ]
+    },
+    "ppm-light": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".shell-page-header": {},
+          ".shell-page-header__left": {},
+          ".shell-page-header__title": {},
+          ".shell-page-header__subtitle": {},
+          ".shell-page-header__actions": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".shell-page-header",
+          "tag": "header",
+          "styles": {},
+          "children": [
+            ".shell-page-header__left",
+            ".shell-page-header__actions"
+          ]
+        },
+        {
+          "selector": ".shell-page-header__left",
+          "tag": "div",
+          "styles": {},
+          "parent": ".shell-page-header"
+        },
+        {
+          "selector": ".shell-page-header__title",
+          "tag": "h1",
+          "styles": {},
+          "parent": ".shell-page-header__left"
+        },
+        {
+          "selector": ".shell-page-header__subtitle",
+          "tag": "p",
+          "styles": {},
+          "parent": ".shell-page-header__left"
+        },
+        {
+          "selector": ".shell-page-header__actions",
+          "tag": "div",
+          "styles": {},
+          "parent": ".shell-page-header"
+        }
+      ]
+    },
+    "ppm-dark": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".shell-page-header": {},
+          ".shell-page-header__left": {},
+          ".shell-page-header__title": {},
+          ".shell-page-header__subtitle": {},
+          ".shell-page-header__actions": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".shell-page-header",
+          "tag": "header",
+          "styles": {},
+          "children": [
+            ".shell-page-header__left",
+            ".shell-page-header__actions"
+          ]
+        },
+        {
+          "selector": ".shell-page-header__left",
+          "tag": "div",
+          "styles": {},
+          "parent": ".shell-page-header"
+        },
+        {
+          "selector": ".shell-page-header__title",
+          "tag": "h1",
+          "styles": {},
+          "parent": ".shell-page-header__left"
+        },
+        {
+          "selector": ".shell-page-header__subtitle",
+          "tag": "p",
+          "styles": {},
+          "parent": ".shell-page-header__left"
+        },
+        {
+          "selector": ".shell-page-header__actions",
+          "tag": "div",
+          "styles": {},
+          "parent": ".shell-page-header"
+        }
+      ]
+    },
+    "maconomy-light": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".shell-page-header": {},
+          ".shell-page-header__left": {},
+          ".shell-page-header__title": {},
+          ".shell-page-header__subtitle": {},
+          ".shell-page-header__actions": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".shell-page-header",
+          "tag": "header",
+          "styles": {},
+          "children": [
+            ".shell-page-header__left",
+            ".shell-page-header__actions"
+          ]
+        },
+        {
+          "selector": ".shell-page-header__left",
+          "tag": "div",
+          "styles": {},
+          "parent": ".shell-page-header"
+        },
+        {
+          "selector": ".shell-page-header__title",
+          "tag": "h1",
+          "styles": {},
+          "parent": ".shell-page-header__left"
+        },
+        {
+          "selector": ".shell-page-header__subtitle",
+          "tag": "p",
+          "styles": {},
+          "parent": ".shell-page-header__left"
+        },
+        {
+          "selector": ".shell-page-header__actions",
+          "tag": "div",
+          "styles": {},
+          "parent": ".shell-page-header"
+        }
+      ]
+    },
+    "maconomy-dark": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".shell-page-header": {},
+          ".shell-page-header__left": {},
+          ".shell-page-header__title": {},
+          ".shell-page-header__subtitle": {},
+          ".shell-page-header__actions": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".shell-page-header",
+          "tag": "header",
+          "styles": {},
+          "children": [
+            ".shell-page-header__left",
+            ".shell-page-header__actions"
+          ]
+        },
+        {
+          "selector": ".shell-page-header__left",
+          "tag": "div",
+          "styles": {},
+          "parent": ".shell-page-header"
+        },
+        {
+          "selector": ".shell-page-header__title",
+          "tag": "h1",
+          "styles": {},
+          "parent": ".shell-page-header__left"
+        },
+        {
+          "selector": ".shell-page-header__subtitle",
+          "tag": "p",
+          "styles": {},
+          "parent": ".shell-page-header__left"
+        },
+        {
+          "selector": ".shell-page-header__actions",
+          "tag": "div",
+          "styles": {},
+          "parent": ".shell-page-header"
+        }
+      ]
+    }
+  },
+  "contentOrder": [
+    ".shell-page-header__left"
+  ],
+  "layoutRules": {
+    ".shell-page-header__actions": {
+      "buttonOrder": [
+        "outline",
+        "primary"
+      ],
+      "description": "Outline/secondary buttons first (left), primary button last (right)."
+    }
+  },
+  "guidance": {
+    "patterns": {
+      "actions-order": "In the actions slot, DOM order equals visual order; ShellPageHeader does not reorder. Place outline/secondary buttons first (left), primary button last (right) to match Harmony design. When using props only, the component renders outline buttons then primary by default."
+    },
+    "guidelines": {}
+  },
+  "specKeyOrder": [
+    "theme",
+    "mode"
+  ],
+  "dimensionDefaults": {
+    "theme": "cp",
+    "mode": "light"
+  },
+  "structure": {
+    "root": ".shell-page-header",
+    "children": [
+      {
+        "class": ".shell-page-header__left",
+        "children": [
+          {
+            "class": ".shell-page-header__title"
+          },
+          {
+            "class": ".shell-page-header__subtitle"
+          }
+        ]
+      }
+    ]
+  },
+  "fonts": {
+    "Figtree": "https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap",
+    "Lexend": "https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap",
+    "JetBrains Mono": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
+  },
+  "defaultContent": {
+    "actionsOrder": [
+      "outline",
+      "primary"
+    ],
+    "description": "In the actions slot or when using props: place outline/secondary buttons first (left), primary button last (right). Do not reorder."
+  },
+  "interactivity": {
+    "events": [
+      {
+        "name": "click",
+        "description": "Title, breadcrumb, or action button clicks"
+      }
+    ],
+    "state": [
+      {
+        "name": "—",
+        "type": "—",
+        "description": "Layout slot; state in slots."
+      }
+    ]
+  },
+  "examples": [
+    {
+      "name": "CP with left sidebar",
+      "description": "CP layout with collapsible left sidebar",
+      "recipeId": "shell-layout-cp"
+    },
+    {
+      "name": "CP minimal",
+      "description": "Minimal CP layout with header and floating nav only",
+      "recipeId": "shell-layout-cp"
+    },
+    {
+      "name": "CP with page header",
+      "description": "CP layout with page-specific header",
+      "recipeId": "shell-layout-cp"
+    },
+    {
+      "name": "Standard with sidebars",
+      "description": "Full layout with left and right sidebars",
+      "recipeId": "shell-layout-standard"
+    },
+    {
+      "name": "Standard minimal",
+      "description": "Minimal layout with header and footer only",
+      "recipeId": "shell-layout-standard"
+    },
+    {
+      "name": "Standard with page header",
+      "description": "Standard layout with page-specific header",
+      "recipeId": "shell-layout-standard"
+    },
+    {
+      "name": "Title only",
+      "description": "Minimal page header with title",
+      "recipeId": "shell-page-header"
+    },
+    {
+      "name": "Title and subtitle",
+      "description": "Page header with subtitle",
+      "recipeId": "shell-page-header"
+    },
+    {
+      "name": "With primary action",
+      "description": "Page header with primary button",
+      "recipeId": "shell-page-header"
+    },
+    {
+      "name": "Page title",
+      "description": "Page header slot",
+      "snippet": "<ShellPageHeader title=\"Page Title\" />"
+    }
+  ],
+  "contentOrder.shell-page-header__left": [
+    ".shell-page-header__title",
+    ".shell-page-header__subtitle"
+  ]
+}

@@ -1,0 +1,234 @@
+/* 1. Base Table Styles */
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  overflow: hidden;
+  border-radius: var(--radius-12);
+}
+
+/* 2. Table Header Base */
+.table thead th {
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  font-weight: var(--font-medium);
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--surface-bg); /* Default, will be overridden by variants */
+  border-left: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+}
+
+/* Round only top corners of header - first row, first and last cells */
+.table thead tr:first-child th:first-child {
+  border-top-left-radius: var(--radius-12);
+  border-top: 1px solid var(--border-color);
+}
+
+.table thead tr:first-child th:last-child {
+  border-top-right-radius: var(--radius-12);
+  border-top: 1px solid var(--border-color);
+}
+
+/* Add top border to all first row header cells */
+.table thead tr:first-child th {
+  border-top: 1px solid var(--border-color);
+}
+
+/* Remove left border from middle header cells */
+.table thead th:not(:first-child) {
+  border-left: none;
+}
+
+/* Remove right border from middle header cells */
+.table thead th:not(:last-child) {
+  border-right: none;
+}
+
+/* 3. Header Variants (higher specificity - 2 classes) */
+.table--header-gray thead th {
+  background-color: var(--table-header-gray-bg);
+}
+
+.table--header-white thead th {
+  background-color: var(--surface-bg);
+}
+
+.table--header-none thead th {
+  background-color: transparent;
+}
+
+/* 4. Table Body Rows Base */
+.table tbody tr {
+  background-color: var(--surface-bg);
+  transition: background-color var(--transition-fast);
+}
+
+/* 5. Table Body Cells */
+.table tbody td {
+  padding: var(--space-3) var(--space-4);
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-light);
+  vertical-align: middle;
+  background-color: inherit; /* Inherit from row */
+  border-left: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+}
+
+/* Round bottom corners of last body row */
+.table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: var(--radius-12);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: var(--radius-12);
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Add bottom border to all last row cells */
+.table tbody tr:last-child td {
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Remove left border from middle body cells */
+.table tbody td:not(:first-child) {
+  border-left: none;
+}
+
+/* Remove right border from middle body cells */
+.table tbody td:not(:last-child) {
+  border-right: none;
+}
+
+/* 6. Striped Table Rows (must come before selection so selection can override) */
+.table--striped tbody tr:nth-child(even) {
+  background-color: var(--card-bg);
+}
+
+.table--striped tbody tr:nth-child(odd) {
+  background-color: var(--surface-bg);
+}
+
+/* 7. Row Selection State (higher specificity - 2 classes, overrides striped) */
+.table tbody tr.table-row--selected,
+.table tbody tr:has(.checkbox__input:checked) {
+  background-color: var(--table-row-selected-bg);
+}
+
+/* Striped + Selected combination (highest specificity for this case) */
+.table--striped tbody tr.table-row--selected,
+.table--striped tbody tr:has(.checkbox__input:checked) {
+  background-color: var(--table-row-selected-bg);
+}
+
+/* 8. Row Hover States (includes :hover pseudo-class, overrides selection) */
+/* Unselected row hover - blue tint of primary */
+.table tbody tr:hover:not(.table-row--selected):not(:has(.checkbox__input:checked)) {
+  background-color: var(--table-row-hover-bg);
+}
+
+/* Selected row hover - darker blue tint for accessibility */
+.table tbody tr.table-row--selected:hover,
+.table tbody tr:has(.checkbox__input:checked):hover {
+  background-color: var(--table-row-selected-hover-bg);
+}
+
+/* Striped + Unselected hover */
+.table--striped tbody tr:hover:not(.table-row--selected):not(:has(.checkbox__input:checked)) {
+  background-color: var(--table-row-hover-bg);
+}
+
+/* Striped + Selected hover */
+.table--striped tbody tr.table-row--selected:hover,
+.table--striped tbody tr:has(.checkbox__input:checked):hover {
+  background-color: var(--table-row-selected-hover-bg);
+}
+
+/* 9. Total Row (must override all other states) */
+.table tbody tr.table-row--total {
+  background-color: var(--table-total-bg);
+  font-weight: var(--font-semibold);
+}
+
+/* Total row hover (if needed, uses same background or slightly different) */
+.table tbody tr.table-row--total:hover {
+  background-color: var(--table-total-bg);
+}
+
+/* Total row + Selected (if checkbox in total row) */
+.table tbody tr.table-row--total.table-row--selected,
+.table tbody tr.table-row--total:has(.checkbox__input:checked) {
+  background-color: var(--table-total-bg); /* Total row takes precedence */
+}
+
+/* 10. Actions Column */
+.table tbody td.table-cell--actions {
+  text-align: right;
+  vertical-align: middle;
+  padding-right: var(--space-4);
+}
+
+/* Ensure icon button inside is properly aligned */
+.table tbody td.table-cell--actions .icon-btn {
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+/* 11. Text Alignment Utilities */
+.table thead th.text-left,
+.table tbody td.text-left {
+  text-align: left;
+}
+
+.table thead th.text-right,
+.table tbody td.text-right {
+  text-align: right;
+}
+
+/* 12. Avatar in Table Cells (keep existing functionality) */
+.table tbody td .avatar,
+.table tbody td [class*="rounded-full"] {
+  background-color: var(--theme-primary);
+}
+
+.table tbody td .avatar span,
+.table tbody td [class*="rounded-full"] span {
+  color: var(--text-inverse);
+}
+
+/* 13. Table Wrapper */
+.table-wrapper {
+  border-radius: var(--radius-12);
+  overflow: hidden;
+}
+
+/* 14. Table Title Bar */
+.table__title-bar {
+  padding: var(--space-4) var(--space-4) var(--space-3);
+  border-top: 1px solid var(--border-color);
+  border-left: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--surface-bg);
+  border-top-left-radius: var(--radius-12);
+  border-top-right-radius: var(--radius-12);
+  font-family: var(--font-display);
+  font-size: var(--text-13);
+}
+
+.table__title-bar-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.table__title-bar-icons {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.table__title-bar-icon {

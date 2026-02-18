@@ -3,6 +3,11 @@
  * Alert Component
  *
  * Notification message with different severity levels.
+ *
+ * @usagePattern default-icons-per-variant Each variant has a default icon that renders automatically if no custom icon prop is provided: info→information-circle, success→check-circle, warning→exclamation-triangle, error→exclamation-circle. Override by passing a custom Heroicon name to the icon prop. The icon is always displayed regardless of variant or style.
+ * @usagePattern enhanced-style-features The enhanced style (style='enhanced') unlocks additional features: vertical border accent (alert__border), support for action buttons (primaryButton/secondaryButton props), inline links (linkText/linkHref props), and progress bar (progressValue prop). These features are not available or styled properly with style='default'. Enhanced style also changes the layout to alert__content > alert__inner structure.
+ * @usagePattern action-buttons-display Action buttons (primaryButton, secondaryButton) and links (linkText + linkHref) only render when style='enhanced'. Buttons are rendered as Button components with variant='primary'/'secondary' and size='xs'. Primary button always appears before secondary button in DOM order. Both buttons and links render in the alert__actions container, with buttons in alert__buttons and links as alert__link.
+ * @usagePattern dismissible-behavior When dismissible=true, an X button appears in the top-right corner with aria-label="Dismiss". Clicking it removes the entire alert from the DOM using JavaScript (btn.closest('.alert')?.remove()). The dismissible button works with both default and enhanced styles, but its positioning differs based on the layout structure.
  */
 import Icon from './Icon.astro';
 import Button from './Button.astro';
@@ -67,7 +72,7 @@ const classes = [
         <div class="alert__text">
           {title && <div class="alert__title">{title}</div>}
           <div class="alert__message">
-            <slot />
+            <slot>Alert message. Override by passing default slot content.</slot>
           </div>
         </div>
         {dismissible && (
@@ -82,6 +87,7 @@ const classes = [
             <div class="alert__buttons">
               {primaryButton && (
                 <Button
+                  buttonType="theme"
                   variant="primary"
                   size="xs"
                   href={primaryButton.href}
@@ -92,6 +98,7 @@ const classes = [
               )}
               {secondaryButton && (
                 <Button
+                  buttonType="theme"
                   variant="secondary"
                   size="xs"
                   href={secondaryButton.href}
@@ -120,8 +127,8 @@ const classes = [
       <Icon name={alertIcon} class="alert__icon" />
       <div class="alert__content">
         {title && <div class="alert__title">{title}</div>}
-        <div class="alert__message">
-          <slot />
+<div class="alert__message">
+        <slot>Alert message. Override by passing default slot content.</slot>
         </div>
       </div>
       {dismissible && (

@@ -4,6 +4,8 @@
  *
  * Header component that appears above page content cards in the shell layout.
  * Displays title and subtitle on the left, with up to 4 optional action buttons on the right.
+ * By default shows one dark blue primary button (far right) and one outline secondary button (left of primary) when no button props are passed. Pass showDefaultButtons={false} to hide buttons, or pass primaryButton/outlineButton1 to override.
+ * @usagePattern actions-order In the actions slot, DOM order equals visual order; ShellPageHeader does not reorder. Place outline/secondary buttons first (left), primary button last (right) to match Harmony design. When using props only, the component renders outline buttons then primary by default.
  */
 import Button from './Button.astro';
 
@@ -13,9 +15,14 @@ export interface ButtonConfig {
   href?: string;
 }
 
+const DEFAULT_PRIMARY: ButtonConfig = { text: 'Primary' };
+const DEFAULT_OUTLINE: ButtonConfig = { text: 'Secondary' };
+
 export interface Props {
   title: string;
   subtitle?: string;
+  /** When true (default), show one primary and one outline button when no button props are passed. Set to false to show no buttons when none are provided. */
+  showDefaultButtons?: boolean;
   primaryButton?: ButtonConfig;
   outlineButton1?: ButtonConfig;
   outlineButton2?: ButtonConfig;
@@ -26,6 +33,7 @@ export interface Props {
 const {
   title,
   subtitle,
+  showDefaultButtons = true,
   primaryButton,
   outlineButton1,
   outlineButton2,
@@ -33,8 +41,25 @@ const {
   class: className = '',
 } = Astro.props;
 
-// Collect all outline buttons in order
-const outlineButtons = [outlineButton1, outlineButton2, outlineButton3].filter(Boolean);
+const hasActionsSlot = Astro.slots.has('actions');
+const useDefaultButtons =
+  showDefaultButtons &&
+  primaryButton === undefined &&
+  outlineButton1 === undefined &&
+  outlineButton2 === undefined &&
+  outlineButton3 === undefined &&
+  !hasActionsSlot;
+
+// Effective configs: use defaults when no button props passed, else use props as-is
+const effectiveOutline1 = useDefaultButtons ? DEFAULT_OUTLINE : outlineButton1;
+const effectiveOutline2 = outlineButton2;
+const effectiveOutline3 = outlineButton3;
+const effectivePrimary = useDefaultButtons ? DEFAULT_PRIMARY : primaryButton;
+
+const outlineButtons = [effectiveOutline1, effectiveOutline2, effectiveOutline3].filter(
+  (b): b is ButtonConfig => Boolean(b)
+);
+const showDefaultActions = outlineButtons.length > 0 || effectivePrimary;
 ---
 
 <header class={`shell-page-header ${className}`}>
@@ -43,7 +68,11 @@ const outlineButtons = [outlineButton1, outlineButton2, outlineButton3].filter(B
     {subtitle && <p class="shell-page-header__subtitle">{subtitle}</p>}
   </div>
   
-  {(outlineButtons.length > 0 || primaryButton) && (
+  {hasActionsSlot ? (
+    <div class="shell-page-header__actions">
+      <slot name="actions" />
+    </div>
+  ) : showDefaultActions ? (
     <div class="shell-page-header__actions">
       {outlineButtons.map((button) => (
         <Button
@@ -56,19 +85,19 @@ const outlineButtons = [outlineButton1, outlineButton2, outlineButton3].filter(B
           {button.text}
         </Button>
       ))}
-      {primaryButton && (
+      {effectivePrimary && (
         <Button
           variant="primary"
           buttonType="pageHeader"
           size="md"
-          icon={primaryButton.icon}
-          href={primaryButton.href}
+          icon={effectivePrimary.icon}
+          href={effectivePrimary.href}
         >
-          {primaryButton.text}
+          {effectivePrimary.text}
         </Button>
       )}
     </div>
-  )}
+  ) : null}
 </header>
 
 <style>

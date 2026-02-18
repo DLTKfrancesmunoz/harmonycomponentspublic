@@ -6,7 +6,7 @@ import Button from '../../components/ui/Button.astro';
 import Icon from '../../components/ui/Icon.astro';
 
 const props = [
-  { name: 'variant', type: "'primary' | 'secondary' | 'tertiary' | 'outline' | 'ghost' | 'destructive'", default: "'primary'", description: 'Visual style of the button' },
+  { name: 'variant', type: "'primary' | 'secondary' | 'tertiary' | 'outline' | 'ghost' | 'destructive' | 'dela' | 'dela-pill'", default: "'primary'", description: 'Visual style of the button' },
   { name: 'buttonType', type: "'theme' | 'pageHeader'", default: "'theme'", description: 'Button type: theme buttons use primary color shades, page header buttons use dark blue' },
   { name: 'size', type: "'xs' | 'sm' | 'md' | 'lg'", default: "'md'", description: 'Size of the button' },
   { name: 'orientation', type: "'horizontal' | 'vertical'", default: "'horizontal'", description: 'Button layout orientation' },
@@ -71,6 +71,13 @@ const props = [
           <Button variant="outline">Outline</Button>
           <Button variant="ghost">Ghost</Button>
           <Button variant="destructive">Destructive</Button>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Dela Buttons" description="Dela variants for launching AI or Dela features. Use dela (4px radius) or dela-pill (fully rounded) with gradient background and Stars graphic. Text and icon stay white in all themes and dark mode (--dela-header-content-fg).">
+        <div class="flex flex-wrap gap-4">
+          <Button variant="dela">Ask Dela</Button>
+          <Button variant="dela-pill">Try AI</Button>
         </div>
       </ExampleSection>
 

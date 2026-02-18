@@ -285,3 +285,37 @@ export function getVariantIndex(componentData) {
 
   return index;
 }
+
+/** Base state keys always present (Phase 1). Optional keys (item, icon, label) may exist for composite components. */
+const BASE_STATE_KEYS = ['default', 'hover', 'active', 'focus', 'disabled'];
+const OPTIONAL_STATE_KEYS = ['item', 'icon', 'label'];
+
+/**
+ * List state keys for a variant/theme/mode object so MCP can iterate and expose all states.
+ * Resolved variant colors live at variants[variant][theme][mode]; this returns that object's keys
+ * in a stable order (base states first, then optional item/icon/label).
+ *
+ * @param {Object} modeObj - The object at variants[variant][theme][mode] (state key -> color spec)
+ * @returns {string[]} State keys to use (e.g. ['default', 'hover', 'active', 'focus', 'disabled', 'item'])
+ * @example
+ * const states = getStateKeysForVariantThemeMode(filteredSpecs.colors.variants.primary.cp.light);
+ * // Use each key to emit .baseClass:hover, .baseClass:active, .baseClass__item[data-active="true"], etc.
+ */
+export function getStateKeysForVariantThemeMode(modeObj) {
+  if (!modeObj || typeof modeObj !== 'object') {
+    return [];
+  }
+  const keys = Object.keys(modeObj);
+  const ordered = [];
+  for (const k of BASE_STATE_KEYS) {
+    if (keys.includes(k)) ordered.push(k);
+  }
+  for (const k of OPTIONAL_STATE_KEYS) {
+    if (keys.includes(k)) ordered.push(k);
+  }
+  // Any other keys (future extension) in alphabetical order
+  for (const k of keys.sort()) {
+    if (!ordered.includes(k)) ordered.push(k);
+  }
+  return ordered;
+}

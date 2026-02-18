@@ -10,7 +10,9 @@ export const templates = {
       file_added: (target) =>
         `New ${target} component added to the design system`,
       prop_added: (target, propName, propType) =>
-        `Add ${propName} prop to ${target} component (${propType})`
+        `Add ${propName} prop to ${target} component (${propType})`,
+      variant_added: (target, propName, variantName) =>
+        `Add ${propName} '${variantName}' to ${target}`
     },
     changed: {
       prop_type_changed: (target, propName, before, after) =>
@@ -31,7 +33,15 @@ export const templates = {
       file_removed: (target) =>
         `Remove ${target} component`,
       prop_removed: (target, propName) =>
-        `Remove ${propName} prop from ${target} component`
+        `Remove ${propName} prop from ${target} component`,
+      variant_removed: (target, propName, variantName) =>
+        `Remove ${propName} '${variantName}' from ${target}`
+    }
+  },
+  system: {
+    changed: {
+      styles_modified: (target) =>
+        `Update design system styles (e.g. components.css, layout.css)`
     }
   },
   token: {
@@ -92,6 +102,18 @@ export function generateDescription(change) {
       if (changeType === 'prop_removed') {
         return template(target, change.propName);
       }
+
+      if (changeType === 'variant_added' || changeType === 'variant_removed') {
+        return template(target, change.propName, change.variantName);
+      }
+    }
+
+    if (type === 'system') {
+      const template = categoryTemplates?.[changeType];
+      if (template && changeType === 'styles_modified') {
+        return template(target);
+      }
+      return `${category} in ${target}`;
     }
 
     if (type === 'token') {

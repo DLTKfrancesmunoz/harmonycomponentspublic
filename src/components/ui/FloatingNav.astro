@@ -1,13 +1,20 @@
 ---
 /**
  * FloatingNav Component
- * 
+ *
  * A CP-specific floating navigation toolbar that hangs below the header.
  * Contains action buttons (Execute, Actions, Refresh, Save), a divider, and pin icon.
- * 
+ *
+ * Icon names in the default button structure resolve per theme-scoped icon manifest (src/data/icon-manifest.json): hero | tabler | custom; custom includes path and optional svg.
+ *
  * @prop {boolean} showExecute - Whether to show the Execute button (default: true)
  * @prop {boolean} saveDisabled - Whether the Save button is disabled (default: false)
  * @prop {string} variant - 'full' for all buttons or 'compact' for fewer buttons (default: 'full')
+ *
+ * @usagePattern variant-button-visibility The variant prop controls which buttons render: variant='full' (default) shows all 4 buttons (Execute, Actions, Refresh, Save), while variant='compact' hides the Execute button even if showExecute=true. The showExecute prop only takes effect when variant='full'. Actions, Refresh (with dropdown), and Save buttons always render regardless of variant. Compact mode is used for narrow viewports or simplified interfaces.
+ * @usagePattern actions-slot-override The actions slot provides complete override of the default button structure. When Astro.slots.has('actions') is true, the entire default button group (Execute, Actions, Refresh, Save, divider, pin) is replaced with custom slot content. This is an all-or-nothing override - you cannot selectively replace individual buttons while keeping others. Use the actions slot for fully custom toolbar layouts.
+ * @usagePattern default-button-structure The default button structure (when no actions slot is provided) includes: (1) floating-nav__buttons wrapper with 4 buttons, (2) floating-nav__divider vertical separator, (3) floating-nav__pin button with pin icon. The Actions and Save buttons have dropdown chevrons (floating-nav__btn--dropdown), and Refresh is icon-only with dropdown (floating-nav__btn--icon-dropdown). This structure is CP-specific and matches Deltek CP application patterns.
+ * @usagePattern save-button-states The saveDisabled prop controls the Save button's disabled state and visual variant. When saveDisabled=true, the button receives floating-nav__btn--disabled class and disabled attribute. When saveDisabled=false (default), it receives floating-nav__btn--primary class for prominent styling. The Save button always has a dropdown chevron, suggesting multiple save options in the dropdown menu.
  */
 import Icon from './Icon.astro';
 
@@ -22,10 +29,16 @@ const {
   saveDisabled = false,
   variant = 'full'
 } = Astro.props;
+
+const hasActionsSlot = Astro.slots.has('actions');
 ---
 
 <div class="floating-nav">
   <div class="floating-nav__toolbar">
+    {hasActionsSlot ? (
+      <slot name="actions" />
+    ) : (
+    <>
     <!-- Action Buttons Group -->
     <div class="floating-nav__buttons">
       {showExecute && variant === 'full' && (
@@ -65,5 +78,7 @@ const {
     <button class="floating-nav__pin" type="button" aria-label="Pin navigation">
       <Icon name="pin" size="md" class="floating-nav__pin-icon" />
     </button>
+    </>
+    )}
   </div>
 </div>

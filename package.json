@@ -1,33 +1,83 @@
 {
-  "name": "design-system-docs",
+  "name": "@deltek/harmony-components",
+  "version": "1.0.1",
+  "description": "Harmony Design System - Internal UI components, layouts, and design tokens for Deltek Astro applications",
   "type": "module",
-  "version": "1.0.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DLTKfrancesmunoz/harmonycomponents.git"
+  },
+  "keywords": [
+    "astro",
+    "design-system",
+    "ui-components",
+    "deltek",
+    "internal"
+  ],
+  "files": [
+    "src/components/ui",
+    "src/data",
+    "src/layouts",
+    "src/styles",
+    "src/tokens",
+    "public",
+    "docs/customization",
+    "docs/RULES.md",
+    "scripts/copy-harmony-component.cjs",
+    "scripts/check-harmony-updates.cjs",
+    "scripts/diff-harmony-component.cjs",
+    "examples",
+    "CHANGELOG.md",
+    "README.md"
+  ],
+  "exports": {
+    "./ui": "./src/components/ui/index.ts",
+    "./ui/*": "./src/components/ui/*.astro",
+    "./layouts/*": "./src/layouts/*.astro",
+    "./styles/*.css": "./src/styles/*.css",
+    "./tokens": "./src/tokens/index.ts",
+    "./tokens/*.json": "./src/tokens/*.json",
+    "./public/*": "./public/*",
+    "./package.json": "./package.json"
+  },
+  "peerDependencies": {
+    "astro": "^5.0.0",
+    "@tabler/icons": "^3.0.0",
+    "heroicons": "^2.0.0"
+  },
   "scripts": {
+    "prepare": "husky",
     "dev": "astro dev",
-    "predev": "npm run generate:components",
     "start": "serve dist -l ${PORT:-3000}",
-    "build": "astro build",
-    "prebuild": "npm run generate:components",
+    "build": "astro build && node scripts/extract-usage-rules.js",
+    "generate:rules": "node scripts/extract-usage-rules.js",
     "preview": "astro preview",
     "astro": "astro",
     "changelog": "node scripts/changelog/run-automation.js",
     "changelog:snapshot": "node scripts/changelog/generate-snapshot.js",
-    "generate:components": "node scripts/generate-components-json.js",
-    "generate:mcp-data": "node scripts/extract-design-tokens.js && node scripts/generate-mcp-data.js && node scripts/generate-layout-data.js && node scripts/generate-manifest.js"
-  },
-  "dependencies": {
-    "@astrojs/rss": "^4.0.14",
-    "astro": "^5.16.7",
-    "fuse.js": "^7.1.0",
-    "heroicons": "^2.2.0",
-    "serve": "^14.2.0"
+    "generate:inventory": "node scripts/generate-component-props-inventory.js --write",
+    "docs:check": "npm run generate:inventory && node scripts/compare-docs-with-components.js",
+    "harmony:copy": "node scripts/copy-harmony-component.cjs",
+    "harmony:check-updates": "node scripts/check-harmony-updates.cjs",
+    "harmony:diff": "node scripts/diff-harmony-component.cjs",
+    "inline:icon-manifest": "node scripts/inline-icon-manifest.js"
   },
   "devDependencies": {
+    "astro": "^5.16.7",
+    "@tabler/icons": "^3.36.1",
+    "heroicons": "^2.2.0",
+    "@astrojs/rss": "^4.0.14",
+    "fuse.js": "^7.1.0",
+    "serve": "^14.2.0",
     "chokidar": "^3.6.0",
     "concurrently": "^8.2.2",
     "deep-diff": "^1.0.2",
     "postcss": "^8.4.0",
     "postcss-value-parser": "^4.2.0",
-    "simple-git": "^3.30.0"
+    "simple-git": "^3.30.0",
+    "husky": "^9.1.7",
+    "@types/node": "^22.10.0"
   }
 }

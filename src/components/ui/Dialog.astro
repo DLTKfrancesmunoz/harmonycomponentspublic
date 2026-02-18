@@ -3,8 +3,13 @@
  * Dialog Component
  *
  * Modal dialog for confirmations, forms, or information.
+ *
+ * @usagePattern footer-buttons When buttonAlignment='left' (default), place primary action button first in footer slot, followed by secondary actions (e.g., Cancel). When buttonAlignment='right', place secondary actions first, then primary action button last. This ensures the visual alignment matches the semantic importance.
+ * @usagePattern sticky-layout The dialog uses flexbox column layout with header and footer as flex-shrink: 0 (sticky), and body as flex: 1 with overflow-y: auto. Only the body scrolls when content exceeds available height.
+ * @usagePattern footer-button-type Dialog footers are general UI (not page header). Default footer and any custom footer slot content should use theme buttons (buttonType="theme") so dialogs render correctly regardless of the consumer's Button default.
  */
 import Icon from './Icon.astro';
+import Button from './Button.astro';
 
 export interface Props {
   id: string;
@@ -42,10 +47,18 @@ const footerClasses = [
       </button>
     </div>
     <div class="dialog__body">
-      <slot />
+      <slot>
+        <p class="dialog__body-default">Dialog content. Override by passing default slot content.</p>
+      </slot>
     </div>
     <div class={footerClasses}>
-      <slot name="footer" />
+      <slot name="footer">
+        <!-- Default footer: theme buttons (general UI); custom footer slot should also use buttonType="theme" -->
+        <div>
+          <Button buttonType="theme" type="button" onclick={`closeDialog('${id}')`}>Confirm</Button>
+          <Button buttonType="theme" variant="ghost" type="button" onclick={`closeDialog('${id}')`}>Cancel</Button>
+        </div>
+      </slot>
     </div>
   </div>
 </div>

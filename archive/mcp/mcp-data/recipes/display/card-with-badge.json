@@ -1,0 +1,78 @@
+{
+  "id": "card-with-badge",
+  "name": "Card with Badge",
+  "description": "Card component with status or category badge",
+  "category": "display",
+  "complexity": "molecule",
+  "tags": ["card", "badge", "status", "label"],
+  "components": [
+    {
+      "name": "Card",
+      "role": "container",
+      "props": {
+        "variant": "default",
+        "padding": "md"
+      }
+    },
+    {
+      "name": "Badge",
+      "role": "status-indicator",
+      "parent": "Card",
+      "slot": "header",
+      "props": {
+        "variant": "default"
+      },
+      "content": "Status"
+    }
+  ],
+  "usageGuidance": {
+    "when": "Displaying content with status, category, or tag information",
+    "antiPatterns": [
+      "Don't use more than 2-3 badges per card - becomes cluttered",
+      "Don't use badge for primary card title - use Card title prop instead"
+    ],
+    "notes": {
+      "placement": "Badge typically goes in card header or top-right corner",
+      "variants": "Use semantic badge variants (success, warning, error, info) for status",
+      "multiple": "When using multiple badges, keep them in the same area (all in header)"
+    }
+  },
+  "validation": {
+    "required": ["Card", "Badge"],
+    "maxCount": {
+      "Badge": 3
+    },
+    "theme": "all",
+    "hierarchy": [
+      { "parent": "Card", "child": "Badge", "required": false }
+    ]
+  },
+  "examples": [
+    {
+      "name": "Status badge",
+      "description": "Card with status indicator",
+      "props": {
+        "status-indicator.content": "Active",
+        "status-indicator.variant": "success"
+      }
+    },
+    {
+      "name": "Category badge",
+      "description": "Card with category label",
+      "props": {
+        "status-indicator.content": "Documentation",
+        "status-indicator.variant": "info"
+      }
+    },
+    {
+      "name": "Multiple badges",
+      "description": "Card with status and priority badges",
+      "props": {
+        "status-indicator.content": "In Progress",
+        "status-indicator.variant": "warning",
+        "priority-indicator.content": "High",
+        "priority-indicator.variant": "error"
+      }
+    }
+  ]
+}

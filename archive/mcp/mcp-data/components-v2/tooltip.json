@@ -1,0 +1,772 @@
+{
+  "name": "Tooltip",
+  "type": "component",
+  "filePath": "src/components/ui/Tooltip.astro",
+  "description": "Tooltip Component",
+  "props": {
+    "text": {
+      "type": "string",
+      "optional": false,
+      "default": null
+    },
+    "position": {
+      "type": "'top' | 'bottom' | 'left' | 'right'",
+      "optional": true,
+      "default": "'top'"
+    },
+    "cornerVariant": {
+      "type": "'top' | 'bottom' | 'left' | 'right'",
+      "optional": true,
+      "default": null
+    },
+    "class": {
+      "type": "string",
+      "optional": true,
+      "default": "''"
+    }
+  },
+  "defaults": {
+    "theme": "cp",
+    "mode": "light"
+  },
+  "specs": {
+    "cp-light": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".tooltip": {
+            "position": "relative",
+            "display": "inline-block"
+          },
+          ".tooltip__content": {
+            "position": "absolute",
+            "bottom": "100%",
+            "left": "50%",
+            "transform": "translateX(-50%)",
+            "margin-bottom": "8px",
+            "padding": "8px 12px",
+            "font-size": "0.75rem",
+            "color": "white",
+            "background-color": "#373F4E",
+            "border-radius": "0.375rem",
+            "white-space": "nowrap",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "opacity 0.2s ease, visibility 0.2s ease",
+            "z-index": "500",
+            "display": "block",
+            "font-family": "'Figtree', sans-serif"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".tooltip",
+          "tag": "div",
+          "styles": {
+            "position": "relative",
+            "display": "inline-block"
+          },
+          "children": [
+            ".tooltip__content"
+          ]
+        },
+        {
+          "selector": ".tooltip__content",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "bottom": "100%",
+            "left": "50%",
+            "transform": "translateX(-50%)",
+            "margin-bottom": "8px",
+            "padding": "8px 12px",
+            "font-size": "0.75rem",
+            "color": "white",
+            "background-color": "#373F4E",
+            "border-radius": "0.375rem",
+            "white-space": "nowrap",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "opacity 0.2s ease, visibility 0.2s ease",
+            "z-index": "500",
+            "display": "block",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".tooltip",
+          "states": {
+            "rootHover": {
+              "opacity": "1",
+              "visibility": "visible"
+            }
+          }
+        }
+      ]
+    },
+    "cp-dark": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".tooltip": {
+            "position": "relative",
+            "display": "inline-block"
+          },
+          ".tooltip__content": {
+            "position": "absolute",
+            "bottom": "100%",
+            "left": "50%",
+            "transform": "translateX(-50%)",
+            "margin-bottom": "8px",
+            "padding": "8px 12px",
+            "font-size": "0.75rem",
+            "color": "white",
+            "background-color": "#E9ECEF",
+            "border-radius": "0.375rem",
+            "white-space": "nowrap",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "opacity 0.2s ease, visibility 0.2s ease",
+            "z-index": "500",
+            "display": "block",
+            "font-family": "'Figtree', sans-serif"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".tooltip",
+          "tag": "div",
+          "styles": {
+            "position": "relative",
+            "display": "inline-block"
+          },
+          "children": [
+            ".tooltip__content"
+          ]
+        },
+        {
+          "selector": ".tooltip__content",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "bottom": "100%",
+            "left": "50%",
+            "transform": "translateX(-50%)",
+            "margin-bottom": "8px",
+            "padding": "8px 12px",
+            "font-size": "0.75rem",
+            "color": "white",
+            "background-color": "#E9ECEF",
+            "border-radius": "0.375rem",
+            "white-space": "nowrap",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "opacity 0.2s ease, visibility 0.2s ease",
+            "z-index": "500",
+            "display": "block",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".tooltip",
+          "states": {
+            "rootHover": {
+              "opacity": "1",
+              "visibility": "visible"
+            }
+          }
+        }
+      ]
+    },
+    "vp-light": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".tooltip": {
+            "position": "relative",
+            "display": "inline-block"
+          },
+          ".tooltip__content": {
+            "position": "absolute",
+            "bottom": "100%",
+            "left": "50%",
+            "transform": "translateX(-50%)",
+            "margin-bottom": "8px",
+            "padding": "8px 12px",
+            "font-size": "0.75rem",
+            "color": "white",
+            "background-color": "#373F4E",
+            "border-radius": "0.375rem",
+            "white-space": "nowrap",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "opacity 0.2s ease, visibility 0.2s ease",
+            "z-index": "500",
+            "display": "block",
+            "font-family": "'Figtree', sans-serif"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".tooltip",
+          "tag": "div",
+          "styles": {
+            "position": "relative",
+            "display": "inline-block"
+          },
+          "children": [
+            ".tooltip__content"
+          ]
+        },
+        {
+          "selector": ".tooltip__content",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "bottom": "100%",
+            "left": "50%",
+            "transform": "translateX(-50%)",
+            "margin-bottom": "8px",
+            "padding": "8px 12px",
+            "font-size": "0.75rem",
+            "color": "white",
+            "background-color": "#373F4E",
+            "border-radius": "0.375rem",
+            "white-space": "nowrap",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "opacity 0.2s ease, visibility 0.2s ease",
+            "z-index": "500",
+            "display": "block",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".tooltip",
+          "states": {
+            "rootHover": {
+              "opacity": "1",
+              "visibility": "visible"
+            }
+          }
+        }
+      ]
+    },
+    "vp-dark": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".tooltip": {
+            "position": "relative",
+            "display": "inline-block"
+          },
+          ".tooltip__content": {
+            "position": "absolute",
+            "bottom": "100%",
+            "left": "50%",
+            "transform": "translateX(-50%)",
+            "margin-bottom": "8px",
+            "padding": "8px 12px",
+            "font-size": "0.75rem",
+            "color": "white",
+            "background-color": "#FAFAFA",
+            "border-radius": "0.375rem",
+            "white-space": "nowrap",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "opacity 0.2s ease, visibility 0.2s ease",
+            "z-index": "500",
+            "display": "block",
+            "font-family": "'Figtree', sans-serif"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".tooltip",
+          "tag": "div",
+          "styles": {
+            "position": "relative",
+            "display": "inline-block"
+          },
+          "children": [
+            ".tooltip__content"
+          ]
+        },
+        {
+          "selector": ".tooltip__content",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "bottom": "100%",
+            "left": "50%",
+            "transform": "translateX(-50%)",
+            "margin-bottom": "8px",
+            "padding": "8px 12px",
+            "font-size": "0.75rem",
+            "color": "white",
+            "background-color": "#FAFAFA",
+            "border-radius": "0.375rem",
+            "white-space": "nowrap",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "opacity 0.2s ease, visibility 0.2s ease",
+            "z-index": "500",
+            "display": "block",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".tooltip",
+          "states": {
+            "rootHover": {
+              "opacity": "1",
+              "visibility": "visible"
+            }
+          }
+        }
+      ]
+    },
+    "ppm-light": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".tooltip": {
+            "position": "relative",
+            "display": "inline-block"
+          },
+          ".tooltip__content": {
+            "position": "absolute",
+            "bottom": "100%",
+            "left": "50%",
+            "transform": "translateX(-50%)",
+            "margin-bottom": "8px",
+            "padding": "8px 12px",
+            "font-size": "0.75rem",
+            "color": "white",
+            "background-color": "#373F4E",
+            "border-radius": "0.375rem",
+            "white-space": "nowrap",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "opacity 0.2s ease, visibility 0.2s ease",
+            "z-index": "500",
+            "display": "block",
+            "font-family": "'Figtree', sans-serif"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".tooltip",
+          "tag": "div",
+          "styles": {
+            "position": "relative",
+            "display": "inline-block"
+          },
+          "children": [
+            ".tooltip__content"
+          ]
+        },
+        {
+          "selector": ".tooltip__content",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "bottom": "100%",
+            "left": "50%",
+            "transform": "translateX(-50%)",
+            "margin-bottom": "8px",
+            "padding": "8px 12px",
+            "font-size": "0.75rem",
+            "color": "white",
+            "background-color": "#373F4E",
+            "border-radius": "0.375rem",
+            "white-space": "nowrap",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "opacity 0.2s ease, visibility 0.2s ease",
+            "z-index": "500",
+            "display": "block",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".tooltip",
+          "states": {
+            "rootHover": {
+              "opacity": "1",
+              "visibility": "visible"
+            }
+          }
+        }
+      ]
+    },
+    "ppm-dark": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".tooltip": {
+            "position": "relative",
+            "display": "inline-block"
+          },
+          ".tooltip__content": {
+            "position": "absolute",
+            "bottom": "100%",
+            "left": "50%",
+            "transform": "translateX(-50%)",
+            "margin-bottom": "8px",
+            "padding": "8px 12px",
+            "font-size": "0.75rem",
+            "color": "white",
+            "background-color": "#FAFAFA",
+            "border-radius": "0.375rem",
+            "white-space": "nowrap",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "opacity 0.2s ease, visibility 0.2s ease",
+            "z-index": "500",
+            "display": "block",
+            "font-family": "'Figtree', sans-serif"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".tooltip",
+          "tag": "div",
+          "styles": {
+            "position": "relative",
+            "display": "inline-block"
+          },
+          "children": [
+            ".tooltip__content"
+          ]
+        },
+        {
+          "selector": ".tooltip__content",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "bottom": "100%",
+            "left": "50%",
+            "transform": "translateX(-50%)",
+            "margin-bottom": "8px",
+            "padding": "8px 12px",
+            "font-size": "0.75rem",
+            "color": "white",
+            "background-color": "#FAFAFA",
+            "border-radius": "0.375rem",
+            "white-space": "nowrap",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "opacity 0.2s ease, visibility 0.2s ease",
+            "z-index": "500",
+            "display": "block",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".tooltip",
+          "states": {
+            "rootHover": {
+              "opacity": "1",
+              "visibility": "visible"
+            }
+          }
+        }
+      ]
+    },
+    "maconomy-light": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".tooltip": {
+            "position": "relative",
+            "display": "inline-block"
+          },
+          ".tooltip__content": {
+            "position": "absolute",
+            "bottom": "100%",
+            "left": "50%",
+            "transform": "translateX(-50%)",
+            "margin-bottom": "8px",
+            "padding": "8px 12px",
+            "font-size": "0.75rem",
+            "color": "white",
+            "background-color": "#373F4E",
+            "border-radius": "0.375rem",
+            "white-space": "nowrap",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "opacity 0.2s ease, visibility 0.2s ease",
+            "z-index": "500",
+            "display": "block",
+            "font-family": "'Figtree', sans-serif"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".tooltip",
+          "tag": "div",
+          "styles": {
+            "position": "relative",
+            "display": "inline-block"
+          },
+          "children": [
+            ".tooltip__content"
+          ]
+        },
+        {
+          "selector": ".tooltip__content",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "bottom": "100%",
+            "left": "50%",
+            "transform": "translateX(-50%)",
+            "margin-bottom": "8px",
+            "padding": "8px 12px",
+            "font-size": "0.75rem",
+            "color": "white",
+            "background-color": "#373F4E",
+            "border-radius": "0.375rem",
+            "white-space": "nowrap",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "opacity 0.2s ease, visibility 0.2s ease",
+            "z-index": "500",
+            "display": "block",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".tooltip",
+          "states": {
+            "rootHover": {
+              "opacity": "1",
+              "visibility": "visible"
+            }
+          }
+        }
+      ]
+    },
+    "maconomy-dark": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".tooltip": {
+            "position": "relative",
+            "display": "inline-block"
+          },
+          ".tooltip__content": {
+            "position": "absolute",
+            "bottom": "100%",
+            "left": "50%",
+            "transform": "translateX(-50%)",
+            "margin-bottom": "8px",
+            "padding": "8px 12px",
+            "font-size": "0.75rem",
+            "color": "white",
+            "background-color": "#FAFAFA",
+            "border-radius": "0.375rem",
+            "white-space": "nowrap",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "opacity 0.2s ease, visibility 0.2s ease",
+            "z-index": "500",
+            "display": "block",
+            "font-family": "'Figtree', sans-serif"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".tooltip",
+          "tag": "div",
+          "styles": {
+            "position": "relative",
+            "display": "inline-block"
+          },
+          "children": [
+            ".tooltip__content"
+          ]
+        },
+        {
+          "selector": ".tooltip__content",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "bottom": "100%",
+            "left": "50%",
+            "transform": "translateX(-50%)",
+            "margin-bottom": "8px",
+            "padding": "8px 12px",
+            "font-size": "0.75rem",
+            "color": "white",
+            "background-color": "#FAFAFA",
+            "border-radius": "0.375rem",
+            "white-space": "nowrap",
+            "opacity": "0",
+            "visibility": "hidden",
+            "transition": "opacity 0.2s ease, visibility 0.2s ease",
+            "z-index": "500",
+            "display": "block",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".tooltip",
+          "states": {
+            "rootHover": {
+              "opacity": "1",
+              "visibility": "visible"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "contentOrder": [
+    ".tooltip__content"
+  ],
+  "guidance": {
+    "patterns": {
+      "position-prop-behavior": "The position prop ('top', 'bottom', 'left', 'right') controls which side of the trigger element the tooltip appears on. Default is 'top'. Each position adds a corresponding CSS class (tooltip__content--bottom, tooltip__content--left, tooltip__content--right) that uses absolute positioning and transforms to place the tooltip. Only 'top' has no additional class, as it's the base styling.",
+      "corner-variant-independence": "The cornerVariant prop ('top', 'bottom', 'left', 'right') controls which corner of the tooltip has sharp corners instead of rounded corners, creating a visual pointer effect. This is independent of position - you can set position='bottom' and cornerVariant='top' to show tooltip below with arrow pointing up. cornerVariant adds tooltip__content--corner-{variant} classes. If cornerVariant is not set, all corners remain rounded (default CSS).",
+      "css-hover-trigger": "Tooltip visibility is controlled entirely by CSS :hover state on the parent .tooltip container. There is no JavaScript, no click handlers, and no aria-expanded. The tooltip appears on mouse hover and disappears on mouse out. This means tooltips don't work on touch devices without additional JavaScript, and keyboard users can't trigger them. For critical information, prefer visible labels.",
+      "slot-content-wrapper": "The default slot contains the trigger element (what the user hovers over), while the text prop contains the tooltip content. The text is rendered in a <span class=\"tooltip__content\"> that appears/disappears on hover. The tooltip component wraps everything in <span class=\"tooltip\">, so it's inline by default. For block-level triggers, wrap Tooltip in a block container or add display CSS."
+    },
+    "guidelines": {}
+  },
+  "specKeyOrder": [
+    "theme",
+    "mode"
+  ],
+  "dimensionDefaults": {
+    "theme": "cp",
+    "mode": "light"
+  },
+  "structure": {
+    "root": ".tooltip",
+    "children": [
+      {
+        "class": ".contentClasses"
+      }
+    ]
+  },
+  "fonts": {
+    "Figtree": "https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap",
+    "Lexend": "https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap",
+    "JetBrains Mono": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
+  },
+  "defaultContent": {
+    "_rule": "No default content defined; do not invent labels, icons, or copy. Use only what is in the spec or leave slots empty."
+  },
+  "interactivity": {
+    "events": [
+      {
+        "name": "hover",
+        "description": "CSS :hover shows tooltip; no JavaScript. Does not work on touch without extra script."
+      }
+    ],
+    "state": [
+      {
+        "name": "visible",
+        "type": "boolean",
+        "description": "Implicit via CSS hover; not controllable in base implementation"
+      }
+    ]
+  },
+  "examples": [
+    {
+      "name": "Hover tooltip",
+      "description": "Tooltip on hover",
+      "snippet": "<Tooltip text=\"Help text\"><Button>Hover me</Button></Tooltip>"
+    }
+  ]
+}

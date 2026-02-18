@@ -1,0 +1,228 @@
+---
+/**
+ * ProjectCard - Wrapper Component Example (Tier 2)
+ *
+ * This is a REFERENCE IMPLEMENTATION showing how to wrap multiple Harmony
+ * components together to create a project-specific composite component.
+ *
+ * Wraps Harmony Card component with project-specific features and defaults.
+ * This is a Tier 2 wrapper - it extends the base component without modifying it.
+ *
+ * Base Components: @deltek/harmony-components/ui/Card, Badge
+ * Pattern: Project-Specific Defaults + Composition
+ *
+ * CUSTOM PROPS:
+ * - projectStatus: Shows colored status badge ('active', 'archived', 'draft', 'on-hold', 'completed')
+ * - projectId: Displays project ID in footer
+ * - projectOwner: Shows project owner name
+ * - lastUpdated: Shows last updated date
+ * - elevated: Defaults to true (project cards should be elevated)
+ *
+ * USAGE EXAMPLE:
+ * ```astro
+ * ---
+ * import ProjectCard from '../components/composed/ProjectCard.astro';
+ * ---
+ *
+ * <ProjectCard
+ *   projectStatus="active"
+ *   projectId="PRJ-2024-001"
+ *   projectOwner="Jane Smith"
+ *   lastUpdated="2026-01-28"
+ * >
+ *   <h3>Project Alpha</h3>
+ *   <p>Strategic initiative for Q1 2026...</p>
+ * </ProjectCard>
+ * ```
+ *
+ * All standard Card props (elevated, class, etc.) are passed through.
+ *
+ * TO USE THIS EXAMPLE:
+ * 1. Copy this file to your project: src/components/composed/ProjectCard.astro
+ * 2. Adjust import paths if needed (see note at bottom)
+ * 3. Customize status values and styling for your project
+ * 4. Test in production build
+ */
+
+import Card from '../../../node_modules/@deltek/harmony-components/src/components/ui/Card.astro';
+import Badge from '../../../node_modules/@deltek/harmony-components/src/components/ui/Badge.astro';
+
+interface Props {
+  // Custom project props
+  projectStatus?: 'active' | 'archived' | 'draft' | 'on-hold' | 'completed';
+  projectId?: string;
+  projectOwner?: string;
+  lastUpdated?: string;
+
+  // Override Card defaults
+  elevated?: boolean;
+
+  // Pass through all Card props
+  [key: string]: any;
+}
+
+const {
+  projectStatus,
+  projectId,
+  projectOwner,
+  lastUpdated,
+  elevated = true,  // Project cards are elevated by default
+  ...cardProps
+} = Astro.props;
+
+// Map status to Badge variant and display text
+const statusConfig = {
+  active: { variant: 'success' as const, label: 'Active' },
+  archived: { variant: 'default' as const, label: 'Archived' },
+  draft: { variant: 'warning' as const, label: 'Draft' },
+  'on-hold': { variant: 'info' as const, label: 'On Hold' },
+  completed: { variant: 'primary' as const, label: 'Completed' }
+};
+
+const status = projectStatus ? statusConfig[projectStatus] : null;
+
+// Format date if provided
+const formattedDate = lastUpdated
+  ? new Date(lastUpdated).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    })
+  : null;
+---
+
+<Card elevated={elevated} {...cardProps} class={`project-card ${cardProps.class || ''}`}>
+  <!-- Status badge in header -->
+  {status && (
+    <div slot="header-actions" class="project-card__status">
+      <Badge variant={status.variant}>
+        {status.label}
+      </Badge>
+    </div>
+  )}
+
+  <!-- Main content from slot -->
+  <div class="project-card__content">
+    <slot />
+  </div>
+
+  <!-- Project metadata in footer -->
+  {(projectId || projectOwner || lastUpdated) && (
+    <div slot="footer" class="project-card__footer">
+      <div class="project-card__meta">
+        {projectId && (
+          <span class="project-card__meta-item">
+            <strong>ID:</strong> {projectId}
+          </span>
+        )}
+        {projectOwner && (
+          <span class="project-card__meta-item">
+            <strong>Owner:</strong> {projectOwner}
+          </span>
+        )}
+        {formattedDate && (
+          <span class="project-card__meta-item">
+            <strong>Updated:</strong> {formattedDate}
+          </span>
+        )}
+      </div>
+    </div>
+  )}
+</Card>
+
+<style>
+  /* Project card specific styling */
+  .project-card {
+    /* Add subtle left border based on status */
+    border-left: 3px solid transparent;
+  }
+
+  .project-card:has(.badge--success) {
+    border-left-color: var(--color-success);
+  }
+
+  .project-card:has(.badge--warning) {
+    border-left-color: var(--color-warning);
+  }
+
+  .project-card:has(.badge--neutral) {
+    border-left-color: var(--color-neutral-400);
+  }
+
+  .project-card:has(.badge--info) {
+    border-left-color: var(--color-info);
+  }
+
+  .project-card:has(.badge--primary) {
+    border-left-color: var(--theme-primary);
+  }
+
+  .project-card__status {
+    display: flex;
+    align-items: center;
+  }
+
+  .project-card__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .project-card__footer {
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-neutral-200);
+  }
+
+  .project-card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+  }
+
+  .project-card__meta-item {
+    display: flex;
+    gap: var(--space-1);
+  }
+
+  .project-card__meta-item strong {
+    font-weight: 500;
+    color: var(--color-text-primary);
+  }
+
+  /* Dark mode support */
+  :global(.dark) .project-card__footer {
+    border-top-color: var(--color-neutral-700);
+  }
+
+  /* Responsive: stack metadata on mobile */
+  @media (max-width: 640px) {
+    .project-card__meta {
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+  }
+</style>
+
+<!--
+  IMPLEMENTATION NOTES:
+  - Uses Card's slots (header-actions, footer) to add project-specific UI
+  - Elevated by default (can be overridden with elevated={false})
+  - Color-coded border matches status badge for visual consistency
+  - Metadata is optional - only shows if props are provided
+  - Date formatting uses browser locale (can be customized)
+  - Responsive design stacks metadata on mobile
+
+  CUSTOMIZATION IDEAS:
+  - Add projectPriority prop with priority indicator
+  - Add projectTags for categorization
+  - Add action buttons (edit, delete) in footer
+  - Add progress bar for completion percentage
+  - Add team member avatars
+
+  IMPORT PATH NOTE:
+  - This example uses: ../../../node_modules/@deltek/harmony-components/src/components/ui/...
+  - Some projects may be able to use: @deltek/harmony-components/ui/...
+  - If the package subpath doesn't work, use the full node_modules path shown above
+-->

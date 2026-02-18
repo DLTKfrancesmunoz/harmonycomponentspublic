@@ -1,0 +1,1149 @@
+{
+  "name": "TabStrip",
+  "type": "component",
+  "filePath": "src/components/ui/TabStrip.astro",
+  "description": "TabStrip Component",
+  "props": {
+    "tabs": {
+      "type": "Tab[]",
+      "optional": false,
+      "default": "[]"
+    },
+    "showAddTab": {
+      "type": "boolean",
+      "optional": true,
+      "default": "false"
+    },
+    "addTabLabel": {
+      "type": "string",
+      "optional": true,
+      "default": "'Add Tab'"
+    },
+    "overflowMode": {
+      "type": "'auto' | 'manual' | 'none'",
+      "optional": true,
+      "default": "'auto'"
+    },
+    "overflowTabs": {
+      "type": "Tab[]",
+      "optional": true,
+      "default": "[]"
+    },
+    "variant": {
+      "type": "'default' | 'compact'",
+      "optional": true,
+      "default": "'default'"
+    },
+    "iconPosition": {
+      "type": "'left' | 'right' | 'top'",
+      "optional": true,
+      "default": null
+    },
+    "class": {
+      "type": "string",
+      "optional": true,
+      "default": "''"
+    }
+  },
+  "defaults": {
+    "theme": "cp",
+    "mode": "light",
+    "variant": "'default'"
+  },
+  "specs": {
+    "default-cp-light": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".tabstrip": {},
+          ".tabstrip__nav": {},
+          ".tabstrip__container": {},
+          ".tabstrip__tabs": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".tabstrip",
+          "tag": "div",
+          "styles": {},
+          "children": [
+            ".tabstrip__nav",
+            ".tabstrip__container"
+          ]
+        },
+        {
+          "selector": ".tabstrip__nav",
+          "tag": "nav",
+          "styles": {},
+          "parent": ".tabstrip"
+        },
+        {
+          "selector": ".tabstrip__container",
+          "tag": "div",
+          "styles": {},
+          "children": [
+            ".tabstrip__tabs"
+          ],
+          "parent": ".tabstrip__nav"
+        },
+        {
+          "selector": ".tabstrip__tabs",
+          "tag": "div",
+          "styles": {},
+          "parent": ".tabstrip__container"
+        }
+      ]
+    },
+    "default-cp-dark": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".tabstrip": {},
+          ".tabstrip__nav": {},
+          ".tabstrip__container": {},
+          ".tabstrip__tabs": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".tabstrip",
+          "tag": "div",
+          "styles": {},
+          "children": [
+            ".tabstrip__nav",
+            ".tabstrip__container"
+          ]
+        },
+        {
+          "selector": ".tabstrip__nav",
+          "tag": "nav",
+          "styles": {},
+          "parent": ".tabstrip"
+        },
+        {
+          "selector": ".tabstrip__container",
+          "tag": "div",
+          "styles": {},
+          "children": [
+            ".tabstrip__tabs"
+          ],
+          "parent": ".tabstrip__nav"
+        },
+        {
+          "selector": ".tabstrip__tabs",
+          "tag": "div",
+          "styles": {},
+          "parent": ".tabstrip__container"
+        }
+      ]
+    },
+    "default-vp-light": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".tabstrip": {},
+          ".tabstrip__nav": {},
+          ".tabstrip__container": {},
+          ".tabstrip__tabs": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".tabstrip",
+          "tag": "div",
+          "styles": {},
+          "children": [
+            ".tabstrip__nav",
+            ".tabstrip__container"
+          ]
+        },
+        {
+          "selector": ".tabstrip__nav",
+          "tag": "nav",
+          "styles": {},
+          "parent": ".tabstrip"
+        },
+        {
+          "selector": ".tabstrip__container",
+          "tag": "div",
+          "styles": {},
+          "children": [
+            ".tabstrip__tabs"
+          ],
+          "parent": ".tabstrip__nav"
+        },
+        {
+          "selector": ".tabstrip__tabs",
+          "tag": "div",
+          "styles": {},
+          "parent": ".tabstrip__container"
+        }
+      ]
+    },
+    "default-vp-dark": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".tabstrip": {},
+          ".tabstrip__nav": {},
+          ".tabstrip__container": {},
+          ".tabstrip__tabs": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".tabstrip",
+          "tag": "div",
+          "styles": {},
+          "children": [
+            ".tabstrip__nav",
+            ".tabstrip__container"
+          ]
+        },
+        {
+          "selector": ".tabstrip__nav",
+          "tag": "nav",
+          "styles": {},
+          "parent": ".tabstrip"
+        },
+        {
+          "selector": ".tabstrip__container",
+          "tag": "div",
+          "styles": {},
+          "children": [
+            ".tabstrip__tabs"
+          ],
+          "parent": ".tabstrip__nav"
+        },
+        {
+          "selector": ".tabstrip__tabs",
+          "tag": "div",
+          "styles": {},
+          "parent": ".tabstrip__container"
+        }
+      ]
+    },
+    "default-ppm-light": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".tabstrip": {},
+          ".tabstrip__nav": {},
+          ".tabstrip__container": {},
+          ".tabstrip__tabs": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".tabstrip",
+          "tag": "div",
+          "styles": {},
+          "children": [
+            ".tabstrip__nav",
+            ".tabstrip__container"
+          ]
+        },
+        {
+          "selector": ".tabstrip__nav",
+          "tag": "nav",
+          "styles": {},
+          "parent": ".tabstrip"
+        },
+        {
+          "selector": ".tabstrip__container",
+          "tag": "div",
+          "styles": {},
+          "children": [
+            ".tabstrip__tabs"
+          ],
+          "parent": ".tabstrip__nav"
+        },
+        {
+          "selector": ".tabstrip__tabs",
+          "tag": "div",
+          "styles": {},
+          "parent": ".tabstrip__container"
+        }
+      ]
+    },
+    "default-ppm-dark": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".tabstrip": {},
+          ".tabstrip__nav": {},
+          ".tabstrip__container": {},
+          ".tabstrip__tabs": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".tabstrip",
+          "tag": "div",
+          "styles": {},
+          "children": [
+            ".tabstrip__nav",
+            ".tabstrip__container"
+          ]
+        },
+        {
+          "selector": ".tabstrip__nav",
+          "tag": "nav",
+          "styles": {},
+          "parent": ".tabstrip"
+        },
+        {
+          "selector": ".tabstrip__container",
+          "tag": "div",
+          "styles": {},
+          "children": [
+            ".tabstrip__tabs"
+          ],
+          "parent": ".tabstrip__nav"
+        },
+        {
+          "selector": ".tabstrip__tabs",
+          "tag": "div",
+          "styles": {},
+          "parent": ".tabstrip__container"
+        }
+      ]
+    },
+    "default-maconomy-light": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".tabstrip": {},
+          ".tabstrip__nav": {},
+          ".tabstrip__container": {},
+          ".tabstrip__tabs": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".tabstrip",
+          "tag": "div",
+          "styles": {},
+          "children": [
+            ".tabstrip__nav",
+            ".tabstrip__container"
+          ]
+        },
+        {
+          "selector": ".tabstrip__nav",
+          "tag": "nav",
+          "styles": {},
+          "parent": ".tabstrip"
+        },
+        {
+          "selector": ".tabstrip__container",
+          "tag": "div",
+          "styles": {},
+          "children": [
+            ".tabstrip__tabs"
+          ],
+          "parent": ".tabstrip__nav"
+        },
+        {
+          "selector": ".tabstrip__tabs",
+          "tag": "div",
+          "styles": {},
+          "parent": ".tabstrip__container"
+        }
+      ]
+    },
+    "default-maconomy-dark": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".tabstrip": {},
+          ".tabstrip__nav": {},
+          ".tabstrip__container": {},
+          ".tabstrip__tabs": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".tabstrip",
+          "tag": "div",
+          "styles": {},
+          "children": [
+            ".tabstrip__nav",
+            ".tabstrip__container"
+          ]
+        },
+        {
+          "selector": ".tabstrip__nav",
+          "tag": "nav",
+          "styles": {},
+          "parent": ".tabstrip"
+        },
+        {
+          "selector": ".tabstrip__container",
+          "tag": "div",
+          "styles": {},
+          "children": [
+            ".tabstrip__tabs"
+          ],
+          "parent": ".tabstrip__nav"
+        },
+        {
+          "selector": ".tabstrip__tabs",
+          "tag": "div",
+          "styles": {},
+          "parent": ".tabstrip__container"
+        }
+      ]
+    },
+    "compact-cp-light": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".tabstrip": {
+            "padding": "8px 12px",
+            "font-size": "0.8125rem",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".tabstrip__nav": {},
+          ".tabstrip__container": {},
+          ".tabstrip__tabs": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".tabstrip",
+          "tag": "div",
+          "styles": {
+            "padding": "8px 12px",
+            "font-size": "0.8125rem",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "children": [
+            ".tabstrip__nav",
+            ".tabstrip__container"
+          ]
+        },
+        {
+          "selector": ".tabstrip__nav",
+          "tag": "nav",
+          "styles": {},
+          "parent": ".tabstrip"
+        },
+        {
+          "selector": ".tabstrip__container",
+          "tag": "div",
+          "styles": {},
+          "children": [
+            ".tabstrip__tabs"
+          ],
+          "parent": ".tabstrip__nav"
+        },
+        {
+          "selector": ".tabstrip__tabs",
+          "tag": "div",
+          "styles": {},
+          "parent": ".tabstrip__container"
+        }
+      ]
+    },
+    "compact-cp-dark": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".tabstrip": {
+            "padding": "8px 12px",
+            "font-size": "0.8125rem",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".tabstrip__nav": {},
+          ".tabstrip__container": {},
+          ".tabstrip__tabs": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".tabstrip",
+          "tag": "div",
+          "styles": {
+            "padding": "8px 12px",
+            "font-size": "0.8125rem",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "children": [
+            ".tabstrip__nav",
+            ".tabstrip__container"
+          ]
+        },
+        {
+          "selector": ".tabstrip__nav",
+          "tag": "nav",
+          "styles": {},
+          "parent": ".tabstrip"
+        },
+        {
+          "selector": ".tabstrip__container",
+          "tag": "div",
+          "styles": {},
+          "children": [
+            ".tabstrip__tabs"
+          ],
+          "parent": ".tabstrip__nav"
+        },
+        {
+          "selector": ".tabstrip__tabs",
+          "tag": "div",
+          "styles": {},
+          "parent": ".tabstrip__container"
+        }
+      ]
+    },
+    "compact-vp-light": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".tabstrip": {
+            "padding": "8px 12px",
+            "font-size": "0.8125rem",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".tabstrip__nav": {},
+          ".tabstrip__container": {},
+          ".tabstrip__tabs": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".tabstrip",
+          "tag": "div",
+          "styles": {
+            "padding": "8px 12px",
+            "font-size": "0.8125rem",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "children": [
+            ".tabstrip__nav",
+            ".tabstrip__container"
+          ]
+        },
+        {
+          "selector": ".tabstrip__nav",
+          "tag": "nav",
+          "styles": {},
+          "parent": ".tabstrip"
+        },
+        {
+          "selector": ".tabstrip__container",
+          "tag": "div",
+          "styles": {},
+          "children": [
+            ".tabstrip__tabs"
+          ],
+          "parent": ".tabstrip__nav"
+        },
+        {
+          "selector": ".tabstrip__tabs",
+          "tag": "div",
+          "styles": {},
+          "parent": ".tabstrip__container"
+        }
+      ]
+    },
+    "compact-vp-dark": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".tabstrip": {
+            "padding": "8px 12px",
+            "font-size": "0.8125rem",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".tabstrip__nav": {},
+          ".tabstrip__container": {},
+          ".tabstrip__tabs": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".tabstrip",
+          "tag": "div",
+          "styles": {
+            "padding": "8px 12px",
+            "font-size": "0.8125rem",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "children": [
+            ".tabstrip__nav",
+            ".tabstrip__container"
+          ]
+        },
+        {
+          "selector": ".tabstrip__nav",
+          "tag": "nav",
+          "styles": {},
+          "parent": ".tabstrip"
+        },
+        {
+          "selector": ".tabstrip__container",
+          "tag": "div",
+          "styles": {},
+          "children": [
+            ".tabstrip__tabs"
+          ],
+          "parent": ".tabstrip__nav"
+        },
+        {
+          "selector": ".tabstrip__tabs",
+          "tag": "div",
+          "styles": {},
+          "parent": ".tabstrip__container"
+        }
+      ]
+    },
+    "compact-ppm-light": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".tabstrip": {
+            "padding": "8px 12px",
+            "font-size": "0.8125rem",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".tabstrip__nav": {},
+          ".tabstrip__container": {},
+          ".tabstrip__tabs": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".tabstrip",
+          "tag": "div",
+          "styles": {
+            "padding": "8px 12px",
+            "font-size": "0.8125rem",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "children": [
+            ".tabstrip__nav",
+            ".tabstrip__container"
+          ]
+        },
+        {
+          "selector": ".tabstrip__nav",
+          "tag": "nav",
+          "styles": {},
+          "parent": ".tabstrip"
+        },
+        {
+          "selector": ".tabstrip__container",
+          "tag": "div",
+          "styles": {},
+          "children": [
+            ".tabstrip__tabs"
+          ],
+          "parent": ".tabstrip__nav"
+        },
+        {
+          "selector": ".tabstrip__tabs",
+          "tag": "div",
+          "styles": {},
+          "parent": ".tabstrip__container"
+        }
+      ]
+    },
+    "compact-ppm-dark": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".tabstrip": {
+            "padding": "8px 12px",
+            "font-size": "0.8125rem",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".tabstrip__nav": {},
+          ".tabstrip__container": {},
+          ".tabstrip__tabs": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".tabstrip",
+          "tag": "div",
+          "styles": {
+            "padding": "8px 12px",
+            "font-size": "0.8125rem",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "children": [
+            ".tabstrip__nav",
+            ".tabstrip__container"
+          ]
+        },
+        {
+          "selector": ".tabstrip__nav",
+          "tag": "nav",
+          "styles": {},
+          "parent": ".tabstrip"
+        },
+        {
+          "selector": ".tabstrip__container",
+          "tag": "div",
+          "styles": {},
+          "children": [
+            ".tabstrip__tabs"
+          ],
+          "parent": ".tabstrip__nav"
+        },
+        {
+          "selector": ".tabstrip__tabs",
+          "tag": "div",
+          "styles": {},
+          "parent": ".tabstrip__container"
+        }
+      ]
+    },
+    "compact-maconomy-light": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".tabstrip": {
+            "padding": "8px 12px",
+            "font-size": "0.8125rem",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".tabstrip__nav": {},
+          ".tabstrip__container": {},
+          ".tabstrip__tabs": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".tabstrip",
+          "tag": "div",
+          "styles": {
+            "padding": "8px 12px",
+            "font-size": "0.8125rem",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "children": [
+            ".tabstrip__nav",
+            ".tabstrip__container"
+          ]
+        },
+        {
+          "selector": ".tabstrip__nav",
+          "tag": "nav",
+          "styles": {},
+          "parent": ".tabstrip"
+        },
+        {
+          "selector": ".tabstrip__container",
+          "tag": "div",
+          "styles": {},
+          "children": [
+            ".tabstrip__tabs"
+          ],
+          "parent": ".tabstrip__nav"
+        },
+        {
+          "selector": ".tabstrip__tabs",
+          "tag": "div",
+          "styles": {},
+          "parent": ".tabstrip__container"
+        }
+      ]
+    },
+    "compact-maconomy-dark": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".tabstrip": {
+            "padding": "8px 12px",
+            "font-size": "0.8125rem",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".tabstrip__nav": {},
+          ".tabstrip__container": {},
+          ".tabstrip__tabs": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".tabstrip",
+          "tag": "div",
+          "styles": {
+            "padding": "8px 12px",
+            "font-size": "0.8125rem",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "children": [
+            ".tabstrip__nav",
+            ".tabstrip__container"
+          ]
+        },
+        {
+          "selector": ".tabstrip__nav",
+          "tag": "nav",
+          "styles": {},
+          "parent": ".tabstrip"
+        },
+        {
+          "selector": ".tabstrip__container",
+          "tag": "div",
+          "styles": {},
+          "children": [
+            ".tabstrip__tabs"
+          ],
+          "parent": ".tabstrip__nav"
+        },
+        {
+          "selector": ".tabstrip__tabs",
+          "tag": "div",
+          "styles": {},
+          "parent": ".tabstrip__container"
+        }
+      ]
+    }
+  },
+  "contentOrder": [
+    ".tabstrip__nav"
+  ],
+  "guidance": {
+    "patterns": {
+      "icon-position-consistency": "All tabs must use either inline icon positioning (left/right) OR stacked (top), but cannot mix both. Use the component-level iconPosition prop to enforce consistency across all tabs, or ensure individual tab iconPosition values follow this rule. The component will log a warning if mixed positions are detected (lines 52-68).",
+      "overflow-modes": "The overflowMode prop has three behaviors: 'auto' (default) uses ResizeObserver to automatically detect and move tabs to dropdown when they don't fit; 'manual' requires you to provide overflowTabs prop with specific tabs to show in dropdown; 'none' disables overflow handling entirely and may cause horizontal scrolling.",
+      "named-slots-limitation": "Custom tab content can only be provided via named slots tab-0 through tab-9, supporting a maximum of 10 tabs with custom content. This is an Astro limitation requiring static slot names. For tabs beyond index 9, only the standard tab rendering is available.",
+      "custom-events": "TabStrip dispatches three custom events: 'tab-strip:tab-selected' (bubbles, includes tabId), 'tab-strip:close-tab' (from overflow dropdown close action), and 'tab-strip:open-new-window' (from overflow dropdown). Listen for these events on the TabStrip container to handle user interactions. The 'tab-strip:add-tab' event is dispatched when the optional Add Tab button is clicked."
+    },
+    "guidelines": {}
+  },
+  "specKeyOrder": [
+    "variant",
+    "theme",
+    "mode"
+  ],
+  "dimensionDefaults": {
+    "variant": "default",
+    "theme": "cp",
+    "mode": "light"
+  },
+  "structure": {
+    "root": ".tabstrip",
+    "children": [
+      {
+        "class": ".tabstrip__nav",
+        "children": [
+          {
+            "class": ".tabstrip__container",
+            "children": [
+              {
+                "class": ".tabstrip__tabs"
+              },
+              {
+                "class": ".tab",
+                "children": []
+              },
+              {
+                "class": ".tabstrip__more-wrapper",
+                "children": [
+                  {
+                    "class": ".tab",
+                    "children": []
+                  },
+                  {
+                    "class": ".tabstrip__dropdown",
+                    "children": [
+                      {
+                        "class": ".tabstrip__dropdown-section",
+                        "children": [
+                          {
+                            "class": ".tabstrip__dropdown-item",
+                            "children": [
+                              {
+                                "class": ".tabstrip__dropdown-item-label",
+                                "children": [
+                                  {
+                                    "class": ".tabstrip__dropdown-item-icon"
+                                  }
+                                ]
+                              },
+                              {
+                                "class": ".tabstrip__dropdown-item-actions",
+                                "children": [
+                                  {
+                                    "class": ".tabstrip__dropdown-action-btn",
+                                    "children": []
+                                  },
+                                  {
+                                    "class": ".tabstrip__dropdown-action-btn",
+                                    "children": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "fonts": {
+    "Figtree": "https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap",
+    "Lexend": "https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap",
+    "JetBrains Mono": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
+  },
+  "defaultContent": {
+    "_rule": "No default content defined; do not invent labels, icons, or copy. Use only what is in the spec or leave slots empty.",
+    "_behavior": "Overflow is driven by container/browser width. When overflowMode is 'auto', tabs that do not fit move to the More dropdown. When overflowMode is 'none', horizontal scrolling may occur. Do not rely on prose only for viewport/width behavior.",
+    "_responsive": "Tab strip layout and overflow (tabs vs More dropdown) depend on available width; no fixed breakpoints—behavior is container-driven."
+  },
+  "interactivity": {
+    "events": [
+      {
+        "name": "change",
+        "description": "Triggered when user selects a different tab"
+      }
+    ],
+    "state": [
+      {
+        "name": "activeTab",
+        "type": "string",
+        "description": "Id or index of the active tab; controlled via props or script"
+      }
+    ]
+  },
+  "examples": [
+    {
+      "name": "Tabs",
+      "description": "Tab navigation",
+      "snippet": "<TabStrip tabs={[{ id: '1', label: 'Tab 1' }]} activeTab=\"1\" />"
+    }
+  ],
+  "contentOrder.tabstrip__container": [
+    ".tabstrip__tabs",
+    ".tab",
+    ".tabstrip__more-wrapper"
+  ],
+  "contentOrder.tabstrip__dropdown": [
+    ".tabstrip__dropdown-section"
+  ],
+  "contentOrder.tabstrip__dropdown-item": [
+    ".tabstrip__dropdown-item-label",
+    ".tabstrip__dropdown-item-actions"
+  ],
+  "contentOrder.tabstrip__dropdown-item-actions": [
+    ".tabstrip__dropdown-action-btn",
+    ".tabstrip__dropdown-action-btn"
+  ],
+  "contentOrder.tabstrip__dropdown-item-label": [
+    ".tabstrip__dropdown-item-icon"
+  ],
+  "contentOrder.tabstrip__dropdown-section": [
+    ".tabstrip__dropdown-item"
+  ],
+  "contentOrder.tabstrip__more-wrapper": [
+    ".tab",
+    ".tabstrip__dropdown"
+  ],
+  "contentOrder.tabstrip__nav": [
+    ".tabstrip__container"
+  ]
+}

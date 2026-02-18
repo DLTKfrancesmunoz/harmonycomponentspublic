@@ -1,0 +1,2097 @@
+{
+  "name": "Dropdown",
+  "type": "component",
+  "filePath": "src/components/ui/Dropdown.astro",
+  "description": "Dropdown Component",
+  "props": {
+    "options": {
+      "type": "Option[]",
+      "optional": false,
+      "default": null
+    },
+    "value": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "placeholder": {
+      "type": "string",
+      "optional": true,
+      "default": "'Select an option'"
+    },
+    "name": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "id": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "disabled": {
+      "type": "boolean",
+      "optional": true,
+      "default": "false"
+    },
+    "class": {
+      "type": "string",
+      "optional": true,
+      "default": "''"
+    },
+    "label": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "labelVariant": {
+      "type": "'inline' | 'stacked'",
+      "optional": true,
+      "default": null
+    },
+    "labelFor": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    }
+  },
+  "defaults": {
+    "theme": "cp",
+    "mode": "light"
+  },
+  "specs": {
+    "cp-light": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".dropdown-wrapper__label": {
+            "margin-bottom": "0",
+            "white-space": "nowrap"
+          },
+          ".dropdown-wrapper": {
+            "display": "flex",
+            "flex-direction": "row",
+            "align-items": "center",
+            "gap": "4px"
+          },
+          ".dropdown": {
+            "position": "relative",
+            "display": "inline-block"
+          },
+          ".dropdown__chevron": {
+            "color": "#6B7280",
+            "transition": "transform 150ms ease",
+            "transform": "rotate(180deg)"
+          },
+          ".dropdown__item": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%",
+            "padding": "8px 16px",
+            "font-size": "0.875rem",
+            "color": "#373F4E",
+            "text-align": "left",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".dropdown__menu": {
+            "display": "block",
+            "position": "absolute",
+            "top": "100%",
+            "left": "0",
+            "margin-top": "4px",
+            "min-width": "100%",
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "box-shadow": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)",
+            "padding": "4px 0",
+            "z-index": "100",
+            "max-height": "300px",
+            "overflow-y": "auto"
+          },
+          ".dropdown__trigger": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "gap": "8px",
+            "min-width": "180px",
+            "height": "20px",
+            "padding": "0 8px 0 8px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "color": "#373F4E",
+            "background-color": "#FFFFFF",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "cursor": "pointer",
+            "transition": "all 150ms ease"
+          },
+          ".dropdown__value": {
+            "flex": "1",
+            "text-align": "left",
+            "overflow": "hidden",
+            "text-overflow": "ellipsis",
+            "white-space": "nowrap"
+          },
+          ".classes": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".dropdown-wrapper__label",
+          "tag": "div",
+          "styles": {
+            "margin-bottom": "0",
+            "white-space": "nowrap"
+          },
+          "children": [
+            ".dropdown-wrapper"
+          ]
+        },
+        {
+          "selector": ".dropdown-wrapper",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "row",
+            "align-items": "center",
+            "gap": "4px"
+          },
+          "children": [
+            ".dropdown"
+          ],
+          "parent": ".dropdown-wrapper__label"
+        },
+        {
+          "selector": ".dropdown",
+          "tag": "div",
+          "styles": {
+            "position": "relative",
+            "display": "inline-block"
+          },
+          "children": [
+            ".dropdown__chevron",
+            ".dropdown__item",
+            ".dropdown__menu",
+            ".dropdown__trigger",
+            ".dropdown__value"
+          ]
+        },
+        {
+          "selector": ".dropdown__chevron",
+          "tag": "span",
+          "styles": {
+            "color": "#6B7280",
+            "transition": "transform 150ms ease",
+            "transform": "rotate(180deg)"
+          },
+          "parent": ".dropdown"
+        },
+        {
+          "selector": ".dropdown__item",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%",
+            "padding": "8px 16px",
+            "font-size": "0.875rem",
+            "color": "#373F4E",
+            "text-align": "left",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".dropdown__menu",
+          "states": {
+            "hover": {
+              "background-color": "#E5E7EB"
+            },
+            "disabled": {
+              "color": "#6B7280",
+              "cursor": "not-allowed"
+            }
+          }
+        },
+        {
+          "selector": ".dropdown__menu",
+          "tag": "span",
+          "styles": {
+            "display": "block",
+            "position": "absolute",
+            "top": "100%",
+            "left": "0",
+            "margin-top": "4px",
+            "min-width": "100%",
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "box-shadow": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)",
+            "padding": "4px 0",
+            "z-index": "100",
+            "max-height": "300px",
+            "overflow-y": "auto"
+          },
+          "parent": ".classes"
+        },
+        {
+          "selector": ".dropdown__trigger",
+          "tag": "span",
+          "styles": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "gap": "8px",
+            "min-width": "180px",
+            "height": "20px",
+            "padding": "0 8px 0 8px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "color": "#373F4E",
+            "background-color": "#FFFFFF",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "cursor": "pointer",
+            "transition": "all 150ms ease"
+          },
+          "parent": ".classes",
+          "states": {
+            "hover": {
+              "background-color": "#E5E7EB"
+            },
+            "focus": {
+              "outline": "none",
+              "border-color": "#4C92D9",
+              "box-shadow": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA"
+            }
+          }
+        },
+        {
+          "selector": ".dropdown__value",
+          "tag": "span",
+          "styles": {
+            "flex": "1",
+            "text-align": "left",
+            "overflow": "hidden",
+            "text-overflow": "ellipsis",
+            "white-space": "nowrap"
+          },
+          "parent": ".dropdown"
+        },
+        {
+          "selector": ".classes",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    },
+    "cp-dark": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".dropdown-wrapper__label": {
+            "margin-bottom": "0",
+            "white-space": "nowrap"
+          },
+          ".dropdown-wrapper": {
+            "display": "flex",
+            "flex-direction": "row",
+            "align-items": "center",
+            "gap": "4px"
+          },
+          ".dropdown": {
+            "position": "relative",
+            "display": "inline-block"
+          },
+          ".dropdown__chevron": {
+            "color": "#BBBBC6",
+            "transition": "transform 150ms ease",
+            "transform": "rotate(180deg)"
+          },
+          ".dropdown__item": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%",
+            "padding": "8px 16px",
+            "font-size": "0.875rem",
+            "color": "#E9ECEF",
+            "text-align": "left",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".dropdown__menu": {
+            "display": "block",
+            "position": "absolute",
+            "top": "100%",
+            "left": "0",
+            "margin-top": "4px",
+            "min-width": "100%",
+            "background-color": "#37424D",
+            "border": "1px solid #5F6871",
+            "border-radius": "0.5rem",
+            "box-shadow": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)",
+            "padding": "4px 0",
+            "z-index": "100",
+            "max-height": "300px",
+            "overflow-y": "auto"
+          },
+          ".dropdown__trigger": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "gap": "8px",
+            "min-width": "180px",
+            "height": "20px",
+            "padding": "0 8px 0 8px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "color": "#E9ECEF",
+            "background-color": "#1F252E",
+            "border": "1px solid #5F6871",
+            "border-radius": "0.5rem",
+            "cursor": "pointer",
+            "transition": "all 150ms ease"
+          },
+          ".dropdown__value": {
+            "flex": "1",
+            "text-align": "left",
+            "overflow": "hidden",
+            "text-overflow": "ellipsis",
+            "white-space": "nowrap"
+          },
+          ".classes": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".dropdown-wrapper__label",
+          "tag": "div",
+          "styles": {
+            "margin-bottom": "0",
+            "white-space": "nowrap"
+          },
+          "children": [
+            ".dropdown-wrapper"
+          ]
+        },
+        {
+          "selector": ".dropdown-wrapper",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "row",
+            "align-items": "center",
+            "gap": "4px"
+          },
+          "children": [
+            ".dropdown"
+          ],
+          "parent": ".dropdown-wrapper__label"
+        },
+        {
+          "selector": ".dropdown",
+          "tag": "div",
+          "styles": {
+            "position": "relative",
+            "display": "inline-block"
+          },
+          "children": [
+            ".dropdown__chevron",
+            ".dropdown__item",
+            ".dropdown__menu",
+            ".dropdown__trigger",
+            ".dropdown__value"
+          ]
+        },
+        {
+          "selector": ".dropdown__chevron",
+          "tag": "span",
+          "styles": {
+            "color": "#BBBBC6",
+            "transition": "transform 150ms ease",
+            "transform": "rotate(180deg)"
+          },
+          "parent": ".dropdown"
+        },
+        {
+          "selector": ".dropdown__item",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%",
+            "padding": "8px 16px",
+            "font-size": "0.875rem",
+            "color": "#E9ECEF",
+            "text-align": "left",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".dropdown__menu",
+          "states": {
+            "hover": {
+              "background-color": "#3D4A5C"
+            },
+            "disabled": {
+              "color": "#BBBBC6",
+              "cursor": "not-allowed"
+            }
+          }
+        },
+        {
+          "selector": ".dropdown__menu",
+          "tag": "span",
+          "styles": {
+            "display": "block",
+            "position": "absolute",
+            "top": "100%",
+            "left": "0",
+            "margin-top": "4px",
+            "min-width": "100%",
+            "background-color": "#37424D",
+            "border": "1px solid #5F6871",
+            "border-radius": "0.5rem",
+            "box-shadow": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)",
+            "padding": "4px 0",
+            "z-index": "100",
+            "max-height": "300px",
+            "overflow-y": "auto"
+          },
+          "parent": ".classes"
+        },
+        {
+          "selector": ".dropdown__trigger",
+          "tag": "span",
+          "styles": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "gap": "8px",
+            "min-width": "180px",
+            "height": "20px",
+            "padding": "0 8px 0 8px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "color": "#E9ECEF",
+            "background-color": "#1F252E",
+            "border": "1px solid #5F6871",
+            "border-radius": "0.5rem",
+            "cursor": "pointer",
+            "transition": "all 150ms ease"
+          },
+          "parent": ".classes",
+          "states": {
+            "hover": {
+              "background-color": "#3D4A5C"
+            },
+            "focus": {
+              "outline": "none",
+              "border-color": "#59ACFF",
+              "box-shadow": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #37424D"
+            }
+          }
+        },
+        {
+          "selector": ".dropdown__value",
+          "tag": "span",
+          "styles": {
+            "flex": "1",
+            "text-align": "left",
+            "overflow": "hidden",
+            "text-overflow": "ellipsis",
+            "white-space": "nowrap"
+          },
+          "parent": ".dropdown"
+        },
+        {
+          "selector": ".classes",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    },
+    "vp-light": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".dropdown-wrapper__label": {
+            "margin-bottom": "0",
+            "white-space": "nowrap"
+          },
+          ".dropdown-wrapper": {
+            "display": "flex",
+            "flex-direction": "row",
+            "align-items": "center",
+            "gap": "4px"
+          },
+          ".dropdown": {
+            "position": "relative",
+            "display": "inline-block"
+          },
+          ".dropdown__chevron": {
+            "color": "#6B7280",
+            "transition": "transform 150ms ease",
+            "transform": "rotate(180deg)"
+          },
+          ".dropdown__item": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%",
+            "padding": "8px 16px",
+            "font-size": "0.875rem",
+            "color": "#373F4E",
+            "text-align": "left",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".dropdown__menu": {
+            "display": "block",
+            "position": "absolute",
+            "top": "100%",
+            "left": "0",
+            "margin-top": "4px",
+            "min-width": "100%",
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "box-shadow": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)",
+            "padding": "4px 0",
+            "z-index": "100",
+            "max-height": "300px",
+            "overflow-y": "auto"
+          },
+          ".dropdown__trigger": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "gap": "8px",
+            "min-width": "180px",
+            "height": "20px",
+            "padding": "0 8px 0 8px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "color": "#373F4E",
+            "background-color": "#FFFFFF",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "cursor": "pointer",
+            "transition": "all 150ms ease"
+          },
+          ".dropdown__value": {
+            "flex": "1",
+            "text-align": "left",
+            "overflow": "hidden",
+            "text-overflow": "ellipsis",
+            "white-space": "nowrap"
+          },
+          ".classes": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".dropdown-wrapper__label",
+          "tag": "div",
+          "styles": {
+            "margin-bottom": "0",
+            "white-space": "nowrap"
+          },
+          "children": [
+            ".dropdown-wrapper"
+          ]
+        },
+        {
+          "selector": ".dropdown-wrapper",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "row",
+            "align-items": "center",
+            "gap": "4px"
+          },
+          "children": [
+            ".dropdown"
+          ],
+          "parent": ".dropdown-wrapper__label"
+        },
+        {
+          "selector": ".dropdown",
+          "tag": "div",
+          "styles": {
+            "position": "relative",
+            "display": "inline-block"
+          },
+          "children": [
+            ".dropdown__chevron",
+            ".dropdown__item",
+            ".dropdown__menu",
+            ".dropdown__trigger",
+            ".dropdown__value"
+          ]
+        },
+        {
+          "selector": ".dropdown__chevron",
+          "tag": "span",
+          "styles": {
+            "color": "#6B7280",
+            "transition": "transform 150ms ease",
+            "transform": "rotate(180deg)"
+          },
+          "parent": ".dropdown"
+        },
+        {
+          "selector": ".dropdown__item",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%",
+            "padding": "8px 16px",
+            "font-size": "0.875rem",
+            "color": "#373F4E",
+            "text-align": "left",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".dropdown__menu",
+          "states": {
+            "hover": {
+              "background-color": "#E5E7EB"
+            },
+            "disabled": {
+              "color": "#6B7280",
+              "cursor": "not-allowed"
+            }
+          }
+        },
+        {
+          "selector": ".dropdown__menu",
+          "tag": "span",
+          "styles": {
+            "display": "block",
+            "position": "absolute",
+            "top": "100%",
+            "left": "0",
+            "margin-top": "4px",
+            "min-width": "100%",
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "box-shadow": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)",
+            "padding": "4px 0",
+            "z-index": "100",
+            "max-height": "300px",
+            "overflow-y": "auto"
+          },
+          "parent": ".classes"
+        },
+        {
+          "selector": ".dropdown__trigger",
+          "tag": "span",
+          "styles": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "gap": "8px",
+            "min-width": "180px",
+            "height": "20px",
+            "padding": "0 8px 0 8px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "color": "#373F4E",
+            "background-color": "#FFFFFF",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "cursor": "pointer",
+            "transition": "all 150ms ease"
+          },
+          "parent": ".classes",
+          "states": {
+            "hover": {
+              "background-color": "#E5E7EB"
+            },
+            "focus": {
+              "outline": "none",
+              "border-color": "#4C92D9",
+              "box-shadow": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA"
+            }
+          }
+        },
+        {
+          "selector": ".dropdown__value",
+          "tag": "span",
+          "styles": {
+            "flex": "1",
+            "text-align": "left",
+            "overflow": "hidden",
+            "text-overflow": "ellipsis",
+            "white-space": "nowrap"
+          },
+          "parent": ".dropdown"
+        },
+        {
+          "selector": ".classes",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    },
+    "vp-dark": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".dropdown-wrapper__label": {
+            "margin-bottom": "0",
+            "white-space": "nowrap"
+          },
+          ".dropdown-wrapper": {
+            "display": "flex",
+            "flex-direction": "row",
+            "align-items": "center",
+            "gap": "4px"
+          },
+          ".dropdown": {
+            "position": "relative",
+            "display": "inline-block"
+          },
+          ".dropdown__chevron": {
+            "color": "#B5B5BC",
+            "transition": "transform 150ms ease",
+            "transform": "rotate(180deg)"
+          },
+          ".dropdown__item": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%",
+            "padding": "8px 16px",
+            "font-size": "0.875rem",
+            "color": "#FAFAFA",
+            "text-align": "left",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".dropdown__menu": {
+            "display": "block",
+            "position": "absolute",
+            "top": "100%",
+            "left": "0",
+            "margin-top": "4px",
+            "min-width": "100%",
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "box-shadow": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)",
+            "padding": "4px 0",
+            "z-index": "100",
+            "max-height": "300px",
+            "overflow-y": "auto"
+          },
+          ".dropdown__trigger": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "gap": "8px",
+            "min-width": "180px",
+            "height": "20px",
+            "padding": "0 8px 0 8px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "color": "#FAFAFA",
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "cursor": "pointer",
+            "transition": "all 150ms ease"
+          },
+          ".dropdown__value": {
+            "flex": "1",
+            "text-align": "left",
+            "overflow": "hidden",
+            "text-overflow": "ellipsis",
+            "white-space": "nowrap"
+          },
+          ".classes": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".dropdown-wrapper__label",
+          "tag": "div",
+          "styles": {
+            "margin-bottom": "0",
+            "white-space": "nowrap"
+          },
+          "children": [
+            ".dropdown-wrapper"
+          ]
+        },
+        {
+          "selector": ".dropdown-wrapper",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "row",
+            "align-items": "center",
+            "gap": "4px"
+          },
+          "children": [
+            ".dropdown"
+          ],
+          "parent": ".dropdown-wrapper__label"
+        },
+        {
+          "selector": ".dropdown",
+          "tag": "div",
+          "styles": {
+            "position": "relative",
+            "display": "inline-block"
+          },
+          "children": [
+            ".dropdown__chevron",
+            ".dropdown__item",
+            ".dropdown__menu",
+            ".dropdown__trigger",
+            ".dropdown__value"
+          ]
+        },
+        {
+          "selector": ".dropdown__chevron",
+          "tag": "span",
+          "styles": {
+            "color": "#B5B5BC",
+            "transition": "transform 150ms ease",
+            "transform": "rotate(180deg)"
+          },
+          "parent": ".dropdown"
+        },
+        {
+          "selector": ".dropdown__item",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%",
+            "padding": "8px 16px",
+            "font-size": "0.875rem",
+            "color": "#FAFAFA",
+            "text-align": "left",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".dropdown__menu",
+          "states": {
+            "hover": {
+              "background-color": "#2A2D32"
+            },
+            "disabled": {
+              "color": "#B5B5BC",
+              "cursor": "not-allowed"
+            }
+          }
+        },
+        {
+          "selector": ".dropdown__menu",
+          "tag": "span",
+          "styles": {
+            "display": "block",
+            "position": "absolute",
+            "top": "100%",
+            "left": "0",
+            "margin-top": "4px",
+            "min-width": "100%",
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "box-shadow": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)",
+            "padding": "4px 0",
+            "z-index": "100",
+            "max-height": "300px",
+            "overflow-y": "auto"
+          },
+          "parent": ".classes"
+        },
+        {
+          "selector": ".dropdown__trigger",
+          "tag": "span",
+          "styles": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "gap": "8px",
+            "min-width": "180px",
+            "height": "20px",
+            "padding": "0 8px 0 8px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "color": "#FAFAFA",
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "cursor": "pointer",
+            "transition": "all 150ms ease"
+          },
+          "parent": ".classes",
+          "states": {
+            "hover": {
+              "background-color": "#2A2D32"
+            },
+            "focus": {
+              "outline": "none",
+              "border-color": "#59ACFF",
+              "box-shadow": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #1F2124"
+            }
+          }
+        },
+        {
+          "selector": ".dropdown__value",
+          "tag": "span",
+          "styles": {
+            "flex": "1",
+            "text-align": "left",
+            "overflow": "hidden",
+            "text-overflow": "ellipsis",
+            "white-space": "nowrap"
+          },
+          "parent": ".dropdown"
+        },
+        {
+          "selector": ".classes",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    },
+    "ppm-light": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".dropdown-wrapper__label": {
+            "margin-bottom": "0",
+            "white-space": "nowrap"
+          },
+          ".dropdown-wrapper": {
+            "display": "flex",
+            "flex-direction": "row",
+            "align-items": "center",
+            "gap": "4px"
+          },
+          ".dropdown": {
+            "position": "relative",
+            "display": "inline-block"
+          },
+          ".dropdown__chevron": {
+            "color": "#6B7280",
+            "transition": "transform 150ms ease",
+            "transform": "rotate(180deg)"
+          },
+          ".dropdown__item": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%",
+            "padding": "8px 16px",
+            "font-size": "0.875rem",
+            "color": "#373F4E",
+            "text-align": "left",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".dropdown__menu": {
+            "display": "block",
+            "position": "absolute",
+            "top": "100%",
+            "left": "0",
+            "margin-top": "4px",
+            "min-width": "100%",
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "box-shadow": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)",
+            "padding": "4px 0",
+            "z-index": "100",
+            "max-height": "300px",
+            "overflow-y": "auto"
+          },
+          ".dropdown__trigger": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "gap": "8px",
+            "min-width": "180px",
+            "height": "20px",
+            "padding": "0 8px 0 8px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "color": "#373F4E",
+            "background-color": "#FFFFFF",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "cursor": "pointer",
+            "transition": "all 150ms ease"
+          },
+          ".dropdown__value": {
+            "flex": "1",
+            "text-align": "left",
+            "overflow": "hidden",
+            "text-overflow": "ellipsis",
+            "white-space": "nowrap"
+          },
+          ".classes": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".dropdown-wrapper__label",
+          "tag": "div",
+          "styles": {
+            "margin-bottom": "0",
+            "white-space": "nowrap"
+          },
+          "children": [
+            ".dropdown-wrapper"
+          ]
+        },
+        {
+          "selector": ".dropdown-wrapper",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "row",
+            "align-items": "center",
+            "gap": "4px"
+          },
+          "children": [
+            ".dropdown"
+          ],
+          "parent": ".dropdown-wrapper__label"
+        },
+        {
+          "selector": ".dropdown",
+          "tag": "div",
+          "styles": {
+            "position": "relative",
+            "display": "inline-block"
+          },
+          "children": [
+            ".dropdown__chevron",
+            ".dropdown__item",
+            ".dropdown__menu",
+            ".dropdown__trigger",
+            ".dropdown__value"
+          ]
+        },
+        {
+          "selector": ".dropdown__chevron",
+          "tag": "span",
+          "styles": {
+            "color": "#6B7280",
+            "transition": "transform 150ms ease",
+            "transform": "rotate(180deg)"
+          },
+          "parent": ".dropdown"
+        },
+        {
+          "selector": ".dropdown__item",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%",
+            "padding": "8px 16px",
+            "font-size": "0.875rem",
+            "color": "#373F4E",
+            "text-align": "left",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".dropdown__menu",
+          "states": {
+            "hover": {
+              "background-color": "#E5E7EB"
+            },
+            "disabled": {
+              "color": "#6B7280",
+              "cursor": "not-allowed"
+            }
+          }
+        },
+        {
+          "selector": ".dropdown__menu",
+          "tag": "span",
+          "styles": {
+            "display": "block",
+            "position": "absolute",
+            "top": "100%",
+            "left": "0",
+            "margin-top": "4px",
+            "min-width": "100%",
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "box-shadow": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)",
+            "padding": "4px 0",
+            "z-index": "100",
+            "max-height": "300px",
+            "overflow-y": "auto"
+          },
+          "parent": ".classes"
+        },
+        {
+          "selector": ".dropdown__trigger",
+          "tag": "span",
+          "styles": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "gap": "8px",
+            "min-width": "180px",
+            "height": "20px",
+            "padding": "0 8px 0 8px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "color": "#373F4E",
+            "background-color": "#FFFFFF",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "cursor": "pointer",
+            "transition": "all 150ms ease"
+          },
+          "parent": ".classes",
+          "states": {
+            "hover": {
+              "background-color": "#E5E7EB"
+            },
+            "focus": {
+              "outline": "none",
+              "border-color": "#4C92D9",
+              "box-shadow": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA"
+            }
+          }
+        },
+        {
+          "selector": ".dropdown__value",
+          "tag": "span",
+          "styles": {
+            "flex": "1",
+            "text-align": "left",
+            "overflow": "hidden",
+            "text-overflow": "ellipsis",
+            "white-space": "nowrap"
+          },
+          "parent": ".dropdown"
+        },
+        {
+          "selector": ".classes",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    },
+    "ppm-dark": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".dropdown-wrapper__label": {
+            "margin-bottom": "0",
+            "white-space": "nowrap"
+          },
+          ".dropdown-wrapper": {
+            "display": "flex",
+            "flex-direction": "row",
+            "align-items": "center",
+            "gap": "4px"
+          },
+          ".dropdown": {
+            "position": "relative",
+            "display": "inline-block"
+          },
+          ".dropdown__chevron": {
+            "color": "#B5B5BC",
+            "transition": "transform 150ms ease",
+            "transform": "rotate(180deg)"
+          },
+          ".dropdown__item": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%",
+            "padding": "8px 16px",
+            "font-size": "0.875rem",
+            "color": "#FAFAFA",
+            "text-align": "left",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".dropdown__menu": {
+            "display": "block",
+            "position": "absolute",
+            "top": "100%",
+            "left": "0",
+            "margin-top": "4px",
+            "min-width": "100%",
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "box-shadow": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)",
+            "padding": "4px 0",
+            "z-index": "100",
+            "max-height": "300px",
+            "overflow-y": "auto"
+          },
+          ".dropdown__trigger": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "gap": "8px",
+            "min-width": "180px",
+            "height": "20px",
+            "padding": "0 8px 0 8px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "color": "#FAFAFA",
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "cursor": "pointer",
+            "transition": "all 150ms ease"
+          },
+          ".dropdown__value": {
+            "flex": "1",
+            "text-align": "left",
+            "overflow": "hidden",
+            "text-overflow": "ellipsis",
+            "white-space": "nowrap"
+          },
+          ".classes": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".dropdown-wrapper__label",
+          "tag": "div",
+          "styles": {
+            "margin-bottom": "0",
+            "white-space": "nowrap"
+          },
+          "children": [
+            ".dropdown-wrapper"
+          ]
+        },
+        {
+          "selector": ".dropdown-wrapper",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "row",
+            "align-items": "center",
+            "gap": "4px"
+          },
+          "children": [
+            ".dropdown"
+          ],
+          "parent": ".dropdown-wrapper__label"
+        },
+        {
+          "selector": ".dropdown",
+          "tag": "div",
+          "styles": {
+            "position": "relative",
+            "display": "inline-block"
+          },
+          "children": [
+            ".dropdown__chevron",
+            ".dropdown__item",
+            ".dropdown__menu",
+            ".dropdown__trigger",
+            ".dropdown__value"
+          ]
+        },
+        {
+          "selector": ".dropdown__chevron",
+          "tag": "span",
+          "styles": {
+            "color": "#B5B5BC",
+            "transition": "transform 150ms ease",
+            "transform": "rotate(180deg)"
+          },
+          "parent": ".dropdown"
+        },
+        {
+          "selector": ".dropdown__item",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%",
+            "padding": "8px 16px",
+            "font-size": "0.875rem",
+            "color": "#FAFAFA",
+            "text-align": "left",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".dropdown__menu",
+          "states": {
+            "hover": {
+              "background-color": "#2A2D32"
+            },
+            "disabled": {
+              "color": "#B5B5BC",
+              "cursor": "not-allowed"
+            }
+          }
+        },
+        {
+          "selector": ".dropdown__menu",
+          "tag": "span",
+          "styles": {
+            "display": "block",
+            "position": "absolute",
+            "top": "100%",
+            "left": "0",
+            "margin-top": "4px",
+            "min-width": "100%",
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "box-shadow": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)",
+            "padding": "4px 0",
+            "z-index": "100",
+            "max-height": "300px",
+            "overflow-y": "auto"
+          },
+          "parent": ".classes"
+        },
+        {
+          "selector": ".dropdown__trigger",
+          "tag": "span",
+          "styles": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "gap": "8px",
+            "min-width": "180px",
+            "height": "20px",
+            "padding": "0 8px 0 8px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "color": "#FAFAFA",
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "cursor": "pointer",
+            "transition": "all 150ms ease"
+          },
+          "parent": ".classes",
+          "states": {
+            "hover": {
+              "background-color": "#2A2D32"
+            },
+            "focus": {
+              "outline": "none",
+              "border-color": "#59ACFF",
+              "box-shadow": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #1F2124"
+            }
+          }
+        },
+        {
+          "selector": ".dropdown__value",
+          "tag": "span",
+          "styles": {
+            "flex": "1",
+            "text-align": "left",
+            "overflow": "hidden",
+            "text-overflow": "ellipsis",
+            "white-space": "nowrap"
+          },
+          "parent": ".dropdown"
+        },
+        {
+          "selector": ".classes",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    },
+    "maconomy-light": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".dropdown-wrapper__label": {
+            "margin-bottom": "0",
+            "white-space": "nowrap"
+          },
+          ".dropdown-wrapper": {
+            "display": "flex",
+            "flex-direction": "row",
+            "align-items": "center",
+            "gap": "4px"
+          },
+          ".dropdown": {
+            "position": "relative",
+            "display": "inline-block"
+          },
+          ".dropdown__chevron": {
+            "color": "#6B7280",
+            "transition": "transform 150ms ease",
+            "transform": "rotate(180deg)"
+          },
+          ".dropdown__item": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%",
+            "padding": "8px 16px",
+            "font-size": "0.875rem",
+            "color": "#373F4E",
+            "text-align": "left",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".dropdown__menu": {
+            "display": "block",
+            "position": "absolute",
+            "top": "100%",
+            "left": "0",
+            "margin-top": "4px",
+            "min-width": "100%",
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "box-shadow": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)",
+            "padding": "4px 0",
+            "z-index": "100",
+            "max-height": "300px",
+            "overflow-y": "auto"
+          },
+          ".dropdown__trigger": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "gap": "8px",
+            "min-width": "180px",
+            "height": "20px",
+            "padding": "0 8px 0 8px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "color": "#373F4E",
+            "background-color": "#FFFFFF",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "cursor": "pointer",
+            "transition": "all 150ms ease"
+          },
+          ".dropdown__value": {
+            "flex": "1",
+            "text-align": "left",
+            "overflow": "hidden",
+            "text-overflow": "ellipsis",
+            "white-space": "nowrap"
+          },
+          ".classes": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".dropdown-wrapper__label",
+          "tag": "div",
+          "styles": {
+            "margin-bottom": "0",
+            "white-space": "nowrap"
+          },
+          "children": [
+            ".dropdown-wrapper"
+          ]
+        },
+        {
+          "selector": ".dropdown-wrapper",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "row",
+            "align-items": "center",
+            "gap": "4px"
+          },
+          "children": [
+            ".dropdown"
+          ],
+          "parent": ".dropdown-wrapper__label"
+        },
+        {
+          "selector": ".dropdown",
+          "tag": "div",
+          "styles": {
+            "position": "relative",
+            "display": "inline-block"
+          },
+          "children": [
+            ".dropdown__chevron",
+            ".dropdown__item",
+            ".dropdown__menu",
+            ".dropdown__trigger",
+            ".dropdown__value"
+          ]
+        },
+        {
+          "selector": ".dropdown__chevron",
+          "tag": "span",
+          "styles": {
+            "color": "#6B7280",
+            "transition": "transform 150ms ease",
+            "transform": "rotate(180deg)"
+          },
+          "parent": ".dropdown"
+        },
+        {
+          "selector": ".dropdown__item",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%",
+            "padding": "8px 16px",
+            "font-size": "0.875rem",
+            "color": "#373F4E",
+            "text-align": "left",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".dropdown__menu",
+          "states": {
+            "hover": {
+              "background-color": "#E5E7EB"
+            },
+            "disabled": {
+              "color": "#6B7280",
+              "cursor": "not-allowed"
+            }
+          }
+        },
+        {
+          "selector": ".dropdown__menu",
+          "tag": "span",
+          "styles": {
+            "display": "block",
+            "position": "absolute",
+            "top": "100%",
+            "left": "0",
+            "margin-top": "4px",
+            "min-width": "100%",
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "box-shadow": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)",
+            "padding": "4px 0",
+            "z-index": "100",
+            "max-height": "300px",
+            "overflow-y": "auto"
+          },
+          "parent": ".classes"
+        },
+        {
+          "selector": ".dropdown__trigger",
+          "tag": "span",
+          "styles": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "gap": "8px",
+            "min-width": "180px",
+            "height": "20px",
+            "padding": "0 8px 0 8px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "color": "#373F4E",
+            "background-color": "#FFFFFF",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "cursor": "pointer",
+            "transition": "all 150ms ease"
+          },
+          "parent": ".classes",
+          "states": {
+            "hover": {
+              "background-color": "#E5E7EB"
+            },
+            "focus": {
+              "outline": "none",
+              "border-color": "#4C92D9",
+              "box-shadow": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA"
+            }
+          }
+        },
+        {
+          "selector": ".dropdown__value",
+          "tag": "span",
+          "styles": {
+            "flex": "1",
+            "text-align": "left",
+            "overflow": "hidden",
+            "text-overflow": "ellipsis",
+            "white-space": "nowrap"
+          },
+          "parent": ".dropdown"
+        },
+        {
+          "selector": ".classes",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    },
+    "maconomy-dark": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".dropdown-wrapper__label": {
+            "margin-bottom": "0",
+            "white-space": "nowrap"
+          },
+          ".dropdown-wrapper": {
+            "display": "flex",
+            "flex-direction": "row",
+            "align-items": "center",
+            "gap": "4px"
+          },
+          ".dropdown": {
+            "position": "relative",
+            "display": "inline-block"
+          },
+          ".dropdown__chevron": {
+            "color": "#B5B5BC",
+            "transition": "transform 150ms ease",
+            "transform": "rotate(180deg)"
+          },
+          ".dropdown__item": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%",
+            "padding": "8px 16px",
+            "font-size": "0.875rem",
+            "color": "#FAFAFA",
+            "text-align": "left",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".dropdown__menu": {
+            "display": "block",
+            "position": "absolute",
+            "top": "100%",
+            "left": "0",
+            "margin-top": "4px",
+            "min-width": "100%",
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "box-shadow": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)",
+            "padding": "4px 0",
+            "z-index": "100",
+            "max-height": "300px",
+            "overflow-y": "auto"
+          },
+          ".dropdown__trigger": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "gap": "8px",
+            "min-width": "180px",
+            "height": "20px",
+            "padding": "0 8px 0 8px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "color": "#FAFAFA",
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "cursor": "pointer",
+            "transition": "all 150ms ease"
+          },
+          ".dropdown__value": {
+            "flex": "1",
+            "text-align": "left",
+            "overflow": "hidden",
+            "text-overflow": "ellipsis",
+            "white-space": "nowrap"
+          },
+          ".classes": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".dropdown-wrapper__label",
+          "tag": "div",
+          "styles": {
+            "margin-bottom": "0",
+            "white-space": "nowrap"
+          },
+          "children": [
+            ".dropdown-wrapper"
+          ]
+        },
+        {
+          "selector": ".dropdown-wrapper",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "row",
+            "align-items": "center",
+            "gap": "4px"
+          },
+          "children": [
+            ".dropdown"
+          ],
+          "parent": ".dropdown-wrapper__label"
+        },
+        {
+          "selector": ".dropdown",
+          "tag": "div",
+          "styles": {
+            "position": "relative",
+            "display": "inline-block"
+          },
+          "children": [
+            ".dropdown__chevron",
+            ".dropdown__item",
+            ".dropdown__menu",
+            ".dropdown__trigger",
+            ".dropdown__value"
+          ]
+        },
+        {
+          "selector": ".dropdown__chevron",
+          "tag": "span",
+          "styles": {
+            "color": "#B5B5BC",
+            "transition": "transform 150ms ease",
+            "transform": "rotate(180deg)"
+          },
+          "parent": ".dropdown"
+        },
+        {
+          "selector": ".dropdown__item",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "8px",
+            "width": "100%",
+            "padding": "8px 16px",
+            "font-size": "0.875rem",
+            "color": "#FAFAFA",
+            "text-align": "left",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".dropdown__menu",
+          "states": {
+            "hover": {
+              "background-color": "#2A2D32"
+            },
+            "disabled": {
+              "color": "#B5B5BC",
+              "cursor": "not-allowed"
+            }
+          }
+        },
+        {
+          "selector": ".dropdown__menu",
+          "tag": "span",
+          "styles": {
+            "display": "block",
+            "position": "absolute",
+            "top": "100%",
+            "left": "0",
+            "margin-top": "4px",
+            "min-width": "100%",
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "box-shadow": "0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1)",
+            "padding": "4px 0",
+            "z-index": "100",
+            "max-height": "300px",
+            "overflow-y": "auto"
+          },
+          "parent": ".classes"
+        },
+        {
+          "selector": ".dropdown__trigger",
+          "tag": "span",
+          "styles": {
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "space-between",
+            "gap": "8px",
+            "min-width": "180px",
+            "height": "20px",
+            "padding": "0 8px 0 8px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "color": "#FAFAFA",
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "cursor": "pointer",
+            "transition": "all 150ms ease"
+          },
+          "parent": ".classes",
+          "states": {
+            "hover": {
+              "background-color": "#2A2D32"
+            },
+            "focus": {
+              "outline": "none",
+              "border-color": "#59ACFF",
+              "box-shadow": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #1F2124"
+            }
+          }
+        },
+        {
+          "selector": ".dropdown__value",
+          "tag": "span",
+          "styles": {
+            "flex": "1",
+            "text-align": "left",
+            "overflow": "hidden",
+            "text-overflow": "ellipsis",
+            "white-space": "nowrap"
+          },
+          "parent": ".dropdown"
+        },
+        {
+          "selector": ".classes",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    }
+  },
+  "contentOrder": [
+    ".dropdown-wrapper__label",
+    ".dropdown"
+  ],
+  "icons": {
+    "chevron-down": "<svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\" stroke=\"currentColor\" aria-hidden=\"true\" data-slot=\"icon\"> <path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"m19.5 8.25-7.5 7.5-7.5-7.5\"/> </svg>"
+  },
+  "guidance": {
+    "patterns": {
+      "trigger-slot-override": "The trigger slot (lines 75-76, 114-115) completely replaces the default trigger button, including the selected value display and chevron icon. When using a custom trigger, you are responsible for displaying the current selection state and any visual indicators. The default trigger (lines 78-82, 117-121) shows selectedOption.label or placeholder with a chevron-down icon.",
+      "option-slots-limitation": "Custom option content is supported via named slots option-0 through option-9 for the first 10 options only. These slots replace the option.label text but the option.value is still used for selection. Beyond 10 options, only standard label rendering is available due to Astro's static slot name requirement.",
+      "label-variant-layout": "When label prop is provided, labelVariant controls layout: 'inline' places label and dropdown side-by-side (default for CP theme), 'stacked' places label above dropdown (default for other themes). The wrapper gets class dropdown-wrapper--inline or dropdown-wrapper--stacked. Without explicit labelVariant, CSS handles theme-specific defaults (lines 50-56)."
+    },
+    "guidelines": {}
+  },
+  "specKeyOrder": [
+    "theme",
+    "mode"
+  ],
+  "dimensionDefaults": {
+    "theme": "cp",
+    "mode": "light"
+  },
+  "structure": {
+    "root": ".wrapperClasses",
+    "children": [
+      {
+        "class": ".(finalLabelVariant"
+      },
+      {
+        "class": ".classes",
+        "children": [
+          {
+            "class": ".dropdown__trigger",
+            "children": []
+          },
+          {
+            "class": ".dropdown__menu",
+            "children": [
+              {
+                "class": ".dropdown__item"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "fonts": {
+    "Figtree": "https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap",
+    "Lexend": "https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap",
+    "JetBrains Mono": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
+  },
+  "defaultContent": {
+    ".dropdown__chevron": {
+      "type": "icon",
+      "icon": "chevron-down",
+      "library": "heroicons",
+      "style": "outline"
+    },
+    "_rule": "No default content defined; do not invent labels, icons, or copy. Use only what is in the spec or leave slots empty."
+  },
+  "interactivity": {
+    "events": [
+      {
+        "name": "open",
+        "description": "Triggered when the trigger button is clicked to open the list"
+      },
+      {
+        "name": "close",
+        "description": "Triggered when an option is selected or focus leaves the dropdown"
+      },
+      {
+        "name": "change",
+        "description": "Triggered when an option is selected; form submits the selected value"
+      }
+    ],
+    "state": [
+      {
+        "name": "open",
+        "type": "boolean",
+        "description": "Whether the listbox is expanded (aria-expanded)"
+      },
+      {
+        "name": "value",
+        "type": "string",
+        "description": "Selected option value; bound via name/value on the hidden input"
+      }
+    ]
+  },
+  "examples": [
+    {
+      "name": "Select options",
+      "description": "Single-select dropdown",
+      "snippet": "<Dropdown options={[{ value: '1', label: 'One' }]} placeholder=\"Choose\" />"
+    }
+  ],
+  "contentOrder.dropdown": [
+    ".dropdown__trigger",
+    ".dropdown__menu"
+  ],
+  "contentOrder.dropdown__trigger": [
+    ".dropdown__value",
+    ".dropdown__chevron"
+  ]
+}

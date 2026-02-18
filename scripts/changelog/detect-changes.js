@@ -113,6 +113,175 @@ function detectPropsChanges(currentSnapshot, previousSnapshot) {
   return changes;
 }
 
+/** Union-style props we snapshot as *Values arrays (variantValues, sizeValues, styleValues) */
+const UNION_PROPS = ['variant', 'size', 'style'];
+
+/**
+ * Detect variant (and union) value add/remove per component
+ */
+function detectVariantChanges(currentSnapshot, previousSnapshot) {
+  const changes = [];
+
+  for (const currentComp of currentSnapshot.components) {
+    const prevComp = previousSnapshot.components.find(p => p.name === currentComp.name);
+    if (!prevComp) continue;
+
+    for (const propName of UNION_PROPS) {
+      const currentValues = currentComp[`${propName}Values`] || [];
+      const prevValues = prevComp[`${propName}Values`] || [];
+
+      for (const value of currentValues) {
+        if (!prevValues.includes(value)) {
+          changes.push({
+            type: 'component',
+            category: 'added',
+            target: currentComp.name,
+            change: 'variant_added',
+            propName,
+            variantName: value,
+            breaking: false
+          });
+        }
+      }
+      for (const value of prevValues) {
+        if (!currentValues.includes(value)) {
+          changes.push({
+            type: 'component',
+            category: 'removed',
+            target: currentComp.name,
+            change: 'variant_removed',
+            propName,
+            variantName: value,
+            breaking: true
+          });
+        }
+      }
+    }
+  }
+
+  return changes;
+}
+
+/**
+ * Deep equality for props objects (keys and values)
+ */
+function propsEqual(a, b) {
+  const keysA = Object.keys(a || {});
+  const keysB = Object.keys(b || {});
+  if (keysA.length !== keysB.length) return false;
+  for (const k of keysA) {
+    if (!(k in (b || {}))) return false;
+    const va = a[k];
+    const vb = b[k];
+    if (typeof va === 'object' && va !== null && typeof vb === 'object' && vb !== null) {
+      if (JSON.stringify(va) !== JSON.stringify(vb)) return false;
+    } else if (va !== vb) return false;
+  }
+  return true;
+}
+
+/**
+ * Compare union value arrays (order-independent)
+ */
+function unionValuesEqual(a, b) {
+  if (!a && !b) return true;
+  if (!a || !b) return false;
+  if (a.length !== b.length) return false;
+  const setB = new Set(b);
+  return a.every(v => setB.has(v));
+}
+
+/**
+ * Detect implementation-only file changes (fileHash changed but props/variants unchanged)
+ */
+function detectFileModified(currentSnapshot, previousSnapshot) {
+  const changes = [];
+  const propAndVariantChangeTargets = new Set();
+
+  // Collect targets that already have prop or variant changes (so we don't double-emit file_modified)
+  // We'll run after detectPropsChanges and detectVariantChanges, so callers will merge arrays;
+  // we need to know which components had those changes. So we need to compute prop/variant
+  // changes ourselves here to decide if fileHash-only change is "implementation only".
+  for (const currentComp of currentSnapshot.components) {
+    const prevComp = previousSnapshot.components.find(p => p.name === currentComp.name);
+    if (!prevComp) continue;
+
+    const propsChanged = !propsEqual(currentComp.props, prevComp.props);
+    let unionChanged = false;
+    for (const propName of UNION_PROPS) {
+      const key = `${propName}Values`;
+      if (!unionValuesEqual(currentComp[key], prevComp[key])) {
+        unionChanged = true;
+        break;
+      }
+    }
+    if (propsChanged || unionChanged) {
+      propAndVariantChangeTargets.add(currentComp.name);
+    }
+  }
+
+  for (const currentComp of currentSnapshot.components) {
+    const prevComp = previousSnapshot.components.find(p => p.name === currentComp.name);
+    if (!prevComp) continue;
+    if (propAndVariantChangeTargets.has(currentComp.name)) continue;
+    if (currentComp.fileHash === prevComp.fileHash) continue;
+
+    changes.push({
+      type: 'component',
+      category: 'changed',
+      target: currentComp.name,
+      change: 'file_modified',
+      filePath: currentComp.filePath,
+      breaking: false
+    });
+  }
+
+  return changes;
+}
+
+/**
+ * Detect style (CSS) file changes.
+ * Only emits an entry when a previously tracked style file's content changed
+ * (not on first run when previous styles snapshot is empty).
+ */
+function detectStyleChanges(currentSnapshot, previousSnapshot) {
+  const changes = [];
+  const current = currentSnapshot.styles || {};
+  const previous = previousSnapshot.styles || {};
+  const changedFiles = [];
+
+  const allFiles = new Set([...Object.keys(current), ...Object.keys(previous)]);
+
+  for (const file of allFiles) {
+    const curr = current[file];
+    const prev = previous[file];
+
+    if (!curr && prev) {
+      changedFiles.push(prev.filePath || file);
+    } else if (curr && !prev) {
+      changedFiles.push(curr.filePath || file);
+    } else if (curr && prev && curr.hash !== prev.hash) {
+      changedFiles.push(curr.filePath || file);
+    }
+  }
+
+  // Only emit when we have a previous styles snapshot (so we don't add noise on first run)
+  const hadPreviousStyles = Object.keys(previous).length > 0;
+  if (hadPreviousStyles && changedFiles.length > 0) {
+    changes.push({
+      type: 'system',
+      category: 'changed',
+      target: 'Styles',
+      change: 'styles_modified',
+      filePath: changedFiles[0],
+      files: changedFiles,
+      breaking: false
+    });
+  }
+
+  return changes;
+}
+
 /**
  * Detect token changes
  */
@@ -160,6 +329,9 @@ export function detectChanges(currentSnapshot, previousSnapshot) {
     ...detectNewComponents(currentSnapshot, previousSnapshot),
     ...detectRemovedComponents(currentSnapshot, previousSnapshot),
     ...detectPropsChanges(currentSnapshot, previousSnapshot),
+    ...detectVariantChanges(currentSnapshot, previousSnapshot),
+    ...detectFileModified(currentSnapshot, previousSnapshot),
+    ...detectStyleChanges(currentSnapshot, previousSnapshot),
     ...detectTokenChanges(currentSnapshot, previousSnapshot)
   ];
 

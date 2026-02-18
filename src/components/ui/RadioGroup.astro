@@ -1,9 +1,14 @@
 ---
 /**
  * RadioGroup Component
- * 
+ *
  * Wrapper component for grouping radio buttons with optional error/warning states.
  * Accepts children via slot (composition pattern).
+ *
+ * @usagePattern required-name-prop The name prop is required (not optional) on RadioGroup because all RadioButton components within the group must share the same name attribute to function as a mutually exclusive set. Each RadioButton nested inside RadioGroup must receive the same name prop value to ensure only one can be selected at a time. This is enforced by HTML radio button semantics, not by JavaScript.
+ * @usagePattern name-propagation-manual RadioGroup does NOT automatically propagate its name prop to child RadioButton components. You must manually pass the name prop to each RadioButton component in the slot. Example: <RadioGroup name="color"><RadioButton name="color" value="red" /><RadioButton name="color" value="blue" /></RadioGroup>. Forgetting to match names will break mutual exclusivity.
+ * @usagePattern group-validation-state Similar to CheckboxGroup, RadioGroup provides group-level error/warning states that are distinct from individual RadioButton validation. Group-level messages render below all radio buttons. Use group validation for "selection required" errors. Individual RadioButton error/warning props affect only that button's styling and are uncommon in practice (radios typically validate as a group).
+ * @usagePattern fieldset-aria-attributes RadioGroup renders as <fieldset> with optional <legend> for semantic grouping. When error=true, the fieldset receives aria-invalid='true' and aria-describedby linking to the group error message. This ensures assistive technologies announce validation state for the entire radio group, not just individual buttons. The fieldset also provides proper keyboard navigation context for radio buttons.
  */
 import Icon from './Icon.astro';
 

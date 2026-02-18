@@ -1,0 +1,1527 @@
+{
+  "name": "Input",
+  "type": "component",
+  "filePath": "src/components/ui/Input.astro",
+  "description": "Input Component",
+  "props": {
+    "type": {
+      "type": "'text' | 'email' | 'password' | 'number' | 'url' | 'search' | 'tel'",
+      "optional": true,
+      "default": "'text'"
+    },
+    "placeholder": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "value": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "name": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "id": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "disabled": {
+      "type": "boolean",
+      "optional": true,
+      "default": "false"
+    },
+    "error": {
+      "type": "boolean",
+      "optional": true,
+      "default": "false"
+    },
+    "errorMessage": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "icon": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "required": {
+      "type": "boolean",
+      "optional": true,
+      "default": "false"
+    },
+    "label": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "labelVariant": {
+      "type": "'inline' | 'stacked'",
+      "optional": true,
+      "default": null
+    },
+    "labelFor": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "class": {
+      "type": "string",
+      "optional": true,
+      "default": "''"
+    }
+  },
+  "defaults": {
+    "theme": "cp",
+    "mode": "light"
+  },
+  "specs": {
+    "cp-light": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".input-form-wrapper__label": {
+            "margin-bottom": "0",
+            "white-space": "nowrap"
+          },
+          ".input-wrapper__error": {
+            "margin-top": "4px",
+            "font-size": "0.875rem",
+            "color": "#F46286",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".input-wrapper__icon": {
+            "position": "absolute",
+            "left": "8px",
+            "top": "calc(50% + 0.5px)",
+            "transform": "translateY(-50%)",
+            "color": "#6B7280",
+            "pointer-events": "none",
+            "z-index": "10"
+          },
+          ".input-form-wrapper": {
+            "display": "flex",
+            "flex-direction": "row",
+            "align-items": "center",
+            "gap": "4px"
+          },
+          ".input-wrapper": {
+            "position": "relative"
+          },
+          ".input": {
+            "width": "100%",
+            "height": "20px",
+            "padding": "0 8px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "color": "#373F4E",
+            "background-color": "#FFFFFF",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "transition": "all 150ms ease",
+            "line-height": "20px"
+          },
+          ".wrapperClasses": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".input-form-wrapper__label",
+          "tag": "div",
+          "styles": {
+            "margin-bottom": "0",
+            "white-space": "nowrap"
+          },
+          "children": [
+            ".input-wrapper__error"
+          ]
+        },
+        {
+          "selector": ".input-wrapper__error",
+          "tag": "div",
+          "styles": {
+            "margin-top": "4px",
+            "font-size": "0.875rem",
+            "color": "#F46286",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "children": [
+            ".input-wrapper__icon"
+          ],
+          "parent": ".input-wrapper"
+        },
+        {
+          "selector": ".input-wrapper__icon",
+          "tag": "div",
+          "styles": {
+            "position": "absolute",
+            "left": "8px",
+            "top": "calc(50% + 0.5px)",
+            "transform": "translateY(-50%)",
+            "color": "#6B7280",
+            "pointer-events": "none",
+            "z-index": "10"
+          },
+          "children": [
+            ".input-form-wrapper"
+          ],
+          "parent": ".input-wrapper"
+        },
+        {
+          "selector": ".input-form-wrapper",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "row",
+            "align-items": "center",
+            "gap": "4px"
+          },
+          "children": [
+            ".input-wrapper"
+          ],
+          "parent": ".input-wrapper__icon"
+        },
+        {
+          "selector": ".input-wrapper",
+          "tag": "div",
+          "styles": {
+            "position": "relative"
+          },
+          "children": [
+            ".input"
+          ],
+          "parent": ".wrapperClasses"
+        },
+        {
+          "selector": ".input",
+          "tag": "input",
+          "styles": {
+            "width": "100%",
+            "height": "20px",
+            "padding": "0 8px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "color": "#373F4E",
+            "background-color": "#FFFFFF",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "transition": "all 150ms ease",
+            "line-height": "20px"
+          },
+          "states": {
+            "focus": {
+              "outline": "none",
+              "border-color": "#4C92D9",
+              "box-shadow": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA"
+            },
+            "disabled": {
+              "background-color": "#EAEAEA",
+              "color": "#6B7280",
+              "cursor": "not-allowed"
+            }
+          }
+        },
+        {
+          "selector": ".wrapperClasses",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    },
+    "cp-dark": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".input-form-wrapper__label": {
+            "margin-bottom": "0",
+            "white-space": "nowrap"
+          },
+          ".input-wrapper__error": {
+            "margin-top": "4px",
+            "font-size": "0.875rem",
+            "color": "#F46286",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".input-wrapper__icon": {
+            "position": "absolute",
+            "left": "8px",
+            "top": "calc(50% + 0.5px)",
+            "transform": "translateY(-50%)",
+            "color": "#BBBBC6",
+            "pointer-events": "none",
+            "z-index": "10"
+          },
+          ".input-form-wrapper": {
+            "display": "flex",
+            "flex-direction": "row",
+            "align-items": "center",
+            "gap": "4px"
+          },
+          ".input-wrapper": {
+            "position": "relative"
+          },
+          ".input": {
+            "width": "100%",
+            "height": "20px",
+            "padding": "0 8px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "color": "#E9ECEF",
+            "background-color": "#1F252E",
+            "border": "1px solid #5F6871",
+            "border-radius": "0.5rem",
+            "transition": "all 150ms ease",
+            "line-height": "20px"
+          },
+          ".wrapperClasses": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".input-form-wrapper__label",
+          "tag": "div",
+          "styles": {
+            "margin-bottom": "0",
+            "white-space": "nowrap"
+          },
+          "children": [
+            ".input-wrapper__error"
+          ]
+        },
+        {
+          "selector": ".input-wrapper__error",
+          "tag": "div",
+          "styles": {
+            "margin-top": "4px",
+            "font-size": "0.875rem",
+            "color": "#F46286",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "children": [
+            ".input-wrapper__icon"
+          ],
+          "parent": ".input-wrapper"
+        },
+        {
+          "selector": ".input-wrapper__icon",
+          "tag": "div",
+          "styles": {
+            "position": "absolute",
+            "left": "8px",
+            "top": "calc(50% + 0.5px)",
+            "transform": "translateY(-50%)",
+            "color": "#BBBBC6",
+            "pointer-events": "none",
+            "z-index": "10"
+          },
+          "children": [
+            ".input-form-wrapper"
+          ],
+          "parent": ".input-wrapper"
+        },
+        {
+          "selector": ".input-form-wrapper",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "row",
+            "align-items": "center",
+            "gap": "4px"
+          },
+          "children": [
+            ".input-wrapper"
+          ],
+          "parent": ".input-wrapper__icon"
+        },
+        {
+          "selector": ".input-wrapper",
+          "tag": "div",
+          "styles": {
+            "position": "relative"
+          },
+          "children": [
+            ".input"
+          ],
+          "parent": ".wrapperClasses"
+        },
+        {
+          "selector": ".input",
+          "tag": "input",
+          "styles": {
+            "width": "100%",
+            "height": "20px",
+            "padding": "0 8px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "color": "#E9ECEF",
+            "background-color": "#1F252E",
+            "border": "1px solid #5F6871",
+            "border-radius": "0.5rem",
+            "transition": "all 150ms ease",
+            "line-height": "20px"
+          },
+          "states": {
+            "focus": {
+              "outline": "none",
+              "border-color": "#59ACFF",
+              "box-shadow": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #37424D"
+            },
+            "disabled": {
+              "background-color": "#333D47",
+              "color": "#BBBBC6",
+              "cursor": "not-allowed"
+            }
+          }
+        },
+        {
+          "selector": ".wrapperClasses",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    },
+    "vp-light": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".input-form-wrapper__label": {
+            "margin-bottom": "0",
+            "white-space": "nowrap"
+          },
+          ".input-wrapper__error": {
+            "margin-top": "4px",
+            "font-size": "0.875rem",
+            "color": "#F46286",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".input-wrapper__icon": {
+            "position": "absolute",
+            "left": "8px",
+            "top": "calc(50% + 0.5px)",
+            "transform": "translateY(-50%)",
+            "color": "#6B7280",
+            "pointer-events": "none",
+            "z-index": "10"
+          },
+          ".input-form-wrapper": {
+            "display": "flex",
+            "flex-direction": "row",
+            "align-items": "center",
+            "gap": "4px"
+          },
+          ".input-wrapper": {
+            "position": "relative"
+          },
+          ".input": {
+            "width": "100%",
+            "height": "20px",
+            "padding": "0 8px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "color": "#373F4E",
+            "background-color": "#FFFFFF",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "transition": "all 150ms ease",
+            "line-height": "20px"
+          },
+          ".wrapperClasses": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".input-form-wrapper__label",
+          "tag": "div",
+          "styles": {
+            "margin-bottom": "0",
+            "white-space": "nowrap"
+          },
+          "children": [
+            ".input-wrapper__error"
+          ]
+        },
+        {
+          "selector": ".input-wrapper__error",
+          "tag": "div",
+          "styles": {
+            "margin-top": "4px",
+            "font-size": "0.875rem",
+            "color": "#F46286",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "children": [
+            ".input-wrapper__icon"
+          ],
+          "parent": ".input-wrapper"
+        },
+        {
+          "selector": ".input-wrapper__icon",
+          "tag": "div",
+          "styles": {
+            "position": "absolute",
+            "left": "8px",
+            "top": "calc(50% + 0.5px)",
+            "transform": "translateY(-50%)",
+            "color": "#6B7280",
+            "pointer-events": "none",
+            "z-index": "10"
+          },
+          "children": [
+            ".input-form-wrapper"
+          ],
+          "parent": ".input-wrapper"
+        },
+        {
+          "selector": ".input-form-wrapper",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "row",
+            "align-items": "center",
+            "gap": "4px"
+          },
+          "children": [
+            ".input-wrapper"
+          ],
+          "parent": ".input-wrapper__icon"
+        },
+        {
+          "selector": ".input-wrapper",
+          "tag": "div",
+          "styles": {
+            "position": "relative"
+          },
+          "children": [
+            ".input"
+          ],
+          "parent": ".wrapperClasses"
+        },
+        {
+          "selector": ".input",
+          "tag": "input",
+          "styles": {
+            "width": "100%",
+            "height": "20px",
+            "padding": "0 8px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "color": "#373F4E",
+            "background-color": "#FFFFFF",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "transition": "all 150ms ease",
+            "line-height": "20px"
+          },
+          "states": {
+            "focus": {
+              "outline": "none",
+              "border-color": "#4C92D9",
+              "box-shadow": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA"
+            },
+            "disabled": {
+              "background-color": "#EAEAEA",
+              "color": "#6B7280",
+              "cursor": "not-allowed"
+            }
+          }
+        },
+        {
+          "selector": ".wrapperClasses",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    },
+    "vp-dark": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".input-form-wrapper__label": {
+            "margin-bottom": "0",
+            "white-space": "nowrap"
+          },
+          ".input-wrapper__error": {
+            "margin-top": "4px",
+            "font-size": "0.875rem",
+            "color": "#F46286",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".input-wrapper__icon": {
+            "position": "absolute",
+            "left": "8px",
+            "top": "calc(50% + 0.5px)",
+            "transform": "translateY(-50%)",
+            "color": "#B5B5BC",
+            "pointer-events": "none",
+            "z-index": "10"
+          },
+          ".input-form-wrapper": {
+            "display": "flex",
+            "flex-direction": "row",
+            "align-items": "center",
+            "gap": "4px"
+          },
+          ".input-wrapper": {
+            "position": "relative"
+          },
+          ".input": {
+            "width": "100%",
+            "height": "20px",
+            "padding": "0 8px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "color": "#FAFAFA",
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "transition": "all 150ms ease",
+            "line-height": "20px"
+          },
+          ".wrapperClasses": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".input-form-wrapper__label",
+          "tag": "div",
+          "styles": {
+            "margin-bottom": "0",
+            "white-space": "nowrap"
+          },
+          "children": [
+            ".input-wrapper__error"
+          ]
+        },
+        {
+          "selector": ".input-wrapper__error",
+          "tag": "div",
+          "styles": {
+            "margin-top": "4px",
+            "font-size": "0.875rem",
+            "color": "#F46286",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "children": [
+            ".input-wrapper__icon"
+          ],
+          "parent": ".input-wrapper"
+        },
+        {
+          "selector": ".input-wrapper__icon",
+          "tag": "div",
+          "styles": {
+            "position": "absolute",
+            "left": "8px",
+            "top": "calc(50% + 0.5px)",
+            "transform": "translateY(-50%)",
+            "color": "#B5B5BC",
+            "pointer-events": "none",
+            "z-index": "10"
+          },
+          "children": [
+            ".input-form-wrapper"
+          ],
+          "parent": ".input-wrapper"
+        },
+        {
+          "selector": ".input-form-wrapper",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "row",
+            "align-items": "center",
+            "gap": "4px"
+          },
+          "children": [
+            ".input-wrapper"
+          ],
+          "parent": ".input-wrapper__icon"
+        },
+        {
+          "selector": ".input-wrapper",
+          "tag": "div",
+          "styles": {
+            "position": "relative"
+          },
+          "children": [
+            ".input"
+          ],
+          "parent": ".wrapperClasses"
+        },
+        {
+          "selector": ".input",
+          "tag": "input",
+          "styles": {
+            "width": "100%",
+            "height": "20px",
+            "padding": "0 8px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "color": "#FAFAFA",
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "transition": "all 150ms ease",
+            "line-height": "20px"
+          },
+          "states": {
+            "focus": {
+              "outline": "none",
+              "border-color": "#59ACFF",
+              "box-shadow": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #1F2124"
+            },
+            "disabled": {
+              "background-color": "#2A2D32",
+              "color": "#B5B5BC",
+              "cursor": "not-allowed"
+            }
+          }
+        },
+        {
+          "selector": ".wrapperClasses",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    },
+    "ppm-light": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".input-form-wrapper__label": {
+            "margin-bottom": "0",
+            "white-space": "nowrap"
+          },
+          ".input-wrapper__error": {
+            "margin-top": "4px",
+            "font-size": "0.875rem",
+            "color": "#F46286",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".input-wrapper__icon": {
+            "position": "absolute",
+            "left": "8px",
+            "top": "calc(50% + 0.5px)",
+            "transform": "translateY(-50%)",
+            "color": "#6B7280",
+            "pointer-events": "none",
+            "z-index": "10"
+          },
+          ".input-form-wrapper": {
+            "display": "flex",
+            "flex-direction": "row",
+            "align-items": "center",
+            "gap": "4px"
+          },
+          ".input-wrapper": {
+            "position": "relative"
+          },
+          ".input": {
+            "width": "100%",
+            "height": "20px",
+            "padding": "0 8px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "color": "#373F4E",
+            "background-color": "#FFFFFF",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "transition": "all 150ms ease",
+            "line-height": "20px"
+          },
+          ".wrapperClasses": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".input-form-wrapper__label",
+          "tag": "div",
+          "styles": {
+            "margin-bottom": "0",
+            "white-space": "nowrap"
+          },
+          "children": [
+            ".input-wrapper__error"
+          ]
+        },
+        {
+          "selector": ".input-wrapper__error",
+          "tag": "div",
+          "styles": {
+            "margin-top": "4px",
+            "font-size": "0.875rem",
+            "color": "#F46286",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "children": [
+            ".input-wrapper__icon"
+          ],
+          "parent": ".input-wrapper"
+        },
+        {
+          "selector": ".input-wrapper__icon",
+          "tag": "div",
+          "styles": {
+            "position": "absolute",
+            "left": "8px",
+            "top": "calc(50% + 0.5px)",
+            "transform": "translateY(-50%)",
+            "color": "#6B7280",
+            "pointer-events": "none",
+            "z-index": "10"
+          },
+          "children": [
+            ".input-form-wrapper"
+          ],
+          "parent": ".input-wrapper"
+        },
+        {
+          "selector": ".input-form-wrapper",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "row",
+            "align-items": "center",
+            "gap": "4px"
+          },
+          "children": [
+            ".input-wrapper"
+          ],
+          "parent": ".input-wrapper__icon"
+        },
+        {
+          "selector": ".input-wrapper",
+          "tag": "div",
+          "styles": {
+            "position": "relative"
+          },
+          "children": [
+            ".input"
+          ],
+          "parent": ".wrapperClasses"
+        },
+        {
+          "selector": ".input",
+          "tag": "input",
+          "styles": {
+            "width": "100%",
+            "height": "20px",
+            "padding": "0 8px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "color": "#373F4E",
+            "background-color": "#FFFFFF",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "transition": "all 150ms ease",
+            "line-height": "20px"
+          },
+          "states": {
+            "focus": {
+              "outline": "none",
+              "border-color": "#4C92D9",
+              "box-shadow": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA"
+            },
+            "disabled": {
+              "background-color": "#EAEAEA",
+              "color": "#6B7280",
+              "cursor": "not-allowed"
+            }
+          }
+        },
+        {
+          "selector": ".wrapperClasses",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    },
+    "ppm-dark": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".input-form-wrapper__label": {
+            "margin-bottom": "0",
+            "white-space": "nowrap"
+          },
+          ".input-wrapper__error": {
+            "margin-top": "4px",
+            "font-size": "0.875rem",
+            "color": "#F46286",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".input-wrapper__icon": {
+            "position": "absolute",
+            "left": "8px",
+            "top": "calc(50% + 0.5px)",
+            "transform": "translateY(-50%)",
+            "color": "#B5B5BC",
+            "pointer-events": "none",
+            "z-index": "10"
+          },
+          ".input-form-wrapper": {
+            "display": "flex",
+            "flex-direction": "row",
+            "align-items": "center",
+            "gap": "4px"
+          },
+          ".input-wrapper": {
+            "position": "relative"
+          },
+          ".input": {
+            "width": "100%",
+            "height": "20px",
+            "padding": "0 8px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "color": "#FAFAFA",
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "transition": "all 150ms ease",
+            "line-height": "20px"
+          },
+          ".wrapperClasses": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".input-form-wrapper__label",
+          "tag": "div",
+          "styles": {
+            "margin-bottom": "0",
+            "white-space": "nowrap"
+          },
+          "children": [
+            ".input-wrapper__error"
+          ]
+        },
+        {
+          "selector": ".input-wrapper__error",
+          "tag": "div",
+          "styles": {
+            "margin-top": "4px",
+            "font-size": "0.875rem",
+            "color": "#F46286",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "children": [
+            ".input-wrapper__icon"
+          ],
+          "parent": ".input-wrapper"
+        },
+        {
+          "selector": ".input-wrapper__icon",
+          "tag": "div",
+          "styles": {
+            "position": "absolute",
+            "left": "8px",
+            "top": "calc(50% + 0.5px)",
+            "transform": "translateY(-50%)",
+            "color": "#B5B5BC",
+            "pointer-events": "none",
+            "z-index": "10"
+          },
+          "children": [
+            ".input-form-wrapper"
+          ],
+          "parent": ".input-wrapper"
+        },
+        {
+          "selector": ".input-form-wrapper",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "row",
+            "align-items": "center",
+            "gap": "4px"
+          },
+          "children": [
+            ".input-wrapper"
+          ],
+          "parent": ".input-wrapper__icon"
+        },
+        {
+          "selector": ".input-wrapper",
+          "tag": "div",
+          "styles": {
+            "position": "relative"
+          },
+          "children": [
+            ".input"
+          ],
+          "parent": ".wrapperClasses"
+        },
+        {
+          "selector": ".input",
+          "tag": "input",
+          "styles": {
+            "width": "100%",
+            "height": "20px",
+            "padding": "0 8px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "color": "#FAFAFA",
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "transition": "all 150ms ease",
+            "line-height": "20px"
+          },
+          "states": {
+            "focus": {
+              "outline": "none",
+              "border-color": "#59ACFF",
+              "box-shadow": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #1F2124"
+            },
+            "disabled": {
+              "background-color": "#2A2D32",
+              "color": "#B5B5BC",
+              "cursor": "not-allowed"
+            }
+          }
+        },
+        {
+          "selector": ".wrapperClasses",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    },
+    "maconomy-light": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".input-form-wrapper__label": {
+            "margin-bottom": "0",
+            "white-space": "nowrap"
+          },
+          ".input-wrapper__error": {
+            "margin-top": "4px",
+            "font-size": "0.875rem",
+            "color": "#F46286",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".input-wrapper__icon": {
+            "position": "absolute",
+            "left": "8px",
+            "top": "calc(50% + 0.5px)",
+            "transform": "translateY(-50%)",
+            "color": "#6B7280",
+            "pointer-events": "none",
+            "z-index": "10"
+          },
+          ".input-form-wrapper": {
+            "display": "flex",
+            "flex-direction": "row",
+            "align-items": "center",
+            "gap": "4px"
+          },
+          ".input-wrapper": {
+            "position": "relative"
+          },
+          ".input": {
+            "width": "100%",
+            "height": "20px",
+            "padding": "0 8px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "color": "#373F4E",
+            "background-color": "#FFFFFF",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "transition": "all 150ms ease",
+            "line-height": "20px"
+          },
+          ".wrapperClasses": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".input-form-wrapper__label",
+          "tag": "div",
+          "styles": {
+            "margin-bottom": "0",
+            "white-space": "nowrap"
+          },
+          "children": [
+            ".input-wrapper__error"
+          ]
+        },
+        {
+          "selector": ".input-wrapper__error",
+          "tag": "div",
+          "styles": {
+            "margin-top": "4px",
+            "font-size": "0.875rem",
+            "color": "#F46286",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "children": [
+            ".input-wrapper__icon"
+          ],
+          "parent": ".input-wrapper"
+        },
+        {
+          "selector": ".input-wrapper__icon",
+          "tag": "div",
+          "styles": {
+            "position": "absolute",
+            "left": "8px",
+            "top": "calc(50% + 0.5px)",
+            "transform": "translateY(-50%)",
+            "color": "#6B7280",
+            "pointer-events": "none",
+            "z-index": "10"
+          },
+          "children": [
+            ".input-form-wrapper"
+          ],
+          "parent": ".input-wrapper"
+        },
+        {
+          "selector": ".input-form-wrapper",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "row",
+            "align-items": "center",
+            "gap": "4px"
+          },
+          "children": [
+            ".input-wrapper"
+          ],
+          "parent": ".input-wrapper__icon"
+        },
+        {
+          "selector": ".input-wrapper",
+          "tag": "div",
+          "styles": {
+            "position": "relative"
+          },
+          "children": [
+            ".input"
+          ],
+          "parent": ".wrapperClasses"
+        },
+        {
+          "selector": ".input",
+          "tag": "input",
+          "styles": {
+            "width": "100%",
+            "height": "20px",
+            "padding": "0 8px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "color": "#373F4E",
+            "background-color": "#FFFFFF",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "transition": "all 150ms ease",
+            "line-height": "20px"
+          },
+          "states": {
+            "focus": {
+              "outline": "none",
+              "border-color": "#4C92D9",
+              "box-shadow": "0 0 0 3px rgba(76, 146, 217, 0.1), 0 0 0 4px #F7F8FA"
+            },
+            "disabled": {
+              "background-color": "#EAEAEA",
+              "color": "#6B7280",
+              "cursor": "not-allowed"
+            }
+          }
+        },
+        {
+          "selector": ".wrapperClasses",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    },
+    "maconomy-dark": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".input-form-wrapper__label": {
+            "margin-bottom": "0",
+            "white-space": "nowrap"
+          },
+          ".input-wrapper__error": {
+            "margin-top": "4px",
+            "font-size": "0.875rem",
+            "color": "#F46286",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".input-wrapper__icon": {
+            "position": "absolute",
+            "left": "8px",
+            "top": "calc(50% + 0.5px)",
+            "transform": "translateY(-50%)",
+            "color": "#B5B5BC",
+            "pointer-events": "none",
+            "z-index": "10"
+          },
+          ".input-form-wrapper": {
+            "display": "flex",
+            "flex-direction": "row",
+            "align-items": "center",
+            "gap": "4px"
+          },
+          ".input-wrapper": {
+            "position": "relative"
+          },
+          ".input": {
+            "width": "100%",
+            "height": "20px",
+            "padding": "0 8px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "color": "#FAFAFA",
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "transition": "all 150ms ease",
+            "line-height": "20px"
+          },
+          ".wrapperClasses": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".input-form-wrapper__label",
+          "tag": "div",
+          "styles": {
+            "margin-bottom": "0",
+            "white-space": "nowrap"
+          },
+          "children": [
+            ".input-wrapper__error"
+          ]
+        },
+        {
+          "selector": ".input-wrapper__error",
+          "tag": "div",
+          "styles": {
+            "margin-top": "4px",
+            "font-size": "0.875rem",
+            "color": "#F46286",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "children": [
+            ".input-wrapper__icon"
+          ],
+          "parent": ".input-wrapper"
+        },
+        {
+          "selector": ".input-wrapper__icon",
+          "tag": "div",
+          "styles": {
+            "position": "absolute",
+            "left": "8px",
+            "top": "calc(50% + 0.5px)",
+            "transform": "translateY(-50%)",
+            "color": "#B5B5BC",
+            "pointer-events": "none",
+            "z-index": "10"
+          },
+          "children": [
+            ".input-form-wrapper"
+          ],
+          "parent": ".input-wrapper"
+        },
+        {
+          "selector": ".input-form-wrapper",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "row",
+            "align-items": "center",
+            "gap": "4px"
+          },
+          "children": [
+            ".input-wrapper"
+          ],
+          "parent": ".input-wrapper__icon"
+        },
+        {
+          "selector": ".input-wrapper",
+          "tag": "div",
+          "styles": {
+            "position": "relative"
+          },
+          "children": [
+            ".input"
+          ],
+          "parent": ".wrapperClasses"
+        },
+        {
+          "selector": ".input",
+          "tag": "input",
+          "styles": {
+            "width": "100%",
+            "height": "20px",
+            "padding": "0 8px",
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.75rem",
+            "color": "#FAFAFA",
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "transition": "all 150ms ease",
+            "line-height": "20px"
+          },
+          "states": {
+            "focus": {
+              "outline": "none",
+              "border-color": "#59ACFF",
+              "box-shadow": "0 0 0 3px rgba(89, 172, 255, 0.1), 0 0 0 4px #1F2124"
+            },
+            "disabled": {
+              "background-color": "#2A2D32",
+              "color": "#B5B5BC",
+              "cursor": "not-allowed"
+            }
+          }
+        },
+        {
+          "selector": ".wrapperClasses",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    }
+  },
+  "contentOrder": [
+    ".(finalLabelVariant",
+    ".input-wrapper"
+  ],
+  "guidance": {
+    "patterns": {
+      "label-layout-variants": "When a label prop is provided, the input renders in a form wrapper with Label component. The labelVariant prop ('inline' or 'stacked') controls layout: inline places label and input side-by-side (default for CP theme via CSS), stacked places label above input (default for other themes). If labelVariant is not explicitly set, CSS theme variables determine the default layout. When no label prop is provided, the input renders without a wrapper.",
+      "auto-generated-ids": "If no id prop is provided, the component automatically generates a unique random ID using Math.random().toString(36).substr(2, 9). This auto-generated ID is used for label[for] attribute, aria-describedby linking to error messages, and the input element itself. Always provide an explicit id for server-side rendered forms to ensure consistent IDs across renders.",
+      "icon-position-leading": "The icon prop only supports leading (left-side) icon placement. When icon is provided (Heroicon name string), the input renders with input--with-icon class and Icon component with size='sm' in input-wrapper__icon. There is no iconPosition prop; icons are always positioned on the left side of the input field.",
+      "error-state-accessibility": "When error=true and errorMessage is provided, the component creates an error paragraph with id={inputId}-error, applies aria-invalid='true' to the input, and links them via aria-describedby={inputId}-error. This ensures screen readers announce errors when the input receives focus. The errorMessage displays in input-wrapper__error class below the input field."
+    },
+    "guidelines": {}
+  },
+  "specKeyOrder": [
+    "theme",
+    "mode"
+  ],
+  "dimensionDefaults": {
+    "theme": "cp",
+    "mode": "light"
+  },
+  "structure": {
+    "root": ".wrapperClasses",
+    "children": [
+      {
+        "class": ".(finalLabelVariant"
+      },
+      {
+        "class": ".input-wrapper",
+        "children": [
+          {
+            "class": ".input-wrapper__icon"
+          },
+          {
+            "class": ".inputClasses"
+          },
+          {
+            "class": ".input-wrapper__error"
+          }
+        ]
+      }
+    ]
+  },
+  "fonts": {
+    "Figtree": "https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap",
+    "Lexend": "https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap",
+    "JetBrains Mono": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
+  },
+  "defaultContent": {
+    "_rule": "No default content defined; do not invent labels, icons, or copy. Use only what is in the spec or leave slots empty."
+  },
+  "interactivity": {
+    "events": [
+      {
+        "name": "change",
+        "description": "Native change when value changes"
+      },
+      {
+        "name": "focus",
+        "description": "Input received focus"
+      },
+      {
+        "name": "blur",
+        "description": "Input lost focus"
+      }
+    ],
+    "state": [
+      {
+        "name": "value",
+        "type": "string",
+        "description": "Current input value; controlled via value prop or form"
+      }
+    ]
+  },
+  "examples": [
+    {
+      "name": "Text input with label",
+      "description": "Basic text input with label",
+      "recipeId": "input-with-validation"
+    },
+    {
+      "name": "Input with error state",
+      "description": "Input showing validation error",
+      "recipeId": "input-with-validation"
+    },
+    {
+      "name": "Input with success state",
+      "description": "Input showing validation success",
+      "recipeId": "input-with-validation"
+    },
+    {
+      "name": "Basic search",
+      "description": "Simple search input",
+      "recipeId": "search-input"
+    },
+    {
+      "name": "Table filter",
+      "description": "Search input for filtering table data",
+      "recipeId": "search-input"
+    },
+    {
+      "name": "User search",
+      "description": "Search input for finding users",
+      "recipeId": "search-input"
+    },
+    {
+      "name": "Name fields",
+      "description": "First and last name input group",
+      "recipeId": "form-field-group"
+    },
+    {
+      "name": "Address fields",
+      "description": "Street address input group",
+      "recipeId": "form-field-group"
+    },
+    {
+      "name": "Contact fields",
+      "description": "Email and phone input group",
+      "recipeId": "form-field-group"
+    },
+    {
+      "name": "Text input",
+      "description": "Standalone text field",
+      "snippet": "<Input type=\"text\" placeholder=\"Enter text\" />"
+    }
+  ],
+  "contentOrder.input-wrapper": [
+    ".input-wrapper__icon",
+    ".inputClasses",
+    ".input-wrapper__error"
+  ]
+}

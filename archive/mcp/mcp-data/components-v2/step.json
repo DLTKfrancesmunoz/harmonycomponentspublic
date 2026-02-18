@@ -1,0 +1,3096 @@
+{
+  "name": "Step",
+  "type": "component",
+  "filePath": "src/components/ui/Step.astro",
+  "description": "Step Component",
+  "props": {
+    "completed": {
+      "type": "boolean",
+      "optional": true,
+      "default": "false"
+    },
+    "disabled": {
+      "type": "boolean",
+      "optional": true,
+      "default": "false"
+    },
+    "error": {
+      "type": "boolean",
+      "optional": true,
+      "default": "false"
+    },
+    "warning": {
+      "type": "boolean",
+      "optional": true,
+      "default": "false"
+    },
+    "success": {
+      "type": "boolean",
+      "optional": true,
+      "default": "false"
+    },
+    "icon": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "class": {
+      "type": "string",
+      "optional": true,
+      "default": "''"
+    }
+  },
+  "defaults": {
+    "theme": "cp",
+    "mode": "light"
+  },
+  "specs": {
+    "cp-light": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".step": {
+            "display": "flex",
+            "position": "relative",
+            "flex-shrink": "0",
+            "border": "none !important",
+            "outline": "none",
+            "z-index": "0"
+          },
+          ".step__check": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#F7F8FA",
+            "display": "block",
+            "z-index": "1"
+          },
+          ".step__connector": {
+            "position": "absolute",
+            "background-color": "#00E78E",
+            "transition": "background-color 200ms ease",
+            "z-index": "0",
+            "pointer-events": "none",
+            "opacity": "0.3"
+          },
+          ".step__description": {
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "400",
+            "color": "#6B7280",
+            "line-height": "1.5",
+            "word-wrap": "break-word",
+            "overflow-wrap": "break-word",
+            "white-space": "normal",
+            "margin-top": "4px",
+            "opacity": "0.6"
+          },
+          ".step__error-icon": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#F7F8FA",
+            "display": "block",
+            "z-index": "1"
+          },
+          ".step__icon": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "20px",
+            "height": "20px",
+            "color": "#6B7280",
+            "flex-shrink": "0"
+          },
+          ".step__indicator": {
+            "position": "relative",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "40px",
+            "height": "40px",
+            "min-width": "40px",
+            "flex-shrink": "0",
+            "border-radius": "9999px",
+            "background-color": "#F7F8FA",
+            "border": "2px solid #BFC6D4",
+            "color": "#6B7280",
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1rem",
+            "font-weight": "600",
+            "line-height": "1",
+            "transition": "all 200ms ease",
+            "z-index": "3",
+            "border-color": "#BFC6D4",
+            "opacity": "0.5",
+            "cursor": "not-allowed"
+          },
+          ".step__label": {
+            "display": "flex",
+            "flex-direction": "column",
+            "min-width": "0",
+            "flex": "1",
+            "position": "relative",
+            "z-index": "2",
+            "background-color": "rgba(0,0,0,0)",
+            "padding": "0",
+            "margin": "0",
+            "color": "#6B7280",
+            "font-weight": "600",
+            "opacity": "0.5",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".step__label-text": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "500",
+            "color": "#6B7280",
+            "line-height": "1.5",
+            "word-wrap": "break-word",
+            "overflow-wrap": "break-word",
+            "white-space": "normal",
+            "opacity": "0.6"
+          },
+          ".step__number": {
+            "display": "none",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "100%",
+            "height": "100%",
+            "text-align": "center"
+          },
+          ".step__success-icon": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#F7F8FA",
+            "display": "block",
+            "z-index": "1"
+          },
+          ".step__warning-icon": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#F7F8FA",
+            "display": "block",
+            "z-index": "1"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".step",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "position": "relative",
+            "flex-shrink": "0",
+            "border": "none !important",
+            "outline": "none",
+            "z-index": "0"
+          },
+          "children": [
+            ".step__check",
+            ".step__connector",
+            ".step__description",
+            ".step__error-icon",
+            ".step__icon",
+            ".step__indicator",
+            ".step__label",
+            ".step__label-text",
+            ".step__number",
+            ".step__success-icon",
+            ".step__warning-icon"
+          ]
+        },
+        {
+          "selector": ".step__check",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#F7F8FA",
+            "display": "block",
+            "z-index": "1"
+          },
+          "parent": ".step__indicator"
+        },
+        {
+          "selector": ".step__connector",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "background-color": "#00E78E",
+            "transition": "background-color 200ms ease",
+            "z-index": "0",
+            "pointer-events": "none",
+            "opacity": "0.3"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__description",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "400",
+            "color": "#6B7280",
+            "line-height": "1.5",
+            "word-wrap": "break-word",
+            "overflow-wrap": "break-word",
+            "white-space": "normal",
+            "margin-top": "4px",
+            "opacity": "0.6"
+          },
+          "parent": ".step__label"
+        },
+        {
+          "selector": ".step__error-icon",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#F7F8FA",
+            "display": "block",
+            "z-index": "1"
+          },
+          "parent": ".step__indicator"
+        },
+        {
+          "selector": ".step__icon",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "20px",
+            "height": "20px",
+            "color": "#6B7280",
+            "flex-shrink": "0"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__indicator",
+          "tag": "span",
+          "styles": {
+            "position": "relative",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "40px",
+            "height": "40px",
+            "min-width": "40px",
+            "flex-shrink": "0",
+            "border-radius": "9999px",
+            "background-color": "#F7F8FA",
+            "border": "2px solid #BFC6D4",
+            "color": "#6B7280",
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1rem",
+            "font-weight": "600",
+            "line-height": "1",
+            "transition": "all 200ms ease",
+            "z-index": "3",
+            "border-color": "#BFC6D4",
+            "opacity": "0.5",
+            "cursor": "not-allowed"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__label",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "min-width": "0",
+            "flex": "1",
+            "position": "relative",
+            "z-index": "2",
+            "background-color": "rgba(0,0,0,0)",
+            "padding": "0",
+            "margin": "0",
+            "color": "#6B7280",
+            "font-weight": "600",
+            "opacity": "0.5",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__label-text",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "500",
+            "color": "#6B7280",
+            "line-height": "1.5",
+            "word-wrap": "break-word",
+            "overflow-wrap": "break-word",
+            "white-space": "normal",
+            "opacity": "0.6"
+          },
+          "parent": ".step__label"
+        },
+        {
+          "selector": ".step__number",
+          "tag": "span",
+          "styles": {
+            "display": "none",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "100%",
+            "height": "100%",
+            "text-align": "center"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__success-icon",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#F7F8FA",
+            "display": "block",
+            "z-index": "1"
+          },
+          "parent": ".step__indicator"
+        },
+        {
+          "selector": ".step__warning-icon",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#F7F8FA",
+            "display": "block",
+            "z-index": "1"
+          },
+          "parent": ".step__indicator"
+        }
+      ]
+    },
+    "cp-dark": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".step": {
+            "display": "flex",
+            "position": "relative",
+            "flex-shrink": "0",
+            "border": "none !important",
+            "outline": "none",
+            "z-index": "0"
+          },
+          ".step__check": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#37424D",
+            "display": "block",
+            "z-index": "1"
+          },
+          ".step__connector": {
+            "position": "absolute",
+            "background-color": "#00E78E",
+            "transition": "background-color 200ms ease",
+            "z-index": "0",
+            "pointer-events": "none",
+            "opacity": "0.3"
+          },
+          ".step__description": {
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "400",
+            "color": "#BBBBC6",
+            "line-height": "1.5",
+            "word-wrap": "break-word",
+            "overflow-wrap": "break-word",
+            "white-space": "normal",
+            "margin-top": "4px",
+            "opacity": "0.6"
+          },
+          ".step__error-icon": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#37424D",
+            "display": "block",
+            "z-index": "1"
+          },
+          ".step__icon": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "20px",
+            "height": "20px",
+            "color": "#BBBBC6",
+            "flex-shrink": "0"
+          },
+          ".step__indicator": {
+            "position": "relative",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "40px",
+            "height": "40px",
+            "min-width": "40px",
+            "flex-shrink": "0",
+            "border-radius": "9999px",
+            "background-color": "#37424D",
+            "border": "2px solid #5F6871",
+            "color": "#BBBBC6",
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1rem",
+            "font-weight": "600",
+            "line-height": "1",
+            "transition": "all 200ms ease",
+            "z-index": "3",
+            "border-color": "#5F6871",
+            "opacity": "0.5",
+            "cursor": "not-allowed"
+          },
+          ".step__label": {
+            "display": "flex",
+            "flex-direction": "column",
+            "min-width": "0",
+            "flex": "1",
+            "position": "relative",
+            "z-index": "2",
+            "background-color": "rgba(0,0,0,0)",
+            "padding": "0",
+            "margin": "0",
+            "color": "#BBBBC6",
+            "font-weight": "600",
+            "opacity": "0.5",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".step__label-text": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "500",
+            "color": "#BBBBC6",
+            "line-height": "1.5",
+            "word-wrap": "break-word",
+            "overflow-wrap": "break-word",
+            "white-space": "normal",
+            "opacity": "0.6"
+          },
+          ".step__number": {
+            "display": "none",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "100%",
+            "height": "100%",
+            "text-align": "center"
+          },
+          ".step__success-icon": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#37424D",
+            "display": "block",
+            "z-index": "1"
+          },
+          ".step__warning-icon": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#37424D",
+            "display": "block",
+            "z-index": "1"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".step",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "position": "relative",
+            "flex-shrink": "0",
+            "border": "none !important",
+            "outline": "none",
+            "z-index": "0"
+          },
+          "children": [
+            ".step__check",
+            ".step__connector",
+            ".step__description",
+            ".step__error-icon",
+            ".step__icon",
+            ".step__indicator",
+            ".step__label",
+            ".step__label-text",
+            ".step__number",
+            ".step__success-icon",
+            ".step__warning-icon"
+          ]
+        },
+        {
+          "selector": ".step__check",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#37424D",
+            "display": "block",
+            "z-index": "1"
+          },
+          "parent": ".step__indicator"
+        },
+        {
+          "selector": ".step__connector",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "background-color": "#00E78E",
+            "transition": "background-color 200ms ease",
+            "z-index": "0",
+            "pointer-events": "none",
+            "opacity": "0.3"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__description",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "400",
+            "color": "#BBBBC6",
+            "line-height": "1.5",
+            "word-wrap": "break-word",
+            "overflow-wrap": "break-word",
+            "white-space": "normal",
+            "margin-top": "4px",
+            "opacity": "0.6"
+          },
+          "parent": ".step__label"
+        },
+        {
+          "selector": ".step__error-icon",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#37424D",
+            "display": "block",
+            "z-index": "1"
+          },
+          "parent": ".step__indicator"
+        },
+        {
+          "selector": ".step__icon",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "20px",
+            "height": "20px",
+            "color": "#BBBBC6",
+            "flex-shrink": "0"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__indicator",
+          "tag": "span",
+          "styles": {
+            "position": "relative",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "40px",
+            "height": "40px",
+            "min-width": "40px",
+            "flex-shrink": "0",
+            "border-radius": "9999px",
+            "background-color": "#37424D",
+            "border": "2px solid #5F6871",
+            "color": "#BBBBC6",
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1rem",
+            "font-weight": "600",
+            "line-height": "1",
+            "transition": "all 200ms ease",
+            "z-index": "3",
+            "border-color": "#5F6871",
+            "opacity": "0.5",
+            "cursor": "not-allowed"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__label",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "min-width": "0",
+            "flex": "1",
+            "position": "relative",
+            "z-index": "2",
+            "background-color": "rgba(0,0,0,0)",
+            "padding": "0",
+            "margin": "0",
+            "color": "#BBBBC6",
+            "font-weight": "600",
+            "opacity": "0.5",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__label-text",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "500",
+            "color": "#BBBBC6",
+            "line-height": "1.5",
+            "word-wrap": "break-word",
+            "overflow-wrap": "break-word",
+            "white-space": "normal",
+            "opacity": "0.6"
+          },
+          "parent": ".step__label"
+        },
+        {
+          "selector": ".step__number",
+          "tag": "span",
+          "styles": {
+            "display": "none",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "100%",
+            "height": "100%",
+            "text-align": "center"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__success-icon",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#37424D",
+            "display": "block",
+            "z-index": "1"
+          },
+          "parent": ".step__indicator"
+        },
+        {
+          "selector": ".step__warning-icon",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#37424D",
+            "display": "block",
+            "z-index": "1"
+          },
+          "parent": ".step__indicator"
+        }
+      ]
+    },
+    "vp-light": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".step": {
+            "display": "flex",
+            "position": "relative",
+            "flex-shrink": "0",
+            "border": "none !important",
+            "outline": "none",
+            "z-index": "0"
+          },
+          ".step__check": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#F7F8FA",
+            "display": "block",
+            "z-index": "1"
+          },
+          ".step__connector": {
+            "position": "absolute",
+            "background-color": "#00E78E",
+            "transition": "background-color 200ms ease",
+            "z-index": "0",
+            "pointer-events": "none",
+            "opacity": "0.3"
+          },
+          ".step__description": {
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "400",
+            "color": "#6B7280",
+            "line-height": "1.5",
+            "word-wrap": "break-word",
+            "overflow-wrap": "break-word",
+            "white-space": "normal",
+            "margin-top": "4px",
+            "opacity": "0.6"
+          },
+          ".step__error-icon": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#F7F8FA",
+            "display": "block",
+            "z-index": "1"
+          },
+          ".step__icon": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "20px",
+            "height": "20px",
+            "color": "#6B7280",
+            "flex-shrink": "0"
+          },
+          ".step__indicator": {
+            "position": "relative",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "40px",
+            "height": "40px",
+            "min-width": "40px",
+            "flex-shrink": "0",
+            "border-radius": "9999px",
+            "background-color": "#F7F8FA",
+            "border": "2px solid #BFC6D4",
+            "color": "#6B7280",
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1rem",
+            "font-weight": "600",
+            "line-height": "1",
+            "transition": "all 200ms ease",
+            "z-index": "3",
+            "border-color": "#BFC6D4",
+            "opacity": "0.5",
+            "cursor": "not-allowed"
+          },
+          ".step__label": {
+            "display": "flex",
+            "flex-direction": "column",
+            "min-width": "0",
+            "flex": "1",
+            "position": "relative",
+            "z-index": "2",
+            "background-color": "rgba(0,0,0,0)",
+            "padding": "0",
+            "margin": "0",
+            "color": "#6B7280",
+            "font-weight": "600",
+            "opacity": "0.5",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".step__label-text": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "500",
+            "color": "#6B7280",
+            "line-height": "1.5",
+            "word-wrap": "break-word",
+            "overflow-wrap": "break-word",
+            "white-space": "normal",
+            "opacity": "0.6"
+          },
+          ".step__number": {
+            "display": "none",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "100%",
+            "height": "100%",
+            "text-align": "center"
+          },
+          ".step__success-icon": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#F7F8FA",
+            "display": "block",
+            "z-index": "1"
+          },
+          ".step__warning-icon": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#F7F8FA",
+            "display": "block",
+            "z-index": "1"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".step",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "position": "relative",
+            "flex-shrink": "0",
+            "border": "none !important",
+            "outline": "none",
+            "z-index": "0"
+          },
+          "children": [
+            ".step__check",
+            ".step__connector",
+            ".step__description",
+            ".step__error-icon",
+            ".step__icon",
+            ".step__indicator",
+            ".step__label",
+            ".step__label-text",
+            ".step__number",
+            ".step__success-icon",
+            ".step__warning-icon"
+          ]
+        },
+        {
+          "selector": ".step__check",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#F7F8FA",
+            "display": "block",
+            "z-index": "1"
+          },
+          "parent": ".step__indicator"
+        },
+        {
+          "selector": ".step__connector",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "background-color": "#00E78E",
+            "transition": "background-color 200ms ease",
+            "z-index": "0",
+            "pointer-events": "none",
+            "opacity": "0.3"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__description",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "400",
+            "color": "#6B7280",
+            "line-height": "1.5",
+            "word-wrap": "break-word",
+            "overflow-wrap": "break-word",
+            "white-space": "normal",
+            "margin-top": "4px",
+            "opacity": "0.6"
+          },
+          "parent": ".step__label"
+        },
+        {
+          "selector": ".step__error-icon",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#F7F8FA",
+            "display": "block",
+            "z-index": "1"
+          },
+          "parent": ".step__indicator"
+        },
+        {
+          "selector": ".step__icon",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "20px",
+            "height": "20px",
+            "color": "#6B7280",
+            "flex-shrink": "0"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__indicator",
+          "tag": "span",
+          "styles": {
+            "position": "relative",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "40px",
+            "height": "40px",
+            "min-width": "40px",
+            "flex-shrink": "0",
+            "border-radius": "9999px",
+            "background-color": "#F7F8FA",
+            "border": "2px solid #BFC6D4",
+            "color": "#6B7280",
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1rem",
+            "font-weight": "600",
+            "line-height": "1",
+            "transition": "all 200ms ease",
+            "z-index": "3",
+            "border-color": "#BFC6D4",
+            "opacity": "0.5",
+            "cursor": "not-allowed"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__label",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "min-width": "0",
+            "flex": "1",
+            "position": "relative",
+            "z-index": "2",
+            "background-color": "rgba(0,0,0,0)",
+            "padding": "0",
+            "margin": "0",
+            "color": "#6B7280",
+            "font-weight": "600",
+            "opacity": "0.5",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__label-text",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "500",
+            "color": "#6B7280",
+            "line-height": "1.5",
+            "word-wrap": "break-word",
+            "overflow-wrap": "break-word",
+            "white-space": "normal",
+            "opacity": "0.6"
+          },
+          "parent": ".step__label"
+        },
+        {
+          "selector": ".step__number",
+          "tag": "span",
+          "styles": {
+            "display": "none",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "100%",
+            "height": "100%",
+            "text-align": "center"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__success-icon",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#F7F8FA",
+            "display": "block",
+            "z-index": "1"
+          },
+          "parent": ".step__indicator"
+        },
+        {
+          "selector": ".step__warning-icon",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#F7F8FA",
+            "display": "block",
+            "z-index": "1"
+          },
+          "parent": ".step__indicator"
+        }
+      ]
+    },
+    "vp-dark": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".step": {
+            "display": "flex",
+            "position": "relative",
+            "flex-shrink": "0",
+            "border": "none !important",
+            "outline": "none",
+            "z-index": "0"
+          },
+          ".step__check": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#1F2124",
+            "display": "block",
+            "z-index": "1"
+          },
+          ".step__connector": {
+            "position": "absolute",
+            "background-color": "#00E78E",
+            "transition": "background-color 200ms ease",
+            "z-index": "0",
+            "pointer-events": "none",
+            "opacity": "0.3"
+          },
+          ".step__description": {
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "400",
+            "color": "#B5B5BC",
+            "line-height": "1.5",
+            "word-wrap": "break-word",
+            "overflow-wrap": "break-word",
+            "white-space": "normal",
+            "margin-top": "4px",
+            "opacity": "0.6"
+          },
+          ".step__error-icon": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#1F2124",
+            "display": "block",
+            "z-index": "1"
+          },
+          ".step__icon": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "20px",
+            "height": "20px",
+            "color": "#B5B5BC",
+            "flex-shrink": "0"
+          },
+          ".step__indicator": {
+            "position": "relative",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "40px",
+            "height": "40px",
+            "min-width": "40px",
+            "flex-shrink": "0",
+            "border-radius": "9999px",
+            "background-color": "#1F2124",
+            "border": "2px solid #2A2D32",
+            "color": "#B5B5BC",
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1rem",
+            "font-weight": "600",
+            "line-height": "1",
+            "transition": "all 200ms ease",
+            "z-index": "3",
+            "border-color": "#2A2D32",
+            "opacity": "0.5",
+            "cursor": "not-allowed"
+          },
+          ".step__label": {
+            "display": "flex",
+            "flex-direction": "column",
+            "min-width": "0",
+            "flex": "1",
+            "position": "relative",
+            "z-index": "2",
+            "background-color": "rgba(0,0,0,0)",
+            "padding": "0",
+            "margin": "0",
+            "color": "#B5B5BC",
+            "font-weight": "600",
+            "opacity": "0.5",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".step__label-text": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "500",
+            "color": "#B5B5BC",
+            "line-height": "1.5",
+            "word-wrap": "break-word",
+            "overflow-wrap": "break-word",
+            "white-space": "normal",
+            "opacity": "0.6"
+          },
+          ".step__number": {
+            "display": "none",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "100%",
+            "height": "100%",
+            "text-align": "center"
+          },
+          ".step__success-icon": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#1F2124",
+            "display": "block",
+            "z-index": "1"
+          },
+          ".step__warning-icon": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#1F2124",
+            "display": "block",
+            "z-index": "1"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".step",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "position": "relative",
+            "flex-shrink": "0",
+            "border": "none !important",
+            "outline": "none",
+            "z-index": "0"
+          },
+          "children": [
+            ".step__check",
+            ".step__connector",
+            ".step__description",
+            ".step__error-icon",
+            ".step__icon",
+            ".step__indicator",
+            ".step__label",
+            ".step__label-text",
+            ".step__number",
+            ".step__success-icon",
+            ".step__warning-icon"
+          ]
+        },
+        {
+          "selector": ".step__check",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#1F2124",
+            "display": "block",
+            "z-index": "1"
+          },
+          "parent": ".step__indicator"
+        },
+        {
+          "selector": ".step__connector",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "background-color": "#00E78E",
+            "transition": "background-color 200ms ease",
+            "z-index": "0",
+            "pointer-events": "none",
+            "opacity": "0.3"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__description",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "400",
+            "color": "#B5B5BC",
+            "line-height": "1.5",
+            "word-wrap": "break-word",
+            "overflow-wrap": "break-word",
+            "white-space": "normal",
+            "margin-top": "4px",
+            "opacity": "0.6"
+          },
+          "parent": ".step__label"
+        },
+        {
+          "selector": ".step__error-icon",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#1F2124",
+            "display": "block",
+            "z-index": "1"
+          },
+          "parent": ".step__indicator"
+        },
+        {
+          "selector": ".step__icon",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "20px",
+            "height": "20px",
+            "color": "#B5B5BC",
+            "flex-shrink": "0"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__indicator",
+          "tag": "span",
+          "styles": {
+            "position": "relative",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "40px",
+            "height": "40px",
+            "min-width": "40px",
+            "flex-shrink": "0",
+            "border-radius": "9999px",
+            "background-color": "#1F2124",
+            "border": "2px solid #2A2D32",
+            "color": "#B5B5BC",
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1rem",
+            "font-weight": "600",
+            "line-height": "1",
+            "transition": "all 200ms ease",
+            "z-index": "3",
+            "border-color": "#2A2D32",
+            "opacity": "0.5",
+            "cursor": "not-allowed"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__label",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "min-width": "0",
+            "flex": "1",
+            "position": "relative",
+            "z-index": "2",
+            "background-color": "rgba(0,0,0,0)",
+            "padding": "0",
+            "margin": "0",
+            "color": "#B5B5BC",
+            "font-weight": "600",
+            "opacity": "0.5",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__label-text",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "500",
+            "color": "#B5B5BC",
+            "line-height": "1.5",
+            "word-wrap": "break-word",
+            "overflow-wrap": "break-word",
+            "white-space": "normal",
+            "opacity": "0.6"
+          },
+          "parent": ".step__label"
+        },
+        {
+          "selector": ".step__number",
+          "tag": "span",
+          "styles": {
+            "display": "none",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "100%",
+            "height": "100%",
+            "text-align": "center"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__success-icon",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#1F2124",
+            "display": "block",
+            "z-index": "1"
+          },
+          "parent": ".step__indicator"
+        },
+        {
+          "selector": ".step__warning-icon",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#1F2124",
+            "display": "block",
+            "z-index": "1"
+          },
+          "parent": ".step__indicator"
+        }
+      ]
+    },
+    "ppm-light": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".step": {
+            "display": "flex",
+            "position": "relative",
+            "flex-shrink": "0",
+            "border": "none !important",
+            "outline": "none",
+            "z-index": "0"
+          },
+          ".step__check": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#F7F8FA",
+            "display": "block",
+            "z-index": "1"
+          },
+          ".step__connector": {
+            "position": "absolute",
+            "background-color": "#00E78E",
+            "transition": "background-color 200ms ease",
+            "z-index": "0",
+            "pointer-events": "none",
+            "opacity": "0.3"
+          },
+          ".step__description": {
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "400",
+            "color": "#6B7280",
+            "line-height": "1.5",
+            "word-wrap": "break-word",
+            "overflow-wrap": "break-word",
+            "white-space": "normal",
+            "margin-top": "4px",
+            "opacity": "0.6"
+          },
+          ".step__error-icon": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#F7F8FA",
+            "display": "block",
+            "z-index": "1"
+          },
+          ".step__icon": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "20px",
+            "height": "20px",
+            "color": "#6B7280",
+            "flex-shrink": "0"
+          },
+          ".step__indicator": {
+            "position": "relative",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "40px",
+            "height": "40px",
+            "min-width": "40px",
+            "flex-shrink": "0",
+            "border-radius": "9999px",
+            "background-color": "#F7F8FA",
+            "border": "2px solid #BFC6D4",
+            "color": "#6B7280",
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1rem",
+            "font-weight": "600",
+            "line-height": "1",
+            "transition": "all 200ms ease",
+            "z-index": "3",
+            "border-color": "#BFC6D4",
+            "opacity": "0.5",
+            "cursor": "not-allowed"
+          },
+          ".step__label": {
+            "display": "flex",
+            "flex-direction": "column",
+            "min-width": "0",
+            "flex": "1",
+            "position": "relative",
+            "z-index": "2",
+            "background-color": "rgba(0,0,0,0)",
+            "padding": "0",
+            "margin": "0",
+            "color": "#6B7280",
+            "font-weight": "600",
+            "opacity": "0.5",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".step__label-text": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "500",
+            "color": "#6B7280",
+            "line-height": "1.5",
+            "word-wrap": "break-word",
+            "overflow-wrap": "break-word",
+            "white-space": "normal",
+            "opacity": "0.6"
+          },
+          ".step__number": {
+            "display": "none",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "100%",
+            "height": "100%",
+            "text-align": "center"
+          },
+          ".step__success-icon": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#F7F8FA",
+            "display": "block",
+            "z-index": "1"
+          },
+          ".step__warning-icon": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#F7F8FA",
+            "display": "block",
+            "z-index": "1"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".step",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "position": "relative",
+            "flex-shrink": "0",
+            "border": "none !important",
+            "outline": "none",
+            "z-index": "0"
+          },
+          "children": [
+            ".step__check",
+            ".step__connector",
+            ".step__description",
+            ".step__error-icon",
+            ".step__icon",
+            ".step__indicator",
+            ".step__label",
+            ".step__label-text",
+            ".step__number",
+            ".step__success-icon",
+            ".step__warning-icon"
+          ]
+        },
+        {
+          "selector": ".step__check",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#F7F8FA",
+            "display": "block",
+            "z-index": "1"
+          },
+          "parent": ".step__indicator"
+        },
+        {
+          "selector": ".step__connector",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "background-color": "#00E78E",
+            "transition": "background-color 200ms ease",
+            "z-index": "0",
+            "pointer-events": "none",
+            "opacity": "0.3"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__description",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "400",
+            "color": "#6B7280",
+            "line-height": "1.5",
+            "word-wrap": "break-word",
+            "overflow-wrap": "break-word",
+            "white-space": "normal",
+            "margin-top": "4px",
+            "opacity": "0.6"
+          },
+          "parent": ".step__label"
+        },
+        {
+          "selector": ".step__error-icon",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#F7F8FA",
+            "display": "block",
+            "z-index": "1"
+          },
+          "parent": ".step__indicator"
+        },
+        {
+          "selector": ".step__icon",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "20px",
+            "height": "20px",
+            "color": "#6B7280",
+            "flex-shrink": "0"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__indicator",
+          "tag": "span",
+          "styles": {
+            "position": "relative",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "40px",
+            "height": "40px",
+            "min-width": "40px",
+            "flex-shrink": "0",
+            "border-radius": "9999px",
+            "background-color": "#F7F8FA",
+            "border": "2px solid #BFC6D4",
+            "color": "#6B7280",
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1rem",
+            "font-weight": "600",
+            "line-height": "1",
+            "transition": "all 200ms ease",
+            "z-index": "3",
+            "border-color": "#BFC6D4",
+            "opacity": "0.5",
+            "cursor": "not-allowed"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__label",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "min-width": "0",
+            "flex": "1",
+            "position": "relative",
+            "z-index": "2",
+            "background-color": "rgba(0,0,0,0)",
+            "padding": "0",
+            "margin": "0",
+            "color": "#6B7280",
+            "font-weight": "600",
+            "opacity": "0.5",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__label-text",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "500",
+            "color": "#6B7280",
+            "line-height": "1.5",
+            "word-wrap": "break-word",
+            "overflow-wrap": "break-word",
+            "white-space": "normal",
+            "opacity": "0.6"
+          },
+          "parent": ".step__label"
+        },
+        {
+          "selector": ".step__number",
+          "tag": "span",
+          "styles": {
+            "display": "none",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "100%",
+            "height": "100%",
+            "text-align": "center"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__success-icon",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#F7F8FA",
+            "display": "block",
+            "z-index": "1"
+          },
+          "parent": ".step__indicator"
+        },
+        {
+          "selector": ".step__warning-icon",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#F7F8FA",
+            "display": "block",
+            "z-index": "1"
+          },
+          "parent": ".step__indicator"
+        }
+      ]
+    },
+    "ppm-dark": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".step": {
+            "display": "flex",
+            "position": "relative",
+            "flex-shrink": "0",
+            "border": "none !important",
+            "outline": "none",
+            "z-index": "0"
+          },
+          ".step__check": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#1F2124",
+            "display": "block",
+            "z-index": "1"
+          },
+          ".step__connector": {
+            "position": "absolute",
+            "background-color": "#00E78E",
+            "transition": "background-color 200ms ease",
+            "z-index": "0",
+            "pointer-events": "none",
+            "opacity": "0.3"
+          },
+          ".step__description": {
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "400",
+            "color": "#B5B5BC",
+            "line-height": "1.5",
+            "word-wrap": "break-word",
+            "overflow-wrap": "break-word",
+            "white-space": "normal",
+            "margin-top": "4px",
+            "opacity": "0.6"
+          },
+          ".step__error-icon": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#1F2124",
+            "display": "block",
+            "z-index": "1"
+          },
+          ".step__icon": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "20px",
+            "height": "20px",
+            "color": "#B5B5BC",
+            "flex-shrink": "0"
+          },
+          ".step__indicator": {
+            "position": "relative",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "40px",
+            "height": "40px",
+            "min-width": "40px",
+            "flex-shrink": "0",
+            "border-radius": "9999px",
+            "background-color": "#1F2124",
+            "border": "2px solid #2A2D32",
+            "color": "#B5B5BC",
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1rem",
+            "font-weight": "600",
+            "line-height": "1",
+            "transition": "all 200ms ease",
+            "z-index": "3",
+            "border-color": "#2A2D32",
+            "opacity": "0.5",
+            "cursor": "not-allowed"
+          },
+          ".step__label": {
+            "display": "flex",
+            "flex-direction": "column",
+            "min-width": "0",
+            "flex": "1",
+            "position": "relative",
+            "z-index": "2",
+            "background-color": "rgba(0,0,0,0)",
+            "padding": "0",
+            "margin": "0",
+            "color": "#B5B5BC",
+            "font-weight": "600",
+            "opacity": "0.5",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".step__label-text": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "500",
+            "color": "#B5B5BC",
+            "line-height": "1.5",
+            "word-wrap": "break-word",
+            "overflow-wrap": "break-word",
+            "white-space": "normal",
+            "opacity": "0.6"
+          },
+          ".step__number": {
+            "display": "none",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "100%",
+            "height": "100%",
+            "text-align": "center"
+          },
+          ".step__success-icon": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#1F2124",
+            "display": "block",
+            "z-index": "1"
+          },
+          ".step__warning-icon": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#1F2124",
+            "display": "block",
+            "z-index": "1"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".step",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "position": "relative",
+            "flex-shrink": "0",
+            "border": "none !important",
+            "outline": "none",
+            "z-index": "0"
+          },
+          "children": [
+            ".step__check",
+            ".step__connector",
+            ".step__description",
+            ".step__error-icon",
+            ".step__icon",
+            ".step__indicator",
+            ".step__label",
+            ".step__label-text",
+            ".step__number",
+            ".step__success-icon",
+            ".step__warning-icon"
+          ]
+        },
+        {
+          "selector": ".step__check",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#1F2124",
+            "display": "block",
+            "z-index": "1"
+          },
+          "parent": ".step__indicator"
+        },
+        {
+          "selector": ".step__connector",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "background-color": "#00E78E",
+            "transition": "background-color 200ms ease",
+            "z-index": "0",
+            "pointer-events": "none",
+            "opacity": "0.3"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__description",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "400",
+            "color": "#B5B5BC",
+            "line-height": "1.5",
+            "word-wrap": "break-word",
+            "overflow-wrap": "break-word",
+            "white-space": "normal",
+            "margin-top": "4px",
+            "opacity": "0.6"
+          },
+          "parent": ".step__label"
+        },
+        {
+          "selector": ".step__error-icon",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#1F2124",
+            "display": "block",
+            "z-index": "1"
+          },
+          "parent": ".step__indicator"
+        },
+        {
+          "selector": ".step__icon",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "20px",
+            "height": "20px",
+            "color": "#B5B5BC",
+            "flex-shrink": "0"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__indicator",
+          "tag": "span",
+          "styles": {
+            "position": "relative",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "40px",
+            "height": "40px",
+            "min-width": "40px",
+            "flex-shrink": "0",
+            "border-radius": "9999px",
+            "background-color": "#1F2124",
+            "border": "2px solid #2A2D32",
+            "color": "#B5B5BC",
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1rem",
+            "font-weight": "600",
+            "line-height": "1",
+            "transition": "all 200ms ease",
+            "z-index": "3",
+            "border-color": "#2A2D32",
+            "opacity": "0.5",
+            "cursor": "not-allowed"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__label",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "min-width": "0",
+            "flex": "1",
+            "position": "relative",
+            "z-index": "2",
+            "background-color": "rgba(0,0,0,0)",
+            "padding": "0",
+            "margin": "0",
+            "color": "#B5B5BC",
+            "font-weight": "600",
+            "opacity": "0.5",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__label-text",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "500",
+            "color": "#B5B5BC",
+            "line-height": "1.5",
+            "word-wrap": "break-word",
+            "overflow-wrap": "break-word",
+            "white-space": "normal",
+            "opacity": "0.6"
+          },
+          "parent": ".step__label"
+        },
+        {
+          "selector": ".step__number",
+          "tag": "span",
+          "styles": {
+            "display": "none",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "100%",
+            "height": "100%",
+            "text-align": "center"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__success-icon",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#1F2124",
+            "display": "block",
+            "z-index": "1"
+          },
+          "parent": ".step__indicator"
+        },
+        {
+          "selector": ".step__warning-icon",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#1F2124",
+            "display": "block",
+            "z-index": "1"
+          },
+          "parent": ".step__indicator"
+        }
+      ]
+    },
+    "maconomy-light": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".step": {
+            "display": "flex",
+            "position": "relative",
+            "flex-shrink": "0",
+            "border": "none !important",
+            "outline": "none",
+            "z-index": "0"
+          },
+          ".step__check": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#F7F8FA",
+            "display": "block",
+            "z-index": "1"
+          },
+          ".step__connector": {
+            "position": "absolute",
+            "background-color": "#00E78E",
+            "transition": "background-color 200ms ease",
+            "z-index": "0",
+            "pointer-events": "none",
+            "opacity": "0.3"
+          },
+          ".step__description": {
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "400",
+            "color": "#6B7280",
+            "line-height": "1.5",
+            "word-wrap": "break-word",
+            "overflow-wrap": "break-word",
+            "white-space": "normal",
+            "margin-top": "4px",
+            "opacity": "0.6"
+          },
+          ".step__error-icon": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#F7F8FA",
+            "display": "block",
+            "z-index": "1"
+          },
+          ".step__icon": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "20px",
+            "height": "20px",
+            "color": "#6B7280",
+            "flex-shrink": "0"
+          },
+          ".step__indicator": {
+            "position": "relative",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "40px",
+            "height": "40px",
+            "min-width": "40px",
+            "flex-shrink": "0",
+            "border-radius": "9999px",
+            "background-color": "#F7F8FA",
+            "border": "2px solid #BFC6D4",
+            "color": "#6B7280",
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1rem",
+            "font-weight": "600",
+            "line-height": "1",
+            "transition": "all 200ms ease",
+            "z-index": "3",
+            "border-color": "#BFC6D4",
+            "opacity": "0.5",
+            "cursor": "not-allowed"
+          },
+          ".step__label": {
+            "display": "flex",
+            "flex-direction": "column",
+            "min-width": "0",
+            "flex": "1",
+            "position": "relative",
+            "z-index": "2",
+            "background-color": "rgba(0,0,0,0)",
+            "padding": "0",
+            "margin": "0",
+            "color": "#6B7280",
+            "font-weight": "600",
+            "opacity": "0.5",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".step__label-text": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "500",
+            "color": "#6B7280",
+            "line-height": "1.5",
+            "word-wrap": "break-word",
+            "overflow-wrap": "break-word",
+            "white-space": "normal",
+            "opacity": "0.6"
+          },
+          ".step__number": {
+            "display": "none",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "100%",
+            "height": "100%",
+            "text-align": "center"
+          },
+          ".step__success-icon": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#F7F8FA",
+            "display": "block",
+            "z-index": "1"
+          },
+          ".step__warning-icon": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#F7F8FA",
+            "display": "block",
+            "z-index": "1"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".step",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "position": "relative",
+            "flex-shrink": "0",
+            "border": "none !important",
+            "outline": "none",
+            "z-index": "0"
+          },
+          "children": [
+            ".step__check",
+            ".step__connector",
+            ".step__description",
+            ".step__error-icon",
+            ".step__icon",
+            ".step__indicator",
+            ".step__label",
+            ".step__label-text",
+            ".step__number",
+            ".step__success-icon",
+            ".step__warning-icon"
+          ]
+        },
+        {
+          "selector": ".step__check",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#F7F8FA",
+            "display": "block",
+            "z-index": "1"
+          },
+          "parent": ".step__indicator"
+        },
+        {
+          "selector": ".step__connector",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "background-color": "#00E78E",
+            "transition": "background-color 200ms ease",
+            "z-index": "0",
+            "pointer-events": "none",
+            "opacity": "0.3"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__description",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "400",
+            "color": "#6B7280",
+            "line-height": "1.5",
+            "word-wrap": "break-word",
+            "overflow-wrap": "break-word",
+            "white-space": "normal",
+            "margin-top": "4px",
+            "opacity": "0.6"
+          },
+          "parent": ".step__label"
+        },
+        {
+          "selector": ".step__error-icon",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#F7F8FA",
+            "display": "block",
+            "z-index": "1"
+          },
+          "parent": ".step__indicator"
+        },
+        {
+          "selector": ".step__icon",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "20px",
+            "height": "20px",
+            "color": "#6B7280",
+            "flex-shrink": "0"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__indicator",
+          "tag": "span",
+          "styles": {
+            "position": "relative",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "40px",
+            "height": "40px",
+            "min-width": "40px",
+            "flex-shrink": "0",
+            "border-radius": "9999px",
+            "background-color": "#F7F8FA",
+            "border": "2px solid #BFC6D4",
+            "color": "#6B7280",
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1rem",
+            "font-weight": "600",
+            "line-height": "1",
+            "transition": "all 200ms ease",
+            "z-index": "3",
+            "border-color": "#BFC6D4",
+            "opacity": "0.5",
+            "cursor": "not-allowed"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__label",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "min-width": "0",
+            "flex": "1",
+            "position": "relative",
+            "z-index": "2",
+            "background-color": "rgba(0,0,0,0)",
+            "padding": "0",
+            "margin": "0",
+            "color": "#6B7280",
+            "font-weight": "600",
+            "opacity": "0.5",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__label-text",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "500",
+            "color": "#6B7280",
+            "line-height": "1.5",
+            "word-wrap": "break-word",
+            "overflow-wrap": "break-word",
+            "white-space": "normal",
+            "opacity": "0.6"
+          },
+          "parent": ".step__label"
+        },
+        {
+          "selector": ".step__number",
+          "tag": "span",
+          "styles": {
+            "display": "none",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "100%",
+            "height": "100%",
+            "text-align": "center"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__success-icon",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#F7F8FA",
+            "display": "block",
+            "z-index": "1"
+          },
+          "parent": ".step__indicator"
+        },
+        {
+          "selector": ".step__warning-icon",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#F7F8FA",
+            "display": "block",
+            "z-index": "1"
+          },
+          "parent": ".step__indicator"
+        }
+      ]
+    },
+    "maconomy-dark": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".step": {
+            "display": "flex",
+            "position": "relative",
+            "flex-shrink": "0",
+            "border": "none !important",
+            "outline": "none",
+            "z-index": "0"
+          },
+          ".step__check": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#1F2124",
+            "display": "block",
+            "z-index": "1"
+          },
+          ".step__connector": {
+            "position": "absolute",
+            "background-color": "#00E78E",
+            "transition": "background-color 200ms ease",
+            "z-index": "0",
+            "pointer-events": "none",
+            "opacity": "0.3"
+          },
+          ".step__description": {
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "400",
+            "color": "#B5B5BC",
+            "line-height": "1.5",
+            "word-wrap": "break-word",
+            "overflow-wrap": "break-word",
+            "white-space": "normal",
+            "margin-top": "4px",
+            "opacity": "0.6"
+          },
+          ".step__error-icon": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#1F2124",
+            "display": "block",
+            "z-index": "1"
+          },
+          ".step__icon": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "20px",
+            "height": "20px",
+            "color": "#B5B5BC",
+            "flex-shrink": "0"
+          },
+          ".step__indicator": {
+            "position": "relative",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "40px",
+            "height": "40px",
+            "min-width": "40px",
+            "flex-shrink": "0",
+            "border-radius": "9999px",
+            "background-color": "#1F2124",
+            "border": "2px solid #2A2D32",
+            "color": "#B5B5BC",
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1rem",
+            "font-weight": "600",
+            "line-height": "1",
+            "transition": "all 200ms ease",
+            "z-index": "3",
+            "border-color": "#2A2D32",
+            "opacity": "0.5",
+            "cursor": "not-allowed"
+          },
+          ".step__label": {
+            "display": "flex",
+            "flex-direction": "column",
+            "min-width": "0",
+            "flex": "1",
+            "position": "relative",
+            "z-index": "2",
+            "background-color": "rgba(0,0,0,0)",
+            "padding": "0",
+            "margin": "0",
+            "color": "#B5B5BC",
+            "font-weight": "600",
+            "opacity": "0.5",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".step__label-text": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "500",
+            "color": "#B5B5BC",
+            "line-height": "1.5",
+            "word-wrap": "break-word",
+            "overflow-wrap": "break-word",
+            "white-space": "normal",
+            "opacity": "0.6"
+          },
+          ".step__number": {
+            "display": "none",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "100%",
+            "height": "100%",
+            "text-align": "center"
+          },
+          ".step__success-icon": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#1F2124",
+            "display": "block",
+            "z-index": "1"
+          },
+          ".step__warning-icon": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#1F2124",
+            "display": "block",
+            "z-index": "1"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".step",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "position": "relative",
+            "flex-shrink": "0",
+            "border": "none !important",
+            "outline": "none",
+            "z-index": "0"
+          },
+          "children": [
+            ".step__check",
+            ".step__connector",
+            ".step__description",
+            ".step__error-icon",
+            ".step__icon",
+            ".step__indicator",
+            ".step__label",
+            ".step__label-text",
+            ".step__number",
+            ".step__success-icon",
+            ".step__warning-icon"
+          ]
+        },
+        {
+          "selector": ".step__check",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#1F2124",
+            "display": "block",
+            "z-index": "1"
+          },
+          "parent": ".step__indicator"
+        },
+        {
+          "selector": ".step__connector",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "background-color": "#00E78E",
+            "transition": "background-color 200ms ease",
+            "z-index": "0",
+            "pointer-events": "none",
+            "opacity": "0.3"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__description",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Figtree', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "400",
+            "color": "#B5B5BC",
+            "line-height": "1.5",
+            "word-wrap": "break-word",
+            "overflow-wrap": "break-word",
+            "white-space": "normal",
+            "margin-top": "4px",
+            "opacity": "0.6"
+          },
+          "parent": ".step__label"
+        },
+        {
+          "selector": ".step__error-icon",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#1F2124",
+            "display": "block",
+            "z-index": "1"
+          },
+          "parent": ".step__indicator"
+        },
+        {
+          "selector": ".step__icon",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "20px",
+            "height": "20px",
+            "color": "#B5B5BC",
+            "flex-shrink": "0"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__indicator",
+          "tag": "span",
+          "styles": {
+            "position": "relative",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "40px",
+            "height": "40px",
+            "min-width": "40px",
+            "flex-shrink": "0",
+            "border-radius": "9999px",
+            "background-color": "#1F2124",
+            "border": "2px solid #2A2D32",
+            "color": "#B5B5BC",
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "1rem",
+            "font-weight": "600",
+            "line-height": "1",
+            "transition": "all 200ms ease",
+            "z-index": "3",
+            "border-color": "#2A2D32",
+            "opacity": "0.5",
+            "cursor": "not-allowed"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__label",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "min-width": "0",
+            "flex": "1",
+            "position": "relative",
+            "z-index": "2",
+            "background-color": "rgba(0,0,0,0)",
+            "padding": "0",
+            "margin": "0",
+            "color": "#B5B5BC",
+            "font-weight": "600",
+            "opacity": "0.5",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__label-text",
+          "tag": "span",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "500",
+            "color": "#B5B5BC",
+            "line-height": "1.5",
+            "word-wrap": "break-word",
+            "overflow-wrap": "break-word",
+            "white-space": "normal",
+            "opacity": "0.6"
+          },
+          "parent": ".step__label"
+        },
+        {
+          "selector": ".step__number",
+          "tag": "span",
+          "styles": {
+            "display": "none",
+            "align-items": "center",
+            "justify-content": "center",
+            "width": "100%",
+            "height": "100%",
+            "text-align": "center"
+          },
+          "parent": ".step"
+        },
+        {
+          "selector": ".step__success-icon",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#1F2124",
+            "display": "block",
+            "z-index": "1"
+          },
+          "parent": ".step__indicator"
+        },
+        {
+          "selector": ".step__warning-icon",
+          "tag": "span",
+          "styles": {
+            "position": "absolute",
+            "top": "50%",
+            "left": "50%",
+            "transform": "translate(-50%, -50%)",
+            "width": "20px",
+            "height": "20px",
+            "color": "#1F2124",
+            "display": "block",
+            "z-index": "1"
+          },
+          "parent": ".step__indicator"
+        }
+      ]
+    }
+  },
+  "contentOrder": [
+    ".step__indicator",
+    ".step__connector",
+    ".step__label"
+  ],
+  "guidance": {
+    "patterns": {},
+    "guidelines": {}
+  },
+  "specKeyOrder": [
+    "theme",
+    "mode"
+  ],
+  "dimensionDefaults": {
+    "theme": "cp",
+    "mode": "light"
+  },
+  "structure": {
+    "root": ".step",
+    "children": [
+      {
+        "class": ".step__indicator",
+        "children": [
+          {
+            "class": ".step__error-icon"
+          },
+          {
+            "class": ".step__warning-icon"
+          },
+          {
+            "class": ".step__success-icon"
+          },
+          {
+            "class": ".step__check"
+          }
+        ]
+      },
+      {
+        "class": ".step__connector"
+      },
+      {
+        "class": ".step__label",
+        "children": [
+          {
+            "class": ".step__label-text",
+            "children": []
+          },
+          {
+            "class": ".step__description",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  "fonts": {
+    "Figtree": "https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap",
+    "Lexend": "https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap",
+    "JetBrains Mono": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
+  },
+  "defaultContent": {
+    "_rule": "No default content defined; do not invent labels, icons, or copy. Use only what is in the spec or leave slots empty."
+  },
+  "interactivity": {
+    "events": [
+      {
+        "name": "click",
+        "description": "Step indicator click when stepper is interactive"
+      }
+    ],
+    "state": [
+      {
+        "name": "status",
+        "type": "string",
+        "description": "completed | current | upcoming; passed from parent Stepper"
+      }
+    ]
+  },
+  "examples": [
+    {
+      "name": "Step indicator",
+      "description": "One step in stepper",
+      "snippet": "<Step status=\"completed\" label=\"Done\" />"
+    }
+  ],
+  "contentOrder.step__indicator": [
+    ".step__error-icon",
+    ".step__warning-icon",
+    ".step__success-icon",
+    ".step__check"
+  ],
+  "contentOrder.step__label": [
+    ".step__label-text",
+    ".step__description"
+  ]
+}

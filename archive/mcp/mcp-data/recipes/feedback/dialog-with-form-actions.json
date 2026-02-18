@@ -1,0 +1,96 @@
+{
+  "id": "dialog-with-form-actions",
+  "name": "Dialog with Form Actions",
+  "description": "Standard dialog with primary/secondary action buttons in footer",
+  "category": "feedback",
+  "complexity": "molecule",
+  "tags": ["dialog", "confirmation", "actions", "form", "buttons"],
+  "components": [
+    {
+      "name": "Dialog",
+      "role": "container",
+      "props": {
+        "id": "confirm-dialog",
+        "title": "Confirm Action",
+        "buttonAlignment": "left"
+      }
+    },
+    {
+      "name": "Button",
+      "role": "primary-action",
+      "parent": "Dialog",
+      "slot": "footer",
+      "props": {
+        "variant": "primary",
+        "type": "submit"
+      },
+      "content": "Confirm",
+      "order": 1
+    },
+    {
+      "name": "Button",
+      "role": "secondary-action",
+      "parent": "Dialog",
+      "slot": "footer",
+      "props": {
+        "variant": "secondary"
+      },
+      "content": "Cancel",
+      "order": 2
+    }
+  ],
+  "usageGuidance": {
+    "when": "User confirmation required before destructive or important actions",
+    "antiPatterns": [
+      "Don't use more than 3 buttons in footer",
+      "Don't nest dialogs - use multi-step pattern instead"
+    ],
+    "notes": {
+      "buttonAlignment": "When buttonAlignment='left' (default), primary action appears first visually, matching semantic importance",
+      "buttonOrder": "Primary action (Confirm/Save/Delete) should come before secondary action (Cancel)",
+      "variants": "Use variant='danger' for destructive actions like Delete"
+    }
+  },
+  "validation": {
+    "required": ["Dialog", "Button"],
+    "maxCount": {
+      "Button": 3
+    },
+    "theme": "all",
+    "hierarchy": [
+      { "parent": "Dialog", "child": "Button", "required": true }
+    ]
+  },
+  "examples": [
+    {
+      "name": "Delete confirmation",
+      "description": "Confirm before deleting an item",
+      "props": {
+        "Dialog.title": "Delete Item?",
+        "primary-action.content": "Delete",
+        "primary-action.variant": "danger",
+        "secondary-action.content": "Cancel"
+      }
+    },
+    {
+      "name": "Save changes",
+      "description": "Confirm before saving changes",
+      "props": {
+        "Dialog.title": "Save Changes?",
+        "primary-action.content": "Save",
+        "secondary-action.content": "Discard"
+      }
+    },
+    {
+      "name": "With three actions",
+      "description": "Dialog with tertiary action (max recommended)",
+      "props": {
+        "Dialog.title": "Unsaved Changes",
+        "primary-action.content": "Save",
+        "secondary-action.content": "Don't Save",
+        "tertiary-action.content": "Cancel",
+        "tertiary-action.variant": "ghost"
+      }
+    }
+  ]
+}

@@ -3,11 +3,17 @@
  * Button Component
  *
  * Interactive button with multiple variants, sizes, and states.
+ * Default slot: consumer-provided content (label/text). No fallback; consumer must pass content for a meaningful default state.
+ *
+ * @usagePattern icon-only-detection When an icon prop is provided but no text content is passed to the default slot and loading is false, the button automatically switches to icon-only mode using btn--icon-{size} classes instead of btn--{size} classes. This ensures proper square dimensions and centering for icon-only buttons.
+ * @usagePattern loading-state-behavior When loading is true, the button displays a spinner and optional loadingText, completely replacing any icon and default slot content. The button is automatically disabled (disabled || loading) to prevent multiple submissions. Set loadingText prop to show text alongside the spinner during loading.
+ * @usagePattern icon-size-mapping Button sizes (xs, sm, md, lg) map to icon sizes using iconSizeMap: xs→xs(12px), sm→sm(16px), md→sm(16px), lg→md(20px). The Icon component automatically receives the appropriate size prop based on the button size, ensuring visual consistency without manual size specification.
+ * @usagePattern href-button-element When href prop is provided, the component renders an <a> tag instead of <button> tag, maintaining identical visual styling and behavior. This allows buttons to function as navigation links while preserving semantics. The type prop is ignored when href is set, as <a> tags don't have a type attribute.
  */
 import Icon from './Icon.astro';
 
 export interface Props {
-  variant?: 'primary' | 'secondary' | 'tertiary' | 'outline' | 'ghost' | 'destructive';
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'outline' | 'ghost' | 'destructive' | 'dela' | 'dela-pill';
   buttonType?: 'theme' | 'pageHeader';
   size?: 'xs' | 'sm' | 'md' | 'lg';
   orientation?: 'horizontal' | 'vertical';
@@ -53,11 +59,13 @@ const iconSize = iconSizeMap[size];
 const hasSlotContent = Astro.slots.has('default');
 const isIconOnly = icon && !hasSlotContent && !loading;
 
-// Build class list
+const isDelaVariant = variant === 'dela' || variant === 'dela-pill';
+
+// Build class list (do not apply page-header for Dela variants)
 const classes = [
   'btn',
   `btn--${variant}`,
-  buttonType === 'pageHeader' && 'btn--page-header',
+  buttonType === 'pageHeader' && !isDelaVariant && 'btn--page-header',
   isIconOnly ? `btn--icon-${size}` : `btn--${size}`,
   orientation === 'vertical' && 'btn--vertical',
   disabled && 'btn--disabled',
@@ -84,6 +92,7 @@ const classes = [
       </>
     ) : (
       <>
+        {isDelaVariant && <img src="/Stars.svg" alt="" class="btn__dela-stars" />}
         {icon && iconPosition === 'left' && (
           <Icon name={icon} size={iconSize} />
         )}
@@ -112,6 +121,7 @@ const classes = [
       </>
     ) : (
       <>
+        {isDelaVariant && <img src="/Stars.svg" alt="" class="btn__dela-stars" />}
         {icon && iconPosition === 'left' && (
           <Icon name={icon} size={iconSize} />
         )}

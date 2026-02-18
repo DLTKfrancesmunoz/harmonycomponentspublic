@@ -12,7 +12,7 @@ import ShellLayout from '../../layouts/ShellLayout.astro';
     <header class="page-header page-header--compact">
       <h1 class="page-header__title page-header__title--sm">Shell Page Header</h1>
       <p class="page-header__description">
-        The Shell Page Header appears above page content cards in the shell layout. It displays a title and optional subtitle on the left, with up to 4 optional action buttons on the right (1 primary dark blue button and up to 3 outline variant buttons).
+        The Shell Page Header appears above page content cards in the shell layout. It displays a title and optional subtitle on the left. By default it shows one dark blue primary button (far right) and one outline secondary button (left of primary). You can override these with <code class="text-xs bg-elevated px-1 py-0.5 rounded">primaryButton</code> / <code class="text-xs bg-elevated px-1 py-0.5 rounded">outlineButton1</code>, add up to 3 outline buttons, or pass <code class="text-xs bg-elevated px-1 py-0.5 rounded">showDefaultButtons={'{false}'}</code> to show no buttons when none are provided.
       </p>
     </header>
 
@@ -29,7 +29,7 @@ import ShellLayout from '../../layouts/ShellLayout.astro';
           <ul class="list-disc list-inside text-sm text-secondary space-y-1">
             <li>Positioned above page content cards within the shell layout main area</li>
             <li>Title and subtitle stacked on the left side</li>
-            <li>Up to 4 optional action buttons on the right (outline buttons first, then primary)</li>
+            <li>By default, one primary and one outline secondary button on the right; optional override with up to 4 action buttons (outline buttons first, then primary)</li>
             <li>Uses dark blue page header button styles (#043852)</li>
             <li>Responsive layout that stacks on mobile devices</li>
           </ul>
@@ -42,8 +42,8 @@ import ShellLayout from '../../layouts/ShellLayout.astro';
       <h2 class="section__title">Examples</h2>
 
       <ExampleSection
-        title="Basic Header with Title Only"
-        description="Simple header with just a title. No subtitle or buttons."
+        title="Default Header (with default buttons)"
+        description="Header with title only; the component shows its default primary and outline buttons. Secondary (outline) is left, primary is right."
       >
         <div class="p-6 bg-page rounded-lg">
           <ShellPageHeader title="Project Details" />
@@ -56,13 +56,14 @@ import ShellLayout from '../../layouts/ShellLayout.astro';
       </ExampleSection>
 
       <ExampleSection
-        title="Header with Title and Subtitle"
-        description="Header with both title and subtitle, but no action buttons."
+        title="Header with no action buttons"
+        description="Pass showDefaultButtons={'{false}'} to hide the default buttons when you do not provide any button props."
       >
         <div class="p-6 bg-page rounded-lg">
-          <ShellPageHeader 
+          <ShellPageHeader
             title="Project Settings"
             subtitle="Configure project preferences and team access"
+            showDefaultButtons={false}
           />
           <Card>
             <div class="p-6">
@@ -144,6 +145,7 @@ import ShellLayout from '../../layouts/ShellLayout.astro';
             showFloatingNav={false}
             tabs={[]}
             showAddTab={false}
+            pageHeaderTitle=""
           >
             <ShellPageHeader 
               title="Project Overview"

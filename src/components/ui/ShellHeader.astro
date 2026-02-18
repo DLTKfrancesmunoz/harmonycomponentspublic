@@ -1,6 +1,18 @@
 ---
+/**
+ * ShellHeader: top bar with brand and optional company picker + avatar.
+ * @usagePattern actions-slot-override When the actions slot is provided, it completely replaces the default right-side content (company picker and Avatar). When the slot is not used, the header shows the company picker when showCompanyPicker is true and the Avatar. Use the companies prop to supply custom company options and companyColor for the selected indicator and gradient bar.
+ * @usagePattern company-picker-customization The companies prop overrides the default company list; companyColor sets the selected company indicator and the header gradient bar color.
+ */
 import Icon from './Icon.astro';
 import Avatar from './Avatar.astro';
+
+/** Company option for the company picker dropdown. When provided via `companies` prop, used instead of built-in list. */
+export interface CompanyOption {
+  id: string;
+  name: string;
+  color?: string;
+}
 
 interface Props {
   productName?: string;
@@ -8,6 +20,8 @@ interface Props {
   companyName?: string;
   showCompanyPicker?: boolean;
   companyColor?: string;
+  /** When provided, used to render company picker options; when not provided, built-in list is used. */
+  companies?: CompanyOption[];
   class?: string;
 }
 
@@ -17,8 +31,32 @@ const {
   companyName = 'Company name',
   showCompanyPicker = true,
   companyColor,
+  companies,
   class: className = ''
 } = Astro.props;
+
+const hasActionsSlot = Astro.slots.has('actions');
+
+// Icon names used in default header (e.g. company picker chevron) resolve per theme-scoped icon manifest (src/data/icon-manifest.json).
+// Default company colors align with theme-config.ts (cp companies) so the gradient bar is never empty when companyColor is not passed.
+const defaultCompanies: CompanyOption[] = [
+  { id: 'acme-corp', name: 'Acme Corporation', color: '#FF507B' },
+  { id: 'ocean-industries', name: 'Ocean Industries', color: '#285F8C' },
+  { id: 'violet-systems', name: 'Violet Systems', color: '#DC50FF' },
+  { id: 'azure-dynamics', name: 'Azure Dynamics', color: '#5077FF' },
+  { id: 'sunset-corporation', name: 'Sunset Corporation', color: '#FFAF50' },
+];
+
+const optionClassMap: Record<string, string> = {
+  'acme-corp': 'company-picker__option-indicator--acme',
+  'ocean-industries': 'company-picker__option-indicator--ocean',
+  'violet-systems': 'company-picker__option-indicator--violet',
+  'azure-dynamics': 'company-picker__option-indicator--azure',
+  'sunset-corporation': 'company-picker__option-indicator--sunset',
+};
+
+const companyOptions = companies ?? defaultCompanies;
+const effectiveCompanyColor = companyColor ?? companyOptions[0]?.color;
 ---
 
 <header class={`header ${className}`}>
@@ -30,58 +68,58 @@ const {
     </a>
   </div>
 
-  <!-- Right: Company dropdown + Avatar -->
+  <!-- Right: actions slot or company dropdown + Avatar -->
   <div class="header__actions">
-    {showCompanyPicker && (
+    {hasActionsSlot ? (
+      <slot name="actions" />
+    ) : (
       <>
-        <!-- Company Picker -->
-        <div class="company-picker">
-          <button class="company-picker__btn" data-company-picker-btn>
-            <span 
-              class="company-picker__indicator"
-              data-company-indicator
-              style={companyColor ? `background-color: ${companyColor}` : undefined}
-            ></span>
-            <span class="company-picker__name" data-company-name>{companyName}</span>
-            <Icon name="chevron-down" size="sm" class="company-picker__chevron" />
-          </button>
-          <div class="company-picker__menu" data-company-picker-menu>
-            <button class="company-picker__option company-picker__option--selected" data-company-option data-company-id="acme-corp">
-              <span class="company-picker__option-indicator company-picker__option-indicator--acme"></span>
-              <span class="company-picker__option-name">Acme Corporation</span>
-            </button>
-            <button class="company-picker__option" data-company-option data-company-id="ocean-industries">
-              <span class="company-picker__option-indicator company-picker__option-indicator--ocean"></span>
-              <span class="company-picker__option-name">Ocean Industries</span>
-            </button>
-            <button class="company-picker__option" data-company-option data-company-id="violet-systems">
-              <span class="company-picker__option-indicator company-picker__option-indicator--violet"></span>
-              <span class="company-picker__option-name">Violet Systems</span>
-            </button>
-            <button class="company-picker__option" data-company-option data-company-id="azure-dynamics">
-              <span class="company-picker__option-indicator company-picker__option-indicator--azure"></span>
-              <span class="company-picker__option-name">Azure Dynamics</span>
-            </button>
-            <button class="company-picker__option" data-company-option data-company-id="sunset-corporation">
-              <span class="company-picker__option-indicator company-picker__option-indicator--sunset"></span>
-              <span class="company-picker__option-name">Sunset Corporation</span>
-            </button>
-          </div>
-        </div>
+        {showCompanyPicker && (
+          <>
+            <!-- Company Picker -->
+            <div class="company-picker">
+              <button type="button" class="company-picker__btn" data-company-picker-btn>
+                <span 
+                  class="company-picker__indicator"
+                  data-company-indicator
+                  style={effectiveCompanyColor ? `background-color: ${effectiveCompanyColor}` : undefined}
+                ></span>
+                <span class="company-picker__name" data-company-name>{companyName}</span>
+                <Icon name="chevron-down" size="sm" class="company-picker__chevron" />
+              </button>
+              <div class="company-picker__menu" data-company-picker-menu>
+                {companyOptions.map((company, index) => (
+                  <button
+                    type="button"
+                    class:list={['company-picker__option', index === 0 && 'company-picker__option--selected']}
+                    data-company-option
+                    data-company-id={company.id}
+                  >
+                    <span
+                      class:list={['company-picker__option-indicator', !companies && optionClassMap[company.id]]}
+                      style={company.color ? `background-color: ${company.color}` : undefined}
+                    />
+                    <span class="company-picker__option-name">{company.name}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
 
-        <div class="divider"></div>
+            <div class="divider"></div>
+          </>
+        )}
+
+        <!-- User Avatar -->
+        <Avatar size="sm" />
       </>
     )}
-
-    <!-- User Avatar -->
-    <Avatar size="sm" />
   </div>
 
   <!-- Gradient Border -->
   <div 
     class="header__gradient"
     data-header-gradient
-    style={companyColor ? `background: linear-gradient(to right, ${companyColor}05, ${companyColor} 50%, ${companyColor}05)` : undefined}
+    style={effectiveCompanyColor ? `background: linear-gradient(to right, ${effectiveCompanyColor}05, ${effectiveCompanyColor} 50%, ${effectiveCompanyColor}05)` : undefined}
   ></div>
 </header>
 

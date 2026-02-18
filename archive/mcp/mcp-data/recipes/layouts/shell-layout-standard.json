@@ -1,0 +1,93 @@
+{
+  "id": "shell-layout-standard",
+  "name": "Shell Layout (Standard)",
+  "description": "Complete application shell layout for VP/PPM/Maconomy themes with ShellFooter",
+  "category": "layouts",
+  "complexity": "template",
+  "tags": ["layout", "shell", "standard", "navigation", "header", "footer"],
+  "components": [
+    {
+      "name": "ShellHeader",
+      "role": "header",
+      "props": {},
+      "order": 1
+    },
+    {
+      "name": "LeftSidebar",
+      "role": "left-navigation",
+      "props": {
+        "collapsible": true
+      },
+      "order": 2
+    },
+    {
+      "name": "ShellPageHeader",
+      "role": "page-header",
+      "props": {},
+      "order": 3
+    },
+    {
+      "name": "RightSidebar",
+      "role": "right-sidebar",
+      "props": {
+        "collapsible": true
+      },
+      "order": 4
+    },
+    {
+      "name": "ShellFooter",
+      "role": "footer",
+      "props": {},
+      "order": 5
+    }
+  ],
+  "usageGuidance": {
+    "when": "Building application shell for VP, PPM, or Maconomy themes",
+    "antiPatterns": [
+      "Don't use FloatingNav with non-CP themes - use ShellFooter instead",
+      "Don't omit ShellFooter for standard themes - it's the primary navigation pattern",
+      "Don't mix CP-specific patterns with standard themes"
+    ],
+    "notes": {
+      "standardThemes": "Use this pattern for VP (Vendor Portal), PPM (Project Portfolio Management), and Maconomy themes",
+      "footer": "ShellFooter provides desktop-oriented navigation pattern",
+      "sidebarVariants": "LeftSidebar and RightSidebar are optional based on app needs",
+      "themeRule": "This pattern is for non-CP themes only",
+      "pageHeaderActionsOrder": "When ShellPageHeader is used, place secondary/outline actions left and primary action right; DOM order in the pageHeaderActions slot is the visual order."
+    }
+  },
+  "validation": {
+    "required": ["ShellHeader", "ShellFooter"],
+    "maxCount": {
+      "ShellHeader": 1,
+      "ShellFooter": 1,
+      "LeftSidebar": 1,
+      "RightSidebar": 1,
+      "ShellPageHeader": 1
+    },
+    "theme": ["vp", "ppm", "maconomy"],
+    "hierarchy": []
+  },
+  "examples": [
+    {
+      "name": "Standard with sidebars",
+      "description": "Full layout with left and right sidebars",
+      "props": {
+        "left-navigation.collapsible": true,
+        "right-sidebar.collapsible": true
+      }
+    },
+    {
+      "name": "Standard minimal",
+      "description": "Minimal layout with header and footer only",
+      "props": {}
+    },
+    {
+      "name": "Standard with page header",
+      "description": "Standard layout with page-specific header",
+      "props": {
+        "page-header.title": "Projects"
+      }
+    }
+  ]
+}

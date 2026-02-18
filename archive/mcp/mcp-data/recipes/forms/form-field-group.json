@@ -1,0 +1,106 @@
+{
+  "id": "form-field-group",
+  "name": "Form Field Group",
+  "description": "Multiple related form fields grouped together",
+  "category": "forms",
+  "complexity": "organism",
+  "tags": ["form", "group", "fields", "layout"],
+  "components": [
+    {
+      "name": "Label",
+      "role": "first-label",
+      "props": {
+        "for": "first-field"
+      },
+      "content": "First Name",
+      "order": 1
+    },
+    {
+      "name": "Input",
+      "role": "first-input",
+      "props": {
+        "id": "first-field",
+        "type": "text",
+        "required": true
+      },
+      "order": 2
+    },
+    {
+      "name": "Label",
+      "role": "second-label",
+      "props": {
+        "for": "second-field"
+      },
+      "content": "Last Name",
+      "order": 3
+    },
+    {
+      "name": "Input",
+      "role": "second-input",
+      "props": {
+        "id": "second-field",
+        "type": "text",
+        "required": true
+      },
+      "order": 4
+    }
+  ],
+  "usageGuidance": {
+    "when": "Multiple related form fields that should be visually grouped (e.g., name fields, address fields)",
+    "antiPatterns": [
+      "Don't group unrelated fields together",
+      "Don't exceed 5-6 fields in a single group - break into multiple sections",
+      "Don't forget to maintain label-input associations"
+    ],
+    "notes": {
+      "layout": "Use CSS Grid or Flexbox for responsive field layouts",
+      "spacing": "Maintain consistent spacing between field pairs",
+      "order": "Order fields logically (e.g., First Name before Last Name)",
+      "grouping": "Consider using fieldset/legend for semantic grouping"
+    }
+  },
+  "validation": {
+    "required": ["Input"],
+    "maxCount": {
+      "Input": 6,
+      "Label": 6
+    },
+    "theme": "all",
+    "hierarchy": []
+  },
+  "examples": [
+    {
+      "name": "Name fields",
+      "description": "First and last name input group",
+      "props": {
+        "first-label.content": "First Name",
+        "first-input.placeholder": "John",
+        "second-label.content": "Last Name",
+        "second-input.placeholder": "Doe"
+      }
+    },
+    {
+      "name": "Address fields",
+      "description": "Street address input group",
+      "props": {
+        "first-label.content": "Street Address",
+        "first-input.placeholder": "123 Main St",
+        "second-label.content": "Apartment/Suite",
+        "second-input.placeholder": "Apt 4",
+        "second-input.required": false
+      }
+    },
+    {
+      "name": "Contact fields",
+      "description": "Email and phone input group",
+      "props": {
+        "first-label.content": "Email",
+        "first-input.type": "email",
+        "first-input.placeholder": "you@example.com",
+        "second-label.content": "Phone",
+        "second-input.type": "tel",
+        "second-input.placeholder": "(555) 123-4567"
+      }
+    }
+  ]
+}

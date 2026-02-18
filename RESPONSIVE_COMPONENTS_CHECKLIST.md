@@ -43,8 +43,6 @@
 
 ### Shell Components (Excluded - to be handled separately)
 
-- CPLeftSidebar
-- CPRightSidebar
 - FloatingNav
 - LeftSidebar
 - RightSidebar

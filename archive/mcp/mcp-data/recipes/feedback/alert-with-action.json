@@ -1,0 +1,77 @@
+{
+  "id": "alert-with-action",
+  "name": "Alert with Action Button",
+  "description": "Alert banner with optional action button",
+  "category": "feedback",
+  "complexity": "molecule",
+  "tags": ["alert", "banner", "action", "notification"],
+  "components": [
+    {
+      "name": "Alert",
+      "role": "container",
+      "props": {
+        "variant": "info",
+        "dismissible": true
+      }
+    },
+    {
+      "name": "Button",
+      "role": "action",
+      "parent": "Alert",
+      "props": {
+        "variant": "ghost",
+        "size": "sm"
+      },
+      "content": "Learn More"
+    }
+  ],
+  "usageGuidance": {
+    "when": "Inline notification or alert that needs user action",
+    "antiPatterns": [
+      "Don't use for modal confirmations - use Dialog instead",
+      "Don't use multiple buttons - keeps alerts simple"
+    ],
+    "notes": {
+      "variants": "Use variant='success' for success messages, 'warning' for warnings, 'error' for errors, 'info' (default) for general information",
+      "dismissible": "Set dismissible=true to allow users to close the alert",
+      "action": "Action button should be secondary/ghost variant to maintain visual hierarchy"
+    }
+  },
+  "validation": {
+    "required": ["Alert"],
+    "maxCount": {
+      "Button": 1
+    },
+    "theme": "all",
+    "hierarchy": [
+      { "parent": "Alert", "child": "Button", "required": false }
+    ]
+  },
+  "examples": [
+    {
+      "name": "Info with action",
+      "description": "Information alert with learn more action",
+      "props": {
+        "Alert.variant": "info",
+        "action.content": "Learn More"
+      }
+    },
+    {
+      "name": "Warning with action",
+      "description": "Warning alert with action to resolve",
+      "props": {
+        "Alert.variant": "warning",
+        "action.content": "Fix Now",
+        "action.variant": "secondary"
+      }
+    },
+    {
+      "name": "Error dismissible",
+      "description": "Error alert that can be dismissed",
+      "props": {
+        "Alert.variant": "error",
+        "Alert.dismissible": true
+      }
+    }
+  ]
+}

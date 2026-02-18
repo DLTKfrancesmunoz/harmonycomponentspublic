@@ -538,7 +538,6 @@ export function extractVariantColors(componentName, parsedCSS, variableMap, comp
   
   // Note: LeftSidebar and RightSidebar DO have variants (cp, vp, ppm, maconomy)
   // These represent different product configurations (e.g., CP has 2 sections, others have 1)
-  // CPLeftSidebar/CPRightSidebar are convenience components that hardcode variant="cp"
   // So we extract these variants normally - they are product variants, not just theme selection
   
   // Extract variant names from component props
@@ -583,12 +582,15 @@ export function extractVariantColors(componentName, parsedCSS, variableMap, comp
     for (const variantName of variantNames) {
       const exactPattern = `.${classPrefix}--${variantName}`;
       // Check for standard pattern: .component--variant
+      // Also check for variant in child element: .component__element--variant
+      const childVariantPattern = `${classPrefix}__[^\\s]*--${variantName}`;
       if (selector === exactPattern || 
           selector.startsWith(exactPattern + ':') ||
           selector.startsWith(exactPattern + '.') ||
           selector.includes(exactPattern + '.') ||
           selector.includes(' ' + exactPattern) ||
-          selector.includes(exactPattern + ' ')) {
+          selector.includes(exactPattern + ' ') ||
+          new RegExp(childVariantPattern).test(selector)) {
         foundVariants.push(variantName);
       }
     }
@@ -628,6 +630,11 @@ export function extractVariantColors(componentName, parsedCSS, variableMap, comp
                                selector.includes(exactPattern + '.') ||
                                (selector.includes(exactPattern) && !selector.includes(moreSpecificPattern));
       
+      // Check for variant in child element (e.g., .component__element--variant .component__child:hover)
+      // Pattern: .component__something--variant followed by space and child element with state
+      const childVariantPattern = new RegExp(`${classPrefix}__[^\\s]*--${variantName}`);
+      const isChildVariant = childVariantPattern.test(selector) && selector.includes(' ');
+      
       // Only process primary, secondary, tertiary for page header variants
       const isPageHeaderApplicable = isPageHeaderVariant && 
                                      ['primary', 'secondary', 'tertiary'].includes(variantName);
@@ -640,7 +647,7 @@ export function extractVariantColors(componentName, parsedCSS, variableMap, comp
       let matchedMode = null;
       for (const theme of themes) {
         if (selector.includes(`.theme-${theme}`) || selector.includes(`html.theme-${theme}`)) {
-          if (matchesExactClass(selector, `${classPrefix}--${variantName}`)) {
+          if (matchesExactClass(selector, `${classPrefix}--${variantName}`) || isChildVariant) {
             matchedTheme = theme;
             if (selector.includes('.dark') || selector.includes(`html.theme-${theme}.dark`)) {
               matchedMode = 'dark';
@@ -652,11 +659,12 @@ export function extractVariantColors(componentName, parsedCSS, variableMap, comp
         }
       }
       
-      if ((isRegularVariant || isPageHeaderApplicable) && 
+      if ((isRegularVariant || isPageHeaderApplicable || isChildVariant) && 
           !selector.includes(moreSpecificPattern) && 
           !shouldExcludeButtonGroup) {
         
         // Determine state (hover, active, focus, disabled)
+        // For child variants, state is on the child element, not the variant class
         let state = 'default';
         if (selector.includes(':hover')) state = 'hover';
         else if (selector.includes(':active')) state = 'active';
@@ -777,8 +785,6 @@ function getClassPrefix(componentName) {
     'RangeInput': 'range-input',
     'Textarea': 'textarea',
     'PickerPopup': 'picker-popup',
-    'CPLeftSidebar': 'cp-left-sidebar',
-    'CPRightSidebar': 'cp-right-sidebar',
   };
 
   return prefixMap[componentName] || componentName.toLowerCase();

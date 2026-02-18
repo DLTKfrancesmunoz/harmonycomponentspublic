@@ -323,6 +323,78 @@
   box-shadow: var(--focus-ring-error);
 }
 
+/* Dela button variants (AI/Dela features) */
+.btn--dela {
+  position: relative;
+  background: var(--gradient-dela);
+  color: var(--dela-header-content-fg);
+  border: none;
+  border-radius: var(--radius-04);
+}
+
+.btn--dela:hover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-dela-hover-bg);
+  border-radius: var(--radius-04);
+  pointer-events: none;
+}
+
+.btn--dela:active {
+  box-shadow: var(--shadow-inset-md);
+}
+
+.btn--dela:focus-visible {
+  outline: 1px solid var(--card-bg);
+  outline-offset: 0;
+  box-shadow: var(--focus-ring-primary);
+}
+
+.btn--dela:disabled,
+.btn--dela.btn--disabled {
+  opacity: 0.6;
+}
+
+.btn--dela-pill {
+  background: var(--gradient-dela);
+  color: var(--dela-header-content-fg);
+  border: none;
+  border-radius: var(--radius-full);
+  position: relative;
+}
+
+.btn--dela-pill:hover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-dela-hover-bg);
+  border-radius: var(--radius-full);
+  pointer-events: none;
+}
+
+.btn--dela-pill:active {
+  box-shadow: var(--shadow-inset-md);
+}
+
+.btn--dela-pill:focus-visible {
+  outline: 1px solid var(--card-bg);
+  outline-offset: 0;
+  box-shadow: var(--focus-ring-primary);
+}
+
+.btn--dela-pill:disabled,
+.btn--dela-pill.btn--disabled {
+  opacity: 0.6;
+}
+
+.btn__dela-stars {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  filter: brightness(0) invert(1);
+}
+
 /* Button States */
 .btn:disabled,
 .btn--disabled {
@@ -2236,6 +2308,40 @@
   border-bottom: 1px solid var(--border-color);
 }
 
+/* Card header content wrapper - flex layout for title/subtitle */
+.card__header-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  flex: 1;
+}
+
+/* Card header title - neutral styling */
+.card__header-title {
+  font-family: var(--font-display);
+  font-size: var(--heading-s);
+  font-weight: var(--font-semibold);
+  line-height: var(--space-6);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+/* Card header subtitle - neutral styling */
+.card__header-subtitle {
+  font-family: var(--font-sans);
+  font-size: var(--label);
+  line-height: var(--space-5);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Card header actions wrapper - flex layout for icons */
+.card__header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
 .card__title {
   font-family: var(--font-display);
   font-size: var(--text-lg);
@@ -2259,74 +2365,6 @@
   background-color: var(--elevated-bg);
 }
 
-/* Card Header Variant (colored header bar) */
-.card__header--colored {
-  height: var(--space-12);
-  background-color: var(--theme-primary);
-  padding: 0 var(--space-4);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-top-left-radius: var(--radius-xl);
-  border-top-right-radius: var(--radius-xl);
-}
-
-/* Make all text and icons white in colored header */
-.card__header--colored,
-.card__header--colored div,
-.card__header--colored span,
-.card__header--colored p {
-  color: var(--text-inverse);
-}
-
-.card__header--colored svg,
-.card__header--colored :global(svg) {
-  color: var(--text-inverse);
-  stroke: currentColor;
-}
-
-.card__header--colored .card__header-content {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-  flex: 1;
-}
-
-.card__header--colored .card__header-title {
-  font-family: var(--font-display);
-  font-size: var(--heading-m);
-  font-weight: var(--font-semibold);
-  line-height: var(--space-6);
-  color: var(--text-inverse);
-  margin: 0;
-}
-
-.card__header--colored .card__header-subtitle {
-  font-family: var(--font-sans);
-  font-size: var(--label);
-  line-height: var(--space-5);
-  color: var(--text-inverse);
-  opacity: 0.9;
-  margin: 0;
-}
-
-.card__header--colored .card__header-actions {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-}
-
-.card__header--colored .card__header-actions svg,
-.card__header--colored .card__header-actions :global(svg) {
-  color: var(--text-inverse);
-  stroke: currentColor;
-}
-
-/* Adjust body padding when header variant is used */
-.card--with-header .card__body {
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
 
 /* ===========================================
    ACCORDION
@@ -2550,9 +2588,12 @@
 }
 
 .dialog {
+  display: flex;
+  flex-direction: column;
   background-color: var(--card-bg);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-xl);
+  min-width: var(--dialog-min-width);
   max-width: var(--dialog-max-width-default);
   width: var(--dialog-width-percentage);
   max-height: var(--dialog-max-height);
@@ -2566,6 +2607,7 @@
 }
 
 .dialog__header {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -2610,12 +2652,16 @@
 }
 
 .dialog__body {
+  flex: 1 1 0;
+  min-height: 100px;
+  max-height: 600px;
   padding: var(--space-6);
   overflow-y: auto;
   color: var(--text-secondary);
 }
 
 .dialog__footer {
+  flex-shrink: 0;
   display: flex;
   justify-content: flex-start;
   gap: var(--space-3);
@@ -2635,10 +2681,10 @@
 /* Dialog Responsive Styles */
 @media (max-width: var(--breakpoint-md)) {
   .dialog {
-    width: calc(100vw - 32px);
+    width: calc(100vw - var(--dialog-margin-horizontal));
     max-width: 100%;
-    margin: 16px;
-    max-height: calc(100vh - 32px);
+    margin: var(--dialog-margin);
+    max-height: calc(100vh - var(--dialog-margin-vertical));
   }
 
   .dialog__header {
@@ -2647,7 +2693,6 @@
 
   .dialog__body {
     padding: var(--space-4);
-    max-height: calc(100vh - 200px);
   }
 
   .dialog__footer {
@@ -2658,13 +2703,13 @@
 
   .dialog__footer .btn {
     flex: 1;
-    min-width: 120px;
+    min-width: var(--dialog-footer-btn-min-width);
   }
 }
 
 @media (min-width: var(--breakpoint-md)) and (max-width: var(--breakpoint-lg)) {
   .dialog {
-    max-width: 90vw;
+    max-width: var(--dialog-max-width-medium);
   }
 }
 
@@ -2754,6 +2799,101 @@
 
 .tab-panel.is-active {
   display: block;
+}
+
+/* TabStrip root and compact modifier - for spec discovery */
+.tabstrip {
+  /* base from TabStrip.astro */
+}
+.tabstrip--compact .tab {
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-13);
+}
+.tabstrip--compact .tabstrip__dropdown-item {
+  padding: var(--space-1-5) var(--space-3);
+  font-size: var(--text-xs);
+}
+
+/* Shell footer compact modifier - for spec discovery (base styles in ShellFooter.astro) */
+.shell-footer--compact {
+  height: var(--shell-footer-height-compact);
+}
+
+/* Shell footer tab label and icon colors - tokens so they persist across rebuilds and win over TabStrip */
+.shell-footer .tabstrip .tabstrip__tabs .tab,
+.shell-footer .tabstrip .tabstrip__add.tab,
+.shell-footer .tabstrip .tabstrip__more.tab {
+  color: var(--shell-footer-tab-label-color);
+}
+.shell-footer .tabstrip .tabstrip__tabs .tab .tab__label,
+.shell-footer .tabstrip .tabstrip__add.tab .tab__label,
+.shell-footer .tabstrip .tabstrip__more.tab .tab__label {
+  color: var(--shell-footer-tab-label-color);
+}
+.shell-footer .tabstrip .tabstrip__tabs .tab .tab__icon,
+.shell-footer .tabstrip .tabstrip__add.tab .tab__icon,
+.shell-footer .tabstrip .tabstrip__more.tab .tab__icon {
+  color: var(--shell-footer-tab-label-color);
+}
+.shell-footer .tabstrip .tabstrip__tabs .tab.is-active .tab__label,
+.shell-footer .tabstrip .tabstrip__add.tab.is-active .tab__label,
+.shell-footer .tabstrip .tabstrip__more.tab.is-active .tab__label {
+  color: var(--shell-footer-tab-label-color);
+}
+.shell-footer .tabstrip .tabstrip__tabs .tab.is-active .tab__icon,
+.shell-footer .tabstrip .tabstrip__add.tab.is-active .tab__icon,
+.shell-footer .tabstrip .tabstrip__more.tab.is-active .tab__icon {
+  color: var(--shell-footer-tab-icon-color-active);
+}
+.shell-footer .tabstrip .tabstrip__tabs .tab:hover .tab__label,
+.shell-footer .tabstrip .tabstrip__add.tab:hover .tab__label,
+.shell-footer .tabstrip .tabstrip__more.tab:hover .tab__label {
+  color: var(--shell-footer-tab-label-color);
+}
+.shell-footer .tabstrip .tabstrip__tabs .tab:hover .tab__icon,
+.shell-footer .tabstrip .tabstrip__add.tab:hover .tab__icon,
+.shell-footer .tabstrip .tabstrip__more.tab:hover .tab__icon {
+  color: var(--shell-footer-tab-label-color);
+}
+.shell-footer .tabstrip .tabstrip__tabs .tab.is-active:hover .tab__icon,
+.shell-footer .tabstrip .tabstrip__add.tab.is-active:hover .tab__icon,
+.shell-footer .tabstrip .tabstrip__more.tab.is-active:hover .tab__icon {
+  color: var(--shell-footer-tab-icon-color-active);
+}
+html.dark .shell-footer .tabstrip .tabstrip__tabs .tab,
+html.dark .shell-footer .tabstrip .tabstrip__add.tab,
+html.dark .shell-footer .tabstrip .tabstrip__more.tab {
+  color: var(--shell-footer-tab-label-color);
+}
+html.dark .shell-footer .tabstrip .tabstrip__tabs .tab .tab__label,
+html.dark .shell-footer .tabstrip .tabstrip__add.tab .tab__label,
+html.dark .shell-footer .tabstrip .tabstrip__more.tab .tab__label {
+  color: var(--shell-footer-tab-label-color);
+}
+html.dark .shell-footer .tabstrip .tabstrip__tabs .tab .tab__icon,
+html.dark .shell-footer .tabstrip .tabstrip__add.tab .tab__icon,
+html.dark .shell-footer .tabstrip .tabstrip__more.tab .tab__icon {
+  color: var(--shell-footer-tab-label-color);
+}
+html.dark .shell-footer .tabstrip .tabstrip__tabs .tab.is-active .tab__label,
+html.dark .shell-footer .tabstrip .tabstrip__add.tab.is-active .tab__label,
+html.dark .shell-footer .tabstrip .tabstrip__more.tab.is-active .tab__label {
+  color: var(--shell-footer-tab-label-color);
+}
+html.dark .shell-footer .tabstrip .tabstrip__tabs .tab.is-active .tab__icon,
+html.dark .shell-footer .tabstrip .tabstrip__add.tab.is-active .tab__icon,
+html.dark .shell-footer .tabstrip .tabstrip__more.tab.is-active .tab__icon {
+  color: var(--shell-footer-tab-icon-color-active);
+}
+html.dark .shell-footer .tabstrip .tabstrip__tabs .tab.is-active:hover .tab__label,
+html.dark .shell-footer .tabstrip .tabstrip__add.tab.is-active:hover .tab__label,
+html.dark .shell-footer .tabstrip .tabstrip__more.tab.is-active:hover .tab__label {
+  color: var(--shell-footer-tab-label-color);
+}
+html.dark .shell-footer .tabstrip .tabstrip__tabs .tab.is-active:hover .tab__icon,
+html.dark .shell-footer .tabstrip .tabstrip__add.tab.is-active:hover .tab__icon,
+html.dark .shell-footer .tabstrip .tabstrip__more.tab.is-active:hover .tab__icon {
+  color: var(--shell-footer-tab-icon-color-active);
 }
 
 /* ===========================================
@@ -4508,6 +4648,12 @@
   color: var(--text-muted);
 }
 
+.list-menu__custom-icon {
+  width: var(--space-5);
+  height: var(--space-5);
+  object-fit: contain;
+}
+
 .list-menu__item:hover .list-menu__item-icon,
 .list-menu__item.is-active .list-menu__item-icon {
   color: var(--theme-primary);
@@ -4845,100 +4991,6 @@ html.theme-cp.dark .floating-nav__pin:hover {
 }
 
 /* ===========================================
-   CP LEFT SIDEBAR (CP Theme Only)
-   =========================================== */
-
-.cp-left-sidebar {
-  position: fixed;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: var(--z-sticky);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-  width: 52px;
-  transition: width 0.2s ease;
-  overflow: visible;
-}
-
-.cp-left-sidebar:hover {
-  width: 220px;
-}
-
-.cp-left-sidebar__section {
-  background-color: var(--nav-bg);
-  border: 1px solid var(--cp-sidebar-section-border);
-  border-left: none;
-  border-radius: 0 var(--radius-12) var(--radius-12) 0;
-  box-shadow: var(--shadow-xl);
-  padding: var(--space-2) var(--space-2);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-  overflow: visible;
-}
-
-.cp-left-sidebar__item {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-1-5);
-  border-radius: var(--radius-08);
-  text-decoration: none;
-  color: var(--cp-sidebar-item-fg);
-  white-space: nowrap;
-  transition: background-color var(--transition-fast);
-}
-
-.cp-left-sidebar__item:hover {
-  background-color: var(--cp-sidebar-item-hover-bg);
-  text-decoration: none;
-}
-
-.cp-left-sidebar__icon {
-  flex-shrink: 0;
-  width: var(--space-6);
-  height: var(--space-6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.cp-left-sidebar__icon svg {
-  width: var(--space-6);
-  height: var(--space-6);
-}
-
-.cp-left-sidebar__label {
-  font-family: var(--font-sans);
-  font-size: var(--text-sm);
-  font-weight: var(--font-normal);
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.2s ease, visibility 0.2s ease;
-}
-
-.cp-left-sidebar:hover .cp-left-sidebar__label {
-  opacity: 1;
-  visibility: visible;
-}
-
-/* Dark mode */
-html.theme-cp.dark .cp-left-sidebar__section {
-  background-color: var(--cp-sidebar-section-bg-dark);
-  border-color: var(--cp-sidebar-section-border-dark);
-}
-
-html.theme-cp.dark .cp-left-sidebar__item {
-  color: var(--cp-sidebar-item-fg-dark);
-}
-
-html.theme-cp.dark .cp-left-sidebar__item:hover {
-  background-color: var(--cp-sidebar-item-hover-bg-dark);
-}
-
-/* ===========================================
    UNIFIED LEFT SIDEBAR (All Themes)
    =========================================== */
 
@@ -4963,15 +5015,35 @@ html.theme-cp.dark .cp-left-sidebar__item:hover {
   transform: none;
   /* Reduce gap between sections to fit above footer */
   gap: var(--space-2);
-  /* Add max-height to prevent overlap with footer (accounting for header gradient) */
-  max-height: calc(100vh - var(--shell-header-height) - 6px - var(--space-2) - var(--shell-footer-height-default));
   overflow: visible; /* Both axes visible for shadow rendering - icons never exceed available space */
+}
+
+/* CP left sidebar: max-height footer-aware (start position unchanged) */
+.shell-layout[data-cp-variant="true"] .shell-layout__container[data-has-footer="true"] .shell-layout__left-sidebar {
+  max-height: calc(100vh - var(--shell-header-height) - 6px - var(--space-2) - var(--shell-footer-height-default) - calc(var(--space-2-5) / 2));
+}
+.shell-layout[data-cp-variant="true"] .shell-layout__container[data-has-footer="false"] .shell-layout__left-sidebar {
+  max-height: calc(100vh - var(--shell-header-height) - 6px - var(--space-2) - calc(var(--space-2-5) / 2));
+}
+.shell-layout[data-cp-variant="true"] .shell-layout__container[data-has-footer="true"][data-footer-variant="compact"] .shell-layout__left-sidebar {
+  max-height: calc(100vh - var(--shell-header-height) - 6px - var(--space-2) - var(--shell-footer-height-compact) - calc(var(--space-2-5) / 2));
 }
 
 /* Standard variants (VP/PPM/Maconomy): 20px gap from header */
 .shell-layout[data-cp-variant="false"] .shell-layout__left-sidebar {
   top: calc(var(--shell-header-height) + var(--space-5));
   transform: none;
+}
+
+/* Left sidebar non-CP in shell: max-height (footer-aware); start position unchanged */
+.shell-layout[data-cp-variant="false"] .shell-layout__container[data-has-footer="true"] .shell-layout__left-sidebar {
+  max-height: calc(100vh - var(--shell-header-height) - var(--space-5) - var(--shell-footer-height-default) - calc(var(--space-2-5) / 2));
+}
+.shell-layout[data-cp-variant="false"] .shell-layout__container[data-has-footer="false"] .shell-layout__left-sidebar {
+  max-height: calc(100vh - var(--shell-header-height) - var(--space-5) - calc(var(--space-2-5) / 2));
+}
+.shell-layout[data-cp-variant="false"] .shell-layout__container[data-has-footer="true"][data-footer-variant="compact"] .shell-layout__left-sidebar {
+  max-height: calc(100vh - var(--shell-header-height) - var(--space-5) - var(--shell-footer-height-compact) - calc(var(--space-2-5) / 2));
 }
 
 .left-sidebar:hover {
@@ -5032,9 +5104,11 @@ html.theme-cp.dark .cp-left-sidebar__item:hover {
   justify-content: center;
 }
 
-.left-sidebar__icon svg {
+.left-sidebar__icon svg,
+.left-sidebar__icon .left-sidebar__custom-icon {
   width: var(--space-6);
   height: var(--space-6);
+  object-fit: contain;
 }
 
 .left-sidebar__label {
@@ -5061,6 +5135,17 @@ html.theme-cp.dark .cp-left-sidebar__item:hover {
 
 html.dark .left-sidebar__item:hover {
   background-color: var(--hover-bg);
+}
+
+html.dark .left-sidebar__item .left-sidebar__icon {
+  color: var(--text-primary);
+}
+html.dark .left-sidebar__item--active .left-sidebar__icon {
+  color: var(--shell-sidebar-icon-color-on-primary, #ffffff);
+}
+
+html.dark .left-sidebar__icon .left-sidebar__custom-icon {
+  filter: brightness(0) invert(1);
 }
 
 /* ===========================================
@@ -5148,126 +5233,10 @@ html.dark .left-sidebar__item:hover {
   background-color: var(--theme-primary-hover);
 }
 
-/* Backward compatibility: CP-specific styles also apply to unified component */
-/* CP sidebar spacing adjustments when inside shell layout */
-.shell-layout[data-cp-variant="true"] .cp-left-sidebar {
-  gap: var(--space-2);
-  max-height: calc(100vh - var(--shell-header-height) - var(--space-2) - var(--shell-footer-height-default));
-  overflow-y: auto;
-}
-
-.shell-layout[data-cp-variant="true"] .cp-left-sidebar__section {
-  gap: var(--space-1-5);
-}
-
-/* ===========================================
-   CP RIGHT SIDEBAR (CP Theme Only)
-   =========================================== */
-
-.cp-right-sidebar {
-  position: fixed;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: var(--z-sticky);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-  width: 52px;
-  transition: width 0.2s ease;
-  overflow: visible;
-}
-
-.cp-right-sidebar:hover {
-  width: 220px;
-}
-
-.cp-right-sidebar__section {
-  background-color: var(--nav-bg);
-  border: 1px solid var(--cp-sidebar-section-border);
-  border-right: none;
-  border-radius: var(--radius-12) 0 0 var(--radius-12);
-  box-shadow: var(--shadow-xl);
-  padding: var(--space-3) var(--space-2);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: var(--space-2);
-  overflow: visible;
-}
-
-.cp-right-sidebar__item {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: var(--space-2);
-  padding: var(--space-1-5);
-  border-radius: var(--radius-08);
-  text-decoration: none;
-  color: var(--cp-sidebar-item-fg);
-  white-space: nowrap;
-  width: 100%;
-  transition: background-color var(--transition-fast);
-}
-
-.cp-right-sidebar__item:hover {
-  background-color: var(--cp-sidebar-item-hover-bg);
-  text-decoration: none;
-}
-
-.cp-right-sidebar__icon {
-  flex-shrink: 0;
-  width: var(--icon-lg);
-  height: var(--icon-lg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.cp-right-sidebar__icon svg {
-  width: var(--icon-lg);
-  height: var(--icon-lg);
-}
-
-.cp-right-sidebar__dela-logo {
-  width: var(--space-9);
-  height: var(--space-9);
-  border-radius: 50%;
-}
-
-.cp-right-sidebar__label {
-  font-family: var(--font-sans);
-  font-size: var(--text-sm);
-  font-weight: var(--font-normal);
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.2s ease, visibility 0.2s ease;
-  flex: 1;
-  text-align: right;
-}
-
-.cp-right-sidebar:hover .cp-right-sidebar__label {
-  opacity: 1;
-  visibility: visible;
-}
-
-/* Dark mode */
-html.theme-cp.dark .cp-right-sidebar__section {
-  background-color: var(--cp-sidebar-section-bg-dark);
-  border-color: var(--cp-sidebar-section-border-dark);
-}
-
-html.theme-cp.dark .cp-right-sidebar__item {
-  color: var(--cp-sidebar-item-fg-dark);
-}
-
-html.theme-cp.dark .cp-right-sidebar__item:hover {
-  background-color: var(--cp-sidebar-item-hover-bg-dark);
-}
-
 /* ===========================================
    UNIFIED RIGHT SIDEBAR (All Themes)
    =========================================== */
+/* The right sidebar does not scroll; it stays fixed. Only the shell panel content scrolls. */
 
 .right-sidebar {
   position: fixed;
@@ -5337,7 +5306,20 @@ html.theme-cp.dark .cp-right-sidebar__item:hover {
 .right-sidebar__dela-logo {
   width: 36px;
   height: 36px;
-  border-radius: 50%;
+  border-radius: 12px;
+}
+
+/* Two-image Dela logo: show default when not active, active when item has data-active */
+.right-sidebar__dela-logo--active {
+  display: none;
+}
+
+.right-sidebar__item[data-active="true"]:has(.right-sidebar__dela-logo) .right-sidebar__dela-logo--default {
+  display: none;
+}
+
+.right-sidebar__item[data-active="true"]:has(.right-sidebar__dela-logo) .right-sidebar__dela-logo--active {
+  display: block;
 }
 
 .right-sidebar__label {
@@ -5423,11 +5405,72 @@ html.theme-cp.dark .cp-right-sidebar__item:hover {
   background-color: var(--theme-primary-hover);
 }
 
+/* Active Dela item: gradient background on item (same pattern as other icons) */
+.right-sidebar[data-panel-open="true"] .right-sidebar__item[data-active="true"]:has(.right-sidebar__dela-logo) {
+  background: var(--linear-new, linear-gradient(136deg, #00BBC6 9.15%, #7133FF 57.36%, #CD21FF 80.6%));
+  border-radius: 12px;
+  color: var(--text-inverse);
+}
+
+.right-sidebar[data-panel-open="true"] .right-sidebar__item[data-active="true"]:has(.right-sidebar__dela-logo):hover {
+  background: var(--linear-new, linear-gradient(136deg, #00BBC6 9.15%, #7133FF 57.36%, #CD21FF 80.6%));
+  color: var(--text-inverse);
+}
+
+.right-sidebar[data-panel-open="true"] .right-sidebar__item[data-active="true"]:has(.right-sidebar__dela-logo) .right-sidebar__icon {
+  color: var(--text-inverse);
+}
+
+/* Active Dela uses RS_Dela_Active.svg (no filter); default uses RS_DelaDefault.svg */
+
+/* Dark mode: img-based sidebar icons (Dela default, Related, Template, etc.) appear white; exclude active Dela (colored) */
+html.dark .right-sidebar__icon img:not(.right-sidebar__dela-logo--active) {
+  filter: brightness(0) invert(1);
+}
+/* Also target .right-sidebar__icon-img for conversion/framework markup (e.g. Angular) */
+html.dark .right-sidebar__icon-img:not(.right-sidebar__dela-logo--active) {
+  filter: brightness(0) invert(1);
+}
+
 /* Dark mode adjustments for all themes */
 /* Dark mode handled by --shadow-xl token */
 
 html.dark .right-sidebar__item:hover {
   background-color: var(--hover-bg);
+}
+
+html.dark .right-sidebar__item .right-sidebar__icon {
+  color: var(--text-primary);
+}
+html.dark .right-sidebar[data-panel-open="true"] .right-sidebar__item[data-active="true"] .right-sidebar__icon {
+  color: var(--shell-sidebar-icon-color-on-primary, #ffffff);
+}
+html.dark .right-sidebar[data-panel-open="true"] .right-sidebar__item[data-active="true"]:has(.right-sidebar__dela-logo) .right-sidebar__icon {
+  color: var(--shell-sidebar-icon-color-on-primary, #ffffff);
+}
+
+/* ===========================================
+   SHELL THEME – GLOBAL (Left sidebar variant visibility)
+   Required in global CSS for frameworks with view encapsulation (e.g. Angular).
+   =========================================== */
+.left-sidebar__variant {
+  display: none;
+}
+html.theme-cp .left-sidebar__variant--cp,
+html.theme-cp.dark .left-sidebar__variant--cp {
+  display: contents;
+}
+html.theme-vp .left-sidebar__variant--vp,
+html.theme-vp.dark .left-sidebar__variant--vp {
+  display: contents;
+}
+html.theme-ppm .left-sidebar__variant--ppm,
+html.theme-ppm.dark .left-sidebar__variant--ppm {
+  display: contents;
+}
+html.theme-maconomy .left-sidebar__variant--maconomy,
+html.theme-maconomy.dark .left-sidebar__variant--maconomy {
+  display: contents;
 }
 
 /* Backward compatibility: CP-specific styles also apply to unified component */
@@ -5463,14 +5506,12 @@ html.dark .right-sidebar__item:hover {
 }
 
 /* Override fixed positioning for demo */
-.cp-sidebar-demo .cp-left-sidebar,
 .cp-sidebar-demo .left-sidebar {
   position: static;
   transform: none;
   height: auto;
 }
 
-.cp-sidebar-demo .cp-right-sidebar,
 .cp-sidebar-demo .right-sidebar {
   position: absolute;
   right: 0;
@@ -5903,6 +5944,76 @@ html.dark .right-sidebar__item:hover {
   isolation: isolate; /* Create new stacking context to ensure tooltips appear above panel */
 }
 
+/* Right sidebar in shell: max-height only (footer-aware); vertical centering unchanged */
+.shell-layout__container[data-has-footer="true"] .shell-layout__right-sidebar {
+  max-height: min(calc(100vh - 2 * var(--shell-header-height) - var(--space-2-5)), calc(100vh - 2 * var(--shell-footer-height-default) - var(--space-2-5)));
+}
+.shell-layout__container[data-has-footer="false"] .shell-layout__right-sidebar {
+  max-height: calc(100vh - 2 * var(--shell-header-height) - var(--space-2-5));
+}
+.shell-layout__container[data-has-footer="true"][data-footer-variant="compact"] .shell-layout__right-sidebar {
+  max-height: min(calc(100vh - 2 * var(--shell-header-height) - var(--space-2-5)), calc(100vh - 2 * var(--shell-footer-height-compact) - var(--space-2-5)));
+}
+
+/* Compact sidebars in shell: smaller icons and padding so strip fits in header-footer band (no scroll) */
+/* 1024px = --breakpoint-lg; var() is invalid in media queries */
+@media (max-width: 1024px) {
+  .shell-layout .shell-layout__left-sidebar {
+    width: var(--left-sidebar-width-compact);
+    gap: var(--space-1-5);
+  }
+  .shell-layout .shell-layout__left-sidebar:hover {
+    width: 220px;
+  }
+  .shell-layout .shell-layout__left-sidebar[data-panel-open="true"]:hover {
+    width: var(--left-sidebar-width-compact);
+  }
+  .shell-layout .shell-layout__left-sidebar .left-sidebar__section {
+    padding: var(--space-2) var(--space-1-5);
+    gap: var(--space-1-5);
+  }
+  .shell-layout .shell-layout__left-sidebar .left-sidebar__item {
+    padding: var(--space-1);
+  }
+  .shell-layout .shell-layout__left-sidebar .left-sidebar__icon,
+  .shell-layout .shell-layout__left-sidebar .left-sidebar__icon svg,
+  .shell-layout .shell-layout__left-sidebar .left-sidebar__icon .left-sidebar__custom-icon {
+    width: var(--left-sidebar-icon-size-compact);
+    height: var(--left-sidebar-icon-size-compact);
+  }
+
+  .shell-layout .shell-layout__right-sidebar {
+    width: var(--right-sidebar-width-compact);
+    gap: var(--space-2);
+  }
+  .shell-layout .shell-layout__right-sidebar:hover {
+    width: 220px;
+  }
+  .shell-layout .shell-layout__right-sidebar[data-panel-open="true"]:hover {
+    width: var(--right-sidebar-width-compact);
+  }
+  .shell-layout .shell-layout__right-sidebar .right-sidebar__section {
+    padding: var(--space-2) var(--space-1-5);
+    gap: var(--space-1-5);
+  }
+  .shell-layout .shell-layout__right-sidebar .right-sidebar__item {
+    padding: var(--space-1);
+  }
+  .shell-layout .shell-layout__right-sidebar .right-sidebar__icon {
+    width: var(--right-sidebar-icon-size-compact);
+    height: var(--right-sidebar-icon-size-compact);
+  }
+  .shell-layout .shell-layout__right-sidebar .right-sidebar__icon svg {
+    width: var(--right-sidebar-icon-size-compact);
+    height: var(--right-sidebar-icon-size-compact);
+  }
+  .shell-layout .shell-layout__right-sidebar .right-sidebar__dela-logo {
+    width: var(--right-sidebar-dela-size-compact);
+    height: var(--right-sidebar-dela-size-compact);
+    border-radius: 10px;
+  }
+}
+
 /* Ensure left sidebar is above panel when open (narrow only - full-width handled separately) */
 .shell-layout:has(.shell-panel--left.shell-panel--open:not(.shell-panel--full)) .shell-layout__left-sidebar {
   z-index: var(--z-45); /* Sidebar is above panel (44) */
@@ -5993,7 +6104,7 @@ html.dark .right-sidebar__item:hover {
 }
 
 .shell-layout .shell-panel--full {
-  width: 100vw; /* Fill full browser width */
+  width: var(--shell-panel-width-full);
 }
 
 /* When right panel is full-width, it should go over the left sidebar */
@@ -6075,19 +6186,25 @@ div.shell-panel__header.shell-panel__header--theme,
 /* Gradient header variant - applies when data-gradient-header="true" */
 .shell-panel__header[data-gradient-header="true"] {
   background: var(--gradient-dela);
-  color: var(--text-inverse);
+  color: var(--dela-header-content-fg);
 }
 
 .shell-panel__header[data-gradient-header="true"] .shell-panel__title {
-  color: var(--text-inverse);
+  color: var(--dela-header-content-fg);
 }
 
 .shell-panel__header[data-gradient-header="true"] .shell-panel__header-icon {
-  color: var(--text-inverse);
+  color: var(--dela-header-content-fg);
+}
+
+/* Dela D logo in panel header: make white so it's visible on the gradient (img is cloned from sidebar) */
+.shell-panel__header[data-gradient-header="true"] .shell-panel__header-icon img,
+.shell-panel__header[data-gradient-header="true"] .shell-panel__header-icon svg {
+  filter: brightness(0) invert(1);
 }
 
 .shell-panel__header[data-gradient-header="true"] .shell-panel__action {
-  color: var(--text-inverse);
+  color: var(--dela-header-content-fg);
 }
 
 .shell-panel__header[data-gradient-header="true"] .shell-panel__action:hover {
@@ -6229,7 +6346,7 @@ div.shell-panel__header.shell-panel__header--theme,
   box-shadow: var(--focus-ring-primary);
 }
 
-/* Content area */
+/* Content area - only the panel content scrolls; the right sidebar does not scroll */
 .shell-panel__content {
   flex: 1;
   overflow-y: auto;
@@ -6272,6 +6389,231 @@ div.shell-panel__header.shell-panel__header--theme,
 
 .shell-panel__content::-webkit-scrollbar-thumb:hover {
   background-color: var(--text-secondary);
+}
+
+/* Dela panel content area (Ask Dela / Digital Assistant) - use design tokens only.
+   No scroll on this wrapper so only dela-panel__scroll (between header and chat message box) scrolls. */
+.shell-panel[data-dela-panel="true"] .shell-panel__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-height: 0;
+  overflow: hidden;
+  background-color: var(--dela-panel-content-bg);
+}
+
+.dela-panel__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  padding: 0 var(--space-4) var(--space-4);
+  gap: var(--space-4);
+}
+
+/* Scrollable chat region inside the panel only; right sidebar stays fixed and does not scroll */
+.dela-panel__scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.dela-panel__scroll::-webkit-scrollbar {
+  width: var(--space-2);
+}
+
+.dela-panel__scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dela-panel__scroll::-webkit-scrollbar-thumb {
+  background-color: var(--border-color);
+  border-radius: var(--radius-04);
+}
+
+.dela-panel__scroll::-webkit-scrollbar-thumb:hover {
+  background-color: var(--text-secondary);
+}
+
+.dela-panel__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+.dela-panel__toolbar-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-1-5);
+  border: none;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.dela-panel__toolbar-action:hover {
+  color: var(--text-primary);
+  background-color: var(--elevated-bg);
+}
+
+.dela-panel__toolbar-action:focus-visible {
+  outline: 2px solid var(--theme-primary);
+  outline-offset: 2px;
+}
+
+.dela-panel__message-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.dela-panel__message-row--user {
+  flex-direction: row-reverse;
+}
+
+.dela-panel__message-icon {
+  flex-shrink: 0;
+  width: var(--space-10);
+  height: var(--space-10);
+  object-fit: contain;
+}
+
+.dela-panel__bubble {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-xl);
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+  color: var(--text-primary);
+  max-width: 85%;
+}
+
+.dela-panel__bubble--dela {
+  background-color: var(--dela-bubble-bg);
+}
+
+.dela-panel__bubble--user {
+  background-color: var(--dela-user-bubble-bg);
+}
+
+/* Dela panel user avatar - container pattern (primary color, theme-aware); rounded corners, not circular */
+.dela-panel__avatar {
+  flex-shrink: 0;
+  width: var(--space-8);
+  height: var(--space-8);
+  min-width: var(--space-8);
+  min-height: var(--space-8);
+  border-radius: var(--radius-lg);
+  background-color: var(--dela-panel-avatar-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-inverse);
+}
+
+.dela-panel__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.dela-panel__suggested-label {
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-2);
+}
+
+.dela-panel__suggested-cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.dela-panel__suggested-card {
+  padding: var(--space-3) var(--space-4);
+  border: var(--border-width-thin) solid var(--border-color);
+  border-radius: var(--radius-lg);
+  background-color: var(--dela-panel-card-bg);
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}
+
+.dela-panel__input-row {
+  display: flex;
+  align-items: center;
+  padding: var(--space-2) 0;
+  flex-shrink: 0;
+}
+
+.dela-panel__input-box {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-1) var(--space-3);
+  border: var(--border-width-thin) solid var(--border-color);
+  border-radius: var(--radius-lg);
+  background-color: var(--dela-panel-input-bg);
+}
+
+.dela-panel__input-box .dela-panel__input {
+  flex: 1;
+  min-width: 0;
+  padding: var(--space-2) 0;
+  border: none;
+  border-radius: 0;
+  font-size: var(--text-sm);
+  background-color: transparent;
+  color: var(--text-primary);
+}
+
+.dela-panel__input-box .dela-panel__input::placeholder {
+  color: var(--text-secondary);
+}
+
+.dela-panel__input-box .dela-panel__input:focus {
+  outline: none;
+}
+
+.dela-panel__input-action {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-1);
+  border: none;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.dela-panel__input-action:hover {
+  color: var(--text-primary);
+  background-color: var(--elevated-bg);
+}
+
+.dela-panel__input-action:focus-visible {
+  outline: 2px solid var(--theme-primary);
+  outline-offset: 2px;
+}
+
+.dela-panel__footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  padding: var(--space-2) 0;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  flex-shrink: 0;
 }
 
 
@@ -6460,7 +6802,7 @@ div.shell-panel__header.shell-panel__header--theme,
   border-top-color: var(--kanban-done-border);
 }
 
-.kanban__column-card .card__body {
+.kanban__column-card > .card__body {
   padding: 0;
   display: flex;
   flex-direction: column;

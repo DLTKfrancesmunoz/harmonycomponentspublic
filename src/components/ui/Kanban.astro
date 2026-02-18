@@ -4,6 +4,10 @@
  *
  * Kanban board component that displays tasks in columns (lanes) with cards.
  * Uses design tokens exclusively and leverages existing components.
+ *
+ * @usagePattern slot-areas-customization Kanban provides three customization slots: 'title-bar-actions' (lines 59-82) replaces default title bar icons (expand, collapse, help, minimize, window, close), 'action-bar' (lines 91-127) replaces default action buttons and filters, and 'action-dropdown' for dropdown controls. When slots are not provided, default UI elements are rendered. Title bar actions include 6 icon buttons, action bar includes delete, group, customize, and view controls.
+ * @usagePattern column-and-card-structure Kanban uses KanbanColumn array (id, title, cards[]) where each column contains KanbanCardProps array. Columns are wrapped in Card components (line 145) and rendered in a horizontal scrollable layout (kanban__columns-wrapper, lines 133-221). Column title determines border color via conditional classes: titles containing 'in progress' get kanban__column-card--in-progress, 'done' gets kanban__column-card--done (lines 136-142).
+ * @usagePattern action-buttons-vs-dropdowns The action bar supports two prop patterns: actionButtons array with {text, icon} for Button components (lines 93-105), or actionDropdowns array with {text, options, value} for Dropdown components. When neither is provided, default actions are rendered (lines 108-127). Use actionButtons for simple click actions, actionDropdowns for selection-based filters or view changes.
  */
 import Button from './Button.astro';
 import Icon from './Icon.astro';
@@ -45,6 +49,9 @@ const {
   class: className = '',
   showAddButton = true,
 } = Astro.props;
+
+const hasTitleBarActionsSlot = Astro.slots.has('title-bar-actions');
+const hasActionBarSlot = Astro.slots.has('action-bar');
 ---
 
 <div class={`kanban__container ${className}`}>
@@ -53,24 +60,30 @@ const {
     <div class="kanban__title-bar-content">
       <h1 class="kanban__title">{title}</h1>
       <div class="kanban__title-bar-actions">
-        <button type="button" class="kanban__title-bar-icon" aria-label="Expand view">
-          <Icon name="arrows-pointing-out" size="sm" />
-        </button>
-        <button type="button" class="kanban__title-bar-icon" aria-label="Collapse view">
-          <Icon name="arrows-pointing-in" size="sm" />
-        </button>
-        <button type="button" class="kanban__title-bar-icon" aria-label="Help">
-          <Icon name="question-mark-circle" size="sm" />
-        </button>
-        <button type="button" class="kanban__title-bar-icon" aria-label="Minimize">
-          <Icon name="minimize" size="sm" />
-        </button>
-        <button type="button" class="kanban__title-bar-icon" aria-label="Window">
-          <Icon name="window-plain" size="sm" />
-        </button>
-        <button type="button" class="kanban__title-bar-icon" aria-label="Close">
-          <Icon name="x-mark" size="sm" />
-        </button>
+        {hasTitleBarActionsSlot ? (
+          <slot name="title-bar-actions" />
+        ) : (
+          <>
+            <button type="button" class="kanban__title-bar-icon" aria-label="Expand view">
+              <Icon name="arrows-pointing-out" size="sm" />
+            </button>
+            <button type="button" class="kanban__title-bar-icon" aria-label="Collapse view">
+              <Icon name="arrows-pointing-in" size="sm" />
+            </button>
+            <button type="button" class="kanban__title-bar-icon" aria-label="Help">
+              <Icon name="question-mark-circle" size="sm" />
+            </button>
+            <button type="button" class="kanban__title-bar-icon" aria-label="Minimize">
+              <Icon name="minimize" size="sm" />
+            </button>
+            <button type="button" class="kanban__title-bar-icon" aria-label="Window">
+              <Icon name="window" size="sm" />
+            </button>
+            <button type="button" class="kanban__title-bar-icon" aria-label="Close">
+              <Icon name="x-mark" size="sm" />
+            </button>
+          </>
+        )}
       </div>
     </div>
   </div>
@@ -78,11 +91,14 @@ const {
   <!-- Action Bar -->
   <div class="kanban__action-bar">
     <div class="kanban__action-items">
-      {actionButtons.length > 0 ? (
+      {hasActionBarSlot ? (
+        <slot name="action-bar" />
+      ) : actionButtons.length > 0 ? (
         actionButtons.map((button, index) => (
           <>
             {index > 0 && <span class="kanban__action-divider">|</span>}
             <Button
+              buttonType="theme"
               variant="ghost"
               size="sm"
               icon={button.icon}
@@ -94,17 +110,17 @@ const {
         ))
       ) : (
         <>
-          <Button variant="ghost" size="sm" icon="trash" class="kanban__action-button">
+          <Button buttonType="theme" variant="ghost" size="sm" icon="trash" class="kanban__action-button">
             Delete
           </Button>
-          <Button variant="ghost" size="sm" icon="list-tree" class="kanban__action-button">
+          <Button buttonType="theme" variant="ghost" size="sm" icon="queue-list" class="kanban__action-button">
             Group
           </Button>
-          <Button variant="ghost" size="sm" icon="chevron-up" iconPosition="right" class="kanban__action-button">
+          <Button buttonType="theme" variant="ghost" size="sm" icon="chevron-up" iconPosition="right" class="kanban__action-button">
             Subcards: Collapse all
           </Button>
           <span class="kanban__action-divider">|</span>
-          <Button variant="ghost" size="sm" icon="cog-6-tooth" class="kanban__action-button">
+          <Button buttonType="theme" variant="ghost" size="sm" icon="cog-6-tooth" class="kanban__action-button">
             Customize Columns
           </Button>
           <span class="kanban__action-label">All Filters</span>
@@ -186,6 +202,7 @@ const {
             ))}
             {showAddButton && (
               <Button
+                buttonType="theme"
                 variant="tertiary"
                 size="sm"
                 icon="plus"
@@ -201,6 +218,7 @@ const {
       );
     })}
     <Button
+      buttonType="theme"
       variant="secondary"
       size="sm"
       icon="plus"

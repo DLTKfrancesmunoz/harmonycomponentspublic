@@ -1,0 +1,71 @@
+name: Regenerate Changelog Data
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/components/ui/**'
+      - 'src/styles/**'
+      - 'src/tokens/**'
+      - 'src/layouts/**'
+      - 'scripts/changelog/**'
+
+jobs:
+  regenerate-changelog:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run changelog automation
+        run: npm run changelog
+
+      - name: Commit changelog data updates
+        run: |
+          git config user.name "Regenerate Data Bot"
+          git config user.email "regenerate-data-bot@github-actions"
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          
+          git fetch origin main
+          
+          git add changelog-data/
+          if git diff --staged --quiet; then
+            echo "No changelog data changes to commit"
+          else
+            git commit -m "chore: regenerate changelog data [skip ci]"
+            
+            if ! git push origin main; then
+              echo "Push failed, fetching latest changes and rebasing..."
+              git fetch origin main
+              git rebase origin/main || {
+                echo "Rebase failed, attempting merge strategy..."
+                git rebase --abort 2>/dev/null || true
+                git merge origin/main -m "Merge remote changes" || {
+                  echo "Merge also failed. Checking if changes are already committed..."
+                  git status
+                  exit 1
+                }
+              }
+              if ! git push origin main; then
+                echo "Failed to push changes after rebase/merge"
+                git status
+                exit 1
+              fi
+            fi
+            echo "Successfully pushed changelog data updates"
+          fi

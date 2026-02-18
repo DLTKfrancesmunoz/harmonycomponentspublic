@@ -17,6 +17,8 @@ export interface MenuItem {
   label: string;
   href?: string;
   active?: boolean;
+  isCustom?: boolean; // Custom image URL instead of Icon name
+  customSrc?: string; // Path to custom icon image
 }
 
 export interface Props {
@@ -39,7 +41,11 @@ const { items, as = 'button', variant = 'default', class: className = '' } = Ast
         {...itemProps}
         class:list={['list-menu__item', item.active && 'is-active']}
       >
-        {item.icon && <Icon name={item.icon} size="md" class="list-menu__item-icon" />}
+        {item.isCustom && item.customSrc ? (
+          <img src={item.customSrc} alt={item.label} class="list-menu__item-icon list-menu__custom-icon" />
+        ) : item.icon ? (
+          <Icon name={item.icon} size="md" class="list-menu__item-icon" />
+        ) : null}
         {item.label}
       </Element>
     );

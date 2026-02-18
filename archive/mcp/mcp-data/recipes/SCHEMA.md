@@ -1,0 +1,323 @@
+# Recipe Schema v1.0
+
+## Purpose
+Recipes define composition patterns showing how Harmony components work together. They are metadata-only (no code templates) and used by the MCP server to generate multi-component compositions.
+
+## Schema Definition
+
+```typescript
+interface Recipe {
+  // Identification
+  id: string;                    // Unique identifier (e.g., "dialog-with-form-actions")
+  name: string;                  // Human-readable name
+  description: string;           // What this pattern does
+  category: RecipeCategory;      // Recipe category
+  complexity: ComplexityLevel;   // Pattern complexity
+  tags: string[];                // Searchable tags
+
+  // Components in the composition
+  components: ComponentUsage[];
+
+  // Usage guidance
+  usageGuidance: UsageGuidance;
+
+  // Validation rules
+  validation: ValidationRules;
+
+  // Examples
+  examples: Example[];
+}
+
+interface ComponentUsage {
+  name: string;                  // Component name (matches component JSON)
+  role: string;                  // Role in composition (e.g., "container", "primary-action")
+  parent?: string;               // Parent component name (if nested)
+  slot?: string;                 // Slot name in parent (if applicable)
+  props?: Record<string, any>;   // Default props for this usage
+  content?: string;              // Default content/text
+  order?: number;                // Order within parent/slot
+}
+
+interface UsageGuidance {
+  when: string;                  // When to use this pattern
+  antiPatterns?: string[];       // What NOT to do
+  notes?: Record<string, string>; // Additional guidance by topic
+}
+
+interface ValidationRules {
+  required: string[];            // Required components
+  maxCount?: Record<string, number>; // Max count per component
+  theme?: string | string[];     // Theme restrictions ("all" or specific themes)
+  hierarchy?: HierarchyRule[];   // Parent-child hierarchy rules
+}
+
+interface HierarchyRule {
+  parent: string;
+  child: string;
+  required?: boolean;
+}
+
+interface Example {
+  name: string;                  // Example name
+  description: string;           // What this example shows
+  props: Record<string, any>;    // Prop overrides for this example
+}
+
+type RecipeCategory =
+  | "feedback"    // Dialogs, alerts, confirmations
+  | "forms"       // Form fields, validation
+  | "display"     // Cards, badges, lists
+  | "navigation"  // Headers, menus, sidebars
+  | "layouts";    // Page layouts, shells
+
+type ComplexityLevel =
+  | "atom"        // Single component (shouldn't be a recipe)
+  | "molecule"    // 2-3 components
+  | "organism"    // 4+ components or complex logic
+  | "template";   // Full page templates
+```
+
+## Example Recipe
+
+```json
+{
+  "id": "dialog-with-form-actions",
+  "name": "Dialog with Form Actions",
+  "description": "Standard dialog with primary/secondary action buttons in footer",
+  "category": "feedback",
+  "complexity": "molecule",
+  "tags": ["dialog", "confirmation", "actions", "form"],
+  "components": [
+    {
+      "name": "Dialog",
+      "role": "container",
+      "props": {
+        "id": "confirm-dialog",
+        "title": "Confirm Action",
+        "buttonAlignment": "left"
+      },
+      "slot": null
+    },
+    {
+      "name": "Button",
+      "role": "primary-action",
+      "parent": "Dialog",
+      "slot": "footer",
+      "props": {
+        "variant": "primary",
+        "type": "submit"
+      },
+      "content": "Confirm",
+      "order": 1
+    },
+    {
+      "name": "Button",
+      "role": "secondary-action",
+      "parent": "Dialog",
+      "slot": "footer",
+      "props": {
+        "variant": "secondary"
+      },
+      "content": "Cancel",
+      "order": 2
+    }
+  ],
+  "usageGuidance": {
+    "when": "User confirmation required before destructive or important actions",
+    "antiPatterns": [
+      "Don't use more than 3 buttons in footer",
+      "Don't nest dialogs - use multi-step pattern instead"
+    ],
+    "notes": {
+      "buttonAlignment": "Place primary action first when buttonAlignment='left' (default). Visual order matches semantic importance."
+    }
+  },
+  "validation": {
+    "required": ["Dialog", "Button"],
+    "maxCount": {
+      "Button": 3
+    },
+    "theme": "all"
+  },
+  "examples": [
+    {
+      "name": "Delete confirmation",
+      "description": "Confirm before deleting an item",
+      "props": {
+        "Dialog.title": "Delete Item?",
+        "primary-action.content": "Delete",
+        "primary-action.variant": "danger",
+        "secondary-action.content": "Cancel"
+      }
+    },
+    {
+      "name": "Save changes",
+      "description": "Confirm before saving changes",
+      "props": {
+        "Dialog.title": "Save Changes?",
+        "primary-action.content": "Save",
+        "secondary-action.content": "Discard"
+      }
+    }
+  ]
+}
+```
+
+## Design Principles
+
+1. **Metadata Only**: Recipes contain no code templates. Code is generated by the MCP server using component metadata.
+
+2. **Component References**: Always reference existing component names from `mcp-data/components/`.
+
+3. **Validation Not Enforcement**: Validation rules warn but don't block. Let AI experiment.
+
+4. **Minimal Examples**: Include 1-3 examples showing key variations, not every possibility.
+
+5. **Clear Roles**: Use semantic role names (e.g., "primary-action" not "button1").
+
+6. **Slot Awareness**: Respect component slot definitions from component JSON files.
+
+## Categories
+
+### feedback
+Dialog-based patterns, alerts, confirmations, notifications.
+
+Examples:
+- Dialog with form actions
+- Confirmation dialog
+- Alert with action buttons
+
+### forms
+Form field patterns, validation, input groups.
+
+Examples:
+- Input with validation
+- Form field group
+- Search input with icon
+
+### display
+Card compositions, badge usage, content display.
+
+Examples:
+- Card with badge
+- Card with actions
+- Table with row actions
+
+### navigation
+Headers, menus, sidebars, navigation patterns.
+
+Examples:
+- Header with user menu
+- Sidebar with sections
+
+### layouts
+Full page layouts and shells.
+
+Examples:
+- Shell layout (CP vs Standard)
+- Dashboard layout
+
+## Complexity Levels
+
+### molecule (most common)
+2-3 components working together. This is the sweet spot for recipes.
+
+Examples:
+- Dialog + 2 Buttons
+- Input + Label + Icon
+- Card + Badge
+
+### organism
+4+ components or complex logic.
+
+Examples:
+- Dialog + Input + Label + 2 Buttons
+- Card + Header + Body + Footer + Actions
+- Form with multiple fields and validation
+
+### template
+Full page compositions.
+
+Examples:
+- Shell layout with all navigation components
+- Dashboard with multiple sections
+
+## Validation Guidelines
+
+### Theme Rules
+- `"theme": "all"` - Recipe works with all themes
+- `"theme": "cp"` - CP-specific pattern (e.g., uses FloatingNav)
+- `"theme": ["vp", "ppm", "maconomy"]` - Non-CP themes only
+
+### Hierarchy Rules
+```json
+{
+  "hierarchy": [
+    { "parent": "Dialog", "child": "Button", "required": false },
+    { "parent": "Card", "child": "Badge", "required": false }
+  ]
+}
+```
+
+### Max Count Rules
+```json
+{
+  "maxCount": {
+    "Button": 3,  // No more than 3 buttons
+    "Badge": 2    // No more than 2 badges
+  }
+}
+```
+
+## Prop Override Format
+
+In examples, use dot notation to target specific components:
+
+```json
+{
+  "Dialog.title": "New Title",              // By component name
+  "primary-action.content": "Save",         // By role
+  "primary-action.variant": "danger"        // Multiple props for same role
+}
+```
+
+## File Naming
+
+- Use kebab-case
+- Be descriptive but concise
+- Pattern: `{main-component}-{pattern}.json`
+
+Examples:
+- `dialog-with-form-actions.json`
+- `card-with-badge.json`
+- `input-with-validation.json`
+
+## Directory Structure
+
+```
+mcp-data/recipes/
+├── SCHEMA.md                       # This file
+├── index.json                      # Recipe manifest
+├── feedback/
+│   ├── dialog-with-form-actions.json
+│   ├── dialog-confirmation.json
+│   └── alert-with-action.json
+├── forms/
+│   ├── input-with-validation.json
+│   ├── form-field-group.json
+│   └── search-input.json
+├── display/
+│   ├── card-with-badge.json
+│   ├── card-with-actions.json
+│   └── table-with-actions.json
+├── navigation/
+│   ├── header-with-user-menu.json
+│   └── sidebar-with-sections.json
+└── layouts/
+    ├── shell-layout-cp.json
+    └── shell-layout-standard.json
+```
+
+## Version History
+
+- **v1.0** (2026-01-28): Initial schema definition

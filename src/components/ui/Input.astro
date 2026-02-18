@@ -3,6 +3,11 @@
  * Input Component
  *
  * Text input for collecting user data with various states.
+ *
+ * @usagePattern label-layout-variants When a label prop is provided, the input renders in a form wrapper with Label component. The labelVariant prop ('inline' or 'stacked') controls layout: inline places label and input side-by-side (default for CP theme via CSS), stacked places label above input (default for other themes). If labelVariant is not explicitly set, CSS theme variables determine the default layout. When no label prop is provided, the input renders without a wrapper.
+ * @usagePattern auto-generated-ids If no id prop is provided, the component automatically generates a unique random ID using Math.random().toString(36).substr(2, 9). This auto-generated ID is used for label[for] attribute, aria-describedby linking to error messages, and the input element itself. Always provide an explicit id for server-side rendered forms to ensure consistent IDs across renders.
+ * @usagePattern icon-position-leading The icon prop only supports leading (left-side) icon placement. When icon is provided (Heroicon name string), the input renders with input--with-icon class and Icon component with size='sm' in input-wrapper__icon. There is no iconPosition prop; icons are always positioned on the left side of the input field.
+ * @usagePattern error-state-accessibility When error=true and errorMessage is provided, the component creates an error paragraph with id={inputId}-error, applies aria-invalid='true' to the input, and links them via aria-describedby={inputId}-error. This ensures screen readers announce errors when the input receives focus. The errorMessage displays in input-wrapper__error class below the input field.
  */
 import Icon from './Icon.astro';
 import Label from './Label.astro';

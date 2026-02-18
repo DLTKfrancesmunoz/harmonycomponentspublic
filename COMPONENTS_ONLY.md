@@ -2,6 +2,8 @@
 
 This guide explains how to clone only the Harmony Design System components without the full documentation site.
 
+**When to use this:** Use sparse checkout when you need a clone of the repo (e.g. components-only embed or design-system work). For most app projects, install Harmony as a package from Git instead; see the [Consumer Guide](docs/customization/CONSUMER_GUIDE.md#two-ways-to-get-harmony).
+
 ## What is Sparse Checkout?
 
 Git sparse checkout allows you to clone only specific directories from a repository, reducing download size and excluding files you don't need. This is perfect for when you only want the components, styles, and tokens without the documentation site.
@@ -22,7 +24,7 @@ Replace `<repo-url>` with your actual repository URL.
 
 When you use sparse checkout with the command above, you'll get:
 
-- **`src/components/`** - All UI components (49 components)
+- **`src/components/`** - All UI components (48 components)
   - `src/components/ui/` - All component files
   - `src/components/ui/index.ts` - Component exports
 
@@ -47,6 +49,32 @@ When you use sparse checkout with the command above, you'll get:
 - **`README.md`** - Documentation
 
 - **`package.json`** - Dependencies
+
+## Icons and assets
+
+The `Icon` component resolves icons in this order:
+
+1. **Heroicons (default)** – primary icon library (`heroicons` npm package).
+2. **Tabler** – used only when a Hero icon is not mapped, the icon is not in the Hero library, or otherwise specified (`@tabler/icons` npm package).
+3. **Custom** – `public/{name}.svg` for design-system–specific icons.
+4. **Visual fallback** – "?" with `--icon-fallback-*` styling when none of the above resolve.
+
+**Pin** is the only Tabler icon used so far. It appears in ShellFooter (active tab) and FloatingNav (pin button) and resolves from Tabler when `@tabler/icons` is installed.
+
+**Required npm dependencies** when using Icon, LeftSidebar, RightSidebar, ShellFooter, or FloatingNav:
+
+- `heroicons`
+- `@tabler/icons`
+
+**Required public assets** when using default section configs (filenames must match exactly):
+
+- Custom SVGs: `Risk Shield.svg`, `Report.svg`, `Resource.svg`, `related.svg`, `template.svg`, `mic-slash.svg` (and `pin.svg` only if you do not install `@tabler/icons`).
+- Logos: `D_64x64.svg` (right sidebar logo, in public root); `logos/CPVPLogo.svg` if using ShellHeader’s default `logoSrc`.
+
+**Sparse checkout vs copy:**
+
+- **Sparse checkout and build from repo root:** Include `public` in the sparse set and run `npm install` (so `heroicons` and `@tabler/icons` are present). No extra steps.
+- **Copying components into another project:** Add `heroicons` and `@tabler/icons` to that project, and place the required SVGs above (or the full design-system `public/`) into that project’s `public/` (or equivalent static root).
 
 ## What Gets Excluded
 

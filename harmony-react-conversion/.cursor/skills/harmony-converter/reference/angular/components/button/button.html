@@ -1,0 +1,33 @@
+<a
+  [attr.href]="href() ?? null"
+  [attr.role]="!href() ? 'button' : null"
+  [attr.tabindex]="!href() && (disabled() || loading()) ? -1 : null"
+  [attr.aria-disabled]="!href() && (disabled() || loading()) ? true : null"
+  [class]="buttonClasses"
+  [attr.aria-busy]="loading() ? true : null"
+  [attr.aria-label]="ariaLabel()"
+  (click)="handleClick($event)"
+>
+  @if (loading()) {
+    <svg class="btn__spinner" width="var(--btn-spinner-size)" height="var(--btn-spinner-size)" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" [attr.stroke-width]="'var(--btn-spinner-stroke-width)'" />
+      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+    </svg>
+    @if (loadingText()) { <span>{{ loadingText() }}</span> }
+  } @else {
+    @if (isDelaVariant) { <img src="/Stars.svg" alt="" class="btn__dela-stars" /> }
+    @if (icon() && iconPosition() === 'left') {
+      @switch (icon()) {
+        @case ('plus') { <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width:1em;height:1em;flex-shrink:0"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg> }
+        @case ('arrow-right') { <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width:1em;height:1em;flex-shrink:0"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" /></svg> }
+      }
+    }
+    <ng-content />
+    @if (icon() && iconPosition() === 'right') {
+      @switch (icon()) {
+        @case ('plus') { <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width:1em;height:1em;flex-shrink:0"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg> }
+        @case ('arrow-right') { <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width:1em;height:1em;flex-shrink:0"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" /></svg> }
+      }
+    }
+  }
+</a>

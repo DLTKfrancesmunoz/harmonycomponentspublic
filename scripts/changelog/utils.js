@@ -84,15 +84,24 @@ export async function getPreviousSnapshot() {
   // Load the most recent snapshot
   const snapshotFile = path.join(snapshotsDir, files[0]);
   const tokenFile = snapshotFile.replace('components-', 'tokens-');
+  const stylesFile = snapshotFile.replace('components-', 'styles-');
 
   if (!fs.existsSync(tokenFile)) {
     return null;
   }
 
-  return {
+  const result = {
     components: JSON.parse(fs.readFileSync(snapshotFile, 'utf-8')),
     tokens: JSON.parse(fs.readFileSync(tokenFile, 'utf-8'))
   };
+
+  if (fs.existsSync(stylesFile)) {
+    result.styles = JSON.parse(fs.readFileSync(stylesFile, 'utf-8'));
+  } else {
+    result.styles = {};
+  }
+
+  return result;
 }
 
 /**
@@ -112,6 +121,13 @@ export function saveSnapshot(snapshot) {
     JSON.stringify(snapshot.tokens, null, 2)
   );
 
+  if (snapshot.styles && Object.keys(snapshot.styles).length > 0) {
+    fs.writeFileSync(
+      path.join(snapshotsDir, `styles-${timestamp}.json`),
+      JSON.stringify(snapshot.styles, null, 2)
+    );
+  }
+
   console.log(`📸 Snapshot saved: ${timestamp}`);
 }
 
@@ -127,7 +143,9 @@ export function generateEntryId(change, timestamp) {
       target: change.target,
       change: change.change,
       propName: change.propName || null,
-      path: change.path || null, // Include token path for uniqueness
+      variantName: change.variantName || null,
+      path: change.path || null,
+      filePath: change.filePath || null,
       before: change.before || null,
       after: change.after || null
     }))

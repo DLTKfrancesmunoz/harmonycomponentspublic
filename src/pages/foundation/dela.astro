@@ -4,6 +4,7 @@ import ExampleSection from '../../components/ExampleSection.astro';
 import RightSidebar from '../../components/ui/RightSidebar.astro';
 import ShellPanel from '../../components/ui/ShellPanel.astro';
 import Icon from '../../components/ui/Icon.astro';
+import Button from '../../components/ui/Button.astro';
 
 // Custom sections for Dela demo with panel configuration
 const delaDemoSections = [
@@ -12,7 +13,8 @@ const delaDemoSections = [
       { 
         label: 'Dela AI', 
         isCustom: true, 
-        customSrc: '/logos/DelaD.svg',
+        customSrc: '/RS_DelaDefault.svg',
+        customSrcActive: '/RS_Dela_Active.svg',
         panelTitle: 'Dela AI',
         useGradientHeader: true
       },
@@ -50,11 +52,69 @@ const delaDemoSections = [
     </header>
 
     <nav class="article-nav">
+      <a href="#dela-brand-guide" class="article-nav__link"><Icon name="document-text" size="sm" /> Dela brand guide</a>
+      <a href="#star-symbol" class="article-nav__link"><Icon name="star" size="sm" /> Star Symbol</a>
+      <a href="#ask-dela-launch-icon" class="article-nav__link"><Icon name="chat-bubble-left" size="sm" /> Ask Dela Launch Icon</a>
+      <a href="#ask-dela-panel" class="article-nav__link"><Icon name="window" size="sm" /> Ask Dela Panel</a>
       <a href="#demo" class="article-nav__link"><Icon name="eye" size="sm" /> Demo</a>
       <a href="#panel-usage" class="article-nav__link"><Icon name="window" size="sm" /> Panel Usage</a>
       <a href="#ai-guidelines" class="article-nav__link"><Icon name="sparkles" size="sm" /> AI Guidelines</a>
       <a href="#accessibility" class="article-nav__link"><Icon name="check-badge" size="sm" /> Accessibility</a>
     </nav>
+
+    <div class="dela-two-column">
+      <section id="dela-brand-guide" class="space-y-6 dela-two-column__col">
+        <h2 class="section__title">Dela brand guide</h2>
+        <p class="text-secondary text-sm">
+          This guide is designed to provide a starting point for your work with Dela. The strategies behind Dela will continue to evolve as the AI landscape breaks new ground.
+        </p>
+        <Button
+          variant="dela"
+          href="https://www.figma.com/proto/miqNBfEbHItRWIsPwAaaEr/2025_Dela_Product_Branding_Guidelines?node-id=3876-1740&p=f&m=dev&scaling=min-zoom&content-scaling=fixed&page-id=3876%3A861&t=EXcT5wMTx92t2hGx-1"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Dela product brand guide
+        </Button>
+      </section>
+
+      <section id="star-symbol" class="space-y-6 dela-two-column__col">
+        <h2 class="section__title">Star Symbol</h2>
+        <p class="text-secondary text-sm">
+          Incorporate the star symbol as an optional complementary graphical element wherever the Dela brand is used within the product you're working on. Use sparingly.
+        </p>
+        <div class="dela-asset-row">
+          <img src="/Stars.svg" alt="Star symbol" class="dela-asset-row__img" style="height: 20px;" />
+          <span class="dela-asset-row__spec text-secondary text-sm">Minimum height: 20px</span>
+        </div>
+      </section>
+    </div>
+
+    <div class="dela-two-column">
+      <section id="ask-dela-launch-icon" class="space-y-6 dela-two-column__col">
+        <h2 class="section__title">Ask Dela Launch Icon</h2>
+        <p class="text-secondary text-sm">
+          The Ask Dela launch icon should exclusively serve the Digital Assistant in any product that does not have the Harmony sidebar applied. Its purpose is solely for initiating the chat window and may be strategically placed within various contexts, including within tables or as part of the primary navigation.
+        </p>
+        <p class="text-secondary text-sm">
+          Ensuring that the launch icon is exclusively reserved for the Digital Assistant fosters a consistent user experience. By limiting its application to launching the application, users can readily identify and access this AI-driven feature.
+        </p>
+        <div class="dela-asset-row">
+          <img src="/AskDelaLaunch.svg" alt="Ask Dela launch icon" class="dela-asset-row__img" style="height: 27px;" />
+          <span class="dela-asset-row__spec text-secondary text-sm">Minimum height: 27px</span>
+        </div>
+      </section>
+
+      <section id="ask-dela-panel" class="space-y-6 dela-two-column__col">
+        <h2 class="section__title">Ask Dela Panel</h2>
+        <p class="text-secondary text-sm">
+          Here's a visual representation of a baseline layout for the drawer version of the Digital Assistant. Use this as a starting point and adapt it according to your product requirements as needed.
+        </p>
+        <p class="text-secondary text-sm">
+          It's important to note that the work on the Digital Assistant experience is ongoing and will evolve over time. The long-term goal is to develop a product agnostic experience that seamlessly integrates across our entire product lineup. This means ensuring that the Digital Assistant functions smoothly regardless of the platform or product it's used in.
+        </p>
+      </section>
+    </div>
 
     <section id="demo" class="space-y-8">
       <h2 class="section__title">Live Demo</h2>
@@ -62,8 +122,8 @@ const delaDemoSections = [
         The Dela AI panel is accessible from the right sidebar. Click the Dela icon (first icon in the sidebar) to open the panel. Switch themes using the picker in the top header to see how the panel adapts across all themes.
       </p>
 
-      <ExampleSection title="Dela Panel - Right Sidebar Integration" description="The Dela icon appears as the first item in the right sidebar across all themes. Click it to open the AI panel with a gradient header.">
-        <div class="shell-layout" style="position: relative; height: auto; min-height: 500px;">
+      <ExampleSection title="Dela Panel - Right Sidebar Integration" description="The Dela icon appears as the first item in the right sidebar. Click it to open the full Ask Dela panel: gradient header with title, expand, and close; pencil (New chat) and Help icons above the first message, left-aligned; DelaChat.svg next to Dela's messages, user avatar next to user messages, suggested questions, input row, and disclaimer footer.">
+        <div class="shell-layout" style="position: relative; height: auto; min-height: 1300px;">
           <div class="dela-demo-container">
             <div class="dela-demo-content">
               <p class="text-secondary text-sm mb-4">
@@ -74,8 +134,9 @@ const delaDemoSections = [
               </p>
               <ul class="list-disc list-inside text-sm text-secondary space-y-1 mb-4">
                 <li>Dela icon appears first in all themes (CP, VP, PPM, Maconomy)</li>
-                <li>Panel slides out from the right side</li>
-                <li>Gradient header automatically applied for Dela panel</li>
+                <li>Panel slides out from the right side with full Ask Dela layout (variant="dela")</li>
+                <li>Gradient header with expand and close; pencil (New chat) and Help icons above the first message, left-aligned</li>
+                <li>DelaChat.svg next to Dela messages; user avatar next to user messages</li>
                 <li>Panel maintains sidebar icon positions when open</li>
               </ul>
             </div>
@@ -87,28 +148,74 @@ const delaDemoSections = [
             <ShellPanel
               side="right"
               open={false}
-              title="Dela AI"
+              title="Ask Dela"
               headerVariant="theme"
               width="narrow"
+              variant="dela"
               id="right-panel"
               class="shell-panel--right"
             >
-              <div style="padding: var(--space-4);">
-                <div class="space-y-4">
-                  <p class="text-secondary">
-                    Welcome to Dela AI. This panel provides contextual AI assistance throughout the application.
-                  </p>
-                  <div class="card">
-                    <div class="card__body">
-                      <h3 class="text-lg font-semibold text-primary mb-2">AI Features</h3>
-                      <ul class="list-disc list-inside text-sm text-secondary space-y-1">
-                        <li>Contextual assistance based on current page</li>
-                        <li>Natural language interactions</li>
-                        <li>Smart suggestions and recommendations</li>
-                        <li>Task automation support</li>
-                      </ul>
+              <div slot="header" class="shell-panel__header shell-panel__header--theme" data-header-variant="theme" data-gradient-header="true">
+                <div class="shell-panel__header-content">
+                  <h2 class="shell-panel__title">Ask Dela</h2>
+                  <div class="shell-panel__actions">
+                    <button type="button" class="shell-panel__action shell-panel__action--toggle-width" aria-label="Toggle panel width" data-panel-toggle-width>
+                      <Icon name="arrows-pointing-out" size="md" class="shell-panel__icon-maximize" />
+                      <Icon name="arrows-pointing-in" size="md" class="shell-panel__icon-minimize" />
+                    </button>
+                    <button type="button" class="shell-panel__action shell-panel__action--close" aria-label="Close panel" data-panel-close>
+                      <Icon name="x-mark" size="lg" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="dela-panel__body">
+                <div class="dela-panel__scroll">
+                  <div class="dela-panel__toolbar">
+                    <button type="button" class="dela-panel__toolbar-action" aria-label="New chat" title="New chat">
+                      <Icon name="pencil" size="md" />
+                    </button>
+                    <button type="button" class="dela-panel__toolbar-action" aria-label="Help" title="Help">
+                      <Icon name="question-mark-circle" size="md" />
+                    </button>
+                  </div>
+                  <div class="dela-panel__message-row">
+                    <img src="/DelaChat.svg" alt="" class="dela-panel__message-icon" />
+                    <div class="dela-panel__bubble dela-panel__bubble--dela">
+                      I'm Dela! I can help you with anything in the workspace, just ask.
                     </div>
                   </div>
+                  <div>
+                    <p class="dela-panel__suggested-label">Suggested:</p>
+                    <div class="dela-panel__suggested-cards">
+                      <div class="dela-panel__suggested-card">What are the key standards and codes for a specification section?</div>
+                      <div class="dela-panel__suggested-card">Provide an example of how to specify a paint system for interior walls.</div>
+                    </div>
+                  </div>
+                  <div class="dela-panel__message-row dela-panel__message-row--user">
+                    <div class="dela-panel__bubble dela-panel__bubble--user">What are the main considerations when specifying a TPO roofing system?</div>
+                    <div class="dela-panel__avatar" role="img" aria-label="User">
+                      <Icon name="user" size="md" />
+                    </div>
+                  </div>
+                </div>
+                <div class="dela-panel__input-row">
+                  <div class="dela-panel__input-box">
+                    <input type="text" class="dela-panel__input" placeholder="Ask Dela …" aria-label="Ask Dela" />
+                    <button type="button" class="dela-panel__input-action" aria-label="Attach">
+                      <Icon name="paper-clip" size="md" />
+                    </button>
+                    <button type="button" class="dela-panel__input-action" aria-label="Microphone">
+                      <Icon name="microphone" size="md" />
+                    </button>
+                    <button type="button" class="dela-panel__input-action" aria-label="Send">
+                      <Icon name="paper-airplane" size="md" />
+                    </button>
+                  </div>
+                </div>
+                <div class="dela-panel__footer">
+                  <Icon name="information-circle" size="sm" />
+                  <span>Disclaimer</span>
                 </div>
               </div>
             </ShellPanel>
@@ -124,11 +231,11 @@ const delaDemoSections = [
         <div>
           <h3 class="text-lg font-semibold text-primary mb-2">Accessing the Dela Panel</h3>
           <p class="text-sm text-secondary mb-4">
-            The Dela AI panel is accessible from the right sidebar in all themes. The Dela icon (DelaD.svg) appears as the first icon in the first section of the right sidebar.
+            The Dela AI panel is accessible from the right sidebar in all themes. The Dela icon (RS_DelaDefault.svg default, RS_Dela_Active.svg when active) appears as the first icon in the first section of the right sidebar.
           </p>
           <ul class="space-y-2 text-sm text-secondary">
             <li>• <strong>Location:</strong> Right sidebar, first icon in Section 1</li>
-            <li>• <strong>Icon:</strong> DelaD.svg (36px circular logo)</li>
+            <li>• <strong>Icon:</strong> RS_DelaDefault.svg (default), RS_Dela_Active.svg (active); 36px with 12px rounded corners; active state: gradient background on item</li>
             <li>• <strong>Label:</strong> "Dela AI" (visible on hover when sidebar expands)</li>
             <li>• <strong>Activation:</strong> Click the icon to open the panel</li>
           </ul>
@@ -185,7 +292,7 @@ const delaDemoSections = [
             The Dela panel integrates seamlessly with the right sidebar component:
           </p>
           <ul class="space-y-2 text-sm text-secondary">
-            <li>• <strong>Automatic Detection:</strong> The RightSidebar component automatically detects the Dela AI item by checking for "Dela AI" title or DelaD.svg image</li>
+            <li>• <strong>Automatic Detection:</strong> The RightSidebar component automatically detects the Dela AI item by checking for "Dela AI" title or .right-sidebar__dela-logo</li>
             <li>• <strong>Gradient Header:</strong> When Dela is clicked, the panel header automatically receives the gradient styling</li>
             <li>• <strong>Active State:</strong> The Dela icon in the sidebar shows an active state when the panel is open</li>
             <li>• <strong>Theme Support:</strong> Works consistently across all themes (CP, VP, PPM, Maconomy)</li>
@@ -322,6 +429,37 @@ const delaDemoSections = [
 </DocsLayout>
 
 <style>
+  /* Asset row: logo + minimum height spec side by side */
+  .dela-asset-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+  }
+
+  .dela-asset-row__img {
+    display: block;
+    flex-shrink: 0;
+  }
+
+  .dela-asset-row__spec {
+    font-weight: 500;
+  }
+
+  /* Two-column layout for Ask Dela Launch Icon + Ask Dela Panel */
+  .dela-two-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
+    align-items: start;
+  }
+
+  @media (max-width: 768px) {
+    .dela-two-column {
+      grid-template-columns: 1fr;
+    }
+  }
+
   /* Shell-layout wrapper for demos - provides context for panel CSS */
   .shell-layout {
     /* Override shell-layout default styles for demo context */
@@ -331,7 +469,7 @@ const delaDemoSections = [
 
   .dela-demo-container {
     position: relative;
-    min-height: 500px;
+    min-height: 1300px;
     background-color: var(--page-bg);
     border-radius: var(--radius-lg);
     padding: var(--space-6);
@@ -396,6 +534,21 @@ const delaDemoSections = [
   .dela-demo-container :global(.right-sidebar[data-panel-open="true"] .right-sidebar__item[data-active="true"] .right-sidebar__icon) {
     color: var(--text-inverse);
   }
+
+  /* Active Dela item: gradient background on item, white inverted icon (mirror components.css) */
+  .dela-demo-container :global(.right-sidebar[data-panel-open="true"] .right-sidebar__item[data-active="true"]:has(.right-sidebar__dela-logo)) {
+    background: var(--linear-new, linear-gradient(136deg, #00BBC6 9.15%, #7133FF 57.36%, #CD21FF 80.6%));
+    border-radius: 12px;
+    color: var(--text-inverse);
+  }
+  .dela-demo-container :global(.right-sidebar[data-panel-open="true"] .right-sidebar__item[data-active="true"]:has(.right-sidebar__dela-logo):hover) {
+    background: var(--linear-new, linear-gradient(136deg, #00BBC6 9.15%, #7133FF 57.36%, #CD21FF 80.6%));
+    color: var(--text-inverse);
+  }
+  .dela-demo-container :global(.right-sidebar[data-panel-open="true"] .right-sidebar__item[data-active="true"]:has(.right-sidebar__dela-logo) .right-sidebar__icon) {
+    color: var(--text-inverse);
+  }
+  /* Active Dela uses RS_Dela_Active.svg in demo; no filter */
 
   /* Sidebar sections styling when panel is open */
   .dela-demo-container :global(.right-sidebar[data-panel-open="true"] .right-sidebar__section) {

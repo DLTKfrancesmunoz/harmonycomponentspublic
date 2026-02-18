@@ -1,0 +1,64 @@
+{
+  "id": "left-sidebar",
+  "name": "Left Sidebar",
+  "description": "Left navigation sidebar implemented as one unit: multiple sections, each rendered as a visual block with its own elevation (box-shadow), stroke (border), and background. Gaps between sections. Full structure and styles are in the component JSON (structure, cssClassStyles).",
+  "category": "layouts",
+  "complexity": "molecule",
+  "tags": ["shell", "sidebar", "left", "navigation", "nav", "sections"],
+  "components": [
+    {
+      "name": "LeftSidebar",
+      "role": "left-sidebar",
+      "props": {
+        "variant": "cp",
+        "sections": null
+      }
+    }
+  ],
+  "usageGuidance": {
+    "when": "Application needs left-hand navigation. Implement as multiple section blocks (with gaps, elevation, stroke), not one giant strip. See component JSON for structure and cssClassStyles.",
+    "antiPatterns": [
+      "Don't use multiple LeftSidebar instances in the same layout",
+      "Don't implement as one giant sidebar - use the sections array: each section is { items: NavItem[] }; multiple sections = multiple grouped blocks.",
+      "Don't nest sidebars - use sections for hierarchy"
+    ],
+    "notes": {
+      "variant": "Match theme (cp, vp, ppm, maconomy) for correct styling",
+      "sections": "Each element of the sections array renders as one visual block (one left-sidebar__section div). Each block has: elevation (box-shadow), stroke (border, border-left none), background, border-radius. The nav has gap between section blocks (e.g. gap: var(--space-4) in component JSON cssClassStyles). They function as one unit (one nav, one component). API: each section is { items: NavItem[] }; no section title in the API. Full spec: component JSON structure (nav > section divs) and cssClassStyles (.left-sidebar, .left-sidebar__section)."
+    }
+  },
+  "validation": {
+    "required": ["LeftSidebar"],
+    "maxCount": {
+      "LeftSidebar": 1
+    },
+    "theme": "all",
+    "hierarchy": []
+  },
+  "examples": [
+    {
+      "name": "Default left sidebar",
+      "description": "Left sidebar with default variant",
+      "props": {
+        "left-sidebar.variant": "cp"
+      }
+    },
+    {
+      "name": "VP theme sidebar",
+      "description": "Left sidebar for VP theme",
+      "props": {
+        "left-sidebar.variant": "vp"
+      }
+    },
+    {
+      "name": "With sections",
+      "description": "Multiple visual blocks with gaps, each with elevation and stroke (see component JSON).",
+      "props": {
+        "left-sidebar.sections": [
+          { "items": [{ "icon": "home", "label": "Home", "href": "/" }, { "icon": "squares-2x2", "label": "Dashboard", "href": "/dashboard" }] },
+          { "items": [{ "icon": "cog-6-tooth", "label": "Settings", "href": "/settings" }] }
+        ]
+      }
+    }
+  ]
+}

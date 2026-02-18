@@ -1,0 +1,98 @@
+{
+  "id": "shell-layout-cp",
+  "name": "Shell Layout (CP Theme)",
+  "description": "Complete application shell layout for CP theme with FloatingNav",
+  "category": "layouts",
+  "complexity": "template",
+  "tags": ["layout", "shell", "cp", "navigation", "header"],
+  "components": [
+    {
+      "name": "ShellHeader",
+      "role": "header",
+      "props": {
+        "theme": "cp"
+      },
+      "order": 1
+    },
+    {
+      "name": "LeftSidebar",
+      "role": "left-navigation",
+      "props": {
+        "theme": "cp",
+        "collapsible": true
+      },
+      "order": 2
+    },
+    {
+      "name": "FloatingNav",
+      "role": "primary-navigation",
+      "props": {
+        "theme": "cp"
+      },
+      "order": 3
+    },
+    {
+      "name": "ShellPageHeader",
+      "role": "page-header",
+      "props": {},
+      "order": 4
+    },
+    {
+      "name": "RightSidebar",
+      "role": "right-sidebar",
+      "props": {
+        "theme": "cp",
+        "collapsible": true
+      },
+      "order": 5
+    }
+  ],
+  "usageGuidance": {
+    "when": "Building application shell for CP (Customer Portal) theme",
+    "antiPatterns": [
+      "Don't use ShellFooter with CP theme - use FloatingNav instead",
+      "Don't mix CP and non-CP navigation patterns",
+      "Don't omit ShellHeader - it's required for CP theme"
+    ],
+    "notes": {
+      "cpSpecific": "CP theme uses FloatingNav (bottom navigation) instead of ShellFooter",
+      "sidebarVariants": "LeftSidebar and RightSidebar are optional based on app needs",
+      "responsive": "FloatingNav provides mobile-friendly navigation pattern",
+      "themeRule": "This pattern is CP-specific - do not use with other themes",
+      "pageHeaderActionsOrder": "When ShellPageHeader is used, place secondary/outline actions left and primary action right; DOM order in the pageHeaderActions slot is the visual order."
+    }
+  },
+  "validation": {
+    "required": ["ShellHeader", "FloatingNav"],
+    "maxCount": {
+      "ShellHeader": 1,
+      "FloatingNav": 1,
+      "LeftSidebar": 1,
+      "RightSidebar": 1,
+      "ShellPageHeader": 1
+    },
+    "theme": "cp",
+    "hierarchy": []
+  },
+  "examples": [
+    {
+      "name": "CP with left sidebar",
+      "description": "CP layout with collapsible left sidebar",
+      "props": {
+        "left-navigation.collapsible": true
+      }
+    },
+    {
+      "name": "CP minimal",
+      "description": "Minimal CP layout with header and floating nav only",
+      "props": {}
+    },
+    {
+      "name": "CP with page header",
+      "description": "CP layout with page-specific header",
+      "props": {
+        "page-header.title": "Dashboard"
+      }
+    }
+  ]
+}

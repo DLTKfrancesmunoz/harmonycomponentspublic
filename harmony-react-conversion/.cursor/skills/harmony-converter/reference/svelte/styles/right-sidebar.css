@@ -1,0 +1,144 @@
+/* ===========================================
+   RIGHT SIDEBAR (Harmony Design System)
+   =========================================== */
+
+.right-sidebar {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: var(--z-sticky);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 52px;
+  transition: width 0.2s ease;
+  overflow: visible;
+}
+
+.right-sidebar:hover {
+  width: 220px;
+}
+
+.right-sidebar__section {
+  background-color: var(--nav-bg);
+  border: 1px solid var(--border-color);
+  border-right: none;
+  border-radius: var(--radius-12) 0 0 var(--radius-12);
+  box-shadow: var(--shadow-xl);
+  padding: var(--space-3) var(--space-2);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-1-5);
+  overflow: visible;
+}
+
+.right-sidebar__item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  padding: var(--space-1-5);
+  border-radius: var(--radius-08);
+  text-decoration: none;
+  color: var(--text-primary);
+  white-space: nowrap;
+  width: 100%;
+  transition: background-color var(--transition-fast);
+}
+
+.right-sidebar__item:hover {
+  background-color: var(--hover-bg);
+  text-decoration: none;
+}
+
+.right-sidebar__icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.right-sidebar__icon svg,
+.right-sidebar__icon-img {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.right-sidebar__dela-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+}
+
+.right-sidebar__dela-logo--active {
+  display: none;
+}
+
+.right-sidebar__item[data-active="true"]:has(.right-sidebar__dela-logo) .right-sidebar__dela-logo--default {
+  display: none;
+}
+
+.right-sidebar__item[data-active="true"]:has(.right-sidebar__dela-logo) .right-sidebar__dela-logo--active {
+  display: block;
+}
+
+.right-sidebar__label {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: var(--font-normal);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+  flex: 1;
+  text-align: right;
+}
+
+.right-sidebar:hover .right-sidebar__label {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Active (clicked/selected) item – section background stays visible */
+.right-sidebar__item[data-active="true"] {
+  background-color: var(--theme-primary);
+  color: var(--text-inverse);
+}
+
+.right-sidebar__item[data-active="true"] .right-sidebar__icon {
+  color: var(--text-inverse);
+}
+
+.right-sidebar__item[data-active="true"]:hover {
+  background-color: var(--theme-primary-hover);
+  color: var(--text-inverse);
+}
+
+/* Active Dela item – gradient background */
+.right-sidebar__item[data-active="true"]:has(.right-sidebar__dela-logo) {
+  background: var(--linear-new);
+  border-radius: 12px;
+  color: var(--text-inverse);
+}
+
+.right-sidebar__item[data-active="true"]:has(.right-sidebar__dela-logo):hover {
+  background: var(--linear-new);
+  color: var(--text-inverse);
+}
+
+.right-sidebar__item[data-active="true"]:has(.right-sidebar__dela-logo) .right-sidebar__icon {
+  color: var(--text-inverse);
+}
+
+/* Dark mode: default Dela logo and icon images (e.g. mic-slash) appear white on dark sidebar */
+html.dark .right-sidebar__dela-logo--default {
+  filter: brightness(0) invert(1);
+}
+
+html.dark .right-sidebar__icon-img {
+  filter: brightness(0) invert(1);
+}

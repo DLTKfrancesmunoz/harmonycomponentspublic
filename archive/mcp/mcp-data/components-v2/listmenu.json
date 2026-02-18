@@ -1,0 +1,1770 @@
+{
+  "name": "ListMenu",
+  "type": "component",
+  "filePath": "src/components/ui/ListMenu.astro",
+  "description": "ListMenu Component",
+  "props": {
+    "items": {
+      "type": "MenuItem[]",
+      "optional": false,
+      "default": null
+    },
+    "as": {
+      "type": "'button' | 'link'",
+      "optional": true,
+      "default": "'button'"
+    },
+    "variant": {
+      "type": "'default' | 'no-borders'",
+      "optional": true,
+      "default": "'default'"
+    },
+    "class": {
+      "type": "string",
+      "optional": true,
+      "default": "''"
+    }
+  },
+  "defaults": {
+    "theme": "cp",
+    "mode": "light",
+    "variant": "'default'"
+  },
+  "specs": {
+    "default-cp-light": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".list-menu": {
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          ".list-menu__custom-icon": {
+            "width": "20px",
+            "height": "20px",
+            "object-fit": "contain"
+          },
+          ".list-menu__item": {
+            "display": "flex",
+            "align-items": "center",
+            "width": "100%",
+            "gap": "12px",
+            "padding": "12px 16px",
+            "font-size": "0.875rem",
+            "color": "#373F4E",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "border-bottom": "1px solid #BFC6D4",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".list-menu__item-icon": {
+            "color": "#4C92D9"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".list-menu",
+          "tag": "div",
+          "styles": {
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          "children": [
+            ".list-menu__custom-icon",
+            ".list-menu__item",
+            ".list-menu__item-icon"
+          ]
+        },
+        {
+          "selector": ".list-menu__custom-icon",
+          "tag": "span",
+          "styles": {
+            "width": "20px",
+            "height": "20px",
+            "object-fit": "contain"
+          },
+          "parent": ".list-menu"
+        },
+        {
+          "selector": ".list-menu__item",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "width": "100%",
+            "gap": "12px",
+            "padding": "12px 16px",
+            "font-size": "0.875rem",
+            "color": "#373F4E",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "border-bottom": "1px solid #BFC6D4",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".list-menu",
+          "states": {
+            "hover": {
+              "background-color": "#E5E7EB",
+              "color": "#4C92D9"
+            }
+          }
+        },
+        {
+          "selector": ".list-menu__item-icon",
+          "tag": "span",
+          "styles": {
+            "color": "#4C92D9"
+          },
+          "parent": ".list-menu"
+        }
+      ]
+    },
+    "default-cp-dark": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".list-menu": {
+            "background-color": "#37424D",
+            "border": "1px solid #5F6871",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          ".list-menu__custom-icon": {
+            "width": "20px",
+            "height": "20px",
+            "object-fit": "contain"
+          },
+          ".list-menu__item": {
+            "display": "flex",
+            "align-items": "center",
+            "width": "100%",
+            "gap": "12px",
+            "padding": "12px 16px",
+            "font-size": "0.875rem",
+            "color": "#E9ECEF",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "border-bottom": "1px solid #5F6871",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".list-menu__item-icon": {
+            "color": "#59ACFF"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".list-menu",
+          "tag": "div",
+          "styles": {
+            "background-color": "#37424D",
+            "border": "1px solid #5F6871",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          "children": [
+            ".list-menu__custom-icon",
+            ".list-menu__item",
+            ".list-menu__item-icon"
+          ]
+        },
+        {
+          "selector": ".list-menu__custom-icon",
+          "tag": "span",
+          "styles": {
+            "width": "20px",
+            "height": "20px",
+            "object-fit": "contain"
+          },
+          "parent": ".list-menu"
+        },
+        {
+          "selector": ".list-menu__item",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "width": "100%",
+            "gap": "12px",
+            "padding": "12px 16px",
+            "font-size": "0.875rem",
+            "color": "#E9ECEF",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "border-bottom": "1px solid #5F6871",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".list-menu",
+          "states": {
+            "hover": {
+              "background-color": "#3D4A5C",
+              "color": "#59ACFF"
+            }
+          }
+        },
+        {
+          "selector": ".list-menu__item-icon",
+          "tag": "span",
+          "styles": {
+            "color": "#59ACFF"
+          },
+          "parent": ".list-menu"
+        }
+      ]
+    },
+    "default-vp-light": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".list-menu": {
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          ".list-menu__custom-icon": {
+            "width": "20px",
+            "height": "20px",
+            "object-fit": "contain"
+          },
+          ".list-menu__item": {
+            "display": "flex",
+            "align-items": "center",
+            "width": "100%",
+            "gap": "12px",
+            "padding": "12px 16px",
+            "font-size": "0.875rem",
+            "color": "#373F4E",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "border-bottom": "1px solid #BFC6D4",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".list-menu__item-icon": {
+            "color": "#4C92D9"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".list-menu",
+          "tag": "div",
+          "styles": {
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          "children": [
+            ".list-menu__custom-icon",
+            ".list-menu__item",
+            ".list-menu__item-icon"
+          ]
+        },
+        {
+          "selector": ".list-menu__custom-icon",
+          "tag": "span",
+          "styles": {
+            "width": "20px",
+            "height": "20px",
+            "object-fit": "contain"
+          },
+          "parent": ".list-menu"
+        },
+        {
+          "selector": ".list-menu__item",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "width": "100%",
+            "gap": "12px",
+            "padding": "12px 16px",
+            "font-size": "0.875rem",
+            "color": "#373F4E",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "border-bottom": "1px solid #BFC6D4",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".list-menu",
+          "states": {
+            "hover": {
+              "background-color": "#E5E7EB",
+              "color": "#4C92D9"
+            }
+          }
+        },
+        {
+          "selector": ".list-menu__item-icon",
+          "tag": "span",
+          "styles": {
+            "color": "#4C92D9"
+          },
+          "parent": ".list-menu"
+        }
+      ]
+    },
+    "default-vp-dark": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".list-menu": {
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          ".list-menu__custom-icon": {
+            "width": "20px",
+            "height": "20px",
+            "object-fit": "contain"
+          },
+          ".list-menu__item": {
+            "display": "flex",
+            "align-items": "center",
+            "width": "100%",
+            "gap": "12px",
+            "padding": "12px 16px",
+            "font-size": "0.875rem",
+            "color": "#FAFAFA",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "border-bottom": "1px solid #2A2D32",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".list-menu__item-icon": {
+            "color": "#59ACFF"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".list-menu",
+          "tag": "div",
+          "styles": {
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          "children": [
+            ".list-menu__custom-icon",
+            ".list-menu__item",
+            ".list-menu__item-icon"
+          ]
+        },
+        {
+          "selector": ".list-menu__custom-icon",
+          "tag": "span",
+          "styles": {
+            "width": "20px",
+            "height": "20px",
+            "object-fit": "contain"
+          },
+          "parent": ".list-menu"
+        },
+        {
+          "selector": ".list-menu__item",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "width": "100%",
+            "gap": "12px",
+            "padding": "12px 16px",
+            "font-size": "0.875rem",
+            "color": "#FAFAFA",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "border-bottom": "1px solid #2A2D32",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".list-menu",
+          "states": {
+            "hover": {
+              "background-color": "#2A2D32",
+              "color": "#59ACFF"
+            }
+          }
+        },
+        {
+          "selector": ".list-menu__item-icon",
+          "tag": "span",
+          "styles": {
+            "color": "#59ACFF"
+          },
+          "parent": ".list-menu"
+        }
+      ]
+    },
+    "default-ppm-light": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".list-menu": {
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          ".list-menu__custom-icon": {
+            "width": "20px",
+            "height": "20px",
+            "object-fit": "contain"
+          },
+          ".list-menu__item": {
+            "display": "flex",
+            "align-items": "center",
+            "width": "100%",
+            "gap": "12px",
+            "padding": "12px 16px",
+            "font-size": "0.875rem",
+            "color": "#373F4E",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "border-bottom": "1px solid #BFC6D4",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".list-menu__item-icon": {
+            "color": "#4C92D9"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".list-menu",
+          "tag": "div",
+          "styles": {
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          "children": [
+            ".list-menu__custom-icon",
+            ".list-menu__item",
+            ".list-menu__item-icon"
+          ]
+        },
+        {
+          "selector": ".list-menu__custom-icon",
+          "tag": "span",
+          "styles": {
+            "width": "20px",
+            "height": "20px",
+            "object-fit": "contain"
+          },
+          "parent": ".list-menu"
+        },
+        {
+          "selector": ".list-menu__item",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "width": "100%",
+            "gap": "12px",
+            "padding": "12px 16px",
+            "font-size": "0.875rem",
+            "color": "#373F4E",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "border-bottom": "1px solid #BFC6D4",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".list-menu",
+          "states": {
+            "hover": {
+              "background-color": "#E5E7EB",
+              "color": "#4C92D9"
+            }
+          }
+        },
+        {
+          "selector": ".list-menu__item-icon",
+          "tag": "span",
+          "styles": {
+            "color": "#4C92D9"
+          },
+          "parent": ".list-menu"
+        }
+      ]
+    },
+    "default-ppm-dark": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".list-menu": {
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          ".list-menu__custom-icon": {
+            "width": "20px",
+            "height": "20px",
+            "object-fit": "contain"
+          },
+          ".list-menu__item": {
+            "display": "flex",
+            "align-items": "center",
+            "width": "100%",
+            "gap": "12px",
+            "padding": "12px 16px",
+            "font-size": "0.875rem",
+            "color": "#FAFAFA",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "border-bottom": "1px solid #2A2D32",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".list-menu__item-icon": {
+            "color": "#59ACFF"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".list-menu",
+          "tag": "div",
+          "styles": {
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          "children": [
+            ".list-menu__custom-icon",
+            ".list-menu__item",
+            ".list-menu__item-icon"
+          ]
+        },
+        {
+          "selector": ".list-menu__custom-icon",
+          "tag": "span",
+          "styles": {
+            "width": "20px",
+            "height": "20px",
+            "object-fit": "contain"
+          },
+          "parent": ".list-menu"
+        },
+        {
+          "selector": ".list-menu__item",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "width": "100%",
+            "gap": "12px",
+            "padding": "12px 16px",
+            "font-size": "0.875rem",
+            "color": "#FAFAFA",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "border-bottom": "1px solid #2A2D32",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".list-menu",
+          "states": {
+            "hover": {
+              "background-color": "#2A2D32",
+              "color": "#59ACFF"
+            }
+          }
+        },
+        {
+          "selector": ".list-menu__item-icon",
+          "tag": "span",
+          "styles": {
+            "color": "#59ACFF"
+          },
+          "parent": ".list-menu"
+        }
+      ]
+    },
+    "default-maconomy-light": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".list-menu": {
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          ".list-menu__custom-icon": {
+            "width": "20px",
+            "height": "20px",
+            "object-fit": "contain"
+          },
+          ".list-menu__item": {
+            "display": "flex",
+            "align-items": "center",
+            "width": "100%",
+            "gap": "12px",
+            "padding": "12px 16px",
+            "font-size": "0.875rem",
+            "color": "#373F4E",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "border-bottom": "1px solid #BFC6D4",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".list-menu__item-icon": {
+            "color": "#4C92D9"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".list-menu",
+          "tag": "div",
+          "styles": {
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          "children": [
+            ".list-menu__custom-icon",
+            ".list-menu__item",
+            ".list-menu__item-icon"
+          ]
+        },
+        {
+          "selector": ".list-menu__custom-icon",
+          "tag": "span",
+          "styles": {
+            "width": "20px",
+            "height": "20px",
+            "object-fit": "contain"
+          },
+          "parent": ".list-menu"
+        },
+        {
+          "selector": ".list-menu__item",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "width": "100%",
+            "gap": "12px",
+            "padding": "12px 16px",
+            "font-size": "0.875rem",
+            "color": "#373F4E",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "border-bottom": "1px solid #BFC6D4",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".list-menu",
+          "states": {
+            "hover": {
+              "background-color": "#E5E7EB",
+              "color": "#4C92D9"
+            }
+          }
+        },
+        {
+          "selector": ".list-menu__item-icon",
+          "tag": "span",
+          "styles": {
+            "color": "#4C92D9"
+          },
+          "parent": ".list-menu"
+        }
+      ]
+    },
+    "default-maconomy-dark": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".list-menu": {
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          ".list-menu__custom-icon": {
+            "width": "20px",
+            "height": "20px",
+            "object-fit": "contain"
+          },
+          ".list-menu__item": {
+            "display": "flex",
+            "align-items": "center",
+            "width": "100%",
+            "gap": "12px",
+            "padding": "12px 16px",
+            "font-size": "0.875rem",
+            "color": "#FAFAFA",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "border-bottom": "1px solid #2A2D32",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".list-menu__item-icon": {
+            "color": "#59ACFF"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".list-menu",
+          "tag": "div",
+          "styles": {
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          "children": [
+            ".list-menu__custom-icon",
+            ".list-menu__item",
+            ".list-menu__item-icon"
+          ]
+        },
+        {
+          "selector": ".list-menu__custom-icon",
+          "tag": "span",
+          "styles": {
+            "width": "20px",
+            "height": "20px",
+            "object-fit": "contain"
+          },
+          "parent": ".list-menu"
+        },
+        {
+          "selector": ".list-menu__item",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "width": "100%",
+            "gap": "12px",
+            "padding": "12px 16px",
+            "font-size": "0.875rem",
+            "color": "#FAFAFA",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "border-bottom": "1px solid #2A2D32",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".list-menu",
+          "states": {
+            "hover": {
+              "background-color": "#2A2D32",
+              "color": "#59ACFF"
+            }
+          }
+        },
+        {
+          "selector": ".list-menu__item-icon",
+          "tag": "span",
+          "styles": {
+            "color": "#59ACFF"
+          },
+          "parent": ".list-menu"
+        }
+      ]
+    },
+    "no-borders-cp-light": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".list-menu": {
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          ".list-menu__custom-icon": {
+            "width": "20px",
+            "height": "20px",
+            "object-fit": "contain"
+          },
+          ".list-menu__item": {
+            "display": "flex",
+            "align-items": "center",
+            "width": "100%",
+            "gap": "12px",
+            "padding": "12px 16px",
+            "font-size": "0.875rem",
+            "color": "#373F4E",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "border-bottom": "1px solid #BFC6D4",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".list-menu__item-icon": {
+            "color": "#4C92D9"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".list-menu",
+          "tag": "div",
+          "styles": {
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          "children": [
+            ".list-menu__custom-icon",
+            ".list-menu__item",
+            ".list-menu__item-icon"
+          ]
+        },
+        {
+          "selector": ".list-menu__custom-icon",
+          "tag": "span",
+          "styles": {
+            "width": "20px",
+            "height": "20px",
+            "object-fit": "contain"
+          },
+          "parent": ".list-menu"
+        },
+        {
+          "selector": ".list-menu__item",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "width": "100%",
+            "gap": "12px",
+            "padding": "12px 16px",
+            "font-size": "0.875rem",
+            "color": "#373F4E",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "border-bottom": "1px solid #BFC6D4",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".list-menu",
+          "states": {
+            "hover": {
+              "background-color": "#E5E7EB",
+              "color": "#4C92D9"
+            }
+          }
+        },
+        {
+          "selector": ".list-menu__item-icon",
+          "tag": "span",
+          "styles": {
+            "color": "#4C92D9"
+          },
+          "parent": ".list-menu"
+        }
+      ]
+    },
+    "no-borders-cp-dark": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".list-menu": {
+            "background-color": "#37424D",
+            "border": "1px solid #5F6871",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          ".list-menu__custom-icon": {
+            "width": "20px",
+            "height": "20px",
+            "object-fit": "contain"
+          },
+          ".list-menu__item": {
+            "display": "flex",
+            "align-items": "center",
+            "width": "100%",
+            "gap": "12px",
+            "padding": "12px 16px",
+            "font-size": "0.875rem",
+            "color": "#E9ECEF",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "border-bottom": "1px solid #5F6871",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".list-menu__item-icon": {
+            "color": "#59ACFF"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".list-menu",
+          "tag": "div",
+          "styles": {
+            "background-color": "#37424D",
+            "border": "1px solid #5F6871",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          "children": [
+            ".list-menu__custom-icon",
+            ".list-menu__item",
+            ".list-menu__item-icon"
+          ]
+        },
+        {
+          "selector": ".list-menu__custom-icon",
+          "tag": "span",
+          "styles": {
+            "width": "20px",
+            "height": "20px",
+            "object-fit": "contain"
+          },
+          "parent": ".list-menu"
+        },
+        {
+          "selector": ".list-menu__item",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "width": "100%",
+            "gap": "12px",
+            "padding": "12px 16px",
+            "font-size": "0.875rem",
+            "color": "#E9ECEF",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "border-bottom": "1px solid #5F6871",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".list-menu",
+          "states": {
+            "hover": {
+              "background-color": "#3D4A5C",
+              "color": "#59ACFF"
+            }
+          }
+        },
+        {
+          "selector": ".list-menu__item-icon",
+          "tag": "span",
+          "styles": {
+            "color": "#59ACFF"
+          },
+          "parent": ".list-menu"
+        }
+      ]
+    },
+    "no-borders-vp-light": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".list-menu": {
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          ".list-menu__custom-icon": {
+            "width": "20px",
+            "height": "20px",
+            "object-fit": "contain"
+          },
+          ".list-menu__item": {
+            "display": "flex",
+            "align-items": "center",
+            "width": "100%",
+            "gap": "12px",
+            "padding": "12px 16px",
+            "font-size": "0.875rem",
+            "color": "#373F4E",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "border-bottom": "1px solid #BFC6D4",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".list-menu__item-icon": {
+            "color": "#4C92D9"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".list-menu",
+          "tag": "div",
+          "styles": {
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          "children": [
+            ".list-menu__custom-icon",
+            ".list-menu__item",
+            ".list-menu__item-icon"
+          ]
+        },
+        {
+          "selector": ".list-menu__custom-icon",
+          "tag": "span",
+          "styles": {
+            "width": "20px",
+            "height": "20px",
+            "object-fit": "contain"
+          },
+          "parent": ".list-menu"
+        },
+        {
+          "selector": ".list-menu__item",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "width": "100%",
+            "gap": "12px",
+            "padding": "12px 16px",
+            "font-size": "0.875rem",
+            "color": "#373F4E",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "border-bottom": "1px solid #BFC6D4",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".list-menu",
+          "states": {
+            "hover": {
+              "background-color": "#E5E7EB",
+              "color": "#4C92D9"
+            }
+          }
+        },
+        {
+          "selector": ".list-menu__item-icon",
+          "tag": "span",
+          "styles": {
+            "color": "#4C92D9"
+          },
+          "parent": ".list-menu"
+        }
+      ]
+    },
+    "no-borders-vp-dark": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".list-menu": {
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          ".list-menu__custom-icon": {
+            "width": "20px",
+            "height": "20px",
+            "object-fit": "contain"
+          },
+          ".list-menu__item": {
+            "display": "flex",
+            "align-items": "center",
+            "width": "100%",
+            "gap": "12px",
+            "padding": "12px 16px",
+            "font-size": "0.875rem",
+            "color": "#FAFAFA",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "border-bottom": "1px solid #2A2D32",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".list-menu__item-icon": {
+            "color": "#59ACFF"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".list-menu",
+          "tag": "div",
+          "styles": {
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          "children": [
+            ".list-menu__custom-icon",
+            ".list-menu__item",
+            ".list-menu__item-icon"
+          ]
+        },
+        {
+          "selector": ".list-menu__custom-icon",
+          "tag": "span",
+          "styles": {
+            "width": "20px",
+            "height": "20px",
+            "object-fit": "contain"
+          },
+          "parent": ".list-menu"
+        },
+        {
+          "selector": ".list-menu__item",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "width": "100%",
+            "gap": "12px",
+            "padding": "12px 16px",
+            "font-size": "0.875rem",
+            "color": "#FAFAFA",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "border-bottom": "1px solid #2A2D32",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".list-menu",
+          "states": {
+            "hover": {
+              "background-color": "#2A2D32",
+              "color": "#59ACFF"
+            }
+          }
+        },
+        {
+          "selector": ".list-menu__item-icon",
+          "tag": "span",
+          "styles": {
+            "color": "#59ACFF"
+          },
+          "parent": ".list-menu"
+        }
+      ]
+    },
+    "no-borders-ppm-light": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".list-menu": {
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          ".list-menu__custom-icon": {
+            "width": "20px",
+            "height": "20px",
+            "object-fit": "contain"
+          },
+          ".list-menu__item": {
+            "display": "flex",
+            "align-items": "center",
+            "width": "100%",
+            "gap": "12px",
+            "padding": "12px 16px",
+            "font-size": "0.875rem",
+            "color": "#373F4E",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "border-bottom": "1px solid #BFC6D4",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".list-menu__item-icon": {
+            "color": "#4C92D9"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".list-menu",
+          "tag": "div",
+          "styles": {
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          "children": [
+            ".list-menu__custom-icon",
+            ".list-menu__item",
+            ".list-menu__item-icon"
+          ]
+        },
+        {
+          "selector": ".list-menu__custom-icon",
+          "tag": "span",
+          "styles": {
+            "width": "20px",
+            "height": "20px",
+            "object-fit": "contain"
+          },
+          "parent": ".list-menu"
+        },
+        {
+          "selector": ".list-menu__item",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "width": "100%",
+            "gap": "12px",
+            "padding": "12px 16px",
+            "font-size": "0.875rem",
+            "color": "#373F4E",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "border-bottom": "1px solid #BFC6D4",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".list-menu",
+          "states": {
+            "hover": {
+              "background-color": "#E5E7EB",
+              "color": "#4C92D9"
+            }
+          }
+        },
+        {
+          "selector": ".list-menu__item-icon",
+          "tag": "span",
+          "styles": {
+            "color": "#4C92D9"
+          },
+          "parent": ".list-menu"
+        }
+      ]
+    },
+    "no-borders-ppm-dark": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".list-menu": {
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          ".list-menu__custom-icon": {
+            "width": "20px",
+            "height": "20px",
+            "object-fit": "contain"
+          },
+          ".list-menu__item": {
+            "display": "flex",
+            "align-items": "center",
+            "width": "100%",
+            "gap": "12px",
+            "padding": "12px 16px",
+            "font-size": "0.875rem",
+            "color": "#FAFAFA",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "border-bottom": "1px solid #2A2D32",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".list-menu__item-icon": {
+            "color": "#59ACFF"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".list-menu",
+          "tag": "div",
+          "styles": {
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          "children": [
+            ".list-menu__custom-icon",
+            ".list-menu__item",
+            ".list-menu__item-icon"
+          ]
+        },
+        {
+          "selector": ".list-menu__custom-icon",
+          "tag": "span",
+          "styles": {
+            "width": "20px",
+            "height": "20px",
+            "object-fit": "contain"
+          },
+          "parent": ".list-menu"
+        },
+        {
+          "selector": ".list-menu__item",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "width": "100%",
+            "gap": "12px",
+            "padding": "12px 16px",
+            "font-size": "0.875rem",
+            "color": "#FAFAFA",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "border-bottom": "1px solid #2A2D32",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".list-menu",
+          "states": {
+            "hover": {
+              "background-color": "#2A2D32",
+              "color": "#59ACFF"
+            }
+          }
+        },
+        {
+          "selector": ".list-menu__item-icon",
+          "tag": "span",
+          "styles": {
+            "color": "#59ACFF"
+          },
+          "parent": ".list-menu"
+        }
+      ]
+    },
+    "no-borders-maconomy-light": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".list-menu": {
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          ".list-menu__custom-icon": {
+            "width": "20px",
+            "height": "20px",
+            "object-fit": "contain"
+          },
+          ".list-menu__item": {
+            "display": "flex",
+            "align-items": "center",
+            "width": "100%",
+            "gap": "12px",
+            "padding": "12px 16px",
+            "font-size": "0.875rem",
+            "color": "#373F4E",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "border-bottom": "1px solid #BFC6D4",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".list-menu__item-icon": {
+            "color": "#4C92D9"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".list-menu",
+          "tag": "div",
+          "styles": {
+            "background-color": "#F7F8FA",
+            "border": "1px solid #BFC6D4",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          "children": [
+            ".list-menu__custom-icon",
+            ".list-menu__item",
+            ".list-menu__item-icon"
+          ]
+        },
+        {
+          "selector": ".list-menu__custom-icon",
+          "tag": "span",
+          "styles": {
+            "width": "20px",
+            "height": "20px",
+            "object-fit": "contain"
+          },
+          "parent": ".list-menu"
+        },
+        {
+          "selector": ".list-menu__item",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "width": "100%",
+            "gap": "12px",
+            "padding": "12px 16px",
+            "font-size": "0.875rem",
+            "color": "#373F4E",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "border-bottom": "1px solid #BFC6D4",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".list-menu",
+          "states": {
+            "hover": {
+              "background-color": "#E5E7EB",
+              "color": "#4C92D9"
+            }
+          }
+        },
+        {
+          "selector": ".list-menu__item-icon",
+          "tag": "span",
+          "styles": {
+            "color": "#4C92D9"
+          },
+          "parent": ".list-menu"
+        }
+      ]
+    },
+    "no-borders-maconomy-dark": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".list-menu": {
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          ".list-menu__custom-icon": {
+            "width": "20px",
+            "height": "20px",
+            "object-fit": "contain"
+          },
+          ".list-menu__item": {
+            "display": "flex",
+            "align-items": "center",
+            "width": "100%",
+            "gap": "12px",
+            "padding": "12px 16px",
+            "font-size": "0.875rem",
+            "color": "#FAFAFA",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "border-bottom": "1px solid #2A2D32",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".list-menu__item-icon": {
+            "color": "#59ACFF"
+          }
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".list-menu",
+          "tag": "div",
+          "styles": {
+            "background-color": "#1F2124",
+            "border": "1px solid #2A2D32",
+            "border-radius": "0.5rem",
+            "overflow": "hidden"
+          },
+          "children": [
+            ".list-menu__custom-icon",
+            ".list-menu__item",
+            ".list-menu__item-icon"
+          ]
+        },
+        {
+          "selector": ".list-menu__custom-icon",
+          "tag": "span",
+          "styles": {
+            "width": "20px",
+            "height": "20px",
+            "object-fit": "contain"
+          },
+          "parent": ".list-menu"
+        },
+        {
+          "selector": ".list-menu__item",
+          "tag": "span",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "width": "100%",
+            "gap": "12px",
+            "padding": "12px 16px",
+            "font-size": "0.875rem",
+            "color": "#FAFAFA",
+            "cursor": "pointer",
+            "transition": "background-color 150ms ease",
+            "border-bottom": "1px solid #2A2D32",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "parent": ".list-menu",
+          "states": {
+            "hover": {
+              "background-color": "#2A2D32",
+              "color": "#59ACFF"
+            }
+          }
+        },
+        {
+          "selector": ".list-menu__item-icon",
+          "tag": "span",
+          "styles": {
+            "color": "#59ACFF"
+          },
+          "parent": ".list-menu"
+        }
+      ]
+    }
+  },
+  "contentOrder": [
+    ".list-menu__item"
+  ],
+  "guidance": {
+    "patterns": {},
+    "guidelines": {}
+  },
+  "specKeyOrder": [
+    "variant",
+    "theme",
+    "mode"
+  ],
+  "dimensionDefaults": {
+    "variant": "default",
+    "theme": "cp",
+    "mode": "light"
+  },
+  "structure": {
+    "root": ".list-menu",
+    "children": []
+  },
+  "fonts": {
+    "Figtree": "https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap",
+    "Lexend": "https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap",
+    "JetBrains Mono": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
+  },
+  "defaultContent": {
+    "_rule": "No default content defined; do not invent labels, icons, or copy. Use only what is in the spec or leave slots empty."
+  },
+  "interactivity": {
+    "events": [
+      {
+        "name": "click",
+        "description": "Item click; when as='link' navigates, when as='button' use for selection/action"
+      }
+    ],
+    "state": [
+      {
+        "name": "activeItem",
+        "type": "string",
+        "description": "Optional; indicate active item via items[].active prop"
+      }
+    ]
+  },
+  "examples": [
+    {
+      "name": "Menu list",
+      "description": "Vertical menu",
+      "snippet": "<ListMenu items={[{ label: 'Item 1', icon: 'home' }]} />"
+    }
+  ],
+  "contentOrder.list-menu__item": [
+    ".list-menu__item-icon",
+    ".list-menu__custom-icon"
+  ]
+}

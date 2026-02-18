@@ -1,0 +1,1245 @@
+{
+  "name": "CheckboxGroup",
+  "type": "component",
+  "filePath": "src/components/ui/CheckboxGroup.astro",
+  "description": "CheckboxGroup Component",
+  "props": {
+    "legend": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "error": {
+      "type": "boolean",
+      "optional": true,
+      "default": "false"
+    },
+    "warning": {
+      "type": "boolean",
+      "optional": true,
+      "default": "false"
+    },
+    "errorMessage": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "warningMessage": {
+      "type": "string",
+      "optional": true,
+      "default": null
+    },
+    "orientation": {
+      "type": "'vertical' | 'horizontal'",
+      "optional": true,
+      "default": "'vertical'"
+    },
+    "class": {
+      "type": "string",
+      "optional": true,
+      "default": "''"
+    }
+  },
+  "defaults": {
+    "theme": "cp",
+    "mode": "light"
+  },
+  "specs": {
+    "cp-light": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".checkbox-group-wrapper__message-icon": {
+            "flex-shrink": "0"
+          },
+          ".checkbox-group-wrapper__content": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "12px"
+          },
+          ".checkbox-group-wrapper__message": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "4px",
+            "margin-top": "4px",
+            "font-size": "0.875rem",
+            "color": "#525969",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".checkbox-group-wrapper__legend": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "600",
+            "color": "#373F4E",
+            "margin-bottom": "12px"
+          },
+          ".checkbox-group-wrapper": {
+            "border": "none",
+            "padding": "0",
+            "margin": "0"
+          },
+          ".checkbox-group": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "12px"
+          },
+          ".wrapperClasses": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".checkbox-group-wrapper__message-icon",
+          "tag": "div",
+          "styles": {
+            "flex-shrink": "0"
+          },
+          "children": [
+            ".checkbox-group-wrapper__content"
+          ],
+          "parent": ".checkbox-group-wrapper__message"
+        },
+        {
+          "selector": ".checkbox-group-wrapper__content",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "12px"
+          },
+          "children": [
+            ".checkbox-group-wrapper__message"
+          ],
+          "parent": ".wrapperClasses"
+        },
+        {
+          "selector": ".checkbox-group-wrapper__message",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "4px",
+            "margin-top": "4px",
+            "font-size": "0.875rem",
+            "color": "#525969",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "children": [
+            ".checkbox-group-wrapper__legend"
+          ],
+          "parent": ".wrapperClasses"
+        },
+        {
+          "selector": ".checkbox-group-wrapper__legend",
+          "tag": "div",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "600",
+            "color": "#373F4E",
+            "margin-bottom": "12px"
+          },
+          "children": [
+            ".checkbox-group-wrapper"
+          ],
+          "parent": ".checkbox-group-wrapper__message"
+        },
+        {
+          "selector": ".checkbox-group-wrapper",
+          "tag": "div",
+          "styles": {
+            "border": "none",
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": [
+            ".checkbox-group"
+          ],
+          "parent": ".checkbox-group-wrapper__legend"
+        },
+        {
+          "selector": ".checkbox-group",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "12px"
+          }
+        },
+        {
+          "selector": ".wrapperClasses",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    },
+    "cp-dark": {
+      "_meta": {
+        "theme": "cp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".checkbox-group-wrapper__message-icon": {
+            "flex-shrink": "0"
+          },
+          ".checkbox-group-wrapper__content": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "12px"
+          },
+          ".checkbox-group-wrapper__message": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "4px",
+            "margin-top": "4px",
+            "font-size": "0.875rem",
+            "color": "#B6B6C4",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".checkbox-group-wrapper__legend": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "600",
+            "color": "#E9ECEF",
+            "margin-bottom": "12px"
+          },
+          ".checkbox-group-wrapper": {
+            "border": "none",
+            "padding": "0",
+            "margin": "0"
+          },
+          ".checkbox-group": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "12px"
+          },
+          ".wrapperClasses": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".checkbox-group-wrapper__message-icon",
+          "tag": "div",
+          "styles": {
+            "flex-shrink": "0"
+          },
+          "children": [
+            ".checkbox-group-wrapper__content"
+          ],
+          "parent": ".checkbox-group-wrapper__message"
+        },
+        {
+          "selector": ".checkbox-group-wrapper__content",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "12px"
+          },
+          "children": [
+            ".checkbox-group-wrapper__message"
+          ],
+          "parent": ".wrapperClasses"
+        },
+        {
+          "selector": ".checkbox-group-wrapper__message",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "4px",
+            "margin-top": "4px",
+            "font-size": "0.875rem",
+            "color": "#B6B6C4",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "children": [
+            ".checkbox-group-wrapper__legend"
+          ],
+          "parent": ".wrapperClasses"
+        },
+        {
+          "selector": ".checkbox-group-wrapper__legend",
+          "tag": "div",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "600",
+            "color": "#E9ECEF",
+            "margin-bottom": "12px"
+          },
+          "children": [
+            ".checkbox-group-wrapper"
+          ],
+          "parent": ".checkbox-group-wrapper__message"
+        },
+        {
+          "selector": ".checkbox-group-wrapper",
+          "tag": "div",
+          "styles": {
+            "border": "none",
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": [
+            ".checkbox-group"
+          ],
+          "parent": ".checkbox-group-wrapper__legend"
+        },
+        {
+          "selector": ".checkbox-group",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "12px"
+          }
+        },
+        {
+          "selector": ".wrapperClasses",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    },
+    "vp-light": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".checkbox-group-wrapper__message-icon": {
+            "flex-shrink": "0"
+          },
+          ".checkbox-group-wrapper__content": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "12px"
+          },
+          ".checkbox-group-wrapper__message": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "4px",
+            "margin-top": "4px",
+            "font-size": "0.875rem",
+            "color": "#525969",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".checkbox-group-wrapper__legend": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "600",
+            "color": "#373F4E",
+            "margin-bottom": "12px"
+          },
+          ".checkbox-group-wrapper": {
+            "border": "none",
+            "padding": "0",
+            "margin": "0"
+          },
+          ".checkbox-group": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "12px"
+          },
+          ".wrapperClasses": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".checkbox-group-wrapper__message-icon",
+          "tag": "div",
+          "styles": {
+            "flex-shrink": "0"
+          },
+          "children": [
+            ".checkbox-group-wrapper__content"
+          ],
+          "parent": ".checkbox-group-wrapper__message"
+        },
+        {
+          "selector": ".checkbox-group-wrapper__content",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "12px"
+          },
+          "children": [
+            ".checkbox-group-wrapper__message"
+          ],
+          "parent": ".wrapperClasses"
+        },
+        {
+          "selector": ".checkbox-group-wrapper__message",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "4px",
+            "margin-top": "4px",
+            "font-size": "0.875rem",
+            "color": "#525969",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "children": [
+            ".checkbox-group-wrapper__legend"
+          ],
+          "parent": ".wrapperClasses"
+        },
+        {
+          "selector": ".checkbox-group-wrapper__legend",
+          "tag": "div",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "600",
+            "color": "#373F4E",
+            "margin-bottom": "12px"
+          },
+          "children": [
+            ".checkbox-group-wrapper"
+          ],
+          "parent": ".checkbox-group-wrapper__message"
+        },
+        {
+          "selector": ".checkbox-group-wrapper",
+          "tag": "div",
+          "styles": {
+            "border": "none",
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": [
+            ".checkbox-group"
+          ],
+          "parent": ".checkbox-group-wrapper__legend"
+        },
+        {
+          "selector": ".checkbox-group",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "12px"
+          }
+        },
+        {
+          "selector": ".wrapperClasses",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    },
+    "vp-dark": {
+      "_meta": {
+        "theme": "vp",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".checkbox-group-wrapper__message-icon": {
+            "flex-shrink": "0"
+          },
+          ".checkbox-group-wrapper__content": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "12px"
+          },
+          ".checkbox-group-wrapper__message": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "4px",
+            "margin-top": "4px",
+            "font-size": "0.875rem",
+            "color": "#B5B5BC",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".checkbox-group-wrapper__legend": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "600",
+            "color": "#FAFAFA",
+            "margin-bottom": "12px"
+          },
+          ".checkbox-group-wrapper": {
+            "border": "none",
+            "padding": "0",
+            "margin": "0"
+          },
+          ".checkbox-group": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "12px"
+          },
+          ".wrapperClasses": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".checkbox-group-wrapper__message-icon",
+          "tag": "div",
+          "styles": {
+            "flex-shrink": "0"
+          },
+          "children": [
+            ".checkbox-group-wrapper__content"
+          ],
+          "parent": ".checkbox-group-wrapper__message"
+        },
+        {
+          "selector": ".checkbox-group-wrapper__content",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "12px"
+          },
+          "children": [
+            ".checkbox-group-wrapper__message"
+          ],
+          "parent": ".wrapperClasses"
+        },
+        {
+          "selector": ".checkbox-group-wrapper__message",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "4px",
+            "margin-top": "4px",
+            "font-size": "0.875rem",
+            "color": "#B5B5BC",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "children": [
+            ".checkbox-group-wrapper__legend"
+          ],
+          "parent": ".wrapperClasses"
+        },
+        {
+          "selector": ".checkbox-group-wrapper__legend",
+          "tag": "div",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "600",
+            "color": "#FAFAFA",
+            "margin-bottom": "12px"
+          },
+          "children": [
+            ".checkbox-group-wrapper"
+          ],
+          "parent": ".checkbox-group-wrapper__message"
+        },
+        {
+          "selector": ".checkbox-group-wrapper",
+          "tag": "div",
+          "styles": {
+            "border": "none",
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": [
+            ".checkbox-group"
+          ],
+          "parent": ".checkbox-group-wrapper__legend"
+        },
+        {
+          "selector": ".checkbox-group",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "12px"
+          }
+        },
+        {
+          "selector": ".wrapperClasses",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    },
+    "ppm-light": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".checkbox-group-wrapper__message-icon": {
+            "flex-shrink": "0"
+          },
+          ".checkbox-group-wrapper__content": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "12px"
+          },
+          ".checkbox-group-wrapper__message": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "4px",
+            "margin-top": "4px",
+            "font-size": "0.875rem",
+            "color": "#525969",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".checkbox-group-wrapper__legend": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "600",
+            "color": "#373F4E",
+            "margin-bottom": "12px"
+          },
+          ".checkbox-group-wrapper": {
+            "border": "none",
+            "padding": "0",
+            "margin": "0"
+          },
+          ".checkbox-group": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "12px"
+          },
+          ".wrapperClasses": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".checkbox-group-wrapper__message-icon",
+          "tag": "div",
+          "styles": {
+            "flex-shrink": "0"
+          },
+          "children": [
+            ".checkbox-group-wrapper__content"
+          ],
+          "parent": ".checkbox-group-wrapper__message"
+        },
+        {
+          "selector": ".checkbox-group-wrapper__content",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "12px"
+          },
+          "children": [
+            ".checkbox-group-wrapper__message"
+          ],
+          "parent": ".wrapperClasses"
+        },
+        {
+          "selector": ".checkbox-group-wrapper__message",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "4px",
+            "margin-top": "4px",
+            "font-size": "0.875rem",
+            "color": "#525969",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "children": [
+            ".checkbox-group-wrapper__legend"
+          ],
+          "parent": ".wrapperClasses"
+        },
+        {
+          "selector": ".checkbox-group-wrapper__legend",
+          "tag": "div",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "600",
+            "color": "#373F4E",
+            "margin-bottom": "12px"
+          },
+          "children": [
+            ".checkbox-group-wrapper"
+          ],
+          "parent": ".checkbox-group-wrapper__message"
+        },
+        {
+          "selector": ".checkbox-group-wrapper",
+          "tag": "div",
+          "styles": {
+            "border": "none",
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": [
+            ".checkbox-group"
+          ],
+          "parent": ".checkbox-group-wrapper__legend"
+        },
+        {
+          "selector": ".checkbox-group",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "12px"
+          }
+        },
+        {
+          "selector": ".wrapperClasses",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    },
+    "ppm-dark": {
+      "_meta": {
+        "theme": "ppm",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".checkbox-group-wrapper__message-icon": {
+            "flex-shrink": "0"
+          },
+          ".checkbox-group-wrapper__content": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "12px"
+          },
+          ".checkbox-group-wrapper__message": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "4px",
+            "margin-top": "4px",
+            "font-size": "0.875rem",
+            "color": "#B5B5BC",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".checkbox-group-wrapper__legend": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "600",
+            "color": "#FAFAFA",
+            "margin-bottom": "12px"
+          },
+          ".checkbox-group-wrapper": {
+            "border": "none",
+            "padding": "0",
+            "margin": "0"
+          },
+          ".checkbox-group": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "12px"
+          },
+          ".wrapperClasses": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".checkbox-group-wrapper__message-icon",
+          "tag": "div",
+          "styles": {
+            "flex-shrink": "0"
+          },
+          "children": [
+            ".checkbox-group-wrapper__content"
+          ],
+          "parent": ".checkbox-group-wrapper__message"
+        },
+        {
+          "selector": ".checkbox-group-wrapper__content",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "12px"
+          },
+          "children": [
+            ".checkbox-group-wrapper__message"
+          ],
+          "parent": ".wrapperClasses"
+        },
+        {
+          "selector": ".checkbox-group-wrapper__message",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "4px",
+            "margin-top": "4px",
+            "font-size": "0.875rem",
+            "color": "#B5B5BC",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "children": [
+            ".checkbox-group-wrapper__legend"
+          ],
+          "parent": ".wrapperClasses"
+        },
+        {
+          "selector": ".checkbox-group-wrapper__legend",
+          "tag": "div",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "600",
+            "color": "#FAFAFA",
+            "margin-bottom": "12px"
+          },
+          "children": [
+            ".checkbox-group-wrapper"
+          ],
+          "parent": ".checkbox-group-wrapper__message"
+        },
+        {
+          "selector": ".checkbox-group-wrapper",
+          "tag": "div",
+          "styles": {
+            "border": "none",
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": [
+            ".checkbox-group"
+          ],
+          "parent": ".checkbox-group-wrapper__legend"
+        },
+        {
+          "selector": ".checkbox-group",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "12px"
+          }
+        },
+        {
+          "selector": ".wrapperClasses",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    },
+    "maconomy-light": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "light",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".checkbox-group-wrapper__message-icon": {
+            "flex-shrink": "0"
+          },
+          ".checkbox-group-wrapper__content": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "12px"
+          },
+          ".checkbox-group-wrapper__message": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "4px",
+            "margin-top": "4px",
+            "font-size": "0.875rem",
+            "color": "#525969",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".checkbox-group-wrapper__legend": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "600",
+            "color": "#373F4E",
+            "margin-bottom": "12px"
+          },
+          ".checkbox-group-wrapper": {
+            "border": "none",
+            "padding": "0",
+            "margin": "0"
+          },
+          ".checkbox-group": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "12px"
+          },
+          ".wrapperClasses": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".checkbox-group-wrapper__message-icon",
+          "tag": "div",
+          "styles": {
+            "flex-shrink": "0"
+          },
+          "children": [
+            ".checkbox-group-wrapper__content"
+          ],
+          "parent": ".checkbox-group-wrapper__message"
+        },
+        {
+          "selector": ".checkbox-group-wrapper__content",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "12px"
+          },
+          "children": [
+            ".checkbox-group-wrapper__message"
+          ],
+          "parent": ".wrapperClasses"
+        },
+        {
+          "selector": ".checkbox-group-wrapper__message",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "4px",
+            "margin-top": "4px",
+            "font-size": "0.875rem",
+            "color": "#525969",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "children": [
+            ".checkbox-group-wrapper__legend"
+          ],
+          "parent": ".wrapperClasses"
+        },
+        {
+          "selector": ".checkbox-group-wrapper__legend",
+          "tag": "div",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "600",
+            "color": "#373F4E",
+            "margin-bottom": "12px"
+          },
+          "children": [
+            ".checkbox-group-wrapper"
+          ],
+          "parent": ".checkbox-group-wrapper__message"
+        },
+        {
+          "selector": ".checkbox-group-wrapper",
+          "tag": "div",
+          "styles": {
+            "border": "none",
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": [
+            ".checkbox-group"
+          ],
+          "parent": ".checkbox-group-wrapper__legend"
+        },
+        {
+          "selector": ".checkbox-group",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "12px"
+          }
+        },
+        {
+          "selector": ".wrapperClasses",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    },
+    "maconomy-dark": {
+      "_meta": {
+        "theme": "maconomy",
+        "mode": "dark",
+        "locked": true
+      },
+      "_buildContract": {
+        "criticalSelectors": {
+          ".checkbox-group-wrapper__message-icon": {
+            "flex-shrink": "0"
+          },
+          ".checkbox-group-wrapper__content": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "12px"
+          },
+          ".checkbox-group-wrapper__message": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "4px",
+            "margin-top": "4px",
+            "font-size": "0.875rem",
+            "color": "#B5B5BC",
+            "font-family": "'Figtree', sans-serif"
+          },
+          ".checkbox-group-wrapper__legend": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "600",
+            "color": "#FAFAFA",
+            "margin-bottom": "12px"
+          },
+          ".checkbox-group-wrapper": {
+            "border": "none",
+            "padding": "0",
+            "margin": "0"
+          },
+          ".checkbox-group": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "12px"
+          },
+          ".wrapperClasses": {}
+        },
+        "forbiddenModifications": [
+          "Do not use Tailwind arbitrary values",
+          "Do not change hex colors to named colors",
+          "Do not simplify box-shadow values",
+          "Do not add CSS properties that are not in criticalSelectors or in elements[].styles (or element states)",
+          "Do not reorder children: follow contentOrder and elements[].children order exactly",
+          "Build exactly what is in the spec: structure, styles, and defaultContent from the JSON only; no inference, no additions, no \"fixes\""
+        ]
+      },
+      "elements": [
+        {
+          "selector": ".checkbox-group-wrapper__message-icon",
+          "tag": "div",
+          "styles": {
+            "flex-shrink": "0"
+          },
+          "children": [
+            ".checkbox-group-wrapper__content"
+          ],
+          "parent": ".checkbox-group-wrapper__message"
+        },
+        {
+          "selector": ".checkbox-group-wrapper__content",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "12px"
+          },
+          "children": [
+            ".checkbox-group-wrapper__message"
+          ],
+          "parent": ".wrapperClasses"
+        },
+        {
+          "selector": ".checkbox-group-wrapper__message",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "align-items": "center",
+            "gap": "4px",
+            "margin-top": "4px",
+            "font-size": "0.875rem",
+            "color": "#B5B5BC",
+            "font-family": "'Figtree', sans-serif"
+          },
+          "children": [
+            ".checkbox-group-wrapper__legend"
+          ],
+          "parent": ".wrapperClasses"
+        },
+        {
+          "selector": ".checkbox-group-wrapper__legend",
+          "tag": "div",
+          "styles": {
+            "font-family": "'Lexend', sans-serif",
+            "font-size": "0.875rem",
+            "font-weight": "600",
+            "color": "#FAFAFA",
+            "margin-bottom": "12px"
+          },
+          "children": [
+            ".checkbox-group-wrapper"
+          ],
+          "parent": ".checkbox-group-wrapper__message"
+        },
+        {
+          "selector": ".checkbox-group-wrapper",
+          "tag": "div",
+          "styles": {
+            "border": "none",
+            "padding": "0",
+            "margin": "0"
+          },
+          "children": [
+            ".checkbox-group"
+          ],
+          "parent": ".checkbox-group-wrapper__legend"
+        },
+        {
+          "selector": ".checkbox-group",
+          "tag": "div",
+          "styles": {
+            "display": "flex",
+            "flex-direction": "column",
+            "gap": "12px"
+          }
+        },
+        {
+          "selector": ".wrapperClasses",
+          "tag": "div",
+          "styles": {}
+        }
+      ]
+    }
+  },
+  "contentOrder": [
+    ".legendClasses",
+    ".checkbox-group-wrapper__content",
+    ".checkbox-group-wrapper__message",
+    ".checkbox-group-wrapper__message"
+  ],
+  "guidance": {
+    "patterns": {
+      "group-vs-individual-validation": "CheckboxGroup provides group-level error and warning states via error, warning, errorMessage, and warningMessage props. These are distinct from individual Checkbox component error/warning props. Group-level messages appear below all checkboxes in checkbox-group-wrapper__message, while individual checkbox messages appear directly below each checkbox. Use group validation for \"at least one required\" errors, individual validation for per-checkbox constraints.",
+      "fieldset-legend-semantics": "CheckboxGroup renders as a <fieldset> element with optional <legend> for the legend prop. This provides semantic grouping for assistive technologies. The fieldset receives aria-invalid='true' when error=true and aria-describedby linking to the group error/warning message. This is the correct HTML structure for checkbox groups and ensures screen readers announce the group context.",
+      "composition-pattern": "CheckboxGroup uses slot composition - it doesn't generate individual Checkbox components. You must manually nest Checkbox components inside CheckboxGroup's default slot. This allows full control over each checkbox's props (name, value, label, checked) while the group wrapper provides shared styling, layout (orientation prop), and group-level validation states.",
+      "error-takes-precedence": "When both error and warning are true, only the error state displays. The errorMessage is shown with checkbox-group-wrapper__message--error class and exclamation-circle icon. The warning is completely suppressed (conditional !error && warning) to avoid conflicting visual states. Set only one of error or warning to true at a time."
+    },
+    "guidelines": {}
+  },
+  "specKeyOrder": [
+    "theme",
+    "mode"
+  ],
+  "dimensionDefaults": {
+    "theme": "cp",
+    "mode": "light"
+  },
+  "structure": {
+    "root": ".wrapperClasses",
+    "children": [
+      {
+        "class": ".legendClasses"
+      },
+      {
+        "class": ".checkbox-group-wrapper__content",
+        "children": []
+      },
+      {
+        "class": ".checkbox-group-wrapper__message",
+        "children": [
+          {
+            "class": ".checkbox-group-wrapper__message-icon"
+          }
+        ]
+      },
+      {
+        "class": ".checkbox-group-wrapper__message",
+        "children": [
+          {
+            "class": ".checkbox-group-wrapper__message-icon"
+          }
+        ]
+      }
+    ]
+  },
+  "fonts": {
+    "Figtree": "https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&display=swap",
+    "Lexend": "https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&display=swap",
+    "JetBrains Mono": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
+  },
+  "defaultContent": {
+    "_rule": "No default content defined; do not invent labels, icons, or copy. Use only what is in the spec or leave slots empty."
+  },
+  "interactivity": {
+    "events": [
+      {
+        "name": "change",
+        "description": "Native change on any child checkbox; parent form or script receives change"
+      }
+    ],
+    "state": [
+      {
+        "name": "checkedValues",
+        "type": "string[]",
+        "description": "Values of checked checkboxes; read from form or controlled state"
+      }
+    ]
+  },
+  "examples": [
+    {
+      "name": "Multiple options",
+      "description": "Group of checkboxes",
+      "snippet": "<CheckboxGroup options={[{ value: 'a', label: 'A' }, { value: 'b', label: 'B' }]} name=\"choices\" />"
+    }
+  ],
+  "contentOrder.checkbox-group-wrapper__message": [
+    ".checkbox-group-wrapper__message-icon"
+  ]
+}
