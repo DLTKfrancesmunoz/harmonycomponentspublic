@@ -1,0 +1,2158 @@
+# Harmony React Components — Full Documentation
+
+> Complete API reference for all Harmony React components.
+
+<component name="Accordion">
+# Accordion
+
+Expandable sections that reveal content when a header is clicked; supports single or multiple open panels.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| items | AccordionItem[] |  | Array of items to render (e.g. accordion sections, menu items). |
+| allowMultiple | boolean | false | When true, multiple sections/items can be open at once. |
+| className | string | '' | Additional CSS classes applied to the root element. |
+| itemSlots | (ReactNode \| null)[] | — | Optional custom React content per item (overrides default content). |
+
+## Usage
+
+```tsx
+import { Accordion } from './components/harmony/Accordion';
+
+<Accordion items={[{ title: "Section 1", content: "Content here" }, { title: "Section 2", content: "More content" }]} />
+```
+
+## CSS Classes
+
+- `.accordion`
+
+## Dependencies
+
+- Icon
+
+</component>
+
+<component name="Alert">
+# Alert
+
+Dismissible feedback message with optional title, icon, primary/secondary actions, and progress bar.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| variant | 'info' \| 'success' \| 'warning' \| 'error' | 'info' | info: Informational message (default).; success: Success or confirmation.; warning: Warning or caution.; error: Error or destructive. |
+| style | 'default' \| 'enhanced' | 'default' | Display style (e.g. default vs enhanced). |
+| title | string | — | Title or heading text. |
+| dismissible | boolean | false | When true, the user can dismiss the alert. |
+| onDismiss | () => void | — | Callback when the alert is dismissed. |
+| icon | string | — | Icon name from the design system. |
+| primaryButton | AlertButtonConfig | — | Primary action button config (text, href or onClick). |
+| secondaryButton | AlertButtonConfig | — | Secondary action button config. |
+| linkText | string | — | Text for an optional link in the alert. |
+| linkHref | string | — | URL for the optional link in the alert. |
+| progressValue | number | — | Current progress value (e.g. for progress bar or alert). |
+| className | string | '' | Additional CSS classes applied to the root element. |
+| children | ReactNode |  | Content rendered inside the component. |
+
+## Usage
+
+```tsx
+import { Alert } from './components/harmony/Alert';
+
+<Alert variant="info" title="Note">Message text</Alert>
+```
+
+## Variants
+
+- **info**: Informational message (default).
+- **success**: Success or confirmation.
+- **warning**: Warning or caution.
+- **error**: Error or destructive.
+
+## CSS Classes
+
+- `.alert`
+- `.alert--enhanced`
+- `.alert--info`
+- `.alert--success`
+- `.alert--warning`
+- `.alert--error`
+
+## Dependencies
+
+- Icon
+- Button
+- ProgressBar
+
+</component>
+
+<component name="Avatar">
+# Avatar
+
+User or entity thumbnail image with optional fallback and size presets.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| size | 'sm' \| 'md' \| 'lg' | 'md' | sm: Small.; md: Medium.; lg: Large. |
+| className | string | '' | Additional CSS classes applied to the root element. |
+
+## Usage
+
+```tsx
+import { Avatar } from './components/harmony/Avatar';
+
+<Avatar size="sm" />
+```
+
+## Variants
+
+- **sm**: Small.
+- **md**: Medium.
+- **lg**: Large.
+
+## CSS Classes
+
+- `.avatar`
+- `.avatar--sm`
+- `.avatar--md`
+- `.avatar--lg`
+
+## Dependencies
+
+- Icon
+
+</component>
+
+<component name="Badge">
+# Badge
+
+Small label or count indicator with variant and size options.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| variant | 'default' | 'default' | default: Neutral gray. |
+| icon | string | — | Icon name from the design system. |
+| className | string | '' | Additional CSS classes applied to the root element. |
+| children | ReactNode |  | Content rendered inside the component. |
+
+## Usage
+
+```tsx
+import { Badge } from './components/harmony/Badge';
+
+<Badge variant="default" >3</Badge>
+```
+
+## Variants
+
+- **default**: Neutral gray.
+
+## CSS Classes
+
+- `.badge`
+- `.badge--default`
+
+## Dependencies
+
+- Icon
+
+</component>
+
+<component name="Button">
+# Button
+
+Primary action control with variant and size; can render as button or link.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| variant | 'primary' \| 'secondary' \| 'tertiary' \| 'outline' \| 'ghost' \| 'destructive' \| 'dela' \| 'dela-pill' | 'primary' | primary: Filled with theme primary color.; secondary: Outlined with theme color.; tertiary: Text-only, no background or border.; outline: Neutral outlined.; ghost: Transparent, background on hover.; destructive: Destructive/danger action.; dela: Dela-themed button.; dela-pill: Dela-themed pill button. |
+| buttonType | 'theme' \| 'pageHeader' | 'theme' | Button style context: theme (in-page) or pageHeader. |
+| size | 'xs' \| 'sm' \| 'md' \| 'lg' | 'md' | xs: Extra small.; sm: Small.; md: Medium (default).; lg: Large. |
+| orientation | 'horizontal' \| 'vertical' | 'horizontal' | Layout direction (e.g. horizontal, vertical). |
+| disabled | boolean | false | When true, the control is disabled and not interactive. |
+| loading | boolean | false | When true, enables the option. |
+| loadingText | string | — | String value. |
+| icon | string | — | Icon name from the design system. |
+| iconPosition | 'left' \| 'right' | 'left' | See type. |
+| type | 'button' \| 'submit' \| 'reset' | 'button' | Input or control type (e.g. text, email, date). |
+| fullWidth | boolean | false | When true, enables the option. |
+| href | string | — | When set, the component renders as a link to this URL. |
+| onClick | () => void | — | Click handler. |
+| children | ReactNode | — | Content rendered inside the component. |
+| className | string | '' | Additional CSS classes applied to the root element. |
+
+## Usage
+
+```tsx
+import { Button } from './components/harmony/Button';
+
+<Button variant="primary" size="xs">Save</Button>
+```
+
+## Variants
+
+- **primary**: Filled with theme primary color.
+- **secondary**: Outlined with theme color.
+- **tertiary**: Text-only, no background or border.
+- **outline**: Neutral outlined.
+- **ghost**: Transparent, background on hover.
+- **destructive**: Destructive/danger action.
+- **dela**: Dela-themed button.
+- **dela-pill**: Dela-themed pill button.
+- **xs**: Extra small.
+- **sm**: Small.
+- **md**: Medium (default).
+- **lg**: Large.
+
+## CSS Classes
+
+- `.btn`
+- `.btn--page-header`
+- `.btn--vertical`
+- `.btn--disabled`
+- `.btn--loading`
+- `.btn--full`
+- `.btn--primary`
+- `.btn--secondary`
+- `.btn--tertiary`
+- `.btn--outline`
+- `.btn--ghost`
+- `.btn--destructive`
+- `.btn--dela`
+- `.btn--dela-pill`
+- `.btn--xs`
+- `.btn--sm`
+- `.btn--md`
+- `.btn--lg`
+
+## Dependencies
+
+- Icon
+
+</component>
+
+<component name="ButtonGroup">
+# ButtonGroup
+
+Group of buttons with shared variant, size, and orientation.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| variant | 'default' \| 'outline' | 'default' | default: Default button group style.; outline: Outlined style. |
+| size | 'sm' \| 'md' \| 'lg' | 'md' | sm: Small.; md: Medium.; lg: Large. |
+| orientation | 'horizontal' \| 'vertical' | 'horizontal' | Layout direction (e.g. horizontal, vertical). |
+| className | string | '' | Additional CSS classes applied to the root element. |
+| children | ReactNode |  | Content rendered inside the component. |
+
+## Usage
+
+```tsx
+import { ButtonGroup } from './components/harmony/ButtonGroup';
+
+<ButtonGroup variant="default" size="sm">Save</ButtonGroup>
+```
+
+## Variants
+
+- **default**: Default button group style.
+- **outline**: Outlined style.
+- **sm**: Small.
+- **md**: Medium.
+- **lg**: Large.
+
+## CSS Classes
+
+- `.btn-group`
+- `.btn-group--default`
+- `.btn-group--outline`
+- `.btn-group--sm`
+- `.btn-group--md`
+- `.btn-group--lg`
+- `.btn-group--horizontal`
+- `.btn-group--vertical`
+
+## Dependencies
+
+None (standalone component).
+
+</component>
+
+<component name="Card">
+# Card
+
+Content container with optional header (title/subtitle), body, and footer; supports elevated and interactive styles.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| elevated | boolean | false | When true, the card has elevation shadow. |
+| interactive | boolean | false | When true, the card has hover/click styling. |
+| primary | boolean | false | When true, uses primary theme styling. |
+| withHeader | boolean | false | When true, the card shows a header area. |
+| headerTitle | string | '' | Title text for the card or dialog header. |
+| headerSubtitle | string | '' | Subtitle text for the header. |
+| className | string | '' | Additional CSS classes applied to the root element. |
+| header | ReactNode | — | Custom header content (overrides headerTitle/headerSubtitle when set). |
+| headerActions | ReactNode | — | Actions or buttons in the header area. |
+| children | ReactNode | — | Content rendered inside the component. |
+| footer | ReactNode | — | Footer content or actions. |
+
+## Usage
+
+```tsx
+import { Card } from './components/harmony/Card';
+
+<Card headerTitle="Card title" headerSubtitle="Optional subtitle">
+  Card body content.
+</Card>
+```
+
+## CSS Classes
+
+- `.card`
+- `.card--elevated`
+- `.card--interactive`
+- `.card--primary`
+- `.card--with-header`
+
+## Dependencies
+
+None (standalone component).
+
+</component>
+
+<component name="Checkbox">
+# Checkbox
+
+Single checkbox control bound to a boolean value.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| name | string | — | Form field name for submission. |
+| id | string | — | Unique DOM id for the root or main control (for accessibility). |
+| checked | boolean | — | Checked state for checkbox, radio, or toggle. |
+| disabled | boolean | false | When true, the control is disabled and not interactive. |
+| label | string | — | Label text for the control. |
+| value | string | — | Controlled value. |
+| warning | boolean | false | When true, shows warning state or message. |
+| error | boolean | false | When true, shows error styling and optional error message. |
+| warningMessage | string | — | String value. |
+| errorMessage | string | — | Error message shown when error is true. |
+| className | string | '' | Additional CSS classes applied to the root element. |
+
+## Usage
+
+```tsx
+import { Checkbox } from './components/harmony/Checkbox';
+
+<Checkbox label="Example" />
+```
+
+## CSS Classes
+
+- `.checkbox`
+- `.checkbox--disabled`
+- `.checkbox--warning`
+- `.checkbox--error`
+
+## Dependencies
+
+- Icon
+
+</component>
+
+<component name="CheckboxGroup">
+# CheckboxGroup
+
+Group of checkboxes with a legend and optional error/warning message.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| legend | string | — | Legend text for a fieldset (e.g. radio group). |
+| error | boolean | false | When true, shows error styling and optional error message. |
+| warning | boolean | false | When true, shows warning state or message. |
+| errorMessage | string | — | Error message shown when error is true. |
+| warningMessage | string | — | String value. |
+| orientation | 'vertical' \| 'horizontal' | 'vertical' | Layout direction (e.g. horizontal, vertical). |
+| className | string | '' | Additional CSS classes applied to the root element. |
+| children | ReactNode |  | Content rendered inside the component. |
+
+## Usage
+
+```tsx
+import { CheckboxGroup } from './components/harmony/CheckboxGroup';
+
+<CheckboxGroup />
+```
+
+## CSS Classes
+
+- `.checkbox-group-wrapper`
+- `.checkbox-group-wrapper--error`
+- `.checkbox-group-wrapper--warning`
+- `.checkbox-group-wrapper--horizontal`
+- `.checkbox-group-wrapper__legend--error`
+- `.checkbox-group-wrapper__legend--warning`
+
+## Dependencies
+
+- Icon
+
+</component>
+
+<component name="Chip">
+# Chip
+
+Compact tag or status pill with variant, size, and optional overflow count.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| size | 'sm' \| 'md' \| 'lg' | 'md' | sm: Small.; md: Medium.; lg: Large. |
+| variant | 'fill' \| 'outline' | 'fill' | fill: Filled background.; outline: Outlined border only. |
+| state | 'enabled' | 'enabled' | Chip state (e.g. default, success). |
+| type | 'chip' \| 'horiz-dots' \| 'vert-dots' \| 'overflow' | 'chip' | Display type: chip, horiz-dots, vert-dots, or overflow. |
+| overflowCount | number | — | Max count before showing overflow (e.g. 99+). |
+| selected | boolean | false | When true, enables the option. |
+| removable | boolean | false | When true, enables the option. |
+| onRemove | () => void | — | Callback when remove occurs. |
+| icon | string | — | Icon name from the design system. |
+| label | string | 'Chip' | Label text for the control. |
+| className | string | '' | Additional CSS classes applied to the root element. |
+| children | ReactNode | — | Content rendered inside the component. |
+
+## Usage
+
+```tsx
+import { Chip } from './components/harmony/Chip';
+
+<Chip variant="fill" label="Design" />
+```
+
+## Variants
+
+- **fill**: Filled background.
+- **outline**: Outlined border only.
+- **sm**: Small.
+- **md**: Medium.
+- **lg**: Large.
+
+## CSS Classes
+
+- `.chip`
+- `.chip--selected`
+- `.chip--sm`
+- `.chip--md`
+- `.chip--lg`
+- `.chip--fill`
+- `.chip--outline`
+- `.chip--enabled`
+- `.chip--chip`
+- `.chip--horiz-dots`
+- `.chip--vert-dots`
+- `.chip--overflow`
+
+## Dependencies
+
+- Icon
+
+</component>
+
+<component name="DateInput">
+# DateInput
+
+Native date/time input with type (date, time, datetime-local, month, week).
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| type | 'date' \| 'time' \| 'datetime-local' \| 'month' \| 'week' | 'date' | Input or control type (e.g. text, email, date). |
+| value | string | — | Controlled value. |
+| name | string | — | Form field name for submission. |
+| id | string | — | Unique DOM id for the root or main control (for accessibility). |
+| disabled | boolean | false | When true, the control is disabled and not interactive. |
+| min | string | — | Minimum value (number or date string). |
+| max | string | — | Maximum value (number or date string). |
+| required | boolean | false | When true, the field is required for form validation. |
+| label | string | — | Label text for the control. |
+| labelVariant | 'inline' \| 'stacked' | — | Label layout: inline or stacked. |
+| labelFor | string | — | String value. |
+| timeFormat | '12' \| '24' | '24' | See type. |
+| locale | string | 'en-US' | Locale for date/time formatting. |
+| className | string | '' | Additional CSS classes applied to the root element. |
+| onChange | (value: string) => void | — | Callback when change occurs. |
+
+## Usage
+
+```tsx
+import { DateInput } from './components/harmony/DateInput';
+
+<DateInput label="Example" />
+```
+
+## CSS Classes
+
+- `.date-input-form-wrapper`
+- `.date-input-form-wrapper--inline`
+- `.date-input-form-wrapper--stacked`
+
+## Dependencies
+
+- Icon
+- Label
+- PickerPopup
+- DatePicker
+- TimePicker
+- DateTimePicker
+- MonthPicker
+- WeekPicker
+
+</component>
+
+<component name="DatePicker">
+# DatePicker
+
+Calendar-style date picker with min/max and value.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| value | string | — | Controlled value. |
+| min | string | — | Minimum value (number or date string). |
+| max | string | — | Maximum value (number or date string). |
+| disabled | boolean | false | When true, the control is disabled and not interactive. |
+| locale | string | 'en-US' | Locale for date/time formatting. |
+| id | string | — | Unique DOM id for the root or main control (for accessibility). |
+| className | string | '' | Additional CSS classes applied to the root element. |
+| onDateSelect | (date: string) => void | — | Callback when a date is selected. |
+
+## Usage
+
+```tsx
+import { DatePicker } from './components/harmony/DatePicker';
+
+<DatePicker value="2024-01-15" onDateSelect={(date) => setValue(date)} />
+```
+
+## CSS Classes
+
+- `.date-picker`
+- `.date-picker__day--other-month`
+- `.date-picker__day--today`
+- `.date-picker__day--selected`
+- `.date-picker__day--disabled`
+
+## Dependencies
+
+- Icon
+
+</component>
+
+<component name="DateTimePicker">
+# DateTimePicker
+
+Combined date and time picker.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| value | string | — | Controlled value. |
+| min | string | — | Minimum value (number or date string). |
+| max | string | — | Maximum value (number or date string). |
+| disabled | boolean | false | When true, the control is disabled and not interactive. |
+| timeFormat | '12' \| '24' | '24' | See type. |
+| locale | string | 'en-US' | Locale for date/time formatting. |
+| id | string | — | Unique DOM id for the root or main control (for accessibility). |
+| className | string | '' | Additional CSS classes applied to the root element. |
+| onDateTimeSelect | (datetime: string) => void | — | Callback when dateTimeSelect occurs. |
+
+## Usage
+
+```tsx
+import { DateTimePicker } from './components/harmony/DateTimePicker';
+
+<DateTimePicker value="2024-01-15" onDateSelect={(date) => setValue(date)} />
+```
+
+## CSS Classes
+
+- `.datetime-picker`
+
+## Dependencies
+
+- DatePicker
+- TimePicker
+
+</component>
+
+<component name="Dialog">
+# Dialog
+
+Modal overlay with title, body content, and optional footer actions.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| id | string |  | Unique DOM id for the root or main control (for accessibility). |
+| title | string |  | Title or heading text. |
+| open | boolean | false | When true, the overlay or panel is visible. |
+| onClose | () => void | — | Callback when the overlay/panel is closed or dismissed. |
+| className | string | '' | Additional CSS classes applied to the root element. |
+| buttonAlignment | 'left' \| 'right' | 'left' | Alignment of footer buttons (left or right). |
+| headerVariant | 'default' \| 'primary' | 'default' | Header style: default or primary. |
+| children | ReactNode | — | Content rendered inside the component. |
+| footer | ReactNode | — | Footer content or actions. |
+
+## Usage
+
+```tsx
+import { Dialog } from './components/harmony/Dialog';
+
+<Dialog id="my-dialog" title="Dialog title" open={isOpen} onClose={() => setIsOpen(false)}>
+  Dialog body content.
+</Dialog>
+```
+
+## CSS Classes
+
+- `.dialog-overlay`
+
+## Dependencies
+
+- Icon
+- Button
+
+</component>
+
+<component name="Dropdown">
+# Dropdown
+
+Select-style dropdown with options and placeholder.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| options | Option[] |  | Array of options for select/dropdown. |
+| value | string | — | Controlled value. |
+| placeholder | string | 'Select an option' | Placeholder text when empty. |
+| name | string | — | Form field name for submission. |
+| id | string | — | Unique DOM id for the root or main control (for accessibility). |
+| disabled | boolean | false | When true, the control is disabled and not interactive. |
+| className | string | '' | Additional CSS classes applied to the root element. |
+| label | string | — | Label text for the control. |
+| labelVariant | 'inline' \| 'stacked' | — | Label layout: inline or stacked. |
+| labelFor | string | — | String value. |
+| trigger | ReactNode | — | Content to render (React node). |
+| optionSlots | (ReactNode \| null)[] | — | Content to render (React node). |
+| onChange | (value: string) => void | — | Callback when change occurs. |
+
+## Usage
+
+```tsx
+import { Dropdown } from './components/harmony/Dropdown';
+
+<Dropdown options={[{ value: "a", label: "Option A" }, { value: "b", label: "Option B" }]} placeholder="Select..." />
+```
+
+## CSS Classes
+
+- `.dropdown-wrapper`
+- `.dropdown__item--disabled`
+
+## Dependencies
+
+- Icon
+- Label
+
+</component>
+
+<component name="FloatingNav">
+# FloatingNav
+
+Floating navigation with optional execute/save and custom actions.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| showExecute | boolean | true | When true, the execute action is shown in floating nav. |
+| saveDisabled | boolean | false | When true, the save action is disabled. |
+| variant | 'full' \| 'compact' | 'full' | full: Full layout with labels.; compact: Compact icon-only layout. |
+| actions | ReactNode | — | Custom action configs for the floating nav. |
+
+## Usage
+
+```tsx
+import { FloatingNav } from './components/harmony/FloatingNav';
+
+<FloatingNav variant="full" />
+```
+
+## Variants
+
+- **full**: Full layout with labels.
+- **compact**: Compact icon-only layout.
+
+## CSS Classes
+
+- `.floating-nav__btn`
+- `.floating-nav__btn--dropdown`
+- `.floating-nav__btn--disabled`
+- `.floating-nav__btn--primary`
+
+## Dependencies
+
+- Icon
+
+## Dark Mode
+
+In dark mode (`html.theme-cp.dark`), the floating nav background, border, secondary button color/border, primary/disabled button colors, divider, and pin icon use dedicated dark tokens (e.g. `--floating-nav-bg-dark`, `--floating-nav-btn-secondary-dark`).
+
+</component>
+
+<component name="Icon">
+# Icon
+
+Icon from design system with name, variant, and size.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| name | string |  | Form field name for submission. |
+| size | 'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' | 'md' | xs: Extra small.; sm: Small.; md: Medium.; lg: Large.; xl: Extra large. |
+| className | string | '' | Additional CSS classes applied to the root element. |
+| variant | 'outline' \| 'solid' | 'outline' | outline: Outline stroke style.; solid: Filled style. |
+
+## Usage
+
+```tsx
+import { Icon } from './components/harmony/Icon';
+
+<Icon variant="outline" size="xs" name={...} />
+```
+
+## Variants
+
+- **outline**: Outline stroke style.
+- **solid**: Filled style.
+- **xs**: Extra small.
+- **sm**: Small.
+- **md**: Medium.
+- **lg**: Large.
+- **xl**: Extra large.
+
+## CSS Classes
+
+- BEM classes from Harmony components.css
+
+## Dependencies
+
+None (standalone component).
+
+## Theme Behavior
+
+- Icons resolve from theme-scoped manifest in Astro (hero | tabler | custom per theme). React uses a single resolution path; icon names are shared across themes but the underlying SVG source can differ by product (CP, VP, PPM, Maconomy).
+
+</component>
+
+<component name="Input">
+# Input
+
+Text input with optional label, icon, error state, and validation.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| type | 'text' \| 'email' \| 'password' \| 'number' \| 'url' \| 'search' \| 'tel' | 'text' | Input or control type (e.g. text, email, date). |
+| placeholder | string | — | Placeholder text when empty. |
+| value | string | — | Controlled value. |
+| name | string | — | Form field name for submission. |
+| id | string | — | Unique DOM id for the root or main control (for accessibility). |
+| disabled | boolean | false | When true, the control is disabled and not interactive. |
+| error | boolean | false | When true, shows error styling and optional error message. |
+| errorMessage | string | — | Error message shown when error is true. |
+| icon | string | — | Icon name from the design system. |
+| required | boolean | false | When true, the field is required for form validation. |
+| label | string | — | Label text for the control. |
+| labelVariant | 'inline' \| 'stacked' | — | Label layout: inline or stacked. |
+| labelFor | string | — | String value. |
+| className | string | '' | Additional CSS classes applied to the root element. |
+
+## Usage
+
+```tsx
+import { Input } from './components/harmony/Input';
+
+<Input label="Name" placeholder="Enter your name" />
+```
+
+## CSS Classes
+
+- `.input`
+- `.input--with-icon`
+- `.input--error`
+
+## Dependencies
+
+- Icon
+- Label
+
+</component>
+
+<component name="Kanban">
+# Kanban
+
+Kanban board with columns and optional title/action buttons.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| columns | KanbanColumn[] |  | Kanban column definitions. |
+| title | string | 'Kanban Board' | Title or heading text. |
+| actionButtons | ActionButton[] | [] | Button configuration (text, href or onClick). |
+| actionDropdowns | ActionDropdown[] | — | Array of items. |
+| className | string | '' | Additional CSS classes applied to the root element. |
+| showAddButton | boolean | true | Button configuration (text, href or onClick). |
+| titleBarActions | ReactNode | — | Content to render (React node). |
+| actionBar | ReactNode | — | Content to render (React node). |
+
+## Usage
+
+```tsx
+import { Kanban } from './components/harmony/Kanban';
+
+<Kanban title="Example" />
+```
+
+## CSS Classes
+
+- `.kanban__container`
+- `.kanban__column-card--in-progress`
+- `.kanban__column-card--done`
+
+## Dependencies
+
+- Button
+- Icon
+- Card
+- KanbanCard
+
+</component>
+
+<component name="KanbanCard">
+# KanbanCard
+
+Card item within a Kanban column with title and description.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| id | string |  | Unique DOM id for the root or main control (for accessibility). |
+| title | string | — | Title or heading text. |
+| description | string | — | String value. |
+| avatar | { name?: string | — | String value. |
+| badges | Array<{ label: string | [] | String value. |
+| progress | number | — | Numeric value. |
+| icons | Array<{ name: string | [] | String value. |
+| date | string | — | String value. |
+| time | string | — | String value. |
+| className | string | '' | Additional CSS classes applied to the root element. |
+| children | ReactNode | — | Content rendered inside the component. |
+
+## Usage
+
+```tsx
+import { KanbanCard } from './components/harmony/KanbanCard';
+
+<KanbanCard title="Example" />
+```
+
+## CSS Classes
+
+- `.kanban-card`
+
+## Dependencies
+
+- Card
+- Avatar
+- Badge
+- Icon
+- ProgressBar
+
+</component>
+
+<component name="Label">
+# Label
+
+Form label with optional required indicator and helper text.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| htmlFor | string | — | ID of the associated form control. |
+| required | boolean | false | When true, the field is required for form validation. |
+| helper | string | — | Helper text below the label. |
+| className | string | '' | Additional CSS classes applied to the root element. |
+| children | ReactNode |  | Content rendered inside the component. |
+
+## Usage
+
+```tsx
+import { Label } from './components/harmony/Label';
+
+<Label />
+```
+
+## CSS Classes
+
+- `.label`
+- `.label--required`
+
+## Dependencies
+
+None (standalone component).
+
+</component>
+
+<component name="LeftSidebar">
+# LeftSidebar
+
+Left-hand shell sidebar with optional variant and sections.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| variant | 'cp' \| 'vp' \| 'ppm' \| 'maconomy' | 'ppm' | cp: CP theme.; vp: VP theme.; ppm: PPM theme.; maconomy: Maconomy theme. |
+| sections | LeftSidebarSection[] | — | Sidebar or nav sections to render. |
+| className | string | '' | Additional CSS classes applied to the root element. |
+
+## Usage
+
+```tsx
+import { LeftSidebar } from './components/harmony/LeftSidebar';
+
+<LeftSidebar variant="cp" />
+```
+
+## Variants
+
+- **cp**: CP theme.
+- **vp**: VP theme.
+- **ppm**: PPM theme.
+- **maconomy**: Maconomy theme.
+
+## CSS Classes
+
+- `.left-sidebar`
+- `.left-sidebar__item--active`
+- `.left-sidebar--cp`
+- `.left-sidebar--vp`
+- `.left-sidebar--ppm`
+- `.left-sidebar--maconomy`
+
+## Dependencies
+
+- Icon
+
+## Theme Behavior
+
+- **variant="cp"**: Two sections. Section 1: Welcome screen, Dashboard, My menu, Recent. Section 2: Search, Command Center, Accounting, Planning, Capture & contracts, Projects, Materials, Time & expense, People, Reports, Admin.
+- **variant="ppm"**, **variant="vp"**, **variant="maconomy"**: One section: Command Center, Programs, Portfolios, Projects, Risk, Reports, Calendars, Codes, Rates, Resources, Settings, Add Menu.
+- The React component defaults to `sections = PPM_SECTIONS`; pass `sections` to override. Astro source has separate default sections per theme (cpSections, ppmSections, vpSections, maconomySections).
+
+## Dark Mode
+
+In dark mode (`html.dark`), item hover uses `--hover-bg`. Icon color uses `--text-primary`; the active item icon uses `--shell-sidebar-icon-color-on-primary`. Custom img icons (e.g. `.left-sidebar__custom-icon`) use `filter: brightness(0) invert(1)` for contrast.
+
+</component>
+
+<component name="Link">
+# Link
+
+Text or inline link with optional external and muted styling.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| href | string |  | When set, the component renders as a link to this URL. |
+| external | boolean | false | When true, link opens in a new tab with rel. |
+| muted | boolean | false | When true, link uses muted styling. |
+| className | string | '' | Additional CSS classes applied to the root element. |
+| children | ReactNode | — | Content rendered inside the component. |
+
+## Usage
+
+```tsx
+import { Link } from './components/harmony/Link';
+
+<Link href={...} />
+```
+
+## CSS Classes
+
+- `.link`
+- `.link--muted`
+
+## Dependencies
+
+- Icon
+
+</component>
+
+<component name="ListMenu">
+# ListMenu
+
+List of menu items with optional borders and click handler.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| items | MenuItem[] |  | Array of items to render (e.g. accordion sections, menu items). |
+| as | 'button' \| 'link' | 'button' | Element or component to render as (e.g. div, nav). |
+| variant | 'default' \| 'no-borders' | 'default' | default: With borders between items.; no-borders: No dividers between items. |
+| className | string | '' | Additional CSS classes applied to the root element. |
+| onItemClick | (item: MenuItem, index: number) => void | — | Callback when a menu item is clicked. |
+
+## Usage
+
+```tsx
+import { ListMenu } from './components/harmony/ListMenu';
+
+<ListMenu variant="default" items={...} />
+```
+
+## Variants
+
+- **default**: With borders between items.
+- **no-borders**: No dividers between items.
+
+## CSS Classes
+
+- `.list-menu`
+- `.list-menu--no-borders`
+
+## Dependencies
+
+- Icon
+
+</component>
+
+<component name="MonthPicker">
+# MonthPicker
+
+Month-only picker with value and min/max.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| value | string | — | Controlled value. |
+| min | string | — | Minimum value (number or date string). |
+| max | string | — | Maximum value (number or date string). |
+| disabled | boolean | false | When true, the control is disabled and not interactive. |
+| locale | string | — | Locale for date/time formatting. |
+| id | string | — | Unique DOM id for the root or main control (for accessibility). |
+| className | string | '' | Additional CSS classes applied to the root element. |
+| onMonthSelect | (value: string) => void | — | Callback when monthSelect occurs. |
+
+## Usage
+
+```tsx
+import { MonthPicker } from './components/harmony/MonthPicker';
+
+<MonthPicker value="2024-01-15" onDateSelect={(date) => setValue(date)} />
+```
+
+## CSS Classes
+
+- `.month-picker`
+- `.month-picker__month--selected`
+- `.month-picker__month--disabled`
+
+## Dependencies
+
+- Icon
+
+</component>
+
+<component name="NotificationBadge">
+# NotificationBadge
+
+Badge showing a count or status (e.g. errors) with variant and size.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| type | 'dot' \| 'number' \| 'overflow' | 'number' | Input or control type (e.g. text, email, date). |
+| size | 'sm' \| 'md' \| 'lg' | 'md' | sm: Small.; md: Medium.; lg: Large. |
+| variant | 'error' \| 'primary' | 'primary' | error: Error/critical count.; primary: Theme primary count. |
+| value | string \| number | 1 | Controlled value. |
+| border | boolean | false | When true, the badge has a border. |
+| className | string | '' | Additional CSS classes applied to the root element. |
+
+## Usage
+
+```tsx
+import { NotificationBadge } from './components/harmony/NotificationBadge';
+
+<NotificationBadge variant="error" size="sm" />
+```
+
+## Variants
+
+- **error**: Error/critical count.
+- **primary**: Theme primary count.
+- **sm**: Small.
+- **md**: Medium.
+- **lg**: Large.
+
+## CSS Classes
+
+- `.notification-badge`
+- `.notification-badge--border`
+- `.notification-badge--dot`
+- `.notification-badge--number`
+- `.notification-badge--overflow`
+- `.notification-badge--sm`
+- `.notification-badge--md`
+- `.notification-badge--lg`
+- `.notification-badge--error`
+- `.notification-badge--primary`
+
+## Dependencies
+
+None (standalone component).
+
+</component>
+
+<component name="NumberInput">
+# NumberInput
+
+Numeric input with optional min, max, and step.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| value | number | 0 | Controlled value. |
+| min | number | — | Minimum value (number or date string). |
+| max | number | — | Maximum value (number or date string). |
+| step | number | 1 | Numeric value. |
+| name | string | — | Form field name for submission. |
+| id | string | — | Unique DOM id for the root or main control (for accessibility). |
+| disabled | boolean | false | When true, the control is disabled and not interactive. |
+| label | string | — | Label text for the control. |
+| labelVariant | 'inline' \| 'stacked' | — | Label layout: inline or stacked. |
+| labelFor | string | — | String value. |
+| className | string | '' | Additional CSS classes applied to the root element. |
+| onChange | (value: number) => void | — | Callback when change occurs. |
+
+## Usage
+
+```tsx
+import { NumberInput } from './components/harmony/NumberInput';
+
+<NumberInput label="Example" />
+```
+
+## CSS Classes
+
+- `.number-input-form-wrapper`
+- `.number-input-form-wrapper--inline`
+- `.number-input-form-wrapper--stacked`
+
+## Dependencies
+
+- Icon
+- Label
+
+</component>
+
+<component name="PickerPopup">
+# PickerPopup
+
+Popover wrapper for a picker with trigger and title.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| id | string |  | Unique DOM id for the root or main control (for accessibility). |
+| triggerId | string | '' | ID of the element that triggers the popover. |
+| className | string | '' | Additional CSS classes applied to the root element. |
+| title | string | — | Title or heading text. |
+| open | boolean | false | When true, the overlay or panel is visible. |
+| onClose | () => void | — | Callback when the overlay/panel is closed or dismissed. |
+| children | ReactNode | — | Content rendered inside the component. |
+
+## Usage
+
+```tsx
+import { PickerPopup } from './components/harmony/PickerPopup';
+
+<PickerPopup title="Example" />
+```
+
+## CSS Classes
+
+- `.picker-popup`
+
+## Dependencies
+
+- Icon
+
+</component>
+
+<component name="ProgressBar">
+# ProgressBar
+
+Progress indicator with variant, size, value, max, and optional label.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| value | number |  | Controlled value. |
+| max | number | 100 | Maximum value (number or date string). |
+| size | 'sm' \| 'md' \| 'lg' | 'md' | sm: Small.; md: Medium.; lg: Large. |
+| variant | 'default' \| 'success' \| 'warning' \| 'error' \| 'info' | 'default' | default: Default/neutral.; success: Success green.; warning: Warning amber.; error: Error red.; info: Info blue. |
+| showLabel | boolean | false | When true, a label is rendered. |
+| className | string | '' | Additional CSS classes applied to the root element. |
+
+## Usage
+
+```tsx
+import { ProgressBar } from './components/harmony/ProgressBar';
+
+<ProgressBar variant="default" size="sm" value={...} />
+```
+
+## Variants
+
+- **default**: Default/neutral.
+- **success**: Success green.
+- **warning**: Warning amber.
+- **error**: Error red.
+- **info**: Info blue.
+- **sm**: Small.
+- **md**: Medium.
+- **lg**: Large.
+
+## CSS Classes
+
+- `.progress`
+- `.progress--default`
+- `.progress--success`
+- `.progress--warning`
+- `.progress--error`
+- `.progress--info`
+- `.progress--sm`
+- `.progress--md`
+- `.progress--lg`
+
+## Dependencies
+
+None (standalone component).
+
+</component>
+
+<component name="RadioButton">
+# RadioButton
+
+Single radio option within a group.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| name | string |  | Form field name for submission. |
+| id | string | — | Unique DOM id for the root or main control (for accessibility). |
+| checked | boolean | — | Checked state for checkbox, radio, or toggle. |
+| defaultChecked | boolean | false | When true, enables the option. |
+| disabled | boolean | false | When true, the control is disabled and not interactive. |
+| label | string | — | Label text for the control. |
+| value | string |  | Controlled value. |
+| warning | boolean | false | When true, shows warning state or message. |
+| error | boolean | false | When true, shows error styling and optional error message. |
+| warningMessage | string | — | String value. |
+| errorMessage | string | — | Error message shown when error is true. |
+| className | string | '' | Additional CSS classes applied to the root element. |
+
+## Usage
+
+```tsx
+import { RadioButton } from './components/harmony/RadioButton';
+
+<RadioButton label="Example" />
+```
+
+## CSS Classes
+
+- `.radio`
+- `.radio--disabled`
+- `.radio--warning`
+- `.radio--error`
+- `.radio__circle--selected`
+- `.radio__circle--unselected`
+
+## Dependencies
+
+- Icon
+- RadioGroup
+
+</component>
+
+<component name="RadioGroup">
+# RadioGroup
+
+Group of radio buttons with name, legend, and optional error.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| name | string |  | Form field name for submission. |
+| legend | string | — | Legend text for a fieldset (e.g. radio group). |
+| error | boolean | false | When true, shows error styling and optional error message. |
+| warning | boolean | false | When true, shows warning state or message. |
+| errorMessage | string | — | Error message shown when error is true. |
+| warningMessage | string | — | String value. |
+| orientation | 'vertical' \| 'horizontal' | 'vertical' | Layout direction (e.g. horizontal, vertical). |
+| className | string | '' | Additional CSS classes applied to the root element. |
+| children | ReactNode | — | Content rendered inside the component. |
+
+## Usage
+
+```tsx
+import { RadioGroup } from './components/harmony/RadioGroup';
+
+<RadioGroup name={...} />
+```
+
+## CSS Classes
+
+- `.radio-group-wrapper`
+- `.radio-group-wrapper--error`
+- `.radio-group-wrapper--warning`
+- `.radio-group-wrapper--horizontal`
+- `.radio-group-wrapper__legend--error`
+- `.radio-group-wrapper__legend--warning`
+
+## Dependencies
+
+- Icon
+
+</component>
+
+<component name="RangeInput">
+# RangeInput
+
+Slider input for a numeric range (min/max/value).
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| value | number | 50 | Controlled value. |
+| min | number | 0 | Minimum value (number or date string). |
+| max | number | 100 | Maximum value (number or date string). |
+| step | number | 1 | Numeric value. |
+| name | string | — | Form field name for submission. |
+| id | string | — | Unique DOM id for the root or main control (for accessibility). |
+| disabled | boolean | false | When true, the control is disabled and not interactive. |
+| showPercent | boolean | false | When true, enables the option. |
+| prefix | string | '' | String value. |
+| suffix | string | '' | String value. |
+| label | string | — | Label text for the control. |
+| labelVariant | 'inline' \| 'stacked' | — | Label layout: inline or stacked. |
+| labelFor | string | — | String value. |
+| className | string | '' | Additional CSS classes applied to the root element. |
+| onChange | (value: number) => void | — | Callback when change occurs. |
+
+## Usage
+
+```tsx
+import { RangeInput } from './components/harmony/RangeInput';
+
+<RangeInput label="Example" />
+```
+
+## CSS Classes
+
+- `.range-input-form-wrapper`
+- `.range-input-form-wrapper--inline`
+- `.range-input-form-wrapper--stacked`
+
+## Dependencies
+
+- Label
+
+</component>
+
+<component name="RightSidebar">
+# RightSidebar
+
+Right-hand shell sidebar with optional variant and sections.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| variant | 'cp' \| 'vp' \| 'ppm' \| 'maconomy' | 'ppm' | cp: CP theme.; vp: VP theme.; ppm: PPM theme.; maconomy: Maconomy theme. |
+| sections | RightSidebarSection[] | — | Sidebar or nav sections to render. |
+| className | string | '' | Additional CSS classes applied to the root element. |
+
+## Usage
+
+```tsx
+import { RightSidebar } from './components/harmony/RightSidebar';
+
+<RightSidebar variant="cp" />
+```
+
+## Variants
+
+- **cp**: CP theme.
+- **vp**: VP theme.
+- **ppm**: PPM theme.
+- **maconomy**: Maconomy theme.
+
+## CSS Classes
+
+- `.right-sidebar`
+- `.right-sidebar--cp`
+- `.right-sidebar--vp`
+- `.right-sidebar--ppm`
+- `.right-sidebar--maconomy`
+
+## Dependencies
+
+- Icon
+
+## Theme Behavior
+
+- **variant="cp"**: Three sections. Section 1: Dela AI (custom logo), Notifications, Files. Section 2: Print, Layout Options. Section 3: Microphone, Offline, Keyboard Shortcuts, Help.
+- **variant="ppm"**, **variant="vp"**, **variant="maconomy"**: Three sections. Section 1: Dela AI (custom logo), Edit, Search, Actions, Related, Templates, Upload, Download. Section 2: Notifications, Help, Share. Section 3: Accessibility, Language, Dark Mode.
+- The React component defaults to `sections = PPM_SECTIONS`; pass `sections` to override for other themes.
+
+## Dark Mode
+
+In dark mode (`html.dark`), img-based icons (e.g. custom Dela logo) use `filter: brightness(0) invert(1)` so they remain visible; the active Dela logo (`.right-sidebar__dela-logo--active`) is excluded. Icon and label colors use `--text-primary`; the active item uses `--shell-sidebar-icon-color-on-primary` (e.g. white).
+
+</component>
+
+<component name="ShellFooter">
+# ShellFooter
+
+Bottom shell area with tabs and optional “more” control.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| tabs | ShellFooterTab[] | [] | Tab definitions (id, label, active, etc.). |
+| showMore | boolean | false | When true, enables the option. |
+| moreCount | number | — | Numeric value. |
+| overflowTabs | ShellFooterTab[] | [] | Array of items. |
+| showAddTab | boolean | true | When true, an “add tab” control is shown. |
+| variant | 'default' \| 'compact' | 'default' | default: Default footer style.; compact: Compact footer. |
+| className | string | '' | Additional CSS classes applied to the root element. |
+
+## Usage
+
+```tsx
+import { ShellFooter } from './components/harmony/ShellFooter';
+
+<ShellFooter variant="default" />
+```
+
+## Variants
+
+- **default**: Default footer style.
+- **compact**: Compact footer.
+
+## CSS Classes
+
+- `.shell-footer`
+- `.shell-footer--compact`
+
+## Dependencies
+
+- TabStrip
+
+## Theme Behavior
+
+- **variant="default"**: Full-height footer with tabs. **variant="compact"**: Reduced height (`--shell-footer-height-compact`).
+- Tab labels and active state use theme tokens (`--shell-footer-tab-label-color`, `--shell-footer-tab-icon-color-active`). Active tab shows pin icon and primary underline.
+
+## Dark Mode
+
+In dark mode (`html.dark`), tab labels use `--shell-footer-tab-label-color` (e.g. inverse/white). Only the active tab pin icon and bottom border use `--shell-footer-tab-icon-color-active` and `--theme-primary`. Inactive tabs use the same label color variable for consistency.
+
+</component>
+
+<component name="ShellHeader">
+# ShellHeader
+
+Top shell bar with logo, product name, and optional company picker.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| productName | string | 'Harmony' | Product or app name shown in the shell. |
+| logoSrc | string | '/logos/PPMLogo.svg' | URL of the logo image. |
+| companyName | string | 'Company name' | Current company name in the shell. |
+| showCompanyPicker | boolean | true | When true, the company picker is shown. |
+| companyColor | string | — | Color used for the company picker. |
+| companies | CompanyOption[] | PPM_COMPANIES | List of companies for the company picker. |
+| className | string | '' | Additional CSS classes applied to the root element. |
+
+## Usage
+
+```tsx
+import { ShellHeader } from './components/harmony/ShellHeader';
+
+<ShellHeader />
+```
+
+## CSS Classes
+
+- `.header`
+- `.company-picker__menu--open`
+- `.company-picker__option--selected`
+
+## Dependencies
+
+- Icon
+- Avatar
+
+## Theme Behavior
+
+- **Default logo**: Astro uses theme-specific defaults (e.g. `/logos/CPVPLogo.svg` for CP, `/logos/PPMLogo.svg` for PPM). React defaults to `logoSrc = '/logos/PPMLogo.svg'`; set `logoSrc` per theme if needed.
+- **Default companies**: Astro CP uses Acme Corporation, Ocean Industries, Violet Systems, Azure Dynamics, Sunset Corporation (with theme colors). React defaults to PPM-style list (Project Alpha, Project Beta); pass `companies` and `companyColor` to match theme.
+
+## Dark Mode
+
+The header includes a gradient bar (`.header__gradient`) at the bottom whose color is driven by `companyColor` (or the selected company's color). In dark mode, theme tokens (e.g. `--theme-primary`) are redefined so the gradient and picker indicators follow the dark palette.
+
+## Not Yet Implemented
+
+The following Astro props or slots are not yet available in the React conversion:
+
+- **actions (slot)**: Astro supports a named slot `actions` that replaces the default company picker and avatar. React does not expose an actions slot; use children or a custom header if needed.
+
+</component>
+
+<component name="ShellLayout">
+# ShellLayout
+
+App shell that composes header, footer, sidebars, page header, and main content.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| productName | string | — | Product or app name shown in the shell. |
+| logoSrc | string | — | URL of the logo image. |
+| companyName | string | — | Current company name in the shell. |
+| showCompanyPicker | boolean | true | When true, the company picker is shown. |
+| companyColor | string | — | Color used for the company picker. |
+| tabs | ShellFooterTab[] | DEFAULT_TABS | Tab definitions (id, label, active, etc.). |
+| showFooter | boolean | true | When true, the shell footer is visible. |
+| showRightSidebar | boolean | true | When true, the right sidebar is visible. |
+| pageHeaderTitle | string | 'Page title' | Title in the shell page header. |
+| pageHeaderSubtitle | string | — | Subtitle in the page header. |
+| pageHeaderPrimaryButton | ShellPageHeaderButtonConfig | — | Primary button config for the shell page header. |
+| pageHeaderOutlineButton1 | ShellPageHeaderButtonConfig | — | First outline button config for the page header. |
+| pageHeaderOutlineButton2 | ShellPageHeaderButtonConfig | — | Second outline button config for the page header. |
+| pageHeaderOutlineButton3 | ShellPageHeaderButtonConfig | — | Third outline button config for the page header. |
+| className | string | '' | Additional CSS classes applied to the root element. |
+| children | React.ReactNode | — | Content rendered inside the component. |
+
+## Usage
+
+```tsx
+import { ShellLayout } from './components/harmony/ShellLayout';
+
+<ShellLayout pageHeaderTitle="Page title" pageHeaderSubtitle="Optional subtitle">
+  Main content here.
+</ShellLayout>
+```
+
+## CSS Classes
+
+- `.shell-layout`
+
+## Dependencies
+
+- ShellHeader
+- ShellFooter
+- LeftSidebar
+- RightSidebar
+- ShellPageHeader
+- Card
+
+## Theme Behavior
+
+- ShellLayout composes header, footer, sidebars, and page header. Theme-specific behavior is driven by child props: `logoSrc` and `companies` on ShellHeader; `variant` and `sections` on LeftSidebar and RightSidebar; `variant` on ShellFooter.
+- CP theme typically uses FloatingNav instead of ShellFooter; React does not implement `showFloatingNav` / `floatingNavVariant` at layout level.
+
+## Not Yet Implemented
+
+The following Astro props or slots are not yet available in the React conversion:
+
+- **showFloatingNav**, **floatingNavVariant**, **showExecute**, **saveDisabled**: CP uses FloatingNav instead of footer; not wired at layout level in React.
+- **showMoreTabs**, **moreCount**, **overflowTabs**, **showAddTab**, **footerVariant**: Footer-level tab overflow and variant are passed to ShellFooter in Astro; React ShellLayout passes `tabs` and `showFooter` but not overflow or variant.
+- **leftSidebarVariant**, **leftSidebarSections**, **rightSidebarVariant**, **rightSidebarSections**: Astro passes these to LeftSidebar/RightSidebar; React ShellLayout does not accept or forward them (sidebars use their own defaults).
+- **leftPanel**, **rightPanel**: Astro layout accepts panel config (side, open, title, etc.); React does not compose panels from layout props—use ShellPanel separately.
+
+</component>
+
+<component name="ShellPageHeader">
+# ShellPageHeader
+
+Page-level header with title, subtitle, and optional primary/outline buttons.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| title | string |  | Title or heading text. |
+| subtitle | string | — | String value. |
+| showDefaultButtons | boolean | true | When true, default page header buttons are shown. |
+| primaryButton | ShellPageHeaderButtonConfig | — | Primary action button config (text, href or onClick). |
+| outlineButton1 | ShellPageHeaderButtonConfig | — | See type. |
+| outlineButton2 | ShellPageHeaderButtonConfig | — | See type. |
+| outlineButton3 | ShellPageHeaderButtonConfig | — | See type. |
+| className | string | '' | Additional CSS classes applied to the root element. |
+| actions | React.ReactNode | — | Custom action configs for the floating nav. |
+
+## Usage
+
+```tsx
+import { ShellPageHeader } from './components/harmony/ShellPageHeader';
+
+<ShellPageHeader title="Page title" subtitle="Optional subtitle" />
+```
+
+## CSS Classes
+
+- `.shell-page-header`
+
+## Dependencies
+
+- Button
+
+</component>
+
+<component name="ShellPanel">
+# ShellPanel
+
+Slide-out panel from left or right with title and optional variant.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| side | 'left' \| 'right' |  | Which side the panel opens from (left or right). |
+| open | boolean |  | When true, the overlay or panel is visible. |
+| title | string |  | Title or heading text. |
+| titleIcon | string | — | String value. |
+| headerVariant | 'theme' \| 'default' | 'theme' | Header style: default or primary. |
+| width | 'narrow' \| 'full' | — | See type. |
+| showClose | boolean | true | When true, enables the option. |
+| showPopout | boolean | true | When true, enables the option. |
+| variant | 'default' \| 'dela' | 'default' | default: Standard panel.; dela: Dela/AI-themed panel. |
+| id | string | — | Unique DOM id for the root or main control (for accessibility). |
+| className | string | '' | Additional CSS classes applied to the root element. |
+| onClose | () => void | — | Callback when the overlay/panel is closed or dismissed. |
+| onWidthToggle | (width: 'narrow' \| 'full') => void | — | Callback when widthToggle occurs. |
+| header | ReactNode | — | Custom header content (overrides headerTitle/headerSubtitle when set). |
+| children | ReactNode | — | Content rendered inside the component. |
+
+## Usage
+
+```tsx
+import { ShellPanel } from './components/harmony/ShellPanel';
+
+<ShellPanel variant="default">Save</ShellPanel>
+```
+
+## Variants
+
+- **default**: Standard panel.
+- **dela**: Dela/AI-themed panel.
+
+## CSS Classes
+
+- `.shell-panel`
+- `.shell-panel--open`
+- `.shell-panel--left`
+- `.shell-panel--right`
+- `.shell-panel--narrow`
+- `.shell-panel--full`
+
+## Dependencies
+
+- Icon
+
+</component>
+
+<component name="Spinner">
+# Spinner
+
+Loading spinner with size.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| size | 'sm' \| 'md' \| 'lg' | 'md' | sm: Small.; md: Medium.; lg: Large. |
+| className | string | '' | Additional CSS classes applied to the root element. |
+
+## Usage
+
+```tsx
+import { Spinner } from './components/harmony/Spinner';
+
+<Spinner size="sm" />
+```
+
+## Variants
+
+- **sm**: Small.
+- **md**: Medium.
+- **lg**: Large.
+
+## CSS Classes
+
+- `.spinner`
+- `.spinner--sm`
+- `.spinner--md`
+- `.spinner--lg`
+
+## Dependencies
+
+None (standalone component).
+
+</component>
+
+<component name="Step">
+# Step
+
+Single step within a stepper (completed, error, warning, etc.).
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| completed | boolean | false | When true, enables the option. |
+| disabled | boolean | false | When true, the control is disabled and not interactive. |
+| error | boolean | false | When true, shows error styling and optional error message. |
+| warning | boolean | false | When true, shows warning state or message. |
+| success | boolean | false | When true, enables the option. |
+| icon | string | — | Icon name from the design system. |
+| className | string | '' | Additional CSS classes applied to the root element. |
+| label | ReactNode | 'Step label' | Label text for the control. |
+| description | ReactNode | — | Content to render (React node). |
+| stepNumber | number | 1 | Numeric value. |
+| isActive | boolean | false | When true, enables the option. |
+| connectorActive | boolean | false | When true, enables the option. |
+| onClick | () => void | — | Click handler. |
+| role | string | — | String value. |
+| tabIndex | number | — | Numeric value. |
+
+## Usage
+
+```tsx
+import { Step } from './components/harmony/Step';
+
+<Step label="Example" />
+```
+
+## CSS Classes
+
+- `.step`
+- `.step--completed`
+- `.step--disabled`
+- `.step--error`
+- `.step--warning`
+- `.step--success`
+
+## Dependencies
+
+- Icon
+
+</component>
+
+<component name="Stepper">
+# Stepper
+
+Horizontal or vertical stepper with steps and optional click navigation.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| activeStep | number | 0 | Index of the currently active step. |
+| orientation | 'horizontal' \| 'vertical' | 'horizontal' | Layout direction (e.g. horizontal, vertical). |
+| nonLinear | boolean | false | When true, steps can be clicked in any order. |
+| className | string | '' | Additional CSS classes applied to the root element. |
+| children | ReactNode | — | Content rendered inside the component. |
+| steps | Array<{ label: ReactNode | — | Step definitions for the stepper. |
+| onStepClick | (stepIndex: number) => void | — | Callback when a stepper step is clicked. |
+
+## Usage
+
+```tsx
+import { Stepper } from './components/harmony/Stepper';
+
+<Stepper activeStep={0} steps={[{ label: "Step 1" }, { label: "Step 2" }, { label: "Step 3" }]} />
+```
+
+## CSS Classes
+
+- `.stepper`
+- `.stepper--non-linear`
+- `.stepper--horizontal`
+- `.stepper--vertical`
+
+## Dependencies
+
+- Step
+
+</component>
+
+<component name="TabStrip">
+# TabStrip
+
+Tabs with optional add-tab and compact style.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| tabs | TabStripTab[] | [] | Tab definitions (id, label, active, etc.). |
+| showAddTab | boolean | false | When true, an “add tab” control is shown. |
+| addTabLabel | string | 'Add Tab' | Accessible label for the add-tab button. |
+| overflowMode | 'auto' \| 'manual' \| 'none' | 'auto' | See type. |
+| overflowTabs | TabStripTab[] | [] | Array of items. |
+| variant | 'default' \| 'compact' | 'default' | default: Default tab strip.; compact: Compact tabs. |
+| iconPosition | 'left' \| 'right' \| 'top' | — | See type. |
+| className | string | '' | Additional CSS classes applied to the root element. |
+
+## Usage
+
+```tsx
+import { TabStrip } from './components/harmony/TabStrip';
+
+<TabStrip tabs={[{ id: "t1", label: "Tab 1", active: true }, { id: "t2", label: "Tab 2" }]} />
+```
+
+## Variants
+
+- **default**: Default tab strip.
+- **compact**: Compact tabs.
+
+## CSS Classes
+
+- `.tabstrip`
+- `.tabstrip--compact`
+- `.tab--icon-top`
+- `.tab--icon-right`
+- `.tab--icon-left`
+- `.tab--disabled`
+
+## Dependencies
+
+- Icon
+
+</component>
+
+<component name="Table">
+# Table
+
+Data table with optional header variant, striped rows, and title bar.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| headerVariant | 'gray' \| 'white' \| 'none' | 'gray' | Header style: default or primary. |
+| striped | boolean | false | When true, table rows are striped. |
+| className | string | '' | Additional CSS classes applied to the root element. |
+| titleBarContent | ReactNode | — | Content for the table title bar. |
+| titleBarIcons | ReactNode | — | Content to render (React node). |
+| actionBar | ReactNode | — | Content to render (React node). |
+| header | ReactNode | — | Custom header content (overrides headerTitle/headerSubtitle when set). |
+| body | ReactNode | — | Content to render (React node). |
+
+## Usage
+
+```tsx
+import { Table } from './components/harmony/Table';
+
+<Table />
+```
+
+## CSS Classes
+
+- `.table`
+- `.table--striped`
+
+## Dependencies
+
+None (standalone component).
+
+</component>
+
+<component name="Textarea">
+# Textarea
+
+Multi-line text input with placeholder and value.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| placeholder | string | — | Placeholder text when empty. |
+| value | string | — | Controlled value. |
+| name | string | — | Form field name for submission. |
+| id | string | — | Unique DOM id for the root or main control (for accessibility). |
+| disabled | boolean | false | When true, the control is disabled and not interactive. |
+| rows | number | 4 | Numeric value. |
+| required | boolean | false | When true, the field is required for form validation. |
+| label | string | — | Label text for the control. |
+| labelVariant | 'inline' \| 'stacked' | — | Label layout: inline or stacked. |
+| labelFor | string | — | String value. |
+| className | string | '' | Additional CSS classes applied to the root element. |
+
+## Usage
+
+```tsx
+import { Textarea } from './components/harmony/Textarea';
+
+<Textarea label="Example" />
+```
+
+## CSS Classes
+
+- `.textarea-form-wrapper`
+- `.textarea-form-wrapper--inline`
+- `.textarea-form-wrapper--stacked`
+
+## Dependencies
+
+- Label
+
+</component>
+
+<component name="TimePicker">
+# TimePicker
+
+Time-only picker with value and min/max.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| value | string | — | Controlled value. |
+| min | string | — | Minimum value (number or date string). |
+| max | string | — | Maximum value (number or date string). |
+| disabled | boolean | false | When true, the control is disabled and not interactive. |
+| format | '12' \| '24' | '24' | See type. |
+| step | number | 1 | Numeric value. |
+| id | string | — | Unique DOM id for the root or main control (for accessibility). |
+| className | string | '' | Additional CSS classes applied to the root element. |
+| onTimeSelect | (time: string) => void | — | Callback when timeSelect occurs. |
+
+## Usage
+
+```tsx
+import { TimePicker } from './components/harmony/TimePicker';
+
+<TimePicker value="2024-01-15" onDateSelect={(date) => setValue(date)} />
+```
+
+## CSS Classes
+
+- `.time-picker`
+- `.time-picker__period-btn--active`
+
+## Dependencies
+
+- Icon
+
+</component>
+
+<component name="Toggle">
+# Toggle
+
+On/off switch with size and optional label.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| name | string | — | Form field name for submission. |
+| id | string | — | Unique DOM id for the root or main control (for accessibility). |
+| checked | boolean | — | Checked state for checkbox, radio, or toggle. |
+| defaultChecked | boolean | — | When true, enables the option. |
+| disabled | boolean | false | When true, the control is disabled and not interactive. |
+| label | string | — | Label text for the control. |
+| size | 'sm' \| 'md' | 'md' | sm: Small.; md: Medium. |
+| className | string | '' | Additional CSS classes applied to the root element. |
+| onChange | (e: React.ChangeEvent<HTMLInputElement>) => void | — | Callback when change occurs. |
+
+## Usage
+
+```tsx
+import { Toggle } from './components/harmony/Toggle';
+
+<Toggle label="Example" />
+```
+
+## Variants
+
+- **sm**: Small.
+- **md**: Medium.
+
+## CSS Classes
+
+- `.toggle`
+- `.toggle--sm`
+- `.toggle--disabled`
+
+## Dependencies
+
+None (standalone component).
+
+</component>
+
+<component name="Tooltip">
+# Tooltip
+
+Hover or focus tooltip with text, position, and corner variant.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| text | string |  | Display text (e.g. button label, tooltip). |
+| position | 'top' \| 'bottom' \| 'left' \| 'right' | 'top' | Position of the element (e.g. tooltip placement). |
+| cornerVariant | 'top' \| 'bottom' \| 'left' \| 'right' | — | See type. |
+| className | string | '' | Additional CSS classes applied to the root element. |
+| children | ReactNode | — | Content rendered inside the component. |
+
+## Usage
+
+```tsx
+import { Tooltip } from './components/harmony/Tooltip';
+
+<Tooltip text="Example" />
+```
+
+## CSS Classes
+
+- `.tooltip__content`
+- `.tooltip__content--bottom`
+- `.tooltip__content--left`
+- `.tooltip__content--right`
+- `.tooltip__content--corner-top`
+- `.tooltip__content--corner-bottom`
+- `.tooltip__content--corner-left`
+- `.tooltip__content--corner-right`
+
+## Dependencies
+
+None (standalone component).
+
+</component>
+
+<component name="WeekPicker">
+# WeekPicker
+
+Week picker with value and min/max.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| value | string | — | Controlled value. |
+| min | string | — | Minimum value (number or date string). |
+| max | string | — | Maximum value (number or date string). |
+| disabled | boolean | false | When true, the control is disabled and not interactive. |
+| locale | string | 'en-US' | Locale for date/time formatting. |
+| id | string | — | Unique DOM id for the root or main control (for accessibility). |
+| className | string | '' | Additional CSS classes applied to the root element. |
+| onWeekSelect | (value: string) => void | — | Callback when weekSelect occurs. |
+
+## Usage
+
+```tsx
+import { WeekPicker } from './components/harmony/WeekPicker';
+
+<WeekPicker value="2024-01-15" onDateSelect={(date) => setValue(date)} />
+```
+
+## CSS Classes
+
+- `.week-picker`
+- `.week-picker__week--selected`
+- `.week-picker__week--disabled`
+
+## Dependencies
+
+- Icon
+
+</component>
+
+<component name="tokens">
+# Tokens
+
+Harmony uses CSS custom properties (design tokens) for spacing, colors, typography, and elevation. Token definitions live in the `@deltek/harmony-components` package under `src/tokens/` (e.g. `colors.json`, `spacing.json`, `typography.json`, `elevations.json`).
+
+Do not resolve tokens to hardcoded values in component code; use the custom properties so themes and dark mode apply correctly.
+
+</component>
+
+<component name="themes">
+# Themes
+
+Four product themes: **CP** (theme-cp), **VP** (theme-vp), **PPM** (theme-ppm), **Maconomy** (theme-maconomy). Each supports light and dark mode.
+
+Apply the theme on the root element, e.g. `<html class="theme-cp">` for light or `<html class="theme-cp dark">` for dark. Components consume tokens that resolve per theme and mode.
+
+</component>

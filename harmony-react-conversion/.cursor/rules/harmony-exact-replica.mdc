@@ -1,0 +1,39 @@
+---
+description: Harmony exact-replica conversion — single component per task; pre-flight checklist before code; verifier must return zero deviations. Use when converting Harmony Astro components to another framework.
+globs: ["**/*.component.ts", "**/*.component.html", "**/*.vue", "**/*.svelte", "**/Shell*.tsx", "**/Shell*.vue", "**/Shell*.svelte"]
+alwaysApply: false
+---
+
+# Harmony exact-replica conversion
+
+One component per task. Follow the harmony-converter skill for file locations, icons, and scoped styles. Procedure below.
+
+## Pre-flight checklist (before writing any conversion code)
+
+Before writing any conversion code, the converter must **print**:
+
+1. The source file it is reading.
+2. The number of elements/components in that file.
+3. **Scoped style rule count:** e.g. "This component has 14 style rules in its `<style>` block." (If no `<style>` block, state 0.)
+4. The scoped styles it will extract (from the component's `<style>` block).
+5. What the output file will contain (brief).
+
+If it cannot fill these in, it must read the source first. No conversion code until this is output.
+
+## Single-component scope
+
+Each conversion task is **one** component (e.g. Convert TabStrip.astro to TabStrip.vue). Not "convert the shell." Use the skill's **shell conversion order** list when issuing tasks: Icon, LeftSidebar, RightSidebar, TabStrip, ShellFooter, ShellLayout (assembly), then integration verify.
+
+## Task files
+
+Every task must @-mention the source, preview, and output files. The skill has a **component → source → preview → output** table. No finding or inferring source; the task supplies the files.
+
+## Done gate
+
+Conversion is **not** complete until the **verifier subagent** has run and returned **zero deviations**. Flow: converter produces output → verifier runs structural diff (DOM, CSS classes, flex/grid, scoped styles) → verifier outputs deviation list → converter fixes every item → verifier runs again. Repeat until zero deviations.
+
+Verification is file/source comparison only. Do not open a browser.
+
+## Scoped styles
+
+If the source component has a `<style>` block, the converter must extract and include every rule in the output. The verifier checks that every rule in the source `<style>` block has a corresponding rule in the output. See the skill's "TabStrip scoped styles" pitfall.
