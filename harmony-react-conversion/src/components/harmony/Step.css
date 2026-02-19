@@ -439,6 +439,20 @@
   color: var(--theme-primary);
 }
 
+/* Active step: hover = darker blue, keep text white */
+.stepper--non-linear .step.is-active:hover .step__indicator {
+  background-color: var(--theme-primary-hover);
+  border-color: var(--theme-primary-hover);
+  color: var(--card-bg);
+}
+
+/* Completed step: hover = darker green, keep text/check white */
+.stepper--non-linear .step.is-completed:hover .step__indicator {
+  background-color: var(--color-success-hover);
+  border-color: var(--color-success-hover);
+  color: var(--card-bg);
+}
+
 .stepper--non-linear .step:not(.is-disabled):focus-visible {
   outline: var(--focus-ring-primary);
   outline-offset: var(--space-1);
