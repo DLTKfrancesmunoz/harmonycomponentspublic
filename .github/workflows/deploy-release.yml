@@ -28,7 +28,30 @@ jobs:
       VERSION: ${{needs.version.outputs.version}}
     steps:
       - uses: actions/checkout@v4
-      - uses: deltek-sst/deltek-cloud-release-action@v1
+
+      - name: Check GH_TOKEN
+        id: check-token
+        run: |
+          if [ -z "${{ secrets.GH_TOKEN }}" ]; then
+            echo "configured=false" >> $GITHUB_OUTPUT
+            echo "⚠️ GH_TOKEN not configured - Deltek Cloud deployment will be skipped"
+          else
+            echo "configured=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Deploy to Deltek Cloud
+        if: steps.check-token.outputs.configured == 'true'
+        uses: deltek-sst/deltek-cloud-release-action@v1
         with:
           version: ${{ needs.version.outputs.version }}
           release-token: ${{ secrets.GH_TOKEN }}
+        continue-on-error: true
+
+      - name: Deployment skipped
+        if: steps.check-token.outputs.configured == 'false'
+        run: |
+          echo "⚠️ Deltek Cloud deployment skipped - GH_TOKEN not configured"
+          echo "To enable deployment:"
+          echo "1. Create a PAT at https://github.com/settings/tokens"
+          echo "2. Add it as GH_TOKEN secret in repository settings"
+          echo "3. Ensure it has access to deltek-cloud-releases repository"
