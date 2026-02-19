@@ -1,0 +1,84 @@
+name: Publish NPM Package
+
+# This workflow publishes the NPM package to GitHub Packages
+# For documentation site deployment, see deploy-release.yml
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'package.json'
+      - 'src/**'
+      - '.github/workflows/publish.yml'
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@deltek-sst'
+
+      - name: Get package version
+        id: package-version
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "tag=v$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Check if tag exists
+        id: check-tag
+        run: |
+          if git rev-parse "v${{ steps.package-version.outputs.version }}" >/dev/null 2>&1; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Publish to GitHub Packages
+        if: steps.check-tag.outputs.exists == 'false'
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Git tag
+        if: steps.check-tag.outputs.exists == 'false'
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git tag ${{ steps.package-version.outputs.tag }}
+          git push origin ${{ steps.package-version.outputs.tag }}
+
+      - name: Create GitHub Release
+        if: steps.check-tag.outputs.exists == 'false'
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.package-version.outputs.tag }}
+          release_name: Release ${{ steps.package-version.outputs.tag }}
+          body: |
+            ## Changes in ${{ steps.package-version.outputs.tag }}
+
+            Published @deltek-sst/harmony-design-system@${{ steps.package-version.outputs.version }} to GitHub Packages.
+
+            ### Installation
+            ```bash
+            npm install @deltek-sst/harmony-design-system@${{ steps.package-version.outputs.version }}
+            ```
+          draft: false
+          prerelease: false
