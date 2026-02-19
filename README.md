@@ -95,7 +95,7 @@ import ShellLayout from '@deltek/harmony-components/layouts/ShellLayout.astro';
 
 **Shell Layout with default sidebars:** Install peer dependencies (`heroicons`, `@tabler/icons`) and copy the design-system-only assets from the package’s `public/` into your app’s `public/` so all sidebar icons (including the Dela logo and custom icons like Risk Shield, Report, Resource) display. See [Consumer Guide](docs/customization/CONSUMER_GUIDE.md#step-5-icons-and-static-assets-shell-layout--sidebars) for the exact list and copy commands. After upgrading the package, re-copy those assets so logos and icons stay in sync.
 
-## Available Imports
+## Available Import
 
 ### Components
 
