@@ -1,0 +1,34 @@
+name: Deploy Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      branch: ${{ github.head_ref }}
+      commit: ${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: create version build-info
+        id: version
+        run: |
+          VERSION=$(cat version.txt | xargs).$(date +%s)
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+
+  release:
+    runs-on: ubuntu-latest
+    needs:
+      - version
+    env:
+      VERSION: ${{needs.version.outputs.version}}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: deltek-sst/deltek-cloud-release-action@v1
+        with:
+          version: ${{ needs.version.outputs.version }}
+          release-token: ${{ secrets.GH_TOKEN }}
