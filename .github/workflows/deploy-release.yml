@@ -41,10 +41,11 @@ jobs:
 
       - name: Deploy to Deltek Cloud
         if: steps.check-token.outputs.configured == 'true'
-        uses: deltek-sst/deltek-cloud-release-action@v1
+        uses: deltek-sst/deltek-cloud-release-action@v2
         with:
           version: ${{ needs.version.outputs.version }}
-          release-token: ${{ secrets.GH_TOKEN }}
+          release-appid: ${{ secrets.DELTEK_CLOUD_RELEASES_APPID }}
+          release-pem: ${{ secrets.DELTEK_CLOUD_RELEASES_PEM }}
         continue-on-error: true
 
       - name: Deployment skipped
