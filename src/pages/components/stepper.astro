@@ -47,7 +47,18 @@ const stepProps = [
     <section id="examples" class="space-y-8">
       <h2 class="section__title">Examples</h2>
 
-      <ExampleSection title="Stepper with Alternative Label" description="Labels are positioned below the step indicators. Shows all states: success (green with checkmark), warning, error, and default.">
+      <ExampleSection title="Default linear stepper" description="Default implementation: one active step (no completed or success props). The component disables all steps after the active step. Only the current step is interactive; the rest are greyed out and not clickable.">
+        <div class="w-full max-w-6xl">
+          <Stepper activeStep={0}>
+            <Step>Step 1</Step>
+            <Step>Step 2</Step>
+            <Step>Step 3</Step>
+            <Step>Step 4</Step>
+          </Stepper>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Stepper with Alternative Label" description="Labels are positioned below the step indicators. This example illustrates the four possible step indicator appearances only (success, warning, error, default); the order is for demo and does not represent a real workflow.">
         <div class="w-full max-w-4xl">
           <Stepper activeStep={2}>
             <Step success>Account verified</Step>
@@ -66,6 +77,49 @@ const stepProps = [
             <Step>Create an ad</Step>
             <Step>Review campaign</Step>
             <Step>Launch campaign</Step>
+          </Stepper>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Linear vs Non-linear Stepper" description="Linear (default): one active step, all later steps disabled by the component. Non-linear: set nonLinear so every step is clickable. Same steps below—only the nonLinear prop differs.">
+        <div class="space-y-6 w-full max-w-6xl">
+          <div class="text-sm text-secondary p-4 rounded bg-elevated border border-default">
+            <p class="font-semibold text-primary mb-2">How linear vs non-linear works</p>
+            <ul class="list-disc pl-5 space-y-1">
+              <li><strong>Linear (default)</strong> — Only one step is active. The component automatically disables every step after <code>activeStep</code> (adds <code>is-disabled</code>, greyed out, not focusable or clickable). Use for strict wizards where the user must complete steps in order.</li>
+              <li><strong>Non-linear</strong> — Set <code>nonLinear</code>. No automatic disabling; every step stays focusable and clickable. The component fires <code>stepper:step-clicked</code> so the app can change the active step. Use when users need to jump back or ahead.</li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-sm font-semibold text-primary mb-3">Linear (default)</h4>
+            <p class="text-sm text-secondary mb-3">One active step; the rest are disabled (greyed out). No completed/success props—this is the default linear behavior.</p>
+            <Stepper activeStep={0}>
+              <Step>Step 1</Step>
+              <Step>Step 2</Step>
+              <Step>Step 3</Step>
+              <Step>Step 4</Step>
+            </Stepper>
+          </div>
+          <div>
+            <h4 class="text-sm font-semibold text-primary mb-3">Non-linear</h4>
+            <p class="text-sm text-secondary mb-3">Same stepper with nonLinear. All steps are focusable and clickable.</p>
+            <Stepper activeStep={0} nonLinear>
+              <Step>Step 1</Step>
+              <Step>Step 2</Step>
+              <Step>Step 3</Step>
+              <Step>Step 4</Step>
+            </Stepper>
+          </div>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Non-linear stepper with icons (sections)" description="Use the Step icon prop to show icons instead of numbers. This suggests sections or areas to jump to rather than a numbered sequence—good for settings, account areas, or any non-linear navigation.">
+        <div class="w-full max-w-6xl">
+          <Stepper activeStep={1} nonLinear>
+            <Step icon="home">Overview</Step>
+            <Step icon="user">Profile</Step>
+            <Step icon="cog-6-tooth">Settings</Step>
+            <Step icon="document">Documents</Step>
           </Stepper>
         </div>
       </ExampleSection>
@@ -93,7 +147,7 @@ const stepProps = [
         </div>
       </ExampleSection>
 
-      <ExampleSection title="Stepper with Disabled Steps" description="Steps can be explicitly disabled using the disabled prop. Disabled steps appear with reduced opacity and muted colors, and are non-interactive. This is useful when certain steps are temporarily unavailable or require prerequisites.">
+      <ExampleSection title="Stepper with Disabled Steps" description="Steps can be explicitly disabled using the disabled prop. In non-linear mode, one step is disabled (greyed out, not clickable); the user can still jump to other steps, e.g. Summary or back to Account Setup. Use when a step is temporarily unavailable or requires prerequisites.">
         <div class="w-full max-w-6xl">
           <Stepper activeStep={1} nonLinear>
             <Step completed success>Account Setup</Step>
@@ -102,8 +156,7 @@ const stepProps = [
               Payment Method
               <span slot="description">Temporarily unavailable</span>
             </Step>
-            <Step disabled>Billing Address</Step>
-            <Step>Review & Complete</Step>
+            <Step>Summary</Step>
           </Stepper>
         </div>
       </ExampleSection>
@@ -184,6 +237,25 @@ const stepProps = [
               &nbsp;&nbsp;&nbsp;&nbsp;Verify your email and password<br />
               &nbsp;&nbsp;&lt;/template&gt;<br />
               &lt;/Step&gt;
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__body">
+            <h3 class="font-semibold text-primary mb-3">
+              <Icon name="code-bracket" size="sm" class="inline mr-2" />
+              Linear vs Non-linear
+            </h3>
+            <p class="text-sm text-secondary mb-3">
+              Omit <code>nonLinear</code> for linear mode (default): future steps are disabled. Set <code>nonLinear</code> to allow jumping to any step. Listen for <code>stepper:step-clicked</code> to handle step changes in non-linear mode.
+            </p>
+            <div class="text-xs bg-elevated p-4 rounded font-mono">
+              &lt;!-- Linear: steps after activeStep disabled --&gt;<br />
+              &lt;Stepper activeStep={2}&gt;...&lt;/Stepper&gt;<br />
+              <br />
+              &lt;!-- Non-linear: all steps clickable --&gt;<br />
+              &lt;Stepper activeStep={2} nonLinear&gt;...&lt;/Stepper&gt;
             </div>
           </div>
         </div>

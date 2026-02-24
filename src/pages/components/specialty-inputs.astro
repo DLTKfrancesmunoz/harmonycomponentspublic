@@ -1,5 +1,6 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
+import PropsTable from '../../components/PropsTable.astro';
 import ExampleSection from '../../components/ExampleSection.astro';
 import Input from '../../components/ui/Input.astro';
 import Label from '../../components/ui/Label.astro';
@@ -7,6 +8,73 @@ import DateInput from '../../components/ui/DateInput.astro';
 import NumberInput from '../../components/ui/NumberInput.astro';
 import RangeInput from '../../components/ui/RangeInput.astro';
 import Icon from '../../components/ui/Icon.astro';
+
+const numberInputProps = [
+  { name: 'value', type: 'number', default: '0', description: 'Current value' },
+  { name: 'min', type: 'number', default: '—', description: 'Minimum value' },
+  { name: 'max', type: 'number', default: '—', description: 'Maximum value' },
+  { name: 'step', type: 'number', default: '1', description: 'Value increment' },
+  { name: 'name', type: 'string', default: '—', description: 'Input name attribute' },
+  { name: 'id', type: 'string', default: '—', description: 'Input id' },
+  { name: 'disabled', type: 'boolean', default: 'false', description: 'Disable the input' },
+  { name: 'label', type: 'string', default: '—', description: 'Field label' },
+  { name: 'labelVariant', type: "'inline' | 'stacked'", default: '—', description: 'Label display style' },
+  { name: 'labelFor', type: 'string', default: '—', description: 'Associated label id' },
+];
+
+const rangeInputProps = [
+  { name: 'value', type: 'number', default: '50', description: 'Current value' },
+  { name: 'min', type: 'number', default: '0', description: 'Minimum value' },
+  { name: 'max', type: 'number', default: '100', description: 'Maximum value' },
+  { name: 'step', type: 'number', default: '1', description: 'Step increment' },
+  { name: 'name', type: 'string', default: '—', description: 'Input name attribute' },
+  { name: 'id', type: 'string', default: '—', description: 'Input id' },
+  { name: 'disabled', type: 'boolean', default: 'false', description: 'Disable the input' },
+  { name: 'showPercent', type: 'boolean', default: 'false', description: 'Show value as percentage' },
+  { name: 'prefix', type: 'string', default: "''", description: 'Prefix before value (e.g. $)' },
+  { name: 'suffix', type: 'string', default: "''", description: 'Suffix after value' },
+  { name: 'label', type: 'string', default: '—', description: 'Field label' },
+  { name: 'labelVariant', type: "'inline' | 'stacked'", default: '—', description: 'Label display style' },
+  { name: 'labelFor', type: 'string', default: '—', description: 'Associated label id' },
+];
+
+const timePickerProps = [
+  { name: 'value', type: 'string', default: '—', description: 'Current time value' },
+  { name: 'min', type: 'string', default: '—', description: 'Minimum time' },
+  { name: 'max', type: 'string', default: '—', description: 'Maximum time' },
+  { name: 'disabled', type: 'boolean', default: 'false', description: 'Disable the picker' },
+  { name: 'format', type: "'12' | '24'", default: "'24'", description: 'Time format' },
+  { name: 'step', type: 'number', default: '1', description: 'Minute step' },
+  { name: 'id', type: 'string', default: '—', description: 'Element id' },
+];
+
+const monthPickerProps = [
+  { name: 'value', type: 'string', default: '—', description: 'Current value (YYYY-MM)' },
+  { name: 'min', type: 'string', default: '—', description: 'Minimum date' },
+  { name: 'max', type: 'string', default: '—', description: 'Maximum date' },
+  { name: 'disabled', type: 'boolean', default: 'false', description: 'Disable the picker' },
+  { name: 'locale', type: 'string', default: "'en-US'", description: 'Locale for formatting' },
+  { name: 'id', type: 'string', default: '—', description: 'Element id' },
+];
+
+const weekPickerProps = [
+  { name: 'value', type: 'string', default: '—', description: 'Current value (ISO week)' },
+  { name: 'min', type: 'string', default: '—', description: 'Minimum date' },
+  { name: 'max', type: 'string', default: '—', description: 'Maximum date' },
+  { name: 'disabled', type: 'boolean', default: 'false', description: 'Disable the picker' },
+  { name: 'locale', type: 'string', default: "'en-US'", description: 'Locale for formatting' },
+  { name: 'id', type: 'string', default: '—', description: 'Element id' },
+];
+
+const dateTimePickerProps = [
+  { name: 'value', type: 'string', default: '—', description: 'Current date/time value' },
+  { name: 'min', type: 'string', default: '—', description: 'Minimum date/time' },
+  { name: 'max', type: 'string', default: '—', description: 'Maximum date/time' },
+  { name: 'disabled', type: 'boolean', default: 'false', description: 'Disable the picker' },
+  { name: 'timeFormat', type: "'12' | '24'", default: "'24'", description: 'Time format' },
+  { name: 'locale', type: 'string', default: "'en-US'", description: 'Locale for formatting' },
+  { name: 'id', type: 'string', default: '—', description: 'Element id' },
+];
 ---
 
 <DocsLayout title="Specialty Inputs" description="Specialized input components for specific data types.">
@@ -23,6 +91,7 @@ import Icon from '../../components/ui/Icon.astro';
 
     <nav class="article-nav">
       <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
+      <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
     </nav>
 
     <section id="examples" class="space-y-8">
@@ -116,6 +185,22 @@ import Icon from '../../components/ui/Icon.astro';
           <Input type="tel" id="phone-input" icon="phone" placeholder="(555) 555-5555" />
         </div>
       </ExampleSection>
+    </section>
+
+    <section id="props">
+      <h2 class="section__title">Props</h2>
+      <h3 class="section__title section__title--sm mt-6">NumberInput</h3>
+      <PropsTable props={numberInputProps} />
+      <h3 class="section__title section__title--sm mt-6">RangeInput</h3>
+      <PropsTable props={rangeInputProps} />
+      <h3 class="section__title section__title--sm mt-6">TimePicker</h3>
+      <PropsTable props={timePickerProps} />
+      <h3 class="section__title section__title--sm mt-6">MonthPicker</h3>
+      <PropsTable props={monthPickerProps} />
+      <h3 class="section__title section__title--sm mt-6">WeekPicker</h3>
+      <PropsTable props={weekPickerProps} />
+      <h3 class="section__title section__title--sm mt-6">DateTimePicker</h3>
+      <PropsTable props={dateTimePickerProps} />
     </section>
   </article>
 </DocsLayout>

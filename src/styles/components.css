@@ -2652,8 +2652,8 @@
 }
 
 .dialog__body {
-  flex: 1 1 0;
-  min-height: 100px;
+  flex: 1 1 auto;
+  min-height: 0;
   max-height: 600px;
   padding: var(--space-6);
   overflow-y: auto;
@@ -4249,6 +4249,7 @@ html.dark .shell-footer .tabstrip .tabstrip__more.tab.is-active:hover .tab__icon
 }
 
 /* Step States - Disabled */
+/* Disabled step: same styling whether disabled via Step prop or auto-disabled in linear mode */
 .step.is-disabled .step__indicator {
   background-color: var(--elevated-bg);
   border-color: var(--border-color);
@@ -4277,26 +4278,6 @@ html.dark .shell-footer .tabstrip .tabstrip__more.tab.is-active:hover .tab__icon
 
 .step.is-disabled {
   pointer-events: none;
-}
-
-/* Linear Mode - Visual distinction for future steps */
-.stepper:not(.stepper--non-linear) .step.is-disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
-.stepper:not(.stepper--non-linear) .step.is-disabled .step__indicator {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.stepper:not(.stepper--non-linear) .step.is-disabled .step__label {
-  opacity: 0.5;
-}
-
-.stepper:not(.stepper--non-linear) .step.is-disabled .step__connector {
-  opacity: 0.3;
 }
 
 /* Non-linear Stepper Interactions - All steps are clickable */

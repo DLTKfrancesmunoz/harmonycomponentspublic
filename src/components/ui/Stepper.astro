@@ -40,7 +40,7 @@ const classes = [
   aria-label="Stepper"
   data-stepper
   data-active-step={activeStep}
-  data-non-linear={nonLinear}
+  {...(nonLinear && { 'data-non-linear': 'true' })}
   id={stepperId}
 >
   <slot />
@@ -52,7 +52,7 @@ const classes = [
     container.setAttribute('data-init', 'true');
 
     const activeStep = parseInt(container.getAttribute('data-active-step') || '0');
-    const nonLinear = container.hasAttribute('data-non-linear');
+    const nonLinear = container.getAttribute('data-non-linear') === 'true';
     const steps = Array.from(container.querySelectorAll('[data-step]')) as HTMLElement[];
 
     steps.forEach((step, index) => {

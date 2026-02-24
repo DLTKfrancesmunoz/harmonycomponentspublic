@@ -46,7 +46,7 @@ const componentToDocMap = {
   'Icon': 'icons',
   'ListMenu': 'list-menu',
   'DatePicker': 'date-picker',
-  'DateInput': 'specialty-inputs',
+  'DateInput': 'date-picker', // Same page as DatePicker; uses dateInputProps
   'TimePicker': 'specialty-inputs',
   'MonthPicker': 'specialty-inputs',
   'WeekPicker': 'specialty-inputs',
@@ -56,25 +56,51 @@ const componentToDocMap = {
   'PickerPopup': null, // Internal component
 };
 
-function extractPropsFromDoc(docContent) {
-  const props = [];
-  // Match props array like: const props = [ ... ];
-  const propsMatch = docContent.match(/const\s+props\s*=\s*\[([^\]]+)\]/s);
-  if (!propsMatch) return props;
-  
-  const propsContent = propsMatch[1];
-  // Match individual prop objects
-  const propRegex = /\{\s*name:\s*['"]([^'"]+)['"],\s*type:\s*['"]([^'"]+)['"],\s*default:\s*['"]?([^'",}]+)['"]?,\s*description:\s*['"]([^'"]*)['"]\s*\}/g;
-  let match;
-  while ((match = propRegex.exec(propsContent)) !== null) {
-    props.push({
-      name: match[1],
-      type: match[2],
-      default: match[3],
-      description: match[4]
-    });
+// When a doc file has multiple components, map component name to the variable holding its props (default: 'props')
+const componentToPropsVar = {
+  'Textarea': 'textareaProps',
+  'DatePicker': 'datePickerProps',
+  'DateInput': 'dateInputProps',
+  'NumberInput': 'numberInputProps',
+  'RangeInput': 'rangeInputProps',
+  'TimePicker': 'timePickerProps',
+  'MonthPicker': 'monthPickerProps',
+  'WeekPicker': 'weekPickerProps',
+  'DateTimePicker': 'dateTimePickerProps',
+};
+
+/**
+ * Extract prop names from a doc file's props array. Uses variable name to find the right array
+ * and only matches name: '...' so union types and complex strings don't break extraction.
+ */
+function extractPropsFromDoc(docContent, propsVariableName = 'props') {
+  const names = [];
+  // Match const variableName = [ ... ]; (array may contain nested brackets)
+  const re = new RegExp(
+    `const\\s+${propsVariableName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*=\\s*\\[`,
+    's'
+  );
+  const startMatch = docContent.match(re);
+  if (!startMatch) return names;
+
+  const startIndex = startMatch.index + startMatch[0].length;
+  let depth = 1;
+  let i = startIndex;
+  while (i < docContent.length && depth > 0) {
+    const c = docContent[i];
+    if (c === '[') depth++;
+    else if (c === ']') depth--;
+    i++;
   }
-  return props;
+  const arrayBody = docContent.slice(startIndex, i - 1);
+
+  // Extract every name: 'propName' or name: "propName"
+  const nameRe = /name:\s*['"]([^'"]+)['"]/g;
+  let nameMatch;
+  while ((nameMatch = nameRe.exec(arrayBody)) !== null) {
+    names.push(nameMatch[1]);
+  }
+  return names;
 }
 
 // Compare each component
@@ -92,10 +118,9 @@ for (const [componentName, docFileName] of Object.entries(componentToDocMap)) {
   }
   
   const docContent = fs.readFileSync(docFile, 'utf-8');
-  const docProps = extractPropsFromDoc(docContent);
+  const propsVarName = componentToPropsVar[componentName] ?? 'props';
+  const docPropNames = new Set(extractPropsFromDoc(docContent, propsVarName));
   const componentProps = inventory[componentName].props || {};
-  
-  const docPropNames = new Set(docProps.map(p => p.name));
   const componentPropNames = new Set(Object.keys(componentProps).filter(k => k !== 'class' && k !== '[key: string]'));
   
   const missingInDocs = Array.from(componentPropNames).filter(name => !docPropNames.has(name));
@@ -105,7 +130,7 @@ for (const [componentName, docFileName] of Object.entries(componentToDocMap)) {
     mismatches[componentName] = {
       missingInDocs,
       extraInDocs,
-      docProps: docProps.map(p => p.name),
+      docProps: Array.from(docPropNames),
       componentProps: Array.from(componentPropNames)
     };
   }

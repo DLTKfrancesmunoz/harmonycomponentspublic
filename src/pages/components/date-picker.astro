@@ -2,15 +2,20 @@
 import DocsLayout from '../../layouts/DocsLayout.astro';
 import Icon from '../../components/ui/Icon.astro';
 import PropsTable from '../../components/PropsTable.astro';
-import Icon from '../../components/ui/Icon.astro';
 import ExampleSection from '../../components/ExampleSection.astro';
-import Icon from '../../components/ui/Icon.astro';
 import DateInput from '../../components/ui/DateInput.astro';
-import Icon from '../../components/ui/Icon.astro';
 import Label from '../../components/ui/Label.astro';
-import Icon from '../../components/ui/Icon.astro';
 
-const props = [
+const datePickerProps = [
+  { name: 'value', type: 'string', default: '—', description: 'Selected date value (ISO format)' },
+  { name: 'min', type: 'string', default: '—', description: 'Minimum selectable date' },
+  { name: 'max', type: 'string', default: '—', description: 'Maximum selectable date' },
+  { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables the picker' },
+  { name: 'locale', type: 'string', default: "'en-US'", description: 'Locale for date formatting' },
+  { name: 'id', type: 'string', default: '—', description: 'Element id' },
+];
+
+const dateInputProps = [
   { name: 'type', type: "'date' | 'time' | 'datetime-local' | 'month' | 'week'", default: "'date'", description: 'Input type' },
   { name: 'value', type: 'string', default: '—', description: 'Current value (ISO format: YYYY-MM-DD for date, HH:MM for time, etc.)' },
   { name: 'name', type: 'string', default: '—', description: 'Form input name attribute' },
@@ -129,7 +134,10 @@ const props = [
 
     <section id="props">
       <h2 class="section__title">Props</h2>
-      <PropsTable props={props} />
+      <h3 class="section__title section__title--sm mt-6">DatePicker</h3>
+      <PropsTable props={datePickerProps} />
+      <h3 class="section__title section__title--sm mt-6">DateInput</h3>
+      <PropsTable props={dateInputProps} />
     </section>
 
     <section id="accessibility" class="space-y-4">

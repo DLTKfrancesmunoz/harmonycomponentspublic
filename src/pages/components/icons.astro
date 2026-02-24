@@ -1,7 +1,14 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
+import PropsTable from '../../components/PropsTable.astro';
 import ExampleSection from '../../components/ExampleSection.astro';
 import Icon from '../../components/ui/Icon.astro';
+
+const props = [
+  { name: 'name', type: 'string', default: '—', description: 'Icon name (Hero Icon or Tabler icon identifier)' },
+  { name: 'size', type: "'xs' | 'sm' | 'md' | 'lg' | 'xl'", default: "'md'", description: 'Icon size' },
+  { name: 'variant', type: "'outline' | 'solid'", default: "'outline'", description: 'Icon style variant' },
+];
 
 // Hero Icons Outline - All icons organized by category
 const iconCategories = {
@@ -143,6 +150,11 @@ const totalCustomIcons = Object.values(customIconCategories).flat().length;
     </header>
 
     <!-- Usage -->
+    <section id="props" class="space-y-6">
+      <h2 class="section__title">Icon Props</h2>
+      <PropsTable props={props} />
+    </section>
+
     <section class="space-y-6">
       <h2 class="section__title">Usage</h2>
       <div class="a11y-card">
