@@ -4797,6 +4797,11 @@ html.dark .shell-footer .tabstrip .tabstrip__more.tab.is-active:hover .tab__icon
   align-items: flex-start;
 }
 
+/* CP theme: floating nav at top of screen — restore top border */
+html.theme-cp .floating-nav {
+  border-top: 1px solid var(--border-color);
+}
+
 .floating-nav__toolbar {
   display: flex;
   align-items: center;
@@ -6017,6 +6022,11 @@ html.theme-maconomy.dark .left-sidebar__variant--maconomy {
 
 .shell-layout__floating-nav-wrap {
   z-index: var(--z-40);
+}
+
+/* CP theme: floating nav anchored to very top of screen */
+.shell-layout[data-cp-variant="true"] .shell-layout__floating-nav-wrap {
+  z-index: var(--z-50);
 }
 
 .shell-layout__footer {

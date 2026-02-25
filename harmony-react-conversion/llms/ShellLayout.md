@@ -11,6 +11,11 @@ App shell that composes header, footer, sidebars, page header, and main content.
 | companyName | string | — | Current company name in the shell. |
 | showCompanyPicker | boolean | true | When true, the company picker is shown. |
 | companyColor | string | — | Color used for the company picker. |
+| showFloatingNav | boolean | — | CP only. When true, renders FloatingNav anchored to the top of the screen and enables CP layout mode. |
+| floatingNavVariant | 'full' \| 'compact' | — | CP only. Passed to FloatingNav; 'full' shows all buttons, 'compact' hides Execute. |
+| showExecute | boolean | — | CP only. Passed to FloatingNav; shows/hides the Execute button. |
+| saveDisabled | boolean | — | CP only. Passed to FloatingNav; disables the Save button. |
+| leftSidebarVariant | 'cp' \| 'vp' \| 'ppm' \| 'maconomy' | 'ppm' | Sidebar variant for LeftSidebar. |
 | tabs | ShellFooterTab[] | DEFAULT_TABS | Tab definitions (id, label, active, etc.). |
 | showFooter | boolean | true | When true, the shell footer is visible. |
 | showRightSidebar | boolean | true | When true, the right sidebar is visible. |
@@ -49,13 +54,12 @@ import { ShellLayout } from './components/harmony/ShellLayout';
 ## Theme Behavior
 
 - ShellLayout composes header, footer, sidebars, and page header. Theme-specific behavior is driven by child props: `logoSrc` and `companies` on ShellHeader; `variant` and `sections` on LeftSidebar and RightSidebar; `variant` on ShellFooter.
-- CP theme typically uses FloatingNav instead of ShellFooter; React does not implement `showFloatingNav` / `floatingNavVariant` at layout level.
+- CP theme uses FloatingNav instead of ShellFooter; in CP theme, the FloatingNav is anchored to `top: 0` (very top of screen) with z-index matching the header. Pass `showFloatingNav={true}` to enable CP layout mode in React.
 
 ## Not Yet Implemented
 
 The following Astro props or slots are not yet available in the React conversion:
 
-- **showFloatingNav**, **floatingNavVariant**, **showExecute**, **saveDisabled**: CP uses FloatingNav instead of footer; not wired at layout level in React.
 - **showMoreTabs**, **moreCount**, **overflowTabs**, **showAddTab**, **footerVariant**: Footer-level tab overflow and variant are passed to ShellFooter in Astro; React ShellLayout passes `tabs` and `showFooter` but not overflow or variant.
-- **leftSidebarVariant**, **leftSidebarSections**, **rightSidebarVariant**, **rightSidebarSections**: Astro passes these to LeftSidebar/RightSidebar; React ShellLayout does not accept or forward them (sidebars use their own defaults).
+- **leftSidebarSections**, **rightSidebarVariant**, **rightSidebarSections**: Astro passes these to LeftSidebar/RightSidebar; React ShellLayout accepts `leftSidebarVariant` but not sections or right sidebar variant.
 - **leftPanel**, **rightPanel**: Astro layout accepts panel config (side, open, title, etc.); React does not compose panels from layout props—use ShellPanel separately.

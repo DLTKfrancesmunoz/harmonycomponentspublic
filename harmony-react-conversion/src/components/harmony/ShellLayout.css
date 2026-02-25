@@ -45,6 +45,12 @@
   pointer-events: auto;
 }
 
+/* CP theme: floating nav anchored to very top of screen */
+.shell-layout[data-cp-variant="true"] .shell-layout__floating-nav-wrap {
+  top: 0;
+  z-index: var(--z-50); /* Matches header; renders above it due to DOM order */
+}
+
 .shell-layout__left-sidebar {
   position: fixed;
   left: 0;
@@ -123,6 +129,11 @@
   padding: var(--shell-layout-padding-top) calc(var(--shell-layout-padding-side-default) + var(--space-5)) var(--space-6) calc(var(--shell-layout-padding-side-default) + var(--space-5));
 }
 
+/* CP theme: floating nav is in header space, so no extra top padding needed */
+.shell-layout[data-cp-variant="true"] .shell-layout__container[data-has-floating-nav="true"] .shell-layout__main {
+  padding-top: var(--space-5);
+}
+
 .shell-layout__container[data-has-floating-nav="false"] .shell-layout__main {
   padding-top: var(--space-5);
   padding-right: var(--space-6);
@@ -169,6 +180,11 @@
     padding: var(--shell-layout-padding-top) var(--shell-layout-padding-side-mobile) var(--space-6) var(--shell-layout-padding-side-mobile);
   }
 
+  /* CP theme: floating nav in header space, reduce top padding */
+  .shell-layout[data-cp-variant="true"] .shell-layout__container[data-has-floating-nav="true"] .shell-layout__main {
+    padding-top: var(--space-5);
+  }
+
   .shell-layout__container[data-has-floating-nav="false"] .shell-layout__main {
     padding: var(--space-5) var(--shell-layout-padding-side-mobile) var(--space-6) var(--shell-layout-padding-side-mobile);
   }
@@ -177,6 +193,11 @@
 @media (max-width: var(--breakpoint-lg)) {
   .shell-layout__container[data-has-floating-nav="true"] .shell-layout__main {
     padding: var(--shell-layout-padding-top) calc(var(--shell-layout-padding-side-tablet) + var(--space-5)) var(--space-6) calc(var(--shell-layout-padding-side-tablet) + var(--space-5));
+  }
+
+  /* CP theme: floating nav in header space, reduce top padding */
+  .shell-layout[data-cp-variant="true"] .shell-layout__container[data-has-floating-nav="true"] .shell-layout__main {
+    padding-top: var(--space-5);
   }
 
   .shell-layout__container[data-has-floating-nav="false"] .shell-layout__main {
