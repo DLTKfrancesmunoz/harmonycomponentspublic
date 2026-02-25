@@ -26,6 +26,7 @@ export interface ShellLayoutProps {
   pageHeaderOutlineButton1?: ShellPageHeaderButtonConfig
   pageHeaderOutlineButton2?: ShellPageHeaderButtonConfig
   pageHeaderOutlineButton3?: ShellPageHeaderButtonConfig
+  pageHeaderActions?: React.ReactNode
   leftSidebarSections?: LeftSidebarSection[]
   leftSidebarVariant?: LeftSidebarVariant
   rightSidebarSections?: RightSidebarSection[]
@@ -55,6 +56,7 @@ export function ShellLayout({
   pageHeaderOutlineButton1,
   pageHeaderOutlineButton2,
   pageHeaderOutlineButton3,
+  pageHeaderActions,
   leftSidebarSections,
   leftSidebarVariant,
   rightSidebarSections,
@@ -111,6 +113,7 @@ export function ShellLayout({
               outlineButton1={pageHeaderOutlineButton1}
               outlineButton2={pageHeaderOutlineButton2}
               outlineButton3={pageHeaderOutlineButton3}
+              actions={pageHeaderActions}
             />
           )}
           {children ?? (
