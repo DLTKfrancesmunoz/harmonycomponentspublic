@@ -7,6 +7,8 @@ import { ShellPageHeader } from './ShellPageHeader'
 import { Card } from './Card'
 import type { ShellFooterTab } from './ShellFooter'
 import type { ShellPageHeaderButtonConfig } from './ShellPageHeader'
+import type { LeftSidebarSection, LeftSidebarVariant } from './LeftSidebar'
+import type { RightSidebarSection, RightSidebarVariant } from './RightSidebar'
 import './ShellLayout.css'
 
 export interface ShellLayoutProps {
@@ -24,6 +26,10 @@ export interface ShellLayoutProps {
   pageHeaderOutlineButton1?: ShellPageHeaderButtonConfig
   pageHeaderOutlineButton2?: ShellPageHeaderButtonConfig
   pageHeaderOutlineButton3?: ShellPageHeaderButtonConfig
+  leftSidebarSections?: LeftSidebarSection[]
+  leftSidebarVariant?: LeftSidebarVariant
+  rightSidebarSections?: RightSidebarSection[]
+  rightSidebarVariant?: RightSidebarVariant
   className?: string
   children?: React.ReactNode
 }
@@ -49,6 +55,10 @@ export function ShellLayout({
   pageHeaderOutlineButton1,
   pageHeaderOutlineButton2,
   pageHeaderOutlineButton3,
+  leftSidebarSections,
+  leftSidebarVariant,
+  rightSidebarSections,
+  rightSidebarVariant,
   className = '',
   children,
 }: ShellLayoutProps) {
@@ -78,11 +88,16 @@ export function ShellLayout({
           className="shell-layout__header"
         />
 
-        <LeftSidebar variant="ppm" className="shell-layout__left-sidebar" />
+        <LeftSidebar
+          variant={leftSidebarVariant ?? 'ppm'}
+          sections={leftSidebarSections}
+          className="shell-layout__left-sidebar"
+        />
 
         {showRightSidebar && (
           <RightSidebar
-            variant="ppm"
+            variant={rightSidebarVariant ?? 'ppm'}
+            sections={rightSidebarSections}
             className="shell-layout__right-sidebar"
           />
         )}
