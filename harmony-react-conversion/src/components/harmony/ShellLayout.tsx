@@ -1,6 +1,5 @@
 import clsx from 'clsx'
 import { ShellHeader } from './ShellHeader'
-import type { CompanyOption } from './ShellHeader'
 import { ShellFooter } from './ShellFooter'
 import { FloatingNav } from './FloatingNav'
 import { LeftSidebar } from './LeftSidebar'
@@ -37,7 +36,6 @@ export interface ShellLayoutProps {
   pageHeaderOutlineButton3?: ShellPageHeaderButtonConfig
   pageHeaderActions?: React.ReactNode
   leftSidebarSections?: LeftSidebarSection[]
-  leftSidebarVariant?: LeftSidebarVariant
   rightSidebarSections?: RightSidebarSection[]
   rightSidebarVariant?: RightSidebarVariant
   className?: string
@@ -72,7 +70,6 @@ export function ShellLayout({
   pageHeaderOutlineButton3,
   pageHeaderActions,
   leftSidebarSections,
-  leftSidebarVariant,
   rightSidebarSections,
   rightSidebarVariant,
   className = '',
@@ -101,7 +98,6 @@ export function ShellLayout({
           companyName={companyName}
           showCompanyPicker={showCompanyPicker}
           companyColor={companyColor}
-          companies={headerCompanies}
           className="shell-layout__header"
         />
 
@@ -149,9 +145,6 @@ export function ShellLayout({
         {effectiveHasFooter && (
           <ShellFooter
             tabs={tabs}
-            showMore={footerShowMore}
-            moreCount={footerMoreCount}
-            overflowTabs={footerOverflowTabs}
             showAddTab={true}
             variant="default"
             className="shell-layout__footer"
