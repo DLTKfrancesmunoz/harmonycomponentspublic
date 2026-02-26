@@ -19,14 +19,21 @@ export interface ShellLayoutProps {
   companyName?: string
   showCompanyPicker?: boolean
   companyColor?: string
+  /** Company options for the header picker; when not provided, ShellHeader uses its default list. */
+  companies?: CompanyOption[]
   // CP-specific props
   showFloatingNav?: boolean
   floatingNavVariant?: 'full' | 'compact'
   showExecute?: boolean
   saveDisabled?: boolean
-  leftSidebarVariant?: 'cp' | 'vp' | 'ppm' | 'maconomy'
+  leftSidebarVariant?: LeftSidebarVariant
   // Standard props
   tabs?: ShellFooterTab[]
+  showMoreTabs?: boolean
+  moreCount?: number
+  overflowTabs?: ShellFooterTab[]
+  showAddTab?: boolean
+  footerVariant?: 'default' | 'compact'
   showFooter?: boolean
   showRightSidebar?: boolean
   pageHeaderTitle?: string
@@ -37,7 +44,6 @@ export interface ShellLayoutProps {
   pageHeaderOutlineButton3?: ShellPageHeaderButtonConfig
   pageHeaderActions?: React.ReactNode
   leftSidebarSections?: LeftSidebarSection[]
-  leftSidebarVariant?: LeftSidebarVariant
   rightSidebarSections?: RightSidebarSection[]
   rightSidebarVariant?: RightSidebarVariant
   className?: string
@@ -56,12 +62,18 @@ export function ShellLayout({
   companyName,
   showCompanyPicker = true,
   companyColor,
+  companies,
   showFloatingNav,
   floatingNavVariant,
   showExecute,
   saveDisabled,
   leftSidebarVariant,
   tabs = DEFAULT_TABS,
+  showMoreTabs = false,
+  moreCount = 0,
+  overflowTabs,
+  showAddTab = true,
+  footerVariant = 'default',
   showFooter = true,
   showRightSidebar = true,
   pageHeaderTitle = 'Page title',
@@ -72,7 +84,6 @@ export function ShellLayout({
   pageHeaderOutlineButton3,
   pageHeaderActions,
   leftSidebarSections,
-  leftSidebarVariant,
   rightSidebarSections,
   rightSidebarVariant,
   className = '',
@@ -93,7 +104,7 @@ export function ShellLayout({
         data-has-footer={String(effectiveHasFooter)}
         data-has-floating-nav={String(effectiveShowFloatingNav)}
         data-has-right-sidebar={String(showRightSidebar)}
-        data-footer-variant="default"
+        data-footer-variant={footerVariant}
       >
         <ShellHeader
           productName={productName}
@@ -101,7 +112,7 @@ export function ShellLayout({
           companyName={companyName}
           showCompanyPicker={showCompanyPicker}
           companyColor={companyColor}
-          companies={headerCompanies}
+          companies={companies}
           className="shell-layout__header"
         />
 
@@ -149,11 +160,11 @@ export function ShellLayout({
         {effectiveHasFooter && (
           <ShellFooter
             tabs={tabs}
-            showMore={footerShowMore}
-            moreCount={footerMoreCount}
-            overflowTabs={footerOverflowTabs}
-            showAddTab={true}
-            variant="default"
+            showMore={showMoreTabs}
+            moreCount={moreCount}
+            overflowTabs={overflowTabs ?? []}
+            showAddTab={showAddTab}
+            variant={footerVariant}
             className="shell-layout__footer"
           />
         )}

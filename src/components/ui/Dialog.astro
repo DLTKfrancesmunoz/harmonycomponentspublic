@@ -17,6 +17,12 @@ export interface Props {
   class?: string;
   buttonAlignment?: 'left' | 'right';
   headerVariant?: 'default' | 'primary';
+  /** When using the default footer, label for the Confirm button. Ignored when footer slot is used. */
+  confirmLabel?: string;
+  /** When using the default footer, label for the Cancel button. Ignored when footer slot is used. */
+  cancelLabel?: string;
+  /** When using the default footer, optional global function name to call when Confirm is clicked before closing. Ignored when footer slot is used. */
+  confirmCallbackName?: string;
 }
 
 const {
@@ -25,7 +31,14 @@ const {
   class: className = '',
   buttonAlignment = 'left',
   headerVariant = 'default',
+  confirmLabel = 'Confirm',
+  cancelLabel = 'Cancel',
+  confirmCallbackName,
 } = Astro.props;
+
+const confirmOnClick = confirmCallbackName
+  ? `if (typeof window.${confirmCallbackName} === 'function') { window.${confirmCallbackName}(); } closeDialog('${id}');`
+  : `closeDialog('${id}')`;
 
 const classes = ['dialog', className].filter(Boolean).join(' ');
 const headerClasses = [
@@ -53,10 +66,10 @@ const footerClasses = [
     </div>
     <div class={footerClasses}>
       <slot name="footer">
-        <!-- Default footer: theme buttons (general UI); custom footer slot should also use buttonType="theme" -->
+        <!-- Default footer: theme buttons (general UI); optional confirmLabel, cancelLabel, confirmCallbackName. Custom footer slot overrides this. -->
         <div>
-          <Button buttonType="theme" type="button" onclick={`closeDialog('${id}')`}>Confirm</Button>
-          <Button buttonType="theme" variant="ghost" type="button" onclick={`closeDialog('${id}')`}>Cancel</Button>
+          <Button buttonType="theme" type="button" onclick={confirmOnClick}>{confirmLabel}</Button>
+          <Button buttonType="theme" variant="ghost" type="button" onclick={`closeDialog('${id}')`}>{cancelLabel}</Button>
         </div>
       </slot>
     </div>
