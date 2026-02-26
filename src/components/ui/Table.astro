@@ -26,6 +26,8 @@ const classes = [
 
 const hasTitleBar = Astro.slots.has('title-bar-content') || Astro.slots.has('title-bar-icons');
 const hasActionBar = Astro.slots.has('action-bar');
+const hasHeaderSlot = Astro.slots.has('header');
+const hasBodySlot = Astro.slots.has('body');
 ---
 
 <div class="table-wrapper">
@@ -54,15 +56,19 @@ const hasActionBar = Astro.slots.has('action-bar');
   
   <!-- Table -->
   <table class={classes}>
-    <slot name="header">
-      <thead>
+    <thead>
+      {hasHeaderSlot ? (
+        <slot name="header" />
+      ) : (
         <tr><th scope="col">Column</th></tr>
-      </thead>
-    </slot>
-    <slot name="body">
-      <tbody>
+      )}
+    </thead>
+    <tbody>
+      {hasBodySlot ? (
+        <slot name="body" />
+      ) : (
         <tr><td>Table body content. Override by passing header and body slots.</td></tr>
-      </tbody>
-    </slot>
+      )}
+    </tbody>
   </table>
 </div>

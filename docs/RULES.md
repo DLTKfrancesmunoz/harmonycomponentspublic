@@ -491,6 +491,25 @@ When and how to use the Shell Layout component.
                   Verify your email and password
                 </template>
               </Step>
+            
+          
+        
+
+        
+          
+            ### Linear vs Non-linear
+
+            
+
+              Omit `nonLinear` for linear mode (default): future steps are disabled. Set `nonLinear` to allow jumping to any step. Listen for `stepper:step-clicked` to handle step changes in non-linear mode.
+            
+
+            
+              <!-- Linear: steps after activeStep disabled -->
+              <Stepper activeStep={2}>...</Stepper>
+              
+              <!-- Non-linear: all steps clickable -->
+              <Stepper activeStep={2} nonLinear>...</Stepper>
 
 ## Accessibility
 

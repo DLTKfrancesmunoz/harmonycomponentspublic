@@ -33,15 +33,15 @@ import Icon from '../../components/ui/Icon.astro';
       <h2 style="margin-bottom: 16px; font-size: 18px; font-weight: 600;">Basic Table - Gray Header</h2>
       <div class="overflow-x-auto">
         <Table headerVariant="gray">
-          <thead slot="header">
+          <Fragment slot="header">
             <tr>
               <th class="text-left">Project ID</th>
               <th class="text-left">Name</th>
               <th class="text-left">Status</th>
               <th class="text-right">Budget</th>
             </tr>
-          </thead>
-          <tbody slot="body">
+          </Fragment>
+          <Fragment slot="body">
             <tr>
               <td>PRJ-001</td>
               <td>Website Redesign</td>
@@ -66,7 +66,7 @@ import Icon from '../../components/ui/Icon.astro';
               </td>
               <td class="text-right">$45,000</td>
             </tr>
-          </tbody>
+          </Fragment>
         </Table>
       </div>
     </div>
@@ -76,15 +76,15 @@ import Icon from '../../components/ui/Icon.astro';
       <h2 style="margin-bottom: 16px; font-size: 18px; font-weight: 600;">Table - White Header</h2>
       <div class="overflow-x-auto">
         <Table headerVariant="white">
-          <thead slot="header">
+          <Fragment slot="header">
             <tr>
               <th class="text-left">Project ID</th>
               <th class="text-left">Name</th>
               <th class="text-left">Status</th>
               <th class="text-right">Budget</th>
             </tr>
-          </thead>
-          <tbody slot="body">
+          </Fragment>
+          <Fragment slot="body">
             <tr>
               <td>PRJ-001</td>
               <td>Website Redesign</td>
@@ -101,7 +101,7 @@ import Icon from '../../components/ui/Icon.astro';
               </td>
               <td class="text-right">$150,000</td>
             </tr>
-          </tbody>
+          </Fragment>
         </Table>
       </div>
     </div>
@@ -111,7 +111,7 @@ import Icon from '../../components/ui/Icon.astro';
       <h2 style="margin-bottom: 16px; font-size: 18px; font-weight: 600;">Interactive Table - Row Selection (Blue Highlight)</h2>
       <div class="overflow-x-auto">
         <Table headerVariant="gray">
-          <thead slot="header">
+          <Fragment slot="header">
             <tr>
               <th class="w-10">
                 <Checkbox name="select-all" aria-label="Select all rows" />
@@ -121,8 +121,8 @@ import Icon from '../../components/ui/Icon.astro';
               <th class="text-left">Role</th>
               <th class="text-right">Actions</th>
             </tr>
-          </thead>
-          <tbody slot="body">
+          </Fragment>
+          <Fragment slot="body">
             <tr>
               <td>
                 <Checkbox name="select-employee-1" aria-label="Select row for John Doe" />
@@ -192,7 +192,7 @@ import Icon from '../../components/ui/Icon.astro';
                 </button>
               </td>
             </tr>
-          </tbody>
+          </Fragment>
         </Table>
       </div>
     </div>
@@ -202,14 +202,14 @@ import Icon from '../../components/ui/Icon.astro';
       <h2 style="margin-bottom: 16px; font-size: 18px; font-weight: 600;">Striped Table - Blue Total Row</h2>
       <div class="overflow-x-auto">
         <Table headerVariant="gray" striped>
-          <thead slot="header">
+          <Fragment slot="header">
             <tr>
               <th class="text-left">Code</th>
               <th class="text-left">Description</th>
               <th class="text-right">Amount</th>
             </tr>
-          </thead>
-          <tbody slot="body">
+          </Fragment>
+          <Fragment slot="body">
             <tr>
               <td class="font-mono">ACC-1001</td>
               <td>Operating Expenses</td>
@@ -234,7 +234,7 @@ import Icon from '../../components/ui/Icon.astro';
               <td colspan="2">Total</td>
               <td class="text-right">$40,000.00</td>
             </tr>
-          </tbody>
+          </Fragment>
         </Table>
       </div>
     </div>
