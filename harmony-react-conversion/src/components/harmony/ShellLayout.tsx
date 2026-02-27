@@ -2,7 +2,6 @@ import clsx from 'clsx'
 import { ShellHeader } from './ShellHeader'
 import type { CompanyOption } from './ShellHeader'
 import { ShellFooter } from './ShellFooter'
-import { FloatingNav } from './FloatingNav'
 import { LeftSidebar } from './LeftSidebar'
 import { RightSidebar } from './RightSidebar'
 import { ShellPageHeader } from './ShellPageHeader'
@@ -64,9 +63,9 @@ export function ShellLayout({
   companyColor,
   companies,
   showFloatingNav,
-  floatingNavVariant,
-  showExecute,
-  saveDisabled,
+  floatingNavVariant: _floatingNavVariant,
+  showExecute: _showExecute,
+  saveDisabled: _saveDisabled,
   leftSidebarVariant,
   tabs = DEFAULT_TABS,
   showMoreTabs = false,

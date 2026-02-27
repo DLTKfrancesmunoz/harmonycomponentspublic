@@ -259,3 +259,99 @@
 }
 
 .table__title-bar-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-6);
+  height: var(--space-6);
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  border-radius: var(--radius-04);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.table__title-bar-icon:hover {
+  background-color: var(--elevated-bg);
+  color: var(--text-primary);
+}
+
+.table__title-bar-icon:focus {
+  outline: 2px solid var(--theme-primary);
+  outline-offset: var(--space-0-5);
+}
+
+/* 15. Table Action Bar */
+.table__action-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--space-3) var(--space-4) var(--space-3) var(--space-1);
+  border-left: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--table-header-gray-bg);
+  gap: var(--space-4);
+}
+
+/* When action bar is first (no title bar), it needs top rounded corners */
+.table-wrapper:has(.table__action-bar):not(:has(.table__title-bar)) .table__action-bar {
+  border-top: 1px solid var(--border-color);
+  border-top-left-radius: var(--radius-12);
+  border-top-right-radius: var(--radius-12);
+}
+
+.table__action-items {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.table__action-divider {
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  padding: 0 var(--space-1);
+  flex-shrink: 0;
+}
+
+/* 16. Adjust table border radius when title bar or action bar is present */
+.table-wrapper:has(.table__title-bar) .table {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.table-wrapper:has(.table__title-bar) .table thead tr:first-child th:first-child {
+  border-top-left-radius: 0;
+  border-top: none;
+}
+
+.table-wrapper:has(.table__title-bar) .table thead tr:first-child th:last-child {
+  border-top-right-radius: 0;
+  border-top: none;
+}
+
+.table-wrapper:has(.table__title-bar) .table thead tr:first-child th {
+  border-top: none;
+}
+
+.table-wrapper:has(.table__action-bar):not(:has(.table__title-bar)) .table {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.table-wrapper:has(.table__action-bar):not(:has(.table__title-bar)) .table thead tr:first-child th:first-child {
+  border-top-left-radius: 0;
+  border-top: none;
+}
+
+.table-wrapper:has(.table__action-bar):not(:has(.table__title-bar)) .table thead tr:first-child th:last-child {
+  border-top-right-radius: 0;
+  border-top: none;
+}
+
+.table-wrapper:has(.table__action-bar):not(:has(.table__title-bar)) .table thead tr:first-child th {
+  border-top: none;
+}

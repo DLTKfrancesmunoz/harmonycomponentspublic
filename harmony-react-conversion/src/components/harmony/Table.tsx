@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import React, { type ReactNode } from 'react'
 import clsx from 'clsx'
 import { Icon } from './Icon'
 import './Table.css'
@@ -37,7 +37,7 @@ export function Table({
   sortColumn = null,
   sortDirection = null,
   onSort,
-}: TableProps) {
+}: TableProps): React.ReactElement {
   const hasTitleBar = titleBarContent != null || titleBarIcons != null
   const hasActionBar = actionBar != null
   const useSortHeader = sortColumns != null && sortColumns.length > 0
