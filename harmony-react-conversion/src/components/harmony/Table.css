@@ -194,6 +194,27 @@
   white-space: nowrap;
 }
 
+/* Sortable column header: button + icon alignment */
+.table__sort-header {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  color: inherit;
+  font-weight: var(--font-medium);
+  cursor: pointer;
+  text-align: inherit;
+}
+.table__sort-header:hover {
+  color: var(--text-primary);
+}
+.table thead th.text-right .table__sort-header {
+  flex-direction: row-reverse;
+}
+
 /* 12. Avatar in Table Cells (keep existing functionality) */
 .table tbody td .avatar,
 .table tbody td [class*="rounded-full"] {
