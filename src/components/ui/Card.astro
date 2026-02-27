@@ -25,7 +25,7 @@ const {
   elevated = false,
   interactive = false,
   primary = false,
-  withHeader = true,
+  withHeader = false,
   headerTitle = 'Card title',
   headerSubtitle = '',
   class: className = '',
@@ -42,7 +42,7 @@ const classes = [
 ---
 
 <div class={classes}>
-  {(withHeader || Astro.slots.has('header')) && (
+  {(withHeader || Astro.slots.has('header') || Astro.slots.has('header-actions')) && (
     <div class="card__header">
       <slot name="header">
         <div class="card__header-content">

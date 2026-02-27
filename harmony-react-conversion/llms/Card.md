@@ -23,7 +23,11 @@ Content container with optional header (title/subtitle), body, and footer; suppo
 ```tsx
 import { Card } from './components/harmony/Card';
 
-<Card headerTitle="Card title" headerSubtitle="Optional subtitle">
+// Basic card (no header)
+<Card>Card body content.</Card>
+
+// Card with header
+<Card withHeader headerTitle="Card title" headerSubtitle="Optional subtitle">
   Card body content.
 </Card>
 ```
