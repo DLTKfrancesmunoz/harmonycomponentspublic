@@ -249,6 +249,79 @@ const props = [
     </section>
 
     <section class="space-y-6">
+      <h2 class="section__title">Sortable column headers</h2>
+
+      <ExampleSection title="Sortable column headers" description="Column headers can be sortable with icons indicating sort order: chevron up (ascending), chevron down (descending), and chevron-up-down (unsorted). Use aria-sort on the active column for accessibility.">
+        <div class="overflow-x-auto">
+          <Table headerVariant="gray">
+            <Fragment slot="header">
+              <tr>
+                <th class="text-left" scope="col" aria-sort="ascending">
+                  <button type="button" class="table__sort-header" aria-label="Sort by Project ID ascending">
+                    Project ID
+                    <Icon name="chevron-up" size="sm" />
+                  </button>
+                </th>
+                <th class="text-left" scope="col" aria-sort="descending">
+                  <button type="button" class="table__sort-header" aria-label="Sort by Name descending">
+                    Name
+                    <Icon name="chevron-down" size="sm" />
+                  </button>
+                </th>
+                <th class="text-left" scope="col">
+                  <button type="button" class="table__sort-header" aria-label="Sort by Status">
+                    Status
+                    <Icon name="chevron-up-down" size="sm" />
+                  </button>
+                </th>
+                <th class="text-right" scope="col">
+                  <button type="button" class="table__sort-header" aria-label="Sort by Budget">
+                    Budget
+                    <Icon name="chevron-up-down" size="sm" />
+                  </button>
+                </th>
+              </tr>
+            </Fragment>
+            <Fragment slot="body">
+              <tr>
+                <td>PRJ-001</td>
+                <td>Website Redesign</td>
+                <td>
+                  <span class="badge badge--success">Active</span>
+                </td>
+                <td class="text-right">$25,000</td>
+              </tr>
+              <tr>
+                <td>PRJ-002</td>
+                <td>Mobile App Development</td>
+                <td>
+                  <span class="badge badge--warning">In Progress</span>
+                </td>
+                <td class="text-right">$150,000</td>
+              </tr>
+              <tr>
+                <td>PRJ-003</td>
+                <td>Database Migration</td>
+                <td>
+                  <span class="badge badge--default">Pending</span>
+                </td>
+                <td class="text-right">$45,000</td>
+              </tr>
+              <tr>
+                <td>PRJ-004</td>
+                <td>Security Audit</td>
+                <td>
+                  <span class="badge badge--info">Review</span>
+                </td>
+                <td class="text-right">$12,500</td>
+              </tr>
+            </Fragment>
+          </Table>
+        </div>
+      </ExampleSection>
+    </section>
+
+    <section class="space-y-6">
       <h2 class="section__title">Table with Title Bar and Action Bar</h2>
       
       <ExampleSection title="Table with Title Bar" description="Table with optional title bar containing title and window control icons. Table header background color remains unchanged.">

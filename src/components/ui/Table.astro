@@ -4,17 +4,32 @@
  *
  * Reusable table component with header variants and styling options.
  * Supports optional title bar and action bar via slots.
+ * When sortColumns is provided, renders a built-in sortable header row (icons + aria-sort).
  */
+import Icon from './Icon.astro';
+
+export interface SortColumn {
+  key: string;
+  label: string;
+  align?: 'left' | 'right';
+}
+
 export interface Props {
   headerVariant?: 'gray' | 'white' | 'none';
   striped?: boolean;
   class?: string;
+  sortColumns?: SortColumn[];
+  sortColumn?: string | null;
+  sortDirection?: 'asc' | 'desc' | null;
 }
 
 const {
   headerVariant = 'gray',
   striped = false,
   class: className = '',
+  sortColumns,
+  sortColumn = null,
+  sortDirection = null,
 } = Astro.props;
 
 const classes = [
@@ -28,6 +43,20 @@ const hasTitleBar = Astro.slots.has('title-bar-content') || Astro.slots.has('tit
 const hasActionBar = Astro.slots.has('action-bar');
 const hasHeaderSlot = Astro.slots.has('header');
 const hasBodySlot = Astro.slots.has('body');
+const useSortHeader = sortColumns && sortColumns.length > 0;
+
+function getSortIcon(key: string) {
+  if (sortColumn !== key) return 'chevron-up-down';
+  return sortDirection === 'asc' ? 'chevron-up' : 'chevron-down';
+}
+function getAriaSort(key: string): 'ascending' | 'descending' | undefined {
+  if (sortColumn !== key) return undefined;
+  return sortDirection === 'asc' ? 'ascending' : 'descending';
+}
+function getSortLabel(key: string, label: string): string {
+  if (sortColumn !== key) return `Sort by ${label}`;
+  return `Sort by ${label} ${sortDirection === 'asc' ? 'ascending' : 'descending'}`;
+}
 ---
 
 <div class="table-wrapper">
@@ -57,7 +86,22 @@ const hasBodySlot = Astro.slots.has('body');
   <!-- Table -->
   <table class={classes}>
     <thead>
-      {hasHeaderSlot ? (
+      {useSortHeader ? (
+        <tr>
+          {sortColumns!.map((col) => (
+            <th
+              scope="col"
+              class={col.align === 'right' ? 'text-right' : 'text-left'}
+              aria-sort={getAriaSort(col.key)}
+            >
+              <button type="button" class="table__sort-header" aria-label={getSortLabel(col.key, col.label)}>
+                {col.label}
+                <Icon name={getSortIcon(col.key)} size="sm" />
+              </button>
+            </th>
+          ))}
+        </tr>
+      ) : hasHeaderSlot ? (
         <slot name="header" />
       ) : (
         <tr><th scope="col">Column</th></tr>

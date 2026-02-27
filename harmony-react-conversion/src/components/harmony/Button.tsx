@@ -18,6 +18,7 @@ export interface ButtonProps {
   onClick?: () => void
   children?: ReactNode
   className?: string
+  ariaLabel?: string
 }
 
 const iconSizeMap = {
@@ -43,6 +44,7 @@ export function Button({
   onClick,
   children,
   className = '',
+  ariaLabel,
 }: ButtonProps) {
   const iconSize = iconSizeMap[size]
   const hasChildren = children != null && (typeof children === 'string' ? children.trim() !== '' : true)
@@ -90,6 +92,7 @@ export function Button({
         href={href}
         className={classes}
         aria-busy={loading ? 'true' : undefined}
+        aria-label={ariaLabel}
         onClick={onClick}
       >
         {content}
@@ -103,6 +106,7 @@ export function Button({
       className={classes}
       disabled={effectiveDisabled}
       aria-busy={loading ? 'true' : undefined}
+      aria-label={ariaLabel}
       onClick={onClick}
     >
       {content}
