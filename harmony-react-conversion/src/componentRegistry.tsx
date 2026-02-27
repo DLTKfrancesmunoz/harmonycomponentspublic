@@ -141,6 +141,46 @@ function PickerPopupDemo() {
   )
 }
 
+/** Sortable table demo: sort state + sortColumns so the chevron-up-down / chevron-up / chevron-down icons show in headers. */
+function TableSortDemo() {
+  const [sortColumn, setSortColumn] = useState<string | null>(null)
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc')
+  const sortColumns = [
+    { key: 'name', label: 'Name', align: 'left' as const },
+    { key: 'status', label: 'Status', align: 'left' as const },
+    { key: 'date', label: 'Date', align: 'right' as const },
+  ]
+  const rows = [
+    { name: 'Project A', status: 'Active', date: 'Feb 10, 2025' },
+    { name: 'Project B', status: 'Completed', date: 'Feb 8, 2025' },
+    { name: 'Project C', status: 'Draft', date: 'Feb 12, 2025' },
+  ]
+  return (
+    <Table
+      headerVariant="gray"
+      striped
+      sortColumns={sortColumns}
+      sortColumn={sortColumn}
+      sortDirection={sortDirection}
+      onSort={(key, dir) => {
+        setSortColumn(key)
+        setSortDirection(dir)
+      }}
+      body={
+        <tbody>
+          {rows.map((row) => (
+            <tr key={row.name}>
+              <td>{row.name}</td>
+              <td>{row.status}</td>
+              <td className="text-right">{row.date}</td>
+            </tr>
+          ))}
+        </tbody>
+      }
+    />
+  )
+}
+
 /** Wraps a single Step in the stepper container so it matches how steps look inside Stepper (layout is driven by .stepper--horizontal .step). */
 function StepDemo() {
   return (
@@ -197,7 +237,7 @@ export const componentRegistry: ComponentRegistryEntry[] = [
   { name: 'Spinner', Component: Spinner as AnyComponent },
   { name: 'Step', Component: StepDemo as AnyComponent },
   { name: 'Stepper', Component: Stepper as AnyComponent, demoProps: { steps: [{ label: 'First', description: 'Step one' }, { label: 'Second', description: 'Step two', completed: true }, { label: 'Third', description: 'Step three' }], activeStep: 1 } },
-  { name: 'Table', Component: Table as AnyComponent },
+  { name: 'Table', Component: TableSortDemo as AnyComponent },
   { name: 'TabStrip', Component: TabStrip as AnyComponent, demoProps: { tabs: [{ id: 'tab-1', label: 'Tab 1', active: true }, { id: 'tab-2', label: 'Tab 2' }] } },
   { name: 'Textarea', Component: Textarea as AnyComponent, demoProps: { id: 'demo-ta', label: 'Description', placeholder: 'Enter text' } },
   { name: 'TimePicker', Component: TimePicker as AnyComponent },
