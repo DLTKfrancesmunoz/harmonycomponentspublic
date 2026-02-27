@@ -116,6 +116,16 @@ export function ShellLayout({
           className="shell-layout__header"
         />
 
+        {effectiveShowFloatingNav && (
+          <div className="shell-layout__floating-nav-wrap">
+            <FloatingNav
+              variant={floatingNavVariant ?? 'full'}
+              showExecute={showExecute}
+              saveDisabled={saveDisabled}
+            />
+          </div>
+        )}
+
         <LeftSidebar
           variant={leftSidebarVariant ?? 'ppm'}
           sections={leftSidebarSections}
