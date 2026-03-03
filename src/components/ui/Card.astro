@@ -1,4 +1,5 @@
 ---
+import Icon from './Icon.astro';
 /**
  * Card Component
  *
@@ -18,6 +19,9 @@ export interface Props {
   withHeader?: boolean;
   headerTitle?: string;
   headerSubtitle?: string;
+  icon1?: string;
+  icon2?: string;
+  icon3?: string;
   class?: string;
 }
 
@@ -28,8 +32,13 @@ const {
   withHeader = false,
   headerTitle = 'Card title',
   headerSubtitle = '',
+  icon1,
+  icon2,
+  icon3,
   class: className = '',
 } = Astro.props;
+
+const hasIconActions = !!(icon1 || icon2 || icon3);
 
 const classes = [
   'card',
@@ -45,14 +54,20 @@ const classes = [
   {(withHeader || Astro.slots.has('header') || Astro.slots.has('header-actions')) && (
     <div class="card__header">
       <slot name="header">
-        <div class="card__header-content">
-          {headerTitle && <h2 class="card__header-title">{headerTitle}</h2>}
-          {headerSubtitle && <p class="card__header-subtitle">{headerSubtitle}</p>}
-        </div>
+        {withHeader && (
+          <div class="card__header-content">
+            {headerTitle && <h2 class="card__header-title">{headerTitle}</h2>}
+            {headerSubtitle && <p class="card__header-subtitle">{headerSubtitle}</p>}
+          </div>
+        )}
       </slot>
-      {Astro.slots.has('header-actions') && (
+      {(Astro.slots.has('header-actions') || hasIconActions) && (
         <div class="card__header-actions">
-          <slot name="header-actions" />
+          <slot name="header-actions">
+            {icon3 && <button class="card__icon-btn" type="button" aria-label="Settings"><Icon name={icon3} size="sm" /></button>}
+            {icon2 && <button class="card__icon-btn" type="button" aria-label="More options"><Icon name={icon2} size="sm" /></button>}
+            {icon1 && <button class="card__icon-btn" type="button" aria-label="Close"><Icon name={icon1} size="sm" /></button>}
+          </slot>
         </div>
       )}
     </div>

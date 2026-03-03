@@ -14,7 +14,7 @@ export function ComponentGalleryPage() {
             <li key={name}>
               <Link
                 to={`/components/${name}`}
-                style={{ color: '#0066cc', textDecoration: 'none' }}
+                style={{ color: 'var(--link-color)', textDecoration: 'none' }}
               >
                 {name}
               </Link>

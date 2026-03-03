@@ -93,6 +93,40 @@ function CheckboxDemo() {
   )
 }
 
+/** Demo wrapper showing basic, with-header, with-icons, and single-icon Card variants */
+function CardDemo() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', maxWidth: '480px' }}>
+      <Card>
+        Basic card — no header, just a container with body content.
+      </Card>
+      <Card withHeader headerTitle="Card with Header" headerSubtitle="Optional subtitle">
+        Card body content with a header section above.
+      </Card>
+      <Card withHeader headerTitle="Card with Icons" headerSubtitle="Header icons are optional" icon1="x-mark" icon2="ellipsis-vertical" icon3="cog-6-tooth">
+        Card body content with a header and all three icon buttons.
+      </Card>
+      <Card withHeader headerTitle="Single Icon" icon1="x-mark">
+        A single icon always appears at the far right.
+      </Card>
+
+      <Card primary>
+        Primary border card — no header, just a container with body content.
+      </Card>
+      <Card primary withHeader headerTitle="Primary Border Card with Header" headerSubtitle="Optional subtitle">
+      Card body content with a header section above.
+      </Card>
+      <Card primary withHeader headerTitle="Primary Border Card with Icons" headerSubtitle="Header icons are optional" icon1="x-mark" icon2="ellipsis-vertical" icon3="cog-6-tooth">
+      Card body content with a header and all three icon buttons.
+      </Card>
+      <Card primary withHeader headerTitle="Primary Border Card with Single Icon" icon1="x-mark">
+        A single icon always appears at the far right.
+      </Card>
+
+    </div>
+  )
+}
+
 /** Demo wrapper so Dialog open/close is controlled by state; close button and onClose actually close it */
 function DialogDemo() {
   const [open, setOpen] = useState(true)
@@ -202,7 +236,7 @@ export const componentRegistry: ComponentRegistryEntry[] = [
   { name: 'Badge', Component: Badge as AnyComponent, demoProps: { variant: 'default', children: 'Badge' } },
   { name: 'Button', Component: ButtonDemo as AnyComponent },
   { name: 'ButtonGroup', Component: ButtonGroup as AnyComponent, demoProps: { children: [<Button key="1" buttonType="theme" variant="primary">Primary</Button>, <Button key="2" buttonType="theme" variant="secondary">Secondary</Button>, <Button key="3" buttonType="theme" variant="tertiary">Tertiary</Button>] } },
-  { name: 'Card', Component: Card as AnyComponent, demoProps: { withHeader: true, headerTitle: 'Card title', headerSubtitle: 'Optional subtitle', children: 'Body copy. Override by passing children or default slot content.' } },
+  { name: 'Card', Component: CardDemo as AnyComponent },
   { name: 'Checkbox', Component: CheckboxDemo as AnyComponent },
   { name: 'CheckboxGroup', Component: CheckboxGroup as AnyComponent, demoProps: { legend: 'Options', children: <><Checkbox label="Option A" /><Checkbox label="Option B" /></> } },
   { name: 'Chip', Component: Chip as AnyComponent, demoProps: { label: 'Chip' } },

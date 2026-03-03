@@ -9,9 +9,12 @@ const props = [
   { name: 'elevated', type: 'boolean', default: 'false', description: 'Adds shadow elevation' },
   { name: 'interactive', type: 'boolean', default: 'false', description: 'Adds hover effects for clickable cards' },
   { name: 'primary', type: 'boolean', default: 'false', description: 'Adds 6px top border in theme primary color' },
-  { name: 'withHeader', type: 'boolean', default: 'false', description: 'Shows card header section' },
+  { name: 'withHeader', type: 'boolean', default: 'false', description: 'Shows card header section with title/subtitle' },
   { name: 'headerTitle', type: 'string', default: "'Card title'", description: 'Card header title text' },
   { name: 'headerSubtitle', type: 'string', default: "''", description: 'Card header subtitle text' },
+  { name: 'icon1', type: 'string', default: 'undefined', description: 'Rightmost header icon name (e.g. "x-mark"). Omit to hide.' },
+  { name: 'icon2', type: 'string', default: 'undefined', description: 'Middle header icon name (e.g. "ellipsis-vertical"). Omit to hide.' },
+  { name: 'icon3', type: 'string', default: 'undefined', description: 'Leftmost header icon name (e.g. "cog-6-tooth"). Omit to hide.' },
 ];
 ---
 
@@ -52,6 +55,20 @@ const props = [
             <p class="text-sm text-secondary">
               Card body content goes here. You can add any content you need.
             </p>
+          </Card>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Card with Header Icons" description="Up to three icon buttons in the header, right-aligned. Pass any icon name; omit to hide that position.">
+        <div class="space-y-4 max-w-md">
+          <Card withHeader headerTitle="All Three Icons" icon1="x-mark" icon2="ellipsis-vertical" icon3="cog-6-tooth">
+            <p class="text-sm text-secondary">Card with close, menu, and settings icons.</p>
+          </Card>
+          <Card withHeader headerTitle="Close Only" icon1="x-mark">
+            <p class="text-sm text-secondary">A single icon always appears at the far right.</p>
+          </Card>
+          <Card withHeader headerTitle="With Subtitle" headerSubtitle="Optional description" icon1="x-mark" icon2="ellipsis-vertical" icon3="cog-6-tooth">
+            <p class="text-sm text-secondary">Icons also work alongside a header subtitle.</p>
           </Card>
         </div>
       </ExampleSection>

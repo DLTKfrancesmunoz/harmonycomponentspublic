@@ -14,7 +14,7 @@ export function ComponentDemoPage() {
     return (
       <div style={{ padding: '2rem', maxWidth: '48rem', margin: '0 auto' }}>
         <p>Component not found: {componentName}</p>
-        <Link to="/components" style={{ color: '#0066cc' }}>
+        <Link to="/components" style={{ color: 'var(--link-color)' }}>
           Back to component gallery
         </Link>
       </div>
@@ -37,7 +37,7 @@ export function ComponentDemoPage() {
         <div style={{ padding: '0.5rem 1rem', flexShrink: 0 }}>
           <Link
             to="/components"
-            style={{ color: '#0066cc', textDecoration: 'none' }}
+            style={{ color: 'var(--link-color)', textDecoration: 'none' }}
           >
             ← Back to gallery
           </Link>
@@ -59,7 +59,7 @@ export function ComponentDemoPage() {
     <div style={{ padding: '2rem', maxWidth: '56rem', margin: '0 auto' }}>
       <Link
         to="/components"
-        style={{ color: '#0066cc', textDecoration: 'none', display: 'inline-block', marginBottom: '1rem' }}
+        style={{ color: 'var(--link-color)', textDecoration: 'none', display: 'inline-block', marginBottom: '1rem' }}
       >
         ← Back to gallery
       </Link>
@@ -67,9 +67,9 @@ export function ComponentDemoPage() {
       <div
         style={{
           padding: '1.5rem',
-          border: '1px solid #e0e0e0',
+          border: '1px solid var(--border-color)',
           borderRadius: '4px',
-          backgroundColor: '#fafafa',
+          backgroundColor: 'var(--card-bg)',
         }}
       >
         {name === 'ShellPanel' ? (
