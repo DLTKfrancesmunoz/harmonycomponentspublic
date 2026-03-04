@@ -204,6 +204,7 @@ const projectBodyShort = (
 )
 
 const periodOptions = [
+  { value: 'all', label: 'All periods' },
   { value: 'q1-2025', label: 'Q1 2025' },
   { value: 'q2-2025', label: 'Q2 2025' },
   { value: 'q3-2025', label: 'Q3 2025' },
@@ -224,10 +225,21 @@ const overflowWrap = { overflowX: 'auto' as const }
 function TableDemo() {
   const [sortColumn, setSortColumn] = useState<string | null>(null)
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc')
-  const [period, setPeriod] = useState('q1-2025')
-  const [status, setStatus] = useState('active')
-  const [showPeriodChip, setShowPeriodChip] = useState(true)
-  const [showStatusChip, setShowStatusChip] = useState(true)
+  const [period, setPeriod] = useState('all')
+  const [status, setStatus] = useState('all')
+  const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set())
+
+  const interactiveRowIds = ['1', '2', '3'] as const
+  const toggleRow = (id: string) => {
+    setSelectedRows((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+  const selectAll = () => setSelectedRows(new Set(interactiveRowIds))
+  const clearAll = () => setSelectedRows(new Set())
 
   const sortColumns = [
     { key: 'id', label: 'Project ID', align: 'left' as const },
@@ -246,11 +258,10 @@ function TableDemo() {
     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', flexWrap: 'wrap' }}>
       <Dropdown options={periodOptions} value={period} placeholder="Period" onChange={(v) => setPeriod(v)} />
       <Dropdown options={statusOptions} value={status} placeholder="Status" onChange={(v) => setStatus(v)} />
-      <Button buttonType="theme" variant="ghost" size="sm" onClick={() => { setPeriod('q1-2025'); setStatus('all'); setShowPeriodChip(true); setShowStatusChip(true) }}>Clear</Button>
-      <span style={{ color: 'var(--text-secondary)', fontSize: 'var(--text-sm)' }}>Active:</span>
+      <Button buttonType="theme" variant="ghost" size="sm" onClick={() => { setPeriod('all'); setStatus('all') }}>Clear</Button>
       <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', flexWrap: 'wrap' }}>
-        {showPeriodChip && <Chip label={periodOptions.find((o) => o.value === period)?.label ?? period} removable onRemove={() => setShowPeriodChip(false)} />}
-        {showStatusChip && status !== 'all' && <Chip label={statusOptions.find((o) => o.value === status)?.label ?? status} removable onRemove={() => setShowStatusChip(false)} />}
+        {period !== 'all' && <Chip label={periodOptions.find((o) => o.value === period)?.label ?? period} removable onRemove={() => setPeriod('all')} />}
+        {status !== 'all' && <Chip label={statusOptions.find((o) => o.value === status)?.label ?? status} removable onRemove={() => setStatus('all')} />}
       </div>
     </div>
   )
@@ -306,14 +317,25 @@ function TableDemo() {
       {/* 2. Table with Actions */}
       <div style={sectionGap}>
         <h2 style={sectionTitleStyle}>Table with Actions</h2>
-        <div style={sectionDescStyle}>Interactive table with row actions and selection. Selected rows are highlighted in blue.</div>
+        <div style={sectionDescStyle}>The header checkbox selects or deselects all rows. Selected rows are highlighted in blue.</div>
         <div style={overflowWrap}>
           <Table
             headerVariant="gray"
             header={
               <thead>
                 <tr>
-                  <th style={{ width: 40 }}><Checkbox name="select-all" aria-label="Select all rows" /></th>
+                  <th style={{ width: 40 }}>
+                    <Checkbox
+                      name="select-all"
+                      aria-label="Select all rows"
+                      checked={selectedRows.size === interactiveRowIds.length}
+                      onChange={() =>
+                        selectedRows.size === interactiveRowIds.length
+                          ? clearAll()
+                          : selectAll()
+                      }
+                    />
+                  </th>
                   <th className="text-left" scope="col">Employee</th>
                   <th className="text-left" scope="col">Department</th>
                   <th className="text-left" scope="col">Role</th>
@@ -323,8 +345,8 @@ function TableDemo() {
             }
             body={
               <tbody>
-                <tr>
-                  <td><Checkbox name="select-1" aria-label="Select row for John Doe" /></td>
+                <tr className={selectedRows.has('1') ? 'table-row--selected' : undefined}>
+                  <td><Checkbox name="select-1" aria-label="Select row for John Doe" checked={selectedRows.has('1')} onChange={() => toggleRow('1')} /></td>
                   <td>{avatarCell('JD', 'John Doe', 'john.doe@company.com')}</td>
                   <td>Engineering</td>
                   <td>Senior Developer</td>
@@ -332,8 +354,8 @@ function TableDemo() {
                     <button type="button" className="icon-btn"><Icon name="ellipsis-vertical" size="md" className="icon-btn__icon" /></button>
                   </td>
                 </tr>
-                <tr>
-                  <td><Checkbox name="select-2" aria-label="Select row for Jane Smith" /></td>
+                <tr className={selectedRows.has('2') ? 'table-row--selected' : undefined}>
+                  <td><Checkbox name="select-2" aria-label="Select row for Jane Smith" checked={selectedRows.has('2')} onChange={() => toggleRow('2')} /></td>
                   <td>{avatarCell('JS', 'Jane Smith', 'jane.smith@company.com')}</td>
                   <td>Design</td>
                   <td>UX Lead</td>
@@ -341,8 +363,8 @@ function TableDemo() {
                     <button type="button" className="icon-btn"><Icon name="ellipsis-vertical" size="md" className="icon-btn__icon" /></button>
                   </td>
                 </tr>
-                <tr>
-                  <td><Checkbox name="select-3" aria-label="Select row for Mike Johnson" /></td>
+                <tr className={selectedRows.has('3') ? 'table-row--selected' : undefined}>
+                  <td><Checkbox name="select-3" aria-label="Select row for Mike Johnson" checked={selectedRows.has('3')} onChange={() => toggleRow('3')} /></td>
                   <td>{avatarCell('MJ', 'Mike Johnson', 'mike.j@company.com')}</td>
                   <td>Marketing</td>
                   <td>Manager</td>
@@ -434,7 +456,7 @@ function TableDemo() {
       {/* 6. Table with Filter Bar */}
       <div style={sectionGap}>
         <h2 style={sectionTitleStyle}>Table with Filter Bar</h2>
-        <div style={sectionDescStyle}>Filter bar with dropdowns, active filter chips, and Clear button.</div>
+        <div style={sectionDescStyle}>Filter bar with dropdowns, filter chips, and Clear button. All periods and All Statuses are defaults; chips appear only when filters are applied.</div>
         <div style={overflowWrap}>
           <Table headerVariant="gray" filterBar={filterBar} header={projectHeader} body={
             <tbody>

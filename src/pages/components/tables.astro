@@ -117,7 +117,7 @@ const props = [
     <section class="space-y-6">
       <h2 class="section__title">Table with Actions</h2>
       
-      <ExampleSection title="Interactive Table" description="Table with row actions and selection. Selected rows are highlighted in blue.">
+      <ExampleSection title="Interactive Table" description="The header checkbox selects or deselects all rows. Selected rows are highlighted in blue.">
         <div class="overflow-x-auto">
           <Table headerVariant="gray">
             <Fragment slot="header">
@@ -498,12 +498,13 @@ const props = [
     <section class="space-y-6">
       <h2 class="section__title">Table with Filter Bar</h2>
 
-      <ExampleSection title="Table with Filter Bar" description="Table with a filter bar above it for narrowing datasets by period, project, category, or other dimensions. Use Dropdowns for filter controls, Chips for active filters, and a Clear button to reset all filters.">
+      <ExampleSection title="Table with Filter Bar" description="Table with a filter bar above it for narrowing datasets by period, project, category, or other dimensions. Use Dropdowns for filter controls, Chips for active filters, and a Clear button. All periods and All Statuses are defaults; chips appear only when filters are applied.">
         <div class="overflow-x-auto">
           <Table headerVariant="gray">
             <div slot="filter-bar" style="display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap;">
               <Dropdown
                 options={[
+                  { value: 'all', label: 'All periods' },
                   { value: 'q1-2025', label: 'Q1 2025' },
                   { value: 'q2-2025', label: 'Q2 2025' },
                   { value: 'q3-2025', label: 'Q3 2025' },
@@ -524,7 +525,6 @@ const props = [
               <Button variant="ghost" size="sm">
                 Clear
               </Button>
-              <span style="color: var(--text-secondary); font-size: var(--text-sm);">Active:</span>
               <div style="display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap;">
                 <Chip label="Q1 2025" removable />
                 <Chip label="Active" removable />
@@ -605,36 +605,3 @@ const props = [
     </section>
   </article>
 </DocsLayout>
-
-<script>
-  // Handle row selection highlighting for browsers without :has() support
-  document.addEventListener('DOMContentLoaded', () => {
-    const tables = document.querySelectorAll('.table');
-    
-    tables.forEach(table => {
-      const checkboxes = table.querySelectorAll('.checkbox__input');
-      
-      // Initialize selected state for pre-checked checkboxes
-      checkboxes.forEach(checkbox => {
-        const row = checkbox.closest('tr');
-        if (row && checkbox.checked) {
-          row.classList.add('table-row--selected');
-        }
-      });
-      
-      // Handle checkbox changes
-      checkboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', () => {
-          const row = checkbox.closest('tr');
-          if (row) {
-            if (checkbox.checked) {
-              row.classList.add('table-row--selected');
-            } else {
-              row.classList.remove('table-row--selected');
-            }
-          }
-        });
-      });
-    });
-  });
-</script>
