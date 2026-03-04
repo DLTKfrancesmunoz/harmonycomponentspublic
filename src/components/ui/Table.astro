@@ -39,6 +39,7 @@ const classes = [
   className,
 ].filter(Boolean).join(' ');
 
+const hasFilterBar = Astro.slots.has('filter-bar');
 const hasTitleBar = Astro.slots.has('title-bar-content') || Astro.slots.has('title-bar-icons');
 const hasActionBar = Astro.slots.has('action-bar');
 const hasHeaderSlot = Astro.slots.has('header');
@@ -60,6 +61,13 @@ function getSortLabel(key: string, label: string): string {
 ---
 
 <div class="table-wrapper">
+  <!-- Optional Filter Bar -->
+  {hasFilterBar && (
+    <div class="table__filter-bar">
+      <slot name="filter-bar" />
+    </div>
+  )}
+
   <!-- Optional Title Bar -->
   {hasTitleBar && (
     <div class="table__title-bar">

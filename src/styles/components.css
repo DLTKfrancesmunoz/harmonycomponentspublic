@@ -5991,6 +5991,8 @@ html.theme-maconomy.dark .left-sidebar__variant--maconomy {
   border-right: 1px solid var(--border-color);
   border-bottom: 1px solid var(--border-color);
   background-color: var(--surface-bg);
+}
+.table-wrapper:has(.table__title-bar):not(:has(.table__filter-bar)) .table__title-bar {
   border-top-left-radius: var(--radius-12);
   border-top-right-radius: var(--radius-12);
   font-family: var(--font-display);
@@ -6034,6 +6036,23 @@ html.theme-maconomy.dark .left-sidebar__variant--maconomy {
   outline-offset: var(--space-0-5);
 }
 
+/* 14b. Table Filter Bar */
+.table__filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--border-color);
+  border-left: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--table-header-gray-bg);
+  border-top-left-radius: var(--radius-12);
+  border-top-right-radius: var(--radius-12);
+}
+
 /* 15. Table Action Bar */
 .table__action-bar {
   display: flex;
@@ -6047,8 +6066,8 @@ html.theme-maconomy.dark .left-sidebar__variant--maconomy {
   gap: var(--space-4);
 }
 
-/* When action bar is first (no title bar), it needs top rounded corners */
-.table-wrapper:has(.table__action-bar):not(:has(.table__title-bar)) .table__action-bar {
+/* When action bar is first (no title bar, no filter bar), it needs top rounded corners */
+.table-wrapper:has(.table__action-bar):not(:has(.table__title-bar)):not(:has(.table__filter-bar)) .table__action-bar {
   border-top: 1px solid var(--border-color);
   border-top-left-radius: var(--radius-12);
   border-top-right-radius: var(--radius-12);
@@ -6068,44 +6087,53 @@ html.theme-maconomy.dark .left-sidebar__variant--maconomy {
   flex-shrink: 0;
 }
 
-/* 16. Adjust table border radius when title bar or action bar is present */
-/* When title bar is present, it has top rounded corners */
+/* 16. Adjust table border radius when filter bar, title bar, or action bar is present */
+/* When filter bar is present */
+.table-wrapper:has(.table__filter-bar) .table {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.table-wrapper:has(.table__filter-bar) .table thead tr:first-child th:first-child {
+  border-top-left-radius: 0;
+  border-top: none;
+}
+.table-wrapper:has(.table__filter-bar) .table thead tr:first-child th:last-child {
+  border-top-right-radius: 0;
+  border-top: none;
+}
+.table-wrapper:has(.table__filter-bar) .table thead tr:first-child th {
+  border-top: none;
+}
+/* When title bar is present (and no filter bar above it) */
 .table-wrapper:has(.table__title-bar) .table {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
-
 .table-wrapper:has(.table__title-bar) .table thead tr:first-child th:first-child {
   border-top-left-radius: 0;
   border-top: none;
 }
-
 .table-wrapper:has(.table__title-bar) .table thead tr:first-child th:last-child {
   border-top-right-radius: 0;
   border-top: none;
 }
-
 .table-wrapper:has(.table__title-bar) .table thead tr:first-child th {
   border-top: none;
 }
-
-/* When only action bar is present (no title bar), action bar has top rounded corners */
-.table-wrapper:has(.table__action-bar):not(:has(.table__title-bar)) .table {
+/* When only action bar is present (no title bar, no filter bar) */
+.table-wrapper:has(.table__action-bar):not(:has(.table__title-bar)):not(:has(.table__filter-bar)) .table {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
-
-.table-wrapper:has(.table__action-bar):not(:has(.table__title-bar)) .table thead tr:first-child th:first-child {
+.table-wrapper:has(.table__action-bar):not(:has(.table__title-bar)):not(:has(.table__filter-bar)) .table thead tr:first-child th:first-child {
   border-top-left-radius: 0;
   border-top: none;
 }
-
-.table-wrapper:has(.table__action-bar):not(:has(.table__title-bar)) .table thead tr:first-child th:last-child {
+.table-wrapper:has(.table__action-bar):not(:has(.table__title-bar)):not(:has(.table__filter-bar)) .table thead tr:first-child th:last-child {
   border-top-right-radius: 0;
   border-top: none;
 }
-
-.table-wrapper:has(.table__action-bar):not(:has(.table__title-bar)) .table thead tr:first-child th {
+.table-wrapper:has(.table__action-bar):not(:has(.table__title-bar)):not(:has(.table__filter-bar)) .table thead tr:first-child th {
   border-top: none;
 }
 

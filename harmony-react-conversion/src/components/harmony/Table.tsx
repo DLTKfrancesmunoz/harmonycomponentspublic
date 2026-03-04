@@ -13,6 +13,7 @@ export interface TableProps {
   headerVariant?: 'gray' | 'white' | 'none'
   striped?: boolean
   className?: string
+  filterBar?: ReactNode
   titleBarContent?: ReactNode
   titleBarIcons?: ReactNode
   actionBar?: ReactNode
@@ -28,6 +29,7 @@ export function Table({
   headerVariant = 'gray',
   striped = false,
   className = '',
+  filterBar,
   titleBarContent,
   titleBarIcons,
   actionBar,
@@ -38,6 +40,7 @@ export function Table({
   sortDirection = null,
   onSort,
 }: TableProps): React.ReactElement {
+  const hasFilterBar = filterBar != null
   const hasTitleBar = titleBarContent != null || titleBarIcons != null
   const hasActionBar = actionBar != null
   const useSortHeader = sortColumns != null && sortColumns.length > 0
@@ -109,6 +112,7 @@ export function Table({
 
   return (
     <div className="table-wrapper">
+      {hasFilterBar && <div className="table__filter-bar">{filterBar}</div>}
       {hasTitleBar && (
         <div className="table__title-bar">
           <div className="table__title-bar-content">

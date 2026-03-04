@@ -159,7 +159,7 @@ Generated from Harmony component and shell doc pages. Do not edit by hand; run `
             
 - Use zebra striping for tables with many rows
             
-- Provide sorting and filtering for large data sets
+- Provide sorting and filtering for large data sets; use the filter bar variant with dropdowns, active filter chips, and a Clear button for narrowing by period, project, or category
           
 
         

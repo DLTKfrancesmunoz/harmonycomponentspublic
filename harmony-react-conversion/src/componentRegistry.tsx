@@ -175,43 +175,277 @@ function PickerPopupDemo() {
   )
 }
 
-/** Sortable table demo: sort state + sortColumns so the chevron-up-down / chevron-up / chevron-down icons show in headers. */
-function TableSortDemo() {
+/* Shared table data for TableDemo variants */
+const projectHeader = (
+  <thead>
+    <tr>
+      <th className="text-left" scope="col">Project ID</th>
+      <th className="text-left" scope="col">Name</th>
+      <th className="text-left" scope="col">Status</th>
+      <th className="text-right" scope="col">Budget</th>
+    </tr>
+  </thead>
+)
+
+const projectBodyGray = (
+  <tbody>
+    <tr><td>PRJ-001</td><td>Website Redesign</td><td><Badge variant="success">Active</Badge></td><td className="text-right">$25,000</td></tr>
+    <tr><td>PRJ-002</td><td>Mobile App Development</td><td><Badge variant="warning">In Progress</Badge></td><td className="text-right">$150,000</td></tr>
+    <tr><td>PRJ-003</td><td>Database Migration</td><td><Badge variant="default">Pending</Badge></td><td className="text-right">$45,000</td></tr>
+    <tr><td>PRJ-004</td><td>Security Audit</td><td><Badge variant="info">Review</Badge></td><td className="text-right">$12,500</td></tr>
+  </tbody>
+)
+
+const projectBodyShort = (
+  <tbody>
+    <tr><td>PRJ-001</td><td>Website Redesign</td><td><Badge variant="success">Active</Badge></td><td className="text-right">$25,000</td></tr>
+    <tr><td>PRJ-002</td><td>Mobile App Development</td><td><Badge variant="warning">In Progress</Badge></td><td className="text-right">$150,000</td></tr>
+  </tbody>
+)
+
+const periodOptions = [
+  { value: 'q1-2025', label: 'Q1 2025' },
+  { value: 'q2-2025', label: 'Q2 2025' },
+  { value: 'q3-2025', label: 'Q3 2025' },
+]
+const statusOptions = [
+  { value: 'all', label: 'All Statuses' },
+  { value: 'active', label: 'Active' },
+  { value: 'in-progress', label: 'In Progress' },
+  { value: 'pending', label: 'Pending' },
+]
+
+const sectionTitleStyle: React.CSSProperties = { fontSize: '1rem', fontWeight: 600, marginBottom: '0.5rem' }
+const sectionDescStyle: React.CSSProperties = { fontSize: '0.875rem', color: '#666', marginBottom: '0.75rem' }
+const sectionGap = { marginBottom: '2rem' }
+const overflowWrap = { overflowX: 'auto' as const }
+
+/** All table variants on one page, matching Astro tables docs. */
+function TableDemo() {
   const [sortColumn, setSortColumn] = useState<string | null>(null)
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc')
+  const [period, setPeriod] = useState('q1-2025')
+  const [status, setStatus] = useState('active')
+  const [showPeriodChip, setShowPeriodChip] = useState(true)
+  const [showStatusChip, setShowStatusChip] = useState(true)
+
   const sortColumns = [
+    { key: 'id', label: 'Project ID', align: 'left' as const },
     { key: 'name', label: 'Name', align: 'left' as const },
     { key: 'status', label: 'Status', align: 'left' as const },
-    { key: 'date', label: 'Date', align: 'right' as const },
+    { key: 'budget', label: 'Budget', align: 'right' as const },
   ]
-  const rows = [
-    { name: 'Project A', status: 'Active', date: 'Feb 10, 2025' },
-    { name: 'Project B', status: 'Completed', date: 'Feb 8, 2025' },
-    { name: 'Project C', status: 'Draft', date: 'Feb 12, 2025' },
+  const sortRows = [
+    { id: 'PRJ-001', name: 'Website Redesign', status: 'Active', budget: '$25,000' },
+    { id: 'PRJ-002', name: 'Mobile App Development', status: 'In Progress', budget: '$150,000' },
+    { id: 'PRJ-003', name: 'Database Migration', status: 'Pending', budget: '$45,000' },
+    { id: 'PRJ-004', name: 'Security Audit', status: 'Review', budget: '$12,500' },
   ]
+
+  const filterBar = (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', flexWrap: 'wrap' }}>
+      <Dropdown options={periodOptions} value={period} placeholder="Period" onChange={(v) => setPeriod(v)} />
+      <Dropdown options={statusOptions} value={status} placeholder="Status" onChange={(v) => setStatus(v)} />
+      <Button buttonType="theme" variant="ghost" size="sm" onClick={() => { setPeriod('q1-2025'); setStatus('all'); setShowPeriodChip(true); setShowStatusChip(true) }}>Clear</Button>
+      <span style={{ color: 'var(--text-secondary)', fontSize: 'var(--text-sm)' }}>Active:</span>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', flexWrap: 'wrap' }}>
+        {showPeriodChip && <Chip label={periodOptions.find((o) => o.value === period)?.label ?? period} removable onRemove={() => setShowPeriodChip(false)} />}
+        {showStatusChip && status !== 'all' && <Chip label={statusOptions.find((o) => o.value === status)?.label ?? status} removable onRemove={() => setShowStatusChip(false)} />}
+      </div>
+    </div>
+  )
+
+  const titleBarIcons = (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+      <button type="button" className="table__title-bar-icon" aria-label="Help"><Icon name="question-mark-circle" size="sm" /></button>
+      <button type="button" className="table__title-bar-icon" aria-label="Minimize"><Icon name="minimize" size="sm" /></button>
+      <button type="button" className="table__title-bar-icon" aria-label="Window"><Icon name="window" size="sm" /></button>
+      <button type="button" className="table__title-bar-icon" aria-label="Close"><Icon name="x-mark" size="sm" /></button>
+    </div>
+  )
+
+  const actionBar = (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', flexWrap: 'wrap' }}>
+      <Button buttonType="theme" variant="ghost" size="sm" icon="document-duplicate" iconPosition="right">Copy</Button>
+      <Button buttonType="theme" variant="ghost" size="sm" icon="plus" iconPosition="right">Add</Button>
+      <Button buttonType="theme" variant="ghost" size="sm" icon="trash">Delete</Button>
+      <span style={{ color: 'var(--text-secondary)', fontSize: 'var(--text-sm)', padding: '0 var(--space-1)' }}>|</span>
+      <Button buttonType="theme" variant="ghost" size="sm" icon="queue-list">Group</Button>
+      <Button buttonType="theme" variant="ghost" size="sm" icon="cog-6-tooth">Customize Columns</Button>
+      <span style={{ fontFamily: 'var(--font-sans)', fontSize: 'var(--text-sm)', fontWeight: 400, color: 'var(--text-primary)', padding: 'var(--space-1) var(--space-2)' }}>All Filters</span>
+    </div>
+  )
+
+  const avatarCell = (initials: string, name: string, email: string) => (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
+      <div style={{ width: 32, height: 32, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'var(--theme-primary)' }}>
+        <span style={{ fontSize: 'var(--text-xs)', fontWeight: 500, color: 'var(--text-inverse)' }}>{initials}</span>
+      </div>
+      <div>
+        <div style={{ fontWeight: 500, color: 'var(--text-primary)' }}>{name}</div>
+        <div style={{ fontSize: 'var(--text-xs)', color: 'var(--text-muted)' }}>{email}</div>
+      </div>
+    </div>
+  )
+
   return (
-    <Table
-      headerVariant="gray"
-      striped
-      sortColumns={sortColumns}
-      sortColumn={sortColumn}
-      sortDirection={sortDirection}
-      onSort={(key, dir) => {
-        setSortColumn(key)
-        setSortDirection(dir)
-      }}
-      body={
-        <tbody>
-          {rows.map((row) => (
-            <tr key={row.name}>
-              <td>{row.name}</td>
-              <td>{row.status}</td>
-              <td className="text-right">{row.date}</td>
-            </tr>
-          ))}
-        </tbody>
-      }
-    />
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-12)' }}>
+      {/* 1. Basic Table */}
+      <div style={sectionGap}>
+        <h2 style={sectionTitleStyle}>Basic Table</h2>
+        <div style={{ ...sectionDescStyle, marginBottom: '1rem' }}>Default Table with Gray Header</div>
+        <div style={overflowWrap}>
+          <Table headerVariant="gray" header={projectHeader} body={projectBodyGray} />
+        </div>
+        <div style={{ ...sectionDescStyle, marginTop: '1.5rem', marginBottom: '1rem' }}>Table with White Header</div>
+        <div style={overflowWrap}>
+          <Table headerVariant="white" header={projectHeader} body={projectBodyShort} />
+        </div>
+      </div>
+
+      {/* 2. Table with Actions */}
+      <div style={sectionGap}>
+        <h2 style={sectionTitleStyle}>Table with Actions</h2>
+        <div style={sectionDescStyle}>Interactive table with row actions and selection. Selected rows are highlighted in blue.</div>
+        <div style={overflowWrap}>
+          <Table
+            headerVariant="gray"
+            header={
+              <thead>
+                <tr>
+                  <th style={{ width: 40 }}><Checkbox name="select-all" aria-label="Select all rows" /></th>
+                  <th className="text-left" scope="col">Employee</th>
+                  <th className="text-left" scope="col">Department</th>
+                  <th className="text-left" scope="col">Role</th>
+                  <th className="text-right" scope="col">Actions</th>
+                </tr>
+              </thead>
+            }
+            body={
+              <tbody>
+                <tr>
+                  <td><Checkbox name="select-1" aria-label="Select row for John Doe" /></td>
+                  <td>{avatarCell('JD', 'John Doe', 'john.doe@company.com')}</td>
+                  <td>Engineering</td>
+                  <td>Senior Developer</td>
+                  <td className="table-cell--actions">
+                    <button type="button" className="icon-btn"><Icon name="ellipsis-vertical" size="md" className="icon-btn__icon" /></button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><Checkbox name="select-2" aria-label="Select row for Jane Smith" /></td>
+                  <td>{avatarCell('JS', 'Jane Smith', 'jane.smith@company.com')}</td>
+                  <td>Design</td>
+                  <td>UX Lead</td>
+                  <td className="table-cell--actions">
+                    <button type="button" className="icon-btn"><Icon name="ellipsis-vertical" size="md" className="icon-btn__icon" /></button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><Checkbox name="select-3" aria-label="Select row for Mike Johnson" /></td>
+                  <td>{avatarCell('MJ', 'Mike Johnson', 'mike.j@company.com')}</td>
+                  <td>Marketing</td>
+                  <td>Manager</td>
+                  <td className="table-cell--actions">
+                    <button type="button" className="icon-btn"><Icon name="ellipsis-vertical" size="md" className="icon-btn__icon" /></button>
+                  </td>
+                </tr>
+              </tbody>
+            }
+          />
+        </div>
+      </div>
+
+      {/* 3. Striped Table */}
+      <div style={sectionGap}>
+        <h2 style={sectionTitleStyle}>Striped Table</h2>
+        <div style={sectionDescStyle}>Alternating row background colors. Total row uses blue highlight.</div>
+        <div style={overflowWrap}>
+          <Table
+            headerVariant="gray"
+            striped
+            header={
+              <thead>
+                <tr>
+                  <th className="text-left" scope="col">Code</th>
+                  <th className="text-left" scope="col">Description</th>
+                  <th className="text-right" scope="col">Amount</th>
+                </tr>
+              </thead>
+            }
+            body={
+              <tbody>
+                <tr><td className="font-mono">ACC-1001</td><td>Operating Expenses</td><td className="text-right">$12,450.00</td></tr>
+                <tr><td className="font-mono">ACC-1002</td><td>Equipment Purchase</td><td className="text-right">$8,750.00</td></tr>
+                <tr><td className="font-mono">ACC-1003</td><td>Travel & Entertainment</td><td className="text-right">$3,200.00</td></tr>
+                <tr><td className="font-mono">ACC-1004</td><td>Software Licenses</td><td className="text-right">$15,600.00</td></tr>
+                <tr className="table-row--total" style={{ fontWeight: 600 }}><td colSpan={2}>Total</td><td className="text-right">$40,000.00</td></tr>
+              </tbody>
+            }
+          />
+        </div>
+      </div>
+
+      {/* 4. Sortable column headers */}
+      <div style={sectionGap}>
+        <h2 style={sectionTitleStyle}>Sortable column headers</h2>
+        <div style={sectionDescStyle}>Column headers can be sortable with icons indicating sort order.</div>
+        <div style={overflowWrap}>
+          <Table
+            headerVariant="gray"
+            striped
+            sortColumns={sortColumns}
+            sortColumn={sortColumn}
+            sortDirection={sortDirection}
+            onSort={(key, dir) => { setSortColumn(key); setSortDirection(dir) }}
+            body={
+              <tbody>
+                {sortRows.map((row) => (
+                  <tr key={row.id}>
+                    <td>{row.id}</td>
+                    <td>{row.name}</td>
+                    <td><Badge variant={row.status === 'Active' ? 'success' : row.status === 'In Progress' ? 'warning' : row.status === 'Pending' ? 'default' : 'info'}>{row.status}</Badge></td>
+                    <td className="text-right">{row.budget}</td>
+                  </tr>
+                ))}
+              </tbody>
+            }
+          />
+        </div>
+      </div>
+
+      {/* 5. Title Bar and Action Bar */}
+      <div style={sectionGap}>
+        <h2 style={sectionTitleStyle}>Table with Title Bar and Action Bar</h2>
+        <div style={{ ...sectionDescStyle, marginBottom: '1rem' }}>Table with Title Bar</div>
+        <div style={overflowWrap}>
+          <Table headerVariant="gray" titleBarContent={<h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--text-13)', fontWeight: 600, lineHeight: 'var(--leading-snug)', color: 'var(--text-primary)', margin: 0 }}>Table Title</h1>} titleBarIcons={titleBarIcons} header={projectHeader} body={projectBodyShort} />
+        </div>
+        <div style={{ ...sectionDescStyle, marginTop: '1.5rem', marginBottom: '1rem' }}>Table with Action Bar</div>
+        <div style={overflowWrap}>
+          <Table headerVariant="gray" actionBar={actionBar} header={projectHeader} body={projectBodyShort} />
+        </div>
+        <div style={{ ...sectionDescStyle, marginTop: '1.5rem', marginBottom: '1rem' }}>Table with Title Bar and Action Bar</div>
+        <div style={overflowWrap}>
+          <Table headerVariant="gray" titleBarContent={<h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--text-13)', fontWeight: 600, lineHeight: 'var(--leading-snug)', color: 'var(--text-primary)', margin: 0 }}>Table Title</h1>} titleBarIcons={titleBarIcons} actionBar={actionBar} header={projectHeader} body={projectBodyShort} />
+        </div>
+      </div>
+
+      {/* 6. Table with Filter Bar */}
+      <div style={sectionGap}>
+        <h2 style={sectionTitleStyle}>Table with Filter Bar</h2>
+        <div style={sectionDescStyle}>Filter bar with dropdowns, active filter chips, and Clear button.</div>
+        <div style={overflowWrap}>
+          <Table headerVariant="gray" filterBar={filterBar} header={projectHeader} body={
+            <tbody>
+              <tr><td>PRJ-001</td><td>Website Redesign</td><td>Active</td><td className="text-right">$25,000</td></tr>
+              <tr><td>PRJ-002</td><td>Mobile App Development</td><td>In Progress</td><td className="text-right">$150,000</td></tr>
+              <tr><td>PRJ-003</td><td>Database Migration</td><td>Pending</td><td className="text-right">$45,000</td></tr>
+            </tbody>
+          } />
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -271,7 +505,7 @@ export const componentRegistry: ComponentRegistryEntry[] = [
   { name: 'Spinner', Component: Spinner as AnyComponent },
   { name: 'Step', Component: StepDemo as AnyComponent },
   { name: 'Stepper', Component: Stepper as AnyComponent, demoProps: { steps: [{ label: 'First', description: 'Step one' }, { label: 'Second', description: 'Step two', completed: true }, { label: 'Third', description: 'Step three' }], activeStep: 1 } },
-  { name: 'Table', Component: TableSortDemo as AnyComponent },
+  { name: 'Table', Component: TableDemo as AnyComponent },
   { name: 'TabStrip', Component: TabStrip as AnyComponent, demoProps: { tabs: [{ id: 'tab-1', label: 'Tab 1', active: true }, { id: 'tab-2', label: 'Tab 2' }] } },
   { name: 'Textarea', Component: Textarea as AnyComponent, demoProps: { id: 'demo-ta', label: 'Description', placeholder: 'Enter text' } },
   { name: 'TimePicker', Component: TimePicker as AnyComponent },

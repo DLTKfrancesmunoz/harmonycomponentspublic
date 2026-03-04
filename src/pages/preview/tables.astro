@@ -4,6 +4,9 @@ import Table from '../../components/ui/Table.astro';
 import Badge from '../../components/ui/Badge.astro';
 import Checkbox from '../../components/ui/Checkbox.astro';
 import Icon from '../../components/ui/Icon.astro';
+import Dropdown from '../../components/ui/Dropdown.astro';
+import Button from '../../components/ui/Button.astro';
+import Chip from '../../components/ui/Chip.astro';
 ---
 
 <!DOCTYPE html>
@@ -191,6 +194,78 @@ import Icon from '../../components/ui/Icon.astro';
                   <Icon name="ellipsis-vertical" size="md" class="icon-btn__icon" />
                 </button>
               </td>
+            </tr>
+          </Fragment>
+        </Table>
+      </div>
+    </div>
+
+    <!-- Table with Filter Bar -->
+    <div>
+      <h2 style="margin-bottom: 16px; font-size: 18px; font-weight: 600;">Table with Filter Bar</h2>
+      <div class="overflow-x-auto">
+        <Table headerVariant="gray">
+          <div slot="filter-bar" style="display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap;">
+            <Dropdown
+              options={[
+                { value: 'q1-2025', label: 'Q1 2025' },
+                { value: 'q2-2025', label: 'Q2 2025' },
+                { value: 'q3-2025', label: 'Q3 2025' },
+              ]}
+              value="q1-2025"
+              placeholder="Period"
+            />
+            <Dropdown
+              options={[
+                { value: 'all', label: 'All Statuses' },
+                { value: 'active', label: 'Active' },
+                { value: 'in-progress', label: 'In Progress' },
+                { value: 'pending', label: 'Pending' },
+              ]}
+              value="active"
+              placeholder="Status"
+            />
+            <Button variant="ghost" size="sm">
+              Clear
+            </Button>
+            <span style="color: var(--text-secondary); font-size: var(--text-sm);">Active:</span>
+            <div style="display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap;">
+              <Chip label="Q1 2025" removable />
+              <Chip label="Active" removable />
+            </div>
+          </div>
+          <Fragment slot="header">
+            <tr>
+              <th class="text-left">Project ID</th>
+              <th class="text-left">Name</th>
+              <th class="text-left">Status</th>
+              <th class="text-right">Budget</th>
+            </tr>
+          </Fragment>
+          <Fragment slot="body">
+            <tr>
+              <td>PRJ-001</td>
+              <td>Website Redesign</td>
+              <td>
+                <Badge variant="success">Active</Badge>
+              </td>
+              <td class="text-right">$25,000</td>
+            </tr>
+            <tr>
+              <td>PRJ-002</td>
+              <td>Mobile App Development</td>
+              <td>
+                <Badge variant="warning">In Progress</Badge>
+              </td>
+              <td class="text-right">$150,000</td>
+            </tr>
+            <tr>
+              <td>PRJ-003</td>
+              <td>Database Migration</td>
+              <td>
+                <Badge variant="default">Pending</Badge>
+              </td>
+              <td class="text-right">$45,000</td>
             </tr>
           </Fragment>
         </Table>
