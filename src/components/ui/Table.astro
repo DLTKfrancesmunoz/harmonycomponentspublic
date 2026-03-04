@@ -124,3 +124,35 @@ function getSortLabel(key: string, label: string): string {
     </tbody>
   </table>
 </div>
+
+<script>
+  // Handle row selection and select-all for interactive tables with checkboxes
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.table').forEach((table) => {
+      const checkboxes = table.querySelectorAll('.checkbox__input');
+      checkboxes.forEach((checkbox) => {
+        const isSelectAll =
+          checkbox.getAttribute('name') === 'select-all' ||
+          checkbox.closest('thead');
+        const row = checkbox.closest('tr');
+        if (isSelectAll) {
+          checkbox.addEventListener('change', () => {
+            const rowCheckboxes = table.querySelectorAll(
+              'tbody .checkbox__input'
+            );
+            rowCheckboxes.forEach((cb) => {
+              cb.checked = checkbox.checked;
+              const r = cb.closest('tr');
+              if (r) r.classList.toggle('table-row--selected', checkbox.checked);
+            });
+          });
+        } else if (row && row.closest('tbody')) {
+          if (checkbox.checked) row.classList.add('table-row--selected');
+          checkbox.addEventListener('change', () => {
+            row.classList.toggle('table-row--selected', checkbox.checked);
+          });
+        }
+      });
+    });
+  });
+</script>

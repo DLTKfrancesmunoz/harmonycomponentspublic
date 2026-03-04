@@ -24,13 +24,15 @@ import { Table } from './components/harmony/Table';
 // Default (uses built-in header and body placeholders)
 <Table />
 
-// With filter bar (dropdowns, chips, clear button)
+// With filter bar (dropdowns, Clear, chips on single row)
 <Table
   filterBar={
-    <div style={{ display: 'flex', gap: 'var(--space-3)', flexWrap: 'wrap' }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', flexWrap: 'wrap' }}>
       <Dropdown options={periodOptions} value={period} onChange={setPeriod} />
+      <Dropdown options={statusOptions} value={status} onChange={setStatus} />
       <Button variant="ghost" size="sm" onClick={handleClear}>Clear</Button>
-      <Chip label="Q1 2025" removable onRemove={() => {}} />
+      {period !== 'all' && <Chip label={periodLabel} removable onRemove={() => setPeriod('all')} />}
+      {status !== 'all' && <Chip label={statusLabel} removable onRemove={() => setStatus('all')} />}
     </div>
   }
   header={
@@ -55,6 +57,14 @@ import { Table } from './components/harmony/Table';
   }
 />
 ```
+
+## Filter Bar
+
+The filter bar displays dropdowns, Clear button, and filter chips on a single row. Use "All periods" and "All Statuses" (or equivalent) as default options (`value="all"`); chips appear only when filters are applied. Clearing a chip or clicking Clear resets the corresponding dropdown to "all".
+
+## Row Selection (Interactive Table)
+
+For tables with row selection, add a checkbox with `name="select-all"` in the header and row checkboxes in each body cell. Use controlled state: track selected row IDs in a `Set<string>`, wire each checkbox with `checked` and `onChange`. When the header checkbox is checked, select all rows; when unchecked, deselect all. Selected rows are highlighted in blue via `.table-row--selected` or CSS `:has(.checkbox__input:checked)`.
 
 ## CSS Classes
 
