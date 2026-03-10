@@ -33,6 +33,9 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           scope: '@deltek-sst'
 
+      - name: Install dependencies
+        run: npm ci
+
       - name: Generate timestamped version
         id: version
         run: |
@@ -53,6 +56,7 @@ jobs:
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HUSKY: '0'
 
       - name: Create Git tag
         run: |
