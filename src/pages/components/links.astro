@@ -9,6 +9,7 @@ const props = [
   { name: 'href', type: 'string', default: '—', description: 'Link URL' },
   { name: 'external', type: 'boolean', default: 'false', description: 'Opens in new tab with external icon' },
   { name: 'muted', type: 'boolean', default: 'false', description: 'Use muted color style' },
+  { name: 'size', type: "'small' | 'medium' | 'large'", default: "'medium'", description: 'Font size variant: small (12px), medium (14px), large (16px).' },
 ];
 ---
 
@@ -36,6 +37,16 @@ const props = [
       <ExampleSection title="Basic Link" description="Standard link styling.">
         <p class="text-secondary">
           Visit our <Link href="#">documentation</Link> for more information.
+        </p>
+      </ExampleSection>
+
+      <ExampleSection title="Size variants" description="Small (12px), medium (14px), and large (16px). All use regular weight.">
+        <p class="text-secondary">
+          <Link href="#" size="small">Small link</Link>
+          <span style="margin: 0 0.5rem;">·</span>
+          <Link href="#" size="medium">Medium link</Link>
+          <span style="margin: 0 0.5rem;">·</span>
+          <Link href="#" size="large">Large link</Link>
         </p>
       </ExampleSection>
 

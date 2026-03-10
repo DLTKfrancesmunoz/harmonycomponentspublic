@@ -2922,13 +2922,31 @@ html.dark .shell-footer .tabstrip .tabstrip__more.tab.is-active:hover .tab__icon
    =========================================== */
 
 .link {
+  display: inline;
   color: var(--link-color);
+  font-size: var(--text-sm);
+  font-weight: 400;
   text-decoration: none;
   transition: color var(--transition-fast);
 }
 
 .link:hover {
   text-decoration: underline;
+}
+
+.link--small {
+  font-size: var(--text-xs);
+  font-weight: 400;
+}
+
+.link--medium {
+  font-size: var(--text-sm);
+  font-weight: 400;
+}
+
+.link--large {
+  font-size: var(--text-base);
+  font-weight: 400;
 }
 
 .link--muted {
@@ -2939,11 +2957,16 @@ html.dark .shell-footer .tabstrip .tabstrip__more.tab.is-active:hover .tab__icon
   color: var(--text-primary);
 }
 
-/* Link Responsive Styles */
+.link__external-icon {
+  display: inline-flex;
+  vertical-align: middle;
+  margin-left: var(--space-1);
+}
+
+/* Link Responsive Styles - only when no explicit size variant (base .link) */
 @media (max-width: var(--breakpoint-md)) {
-  .link {
+  .link:not([class*="link--small"]):not([class*="link--medium"]):not([class*="link--large"]) {
     font-size: var(--text-sm);
-    /* Ensure touch targets are adequate - links should have padding in context */
   }
 }
 

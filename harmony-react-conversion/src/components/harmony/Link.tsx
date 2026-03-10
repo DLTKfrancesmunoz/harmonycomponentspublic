@@ -7,6 +7,7 @@ export interface LinkProps extends Omit<React.AnchorHTMLAttributes<HTMLAnchorEle
   href: string
   external?: boolean
   muted?: boolean
+  size?: 'small' | 'medium' | 'large'
   className?: string
   children?: ReactNode
 }
@@ -15,11 +16,12 @@ export function Link({
   href,
   external = false,
   muted = false,
+  size = 'medium',
   className = '',
   children,
   ...rest
 }: LinkProps) {
-  const classes = clsx('link', muted && 'link--muted', className)
+  const classes = clsx('link', `link--${size}`, muted && 'link--muted', className)
 
   return (
     <a

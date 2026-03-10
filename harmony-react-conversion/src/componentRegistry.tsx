@@ -94,6 +94,27 @@ function CheckboxDemo() {
   )
 }
 
+/** Demo wrapper to show Link size variants and optional muted/external */
+function LinkDemo() {
+  const row = (label: string, content: React.ReactNode) => (
+    <div key={label} style={{ marginBottom: '1rem' }}>
+      <div style={{ fontSize: '0.875rem', color: '#666', marginBottom: '0.25rem' }}>{label}</div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', alignItems: 'center' }}>{content}</div>
+    </div>
+  )
+  return (
+    <>
+      {row('Size variants', <>
+        <Link href="#" size="small">Small</Link>
+        <Link href="#" size="medium">Medium</Link>
+        <Link href="#" size="large">Large</Link>
+      </>)}
+      {row('Muted', <Link href="#" muted>Muted link</Link>)}
+      {row('External', <Link href="https://example.com" external>External link</Link>)}
+    </>
+  )
+}
+
 /** Demo wrapper showing basic, with-header, with-icons, and single-icon Card variants */
 function CardDemo() {
   return (
@@ -580,7 +601,7 @@ export const componentRegistry: ComponentRegistryEntry[] = [
   { name: 'KanbanCard', Component: KanbanCard as AnyComponent, demoProps: { id: 'demo-card', title: 'Card title' } },
   { name: 'Label', Component: Label as AnyComponent, demoProps: { htmlFor: 'demo', children: 'Label' } },
   { name: 'LeftSidebar', Component: LeftSidebar as AnyComponent },
-  { name: 'Link', Component: Link as AnyComponent, demoProps: { href: '#', children: 'Link' } },
+  { name: 'Link', Component: LinkDemo as AnyComponent },
   { name: 'ListMenu', Component: ListMenu as AnyComponent, demoProps: { items: [{ label: 'Item 1', active: true }, { label: 'Item 2' }] } },
   { name: 'MonthPicker', Component: MonthPicker as AnyComponent },
   { name: 'NotificationBadge', Component: NotificationBadge as AnyComponent, demoProps: { count: 3, children: <span>Inbox</span> } },

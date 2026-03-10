@@ -1,12 +1,29 @@
 /* LINK (Harmony Design System) */
 .link {
   color: var(--link-color);
+  font-size: var(--text-sm);
+  font-weight: 400;
   text-decoration: none;
   transition: color var(--transition-fast);
 }
 
 .link:hover {
   text-decoration: underline;
+}
+
+.link--small {
+  font-size: var(--text-xs);
+  font-weight: 400;
+}
+
+.link--medium {
+  font-size: var(--text-sm);
+  font-weight: 400;
+}
+
+.link--large {
+  font-size: var(--text-base);
+  font-weight: 400;
 }
 
 .link--muted {
@@ -22,7 +39,7 @@
 }
 
 @media (max-width: var(--breakpoint-md)) {
-  .link {
+  .link:not(.link--small):not(.link--medium):not(.link--large) {
     font-size: var(--text-sm);
   }
 }

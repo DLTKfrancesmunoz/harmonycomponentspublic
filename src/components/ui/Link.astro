@@ -11,6 +11,7 @@ export interface Props {
   href: string;
   external?: boolean;
   muted?: boolean;
+  size?: 'small' | 'medium' | 'large';
   class?: string;
   [key: string]: any;
 }
@@ -19,12 +20,14 @@ const {
   href,
   external = false,
   muted = false,
+  size = 'medium',
   class: className = '',
   ...rest
 } = Astro.props;
 
 const classes = [
   'link',
+  `link--${size}`,
   muted && 'link--muted',
   className,
 ].filter(Boolean).join(' ');
@@ -36,7 +39,4 @@ const classes = [
   target={external ? '_blank' : undefined}
   rel={external ? 'noopener noreferrer' : undefined}
   {...rest}
->
-  <slot />
-  {external && <Icon name="arrow-top-right-on-square" class="ml-1" size="xs" />}
-</a>
+><slot />{external && <Icon name="arrow-top-right-on-square" class="link__external-icon" size="xs" />}</a>
