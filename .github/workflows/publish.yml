@@ -2,6 +2,9 @@ name: Publish NPM Package
 
 # This workflow publishes the NPM package to GitHub Packages
 # For documentation site deployment, see deploy-release.yml
+#
+# If you get 401 Unauthorized on publish: add a repo secret NPM_PUBLISH_TOKEN
+# (PAT with write:packages and repo scope) and the workflow will use it instead of GITHUB_TOKEN.
 
 on:
   push:
@@ -20,7 +23,8 @@ jobs:
       contents: write
       packages: write
     env:
-      NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Use NPM_PUBLISH_TOKEN (PAT with write:packages) if 401 with GITHUB_TOKEN; else GITHUB_TOKEN
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN || secrets.GITHUB_TOKEN }}
 
     steps:
       - name: Checkout code
@@ -53,6 +57,11 @@ jobs:
         run: |
           npm version ${{ steps.version.outputs.version }} --no-git-tag-version
           cat package.json | grep version
+
+      - name: Configure npm for GitHub Packages
+        run: |
+          npm config set //npm.pkg.github.com/:_authToken $NODE_AUTH_TOKEN
+          npm config set @deltek-sst:registry https://npm.pkg.github.com
 
       - name: Publish to GitHub Packages
         run: npm publish
