@@ -424,6 +424,88 @@ function TableDemo() {
         </div>
       </div>
 
+      {/* 3b. Table with Grouped Rows */}
+      <div style={sectionGap}>
+        <h2 style={sectionTitleStyle}>Table with Grouped Rows</h2>
+        <div style={sectionDescStyle}>Expandable rows (those with child rows) display a small arrow icon on the far left. Click the arrow to expand or collapse child rows. Child rows are indented based on their depth.</div>
+        <div style={overflowWrap}>
+          <Table
+            headerVariant="gray"
+            grouped
+            header={
+              <thead>
+                <tr>
+                  <th className="table__expand-column" scope="col" aria-label="Expand" />
+                  <th className="text-left" scope="col">Project ID</th>
+                  <th className="text-left" scope="col">Name</th>
+                  <th className="text-left" scope="col">Status</th>
+                  <th className="text-right" scope="col">Budget</th>
+                  <th className="text-right" scope="col">Actions</th>
+                </tr>
+              </thead>
+            }
+            body={
+              <tbody>
+                <tr data-row-id="r1" data-has-children={true}>
+                  <td>PRJ-001</td>
+                  <td>Website Redesign</td>
+                  <td><Badge variant="success">Active</Badge></td>
+                  <td className="text-right">$25,000</td>
+                  <td className="table-cell--actions">
+                    <button type="button" className="icon-btn"><Icon name="ellipsis-vertical" size="md" className="icon-btn__icon" /></button>
+                  </td>
+                </tr>
+                <tr data-parent-id="r1" data-depth={1}>
+                  <td>PRJ-001-A</td>
+                  <td>Frontend Development</td>
+                  <td><Badge variant="warning">In Progress</Badge></td>
+                  <td className="text-right">$12,000</td>
+                  <td className="table-cell--actions">
+                    <button type="button" className="icon-btn"><Icon name="ellipsis-vertical" size="md" className="icon-btn__icon" /></button>
+                  </td>
+                </tr>
+                <tr data-parent-id="r1" data-depth={1}>
+                  <td>PRJ-001-B</td>
+                  <td>Backend API</td>
+                  <td><Badge variant="default">Pending</Badge></td>
+                  <td className="text-right">$13,000</td>
+                  <td className="table-cell--actions">
+                    <button type="button" className="icon-btn"><Icon name="ellipsis-vertical" size="md" className="icon-btn__icon" /></button>
+                  </td>
+                </tr>
+                <tr data-row-id="r2" data-has-children={true}>
+                  <td>PRJ-002</td>
+                  <td>Mobile App Development</td>
+                  <td><Badge variant="warning">In Progress</Badge></td>
+                  <td className="text-right">$150,000</td>
+                  <td className="table-cell--actions">
+                    <button type="button" className="icon-btn"><Icon name="ellipsis-vertical" size="md" className="icon-btn__icon" /></button>
+                  </td>
+                </tr>
+                <tr data-parent-id="r2" data-depth={1}>
+                  <td>PRJ-002-A</td>
+                  <td>iOS Module</td>
+                  <td><Badge variant="info">Review</Badge></td>
+                  <td className="text-right">$75,000</td>
+                  <td className="table-cell--actions">
+                    <button type="button" className="icon-btn"><Icon name="ellipsis-vertical" size="md" className="icon-btn__icon" /></button>
+                  </td>
+                </tr>
+                <tr data-row-id="r3">
+                  <td>PRJ-003</td>
+                  <td>Database Migration</td>
+                  <td><Badge variant="default">Pending</Badge></td>
+                  <td className="text-right">$45,000</td>
+                  <td className="table-cell--actions">
+                    <button type="button" className="icon-btn"><Icon name="ellipsis-vertical" size="md" className="icon-btn__icon" /></button>
+                  </td>
+                </tr>
+              </tbody>
+            }
+          />
+        </div>
+      </div>
+
       {/* 4. Striped Table */}
       <div style={sectionGap}>
         <h2 style={sectionTitleStyle}>Striped Table</h2>

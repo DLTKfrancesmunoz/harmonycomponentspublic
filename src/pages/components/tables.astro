@@ -13,6 +13,7 @@ const props = [
   { name: 'headerVariant', type: "'gray' | 'white' | 'none'", default: "'gray'", description: 'Header background variant: gray (light gray background), white (white background), or none (transparent)' },
   { name: 'striped', type: 'boolean', default: 'false', description: 'Enable alternating row background colors (zebra striping) for easier scanning' },
   { name: 'reorderable', type: 'boolean', default: 'false', description: 'Enable row reordering via drag-and-drop. Displays a grip icon at the far left of each row.' },
+  { name: 'grouped', type: 'boolean', default: 'false', description: 'Enable grouped rows with expand/collapse. Rows with data-has-children show an arrow; child rows use data-parent-id and data-depth (max 4 levels).' },
   { name: 'class', type: 'string', default: '—', description: 'Additional CSS classes to apply to the table element' },
   { name: 'filter-bar (slot)', type: 'slot', default: '—', description: 'Content for the filter bar above the table (dropdowns, chips, clear button)' },
 ];
@@ -299,6 +300,107 @@ const props = [
                   <span class="badge badge--info">Review</span>
                 </td>
                 <td class="text-right">$12,500</td>
+              </tr>
+            </Fragment>
+          </Table>
+        </div>
+      </ExampleSection>
+    </section>
+
+    <section class="space-y-6">
+      <h2 class="section__title">Table with Grouped Rows</h2>
+      
+      <ExampleSection title="Table with Grouped Rows" description="Expandable rows (those with child rows) display a small arrow icon on the far left. Click the arrow to expand or collapse child rows. Child rows are indented based on their depth.">
+        <div class="overflow-x-auto">
+          <Table headerVariant="gray" grouped>
+            <Fragment slot="header">
+              <tr>
+                <th class="table__expand-column" scope="col" aria-label="Expand"></th>
+                <th class="text-left">Project ID</th>
+                <th class="text-left">Name</th>
+                <th class="text-left">Status</th>
+                <th class="text-right">Budget</th>
+                <th class="text-right">Actions</th>
+              </tr>
+            </Fragment>
+            <Fragment slot="body">
+              <tr data-row-id="r1" data-has-children>
+                <td>PRJ-001</td>
+                <td>Website Redesign</td>
+                <td>
+                  <span class="badge badge--success">Active</span>
+                </td>
+                <td class="text-right">$25,000</td>
+                <td class="table-cell--actions">
+                  <button type="button" class="icon-btn">
+                    <Icon name="ellipsis-vertical" size="md" class="icon-btn__icon" />
+                  </button>
+                </td>
+              </tr>
+              <tr data-parent-id="r1" data-depth="1">
+                <td>PRJ-001-A</td>
+                <td>Frontend Development</td>
+                <td>
+                  <span class="badge badge--warning">In Progress</span>
+                </td>
+                <td class="text-right">$12,000</td>
+                <td class="table-cell--actions">
+                  <button type="button" class="icon-btn">
+                    <Icon name="ellipsis-vertical" size="md" class="icon-btn__icon" />
+                  </button>
+                </td>
+              </tr>
+              <tr data-parent-id="r1" data-depth="1">
+                <td>PRJ-001-B</td>
+                <td>Backend API</td>
+                <td>
+                  <span class="badge badge--default">Pending</span>
+                </td>
+                <td class="text-right">$13,000</td>
+                <td class="table-cell--actions">
+                  <button type="button" class="icon-btn">
+                    <Icon name="ellipsis-vertical" size="md" class="icon-btn__icon" />
+                  </button>
+                </td>
+              </tr>
+              <tr data-row-id="r2" data-has-children>
+                <td>PRJ-002</td>
+                <td>Mobile App Development</td>
+                <td>
+                  <span class="badge badge--warning">In Progress</span>
+                </td>
+                <td class="text-right">$150,000</td>
+                <td class="table-cell--actions">
+                  <button type="button" class="icon-btn">
+                    <Icon name="ellipsis-vertical" size="md" class="icon-btn__icon" />
+                  </button>
+                </td>
+              </tr>
+              <tr data-parent-id="r2" data-depth="1">
+                <td>PRJ-002-A</td>
+                <td>iOS Module</td>
+                <td>
+                  <span class="badge badge--info">Review</span>
+                </td>
+                <td class="text-right">$75,000</td>
+                <td class="table-cell--actions">
+                  <button type="button" class="icon-btn">
+                    <Icon name="ellipsis-vertical" size="md" class="icon-btn__icon" />
+                  </button>
+                </td>
+              </tr>
+              <tr data-row-id="r3">
+                <td>PRJ-003</td>
+                <td>Database Migration</td>
+                <td>
+                  <span class="badge badge--default">Pending</span>
+                </td>
+                <td class="text-right">$45,000</td>
+                <td class="table-cell--actions">
+                  <button type="button" class="icon-btn">
+                    <Icon name="ellipsis-vertical" size="md" class="icon-btn__icon" />
+                  </button>
+                </td>
               </tr>
             </Fragment>
           </Table>
@@ -645,6 +747,7 @@ const props = [
             <li>Use zebra striping for tables with many rows</li>
             <li>Provide sorting and filtering for large data sets; use the filter bar variant with dropdowns, active filter chips, and a Clear button for narrowing by period, project, or category</li>
             <li>Use reorderable tables when users need to customize row order; provide keyboard alternatives for accessibility where possible</li>
+            <li>Use grouped rows for hierarchical data; limit nesting to 4 levels</li>
           </ul>
         </div>
       </div>

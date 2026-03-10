@@ -6015,6 +6015,68 @@ html.theme-maconomy.dark .left-sidebar__variant--maconomy {
   background-color: var(--table-row-hover-bg);
 }
 
+/* 10c. Grouped Rows Expand Column */
+.table__expand-column {
+  width: 36px;
+  min-width: 36px;
+  padding: var(--space-3) var(--space-2);
+  text-align: center;
+  vertical-align: middle;
+}
+.table__expand-cell {
+  width: 36px;
+  min-width: 36px;
+  padding: var(--space-3) var(--space-2);
+  vertical-align: middle;
+  text-align: center;
+}
+.table__expand-cell--placeholder {
+  cursor: default;
+  background-color: inherit;
+}
+.table__expand-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-1);
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  border-radius: var(--radius-04);
+  transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+.table__expand-btn:hover {
+  color: var(--text-primary);
+  background-color: var(--elevated-bg);
+}
+.table__expand-btn:focus {
+  outline: 2px solid var(--theme-primary);
+  outline-offset: var(--space-0-5);
+}
+.table__expand-icon {
+  display: block;
+  width: 16px;
+  height: 16px;
+  background-color: currentColor;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 18 6-6-6-6'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m9 18 6-6-6-6'/%3E%3C/svg%3E");
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  transition: transform var(--transition-fast);
+}
+.table__expand-btn--expanded .table__expand-icon {
+  transform: rotate(90deg);
+}
+/* Reserve width for max indentation (depth 4) so column doesn't grow on expand */
+.table--grouped tbody td:nth-child(2) {
+  min-width: calc(var(--space-4) * 5 + 12ch);
+}
+
 /* 11. Text Alignment Utilities */
 .table thead th.text-left,
 .table tbody td.text-left {

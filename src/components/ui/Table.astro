@@ -18,6 +18,7 @@ export interface Props {
   headerVariant?: 'gray' | 'white' | 'none';
   striped?: boolean;
   reorderable?: boolean;
+  grouped?: boolean;
   class?: string;
   sortColumns?: SortColumn[];
   sortColumn?: string | null;
@@ -28,6 +29,7 @@ const {
   headerVariant = 'gray',
   striped = false,
   reorderable = false,
+  grouped = false,
   class: className = '',
   sortColumns,
   sortColumn = null,
@@ -39,6 +41,7 @@ const classes = [
   `table--header-${headerVariant}`,
   striped && 'table--striped',
   reorderable && 'table--reorderable',
+  grouped && 'table--grouped',
   className,
 ].filter(Boolean).join(' ');
 
@@ -63,10 +66,17 @@ function getSortLabel(key: string, label: string): string {
 }
 ---
 
-<div class="table-wrapper" data-reorderable={reorderable || undefined}>
+<div class="table-wrapper" data-reorderable={reorderable || undefined} data-grouped={grouped || undefined}>
   {reorderable && (
     <template class="table__grip-template">
       <button type="button" class="table__grip-handle" aria-label="Drag to reorder"></button>
+    </template>
+  )}
+  {grouped && (
+    <template class="table__expand-template">
+      <button type="button" class="table__expand-btn" aria-label="Expand row" aria-expanded="false">
+        <span class="table__expand-icon" aria-hidden="true"></span>
+      </button>
     </template>
   )}
   <!-- Optional Filter Bar -->
@@ -107,6 +117,9 @@ function getSortLabel(key: string, label: string): string {
           {reorderable && (
             <th class="table__grip-column" scope="col" aria-label="Reorder"></th>
           )}
+          {grouped && (
+            <th class="table__expand-column" scope="col" aria-label="Expand"></th>
+          )}
           {sortColumns!.map((col) => (
             <th
               scope="col"
@@ -126,6 +139,9 @@ function getSortLabel(key: string, label: string): string {
         <tr>
           {reorderable && (
             <th class="table__grip-column" scope="col" aria-label="Reorder"></th>
+          )}
+          {grouped && (
+            <th class="table__expand-column" scope="col" aria-label="Expand"></th>
           )}
           <th scope="col">Column</th>
         </tr>
@@ -231,6 +247,114 @@ function getSortLabel(key: string, label: string): string {
         document.addEventListener('DOMContentLoaded', initReorderableTables);
       } else {
         initReorderableTables();
+      }
+    })();
+  </script>
+)}
+{grouped && (
+  <script>
+    (function () {
+      const MAX_DEPTH = 4;
+      function initGroupedTables() {
+        document.querySelectorAll('.table-wrapper[data-grouped]').forEach(function (wrapper) {
+          if (wrapper.dataset.groupedInit) return;
+          wrapper.dataset.groupedInit = 'true';
+
+          const template = wrapper.querySelector('template.table__expand-template');
+          const table = wrapper.querySelector('table');
+          const tbody = table?.querySelector('tbody');
+          if (!tbody || !template) return;
+
+          const expandedIds = new Set();
+
+          function getRowId(row) {
+            return row.getAttribute('data-row-id') || null;
+          }
+          function hasChildren(row) {
+            return row.hasAttribute('data-has-children');
+          }
+          function getParentId(row) {
+            return row.getAttribute('data-parent-id') || null;
+          }
+          function getDepth(row) {
+            const d = parseInt(row.getAttribute('data-depth') || '0', 10);
+            return Math.min(Math.max(d, 0), MAX_DEPTH);
+          }
+
+          function isVisible(row) {
+            const parentId = getParentId(row);
+            if (!parentId) return true;
+            if (!expandedIds.has(parentId)) return false;
+            const parentRow = tbody.querySelector('tr[data-row-id="' + parentId + '"]');
+            return parentRow ? isVisible(parentRow) : false;
+          }
+
+          function updateVisibility() {
+            tbody.querySelectorAll('tr[data-parent-id]').forEach(function (row) {
+              row.style.display = isVisible(row) ? '' : 'none';
+            });
+          }
+
+          function toggleExpanded(rowId) {
+            if (expandedIds.has(rowId)) {
+              expandedIds.delete(rowId);
+            } else {
+              expandedIds.add(rowId);
+            }
+            updateVisibility();
+            const row = tbody.querySelector('tr[data-row-id="' + rowId + '"]');
+            if (row) {
+              const btn = row.querySelector('.table__expand-btn');
+              if (btn) {
+                btn.setAttribute('aria-expanded', expandedIds.has(rowId));
+                btn.setAttribute('aria-label', expandedIds.has(rowId) ? 'Collapse row' : 'Expand row');
+                btn.classList.toggle('table__expand-btn--expanded', expandedIds.has(rowId));
+              }
+            }
+          }
+
+          const rows = Array.from(tbody.querySelectorAll('tr'));
+          rows.forEach(function (row) {
+            if (row.classList.contains('table-row--total')) {
+              const emptyTd = document.createElement('td');
+              emptyTd.className = 'table__expand-cell table__expand-cell--placeholder';
+              emptyTd.setAttribute('aria-hidden', 'true');
+              row.insertBefore(emptyTd, row.firstChild);
+              return;
+            }
+
+            const expandTd = document.createElement('td');
+            expandTd.className = 'table__expand-cell';
+
+            if (hasChildren(row)) {
+              const rowId = getRowId(row);
+              const btn = template.content.cloneNode(true);
+              const btnEl = btn.querySelector('button');
+              btnEl.addEventListener('click', function () {
+                toggleExpanded(rowId);
+              });
+              expandTd.appendChild(btn);
+            }
+
+            row.insertBefore(expandTd, row.firstChild);
+
+            const depth = getDepth(row);
+            if (depth > 0) {
+              const firstContentCell = row.children[1];
+              if (firstContentCell) {
+                firstContentCell.style.paddingLeft = 'calc(var(--space-4) * ' + depth + ' + var(--space-4))';
+              }
+            }
+          });
+
+          updateVisibility();
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initGroupedTables);
+      } else {
+        initGroupedTables();
       }
     })();
   </script>
