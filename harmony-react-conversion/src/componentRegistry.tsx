@@ -149,23 +149,138 @@ function CardDemo() {
   )
 }
 
-/** Demo wrapper so Dialog open/close is controlled by state; close button and onClose actually close it */
+const dialogSectionTitleStyle: React.CSSProperties = { fontSize: '1rem', fontWeight: 600, marginBottom: '0.25rem' }
+const dialogSectionDescStyle: React.CSSProperties = { fontSize: '0.875rem', color: '#666', marginBottom: '0.5rem' }
+const dialogSectionGap: React.CSSProperties = { marginBottom: '1.5rem' }
+
+/** Multiple dialog examples showing all options: basic, tertiary button, primary header, right-aligned, confirmation, non-resizable, long content */
 function DialogDemo() {
-  const [open, setOpen] = useState(true)
+  const [openId, setOpenId] = useState<string | null>(null)
+  const close = () => setOpenId(null)
+
   return (
-    <>
-      <Button buttonType="theme" variant="primary" onClick={() => setOpen(true)}>
-        Open dialog
-      </Button>
-      <Dialog
-        id="demo-dialog"
-        title="Dialog"
-        open={open}
-        onClose={() => setOpen(false)}
-      >
-        Dialog body content.
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+      <div style={dialogSectionGap}>
+        <div style={dialogSectionTitleStyle}>Basic</div>
+        <div style={dialogSectionDescStyle}>Default dialog with Confirm and Cancel.</div>
+        <Button buttonType="theme" variant="primary" onClick={() => setOpenId('basic')}>Open basic dialog</Button>
+      </div>
+
+      <div style={dialogSectionGap}>
+        <div style={dialogSectionTitleStyle}>Three buttons (Yes, No, Cancel)</div>
+        <div style={dialogSectionDescStyle}>Optional tertiary (link-style) button for a less prominent action.</div>
+        <Button buttonType="theme" variant="primary" onClick={() => setOpenId('tertiary')}>Open save changes dialog</Button>
+      </div>
+
+      <div style={dialogSectionGap}>
+        <div style={dialogSectionTitleStyle}>Primary header</div>
+        <div style={dialogSectionDescStyle}>Header uses theme primary background with inverse text.</div>
+        <Button buttonType="theme" variant="primary" onClick={() => setOpenId('primary-header')}>Open primary header dialog</Button>
+      </div>
+
+      <div style={dialogSectionGap}>
+        <div style={dialogSectionTitleStyle}>Right-aligned buttons</div>
+        <div style={dialogSectionDescStyle}>Footer buttons aligned to the right.</div>
+        <Button buttonType="theme" variant="primary" onClick={() => setOpenId('right-align')}>Open right-aligned dialog</Button>
+      </div>
+
+      <div style={dialogSectionGap}>
+        <div style={dialogSectionTitleStyle}>Confirmation (custom footer)</div>
+        <div style={dialogSectionDescStyle}>Custom footer with destructive action and Cancel.</div>
+        <Button buttonType="theme" variant="destructive" onClick={() => setOpenId('confirm')}>Delete item</Button>
+      </div>
+
+      <div style={dialogSectionGap}>
+        <div style={dialogSectionTitleStyle}>Non-resizable</div>
+        <div style={dialogSectionDescStyle}>Resize grip hidden when resizable=false.</div>
+        <Button buttonType="theme" variant="primary" onClick={() => setOpenId('non-resizable')}>Open non-resizable dialog</Button>
+      </div>
+
+      <div style={dialogSectionGap}>
+        <div style={dialogSectionTitleStyle}>Long content (scrollable body)</div>
+        <div style={dialogSectionDescStyle}>Body overflows and scrolls; header and footer stay fixed.</div>
+        <Button buttonType="theme" variant="primary" onClick={() => setOpenId('scrollable')}>Open scrollable dialog</Button>
+      </div>
+
+      <Dialog id="demo-dialog-basic" title="Dialog" open={openId === 'basic'} onClose={close}>
+        Dialog body content. Confirm and Cancel use the default footer.
       </Dialog>
-    </>
+
+      <Dialog
+        id="demo-dialog-tertiary"
+        title="Save changes?"
+        open={openId === 'tertiary'}
+        onClose={close}
+        tertiaryLabel="Cancel"
+      >
+        <p style={{ margin: 0 }}>Do you want to save your changes before closing? Yes saves and closes, No closes without saving, Cancel keeps the dialog open.</p>
+      </Dialog>
+
+      <Dialog
+        id="demo-dialog-primary"
+        title="Primary header"
+        headerVariant="primary"
+        open={openId === 'primary-header'}
+        onClose={close}
+      >
+        <p style={{ margin: 0 }}>This dialog has a primary-colored header with inverse text.</p>
+      </Dialog>
+
+      <Dialog
+        id="demo-dialog-right"
+        title="Right-aligned buttons"
+        buttonAlignment="right"
+        open={openId === 'right-align'}
+        onClose={close}
+      >
+        <p style={{ margin: 0 }}>Footer buttons are aligned to the right.</p>
+      </Dialog>
+
+      <Dialog
+        id="demo-dialog-confirm"
+        title="Delete item?"
+        open={openId === 'confirm'}
+        onClose={close}
+        footer={
+          <div className="dialog__footer-actions">
+            <Button buttonType="theme" variant="destructive" onClick={close}>Delete</Button>
+            <Button buttonType="theme" variant="secondary" onClick={close}>Cancel</Button>
+          </div>
+        }
+      >
+        <p style={{ margin: 0 }}>Are you sure you want to delete this item? This action cannot be undone.</p>
+      </Dialog>
+
+      <Dialog
+        id="demo-dialog-nonresize"
+        title="Non-resizable"
+        resizable={false}
+        open={openId === 'non-resizable'}
+        onClose={close}
+      >
+        <p style={{ margin: 0 }}>This dialog has no resize grip in the corner.</p>
+      </Dialog>
+
+      <Dialog
+        id="demo-dialog-scrollable"
+        title="Scrollable Body"
+        className="dialog--scrollable-demo"
+        open={openId === 'scrollable'}
+        onClose={close}
+      >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <p style={{ margin: 0 }}>When content is long, only the body scrolls. The header and footer stay fixed.</p>
+          <p style={{ margin: 0 }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          <p style={{ margin: 0 }}>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
+          <p style={{ margin: 0 }}>Cras mattis consectetur purus sit amet fermentum. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+          <p style={{ margin: 0 }}>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Maecenas sed diam eget risus varius blandit sit amet non magna. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+          <p style={{ margin: 0 }}>Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p>
+          <p style={{ margin: 0 }}>Etiam porta sem malesuada magna mollis euismod. Sed posuere consectetur est at lobortis. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
+          <p style={{ margin: 0 }}>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam quis risus eget urna mollis ornare vel eu leo.</p>
+          <p style={{ margin: 0 }}>Scroll to see that the header and footer remain fixed at the top and bottom.</p>
+        </div>
+      </Dialog>
+    </div>
   )
 }
 

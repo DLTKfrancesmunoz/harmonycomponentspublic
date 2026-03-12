@@ -23,6 +23,12 @@ export interface Props {
   cancelLabel?: string;
   /** When using the default footer, optional global function name to call when Confirm is clicked before closing. Ignored when footer slot is used. */
   confirmCallbackName?: string;
+  /** When using the default footer, optional label for a third (tertiary/link-style) button. Ignored when footer slot is used. */
+  tertiaryLabel?: string;
+  /** When using the default footer with a tertiary button, optional global function name to call when the tertiary button is clicked before closing. Ignored when footer slot is used. */
+  tertiaryCallbackName?: string;
+  /** When true, shows a resize grip in the bottom-right corner; users can drag to resize the dialog. */
+  resizable?: boolean;
 }
 
 const {
@@ -34,13 +40,20 @@ const {
   confirmLabel = 'Confirm',
   cancelLabel = 'Cancel',
   confirmCallbackName,
+  tertiaryLabel,
+  tertiaryCallbackName,
+  resizable = true,
 } = Astro.props;
 
 const confirmOnClick = confirmCallbackName
   ? `if (typeof window.${confirmCallbackName} === 'function') { window.${confirmCallbackName}(); } closeDialog('${id}');`
   : `closeDialog('${id}')`;
 
-const classes = ['dialog', className].filter(Boolean).join(' ');
+const tertiaryOnClick = tertiaryCallbackName
+  ? `if (typeof window.${tertiaryCallbackName} === 'function') { window.${tertiaryCallbackName}(); } closeDialog('${id}');`
+  : `closeDialog('${id}')`;
+
+const classes = ['dialog', resizable && 'dialog--resizable', className].filter(Boolean).join(' ');
 const headerClasses = [
   'dialog__header',
   `dialog__header--variant-${headerVariant}`,
@@ -66,13 +79,25 @@ const footerClasses = [
     </div>
     <div class={footerClasses}>
       <slot name="footer">
-        <!-- Default footer: theme buttons (general UI); optional confirmLabel, cancelLabel, confirmCallbackName. Custom footer slot overrides this. -->
-        <div>
+        <!-- Default footer: theme buttons (general UI); optional confirmLabel, cancelLabel, confirmCallbackName, tertiaryLabel, tertiaryCallbackName. Custom footer slot overrides this. -->
+        <div class="dialog__footer-actions">
           <Button buttonType="theme" type="button" onclick={confirmOnClick}>{confirmLabel}</Button>
-          <Button buttonType="theme" variant="ghost" type="button" onclick={`closeDialog('${id}')`}>{cancelLabel}</Button>
+          <Button buttonType="theme" variant="secondary" type="button" onclick={`closeDialog('${id}')`}>{cancelLabel}</Button>
+          {tertiaryLabel && (
+            <Button buttonType="theme" variant="tertiary" type="button" onclick={tertiaryOnClick}>{tertiaryLabel}</Button>
+          )}
         </div>
       </slot>
     </div>
+    {resizable && (
+      <div class="dialog__resize-grip" data-dialog-resize-grip role="img" aria-label="Resize">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" aria-hidden="true">
+          <line x1="12" y1="15" x2="15" y2="12" />
+          <line x1="8" y1="15" x2="15" y2="8" />
+          <line x1="4" y1="15" x2="15" y2="4" />
+        </svg>
+      </div>
+    )}
   </div>
 </div>
 
@@ -84,7 +109,7 @@ const footerClasses = [
         btn.closest('.dialog-overlay')?.classList.remove('is-open');
       });
     });
-    
+
     // Click outside to close
     document.querySelectorAll('[data-dialog-overlay]').forEach((overlay) => {
       overlay.addEventListener('click', (e) => {
@@ -93,7 +118,7 @@ const footerClasses = [
         }
       });
     });
-    
+
     // Escape to close
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
@@ -102,18 +127,54 @@ const footerClasses = [
         });
       }
     });
+
+    // Resize grip: mousedown on grip -> mousemove/mouseup to resize dialog
+    document.querySelectorAll('.dialog--resizable [data-dialog-resize-grip]').forEach((grip) => {
+      grip.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        const dialog = grip.closest('.dialog') as HTMLElement;
+        if (!dialog) return;
+        const rect = dialog.getBoundingClientRect();
+        const startW = rect.width;
+        const startH = rect.height;
+        dialog.style.width = startW + 'px';
+        dialog.style.height = startH + 'px';
+        dialog.style.minWidth = '0';
+        dialog.style.maxWidth = 'none';
+        dialog.style.maxHeight = 'none';
+        const startX = e.clientX;
+        const startY = e.clientY;
+
+        const onMove = (moveEvent) => {
+          const dx = moveEvent.clientX - startX;
+          const dy = moveEvent.clientY - startY;
+          const w = Math.max(1, Math.round(startW + dx));
+          const h = Math.max(1, Math.round(startH + dy));
+          dialog.style.width = w + 'px';
+          dialog.style.height = h + 'px';
+        };
+        const onUp = () => {
+          document.removeEventListener('mousemove', onMove);
+          document.removeEventListener('mouseup', onUp);
+          document.body.style.userSelect = '';
+        };
+        document.body.style.userSelect = 'none';
+        document.addEventListener('mousemove', onMove);
+        document.addEventListener('mouseup', onUp);
+      });
+    });
   }
-  
+
   // Global function to open dialog
   (window as any).openDialog = function(id: string) {
     document.getElementById(`${id}-overlay`)?.classList.add('is-open');
   };
-  
+
   // Global function to close dialog
   (window as any).closeDialog = function(id: string) {
     document.getElementById(`${id}-overlay`)?.classList.remove('is-open');
   };
-  
+
   initDialogs();
   document.addEventListener('astro:page-load', initDialogs);
 </script>

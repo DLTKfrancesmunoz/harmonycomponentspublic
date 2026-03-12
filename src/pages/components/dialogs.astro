@@ -18,6 +18,9 @@ const props = [
   { name: 'confirmLabel', type: 'string', default: '"Confirm"', description: 'When using the default footer (no footer slot), label for the Confirm button. Ignored when the footer slot is used.' },
   { name: 'cancelLabel', type: 'string', default: '"Cancel"', description: 'When using the default footer (no footer slot), label for the Cancel button. Ignored when the footer slot is used.' },
   { name: 'confirmCallbackName', type: 'string', default: '—', description: 'When using the default footer (no footer slot), optional global function name to call when Confirm is clicked before closing the dialog. Ignored when the footer slot is used.' },
+  { name: 'tertiaryLabel', type: 'string', default: '—', description: 'When using the default footer (no footer slot), optional label for a third (tertiary/link-style) button. Ignored when the footer slot is used.' },
+  { name: 'tertiaryCallbackName', type: 'string', default: '—', description: 'When using the default footer with a tertiary button, optional global function name to call when the tertiary button is clicked before closing. Ignored when the footer slot is used.' },
+  { name: 'resizable', type: 'boolean', default: 'true', description: 'When true (default), shows a resize grip in the bottom-right corner; users can drag to resize the dialog. Set to false to hide the grip.' },
 ];
 ---
 
@@ -52,7 +55,7 @@ const props = [
           </p>
           <div slot="footer">
             <Button onclick="closeDialog('basic-dialog')">Confirm</Button>
-            <Button variant="ghost" onclick="closeDialog('basic-dialog')">Cancel</Button>
+            <Button variant="secondary" onclick="closeDialog('basic-dialog')">Cancel</Button>
           </div>
         </Dialog>
       </ExampleSection>
@@ -66,8 +69,24 @@ const props = [
           </p>
           <div slot="footer">
             <Button variant="destructive" onclick="closeDialog('confirm-dialog')">Delete</Button>
-            <Button variant="ghost" onclick="closeDialog('confirm-dialog')">Cancel</Button>
+            <Button variant="secondary" onclick="closeDialog('confirm-dialog')">Cancel</Button>
           </div>
+        </Dialog>
+      </ExampleSection>
+
+      <ExampleSection title="Three buttons (Yes, No, Cancel)" description="The default footer can show an optional third button with the tertiary (link-style) variant for a less prominent action, e.g. Cancel.">
+        <Button onclick="openDialog('three-btn-dialog')">Open Save Changes Dialog</Button>
+
+        <Dialog
+          id="three-btn-dialog"
+          title="Save changes?"
+          confirmLabel="Yes"
+          cancelLabel="No"
+          tertiaryLabel="Cancel"
+        >
+          <p class="text-secondary">
+            Do you want to save your changes before closing? Yes saves and closes, No closes without saving, Cancel keeps the dialog open.
+          </p>
         </Dialog>
       </ExampleSection>
 
@@ -79,7 +98,7 @@ const props = [
             This dialog has buttons aligned to the right. Use buttonAlignment="right" to override the default left alignment.
           </p>
           <div slot="footer">
-            <Button variant="ghost" onclick="closeDialog('right-align-dialog')">Cancel</Button>
+            <Button variant="secondary" onclick="closeDialog('right-align-dialog')">Cancel</Button>
             <Button onclick="closeDialog('right-align-dialog')">Confirm</Button>
           </div>
         </Dialog>
@@ -94,7 +113,7 @@ const props = [
           </p>
           <div slot="footer">
             <Button onclick="closeDialog('primary-header-dialog')">Confirm</Button>
-            <Button variant="ghost" onclick="closeDialog('primary-header-dialog')">Cancel</Button>
+            <Button variant="secondary" onclick="closeDialog('primary-header-dialog')">Cancel</Button>
           </div>
         </Dialog>
       </ExampleSection>
@@ -108,15 +127,29 @@ const props = [
           </p>
           <div slot="footer">
             <Button onclick="closeDialog('combined-dialog')">Confirm</Button>
-            <Button variant="ghost" onclick="closeDialog('combined-dialog')">Cancel</Button>
+            <Button variant="secondary" onclick="closeDialog('combined-dialog')">Cancel</Button>
           </div>
         </Dialog>
       </ExampleSection>
 
-      <ExampleSection title="Long Content (Scrollable Body)" description="Header and footer stay visible while the body scrolls.">
-        <Button onclick="openDialog('long-content-dialog')">Open Long Content Dialog</Button>
+      <ExampleSection title="Resizable Dialog" description="When resizable is enabled, a resize grip appears in the bottom-right corner; users can drag to resize the dialog. Designers can enable this for dialogs where adjustable size is useful.">
+        <Button onclick="openDialog('resizable-dialog')">Open Resizable Dialog</Button>
         
-        <Dialog id="long-content-dialog" title="Sticky Header & Footer">
+        <Dialog id="resizable-dialog" title="Header" resizable>
+          <p class="text-secondary">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          </p>
+          <div slot="footer">
+            <Button onclick="closeDialog('resizable-dialog')">Submit</Button>
+            <Button variant="secondary" onclick="closeDialog('resizable-dialog')">Cancel</Button>
+          </div>
+        </Dialog>
+      </ExampleSection>
+
+      <ExampleSection title="Long Content (Scrollable Body)" description="Header and footer stay visible while the body scrolls. This example has enough content that the body overflows and scrolls.">
+        <Button onclick="openDialog('long-content-dialog')">Open Scrollable Body Dialog</Button>
+
+        <Dialog id="long-content-dialog" title="Scrollable Body">
           <div class="space-y-4">
             <p class="text-secondary">
               When content is long, only the body scrolls. The header (title and close) and footer (buttons) stay fixed at the top and bottom.
@@ -127,10 +160,22 @@ const props = [
             <p class="text-secondary">
               Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus. Nulla facilisi.
             </p>
+            <p class="text-secondary">
+              Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Maecenas sed diam eget risus varius blandit sit amet non magna. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.
+            </p>
+            <p class="text-secondary">
+              Cras mattis consectetur purus sit amet fermentum. Nullam id dolor id nibh ultricies vehicula ut id elit. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+            </p>
+            <p class="text-secondary">
+              Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Etiam porta sem malesuada magna mollis euismod.
+            </p>
+            <p class="text-secondary">
+              Sed posuere consectetur est at lobortis. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Donec sed odio dui. Scroll to see that the header and footer remain fixed.
+            </p>
           </div>
           <div slot="footer">
             <Button onclick="closeDialog('long-content-dialog')">Confirm</Button>
-            <Button variant="ghost" onclick="closeDialog('long-content-dialog')">Cancel</Button>
+            <Button variant="secondary" onclick="closeDialog('long-content-dialog')">Cancel</Button>
           </div>
         </Dialog>
       </ExampleSection>
