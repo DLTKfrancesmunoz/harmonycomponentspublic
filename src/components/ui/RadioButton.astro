@@ -13,6 +13,7 @@ export interface Props {
   disabled?: boolean;
   label?: string;
   value: string;
+  size?: 'small' | 'medium' | 'large';
   warning?: boolean;
   error?: boolean;
   warningMessage?: string;
@@ -28,6 +29,7 @@ const {
   disabled = false,
   label,
   value,
+  size = 'medium',
   warning = false,
   error = false,
   warningMessage,
@@ -41,6 +43,7 @@ const messageId = error && errorMessage ? `${radioId}-error` : warning && warnin
 
 const classes = [
   'radio',
+  size !== 'medium' && `radio--${size === 'small' ? 'sm' : 'lg'}`,
   disabled && 'radio--disabled',
   warning && 'radio--warning',
   error && 'radio--error',

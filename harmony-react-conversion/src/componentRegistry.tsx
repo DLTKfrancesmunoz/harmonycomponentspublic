@@ -115,6 +115,39 @@ function LinkDemo() {
   )
 }
 
+/** Demo wrapper to show RadioButton states, size variants, and validation states */
+function RadioButtonDemo() {
+  const row = (label: string, content: React.ReactNode) => (
+    <div key={label} style={{ marginBottom: '1.5rem' }}>
+      <div style={{ fontSize: '0.875rem', color: '#666', marginBottom: '0.5rem' }}>{label}</div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>{content}</div>
+    </div>
+  )
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
+      {row('States', <>
+        <RadioButton name="demo-states" value="1" label="Unchecked" />
+        <RadioButton name="demo-states" value="2" label="Checked" defaultChecked />
+        <RadioButton name="demo-states-disabled" value="3" label="Disabled" disabled />
+        <RadioButton name="demo-states-disabled" value="4" label="Checked & Disabled" defaultChecked disabled />
+      </>)}
+      {row('Size variants', <>
+        <RadioButton name="demo-sizes" value="sm" label="Small" size="small" />
+        <RadioButton name="demo-sizes" value="md" label="Medium (default)" size="medium" defaultChecked />
+        <RadioButton name="demo-sizes" value="lg" label="Large" size="large" />
+      </>)}
+      {row('Warning states', <>
+        <RadioButton name="demo-warn-1" value="1" label="Unchecked with warning" warning warningMessage="This action may have unintended consequences" />
+        <RadioButton name="demo-warn-2" value="2" label="Checked with warning" defaultChecked warning warningMessage="Review this selection carefully" />
+      </>)}
+      {row('Error states', <>
+        <RadioButton name="demo-err-1" value="1" label="Unchecked with error" error errorMessage="This field is required" />
+        <RadioButton name="demo-err-2" value="2" label="Checked with error" defaultChecked error errorMessage="This selection is invalid" />
+      </>)}
+    </div>
+  )
+}
+
 /** Demo wrapper showing basic, with-header, with-icons, and single-icon Card variants */
 function CardDemo() {
   return (
@@ -805,7 +838,7 @@ export const componentRegistry: ComponentRegistryEntry[] = [
   { name: 'NumberInput', Component: NumberInput as AnyComponent, demoProps: { id: 'demo-num', label: 'Number' } },
   { name: 'PickerPopup', Component: PickerPopupDemo as AnyComponent },
   { name: 'ProgressBar', Component: ProgressBar as AnyComponent, demoProps: { value: 60, max: 100 } },
-  { name: 'RadioButton', Component: RadioButton as AnyComponent, demoProps: { name: 'demo', value: 'opt', label: 'Option' } },
+  { name: 'RadioButton', Component: RadioButtonDemo as AnyComponent },
   { name: 'RadioGroup', Component: RadioGroup as AnyComponent, demoProps: { name: 'demo', legend: 'Choose', children: <><RadioButton name="demo" value="a" label="Option A" defaultChecked /><RadioButton name="demo" value="b" label="Option B" /></> } },
   { name: 'RangeInput', Component: RangeInput as AnyComponent, demoProps: { id: 'demo-range', min: 0, max: 100, defaultValue: 50 } },
   { name: 'RightSidebar', Component: RightSidebar as AnyComponent },

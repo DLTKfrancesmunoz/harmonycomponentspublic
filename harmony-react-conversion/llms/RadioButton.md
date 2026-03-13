@@ -13,6 +13,7 @@ Single radio option within a group.
 | disabled | boolean | false | When true, the control is disabled and not interactive. |
 | label | string | — | Label text for the control. |
 | value | string |  | Controlled value. |
+| size | 'small' \| 'medium' \| 'large' | 'medium' | Size of the radio button. |
 | warning | boolean | false | When true, shows warning state or message. |
 | error | boolean | false | When true, shows error styling and optional error message. |
 | warningMessage | string | — | String value. |
@@ -24,12 +25,15 @@ Single radio option within a group.
 ```tsx
 import { RadioButton } from './components/harmony/RadioButton';
 
-<RadioButton label="Example" />
+<RadioButton name="choice" value="a" label="Option A" />
+<RadioButton name="choice" value="b" label="Option B" size="large" />
 ```
 
 ## CSS Classes
 
 - `.radio`
+- `.radio--sm` (small size)
+- `.radio--lg` (large size)
 - `.radio--disabled`
 - `.radio--warning`
 - `.radio--error`
