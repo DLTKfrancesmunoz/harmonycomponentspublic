@@ -160,6 +160,10 @@ Generated from Harmony component and shell doc pages. Do not edit by hand; run `
 - Use zebra striping for tables with many rows
             
 - Provide sorting and filtering for large data sets; use the filter bar variant with dropdowns, active filter chips, and a Clear button for narrowing by period, project, or category
+            
+- Use reorderable tables when users need to customize row order; provide keyboard alternatives for accessibility where possible
+            
+- Use grouped rows for hierarchical data; limit nesting to 4 levels
           
 
         
@@ -171,42 +175,6 @@ Generated from Harmony component and shell doc pages. Do not edit by hand; run `
         
 
           Use proper `<table>`, `<thead>`, `<tbody>`, `<th>`, and `<td>` elements. Include `scope` attributes on header cells and provide a caption or `aria-label` for the table's purpose.
-        
-
-      
-    
-  
-
-  // Handle row selection highlighting for browsers without :has() support
-  document.addEventListener('DOMContentLoaded', () => {
-    const tables = document.querySelectorAll('.table');
-    
-    tables.forEach(table => {
-      const checkboxes = table.querySelectorAll('.checkbox__input');
-      
-      // Initialize selected state for pre-checked checkboxes
-      checkboxes.forEach(checkbox => {
-        const row = checkbox.closest('tr');
-        if (row && checkbox.checked) {
-          row.classList.add('table-row--selected');
-        }
-      });
-      
-      // Handle checkbox changes
-      checkboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', () => {
-          const row = checkbox.closest('tr');
-          if (row) {
-            if (checkbox.checked) {
-              row.classList.add('table-row--selected');
-            } else {
-              row.classList.remove('table-row--selected');
-            }
-          }
-        });
-      });
-    });
-  });
 
 ### Shell: Layout
 

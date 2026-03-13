@@ -2,17 +2,15 @@
 import DocsLayout from '../../layouts/DocsLayout.astro';
 import Icon from '../../components/ui/Icon.astro';
 import PropsTable from '../../components/PropsTable.astro';
-import Icon from '../../components/ui/Icon.astro';
 import ExampleSection from '../../components/ExampleSection.astro';
-import Icon from '../../components/ui/Icon.astro';
 import RadioButton from '../../components/ui/RadioButton.astro';
-import Icon from '../../components/ui/Icon.astro';
 
 const props = [
   { name: 'name', type: 'string', default: '—', description: 'Radio group name (required)' },
   { name: 'value', type: 'string', default: '—', description: 'Radio value (required)' },
   { name: 'id', type: 'string', default: '—', description: 'Element ID (auto-generated if not provided)' },
   { name: 'label', type: 'string', default: '—', description: 'Label text' },
+  { name: 'size', type: "'small' | 'medium' | 'large'", default: "'medium'", description: 'Size of the radio button' },
   { name: 'checked', type: 'boolean', default: 'false', description: 'Checked state' },
   { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables the radio' },
   { name: 'warning', type: 'boolean', default: 'false', description: 'Shows warning state' },
@@ -45,9 +43,17 @@ const props = [
 
       <ExampleSection title="Basic Radio Group" description="Standard radio button group.">
         <div class="flex flex-col gap-3">
-          <RadioButton name="size" value="small" label="Small" />
-          <RadioButton name="size" value="medium" label="Medium" checked />
-          <RadioButton name="size" value="large" label="Large" />
+          <RadioButton name="basic" value="1" label="Option 1" />
+          <RadioButton name="basic" value="2" label="Option 2" checked />
+          <RadioButton name="basic" value="3" label="Option 3" />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Size Variants" description="Radio buttons support three sizes: small, medium (default), and large.">
+        <div class="flex flex-col gap-3">
+          <RadioButton name="sizes" value="sm" label="Small" size="small" />
+          <RadioButton name="sizes" value="md" label="Medium (default)" size="medium" checked />
+          <RadioButton name="sizes" value="lg" label="Large" size="large" />
         </div>
       </ExampleSection>
 

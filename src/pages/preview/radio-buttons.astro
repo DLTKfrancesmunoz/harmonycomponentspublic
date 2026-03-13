@@ -1,7 +1,6 @@
 ---
 import '../../styles/global.css';
 import RadioButton from '../../components/ui/RadioButton.astro';
-import Label from '../../components/ui/Label.astro';
 ---
 
 <!DOCTYPE html>
@@ -22,25 +21,35 @@ import Label from '../../components/ui/Label.astro';
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
       html, body { height: 100%; width: 100%; }
-      body { padding: 48px; display: flex; flex-direction: column; gap: 16px; }
+      body { padding: 48px; display: flex; flex-direction: column; gap: 24px; }
+      .preview-section { display: flex; flex-direction: column; gap: 12px; }
+      .preview-section h3 { font-size: 0.875rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 4px; }
     </style>
   </head>
   <body>
-    <div style="display: flex; align-items: center; gap: 8px;">
-      <RadioButton id="rb1" name="radio-group" checked />
-      <Label for="rb1">Option 1</Label>
+    <div class="preview-section">
+      <h3>Basic (medium default)</h3>
+      <RadioButton name="basic" value="1" label="Option 1" />
+      <RadioButton name="basic" value="2" label="Option 2" checked />
+      <RadioButton name="basic" value="3" label="Option 3" />
     </div>
-    <div style="display: flex; align-items: center; gap: 8px;">
-      <RadioButton id="rb2" name="radio-group" />
-      <Label for="rb2">Option 2</Label>
+    <div class="preview-section">
+      <h3>Size variants</h3>
+      <RadioButton name="sizes" value="sm" label="Small" size="small" />
+      <RadioButton name="sizes" value="md" label="Medium" size="medium" checked />
+      <RadioButton name="sizes" value="lg" label="Large" size="large" />
     </div>
-    <div style="display: flex; align-items: center; gap: 8px;">
-      <RadioButton id="rb3" name="radio-group" />
-      <Label for="rb3">Option 3</Label>
+    <div class="preview-section">
+      <h3>States</h3>
+      <RadioButton name="states" value="1" label="Unchecked" />
+      <RadioButton name="states" value="2" label="Checked" checked />
+      <RadioButton name="states-disabled" value="3" label="Disabled" disabled />
+      <RadioButton name="states-disabled" value="4" label="Checked & Disabled" checked disabled />
     </div>
-    <div style="display: flex; align-items: center; gap: 8px;">
-      <RadioButton id="rb4" name="radio-group2" disabled />
-      <Label for="rb4">Disabled option</Label>
+    <div class="preview-section">
+      <h3>Warning & error</h3>
+      <RadioButton name="warn" value="1" label="Warning" warning warningMessage="Review carefully" />
+      <RadioButton name="err" value="1" label="Error" error errorMessage="This field is required" />
     </div>
   </body>
 </html>
