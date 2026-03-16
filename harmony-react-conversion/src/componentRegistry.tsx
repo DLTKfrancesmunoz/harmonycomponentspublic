@@ -115,6 +115,30 @@ function LinkDemo() {
   )
 }
 
+/** Demo wrapper to show Badge size variants and with icons */
+function BadgeDemo() {
+  const row = (label: string, content: React.ReactNode) => (
+    <div key={label} style={{ marginBottom: '1rem' }}>
+      <div style={{ fontSize: '0.875rem', color: '#666', marginBottom: '0.25rem' }}>{label}</div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', alignItems: 'center' }}>{content}</div>
+    </div>
+  )
+  return (
+    <>
+      {row('Sizes', <>
+        <Badge variant="default" size="small">Small</Badge>
+        <Badge variant="default" size="medium">Medium</Badge>
+        <Badge variant="default" size="large">Large</Badge>
+      </>)}
+      {row('With Icons', <>
+        <Badge variant="success" size="small" icon="check">Small</Badge>
+        <Badge variant="success" size="medium" icon="check">Medium</Badge>
+        <Badge variant="success" size="large" icon="check">Large</Badge>
+      </>)}
+    </>
+  )
+}
+
 /** Demo wrapper to show RadioButton states, size variants, and validation states */
 function RadioButtonDemo() {
   const row = (label: string, content: React.ReactNode) => (
@@ -811,7 +835,7 @@ export const componentRegistry: ComponentRegistryEntry[] = [
   { name: 'Accordion', Component: Accordion as AnyComponent, demoProps: { items: [{ title: 'Section 1', content: 'Content for section 1' }, { title: 'Section 2', content: 'Content for section 2', defaultOpen: true }] } },
   { name: 'Alert', Component: Alert as AnyComponent, demoProps: { variant: 'info', children: 'This is an info alert.' } },
   { name: 'Avatar', Component: Avatar as AnyComponent },
-  { name: 'Badge', Component: Badge as AnyComponent, demoProps: { variant: 'default', children: 'Badge' } },
+  { name: 'Badge', Component: BadgeDemo as AnyComponent },
   { name: 'Button', Component: ButtonDemo as AnyComponent },
   { name: 'ButtonGroup', Component: ButtonGroup as AnyComponent, demoProps: { children: [<Button key="1" buttonType="theme" variant="primary">Primary</Button>, <Button key="2" buttonType="theme" variant="secondary">Secondary</Button>, <Button key="3" buttonType="theme" variant="tertiary">Tertiary</Button>] } },
   { name: 'Card', Component: CardDemo as AnyComponent },
