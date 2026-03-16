@@ -9,12 +9,16 @@ import Icon from './Icon.astro';
 
 export interface Props {
   variant?: 'default' | 'primary' | 'success' | 'warning' | 'error' | 'info' | 'orange' | 'pink' | 'disabled';
+  size?: 'small' | 'medium' | 'large';
   icon?: string; // Heroicon name (e.g., "check", "x-mark")
   class?: string;
 }
 
+const iconSizeMap = { small: 'xs', medium: 'xs', large: 'sm' } as const;
+
 const {
   variant = 'default',
+  size = 'large',
   icon,
   class: className = '',
 } = Astro.props;
@@ -22,11 +26,14 @@ const {
 const classes = [
   'badge',
   `badge--${variant}`,
+  `badge--${size}`,
   className,
 ].filter(Boolean).join(' ');
+
+const iconSize = icon ? iconSizeMap[size] : undefined;
 ---
 
 <span class={classes}>
-  {icon && <Icon name={icon} size="xs" />}
+  {icon && iconSize && <Icon name={icon} size={iconSize} />}
   <slot />
 </span>

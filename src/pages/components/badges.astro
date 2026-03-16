@@ -7,6 +7,7 @@ import Icon from '../../components/ui/Icon.astro';
 
 const props = [
   { name: 'variant', type: "'default' | 'primary' | 'success' | 'warning' | 'error' | 'info' | 'orange' | 'pink' | 'disabled'", default: "'default'", description: 'Badge style variant using Alert Chip colors' },
+  { name: 'size', type: "'small' | 'medium' | 'large'", default: "'large'", description: 'Badge size (font and height)' },
   { name: 'icon', type: 'string', default: '—', description: 'Icon class (e.g., ti-check)' },
 ];
 ---
@@ -46,12 +47,25 @@ const props = [
         </div>
       </ExampleSection>
 
-      <ExampleSection title="With Icons" description="Badges with leading icons.">
+      <ExampleSection title="Sizes" description="Small, medium, and large badge sizes.">
+        <div class="flex flex-wrap items-center gap-3">
+          <Badge variant="default" size="small">Small</Badge>
+          <Badge variant="default" size="medium">Medium</Badge>
+          <Badge variant="default" size="large">Large</Badge>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="With Icons" description="Badges with leading icons. The icon scales with the badge size.">
         <div class="flex flex-wrap gap-3">
           <Badge variant="success" icon="check">Approved</Badge>
           <Badge variant="warning" icon="clock">Pending</Badge>
           <Badge variant="error" icon="x-mark">Rejected</Badge>
           <Badge variant="info" icon="information-circle">Info</Badge>
+        </div>
+        <div class="flex flex-wrap items-center gap-3 mt-4">
+          <Badge variant="success" size="small" icon="check">Small</Badge>
+          <Badge variant="success" size="medium" icon="check">Medium</Badge>
+          <Badge variant="success" size="large" icon="check">Large</Badge>
         </div>
       </ExampleSection>
     </section>
