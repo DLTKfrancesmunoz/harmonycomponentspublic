@@ -9,7 +9,7 @@ for (const theme of THEMES) {
   const themeData = manifest[theme]
   if (themeData && typeof themeData === 'object')
     for (const [name, entry] of Object.entries(themeData))
-      if (entry?.svg && !mergedIconMap[name]) mergedIconMap[name] = entry
+      if (entry?.svg) mergedIconMap[name] = entry
 }
 
 // Fallbacks for icons not in PPM manifest but used by shell (e.g. user, chevron-down) - Heroicons outline equivalents
@@ -119,10 +119,12 @@ export function Icon({
       !hasCurrentColorFillOrStroke &&
       !/fill="(#[0-9A-Fa-f]{6}|#[0-9A-Fa-f]{3})"/i.test(inner) &&
       !/stroke="url\(/.test(inner)
+    const rootFill =
+      variant === 'outline' || useStroke ? 'none' : 'currentColor'
     return (
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        fill={useStroke ? 'none' : 'currentColor'}
+        fill={rootFill}
         viewBox={viewBox}
         strokeWidth={useStroke ? 1.5 : undefined}
         stroke={useStroke ? 'currentColor' : undefined}

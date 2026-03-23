@@ -52,8 +52,8 @@ export interface ShellLayoutProps {
 
 const DEFAULT_TABS: ShellFooterTab[] = [
   { id: 'tab-1', label: 'Home', active: true },
-  { id: 'tab-2', label: 'Projects' },
-  { id: 'tab-3', label: 'Reports' },
+  { id: 'tab-2', label: 'Projects', icon: 'building-office' },
+  { id: 'tab-3', label: 'Reports', icon: 'Report' },
 ]
 
 export function ShellLayout({
