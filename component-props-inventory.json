@@ -10,7 +10,9 @@
       "./Icon.astro"
     ],
     "cssClasses": [
-      "accordion__item",
+      "accordion-field__label",
+      "accordion-field__surface",
+      "accordion",
       "accordion__trigger",
       "accordion__icon",
       "accordion__content"
@@ -33,13 +35,19 @@
         "type": "string;",
         "default": "''",
         "description": null
+      },
+      "label": {
+        "optional": true,
+        "type": "string;",
+        "default": null,
+        "description": null
       }
     },
     "defaults": {
       "allowMultiple": "false",
       "class": "''"
     },
-    "rawInterface": "items: AccordionItem[]\n  allowMultiple?: boolean\n  class?: string"
+    "rawInterface": "items: AccordionItem[]\n  allowMultiple?: boolean\n  class?: string\n  label?: string"
   },
   "Alert": {
     "hasProps": true,
@@ -199,6 +207,12 @@
         "default": "'default'",
         "description": null
       },
+      "size": {
+        "optional": true,
+        "type": "'small' | 'medium' | 'large';",
+        "default": "'large'",
+        "description": null
+      },
       "icon": {
         "optional": true,
         "type": "string;",
@@ -214,9 +228,10 @@
     },
     "defaults": {
       "variant": "'default'",
+      "size": "'large'",
       "class": "''"
     },
-    "rawInterface": "variant?: 'default' | 'primary' | 'success' | 'warning' | 'error' | 'info' | 'orange' | 'pink' | 'disabled'\n  icon?: string\n  class?: string"
+    "rawInterface": "variant?: 'default' | 'primary' | 'success' | 'warning' | 'error' | 'info' | 'orange' | 'pink' | 'disabled'\n  size?: 'small' | 'medium' | 'large'\n  icon?: string\n  class?: string"
   },
   "Button": {
     "hasProps": true,
@@ -373,14 +388,19 @@
     "hasProps": true,
     "filePath": "src/components/ui/Card.astro",
     "description": "Card Component",
-    "dependencies": [],
-    "imports": [],
+    "dependencies": [
+      "Icon"
+    ],
+    "imports": [
+      "./Icon.astro"
+    ],
     "cssClasses": [
       "card__header",
       "card__header-content",
       "card__header-title",
       "card__header-subtitle",
       "card__header-actions",
+      "card__icon-btn",
       "card__body",
       "card__body-default",
       "card__footer"
@@ -407,7 +427,7 @@
       "withHeader": {
         "optional": true,
         "type": "boolean;",
-        "default": "true",
+        "default": "false",
         "description": null
       },
       "headerTitle": {
@@ -422,6 +442,24 @@
         "default": "''",
         "description": null
       },
+      "icon1": {
+        "optional": true,
+        "type": "string;",
+        "default": null,
+        "description": null
+      },
+      "icon2": {
+        "optional": true,
+        "type": "string;",
+        "default": null,
+        "description": null
+      },
+      "icon3": {
+        "optional": true,
+        "type": "string;",
+        "default": null,
+        "description": null
+      },
       "class": {
         "optional": true,
         "type": "string;",
@@ -433,12 +471,12 @@
       "elevated": "false",
       "interactive": "false",
       "primary": "false",
-      "withHeader": "true",
+      "withHeader": "false",
       "headerTitle": "'Card title'",
       "headerSubtitle": "''",
       "class": "''"
     },
-    "rawInterface": "elevated?: boolean\n  interactive?: boolean\n  primary?: boolean\n  withHeader?: boolean\n  headerTitle?: string\n  headerSubtitle?: string\n  class?: string"
+    "rawInterface": "elevated?: boolean\n  interactive?: boolean\n  primary?: boolean\n  withHeader?: boolean\n  headerTitle?: string\n  headerSubtitle?: string\n  icon1?: string\n  icon2?: string\n  icon3?: string\n  class?: string"
   },
   "Checkbox": {
     "hasProps": true,
@@ -896,6 +934,170 @@
     },
     "rawInterface": "value?: string\n  min?: string\n  max?: string\n  disabled?: boolean\n  locale?: string\n  id?: string\n  class?: string"
   },
+  "DateRangePicker": {
+    "hasProps": true,
+    "filePath": "src/components/ui/DateRangePicker.astro",
+    "description": "DateRangePicker Component",
+    "dependencies": [
+      "Icon"
+    ],
+    "imports": [
+      "./Icon.astro"
+    ],
+    "cssClasses": [
+      "date-picker__header",
+      "date-picker__nav-btn",
+      "date-picker__month-year",
+      "date-picker__month",
+      "date-picker__year",
+      "date-picker__weekdays",
+      "date-picker__weekday",
+      "date-picker__grid"
+    ],
+    "props": {
+      "startDate": {
+        "optional": true,
+        "type": "string;",
+        "default": null,
+        "description": null
+      },
+      "endDate": {
+        "optional": true,
+        "type": "string;",
+        "default": null,
+        "description": null
+      },
+      "min": {
+        "optional": true,
+        "type": "string;",
+        "default": null,
+        "description": null
+      },
+      "max": {
+        "optional": true,
+        "type": "string;",
+        "default": null,
+        "description": null
+      },
+      "disabled": {
+        "optional": true,
+        "type": "boolean;",
+        "default": "false",
+        "description": null
+      },
+      "locale": {
+        "optional": true,
+        "type": "string;",
+        "default": "'en-US'",
+        "description": null
+      },
+      "id": {
+        "optional": true,
+        "type": "string;",
+        "default": null,
+        "description": null
+      },
+      "class": {
+        "optional": true,
+        "type": "string;",
+        "default": "''",
+        "description": null
+      }
+    },
+    "defaults": {
+      "disabled": "false",
+      "locale": "'en-US'",
+      "class": "''"
+    },
+    "rawInterface": "startDate?: string\n  endDate?: string\n  min?: string\n  max?: string\n  disabled?: boolean\n  locale?: string\n  id?: string\n  class?: string"
+  },
+  "DateRangePickerExpanded": {
+    "hasProps": true,
+    "filePath": "src/components/ui/DateRangePickerExpanded.astro",
+    "description": "DateRangePickerExpanded Component",
+    "dependencies": [
+      "Icon"
+    ],
+    "imports": [
+      "./Icon.astro"
+    ],
+    "cssClasses": [
+      "drp-expanded__top",
+      "drp-expanded__presets",
+      "drp-preset-btn",
+      "drp-preset-btn--custom",
+      "drp-expanded__main",
+      "drp-expanded__calendars",
+      "drp-expanded__calendar",
+      "date-picker__header",
+      "date-picker__nav-btn",
+      "date-picker__month-year",
+      "date-picker__month",
+      "date-picker__year",
+      "date-picker__weekdays",
+      "date-picker__weekday",
+      "date-picker__grid",
+      "drp-expanded__divider",
+      "drp-expanded__footer",
+      "drp-footer-actions",
+      "drp-clear",
+      "btn",
+      "btn--sm",
+      "btn--primary",
+      "drp-footer-dates",
+      "drp-date-display",
+      "drp-footer-arrow"
+    ],
+    "props": {
+      "startDate": {
+        "optional": true,
+        "type": "string;",
+        "default": null,
+        "description": null
+      },
+      "endDate": {
+        "optional": true,
+        "type": "string;",
+        "default": null,
+        "description": null
+      },
+      "min": {
+        "optional": true,
+        "type": "string;",
+        "default": null,
+        "description": null
+      },
+      "max": {
+        "optional": true,
+        "type": "string;",
+        "default": null,
+        "description": null
+      },
+      "locale": {
+        "optional": true,
+        "type": "string;",
+        "default": "'en-US'",
+        "description": null
+      },
+      "id": {
+        "optional": true,
+        "type": "string;",
+        "default": null,
+        "description": null
+      },
+      "class": {
+        "optional": true,
+        "type": "string;",
+        "default": "''",
+        "description": null
+      }
+    },
+    "defaults": {
+      "locale": "'en-US'",
+      "class": "''"
+    },
+    "rawInterface": "startDate?: string\n  endDate?: string\n  min?: string\n  max?: string\n  locale?: string\n  id?: string\n  class?: string"
+  },
   "DateTimePicker": {
     "hasProps": true,
     "filePath": "src/components/ui/DateTimePicker.astro",
@@ -987,7 +1189,9 @@
       "dialog__title",
       "dialog__close",
       "dialog__body",
-      "dialog__body-default"
+      "dialog__body-default",
+      "dialog__footer-actions",
+      "dialog__resize-grip"
     ],
     "props": {
       "id": {
@@ -1037,6 +1241,24 @@
         "type": "string;",
         "default": null,
         "description": null
+      },
+      "tertiaryLabel": {
+        "optional": true,
+        "type": "string;",
+        "default": null,
+        "description": null
+      },
+      "tertiaryCallbackName": {
+        "optional": true,
+        "type": "string;",
+        "default": null,
+        "description": null
+      },
+      "resizable": {
+        "optional": true,
+        "type": "boolean;",
+        "default": "true",
+        "description": null
       }
     },
     "defaults": {
@@ -1044,9 +1266,10 @@
       "buttonAlignment": "'left'",
       "headerVariant": "'default'",
       "confirmLabel": "'Confirm'",
-      "cancelLabel": "'Cancel'"
+      "cancelLabel": "'Cancel'",
+      "resizable": "true"
     },
-    "rawInterface": "id: string\n  title: string\n  class?: string\n  buttonAlignment?: 'left' | 'right'\n  headerVariant?: 'default' | 'primary'\n  confirmLabel?: string\n  cancelLabel?: string\n  confirmCallbackName?: string"
+    "rawInterface": "id: string\n  title: string\n  class?: string\n  buttonAlignment?: 'left' | 'right'\n  headerVariant?: 'default' | 'primary'\n  confirmLabel?: string\n  cancelLabel?: string\n  confirmCallbackName?: string\n  tertiaryLabel?: string\n  tertiaryCallbackName?: string\n  resizable?: boolean"
   },
   "Dropdown": {
     "hasProps": true,
@@ -1641,7 +1864,7 @@
       "./Icon.astro"
     ],
     "cssClasses": [
-      "ml-1"
+      "link__external-icon"
     ],
     "props": {
       "href": {
@@ -1662,6 +1885,12 @@
         "default": "false",
         "description": null
       },
+      "size": {
+        "optional": true,
+        "type": "'small' | 'medium' | 'large';",
+        "default": "'medium'",
+        "description": null
+      },
       "class": {
         "optional": true,
         "type": "string;",
@@ -1672,9 +1901,10 @@
     "defaults": {
       "external": "false",
       "muted": "false",
+      "size": "'medium'",
       "class": "''"
     },
-    "rawInterface": "href: string\n  external?: boolean\n  muted?: boolean\n  class?: string"
+    "rawInterface": "href: string\n  external?: boolean\n  muted?: boolean\n  size?: 'small' | 'medium' | 'large'\n  class?: string"
   },
   "ListMenu": {
     "hasProps": true,
@@ -2104,6 +2334,12 @@
         "default": null,
         "description": null
       },
+      "size": {
+        "optional": true,
+        "type": "'small' | 'medium' | 'large';",
+        "default": "'medium'",
+        "description": null
+      },
       "warning": {
         "optional": true,
         "type": "boolean;",
@@ -2138,11 +2374,12 @@
     "defaults": {
       "checked": "false",
       "disabled": "false",
+      "size": "'medium'",
       "warning": "false",
       "error": "false",
       "class": "''"
     },
-    "rawInterface": "name: string\n  id?: string\n  checked?: boolean\n  disabled?: boolean\n  label?: string\n  value: string\n  warning?: boolean\n  error?: boolean\n  warningMessage?: string\n  errorMessage?: string\n  class?: string"
+    "rawInterface": "name: string\n  id?: string\n  checked?: boolean\n  disabled?: boolean\n  label?: string\n  value: string\n  size?: 'small' | 'medium' | 'large'\n  warning?: boolean\n  error?: boolean\n  warningMessage?: string\n  errorMessage?: string\n  class?: string"
   },
   "RadioGroup": {
     "hasProps": true,
@@ -2953,14 +3190,30 @@
     "hasProps": true,
     "filePath": "src/components/ui/Table.astro",
     "description": "Table Component",
-    "dependencies": [],
-    "imports": [],
+    "dependencies": [
+      "Icon"
+    ],
+    "imports": [
+      "./Icon.astro"
+    ],
     "cssClasses": [
       "table-wrapper",
+      "table__grip-template",
+      "table__grip-handle",
+      "table__expand-template",
+      "table__expand-btn",
+      "table__expand-icon",
+      "table__filter-bar",
       "table__title-bar",
       "table__title-bar-content",
       "table__title-bar-icons",
-      "table__action-bar"
+      "table__action-bar",
+      "table__grip-column",
+      "table__expand-column",
+      "right",
+      "text-right",
+      "text-left",
+      "table__sort-header"
     ],
     "props": {
       "headerVariant": {
@@ -2975,19 +3228,53 @@
         "default": "false",
         "description": null
       },
+      "reorderable": {
+        "optional": true,
+        "type": "boolean;",
+        "default": "false",
+        "description": null
+      },
+      "grouped": {
+        "optional": true,
+        "type": "boolean;",
+        "default": "false",
+        "description": null
+      },
       "class": {
         "optional": true,
         "type": "string;",
         "default": "''",
+        "description": null
+      },
+      "sortColumns": {
+        "optional": true,
+        "type": "SortColumn[];",
+        "default": null,
+        "description": null
+      },
+      "sortColumn": {
+        "optional": true,
+        "type": "string | null;",
+        "default": "null",
+        "description": null
+      },
+      "sortDirection": {
+        "optional": true,
+        "type": "'asc' | 'desc' | null;",
+        "default": "null",
         "description": null
       }
     },
     "defaults": {
       "headerVariant": "'gray'",
       "striped": "false",
-      "class": "''"
+      "reorderable": "false",
+      "grouped": "false",
+      "class": "''",
+      "sortColumn": "null",
+      "sortDirection": "null"
     },
-    "rawInterface": "headerVariant?: 'gray' | 'white' | 'none'\n  striped?: boolean\n  class?: string"
+    "rawInterface": "headerVariant?: 'gray' | 'white' | 'none'\n  striped?: boolean\n  reorderable?: boolean\n  grouped?: boolean\n  class?: string\n  sortColumns?: SortColumn[]\n  sortColumn?: string | null\n  sortDirection?: 'asc' | 'desc' | null"
   },
   "Textarea": {
     "hasProps": true,
@@ -3167,7 +3454,12 @@
     "cssClasses": [
       "toggle__input",
       "toggle__track",
+      "toggle__track--segmented",
       "toggle__thumb",
+      "toggle__thumb--segmented",
+      "toggle__segment",
+      "toggle__segment--left",
+      "toggle__segment--right",
       "toggle__label"
     ],
     "props": {
@@ -3201,6 +3493,24 @@
         "default": null,
         "description": null
       },
+      "variant": {
+        "optional": true,
+        "type": "'default' | 'segmented';",
+        "default": "'default'",
+        "description": null
+      },
+      "optionLabelLeft": {
+        "optional": true,
+        "type": "string;",
+        "default": "'Item 1'",
+        "description": null
+      },
+      "optionLabelRight": {
+        "optional": true,
+        "type": "string;",
+        "default": "'Item 2'",
+        "description": null
+      },
       "size": {
         "optional": true,
         "type": "'sm' | 'md';",
@@ -3217,10 +3527,13 @@
     "defaults": {
       "checked": "false",
       "disabled": "false",
+      "variant": "'default'",
+      "optionLabelLeft": "'Item 1'",
+      "optionLabelRight": "'Item 2'",
       "size": "'md'",
       "class": "''"
     },
-    "rawInterface": "name?: string\n  id?: string\n  checked?: boolean\n  disabled?: boolean\n  label?: string\n  size?: 'sm' | 'md'\n  class?: string"
+    "rawInterface": "name?: string\n  id?: string\n  checked?: boolean\n  disabled?: boolean\n  label?: string\n  variant?: 'default' | 'segmented'\n  optionLabelLeft?: string\n  optionLabelRight?: string\n  size?: 'sm' | 'md'\n  class?: string"
   },
   "Tooltip": {
     "hasProps": true,

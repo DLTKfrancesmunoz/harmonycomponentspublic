@@ -119,7 +119,10 @@ for (const [componentName, docFileName] of Object.entries(componentToDocMap)) {
   
   const docContent = fs.readFileSync(docFile, 'utf-8');
   const propsVarName = componentToPropsVar[componentName] ?? 'props';
-  const docPropNames = new Set(extractPropsFromDoc(docContent, propsVarName));
+  // Omit `class` on both sides: Astro/HTML convention; inventory may include it but we do not require or forbid it in docs.
+  const docPropNames = new Set(
+    extractPropsFromDoc(docContent, propsVarName).filter((k) => k !== 'class')
+  );
   const componentProps = inventory[componentName].props || {};
   const componentPropNames = new Set(Object.keys(componentProps).filter(k => k !== 'class' && k !== '[key: string]'));
   
