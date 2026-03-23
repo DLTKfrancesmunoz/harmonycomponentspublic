@@ -8,9 +8,12 @@ import Icon from '../../components/ui/Icon.astro';
 const props = [
   { name: 'name', type: 'string', default: '—', description: 'Form input name attribute' },
   { name: 'id', type: 'string', default: '—', description: 'Element ID (auto-generated if not provided)' },
-  { name: 'checked', type: 'boolean', default: 'false', description: 'Toggle state' },
+  { name: 'checked', type: 'boolean', default: 'false', description: 'Toggle state (segmented: false = left option, true = right option)' },
   { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables the toggle' },
-  { name: 'label', type: 'string', default: '—', description: 'Label text' },
+  { name: 'label', type: 'string', default: '—', description: 'Label text beside the track (default variant only; ignored when variant is segmented)' },
+  { name: 'variant', type: "'default' | 'segmented'", default: "'default'", description: 'Segmented shows two in-track labels with a sliding thumb instead of the circular thumb' },
+  { name: 'optionLabelLeft', type: 'string', default: "'Item 1'", description: 'Left option label (segmented variant only)' },
+  { name: 'optionLabelRight', type: 'string', default: "'Item 2'", description: 'Right option label (segmented variant only)' },
   { name: 'size', type: "'sm' | 'md'", default: "'md'", description: 'Toggle size' },
 ];
 ---
@@ -23,7 +26,7 @@ const props = [
         <span class="badge badge--success">stable</span>
       </div>
       <p class="page-header__description">
-        Toggle switches are used for binary on/off settings where the effect is immediate.
+        Toggle switches are used for binary on/off settings where the effect is immediate, or for choosing between two labeled options with the segmented variant.
       </p>
     </header>
 
@@ -66,6 +69,19 @@ const props = [
           <Toggle disabled />
         </div>
       </ExampleSection>
+
+      <ExampleSection
+        title="Segmented toggle"
+        description="Two labeled options inside the control. Unchecked selects the left option; checked selects the right option. The label prop is not used for this variant."
+      >
+        <div class="flex flex-col gap-4">
+          <div class="flex flex-wrap items-center gap-6">
+            <Toggle variant="segmented" />
+            <Toggle variant="segmented" checked />
+          </div>
+          <Toggle variant="segmented" disabled />
+        </div>
+      </ExampleSection>
     </section>
 
     <section id="props">
@@ -82,7 +98,7 @@ const props = [
           Labels
         </h3>
         <p class="a11y-card__text">
-          The Toggle component automatically associates labels with the toggle switch. When a <code>label</code> prop is provided, it is properly linked to the input element for screen reader support.
+          For the default variant, visible label text sits inside the wrapping <code>label</code> element so it is associated with the control. The segmented variant has no external label; both options are visible in the track, and a default <code>aria-label</code> lists both option names unless you pass your own.
         </p>
       </div>
       
@@ -102,7 +118,7 @@ const props = [
           ARIA Attributes
         </h3>
         <p class="a11y-card__text">
-          Toggles use <code>role="switch"</code> and include <code>aria-checked</code> to indicate the current state. The label is associated using <code>aria-labelledby</code>.
+          Toggles use <code>role="switch"</code> and <code>aria-checked</code> to reflect the current state. For the segmented variant, <code>aria-checked</code> is <code>false</code> when the left option is selected and <code>true</code> when the right option is selected.
         </p>
       </div>
       
