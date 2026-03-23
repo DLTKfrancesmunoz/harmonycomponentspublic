@@ -94,6 +94,40 @@ function CheckboxDemo() {
   )
 }
 
+/** Demo wrapper: default toggle plus segmented (static and controlled) */
+function ToggleDemo() {
+  const [segmented, setSegmented] = useState(false)
+  const row = (label: string, content: React.ReactNode) => (
+    <div key={label} style={{ marginBottom: '1rem' }}>
+      <div style={{ fontSize: '0.875rem', color: '#666', marginBottom: '0.25rem' }}>{label}</div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', alignItems: 'center' }}>{content}</div>
+    </div>
+  )
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+      {row('Default', <>
+        <Toggle id="demo-toggle-default" label="Notifications" />
+        <Toggle id="demo-toggle-on" label="On" defaultChecked />
+      </>)}
+      {row('Segmented (static)', <>
+        <Toggle variant="segmented" id="demo-seg-a" />
+        <Toggle variant="segmented" id="demo-seg-b" defaultChecked />
+      </>)}
+      {row('Segmented (controlled)', <>
+        <Toggle
+          variant="segmented"
+          id="demo-seg-controlled"
+          checked={segmented}
+          onChange={(e) => setSegmented(e.target.checked)}
+        />
+        <span style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
+          {segmented ? 'Right option' : 'Left option'}
+        </span>
+      </>)}
+    </div>
+  )
+}
+
 /** Demo wrapper to show Link size variants and optional muted/external */
 function LinkDemo() {
   const row = (label: string, content: React.ReactNode) => (
@@ -995,7 +1029,7 @@ export const componentRegistry: ComponentRegistryEntry[] = [
   { name: 'TabStrip', Component: TabStrip as AnyComponent, demoProps: { tabs: [{ id: 'tab-1', label: 'Tab 1', active: true }, { id: 'tab-2', label: 'Tab 2' }] } },
   { name: 'Textarea', Component: Textarea as AnyComponent, demoProps: { id: 'demo-ta', label: 'Description', placeholder: 'Enter text' } },
   { name: 'TimePicker', Component: TimePicker as AnyComponent },
-  { name: 'Toggle', Component: Toggle as AnyComponent, demoProps: { id: 'demo-toggle', label: 'Toggle' } },
+  { name: 'Toggle', Component: ToggleDemo as AnyComponent },
   { name: 'Tooltip', Component: Tooltip as AnyComponent, demoProps: { text: 'Tooltip text', children: <span>Hover me</span> } },
   { name: 'WeekPicker', Component: WeekPicker as AnyComponent },
 ]

@@ -1,8 +1,8 @@
 ---
 /**
  * Toggle Component
- * 
- * Toggle switch for boolean on/off states.
+ *
+ * Toggle switch for boolean on/off states, or a segmented control with two labeled options.
  */
 
 export interface Props {
@@ -11,6 +11,9 @@ export interface Props {
   checked?: boolean;
   disabled?: boolean;
   label?: string;
+  variant?: 'default' | 'segmented';
+  optionLabelLeft?: string;
+  optionLabelRight?: string;
   size?: 'sm' | 'md';
   class?: string;
   [key: string]: any;
@@ -22,33 +25,58 @@ const {
   checked = false,
   disabled = false,
   label,
+  variant = 'default',
+  optionLabelLeft = 'Item 1',
+  optionLabelRight = 'Item 2',
   size = 'md',
   class: className = '',
+  'aria-label': ariaLabelProp,
   ...rest
 } = Astro.props;
 
 const toggleId = id || `toggle-${Math.random().toString(36).substr(2, 9)}`;
 
+const isSegmented = variant === 'segmented';
+
 const classes = [
   'toggle',
+  isSegmented && 'toggle--segmented',
   size === 'sm' && 'toggle--sm',
   disabled && 'toggle--disabled',
   className,
-].filter(Boolean).join(' ');
+]
+  .filter(Boolean)
+  .join(' ');
+
+const defaultSegmentedAriaLabel = `${optionLabelLeft}, ${optionLabelRight}`;
+const ariaLabel = ariaLabelProp ?? (isSegmented ? defaultSegmentedAriaLabel : undefined);
 ---
 
 <label class={classes}>
   <input
     type="checkbox"
+    role="switch"
     name={name}
     id={toggleId}
     checked={checked}
     disabled={disabled}
     class="toggle__input"
+    aria-checked={checked}
+    aria-label={ariaLabel}
     {...rest}
   />
-  <span class="toggle__track">
-    <span class="toggle__thumb"></span>
-  </span>
-  {label && <span class="toggle__label">{label}</span>}
+  {isSegmented ? (
+    <span class="toggle__track toggle__track--segmented">
+      <span class="toggle__thumb toggle__thumb--segmented" aria-hidden="true" />
+      <span class="toggle__segment toggle__segment--left">{optionLabelLeft}</span>
+      <span class="toggle__segment toggle__segment--right">{optionLabelRight}</span>
+    </span>
+  ) : (
+    <>
+      <span class="toggle__track">
+        <span class="toggle__thumb" />
+      </span>
+      {label && <span class="toggle__label">{label}</span>}
+    </>
+  )}
 </label>
