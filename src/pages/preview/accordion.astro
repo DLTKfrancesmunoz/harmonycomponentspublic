@@ -21,7 +21,7 @@ import Accordion from '../../components/ui/Accordion.astro';
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
       html, body { height: 100%; width: 100%; }
-      body { padding: 48px; display: flex; flex-direction: column; gap: 16px; max-width: 600px; }
+      body { padding: 48px; display: flex; flex-direction: column; gap: 32px; max-width: 600px; }
     </style>
   </head>
   <body>
@@ -30,6 +30,14 @@ import Accordion from '../../components/ui/Accordion.astro';
       { title: 'Accordion Item 2', content: 'This accordion item is open by default.', defaultOpen: true },
       { title: 'Accordion Item 3', content: 'This is the content for the third accordion item.' }
     ]} />
+
+    <Accordion
+      label="Section group label"
+      items={[
+        { title: 'First section', content: 'Content for the first section.' },
+        { title: 'Second section', content: 'Content for the second section.' },
+      ]}
+    />
   </body>
 </html>
 

@@ -8,7 +8,7 @@
  *
  * @usagePattern named-slots-content Use named slots item-0 through item-9 (max 10 items) to provide custom HTML content for accordion bodies. When a named slot exists for an item index, it takes precedence and the item.content string is ignored. If no named slot exists, the item.content string is rendered as plain text. Do not provide both slot and content for the same item.
  * @usagePattern allow-multiple-behavior When allowMultiple prop is false (default), clicking an accordion item automatically closes all other open items, allowing only one section open at a time. When allowMultiple is true, multiple sections can remain open simultaneously. This affects the click handler behavior in lines 76-81.
- * @usagePattern default-open-state Set defaultOpen: true on individual items in the items array to have them open when the accordion first renders. In single-open mode (allowMultiple=false), only the last item with defaultOpen: true will remain open. In multi-open mode, all items marked defaultOpen will be open initially.
+ * @usagePattern default-open-state Set defaultOpen: true on individual items in the items array to have them open when the accordion first renders. In single-open mode (allowMultiple=false), only the last item with defaultOpen: true will remain open. In multi-open mode, all items marked defaultOpen will be open initially. Items with disabled: true cannot open; defaultOpen is ignored for them.
  */
 import Icon from './Icon.astro';
 
@@ -16,35 +16,55 @@ export interface AccordionItem {
   title: string;
   content: string;
   defaultOpen?: boolean;
+  disabled?: boolean;
 }
 
 export interface Props {
   items: AccordionItem[];
   allowMultiple?: boolean;
   class?: string;
+  label?: string;
 }
 
 const {
   items,
   allowMultiple = false,
   class: className = '',
+  label,
 } = Astro.props;
 
 const accordionId = `accordion-${Math.random().toString(36).substr(2, 9)}`;
-const classes = ['accordion', className].filter(Boolean).join(' ');
+const labelId = `${accordionId}-label`;
+const fieldClasses = ['accordion-field', className].filter(Boolean).join(' ');
 ---
 
-<div class={classes} data-accordion {...(allowMultiple && { 'data-allow-multiple': true })}>
-  {items.map((item, index) => {
-    const slotNames = ['item-0', 'item-1', 'item-2', 'item-3', 'item-4', 'item-5', 'item-6', 'item-7', 'item-8', 'item-9'] as const;
-    const slotName = index < slotNames.length ? slotNames[index] : null;
-    const hasItemSlot = slotName != null && Astro.slots.has(slotName);
-    return (
-    <div class={`accordion__item ${item.defaultOpen ? 'is-open' : ''}`} data-accordion-item>
+<div class={fieldClasses}>
+  {label && <p id={labelId} class="accordion-field__label">{label}</p>}
+  <div class="accordion-field__surface">
+    <div
+      class="accordion"
+      data-accordion
+      {...(allowMultiple && { 'data-allow-multiple': true })}
+      {...(label && { role: 'group', 'aria-labelledby': labelId })}
+    >
+      {items.map((item, index) => {
+        const slotNames = ['item-0', 'item-1', 'item-2', 'item-3', 'item-4', 'item-5', 'item-6', 'item-7', 'item-8', 'item-9'] as const;
+        const slotName = index < slotNames.length ? slotNames[index] : null;
+        const hasItemSlot = slotName != null && Astro.slots.has(slotName);
+        const disabled = Boolean(item.disabled);
+        const isOpen = Boolean(item.defaultOpen && !disabled);
+        const itemClasses = [
+          'accordion__item',
+          isOpen && 'is-open',
+          disabled && 'accordion__item--disabled',
+        ].filter(Boolean).join(' ');
+        return (
+    <div class={itemClasses} data-accordion-item>
       <button
         type="button"
         class="accordion__trigger"
-        aria-expanded={item.defaultOpen ? 'true' : 'false'}
+        disabled={disabled}
+        aria-expanded={isOpen ? 'true' : 'false'}
         aria-controls={`${accordionId}-panel-${index}`}
       >
         {item.title}
@@ -58,8 +78,10 @@ const classes = ['accordion', className].filter(Boolean).join(' ');
         {hasItemSlot && slotName === 'item-0' ? <slot name="item-0" /> : hasItemSlot && slotName === 'item-1' ? <slot name="item-1" /> : hasItemSlot && slotName === 'item-2' ? <slot name="item-2" /> : hasItemSlot && slotName === 'item-3' ? <slot name="item-3" /> : hasItemSlot && slotName === 'item-4' ? <slot name="item-4" /> : hasItemSlot && slotName === 'item-5' ? <slot name="item-5" /> : hasItemSlot && slotName === 'item-6' ? <slot name="item-6" /> : hasItemSlot && slotName === 'item-7' ? <slot name="item-7" /> : hasItemSlot && slotName === 'item-8' ? <slot name="item-8" /> : hasItemSlot && slotName === 'item-9' ? <slot name="item-9" /> : item.content}
       </div>
     </div>
-    );
-  })}
+        );
+      })}
+    </div>
+  </div>
 </div>
 
 <script>
@@ -75,6 +97,8 @@ const classes = ['accordion', className].filter(Boolean).join(' ');
         const trigger = item.querySelector('.accordion__trigger');
         
         trigger?.addEventListener('click', () => {
+          if (trigger instanceof HTMLButtonElement && trigger.disabled) return;
+
           const isOpen = item.classList.contains('is-open');
           
           if (!allowMultiple) {

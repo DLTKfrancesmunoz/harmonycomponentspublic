@@ -273,6 +273,60 @@ const dialogSectionTitleStyle: React.CSSProperties = { fontSize: '1rem', fontWei
 const dialogSectionDescStyle: React.CSSProperties = { fontSize: '0.875rem', color: '#666', marginBottom: '0.5rem' }
 const dialogSectionGap: React.CSSProperties = { marginBottom: '1.5rem' }
 
+/** Accordion gallery: basic, label, allowMultiple, defaultOpen, disabled */
+function AccordionDemo() {
+  const basicItems = [
+    { title: 'First section', content: 'Content for the first panel.' },
+    { title: 'Second section', content: 'Content for the second panel.' },
+    { title: 'Third section', content: 'Content for the third panel.' },
+  ]
+  const defaultOpenItems = [
+    { title: 'Closed by default', content: 'Expand to read.' },
+    { title: 'Open by default', content: 'This section starts expanded.', defaultOpen: true },
+  ]
+  const labeledItems = [
+    { title: 'Notifications', content: 'Choose how you receive updates.' },
+    { title: 'Privacy', content: 'Control what data is stored.' },
+  ]
+  const disabledItems = [
+    { title: 'Editable section', content: 'This section can be expanded.' },
+    { title: 'Disabled section', content: 'This content is not available.', disabled: true },
+    { title: 'Another section', content: 'Additional content here.' },
+  ]
+  const section = (title: string, desc: string, node: ReactNode) => (
+    <div key={title} style={dialogSectionGap}>
+      <div style={dialogSectionTitleStyle}>{title}</div>
+      <div style={dialogSectionDescStyle}>{desc}</div>
+      <div style={{ maxWidth: '36rem' }}>{node}</div>
+    </div>
+  )
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      {section('Basic', 'Single open section at a time (default).', <Accordion items={basicItems} />)}
+      {section(
+        'With label',
+        'Optional label above the control; sets role="group" and aria-labelledby.',
+        <Accordion label="Account preferences" items={labeledItems} />,
+      )}
+      {section(
+        'Allow multiple',
+        'Several sections can stay open at once.',
+        <Accordion items={basicItems} allowMultiple />,
+      )}
+      {section(
+        'Default open',
+        'An item may set defaultOpen to start expanded.',
+        <Accordion items={defaultOpenItems} />,
+      )}
+      {section(
+        'With disabled section',
+        'Disabled items cannot be expanded and are skipped in the tab order.',
+        <Accordion items={disabledItems} allowMultiple />,
+      )}
+    </div>
+  )
+}
+
 /** Multiple dialog examples showing all options: basic, tertiary button, primary header, right-aligned, confirmation, non-resizable, long content */
 function DialogDemo() {
   const [openId, setOpenId] = useState<string | null>(null)
@@ -895,7 +949,7 @@ function StepDemo() {
 }
 
 export const componentRegistry: ComponentRegistryEntry[] = [
-  { name: 'Accordion', Component: Accordion as AnyComponent, demoProps: { items: [{ title: 'Section 1', content: 'Content for section 1' }, { title: 'Section 2', content: 'Content for section 2', defaultOpen: true }] } },
+  { name: 'Accordion', Component: AccordionDemo as AnyComponent },
   { name: 'Alert', Component: Alert as AnyComponent, demoProps: { variant: 'info', children: 'This is an info alert.' } },
   { name: 'Avatar', Component: Avatar as AnyComponent },
   { name: 'Badge', Component: BadgeDemo as AnyComponent },

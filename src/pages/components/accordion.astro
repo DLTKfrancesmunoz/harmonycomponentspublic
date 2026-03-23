@@ -6,8 +6,10 @@ import Accordion from '../../components/ui/Accordion.astro';
 import Icon from '../../components/ui/Icon.astro';
 
 const props = [
-  { name: 'items', type: 'AccordionItem[]', default: '[]', description: 'Array of accordion items with title and content' },
+  { name: 'items', type: 'AccordionItem[]', default: '[]', description: 'Per section: title, content; optional defaultOpen and disabled' },
   { name: 'allowMultiple', type: 'boolean', default: 'false', description: 'Allow multiple items to be open' },
+  { name: 'label', type: 'string', default: '—', description: 'Optional label above the control; sets role="group" and aria-labelledby' },
+  { name: 'class', type: 'string', default: '—', description: 'Additional CSS classes on the root wrapper (.accordion-field)' },
 ];
 
 const basicItems = [
@@ -20,6 +22,17 @@ const faqItems = [
   { title: 'Can I customize the colors?', content: 'Absolutely! The design system uses CSS custom properties (variables) for all colors. You can override them in your project to match your brand.', defaultOpen: true },
   { title: 'What browsers are supported?', content: 'We support all modern browsers including Chrome, Firefox, Safari, and Edge. IE11 is not supported.' },
   { title: 'Can I use this commercially?', content: 'Yes, this design system is available for commercial use. Please check the license for specific terms.' },
+];
+
+const labeledItems = [
+  { title: 'Notifications', content: 'Choose how you receive updates and alerts.' },
+  { title: 'Privacy', content: 'Control what data is stored and shared.' },
+];
+
+const disabledMixItems = [
+  { title: 'Editable section', content: 'This section can be expanded or collapsed.' },
+  { title: 'Locked section', content: 'This content is not available yet.', disabled: true },
+  { title: 'Another editable section', content: 'Disabled sections are skipped in the tab order and cannot be opened.' },
 ];
 ---
 
@@ -37,6 +50,7 @@ const faqItems = [
 
     <nav class="article-nav">
       <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
+      <a href="#example-with-label" class="article-nav__link"><Icon name="tag" size="sm" /> With label</a>
       <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
       <a href="#accessibility" class="article-nav__link"><Icon name="check-badge" size="sm" /> Accessibility</a>
     </nav>
@@ -50,6 +64,14 @@ const faqItems = [
         </div>
       </ExampleSection>
 
+      <div id="example-with-label">
+        <ExampleSection title="With Label" description="Pass the label prop to show a heading above the accordion. The control uses role=&quot;group&quot; and aria-labelledby for accessibility.">
+          <div class="max-w-2xl">
+            <Accordion label="Account preferences" items={labeledItems} />
+          </div>
+        </ExampleSection>
+      </div>
+
       <ExampleSection title="With Default Open" description="Accordion with an item open by default.">
         <div class="max-w-2xl">
           <Accordion items={faqItems} />
@@ -58,6 +80,19 @@ const faqItems = [
 
       <ExampleSection title="Allow Multiple" description="Multiple items can be open simultaneously.">
         <div class="max-w-2xl">
+          <Accordion items={basicItems} allowMultiple />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Disabled Sections" description="Set disabled on an item to prevent expanding that section and to apply disabled header styling.">
+        <div class="max-w-2xl">
+          <Accordion items={disabledMixItems} allowMultiple />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Focus" description="Focused section headers use the same grey background as the hover state (pointer or keyboard). An open section does not keep that styling unless its header still has focus—for example, after focusing another header in multi-expand mode.">
+        <div class="max-w-2xl">
+          <p class="text-sm text-secondary mb-3">Tab through the headers below or click to move focus and see the focus state.</p>
           <Accordion items={basicItems} allowMultiple />
         </div>
       </ExampleSection>
@@ -90,10 +125,11 @@ const faqItems = [
           The Accordion component uses proper ARIA attributes:
         </p>
         <ul class="a11y-card__text" style="list-style: disc; padding-left: 1.5rem; margin-top: 0.5rem;">
-          <li><code>role="button"</code> on accordion headers</li>
+          <li>Native <code>&lt;button&gt;</code> elements for section headers (keyboard and screen reader support)</li>
           <li><code>aria-expanded</code> indicates open/closed state</li>
           <li><code>aria-controls</code> associates headers with content panels</li>
-          <li><code>aria-disabled</code> for disabled items (if applicable)</li>
+          <li>When <code>label</code> is set: <code>role="group"</code> and <code>aria-labelledby</code> reference the visible label</li>
+          <li>Disabled sections use the <code>disabled</code> attribute on the header button (removed from tab order)</li>
         </ul>
       </div>
       
