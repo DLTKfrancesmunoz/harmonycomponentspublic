@@ -1,5 +1,6 @@
-import { defineCollection, z } from 'astro:content';
-import { changelogLoader } from './loaders/changelog-loader';
+import { defineCollection } from 'astro:content';
+import { z } from 'astro/zod';
+import { changelogLoader } from './content/loaders/changelog-loader';
 
 /**
  * Changelog collection schema
@@ -19,8 +20,8 @@ const changelog = defineCollection({
     properties: z.array(z.object({
       name: z.string(),
       change: z.string(),
-      before: z.string().optional(),
-      after: z.string().optional(),
+      before: z.string().nullish(),
+      after: z.string().nullish(),
     })).optional(),
     tokenPath: z.string().optional(),
     commit: z.object({
