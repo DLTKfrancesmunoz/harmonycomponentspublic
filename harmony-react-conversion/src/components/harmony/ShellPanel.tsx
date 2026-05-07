@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { useState, useCallback } from 'react'
+import { useState, useCallback, forwardRef } from 'react'
 import clsx from 'clsx'
 import { Icon } from './Icon'
 import './ShellPanel.css'
@@ -14,6 +14,8 @@ export interface ShellPanelProps {
   showClose?: boolean
   showPopout?: boolean
   variant?: 'default' | 'dela'
+  /** Theme header gradient (Dela AI / useGradientHeader items); mirrors data-gradient-header in Astro */
+  useGradientHeader?: boolean
   id?: string
   className?: string
   onClose?: () => void
@@ -22,23 +24,27 @@ export interface ShellPanelProps {
   children?: ReactNode
 }
 
-export function ShellPanel({
-  side,
-  open,
-  title,
-  titleIcon,
-  headerVariant = 'theme',
-  width: controlledWidth,
-  showClose = true,
-  showPopout = true,
-  variant = 'default',
-  id,
-  className = '',
-  onClose,
-  onWidthToggle,
-  header,
-  children,
-}: ShellPanelProps) {
+export const ShellPanel = forwardRef<HTMLDivElement, ShellPanelProps>(function ShellPanel(
+  {
+    side,
+    open,
+    title,
+    titleIcon,
+    headerVariant = 'theme',
+    width: controlledWidth,
+    showClose = true,
+    showPopout = true,
+    variant = 'default',
+    useGradientHeader = false,
+    id,
+    className = '',
+    onClose,
+    onWidthToggle,
+    header,
+    children,
+  },
+  ref
+) {
   const [internalWidth, setInternalWidth] = useState<'narrow' | 'full'>('narrow')
   const width = controlledWidth ?? internalWidth
 
@@ -64,6 +70,7 @@ export function ShellPanel({
 
   return (
     <div
+      ref={ref}
       id={id}
       className={panelClasses}
       data-side={side}
@@ -74,7 +81,11 @@ export function ShellPanel({
       {header != null ? (
         header
       ) : (
-        <div className={headerClasses} data-header-variant={headerVariant}>
+        <div
+          className={headerClasses}
+          data-header-variant={headerVariant}
+          data-gradient-header={useGradientHeader ? 'true' : undefined}
+        >
           <div className="shell-panel__header-content">
             <span className="shell-panel__header-icon" data-panel-icon-container>
               {titleIcon != null && (
@@ -125,4 +136,4 @@ export function ShellPanel({
       </div>
     </div>
   )
-}
+})

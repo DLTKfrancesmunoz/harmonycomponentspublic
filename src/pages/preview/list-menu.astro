@@ -22,15 +22,26 @@ import ListMenu from '../../components/ui/ListMenu.astro';
       * { margin: 0; padding: 0; box-sizing: border-box; }
       html, body { height: 100%; width: 100%; }
       body { padding: 48px; display: flex; flex-direction: column; gap: 24px; max-width: 300px; }
+      .preview-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
     </style>
   </head>
   <body>
+    <div class="preview-label">With icons</div>
     <ListMenu
       items={[
         { icon: 'home', label: 'Dashboard', active: true },
         { icon: 'user', label: 'Profile' },
         { icon: 'cog-6-tooth', label: 'Settings' },
         { icon: 'arrow-right-on-rectangle', label: 'Logout' },
+      ]}
+    />
+    <div class="preview-label">Without icons</div>
+    <ListMenu
+      items={[
+        { label: 'Overview', active: true },
+        { label: 'Details' },
+        { label: 'History' },
+        { label: 'Export' },
       ]}
     />
   </body>

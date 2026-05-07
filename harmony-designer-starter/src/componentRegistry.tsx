@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import type { ComponentType, ReactNode } from 'react'
+import { useEffect, useState } from 'react'
+import type { ComponentType, CSSProperties, ReactNode } from 'react'
 import { Accordion } from './components/harmony/Accordion'
 import { Alert } from './components/harmony/Alert'
 import { Avatar } from './components/harmony/Avatar'
@@ -21,6 +21,7 @@ import { Icon, FALLBACK_ICON_NAMES } from './components/harmony/Icon'
 import { Input } from './components/harmony/Input'
 import { Kanban } from './components/harmony/Kanban'
 import { KanbanCard } from './components/harmony/KanbanCard'
+import { KanbanCardCostpoint } from './components/harmony/KanbanCardCostpoint'
 import { Label } from './components/harmony/Label'
 import { LeftSidebar } from './components/harmony/LeftSidebar'
 import { Link } from './components/harmony/Link'
@@ -49,6 +50,7 @@ import { TimePicker } from './components/harmony/TimePicker'
 import { Toggle } from './components/harmony/Toggle'
 import { Tooltip } from './components/harmony/Tooltip'
 import { WeekPicker } from './components/harmony/WeekPicker'
+import type { KanbanViewCardField } from './types/kanban-view-config'
 
 export interface ComponentRegistryEntry {
   name: string
@@ -80,7 +82,112 @@ function ButtonDemo() {
         <Button buttonType="pageHeader" variant="primary">Primary</Button>
         <Button buttonType="pageHeader" variant="secondary">Secondary</Button>
       </>)}
+      {row('Vertical orientation (theme)', <>
+        <Button variant="primary" orientation="vertical" icon="arrow-up">Up</Button>
+        <Button variant="secondary" orientation="vertical" icon="arrow-down">Down</Button>
+        <Button variant="tertiary" orientation="vertical" icon="arrow-left">Left</Button>
+        <Button variant="outline" orientation="vertical" icon="arrow-right">Right</Button>
+      </>)}
+      {row('Vertical orientation (page header)', <>
+        <Button buttonType="pageHeader" variant="primary" orientation="vertical" icon="arrow-up">Up</Button>
+        <Button buttonType="pageHeader" variant="secondary" orientation="vertical" icon="arrow-down">Down</Button>
+        <Button buttonType="pageHeader" variant="tertiary" orientation="vertical" icon="arrow-left">Left</Button>
+        <Button buttonType="pageHeader" variant="outline" orientation="vertical" icon="arrow-right">Right</Button>
+      </>)}
     </>
+  )
+}
+
+const AVATAR_DEMO_PHOTO =
+  'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&w=128&h=128&fit=crop&q=80'
+
+/** Avatar: sizes, variants, interactive */
+function AvatarDemo() {
+  const row = (label: string, content: ReactNode, gap = '0.75rem') => (
+    <div key={label} style={{ marginBottom: '1rem' }}>
+      <div style={{ fontSize: '0.875rem', color: '#666', marginBottom: '0.25rem' }}>{label}</div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap, alignItems: 'flex-start' }}>{content}</div>
+    </div>
+  )
+  const demoCol = (caption: string, node: ReactNode) => (
+    <div
+      key={caption}
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '0.5rem',
+      }}
+    >
+      {node}
+      <span style={{ fontSize: '0.75rem', color: '#666' }}>{caption}</span>
+    </div>
+  )
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      {row('Sizes (icon)', <>
+        <Avatar size="sm" />
+        <Avatar size="md" />
+        <Avatar size="lg" />
+      </>)}
+      {row('Variants', <>
+        <Avatar size="md" variant="icon" />
+        <Avatar size="md" variant="initials" initials="Jane Doe" />
+        <Avatar
+          size="md"
+          variant="image"
+          src={AVATAR_DEMO_PHOTO}
+          alt="Portrait of a person used as sample photo"
+        />
+      </>)}
+      {row('Interactive', <>
+        {demoCol('Default', <Avatar size="md" interactive />)}
+        {demoCol('Hover (demo)', <Avatar size="md" interactive className="avatar--demo-hover" />)}
+        {demoCol('Focus (demo)', <Avatar size="md" interactive className="avatar--demo-focus" />)}
+        {demoCol('Disabled', <Avatar size="md" interactive disabled />)}
+      </>, '1.5rem')}
+    </div>
+  )
+}
+
+/** Input: label, leading/trailing icons, trailing action slot */
+function InputDemo() {
+  const row = (label: string, content: ReactNode) => (
+    <div key={label} style={{ marginBottom: '1rem' }}>
+      <div style={{ fontSize: '0.875rem', color: '#666', marginBottom: '0.25rem' }}>{label}</div>
+      <div style={{ maxWidth: '24rem' }}>{content}</div>
+    </div>
+  )
+  const trailingBtnStyle: CSSProperties = {
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 0,
+    margin: 0,
+    border: 'none',
+    background: 'transparent',
+    cursor: 'pointer',
+    color: 'var(--text-muted)',
+  }
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      {row('With label', <Input id="demo-input-lbl" label="Label" placeholder="Placeholder" />)}
+      {row('Leading icon', <Input id="demo-input-li" icon="magnifying-glass" placeholder="Search..." />)}
+      {row('Trailing icon', <Input id="demo-input-ti" trailingIcon="arrow-right" placeholder="Next step" />)}
+      {row('Leading + trailing icons', <Input id="demo-input-both" icon="magnifying-glass" trailingIcon="x-mark" placeholder="Search" />)}
+      {row('Trailing action', (
+        <Input
+          id="demo-input-ta"
+          type="password"
+          placeholder="Password"
+          trailing={
+            <button type="button" aria-label="Toggle password visibility" style={trailingBtnStyle}>
+              <Icon name="eye" size="sm" />
+            </button>
+          }
+        />
+      ))}
+    </div>
   )
 }
 
@@ -242,6 +349,34 @@ const sectionTitleStyle: React.CSSProperties = { fontSize: '1rem', fontWeight: 6
 const sectionDescStyle: React.CSSProperties = { fontSize: '0.875rem', color: '#666', marginBottom: '0.75rem' }
 const sectionGap = { marginBottom: '2rem' }
 const overflowWrap = { overflowX: 'auto' as const }
+
+function TabStripDemo() {
+  const baseTabs = [
+    { id: 'tab-1', label: 'Tab 1', active: true },
+    { id: 'tab-2', label: 'Tab 2' },
+  ]
+  const pillTabs = [
+    { id: 'p1', label: 'Overview', active: true },
+    { id: 'p2', label: 'Transformation' },
+    { id: 'p3', label: 'Validation' },
+  ]
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+      <div>
+        <div style={sectionTitleStyle}>Default</div>
+        <p style={sectionDescStyle}>Underline selected tab (all themes).</p>
+        <TabStrip tabs={baseTabs} />
+      </div>
+      <div className="ds-demo-only-theme-vp">
+        <div style={sectionTitleStyle}>Pill (VP only)</div>
+        <p style={sectionDescStyle}>
+          Selected tab uses a filled pill instead of a thick bottom border. VP theme only.
+        </p>
+        <TabStrip tabs={pillTabs} variant="pill" />
+      </div>
+    </div>
+  )
+}
 
 /** All table variants on one page, matching Harmony table documentation patterns. */
 function TableDemo() {
@@ -645,6 +780,42 @@ function IconsDemo() {
   )
 }
 
+/** Default and enhanced-with-actions (buttons + link on one row) */
+function AlertDemo() {
+  const sectionGap: React.CSSProperties = { marginBottom: '1.5rem' }
+  const titleStyle: React.CSSProperties = { fontSize: '1rem', fontWeight: 600, marginBottom: '0.25rem' }
+  const descStyle: React.CSSProperties = { fontSize: '0.875rem', color: '#666', marginBottom: '0.5rem' }
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <div style={sectionGap}>
+        <div style={titleStyle}>Default</div>
+        <div style={descStyle}>Standard info alert.</div>
+        <div style={{ maxWidth: '36rem' }}>
+          <Alert variant="info">This is an info alert.</Alert>
+        </div>
+      </div>
+      <div style={sectionGap}>
+        <div style={titleStyle}>Enhanced with actions</div>
+        <div style={descStyle}>Primary and secondary buttons with a link on the same row.</div>
+        <div style={{ maxWidth: '36rem' }}>
+          <Alert
+            variant="success"
+            style="enhanced"
+            title="Success Alert"
+            primaryButton={{ text: 'Button Text' }}
+            secondaryButton={{ text: 'Button Text' }}
+            linkText="Link Text"
+            linkHref="#"
+            dismissible
+          >
+            This alert includes primary and secondary buttons, plus a link.
+          </Alert>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 /** Wraps a single Step in the stepper container so it matches how steps look inside Stepper (layout is driven by .stepper--horizontal .step). */
 function StepDemo() {
   return (
@@ -659,10 +830,132 @@ function StepDemo() {
   )
 }
 
+/** List menu: with icons and text-only items. */
+function ListMenuDemo() {
+  const row = (label: string, content: React.ReactNode) => (
+    <div key={label} style={{ marginBottom: '1rem' }}>
+      <div style={{ fontSize: '0.875rem', color: '#666', marginBottom: '0.25rem' }}>{label}</div>
+      <div style={{ maxWidth: '20rem' }}>{content}</div>
+    </div>
+  )
+  const withIcons = [
+    { icon: 'home' as const, label: 'Dashboard', active: true },
+    { icon: 'user' as const, label: 'Profile' },
+    { icon: 'cog-6-tooth' as const, label: 'Settings' },
+    { icon: 'arrow-right-on-rectangle' as const, label: 'Logout' },
+  ]
+  const withoutIcons = [
+    { label: 'Overview', active: true },
+    { label: 'Details' },
+    { label: 'History' },
+    { label: 'Export' },
+  ]
+  return (
+    <>
+      {row('With icons', <ListMenu items={withIcons} />)}
+      {row('Without icons', <ListMenu items={withoutIcons} />)}
+    </>
+  )
+}
+
+const kanbanGalleryDefaultColumns = [
+  { id: 'col-1', title: 'To Do', cards: [{ id: 'card-1', title: 'Task 1' }] },
+  { id: 'col-2', title: 'Done', cards: [] },
+]
+
+const kanbanCpCardFieldsConfig: KanbanViewCardField[] = [
+  { position: 1, fieldName: 'Assigned', enabled: true, styleId: 'default' },
+  { position: 2, fieldName: 'Due', enabled: true, styleId: 'default' },
+  { position: 3, fieldName: 'Reserve', enabled: false },
+  { position: 4, fieldName: 'Priority', enabled: true, styleId: 'default' },
+  { position: 5, fieldName: 'Notes', enabled: false },
+]
+
+const kanbanCpGalleryColumns = [
+  {
+    id: 'new',
+    title: 'New',
+    headerColorLight: '#2563eb',
+    loadMoreRemaining: 4,
+    cards: [
+      {
+        id: 'cp-g-1',
+        title: 'PROP-001',
+        selected: true,
+        valuesByFieldName: {
+          Assigned: 'J. Smith',
+          Due: '04/15/2026',
+          Priority: 'High',
+        },
+      },
+      {
+        id: 'cp-g-2',
+        title: 'PROP-002',
+        valuesByFieldName: {
+          Assigned: 'K. Ortiz',
+          Due: '04/18/2026',
+          Priority: 'Medium',
+        },
+      },
+    ],
+  },
+  {
+    id: 'done',
+    title: 'Done',
+    headerColorLight: '#7c3aed',
+    loadMoreRemaining: 12,
+    cards: [
+      {
+        id: 'cp-g-3',
+        title: 'PROP-055',
+        valuesByFieldName: {
+          Assigned: 'R. Patel',
+          Due: '03/01/2026',
+          Priority: 'Medium',
+        },
+      },
+    ],
+  },
+]
+
+function readHtmlThemeCp(): boolean {
+  return document.documentElement.classList.contains('theme-cp')
+}
+
+function KanbanDemo() {
+  const [isCp, setIsCp] = useState(readHtmlThemeCp)
+
+  useEffect(() => {
+    const el = document.documentElement
+    const sync = () => setIsCp(readHtmlThemeCp())
+    const obs = new MutationObserver(sync)
+    obs.observe(el, { attributes: true, attributeFilter: ['class'] })
+    return () => obs.disconnect()
+  }, [])
+
+  if (isCp) {
+    return (
+      <div style={{ overflowX: 'auto', width: '100%', minHeight: 'min(70vh, 520px)' }}>
+        <Kanban
+          variant="costpoint"
+          cardFieldsConfig={kanbanCpCardFieldsConfig}
+          columns={kanbanCpGalleryColumns}
+          cpRecordShown={3}
+          cpRecordTotal={127}
+          cpSortedBy="Due Date"
+          cpScrollColumnIndex={1}
+        />
+      </div>
+    )
+  }
+
+  return <Kanban columns={kanbanGalleryDefaultColumns} />
+}
+
 export const componentRegistry: ComponentRegistryEntry[] = [
   { name: 'Accordion', Component: Accordion as AnyComponent, demoProps: { items: [{ title: 'Section 1', content: 'Content for section 1' }, { title: 'Section 2', content: 'Content for section 2', defaultOpen: true }] } },
-  { name: 'Alert', Component: Alert as AnyComponent, demoProps: { variant: 'info', children: 'This is an info alert.' } },
-  { name: 'Avatar', Component: Avatar as AnyComponent },
+  { name: 'Alert', Component: AlertDemo as AnyComponent },
+  { name: 'Avatar', Component: AvatarDemo as AnyComponent },
   { name: 'Badge', Component: Badge as AnyComponent, demoProps: { variant: 'default', children: 'Badge' } },
   { name: 'Button', Component: ButtonDemo as AnyComponent },
   { name: 'ButtonGroup', Component: ButtonGroup as AnyComponent, demoProps: { children: [<Button key="1" buttonType="theme" variant="primary">Primary</Button>, <Button key="2" buttonType="theme" variant="secondary">Secondary</Button>, <Button key="3" buttonType="theme" variant="tertiary">Tertiary</Button>] } },
@@ -678,13 +971,33 @@ export const componentRegistry: ComponentRegistryEntry[] = [
   { name: 'FloatingNav', Component: FloatingNav as AnyComponent },
   { name: 'Icon', Component: Icon as AnyComponent, demoProps: { name: 'check' } },
   { name: 'Icons', Component: IconsDemo as AnyComponent },
-  { name: 'Input', Component: Input as AnyComponent, demoProps: { id: 'demo-input', label: 'Label', placeholder: 'Placeholder' } },
-  { name: 'Kanban', Component: Kanban as AnyComponent, demoProps: { columns: [{ id: 'col-1', title: 'To Do', cards: [{ id: 'card-1', title: 'Task 1' }] }, { id: 'col-2', title: 'Done', cards: [] }] } },
+  { name: 'Input', Component: InputDemo as AnyComponent },
+  { name: 'Kanban', Component: KanbanDemo as AnyComponent },
   { name: 'KanbanCard', Component: KanbanCard as AnyComponent, demoProps: { id: 'demo-card', title: 'Card title' } },
+  {
+    name: 'KanbanCardCostpoint',
+    Component: KanbanCardCostpoint as AnyComponent,
+    demoProps: {
+      id: 'demo-cp-card',
+      title: 'Sample project',
+      fieldsConfig: [
+        { position: 1, fieldName: 'Code', enabled: true, styleId: 'emphasis' },
+        { position: 2, fieldName: 'Owner', enabled: true, styleId: 'default' },
+        { position: 3, fieldName: 'Reserve', enabled: false },
+        { position: 4, fieldName: 'Due', enabled: true, styleId: 'default' },
+        { position: 5, fieldName: 'Notes', enabled: true, styleId: 'multiline' },
+      ],
+      valuesByFieldName: { Code: 'P-1', Owner: 'Demo', Due: '—', Notes: 'Line one\nLine two' },
+      moveOptions: [
+        { value: 'open', label: 'Open' },
+        { value: 'done', label: 'Done', disabled: true },
+      ],
+    },
+  },
   { name: 'Label', Component: Label as AnyComponent, demoProps: { htmlFor: 'demo', children: 'Label' } },
   { name: 'LeftSidebar', Component: LeftSidebar as AnyComponent },
   { name: 'Link', Component: LinkDemo as AnyComponent },
-  { name: 'ListMenu', Component: ListMenu as AnyComponent, demoProps: { items: [{ label: 'Item 1', active: true }, { label: 'Item 2' }] } },
+  { name: 'ListMenu', Component: ListMenuDemo as AnyComponent },
   { name: 'MonthPicker', Component: MonthPicker as AnyComponent },
   { name: 'NotificationBadge', Component: NotificationBadge as AnyComponent, demoProps: { count: 3, children: <span>Inbox</span> } },
   { name: 'NumberInput', Component: NumberInput as AnyComponent, demoProps: { id: 'demo-num', label: 'Number' } },
@@ -703,7 +1016,7 @@ export const componentRegistry: ComponentRegistryEntry[] = [
   { name: 'Step', Component: StepDemo as AnyComponent },
   { name: 'Stepper', Component: Stepper as AnyComponent, demoProps: { steps: [{ label: 'First', description: 'Step one' }, { label: 'Second', description: 'Step two', completed: true }, { label: 'Third', description: 'Step three' }], activeStep: 1 } },
   { name: 'Table', Component: TableDemo as AnyComponent },
-  { name: 'TabStrip', Component: TabStrip as AnyComponent, demoProps: { tabs: [{ id: 'tab-1', label: 'Tab 1', active: true }, { id: 'tab-2', label: 'Tab 2' }] } },
+  { name: 'TabStrip', Component: TabStripDemo as AnyComponent },
   { name: 'Textarea', Component: Textarea as AnyComponent, demoProps: { id: 'demo-ta', label: 'Description', placeholder: 'Enter text' } },
   { name: 'TimePicker', Component: TimePicker as AnyComponent },
   { name: 'Toggle', Component: Toggle as AnyComponent, demoProps: { id: 'demo-toggle', label: 'Toggle' } },

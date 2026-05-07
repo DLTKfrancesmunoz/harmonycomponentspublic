@@ -1,0 +1,100 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import PropsTable from '../../components/PropsTable.astro';
+import ExampleSection from '../../components/ExampleSection.astro';
+import Avatar from '../../components/ui/Avatar.astro';
+import Icon from '../../components/ui/Icon.astro';
+
+/** Example portrait for image variant (loads from Unsplash in the browser). */
+const avatarDemoPhotoSrc =
+  'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&w=128&h=128&fit=crop&q=80';
+
+const props = [
+  { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Small 24×24, medium 32×32, large 40×40 (corner radius matches: 4px / 8px / 12px)' },
+  { name: 'variant', type: "'icon' | 'initials' | 'image'", default: "'icon'", description: 'Default user icon, initials text, or photo (requires src for image)' },
+  { name: 'initials', type: 'string', default: '—', description: 'For variant initials: up to two characters (longer names use first + last initial)' },
+  { name: 'src', type: 'string', default: '—', description: 'Image URL for variant image' },
+  { name: 'alt', type: 'string', default: "''", description: 'Description for image variant (used in aria-label)' },
+  { name: 'interactive', type: 'boolean', default: 'false', description: 'Renders a button with hover, focus, and disabled styles (e.g. shell header menu trigger)' },
+  { name: 'disabled', type: 'boolean', default: 'false', description: 'When interactive, disables the button' },
+];
+---
+
+<DocsLayout title="Avatar" description="User avatar for shell header, tables, and cards: icon, initials, or photo.">
+  <article class="space-y-12">
+    <header class="page-header page-header--compact">
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="page-header__title page-header__title--sm">Avatar</h1>
+        <span class="badge badge--success">stable</span>
+      </div>
+      <p class="page-header__description">
+        Square avatars using the theme primary color for icon and initials; photos fill the frame. Use <code>interactive</code> for the shell header user control.
+      </p>
+    </header>
+
+    <nav class="article-nav">
+      <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
+      <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+      <a href="#accessibility" class="article-nav__link"><Icon name="check-badge" size="sm" /> Accessibility</a>
+    </nav>
+
+    <section id="examples" class="space-y-8">
+      <h2 class="section__title">Examples</h2>
+
+      <ExampleSection title="Sizes (icon)" description="Small, medium, and large with default user icon.">
+        <div class="flex flex-wrap items-end gap-4">
+          <Avatar size="sm" />
+          <Avatar size="md" />
+          <Avatar size="lg" />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Variants" description="Icon (default), initials, and a photograph for the image variant.">
+        <div class="flex flex-wrap items-end gap-4">
+          <Avatar size="md" variant="icon" />
+          <Avatar size="md" variant="initials" initials="Jane Doe" />
+          <Avatar size="md" variant="image" src={avatarDemoPhotoSrc} alt="Portrait of a person used as sample photo" />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Interactive" description="Default, hover, and focus-visible use real pointer and keyboard focus. The Hover and Focus columns use demo classes (avatar--demo-hover / avatar--demo-focus) so the documentation can show those looks without hovering.">
+        <div class="flex flex-wrap gap-8 items-start">
+          <div class="flex flex-col items-center gap-2">
+            <Avatar size="md" interactive />
+            <span class="text-sm text-secondary">Default</span>
+          </div>
+          <div class="flex flex-col items-center gap-2">
+            <Avatar size="md" interactive class="avatar--demo-hover" />
+            <span class="text-sm text-secondary">Hover (demo)</span>
+          </div>
+          <div class="flex flex-col items-center gap-2">
+            <Avatar size="md" interactive class="avatar--demo-focus" />
+            <span class="text-sm text-secondary">Focus (demo)</span>
+          </div>
+          <div class="flex flex-col items-center gap-2">
+            <Avatar size="md" interactive disabled />
+            <span class="text-sm text-secondary">Disabled</span>
+          </div>
+        </div>
+      </ExampleSection>
+    </section>
+
+    <section id="props">
+      <h2 class="section__title">Props</h2>
+      <PropsTable props={props} />
+    </section>
+
+    <section id="accessibility" class="space-y-4">
+      <h2 class="section__title">Accessibility</h2>
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="eye" size="sm" />
+          Roles and labels
+        </h3>
+        <p class="a11y-card__text">
+          Non-interactive avatars use <code>role="img"</code> with an <code>aria-label</code>. Interactive avatars render a <code>button</code> with <code>aria-label</code>. Decorative inner content is <code>aria-hidden</code> where redundant.
+        </p>
+      </div>
+    </section>
+  </article>
+</DocsLayout>

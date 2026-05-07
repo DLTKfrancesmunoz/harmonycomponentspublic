@@ -1,6 +1,9 @@
 ---
 import '../../styles/global.css';
 import Avatar from '../../components/ui/Avatar.astro';
+
+const demoPhoto =
+  'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&w=128&h=128&fit=crop&q=80';
 ---
 
 <!DOCTYPE html>
@@ -28,9 +31,14 @@ import Avatar from '../../components/ui/Avatar.astro';
     <Avatar size="sm" />
     <Avatar size="md" />
     <Avatar size="lg" />
-    <Avatar size="sm" src="/Header Avatar.svg" />
-    <Avatar size="md" src="/Header Avatar.svg" />
-    <Avatar size="lg" src="/Header Avatar.svg" />
+    <Avatar size="md" variant="initials" initials="Jane Doe" />
+    <Avatar size="sm" variant="initials" initials="AB" />
+    <Avatar size="sm" variant="image" src={demoPhoto} alt="Sample portrait" />
+    <Avatar size="md" variant="image" src={demoPhoto} alt="Sample portrait" />
+    <Avatar size="lg" variant="image" src={demoPhoto} alt="Sample portrait" />
+    <Avatar size="sm" interactive />
+    <Avatar size="md" interactive class="avatar--demo-hover" />
+    <Avatar size="md" interactive class="avatar--demo-focus" />
+    <Avatar size="md" interactive disabled />
   </body>
 </html>
-

@@ -25,6 +25,7 @@ export { default as Icon } from './Icon.astro';
 export { default as Input } from './Input.astro';
 export { default as Kanban } from './Kanban.astro';
 export { default as KanbanCard } from './KanbanCard.astro';
+export { default as KanbanCardCostpoint } from './KanbanCardCostpoint.astro';
 export { default as Label } from './Label.astro';
 export { default as LeftSidebar } from './LeftSidebar.astro';
 export { default as Link } from './Link.astro';

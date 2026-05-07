@@ -2,23 +2,40 @@
 /**
  * Kanban Component
  *
- * Kanban board component that displays tasks in columns (lanes) with cards.
- * Uses design tokens exclusively and leverages existing components.
- *
- * @usagePattern slot-areas-customization Kanban provides three customization slots: 'title-bar-actions' (lines 59-82) replaces default title bar icons (expand, collapse, help, minimize, window, close), 'action-bar' (lines 91-127) replaces default action buttons and filters, and 'action-dropdown' for dropdown controls. When slots are not provided, default UI elements are rendered. Title bar actions include 6 icon buttons, action bar includes delete, group, customize, and view controls.
- * @usagePattern column-and-card-structure Kanban uses KanbanColumn array (id, title, cards[]) where each column contains KanbanCardProps array. Columns are wrapped in Card components (line 145) and rendered in a horizontal scrollable layout (kanban__columns-wrapper, lines 133-221). Column title determines border color via conditional classes: titles containing 'in progress' get kanban__column-card--in-progress, 'done' gets kanban__column-card--done (lines 136-142).
- * @usagePattern action-buttons-vs-dropdowns The action bar supports two prop patterns: actionButtons array with {text, icon} for Button components (lines 93-105), or actionDropdowns array with {text, options, value} for Dropdown components. When neither is provided, default actions are rendered (lines 108-127). Use actionButtons for simple click actions, actionDropdowns for selection-based filters or view changes.
+ * Default variant: generic task board (title bar, action bar, columns).
+ * Costpoint variant: Deltek Costpoint Kanban MVP shell (optional cp-toolbar slot, board header, columns) — use with html.theme-cp.
  */
 import Button from './Button.astro';
 import Icon from './Icon.astro';
 import Card from './Card.astro';
-import Dropdown, { type Option } from './Dropdown.astro';
+import Input from './Input.astro';
 import KanbanCard, { type KanbanCardProps } from './KanbanCard.astro';
+import KanbanCardCostpoint from './KanbanCardCostpoint.astro';
+import type { Option } from './Dropdown.astro';
+import type { KanbanViewCardField } from '../../types/kanban-view-config';
 
 export interface KanbanColumn {
   id: string;
   title: string;
   cards: KanbanCardProps[];
+}
+
+export interface KanbanCostpointCard {
+  id: string;
+  title: string;
+  valuesByFieldName: Record<string, string | undefined>;
+  selected?: boolean;
+  graphicalClass?: string;
+}
+
+export interface KanbanCostpointColumn {
+  id: string;
+  title: string;
+  cards: KanbanCostpointCard[];
+  /** Column top accent (hex); sets primary border color on the column card, like default Kanban’s per-column accents. */
+  headerColorLight?: string;
+  /** Optional count for “Load more (n)” when more items exist server-side */
+  loadMoreRemaining?: number;
 }
 
 export interface ActionButton {
@@ -33,197 +50,370 @@ export interface ActionDropdown {
 }
 
 export interface Props {
-  columns: KanbanColumn[];
+  columns: KanbanColumn[] | KanbanCostpointColumn[];
+  variant?: 'default' | 'costpoint';
   title?: string;
   actionButtons?: ActionButton[];
   actionDropdowns?: ActionDropdown[];
   class?: string;
   showAddButton?: boolean;
+  /** Costpoint: field definitions (JSON kanbanView.cardFields.fields) */
+  cardFieldsConfig?: KanbanViewCardField[];
+  cpRecordCount?: number;
+  /** Shown in “Showing X of Y” (defaults to total) */
+  cpRecordShown?: number;
+  /** Total records for “Showing X of Y” (defaults to cpRecordCount) */
+  cpRecordTotal?: number;
+  /** Only used with a custom <code>cp-toolbar</code> slot if your chrome reads this value from the host. */
+  cpToolbarTitle?: string;
+  /** Sort field label only, e.g. Due Date → “Sorted by: Due Date” */
+  cpSortedBy?: string;
+  cpSortLabel?: string;
+  cpActiveView?: 'table' | 'form' | 'kanban';
+  cpSearchPlaceholder?: string;
+  /** Costpoint: visible column window start index for nav + dots (0-based) */
+  cpScrollColumnIndex?: number;
+  /** Costpoint: show load more button in each column */
+  showLoadMore?: boolean;
 }
 
 const {
   columns,
+  variant = 'default',
   title = 'Kanban Board',
   actionButtons = [],
   actionDropdowns = [],
   class: className = '',
   showAddButton = true,
+  cardFieldsConfig = [],
+  cpRecordCount: cpRecordCountProp,
+  cpRecordShown: cpRecordShownProp,
+  cpRecordTotal: cpRecordTotalProp,
+  cpSortedBy,
+  cpSortLabel = 'Due Date',
+  cpSearchPlaceholder = 'Quick search…',
+  cpScrollColumnIndex = 0,
+  showLoadMore = true,
 } = Astro.props;
 
 const hasTitleBarActionsSlot = Astro.slots.has('title-bar-actions');
 const hasActionBarSlot = Astro.slots.has('action-bar');
+const hasCpToolbarSlot = Astro.slots.has('cp-toolbar');
+const hasCpBoardHeaderSlot = Astro.slots.has('cp-board-header');
+
+const isCostpoint = variant === 'costpoint';
+const cpColumns = isCostpoint ? (columns as KanbanCostpointColumn[]) : [];
+const moveOptionsAll: Option[] = isCostpoint
+  ? cpColumns.map((c) => ({ value: c.id, label: c.title }))
+  : [];
+
+const cpRecordCount =
+  cpRecordCountProp ??
+  (isCostpoint ? cpColumns.reduce((n, col) => n + col.cards.length, 0) : 0);
+
+const cpTotalRecords = cpRecordTotalProp ?? cpRecordCount;
+const cpShownRecords = cpRecordShownProp ?? cpRecordCount;
+const cpSortFieldLabel = cpSortedBy ?? cpSortLabel;
+
+const cpColumnCount = isCostpoint ? cpColumns.length : 0;
+const cpDots = isCostpoint ? cpColumns.map((_, i) => i) : [];
+const cpNavPrevDisabled = cpScrollColumnIndex <= 0;
+const cpNavNextDisabled = cpScrollColumnIndex >= Math.max(0, cpColumnCount - 1);
 ---
 
-<div class={`kanban__container ${className}`}>
-  <!-- Title Bar -->
-  <div class="kanban__title-bar">
-    <div class="kanban__title-bar-content">
-      <h1 class="kanban__title">{title}</h1>
-      <div class="kanban__title-bar-actions">
-        {hasTitleBarActionsSlot ? (
-          <slot name="title-bar-actions" />
+{isCostpoint ? (
+  <div class={`kanban-cp ${className}`}>
+    {hasCpToolbarSlot && (
+      <div class="kanban-cp__toolbar">
+        <slot name="cp-toolbar" />
+      </div>
+    )}
+
+    <div class="kanban-cp__board-header">
+      {hasCpBoardHeaderSlot ? (
+        <slot name="cp-board-header" />
+      ) : (
+        <>
+          <div class="kanban-cp__board-meta">
+            <span>
+              Showing {cpShownRecords} of {cpTotalRecords} records
+            </span>
+            <span class="kanban-cp__board-meta-sep" aria-hidden="true">|</span>
+            <span>Sorted by: {cpSortFieldLabel}</span>
+          </div>
+          <div class="kanban-cp__board-search">
+            <Input
+              type="search"
+              name="kanban-cp-search"
+              id="kanban-cp-search"
+              placeholder={cpSearchPlaceholder}
+              icon="magnifying-glass"
+              class="kanban-cp__search-input"
+              aria-label="Quick search"
+            />
+          </div>
+          <button type="button" class="kanban-cp__board-settings" aria-label="Board settings">
+            <Icon name="cog-6-tooth" size="sm" />
+          </button>
+        </>
+      )}
+    </div>
+
+    <div class="kanban-cp__columns-outer">
+      <div class="kanban-cp__col-nav">
+        <button
+          type="button"
+          class="kanban-cp__col-nav-btn"
+          disabled={cpNavPrevDisabled}
+          aria-label="Previous column"
+        >
+          <Icon name="chevron-left" size="sm" />
+        </button>
+      </div>
+
+      <div class="kanban-cp__col-scroll">
+        <div
+          class="kanban-cp__columns"
+          role="region"
+          aria-label="Kanban columns"
+          tabindex="0"
+        >
+          {cpColumns.map((column) => {
+            const loadMoreSuffix =
+              column.loadMoreRemaining != null && column.loadMoreRemaining > 0
+                ? ` (${column.loadMoreRemaining})`
+                : '';
+            return (
+              <div
+                class="kanban-cp__column-wrap"
+                style={column.headerColorLight ? `--kanban-cp-column-accent: ${column.headerColorLight}` : undefined}
+              >
+                <Card primary class="kanban-cp__column-card">
+                  <article class="kanban-cp__column" aria-label={`${column.title} column`}>
+                    <header class="kanban-cp__column-header">
+                      <div class="kanban-cp__column-header-content">
+                        <h2 class="kanban-cp__column-title" title={column.title}>
+                          {column.title}
+                        </h2>
+                        <span class="kanban-cp__column-count" aria-label={`${column.cards.length} items`}>
+                          {column.cards.length}
+                        </span>
+                      </div>
+                    </header>
+                    <div class="kanban-cp__column-body">
+                      {cardFieldsConfig.length > 0 &&
+                        column.cards.map((card) => {
+                          const moveOptions: Option[] = moveOptionsAll.map((o) => ({
+                            ...o,
+                            disabled: o.value === column.id,
+                          }));
+                          return (
+                            <KanbanCardCostpoint
+                              id={card.id}
+                              title={card.title}
+                              fieldsConfig={cardFieldsConfig}
+                              valuesByFieldName={card.valuesByFieldName}
+                              selected={card.selected}
+                              graphicalClass={card.graphicalClass}
+                              moveOptions={moveOptions}
+                            />
+                          );
+                        })}
+                      {showLoadMore && (
+                        <div class="kanban-cp__load-more">
+                          <button
+                            type="button"
+                            class="kanban-cp__load-more-link"
+                            aria-label={`Load more cards in ${column.title}`}
+                          >
+                            Load more{loadMoreSuffix}
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </article>
+                </Card>
+              </div>
+            );
+          })}
+        </div>
+
+        <div class="kanban-cp__col-dots" role="tablist" aria-label="Column position">
+          {cpDots.map((i) => (
+            <button
+              type="button"
+              class="kanban-cp__col-dot"
+              aria-label={`Column ${i + 1}`}
+              aria-current={i === cpScrollColumnIndex ? 'true' : undefined}
+            />
+          ))}
+        </div>
+      </div>
+
+      <div class="kanban-cp__col-nav">
+        <button
+          type="button"
+          class="kanban-cp__col-nav-btn"
+          disabled={cpNavNextDisabled}
+          aria-label="Next column"
+        >
+          <Icon name="chevron-right" size="sm" />
+        </button>
+      </div>
+    </div>
+  </div>
+) : (
+  <div class={`kanban__container ${className}`}>
+    <div class="kanban__title-bar">
+      <div class="kanban__title-bar-content">
+        <h1 class="kanban__title">{title}</h1>
+        <div class="kanban__title-bar-actions">
+          {hasTitleBarActionsSlot ? (
+            <slot name="title-bar-actions" />
+          ) : (
+            <>
+              <button type="button" class="kanban__title-bar-icon" aria-label="Expand view">
+                <Icon name="arrows-pointing-out" size="sm" />
+              </button>
+              <button type="button" class="kanban__title-bar-icon" aria-label="Collapse view">
+                <Icon name="arrows-pointing-in" size="sm" />
+              </button>
+              <button type="button" class="kanban__title-bar-icon" aria-label="Help">
+                <Icon name="question-mark-circle" size="sm" />
+              </button>
+              <button type="button" class="kanban__title-bar-icon" aria-label="Minimize">
+                <Icon name="minimize" size="sm" />
+              </button>
+              <button type="button" class="kanban__title-bar-icon" aria-label="Window">
+                <Icon name="window" size="sm" />
+              </button>
+              <button type="button" class="kanban__title-bar-icon" aria-label="Close">
+                <Icon name="x-mark" size="sm" />
+              </button>
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+
+    <div class="kanban__action-bar">
+      <div class="kanban__action-items">
+        {hasActionBarSlot ? (
+          <slot name="action-bar" />
+        ) : actionButtons.length > 0 ? (
+          actionButtons.map((button, index) => (
+            <>
+              {index > 0 && <span class="kanban__action-divider">|</span>}
+              <Button
+                buttonType="theme"
+                variant="ghost"
+                size="sm"
+                icon={button.icon}
+                class="kanban__action-button"
+              >
+                {button.text}
+              </Button>
+            </>
+          ))
         ) : (
           <>
-            <button type="button" class="kanban__title-bar-icon" aria-label="Expand view">
-              <Icon name="arrows-pointing-out" size="sm" />
-            </button>
-            <button type="button" class="kanban__title-bar-icon" aria-label="Collapse view">
-              <Icon name="arrows-pointing-in" size="sm" />
-            </button>
-            <button type="button" class="kanban__title-bar-icon" aria-label="Help">
-              <Icon name="question-mark-circle" size="sm" />
-            </button>
-            <button type="button" class="kanban__title-bar-icon" aria-label="Minimize">
-              <Icon name="minimize" size="sm" />
-            </button>
-            <button type="button" class="kanban__title-bar-icon" aria-label="Window">
-              <Icon name="window" size="sm" />
-            </button>
-            <button type="button" class="kanban__title-bar-icon" aria-label="Close">
-              <Icon name="x-mark" size="sm" />
+            <Button buttonType="theme" variant="ghost" size="sm" icon="trash" class="kanban__action-button">
+              Delete
+            </Button>
+            <Button buttonType="theme" variant="ghost" size="sm" icon="queue-list" class="kanban__action-button">
+              Group
+            </Button>
+            <Button buttonType="theme" variant="ghost" size="sm" icon="chevron-up" iconPosition="right" class="kanban__action-button">
+              Subcards: Collapse all
+            </Button>
+            <span class="kanban__action-divider">|</span>
+            <Button buttonType="theme" variant="ghost" size="sm" icon="cog-6-tooth" class="kanban__action-button">
+              Customize Columns
+            </Button>
+            <span class="kanban__action-label">All Filters</span>
+            <span class="kanban__action-divider">|</span>
+            <button type="button" class="kanban__action-text-button">
+              <span>Change Views</span>
+              <Icon name="chevron-down" size="sm" />
             </button>
           </>
         )}
       </div>
     </div>
-  </div>
 
-  <!-- Action Bar -->
-  <div class="kanban__action-bar">
-    <div class="kanban__action-items">
-      {hasActionBarSlot ? (
-        <slot name="action-bar" />
-      ) : actionButtons.length > 0 ? (
-        actionButtons.map((button, index) => (
-          <>
-            {index > 0 && <span class="kanban__action-divider">|</span>}
-            <Button
-              buttonType="theme"
-              variant="ghost"
-              size="sm"
-              icon={button.icon}
-              class="kanban__action-button"
-            >
-              {button.text}
-            </Button>
-          </>
-        ))
-      ) : (
-        <>
-          <Button buttonType="theme" variant="ghost" size="sm" icon="trash" class="kanban__action-button">
-            Delete
-          </Button>
-          <Button buttonType="theme" variant="ghost" size="sm" icon="queue-list" class="kanban__action-button">
-            Group
-          </Button>
-          <Button buttonType="theme" variant="ghost" size="sm" icon="chevron-up" iconPosition="right" class="kanban__action-button">
-            Subcards: Collapse all
-          </Button>
-          <span class="kanban__action-divider">|</span>
-          <Button buttonType="theme" variant="ghost" size="sm" icon="cog-6-tooth" class="kanban__action-button">
-            Customize Columns
-          </Button>
-          <span class="kanban__action-label">All Filters</span>
-          <span class="kanban__action-divider">|</span>
-          <button type="button" class="kanban__action-text-button">
-            <span>Change Views</span>
-            <Icon name="chevron-down" size="sm" />
-          </button>
-        </>
-      )}
-    </div>
-  </div>
+    <section class="kanban__columns-wrapper" role="region" aria-label="Kanban board">
+      {(columns as KanbanColumn[]).map((column) => {
+        const columnTitleLower = column.title.toLowerCase();
+        let borderColorClass = '';
+        if (columnTitleLower.includes('in progress') || columnTitleLower.includes('in-progress')) {
+          borderColorClass = 'kanban__column-card--in-progress';
+        } else if (columnTitleLower === 'done') {
+          borderColorClass = 'kanban__column-card--done';
+        }
 
-  <!-- Columns Container -->
-  <section class="kanban__columns-wrapper" role="region" aria-label="Kanban board">
-    {columns.map((column) => {
-      // Determine border color based on column title
-      const columnTitleLower = column.title.toLowerCase();
-      let borderColorClass = '';
-      if (columnTitleLower.includes('in progress') || columnTitleLower.includes('in-progress')) {
-        borderColorClass = 'kanban__column-card--in-progress';
-      } else if (columnTitleLower === 'done') {
-        borderColorClass = 'kanban__column-card--done';
-      }
-      
-      return (
-      <Card primary class={`kanban__column-card ${borderColorClass}`}>
-        <article 
-          class="kanban__column" 
-          role="group" 
-          aria-label={`${column.title} column`}
-        >
-          <header class="kanban__column-header">
-            <div class="kanban__column-header-content">
-              <h2 class="kanban__column-title">{column.title}</h2>
-              <span class="kanban__column-count" aria-label={`${column.cards.length} items`}>
-                {column.cards.length}
-              </span>
-            </div>
-            <div class="kanban__column-header-actions">
-              <button
-                type="button"
-                class="kanban__column-action-icon"
-                aria-label="Column settings"
-              >
-                <Icon name="cog" size="sm" />
-              </button>
-              <button
-                type="button"
-                class="kanban__column-action-icon"
-                aria-label="Column menu"
-              >
-                <Icon name="ellipsis-vertical" size="sm" />
-              </button>
-              <button
-                type="button"
-                class="kanban__column-action-icon"
-                aria-label="Close column"
-              >
-                <Icon name="x-mark" size="sm" />
-              </button>
-            </div>
-          </header>
-          
-          <div class="kanban__column-content">
-            {column.cards.map((card) => (
-              <KanbanCard
-                id={card.id}
-                title={card.title}
-                description={card.description}
-                avatar={card.avatar}
-                badges={card.badges}
-                progress={card.progress}
-                icons={card.icons}
-                date={card.date}
-                time={card.time}
-                class={card.class}
-              />
-            ))}
-            {showAddButton && (
-              <Button
-                buttonType="theme"
-                variant="tertiary"
-                size="sm"
-                icon="plus"
-                class="kanban__add-button"
-                aria-label={`Add card to ${column.title}`}
-              >
-                Add card
-              </Button>
-            )}
-          </div>
-        </article>
-      </Card>
-      );
-    })}
-    <Button
-      buttonType="theme"
-      variant="secondary"
-      size="sm"
-      icon="plus"
-      class="kanban__add-column-button"
-      aria-label="Add new column"
-    />
-  </section>
-</div>
+        return (
+          <Card primary class={`kanban__column-card ${borderColorClass}`}>
+            <article class="kanban__column" role="group" aria-label={`${column.title} column`}>
+              <header class="kanban__column-header">
+                <div class="kanban__column-header-content">
+                  <h2 class="kanban__column-title">{column.title}</h2>
+                  <span class="kanban__column-count" aria-label={`${column.cards.length} items`}>
+                    {column.cards.length}
+                  </span>
+                </div>
+                <div class="kanban__column-header-actions">
+                  <button type="button" class="kanban__column-action-icon" aria-label="Column settings">
+                    <Icon name="cog" size="sm" />
+                  </button>
+                  <button type="button" class="kanban__column-action-icon" aria-label="Column menu">
+                    <Icon name="ellipsis-vertical" size="sm" />
+                  </button>
+                  <button type="button" class="kanban__column-action-icon" aria-label="Close column">
+                    <Icon name="x-mark" size="sm" />
+                  </button>
+                </div>
+              </header>
+
+              <div class="kanban__column-content">
+                {column.cards.map((card) => (
+                  <KanbanCard
+                    id={card.id}
+                    title={card.title}
+                    description={card.description}
+                    avatar={card.avatar}
+                    badges={card.badges}
+                    progress={card.progress}
+                    icons={card.icons}
+                    date={card.date}
+                    time={card.time}
+                    class={card.class}
+                  />
+                ))}
+                {showAddButton && (
+                  <Button
+                    buttonType="theme"
+                    variant="tertiary"
+                    size="sm"
+                    icon="plus"
+                    class="kanban__add-button"
+                    aria-label={`Add card to ${column.title}`}
+                  >
+                    Add card
+                  </Button>
+                )}
+              </div>
+            </article>
+          </Card>
+        );
+      })}
+      <Button
+        buttonType="theme"
+        variant="secondary"
+        size="sm"
+        icon="plus"
+        class="kanban__add-column-button"
+        aria-label="Add new column"
+      />
+    </section>
+  </div>
+)}

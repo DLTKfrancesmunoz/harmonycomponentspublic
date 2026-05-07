@@ -1,6 +1,6 @@
 # Input
 
-Text input with optional label, icon, error state, and validation.
+Text input with optional label, leading icon, trailing icon or custom trailing content, error state, and validation.
 
 ## Props
 
@@ -14,7 +14,9 @@ Text input with optional label, icon, error state, and validation.
 | disabled | boolean | false | When true, the control is disabled and not interactive. |
 | error | boolean | false | When true, shows error styling and optional error message. |
 | errorMessage | string | — | Error message shown when error is true. |
-| icon | string | — | Icon name from the design system. |
+| icon | string | — | Leading Heroicon name (left). |
+| trailingIcon | string | — | Trailing Heroicon name (right); ignored when `trailing` is set. |
+| trailing | ReactNode | — | Custom right-side content (e.g. password toggle button); takes precedence over `trailingIcon`. |
 | required | boolean | false | When true, the field is required for form validation. |
 | label | string | — | Label text for the control. |
 | labelVariant | 'inline' \| 'stacked' | — | Label layout: inline or stacked. |
@@ -25,15 +27,29 @@ Text input with optional label, icon, error state, and validation.
 
 ```tsx
 import { Input } from './components/harmony/Input';
+import { Icon } from './components/harmony/Icon';
 
 <Input label="Name" placeholder="Enter your name" />
+
+<Input icon="magnifying-glass" trailingIcon="x-mark" placeholder="Search" />
+
+<Input
+  type="password"
+  trailing={
+    <button type="button" aria-label="Show password">
+      <Icon name="eye" size="sm" />
+    </button>
+  }
+/>
 ```
 
 ## CSS Classes
 
 - `.input`
 - `.input--with-icon`
+- `.input--with-trailing`
 - `.input--error`
+- `.input-wrapper__trailing`
 
 ## Dependencies
 

@@ -7,13 +7,16 @@
 
 import { navigation } from '../data/navigation';
 
-// Flatten all items for search
-const allItems = navigation.flatMap(section => 
-  section.items.map(item => ({
-    ...item,
-    section: section.title
-  }))
-);
+// Flatten all items for search (include CP-only doc routes discoverable by title)
+const allItems = [
+  ...navigation.flatMap((section) =>
+    section.items.map((item) => ({
+      ...item,
+      section: section.title,
+    }))
+  ),
+  { title: 'Kanban (Costpoint)', href: '/cp/kanban', icon: 'view-columns', section: 'Costpoint' },
+];
 ---
 
 <div class="search-container">

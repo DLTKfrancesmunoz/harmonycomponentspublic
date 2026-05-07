@@ -11,7 +11,7 @@ const props = [
   { name: 'addTabLabel', type: 'string', default: "'Add Tab'", description: 'Label for Add Tab button' },
   { name: 'overflowMode', type: "'auto' | 'manual' | 'none'", default: "'auto'", description: 'Overflow handling mode: auto (automatic), manual (use overflowTabs), or none' },
   { name: 'overflowTabs', type: 'Tab[]', default: '[]', description: 'Manual override for overflow tabs (used when overflowMode is "manual")' },
-  { name: 'variant', type: "'default' | 'compact'", default: "'default'", description: 'Visual variant: default or compact (reduced height/padding)' },
+  { name: 'variant', type: "'default' | 'compact' | 'pill'", default: "'default'", description: 'Visual variant: default, compact (reduced height/padding), or pill (filled selected tab — pill styling only when the VP theme is active on html; other themes keep the underline)' },
   { name: 'iconPosition', type: "'left' | 'right' | 'top'", default: '—', description: 'Enforce consistent icon position for all tabs. Overrides individual tab iconPosition values. Prevents mixing inline (left/right) with stacked (top) positions.' },
 ];
 ---
@@ -183,6 +183,24 @@ const props = [
           />
         </div>
       </ExampleSection>
+
+      <div class="ds-demo-only-theme-vp">
+        <ExampleSection title="VP Pill Variant" description="Selected tab uses a filled pill instead of a thick bottom border. VP theme only.">
+          <div>
+            <TabStrip
+              tabs={[
+                { id: '1', label: 'Overview', active: true },
+                { id: '2', label: 'Transformation' },
+                { id: '3', label: 'Validation' },
+              ]}
+              variant="pill"
+            />
+            <div class="tab-panel is-active">
+              <p class="text-secondary">Content for the selected tab.</p>
+            </div>
+          </div>
+        </ExampleSection>
+      </div>
 
       <ExampleSection title="Enforced Icon Position" description="Use the component-level iconPosition prop to enforce consistent positioning across all tabs.">
         <div>

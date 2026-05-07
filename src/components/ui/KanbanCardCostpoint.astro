@@ -1,0 +1,114 @@
+---
+/**
+ * Costpoint (CP theme) Kanban card — five configurable fields, footer actions (spec §3).
+ * Use with html.theme-cp; styles are scoped in components.css under .kanban-card-cp.
+ */
+import Card from './Card.astro';
+import Dropdown from './Dropdown.astro';
+import Icon from './Icon.astro';
+import Tooltip from './Tooltip.astro';
+import type { KanbanViewCardField } from '../../types/kanban-view-config';
+import { buildCostpointFieldRows } from '../../utils/kanban-cp-card';
+import type { Option } from './Dropdown.astro';
+
+export interface Props {
+  id: string;
+  title: string;
+  fieldsConfig: KanbanViewCardField[];
+  valuesByFieldName: Record<string, string | undefined>;
+  selected?: boolean;
+  /** Move card dropdown; current column should be marked disabled on options */
+  moveOptions: Option[];
+  /** Optional strip above title (conditional color / graphicalElement) */
+  graphicalClass?: string;
+  /** Optional top accent strip (advanced composition only; built-in Kanban does not set this) */
+  accentColor?: string;
+  /** Extra root classes (e.g. resolved cardBackground) */
+  class?: string;
+  openRecordLabel?: string;
+}
+
+const {
+  id,
+  title,
+  fieldsConfig,
+  valuesByFieldName,
+  selected = false,
+  moveOptions,
+  graphicalClass = '',
+  accentColor,
+  class: className = '',
+  openRecordLabel = 'Open record',
+} = Astro.props;
+
+const rows = buildCostpointFieldRows(fieldsConfig, valuesByFieldName);
+const cardClasses = [
+  'kanban-card-cp',
+  selected && 'kanban-card-cp--selected',
+  className,
+]
+  .filter(Boolean)
+  .join(' ');
+---
+
+<Card class={cardClasses} elevated data-kanban-card-id={id}>
+  {accentColor ? (
+    <div
+      class="kanban-card-cp__graphic kanban-card-cp__graphic--accent"
+      style={`background-color: ${accentColor}`}
+      aria-hidden="true"
+    />
+  ) : (
+    graphicalClass && <div class={`kanban-card-cp__graphic ${graphicalClass}`} aria-hidden="true" />
+  )}
+  <div class="kanban-card-cp__title-row">
+    <h3 class="kanban-card-cp__title">
+      <Tooltip text={title} position="top" class="kanban-card-cp__title-tooltip">
+        <span class="kanban-card-cp__title-text">{title}</span>
+      </Tooltip>
+    </h3>
+    <div class="kanban-card-cp__menu">
+      <Dropdown
+        id={`kanban-cp-move-${id}`}
+        options={moveOptions}
+        placeholder="Move card"
+        class="kanban-card-cp__move-dropdown"
+      >
+        <span slot="trigger" class="kanban-card-cp__kebab-trigger">
+          <Icon name="ellipsis-vertical" size="sm" />
+          <span class="sr-only">Move card to column</span>
+        </span>
+      </Dropdown>
+    </div>
+  </div>
+
+  <div class="kanban-card-cp__fields">
+    {rows.map((row) =>
+      row.kind === 'spacer' ? (
+        <div class="kanban-card-cp__spacer" aria-hidden="true" />
+      ) : row.multiline ? (
+        <div class="kanban-card-cp__field">
+          <span class="kanban-card-cp__field-label">{row.label}</span>
+          <div class={`kanban-card-cp__field-line kanban-card-cp__field-line--multiline ${row.styleClass}`}>
+            {row.value || '\u00a0'}
+          </div>
+        </div>
+      ) : (
+        <div class={`kanban-card-cp__field`}>
+          <span class="kanban-card-cp__field-label">{row.label}</span>
+          <Tooltip text={`${row.label}: ${row.value || '(empty)'}`} position="top">
+            <div class={`kanban-card-cp__field-line ${row.styleClass}`}>
+              {row.value || '\u00a0'}
+            </div>
+          </Tooltip>
+        </div>
+      )
+    )}
+  </div>
+
+  <div class="kanban-card-cp__footer">
+    <button type="button" class="kanban-card-cp__open-link">
+      {openRecordLabel}
+    </button>
+  </div>
+</Card>

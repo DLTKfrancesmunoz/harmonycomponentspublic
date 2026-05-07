@@ -147,53 +147,75 @@ const classes = ['dropdown', className].filter(Boolean).join(' ');
 )}
 
 <script>
+  import {
+    syncKanbanCpFixedMenu,
+    clearKanbanCpFixedMenu,
+    bindKanbanCpMenuScrollSync,
+  } from '../../utils/kanban-cp-dropdown-position';
+
   function initDropdowns() {
+    bindKanbanCpMenuScrollSync();
+
     document.querySelectorAll('[data-dropdown]').forEach((dropdown) => {
       if (dropdown.hasAttribute('data-init')) return;
       dropdown.setAttribute('data-init', 'true');
-      
+
       const trigger = dropdown.querySelector('.dropdown__trigger');
       const menu = dropdown.querySelector('.dropdown__menu');
       const items = dropdown.querySelectorAll('.dropdown__item');
       const hiddenInput = dropdown.querySelector('input[type="hidden"]');
       const valueDisplay = dropdown.querySelector('.dropdown__value');
-      
+
+      const inKanbanCpCard = () => dropdown.closest('.kanban-card-cp') != null;
+
       trigger?.addEventListener('click', () => {
         dropdown.classList.toggle('is-open');
-        trigger.setAttribute('aria-expanded', dropdown.classList.contains('is-open').toString());
+        const open = dropdown.classList.contains('is-open');
+        trigger.setAttribute('aria-expanded', open.toString());
+
+        if (trigger instanceof HTMLElement && menu instanceof HTMLElement) {
+          if (inKanbanCpCard()) {
+            if (open) {
+              requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                  syncKanbanCpFixedMenu(trigger, menu);
+                });
+              });
+            } else {
+              clearKanbanCpFixedMenu(menu);
+            }
+          }
+        }
       });
-      
+
       items.forEach((item) => {
         item.addEventListener('click', () => {
           const value = (item as HTMLElement).dataset.value;
           const label = item.textContent?.trim();
-          
-          // Update hidden input
+
           if (hiddenInput) (hiddenInput as HTMLInputElement).value = value || '';
-          
-          // Update display
+
           if (valueDisplay) valueDisplay.textContent = label || '';
-          
-          // Update selected state
-          items.forEach(i => i.classList.remove('is-selected'));
+
+          items.forEach((i) => i.classList.remove('is-selected'));
           item.classList.add('is-selected');
-          
-          // Close dropdown
+
           dropdown.classList.remove('is-open');
           trigger?.setAttribute('aria-expanded', 'false');
+          if (menu instanceof HTMLElement && inKanbanCpCard()) clearKanbanCpFixedMenu(menu);
         });
       });
-      
-      // Close on outside click
+
       document.addEventListener('click', (e) => {
         if (!dropdown.contains(e.target as Node)) {
           dropdown.classList.remove('is-open');
           trigger?.setAttribute('aria-expanded', 'false');
+          if (menu instanceof HTMLElement && inKanbanCpCard()) clearKanbanCpFixedMenu(menu);
         }
       });
     });
   }
-  
+
   initDropdowns();
   document.addEventListener('astro:page-load', initDropdowns);
 </script>

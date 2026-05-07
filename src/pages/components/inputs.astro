@@ -17,7 +17,8 @@ const props = [
   { name: 'disabled', type: 'boolean', default: 'false', description: 'Disables the input' },
   { name: 'error', type: 'boolean', default: 'false', description: 'Shows error state' },
   { name: 'errorMessage', type: 'string', default: '—', description: 'Error message to display' },
-  { name: 'icon', type: 'string', default: '—', description: 'Leading icon class (e.g., ti-search)' },
+  { name: 'icon', type: 'string', default: '—', description: 'Leading Heroicon name (left side)' },
+  { name: 'trailingIcon', type: 'string', default: '—', description: 'Trailing Heroicon name (right side); ignored when the trailing slot / ReactNode is used' },
   { name: 'required', type: 'boolean', default: 'false', description: 'Makes the input required' },
   { name: 'label', type: 'string', default: '—', description: 'Label text for the input' },
   { name: 'labelVariant', type: "'inline' | 'stacked'", default: "'stacked' (inline for CP theme)", description: 'Label alignment variant - inline (left) or stacked (top)' },
@@ -97,6 +98,27 @@ const textareaProps = [
           <div class="space-y-2">
             <Label for="email-icon">Email</Label>
             <Input icon="envelope" type="email" id="email-icon" placeholder="you@example.com" />
+          </div>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="Trailing icon and slot" description="Use trailingIcon for a decorative right-side icon, or the trailing slot for interactive controls (password visibility, clear, units). The slot takes precedence when both are present.">
+        <div class="max-w-sm space-y-4">
+          <div class="space-y-2">
+            <Label for="input-trailing-icon">Trailing icon</Label>
+            <Input id="input-trailing-icon" trailingIcon="currency-dollar" placeholder="0.00" />
+          </div>
+          <div class="space-y-2">
+            <Label for="input-lead-trail">Leading and trailing icons</Label>
+            <Input icon="magnifying-glass" id="input-lead-trail" trailingIcon="x-mark" placeholder="Search" />
+          </div>
+          <div class="space-y-2">
+            <Label for="input-trailing-slot">Trailing slot (action)</Label>
+            <Input type="password" id="input-trailing-slot" placeholder="Password">
+              <button slot="trailing" type="button" class="p-0 m-0 border-0 bg-transparent cursor-pointer text-[var(--text-muted)] hover:text-[var(--text-primary)] inline-flex items-center justify-center" aria-label="Show password">
+                <Icon name="eye" size="sm" />
+              </button>
+            </Input>
           </div>
         </div>
       </ExampleSection>

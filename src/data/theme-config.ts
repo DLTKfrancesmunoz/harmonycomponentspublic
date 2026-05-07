@@ -24,7 +24,8 @@ export const themeConfig: Record<string, ThemeConfig> = {
     fullName: 'Harmony CP Design System',
     primaryColor: '#0073E6',
     components: [
-      { title: 'Floating Nav', href: '/cp/floating-nav', icon: 'ti-navigation' }
+      { title: 'Floating Nav', href: '/cp/floating-nav', icon: 'ti-navigation' },
+      { title: 'Kanban', href: '/cp/kanban', icon: 'ti-layout-kanban' },
     ],
     companies: [
       { id: 'acme-corp', name: 'Acme Corporation', gradientColor: '#FF507B' },

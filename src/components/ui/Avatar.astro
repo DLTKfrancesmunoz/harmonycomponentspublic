@@ -1,25 +1,102 @@
 ---
 /**
- * Avatar Component
+ * Avatar — user avatar for shell header, tables, and cards.
  *
- * Square avatar with 8px rounded corners, colored background, and user icon
+ * Sizes: sm (24×24), md (32×32), lg (40×40). Variants: icon (default user), initials, image.
+ * Use interactive for menu triggers (hover/focus/disabled states).
  */
 import Icon from './Icon.astro';
 
-interface Props {
+export interface Props {
   size?: 'sm' | 'md' | 'lg';
+  variant?: 'icon' | 'initials' | 'image';
+  initials?: string;
+  src?: string;
+  alt?: string;
+  interactive?: boolean;
+  disabled?: boolean;
   class?: string;
 }
 
-const { size = 'md', class: className = '' } = Astro.props;
+const {
+  size = 'md',
+  variant = 'icon',
+  initials: initialsProp,
+  src,
+  alt = '',
+  interactive = false,
+  disabled = false,
+  class: className = '',
+} = Astro.props;
 
 const iconSizes = {
-  sm: 'sm',  // 16px icon in 32px circle
-  md: 'md',  // 20px icon in 40px circle
-  lg: 'lg'   // 24px icon in 48px circle
-};
+  sm: 'sm',
+  md: 'md',
+  lg: 'lg',
+} as const;
+
+function normalizeInitials(s?: string): string {
+  if (!s?.trim()) return '';
+  const parts = s.trim().split(/\s+/).filter(Boolean);
+  if (parts.length >= 2) return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  const t = parts[0] ?? '';
+  if (t.length <= 2) return t.toUpperCase();
+  return t.slice(0, 2).toUpperCase();
+}
+
+const initials = normalizeInitials(initialsProp);
+
+let contentVariant: 'icon' | 'initials' | 'image' = variant;
+if (variant === 'initials' && !initials) contentVariant = 'icon';
+if (variant === 'image' && !src) contentVariant = 'icon';
+
+const classes = [
+  'avatar',
+  `avatar--${size}`,
+  contentVariant === 'initials' && 'avatar--initials',
+  contentVariant === 'image' && 'avatar--image',
+  className,
+]
+  .filter(Boolean)
+  .join(' ');
+
+const ariaLabel =
+  contentVariant === 'initials'
+    ? `Avatar, initials ${initials}`
+    : contentVariant === 'image'
+      ? alt || 'User avatar photo'
+      : 'User avatar';
 ---
 
-<div class={`avatar avatar--${size} ${className}`}>
-  <Icon name="user" size={iconSizes[size]} class="avatar__icon" />
-</div>
+{
+  interactive ? (
+    <button
+      type="button"
+      class={classes}
+      disabled={disabled}
+      aria-label={ariaLabel}
+    >
+      {contentVariant === 'icon' && (
+        <Icon name="user" size={iconSizes[size]} class="avatar__icon" />
+      )}
+      {contentVariant === 'initials' && (
+        <span class="avatar__initials" aria-hidden="true">{initials}</span>
+      )}
+      {contentVariant === 'image' && src && (
+        <img src={src} alt="" aria-hidden="true" />
+      )}
+    </button>
+  ) : (
+    <div class={classes} role="img" aria-label={ariaLabel}>
+      {contentVariant === 'icon' && (
+        <Icon name="user" size={iconSizes[size]} class="avatar__icon" />
+      )}
+      {contentVariant === 'initials' && (
+        <span class="avatar__initials" aria-hidden="true">{initials}</span>
+      )}
+      {contentVariant === 'image' && src && (
+        <img src={src} alt="" aria-hidden="true" />
+      )}
+    </div>
+  )
+}

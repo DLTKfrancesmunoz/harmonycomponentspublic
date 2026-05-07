@@ -14,7 +14,7 @@
  * @prop {string} addTabLabel - Label for Add Tab button (default: "Add Tab")
  * @prop {string} overflowMode - 'auto' | 'manual' | 'none' (default: 'auto')
  * @prop {Array} overflowTabs - Manual override for overflow tabs (default: [])
- * @prop {string} variant - 'default' | 'compact' (default: 'default')
+ * @prop {string} variant - 'default' | 'compact' | 'pill' (default: 'default'). The pill selected style applies only when the document uses the VP theme (html.theme-vp); other themes keep the standard underline.
  * @prop {string} iconPosition - Enforce consistent icon position for all tabs: 'left' | 'right' | 'top' (optional)
  * @prop {string} class - Additional CSS classes
  */
@@ -36,7 +36,7 @@ interface Props {
   addTabLabel?: string;
   overflowMode?: 'auto' | 'manual' | 'none';
   overflowTabs?: Tab[];
-  variant?: 'default' | 'compact';
+  variant?: 'default' | 'compact' | 'pill';
   iconPosition?: 'left' | 'right' | 'top';
   class?: string;
 }
@@ -74,7 +74,7 @@ if (tabs.length > 0 && !componentIconPosition) {
 ---
 
 <div 
-  class={`tabstrip ${variant === 'compact' ? 'tabstrip--compact' : ''} ${className}`.trim()}
+  class={`tabstrip ${variant === 'compact' ? 'tabstrip--compact' : ''} ${variant === 'pill' ? 'tabstrip--pill' : ''} ${className}`.trim()}
   data-tabstrip
   data-variant={variant}
   data-overflow-mode={overflowMode}

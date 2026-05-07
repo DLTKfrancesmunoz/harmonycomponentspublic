@@ -156,7 +156,7 @@
   "Avatar": {
     "hasProps": true,
     "filePath": "src/components/ui/Avatar.astro",
-    "description": "Avatar Component",
+    "description": "Avatar — user avatar for shell header, tables, and cards.",
     "dependencies": [
       "Icon"
     ],
@@ -164,16 +164,50 @@
       "./Icon.astro"
     ],
     "cssClasses": [
-      "avatar",
-      "avatar--",
-      "${className}",
-      "avatar__icon"
+      "avatar__icon",
+      "avatar__initials"
     ],
     "props": {
       "size": {
         "optional": true,
         "type": "'sm' | 'md' | 'lg';",
         "default": "'md'",
+        "description": null
+      },
+      "variant": {
+        "optional": true,
+        "type": "'icon' | 'initials' | 'image';",
+        "default": "'icon'",
+        "description": null
+      },
+      "initials": {
+        "optional": true,
+        "type": "string;",
+        "default": null,
+        "description": null
+      },
+      "src": {
+        "optional": true,
+        "type": "string;",
+        "default": null,
+        "description": null
+      },
+      "alt": {
+        "optional": true,
+        "type": "string;",
+        "default": "''",
+        "description": null
+      },
+      "interactive": {
+        "optional": true,
+        "type": "boolean;",
+        "default": "false",
+        "description": null
+      },
+      "disabled": {
+        "optional": true,
+        "type": "boolean;",
+        "default": "false",
         "description": null
       },
       "class": {
@@ -185,9 +219,13 @@
     },
     "defaults": {
       "size": "'md'",
+      "variant": "'icon'",
+      "alt": "''",
+      "interactive": "false",
+      "disabled": "false",
       "class": "''"
     },
-    "rawInterface": "size?: 'sm' | 'md' | 'lg'\n  class?: string"
+    "rawInterface": "size?: 'sm' | 'md' | 'lg'\n  variant?: 'icon' | 'initials' | 'image'\n  initials?: string\n  src?: string\n  alt?: string\n  interactive?: boolean\n  disabled?: boolean\n  class?: string"
   },
   "Badge": {
     "hasProps": true,
@@ -1475,6 +1513,8 @@
       "input-form-wrapper__label",
       "input-wrapper",
       "input-wrapper__icon",
+      "input-wrapper__trailing",
+      "input-wrapper__icon--trailing",
       "input-wrapper__error"
     ],
     "props": {
@@ -1532,6 +1572,12 @@
         "default": null,
         "description": null
       },
+      "trailingIcon": {
+        "optional": true,
+        "type": "string;",
+        "default": null,
+        "description": null
+      },
       "required": {
         "optional": true,
         "type": "boolean;",
@@ -1570,21 +1616,27 @@
       "required": "false",
       "class": "''"
     },
-    "rawInterface": "type?: 'text' | 'email' | 'password' | 'number' | 'url' | 'search' | 'tel'\n  placeholder?: string\n  value?: string\n  name?: string\n  id?: string\n  disabled?: boolean\n  error?: boolean\n  errorMessage?: string\n  icon?: string\n  required?: boolean\n  label?: string\n  labelVariant?: 'inline' | 'stacked'\n  labelFor?: string\n  class?: string"
+    "rawInterface": "type?: 'text' | 'email' | 'password' | 'number' | 'url' | 'search' | 'tel'\n  placeholder?: string\n  value?: string\n  name?: string\n  id?: string\n  disabled?: boolean\n  error?: boolean\n  errorMessage?: string\n  icon?: string\n  trailingIcon?: string\n  required?: boolean\n  label?: string\n  labelVariant?: 'inline' | 'stacked'\n  labelFor?: string\n  class?: string"
   },
   "Kanban": {
     "hasProps": true,
     "filePath": "src/components/ui/Kanban.astro",
-    "description": "Kanban Component",
+    "description": "Kanban board: default task layout or costpoint (CP MVP) variant",
     "dependencies": [
       "Button",
       "Icon",
-      "Card"
+      "Card",
+      "Input",
+      "KanbanCard",
+      "KanbanCardCostpoint"
     ],
     "imports": [
       "./Button.astro",
       "./Icon.astro",
-      "./Card.astro"
+      "./Card.astro",
+      "./Input.astro",
+      "./KanbanCard.astro",
+      "./KanbanCardCostpoint.astro"
     ],
     "cssClasses": [
       "kanban__container",
@@ -1610,13 +1662,33 @@
       "kanban__column-action-icon",
       "kanban__column-content",
       "kanban__add-button",
-      "kanban__add-column-button"
+      "kanban__add-column-button",
+      "kanban-cp",
+      "kanban-cp__toolbar",
+      "kanban-cp__toolbar-start",
+      "kanban-cp__toolbar-title",
+      "kanban-cp__toolbar-text-btn",
+      "kanban-cp__toolbar-end",
+      "kanban-cp__board-header",
+      "kanban-cp__board-meta-sep",
+      "kanban-cp__load-more-link",
+      "kanban-cp__column-header-content",
+      "kanban-cp__columns",
+      "kanban-card-cp",
+      "kanban-card-cp__graphic--accent",
+      "kanban-cp__column-card"
     ],
     "props": {
       "columns": {
         "optional": false,
-        "type": "KanbanColumn[];",
+        "type": "KanbanColumn[] | KanbanCostpointColumn[];",
         "default": null,
+        "description": null
+      },
+      "variant": {
+        "optional": true,
+        "type": "'default' | 'costpoint';",
+        "default": "'default'",
         "description": null
       },
       "title": {
@@ -1648,6 +1720,72 @@
         "type": "boolean;",
         "default": "true",
         "description": null
+      },
+      "cardFieldsConfig": {
+        "optional": true,
+        "type": "KanbanViewCardField[];",
+        "default": "[]",
+        "description": null
+      },
+      "cpRecordCount": {
+        "optional": true,
+        "type": "number;",
+        "default": null,
+        "description": null
+      },
+      "cpRecordShown": {
+        "optional": true,
+        "type": "number;",
+        "default": null,
+        "description": null
+      },
+      "cpRecordTotal": {
+        "optional": true,
+        "type": "number;",
+        "default": null,
+        "description": null
+      },
+      "cpToolbarTitle": {
+        "optional": true,
+        "type": "string;",
+        "default": null,
+        "description": null
+      },
+      "cpSortedBy": {
+        "optional": true,
+        "type": "string;",
+        "default": null,
+        "description": null
+      },
+      "cpSortLabel": {
+        "optional": true,
+        "type": "string;",
+        "default": null,
+        "description": null
+      },
+      "cpActiveView": {
+        "optional": true,
+        "type": "'table' | 'form' | 'kanban';",
+        "default": null,
+        "description": null
+      },
+      "cpSearchPlaceholder": {
+        "optional": true,
+        "type": "string;",
+        "default": null,
+        "description": null
+      },
+      "cpScrollColumnIndex": {
+        "optional": true,
+        "type": "number;",
+        "default": null,
+        "description": null
+      },
+      "showLoadMore": {
+        "optional": true,
+        "type": "boolean;",
+        "default": "true",
+        "description": null
       }
     },
     "defaults": {
@@ -1655,9 +1793,10 @@
       "actionButtons": "[]",
       "actionDropdowns": "[]",
       "class": "''",
-      "showAddButton": "true"
+      "showAddButton": "true",
+      "variant": "'default'"
     },
-    "rawInterface": "columns: KanbanColumn[]\n  title?: string\n  actionButtons?: ActionButton[]\n  actionDropdowns?: ActionDropdown[]\n  class?: string\n  showAddButton?: boolean"
+    "rawInterface": "columns: KanbanColumn[] | KanbanCostpointColumn[]\n  variant?: 'default' | 'costpoint'\n  cardFieldsConfig?: KanbanViewCardField[]\n  cpRecordCount?: number\n  cpRecordShown?: number\n  cpRecordTotal?: number\n  cpToolbarTitle?: string\n  cpSortedBy?: string\n  cpSortLabel?: string\n  cpActiveView?: 'table' | 'form' | 'kanban'\n  ..."
   },
   "KanbanCard": {
     "hasProps": true,
@@ -1761,6 +1900,99 @@
       "class": "''"
     },
     "rawInterface": "id: string\n  title?: string\n  description?: string\n  avatar?: { name?: string; size?: 'sm' | 'md' | 'lg' }\n  badges?: Array<{ label: string; variant?: BadgeVariant }>\n  progress?: number\n  icons?: Array<{ name: string; size?: 'xs' | 'sm' | 'md' }>\n  date?: string\n  time?: string\n  class?: string"
+  },
+  "KanbanCardCostpoint": {
+    "hasProps": true,
+    "filePath": "src/components/ui/KanbanCardCostpoint.astro",
+    "description": "Costpoint Kanban card (five fields, move menu, open record)",
+    "dependencies": [
+      "Card",
+      "Dropdown",
+      "Icon",
+      "Tooltip"
+    ],
+    "imports": [
+      "./Card.astro",
+      "./Dropdown.astro",
+      "./Icon.astro",
+      "./Tooltip.astro"
+    ],
+    "cssClasses": [
+      "kanban-card-cp",
+      "kanban-card-cp--selected",
+      "kanban-card-cp__title",
+      "kanban-card-cp__fields",
+      "kanban-card-cp__footer",
+      "kanban-card-cp__field-text--fallback"
+    ],
+    "props": {
+      "id": {
+        "optional": false,
+        "type": "string;",
+        "default": null,
+        "description": null
+      },
+      "title": {
+        "optional": false,
+        "type": "string;",
+        "default": null,
+        "description": null
+      },
+      "fieldsConfig": {
+        "optional": false,
+        "type": "KanbanViewCardField[];",
+        "default": null,
+        "description": null
+      },
+      "valuesByFieldName": {
+        "optional": false,
+        "type": "Record<string, string | undefined>;",
+        "default": null,
+        "description": null
+      },
+      "moveOptions": {
+        "optional": false,
+        "type": "Option[];",
+        "default": null,
+        "description": null
+      },
+      "selected": {
+        "optional": true,
+        "type": "boolean;",
+        "default": "false",
+        "description": null
+      },
+      "graphicalClass": {
+        "optional": true,
+        "type": "string;",
+        "default": "''",
+        "description": null
+      },
+      "accentColor": {
+        "optional": true,
+        "type": "string;",
+        "default": null,
+        "description": null
+      },
+      "class": {
+        "optional": true,
+        "type": "string;",
+        "default": "''",
+        "description": null
+      },
+      "openRecordLabel": {
+        "optional": true,
+        "type": "string;",
+        "default": "'Open record'",
+        "description": null
+      }
+    },
+    "defaults": {
+      "selected": "false",
+      "class": "''",
+      "openRecordLabel": "'Open record'"
+    },
+    "rawInterface": "id: string\n  title: string\n  fieldsConfig: KanbanViewCardField[]\n  valuesByFieldName: Record<string, string | undefined>\n  moveOptions: Option[]\n  selected?: boolean\n  graphicalClass?: string\n  accentColor?: string\n  class?: string\n  openRecordLabel?: string"
   },
   "Label": {
     "hasProps": true,

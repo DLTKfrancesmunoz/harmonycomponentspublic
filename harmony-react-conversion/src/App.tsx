@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import { ShellLayout } from './components/harmony/ShellLayout'
 import { ComponentGalleryPage } from './pages/ComponentGalleryPage'
 import { ComponentDemoPage } from './pages/ComponentDemoPage'
+import { RightSidebarPanelDemosPage } from './pages/RightSidebarPanelDemosPage'
 
 const THEMES = ['theme-cp', 'theme-ppm', 'theme-vp', 'theme-maconomy'] as const
 type Theme = typeof THEMES[number]
@@ -74,6 +75,7 @@ function App() {
         <Route path="/" element={<ShellLayout />} />
         <Route path="/components" element={<ComponentGalleryPage />} />
         <Route path="/components/:componentName" element={<ComponentDemoPage />} />
+        <Route path="/demos/right-sidebar-panels" element={<RightSidebarPanelDemosPage />} />
       </Routes>
     </>
   )

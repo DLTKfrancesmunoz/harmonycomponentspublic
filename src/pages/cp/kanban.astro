@@ -1,0 +1,339 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import PropsTable from '../../components/PropsTable.astro';
+import ExampleSection from '../../components/ExampleSection.astro';
+import Kanban from '../../components/ui/Kanban.astro';
+import Icon from '../../components/ui/Icon.astro';
+import { EXAMPLE_KANBAN_VIEW_JSON } from '../../types/kanban-view-config';
+
+const kanbanCostpointProps = [
+  { name: 'columns', type: 'KanbanCostpointColumn[]', default: '—', description: 'Column definitions with Costpoint cards, optional headerColorLight, loadMoreRemaining.' },
+  { name: 'variant', type: "'costpoint'", default: '—', description: 'Must be costpoint for this shell.' },
+  { name: 'cardFieldsConfig', type: 'KanbanViewCardField[]', default: '[]', description: 'Five slot definitions matching JSON kanbanView.cardFields.fields' },
+  { name: 'cpRecordCount', type: 'number', default: '—', description: 'Derived total when cpRecordTotal omitted (sum of cards)' },
+  { name: 'cpRecordShown', type: 'number', default: '—', description: '“Showing X of Y” X (defaults to cpRecordCount)' },
+  { name: 'cpRecordTotal', type: 'number', default: '—', description: '“Showing X of Y” Y (defaults to cpRecordCount)' },
+  { name: 'cpToolbarTitle', type: 'string', default: '—', description: 'Optional legacy prop; default chrome no longer renders a top toolbar unless you use the cp-toolbar slot.' },
+  { name: 'cpSortedBy', type: 'string', default: '—', description: 'Sort field label (“Sorted by: …”); falls back to cpSortLabel' },
+  { name: 'cpSortLabel', type: 'string', default: "'Due Date'", description: 'Default sort label when cpSortedBy omitted' },
+  { name: 'cpActiveView', type: "'table' | 'form' | 'kanban'", default: "'kanban'", description: 'Only when implementing a custom cp-toolbar / cpToolbar with a view switcher.' },
+  { name: 'cpSearchPlaceholder', type: 'string', default: '—', description: 'Quick search placeholder' },
+  { name: 'cpScrollColumnIndex', type: 'number', default: '0', description: 'Active column index for nav dots' },
+  { name: 'showLoadMore', type: 'boolean', default: 'true', description: 'Show Load more in each column' },
+  { name: 'class', type: 'string', default: '—', description: 'Additional CSS classes on the root container' },
+];
+
+const kanbanCardCostpointProps = [
+  { name: 'id', type: 'string', default: '—', description: 'Record id' },
+  { name: 'title', type: 'string', default: '—', description: 'Card title (truncates with ellipsis; full text in tooltip)' },
+  { name: 'fieldsConfig', type: 'KanbanViewCardField[]', default: '—', description: 'Five slot configuration (enabled, styleId, fieldName)' },
+  { name: 'valuesByFieldName', type: 'Record<string, string>', default: '—', description: 'Field values keyed by fieldName' },
+  { name: 'moveOptions', type: 'Option[]', default: '—', description: 'Dropdown options for Move card; disable current column' },
+  { name: 'selected', type: 'boolean', default: 'false', description: 'Selected card outline' },
+  { name: 'graphicalClass', type: 'string', default: '—', description: 'Optional strip class for conditional graphicalElement styling' },
+  { name: 'accentColor', type: 'string', default: '—', description: 'Advanced: optional top accent strip when composing cards manually (not set by built-in Kanban)' },
+  { name: 'openRecordLabel', type: 'string', default: "'Open record'", description: 'Footer control label' },
+];
+
+const cpCardFieldsConfig = [
+  { position: 1 as const, fieldName: 'Assigned', enabled: true, styleId: 'default' },
+  { position: 2 as const, fieldName: 'Due', enabled: true, styleId: 'default' },
+  { position: 3 as const, fieldName: 'Reserve', enabled: false },
+  { position: 4 as const, fieldName: 'Priority', enabled: true, styleId: 'default' },
+  { position: 5 as const, fieldName: 'Notes', enabled: false },
+];
+
+const costpointColumns = [
+  {
+    id: 'new',
+    title: 'New',
+    headerColorLight: '#2563eb',
+    loadMoreRemaining: 10,
+    cards: [
+      {
+        id: 'cp-new-1',
+        title: 'PROP-001',
+        selected: true,
+        valuesByFieldName: {
+          Assigned: 'J. Smith',
+          Due: '04/15/2026',
+          Priority: 'High',
+        },
+      },
+      {
+        id: 'cp-new-2',
+        title: 'PROP-002',
+        valuesByFieldName: {
+          Assigned: 'K. Ortiz',
+          Due: '04/18/2026',
+          Priority: 'Medium',
+        },
+      },
+      {
+        id: 'cp-new-3',
+        title: 'PROP-003',
+        valuesByFieldName: {
+          Assigned: '—',
+          Due: '04/25/2026',
+          Priority: 'Low',
+        },
+      },
+    ],
+  },
+  {
+    id: 'in-review',
+    title: 'In Review',
+    headerColorLight: '#ca8a04',
+    loadMoreRemaining: 6,
+    cards: [
+      {
+        id: 'cp-review-1',
+        title: 'PROP-014',
+        valuesByFieldName: {
+          Assigned: 'A. Lee',
+          Due: '04/20/2026',
+          Priority: 'Medium',
+        },
+      },
+      {
+        id: 'cp-review-2',
+        title: 'PROP-019',
+        valuesByFieldName: {
+          Assigned: 'D. Nguyen',
+          Due: '04/21/2026',
+          Priority: 'High',
+        },
+      },
+    ],
+  },
+  {
+    id: 'approved',
+    title: 'Approved',
+    headerColorLight: '#16a34a',
+    loadMoreRemaining: 18,
+    cards: [
+      {
+        id: 'cp-appr-1',
+        title: 'PROP-088',
+        valuesByFieldName: {
+          Assigned: 'S. Kim',
+          Due: '04/08/2026',
+          Priority: 'Low',
+        },
+      },
+      {
+        id: 'cp-appr-2',
+        title: 'PROP-091',
+        valuesByFieldName: {
+          Assigned: 'T. Brooks',
+          Due: '04/09/2026',
+          Priority: 'Medium',
+        },
+      },
+      {
+        id: 'cp-appr-3',
+        title: 'PROP-094',
+        valuesByFieldName: {
+          Assigned: 'L. Garcia',
+          Due: '04/10/2026',
+          Priority: 'Low',
+        },
+      },
+    ],
+  },
+  {
+    id: 'in-progress',
+    title: 'In Progress',
+    headerColorLight: '#ea580c',
+    loadMoreRemaining: 12,
+    cards: [
+      {
+        id: 'cp-prog-1',
+        title: 'PROP-102',
+        valuesByFieldName: {
+          Assigned: 'M. Chen',
+          Due: '04/22/2026',
+          Priority: 'High',
+        },
+      },
+      {
+        id: 'cp-prog-2',
+        title: 'PROP-107',
+        valuesByFieldName: {
+          Assigned: 'B. Walsh',
+          Due: '04/24/2026',
+          Priority: 'Medium',
+        },
+      },
+    ],
+  },
+  {
+    id: 'done',
+    title: 'Done',
+    headerColorLight: '#7c3aed',
+    loadMoreRemaining: 44,
+    cards: [
+      {
+        id: 'cp-done-1',
+        title: 'PROP-055',
+        valuesByFieldName: {
+          Assigned: 'R. Patel',
+          Due: '03/01/2026',
+          Priority: 'Medium',
+        },
+      },
+      {
+        id: 'cp-done-2',
+        title: 'PROP-061',
+        valuesByFieldName: {
+          Assigned: 'E. Ford',
+          Due: '02/28/2026',
+          Priority: 'Low',
+        },
+      },
+      {
+        id: 'cp-done-3',
+        title: 'PROP-063',
+        valuesByFieldName: {
+          Assigned: 'N. Hayes',
+          Due: '02/15/2026',
+          Priority: 'High',
+        },
+      },
+    ],
+  },
+];
+---
+
+<script is:inline>
+  (function () {
+    var t = localStorage.getItem('colorTheme') || 'cp';
+    if (t !== 'cp' && /\/cp\/kanban\/?$/.test(location.pathname)) {
+      location.replace('/components/kanban');
+    }
+  })();
+</script>
+
+<DocsLayout
+  title="Kanban (Costpoint)"
+  description="Costpoint Kanban application shell: board header, field cards, and kanbanView JSON mapping."
+>
+  <article class="space-y-12">
+    <header class="page-header page-header--compact">
+      <div class="flex items-center gap-3 mb-4">
+        <h1 class="page-header__title page-header__title--sm">Kanban (Costpoint)</h1>
+        <span class="badge badge--primary">CP Only</span>
+      </div>
+      <p class="page-header__description">
+        The <strong>Costpoint</strong> Kanban matches the Deltek Costpoint board chrome (grey board band, board header, column accents) with configurable field cards. An optional dark application toolbar can be supplied via the <code class="text-primary">cp-toolbar</code> slot in the host app. Use with <code class="text-primary">html.theme-cp</code> and Costpoint tokens. The default task-board Kanban (title bar, rich cards, progress) is documented on the
+        <a href="/components/kanban" class="text-primary underline">Kanban</a> page for other product themes.
+      </p>
+    </header>
+
+    <nav class="article-nav">
+      <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
+      <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+      <a href="#json-config" class="article-nav__link"><Icon name="code-bracket" size="sm" /> JSON</a>
+      <a href="#integration" class="article-nav__link"><Icon name="arrow-path" size="sm" /> Integration</a>
+      <a href="#accessibility" class="article-nav__link"><Icon name="check-badge" size="sm" /> Accessibility</a>
+    </nav>
+
+    <section id="examples" class="space-y-8">
+      <h2 class="section__title">Example</h2>
+      <p class="text-secondary max-w-3xl">
+        Use <code>variant="costpoint"</code> with <code>cardFieldsConfig</code> and costpoint-shaped <code>columns</code>. The shell uses Costpoint chrome tokens (grey board band, teal active states on controls). Drag-and-drop, virtualization, save orchestration, and backend queries are implemented by the host application.
+      </p>
+
+      <ExampleSection
+        title="Costpoint Kanban (MVP shell)"
+        description="Board header (Showing/Sorted by, search), five columns with multiple field cards each (same primary/header style as the default Kanban board), teal Load more (n), and Costpoint field cards + Open record."
+      >
+        <div class="w-full overflow-x-auto min-h-[520px]">
+          <Kanban
+            variant="costpoint"
+            cardFieldsConfig={cpCardFieldsConfig}
+            columns={costpointColumns}
+            cpRecordShown={13}
+            cpRecordTotal={127}
+            cpSortedBy="Due Date"
+            cpScrollColumnIndex={4}
+          />
+        </div>
+      </ExampleSection>
+    </section>
+
+    <section id="props">
+      <h2 class="section__title">Props</h2>
+
+      <div class="space-y-6">
+        <div>
+          <h3 class="text-lg font-semibold text-primary mb-3">Kanban (costpoint variant)</h3>
+          <PropsTable props={kanbanCostpointProps} />
+        </div>
+
+        <div>
+          <h3 class="text-lg font-semibold text-primary mb-3">KanbanCardCostpoint</h3>
+          <PropsTable props={kanbanCardCostpointProps} />
+        </div>
+      </div>
+    </section>
+
+    <section id="json-config" class="space-y-4">
+      <h2 class="section__title">JSON configuration (kanbanView)</h2>
+      <p class="text-secondary max-w-3xl">
+        Types and an example payload live in <code>src/types/kanban-view-config.ts</code> (<code>KanbanViewConfig</code>, <code>EXAMPLE_KANBAN_VIEW_JSON</code>). Map JSON paths to UI as follows:
+      </p>
+      <div class="overflow-x-auto">
+        <table class="min-w-full text-sm border border-light rounded-md">
+          <thead>
+            <tr class="bg-elevated text-left">
+              <th class="p-3 border-b border-light">JSON path</th>
+              <th class="p-3 border-b border-light">UI</th>
+            </tr>
+          </thead>
+          <tbody class="text-primary">
+            <tr><td class="p-3 border-b border-light font-mono text-xs">kanbanView.board.*</td><td class="p-3 border-b border-light">CSS variables: sizing (<code>--kanban-cp-min-column-width</code>, <code>--kanban-cp-card-height</code>, …), chrome (<code>--kanban-cp-chrome-toolbar-bg</code>, <code>--kanban-cp-chrome-board-bg</code>, …), and <code>--kanban-cp-card-surface</code>. Defaults are in <code>tokens.css</code> on <code>html.theme-cp</code>; CP dark mode remaps chrome, accents, and card surface to the CP semi-dark palette on <code>html.theme-cp.dark</code>.</td></tr>
+            <tr><td class="p-3 border-b border-light font-mono text-xs">kanbanView.columns[n]</td><td class="p-3 border-b border-light">Column title, count; <code>headerColorLight</code> (hex) → column primary top-border accent</td></tr>
+            <tr><td class="p-3 border-b border-light font-mono text-xs">kanbanView.cardFields.fields</td><td class="p-3 border-b border-light"><code>cardFieldsConfig</code> + per-record <code>valuesByFieldName</code></td></tr>
+            <tr><td class="p-3 border-b border-light font-mono text-xs">kanbanView.colorRules</td><td class="p-3 border-b border-light">Resolved in the host; apply optional classes (e.g. <code>graphicalClass</code>) to cards</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-sm text-muted">Example JSON (abbreviated):</p>
+      <pre class="p-4 bg-elevated rounded-md overflow-x-auto text-xs font-mono text-primary whitespace-pre-wrap">{EXAMPLE_KANBAN_VIEW_JSON}</pre>
+    </section>
+
+    <section id="integration" class="space-y-4">
+      <h2 class="section__title">Application integration</h2>
+      <ul class="list-disc pl-6 space-y-2 text-secondary max-w-3xl">
+        <li><strong class="text-primary">In scope here:</strong> layout regions, CP-scoped CSS, field/spacer rules, styleId fallback classes, and TypeScript models aligned to MVP JSON.</li>
+        <li><strong class="text-primary">Host application:</strong> drag-and-drop (hold-to-drag, silhouette, column drop targets), horizontal scroll sync with arrow navigation, virtualized columns/cards, client quick-search filtering after three characters on loaded data, 500-record cap messaging, save pipeline with board freeze and notifications, query/sort inheritance across Table/Form/Kanban, and persistence of Kanban JSON configuration.</li>
+        <li><strong class="text-primary">React:</strong> import <code>Kanban</code> with <code>variant="costpoint"</code> and <code>KanbanCardCostpoint</code> if composing cards separately; ensure <code>html.theme-cp</code> (and tokens) are loaded — see <code>@deltek-sst/harmony-react</code> package styles.</li>
+      </ul>
+    </section>
+
+    <section id="accessibility" class="space-y-4">
+      <h2 class="section__title">Accessibility</h2>
+
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="tag" size="sm" />
+          Costpoint shell
+        </h3>
+        <p class="a11y-card__text">
+          If you provide a custom <code>cp-toolbar</code>, disable record-level actions with <code>aria-disabled</code> where appropriate and use <code>aria-current</code> on the active view in the view switcher. Quick search is a labeled <code>type="search"</code> input. Cards expose field values via tooltips for truncated text; the Move control uses a listbox pattern from the Dropdown. Wire <strong>Open record</strong> and any custom toolbar navigation in the host application for full keyboard and screen reader flows.
+        </p>
+      </div>
+
+      <div class="a11y-card">
+        <h3 class="a11y-card__title">
+          <Icon name="tag" size="sm" />
+          Semantic structure
+        </h3>
+        <p class="a11y-card__text">
+          The board uses semantic regions for the shell; columns use groups with descriptive labels. See the general <a href="/components/kanban#accessibility" class="text-primary underline">Kanban accessibility</a> section for column and card structure.
+        </p>
+      </div>
+    </section>
+  </article>
+</DocsLayout>

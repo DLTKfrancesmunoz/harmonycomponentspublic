@@ -6,12 +6,12 @@ import Kanban from '../../components/ui/Kanban.astro';
 import Icon from '../../components/ui/Icon.astro';
 
 const kanbanProps = [
-  { name: 'columns', type: 'KanbanColumn[]', default: '—', description: 'Array of column objects, each containing id, title, and cards array' },
-  { name: 'title', type: 'string', default: "'Kanban Board'", description: 'Title displayed in the title bar at the top of the board' },
-  { name: 'actionButtons', type: 'ActionButton[]', default: '[]', description: 'Array of action buttons to display in the action bar (left side)' },
-  { name: 'actionDropdowns', type: 'ActionDropdown[]', default: '[]', description: 'Array of action dropdowns to display in the action bar (right side)' },
-  { name: 'class', type: 'string', default: '—', description: 'Additional CSS classes to apply to the Kanban container' },
-  { name: 'showAddButton', type: 'boolean', default: 'true', description: 'Show "Add card" button at the bottom of each column' },
+  { name: 'columns', type: 'KanbanColumn[]', default: '—', description: 'Column definitions with cards for the default task board.' },
+  { name: 'title', type: 'string', default: "'Kanban Board'", description: 'Title displayed in the title bar' },
+  { name: 'actionButtons', type: 'ActionButton[]', default: '[]', description: 'Action buttons in the action bar' },
+  { name: 'actionDropdowns', type: 'ActionDropdown[]', default: '[]', description: 'Action dropdowns' },
+  { name: 'class', type: 'string', default: '—', description: 'Additional CSS classes on the root container' },
+  { name: 'showAddButton', type: 'boolean', default: 'true', description: 'Show Add card in each column' },
 ];
 
 const kanbanCardProps = [
@@ -220,13 +220,16 @@ const progressColumns = [
         <span class="badge badge--success">stable</span>
       </div>
       <p class="page-header__description">
-        A Kanban board component for organizing tasks and workflows. Features a title bar, action bar with buttons and dropdowns, and columns displayed as cards with top borders. Individual cards can include avatars, icons, badges, descriptions, progress indicators, and date/time information.
+        A Kanban board component for organizing tasks and workflows: title bar, action bar, and rich demo cards (avatars, badges, progress). For the Deltek Costpoint Kanban (board header, field cards, <code class="text-primary">kanbanView</code> mapping), use the dedicated
+        <a href="/cp/kanban" class="text-primary underline">Kanban (Costpoint)</a> page when the Costpoint color theme is selected.
       </p>
     </header>
 
     <nav class="article-nav">
       <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
       <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
+      <a href="#json-config" class="article-nav__link"><Icon name="code-bracket" size="sm" /> JSON</a>
+      <a href="#integration" class="article-nav__link"><Icon name="arrow-path" size="sm" /> Integration</a>
       <a href="#accessibility" class="article-nav__link"><Icon name="check-badge" size="sm" /> Accessibility</a>
     </nav>
 
@@ -287,15 +290,31 @@ const progressColumns = [
         </div>
         
         <div>
-          <h3 class="text-lg font-semibold text-primary mb-3">KanbanCard Component</h3>
+          <h3 class="text-lg font-semibold text-primary mb-3">KanbanCard</h3>
           <PropsTable props={kanbanCardProps} />
         </div>
       </div>
     </section>
 
+    <section id="json-config" class="space-y-4">
+      <h2 class="section__title">JSON configuration</h2>
+      <p class="text-secondary max-w-3xl">
+        This page documents the <strong>default</strong> board API (columns and card props). Costpoint’s <code class="text-primary">kanbanView</code> payload, field slots, and example JSON live on the
+        <a href="/cp/kanban#json-config" class="text-primary underline">Kanban (Costpoint)</a> page.
+      </p>
+    </section>
+
+    <section id="integration" class="space-y-4">
+      <h2 class="section__title">Application integration</h2>
+      <ul class="list-disc pl-6 space-y-2 text-secondary max-w-3xl">
+        <li><strong class="text-primary">Default board:</strong> implement drag-and-drop, column semantics, and any host-specific card chrome in your application shell.</li>
+        <li><strong class="text-primary">Costpoint:</strong> toolbar, board header, <code>kanbanView</code> mapping, and React packaging are covered on <a href="/cp/kanban#integration" class="text-primary underline">Kanban (Costpoint) — Integration</a>.</li>
+      </ul>
+    </section>
+
     <section id="accessibility" class="space-y-4">
       <h2 class="section__title">Accessibility</h2>
-      
+
       <div class="a11y-card">
         <h3 class="a11y-card__title">
           <Icon name="tag" size="sm" />

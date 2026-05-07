@@ -7,7 +7,7 @@ import Icon from '../../components/ui/Icon.astro';
 
 const props = [
   { name: 'variant', type: "'default' | 'primary' | 'success' | 'warning' | 'error' | 'info' | 'orange' | 'pink' | 'disabled'", default: "'default'", description: 'Badge style variant using Alert Chip colors' },
-  { name: 'size', type: "'small' | 'medium' | 'large'", default: "'large'", description: 'Badge size (font and height)' },
+  { name: 'size', type: "'small' | 'medium' | 'large'", default: "'large'", description: 'Badge size. Heights use design tokens: small 16px (--badge-height-sm / --space-4), medium 20px (--badge-height-md / --space-5), large 24px (--badge-height-lg / --space-6). Same --badge-height-* tokens are shared with notification badges.' },
   { name: 'icon', type: 'string', default: '—', description: 'Icon class (e.g., ti-check)' },
 ];
 ---
@@ -47,7 +47,7 @@ const props = [
         </div>
       </ExampleSection>
 
-      <ExampleSection title="Sizes" description="Small, medium, and large badge sizes.">
+      <ExampleSection title="Sizes" description="Small (16px), medium (20px), and large (24px) heights from the spacing scale via --badge-height-sm, --badge-height-md, and --badge-height-lg.">
         <div class="flex flex-wrap items-center gap-3">
           <Badge variant="default" size="small">Small</Badge>
           <Badge variant="default" size="medium">Medium</Badge>

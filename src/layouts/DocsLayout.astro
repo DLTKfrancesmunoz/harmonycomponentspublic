@@ -11,6 +11,21 @@ interface Props {
 
 const { title, description } = Astro.props;
 const currentPath = Astro.url.pathname;
+
+function normalizePath(p: string): string {
+  const s = p.replace(/\/$/, '');
+  return s === '' ? '/' : s;
+}
+
+/** Kanban doc exists at /components/kanban (default) and /cp/kanban (Costpoint); both should highlight the same nav item. */
+function isNavItemActive(itemHref: string, pathname: string): boolean {
+  const path = normalizePath(pathname);
+  const href = normalizePath(itemHref);
+  if (href === '/components/kanban') {
+    return path === '/components/kanban' || path === '/cp/kanban';
+  }
+  return path === href;
+}
 ---
 
 <!DOCTYPE html>
@@ -136,7 +151,8 @@ const currentPath = Astro.url.pathname;
               {section.items.map((item) => (
                 <a
                   href={item.href}
-                  class={`nav__item ${currentPath === item.href || currentPath === item.href + '/' ? 'is-active' : ''}`}
+                  {...(item.href === '/components/kanban' ? { 'data-kanban-doc-link': '' } : {})}
+                  class={`nav__item ${isNavItemActive(item.href, currentPath) ? 'is-active' : ''}`}
                 >
                   <Icon name={item.icon} size="sm" class="nav__item-icon" />
                   {item.title}
@@ -276,6 +292,14 @@ const currentPath = Astro.url.pathname;
     if (typeof window.renderThemeSpecificNav === 'function') {
       window.renderThemeSpecificNav(savedColorTheme);
     }
+
+    window.syncKanbanDocNavLink = function () {
+      const t = localStorage.getItem('colorTheme') || 'cp';
+      document.querySelectorAll('[data-kanban-doc-link]').forEach((el) => {
+        el.setAttribute('href', t === 'cp' ? '/cp/kanban' : '/components/kanban');
+      });
+    };
+    window.syncKanbanDocNavLink();
     
     // Toggle theme picker dropdown
     themePickerBtn?.addEventListener('click', (e) => {
@@ -324,11 +348,22 @@ const currentPath = Astro.url.pathname;
         }
         
         themePickerMenu?.classList.remove('is-open');
-        
+
+        const pathNorm = window.location.pathname.replace(/\/$/, '') || '/';
+        const nt = newTheme || 'cp';
+        if (nt === 'cp' && pathNorm === '/components/kanban') {
+          window.location.href = '/cp/kanban';
+          return;
+        }
+        if (nt !== 'cp' && pathNorm === '/cp/kanban') {
+          window.location.href = '/components/kanban';
+          return;
+        }
+
         // Check if current page is theme-specific and redirect if needed
-        const currentPath = window.location.pathname;
-        const themePathMatch = currentPath.match(/^\/(cp|vp|ppm|maconomy)\//);
-        
+        const locPath = window.location.pathname;
+        const themePathMatch = locPath.match(/^\/(cp|vp|ppm|maconomy)\//);
+
         if (themePathMatch) {
           const pageTheme = themePathMatch[1];
           // If we switched away from the theme this page belongs to, redirect home
@@ -337,11 +372,13 @@ const currentPath = Astro.url.pathname;
             return;
           }
         }
-        
+
         // Update theme-specific navigation
         if (typeof window.renderThemeSpecificNav === 'function') {
           window.renderThemeSpecificNav(newTheme || 'cp');
         }
+
+        window.syncKanbanDocNavLink?.();
       });
     });
     

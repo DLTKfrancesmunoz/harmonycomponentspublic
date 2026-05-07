@@ -137,7 +137,7 @@ export function ShellHeader({
           </div>
         )}
         {showCompanyPicker && <div className="divider" />}
-        <Avatar size="sm" />
+        <Avatar size="sm" interactive />
       </div>
       <div
         className="header__gradient"
