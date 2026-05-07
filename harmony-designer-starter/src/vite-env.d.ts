@@ -5,7 +5,7 @@ declare module '*.css' {
   export default src
 }
 
-declare module '@deltek/harmony-components/styles/*.css' {
+declare module '@dltkfrancesmunoz/harmony-design-system/styles/*.css' {
   const src: string
   export default src
 }

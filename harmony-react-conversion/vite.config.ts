@@ -26,7 +26,7 @@ export default defineConfig(({ mode }) => {
       alias: {
         '@': path.resolve(__dirname, './src'),
         '@harmony-data': path.resolve(__dirname, '../src/data'),
-        '@deltek/harmony-components/styles': path.resolve(__dirname, '../src/styles'),
+        '@dltkfrancesmunoz/harmony-design-system/styles': path.resolve(__dirname, '../src/styles'),
       },
     },
     ...(isLib && {

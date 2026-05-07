@@ -6,7 +6,7 @@ Convert a single Harmony component to the target framework.
 
 0. **Check Harmony installation (before resolving paths):**
    - If `.cursor/harmony.json` exists: Harmony paths are configured → proceed.
-   - Else if `node_modules/@deltek/harmony-components/` exists: Harmony package is installed → proceed.
+   - Else if `node_modules/@dltkfrancesmunoz/harmony-design-system/` exists: Harmony package is installed → proceed.
    - Else: Harmony is not set up. Tell the user: "Harmony package not found. Run `npm install github:DLTKfrancesmunoz/harmonycomponents` to install it, then retry. See the harmony-converter skill's CONSUMER_GUIDE for full setup instructions." Do NOT ask the user to choose between npm, git, or local path. Do NOT attempt to install it yourself. Do NOT proceed to conversion without the package.
 
 1. **User input:** The user will supply a **component name** and a **target framework** (e.g. "TabStrip" and "Vue").
@@ -16,7 +16,7 @@ Convert a single Harmony component to the target framework.
 3. **Not in table:** If the component is not listed in the table, ask the user to clarify (e.g. typo or unsupported component). Do not guess paths.
 
 4. **Resolve paths:** From that row, get Source, Preview, and Output. Resolve placeholders using this **priority order** (do not guess or ask the user prematurely):
-   - **@harmony/** — (1) Check `.cursor/harmony.json` for overridden paths (e.g. `harmonyRoot`, component paths). (2) Fall back to `node_modules/@deltek/harmony-components/src/components/ui/` (or equivalent). (3) If neither resolves to a valid path, ask the user once.
+   - **@harmony/** — (1) Check `.cursor/harmony.json` for overridden paths (e.g. `harmonyRoot`, component paths). (2) Fall back to `node_modules/@dltkfrancesmunoz/harmony-design-system/src/components/ui/` (or equivalent). (3) If neither resolves to a valid path, ask the user once.
    - **@preview/** — Path to the preview file (e.g. `shell-layout-dark-vp.astro` under package or sparse-checkout preview path). Use the same priority: config file first if it defines preview path, then default package/preview path.
    - **@app/...** — Project output path for that component; use the correct extension for the framework (e.g. Vue → `.vue`, React → `.tsx`). If the project has no obvious app output directory, ask the user once (e.g. "Where should Vue components be written? e.g. src/components") and derive the path.
 

@@ -21,10 +21,10 @@
 
 ## Who This Is For
 
-- Designers and developers building an Astro app that uses Harmony (e.g. Startpoint or any Deltek Astro project)
+- Designers and developers building an Astro app that uses Harmony (e.g. internal portals or multi-theme product shells)
 - Teams that need to use Harmony components and tokens and optionally customize them without breaking production builds or losing upgrade paths
 
-**Key principle:** Never edit `node_modules/@deltek-sst/harmony-design-system/`. Changes there are wiped on `npm install` and break production. Use the four-tier customization system instead.
+**Key principle:** Never edit `node_modules/@dltkfrancesmunoz/harmony-design-system/`. Changes there are wiped on `npm install` and break production. Use the four-tier customization system instead.
 
 ---
 
@@ -32,10 +32,10 @@
 
 | Method | How | Updates | When to use |
 |--------|-----|---------|-------------|
-| **npm from Git** (recommended) | `npm install github:deltek-sst/ux-harmony-design-system` | `npm update @deltek-sst/harmony-design-system` and `npm run harmony:check-updates` | Most app projects; package lives in `node_modules` |
+| **npm from Git** (recommended) | `npm install github:DLTKfrancesmunoz/harmonycomponentspublic` | `npm update @dltkfrancesmunoz/harmony-design-system` and `npm run harmony:check-updates` | Most app projects; package lives in `node_modules` |
 | **Sparse checkout** | Clone repo with `git sparse-checkout` (components, styles, tokens, public, preview + layouts) | `git pull` in that clone | When you need a clone on disk (e.g. embedding the folder or working on the design system itself) |
 
-**Recommended path:** Install as a package from Git. Your app lists `@deltek-sst/harmony-design-system` as a dependency; Harmony lives in `node_modules`. You get updates via npm and can use the helper scripts (`harmony:copy`, `harmony:check-updates`, `harmony:diff`).
+**Recommended path:** Install as a package from Git. Your app lists `@dltkfrancesmunoz/harmony-design-system` as a dependency; Harmony lives in `node_modules`. You get updates via npm and can use the helper scripts (`harmony:copy`, `harmony:check-updates`, `harmony:diff`).
 
 **Sparse checkout:** If you clone the Harmony repo and only check out certain folders (no docs site), you have a git checkout. Updates are `git pull`, not npm. You must specify exactly which paths to include; otherwise Git may check out the full repo and you will see root-level files (e.g. MCP docs, changelogs) that are unrelated to components or previews. Use the steps below so only components, styles, tokens, public, and preview files are present.
 
@@ -62,7 +62,7 @@ git sparse-checkout set \
   astro.config.mjs
 ```
 
-Replace `<repo-url>` with your repository URL (e.g. `https://github.com/deltek-sst/ux-harmony-design-system.git`).
+Replace `<repo-url>` with your repository URL (e.g. `https://github.com/DLTKfrancesmunoz/harmonycomponentspublic.git`).
 
 **Option B – You already cloned the full repo**
 
@@ -107,13 +107,13 @@ Root-level files such as `MCP-SETUP.md`, `CHANGELOG.md`, `docs/`, and `mcp-data/
 ### Step 1: Install Harmony
 
 ```bash
-npm install github:deltek-sst/ux-harmony-design-system
+npm install github:DLTKfrancesmunoz/harmonycomponentspublic
 ```
 
 Or with a specific version:
 
 ```bash
-npm install git+https://github.com/deltek-sst/ux-harmony-design-system.git#v1.0.1
+npm install git+https://github.com/DLTKfrancesmunoz/harmonycomponentspublic.git#v1.0.1
 ```
 
 ### Step 2: Peer Dependencies
@@ -128,9 +128,9 @@ If you already have Astro, you only need the icon libraries (required for Icon, 
 
 ```bash
 mkdir -p scripts
-cp node_modules/@deltek-sst/harmony-design-system/scripts/copy-harmony-component.cjs scripts/
-cp node_modules/@deltek-sst/harmony-design-system/scripts/check-harmony-updates.cjs scripts/
-cp node_modules/@deltek-sst/harmony-design-system/scripts/diff-harmony-component.cjs scripts/
+cp node_modules/@dltkfrancesmunoz/harmony-design-system/scripts/copy-harmony-component.cjs scripts/
+cp node_modules/@dltkfrancesmunoz/harmony-design-system/scripts/check-harmony-updates.cjs scripts/
+cp node_modules/@dltkfrancesmunoz/harmony-design-system/scripts/diff-harmony-component.cjs scripts/
 ```
 
 ### Step 4: Add package.json Scripts
@@ -165,16 +165,16 @@ If you use Shell Layout with default left or right sidebars, copy these assets f
 Optional (default `logoSrc`): `logos/CPVPLogo.svg`, `logos/PPMLogo.svg`, `logos/MacLogo.svg`.
 
 ```bash
-cp node_modules/@deltek-sst/harmony-design-system/public/RS_DelaDefault.svg public/
-cp node_modules/@deltek-sst/harmony-design-system/public/RS_Dela_Active.svg public/
-cp node_modules/@deltek-sst/harmony-design-system/public/DelaChat.svg public/
-cp node_modules/@deltek-sst/harmony-design-system/public/Stars.svg public/
-cp node_modules/@deltek-sst/harmony-design-system/public/Risk\ Shield.svg public/
-cp node_modules/@deltek-sst/harmony-design-system/public/Report.svg public/
-cp node_modules/@deltek-sst/harmony-design-system/public/Resource.svg public/
-cp node_modules/@deltek-sst/harmony-design-system/public/related.svg public/
-cp node_modules/@deltek-sst/harmony-design-system/public/template.svg public/
-cp node_modules/@deltek-sst/harmony-design-system/public/DStar_LM.svg public/
+cp node_modules/@dltkfrancesmunoz/harmony-design-system/public/RS_DelaDefault.svg public/
+cp node_modules/@dltkfrancesmunoz/harmony-design-system/public/RS_Dela_Active.svg public/
+cp node_modules/@dltkfrancesmunoz/harmony-design-system/public/DelaChat.svg public/
+cp node_modules/@dltkfrancesmunoz/harmony-design-system/public/Stars.svg public/
+cp node_modules/@dltkfrancesmunoz/harmony-design-system/public/Risk\ Shield.svg public/
+cp node_modules/@dltkfrancesmunoz/harmony-design-system/public/Report.svg public/
+cp node_modules/@dltkfrancesmunoz/harmony-design-system/public/Resource.svg public/
+cp node_modules/@dltkfrancesmunoz/harmony-design-system/public/related.svg public/
+cp node_modules/@dltkfrancesmunoz/harmony-design-system/public/template.svg public/
+cp node_modules/@dltkfrancesmunoz/harmony-design-system/public/DStar_LM.svg public/
 ```
 
 **Re-copy after upgrading** the package so icons and logos stay in sync.
@@ -211,10 +211,10 @@ Apply in your layout:
 
 ```astro
 ---
-import '@deltek-sst/harmony-design-system/styles/reset.css';
-import '@deltek-sst/harmony-design-system/styles/tokens.css';
-import '@deltek-sst/harmony-design-system/styles/global.css';
-import '@deltek-sst/harmony-design-system/styles/components.css';
+import '@dltkfrancesmunoz/harmony-design-system/styles/reset.css';
+import '@dltkfrancesmunoz/harmony-design-system/styles/tokens.css';
+import '@dltkfrancesmunoz/harmony-design-system/styles/global.css';
+import '@dltkfrancesmunoz/harmony-design-system/styles/components.css';
 import '../styles/theme-myproject.css';
 ---
 
@@ -283,10 +283,10 @@ Recommended order in your layout or `_app.astro`:
 
 ```astro
 ---
-import '@deltek-sst/harmony-design-system/styles/reset.css';
-import '@deltek-sst/harmony-design-system/styles/tokens.css';
-import '@deltek-sst/harmony-design-system/styles/global.css';
-import '@deltek-sst/harmony-design-system/styles/components.css';
+import '@dltkfrancesmunoz/harmony-design-system/styles/reset.css';
+import '@dltkfrancesmunoz/harmony-design-system/styles/tokens.css';
+import '@dltkfrancesmunoz/harmony-design-system/styles/global.css';
+import '@dltkfrancesmunoz/harmony-design-system/styles/components.css';
 ---
 ```
 
@@ -296,7 +296,7 @@ import '@deltek-sst/harmony-design-system/styles/components.css';
 
 ```astro
 ---
-import { Button, Card, Input, Alert, Badge } from '@deltek-sst/harmony-design-system/ui';
+import { Button, Card, Input, Alert, Badge } from '@dltkfrancesmunoz/harmony-design-system/ui';
 ---
 
 <Button variant="primary">Click me</Button>
@@ -307,8 +307,8 @@ import { Button, Card, Input, Alert, Badge } from '@deltek-sst/harmony-design-sy
 
 ```astro
 ---
-import Button from '@deltek-sst/harmony-design-system/ui/Button.astro';
-import Card from '@deltek-sst/harmony-design-system/ui/Card.astro';
+import Button from '@dltkfrancesmunoz/harmony-design-system/ui/Button.astro';
+import Card from '@dltkfrancesmunoz/harmony-design-system/ui/Card.astro';
 ---
 ```
 
@@ -316,8 +316,8 @@ import Card from '@deltek-sst/harmony-design-system/ui/Card.astro';
 
 ```astro
 ---
-import ShellLayout from '@deltek-sst/harmony-design-system/layouts/ShellLayout.astro';
-import DocsLayout from '@deltek-sst/harmony-design-system/layouts/DocsLayout.astro';
+import ShellLayout from '@dltkfrancesmunoz/harmony-design-system/layouts/ShellLayout.astro';
+import DocsLayout from '@dltkfrancesmunoz/harmony-design-system/layouts/DocsLayout.astro';
 ---
 ```
 
@@ -327,9 +327,9 @@ ShellLayout slots: `main-content`, `left-sidebar`, `right-sidebar`, `header-acti
 
 ```astro
 ---
-import * as tokens from '@deltek-sst/harmony-design-system/tokens';
-import colors from '@deltek-sst/harmony-design-system/tokens/colors.json';
-import spacing from '@deltek-sst/harmony-design-system/tokens/spacing.json';
+import * as tokens from '@dltkfrancesmunoz/harmony-design-system/tokens';
+import colors from '@dltkfrancesmunoz/harmony-design-system/tokens/colors.json';
+import spacing from '@dltkfrancesmunoz/harmony-design-system/tokens/spacing.json';
 ---
 ```
 
@@ -357,7 +357,7 @@ Harmony uses CSS custom properties you can override in your theme file.
 
 **Checklist for adding new UI:** (1) Check if an existing Harmony component (or wrapper/override) can do the job. (2) If yes, use it and style only with tokens and theme overrides; no new token names, no hex in CSS. (3) If no, create a component that wraps or composes Harmony components and uses only the tokens above. (4) Fork (Tier 3) only when markup/behavior must change and wrappers aren't enough; keep using Harmony tokens inside the fork.
 
-**Token definitions (JSON in package):** `node_modules/@deltek-sst/harmony-design-system/src/tokens/colors.json`, `spacing.json`, `typography.json`, `elevations.json` (or via `@deltek-sst/harmony-design-system/tokens/...`).
+**Token definitions (JSON in package):** `node_modules/@dltkfrancesmunoz/harmony-design-system/src/tokens/colors.json`, `spacing.json`, `typography.json`, `elevations.json` (or via `@dltkfrancesmunoz/harmony-design-system/tokens/...`).
 
 ### Complete Component List
 
@@ -414,7 +414,7 @@ Override CSS variables in `src/styles/theme-myproject.css`. No copying; survives
 
 ### Tier 1: Direct Import
 
-Import from `@deltek-sst/harmony-design-system/ui` and use with props. No extra files.
+Import from `@dltkfrancesmunoz/harmony-design-system/ui` and use with props. No extra files.
 
 ### Tier 2: Wrapper
 
@@ -435,7 +435,7 @@ This copies the component to `src/components/harmony/`, adds a metadata header, 
 **Import fallback:** If package subpath imports fail, use a direct path:
 
 ```astro
-import Button from '../../../node_modules/@deltek-sst/harmony-design-system/src/components/ui/Button.astro';
+import Button from '../../../node_modules/@dltkfrancesmunoz/harmony-design-system/src/components/ui/Button.astro';
 ```
 
 ### Common Pitfalls
@@ -497,7 +497,7 @@ Wrapper that adds analytics without changing markup:
 ```astro
 ---
 // src/components/composed/TrackedButton.astro
-import Button from '../../../node_modules/@deltek-sst/harmony-design-system/src/components/ui/Button.astro';
+import Button from '../../../node_modules/@dltkfrancesmunoz/harmony-design-system/src/components/ui/Button.astro';
 
 interface Props {
   trackEvent?: string;
@@ -529,7 +529,7 @@ When the base component doesn't have a prop you need and it requires markup chan
 - Don't skip `.harmony-sync.json` – use `harmony:copy` so forks are tracked.
 - Don't try to change markup with a wrapper only – use Tier 3 when structure must change.
 
-**More examples:** The package includes full wrapper and fork examples (e.g. ProjectCard, LoginButton, StatusCard, ShellHeader/ShellLayout with custom props) in `node_modules/@deltek-sst/harmony-design-system/examples/` (wrappers and composed folders).
+**More examples:** The package includes full wrapper and fork examples (e.g. ProjectCard, LoginButton, StatusCard, ShellHeader/ShellLayout with custom props) in `node_modules/@dltkfrancesmunoz/harmony-design-system/examples/` (wrappers and composed folders).
 
 ---
 
@@ -552,9 +552,9 @@ When the base component doesn't have a prop you need and it requires markup chan
 
 1. **Update the package:**
    ```bash
-   npm update @deltek-sst/harmony-design-system
+   npm update @dltkfrancesmunoz/harmony-design-system
    ```
-   Or: `npm install @deltek-sst/harmony-design-system@latest`
+   Or: `npm install @dltkfrancesmunoz/harmony-design-system@latest`
 
 2. **Check forks:**
    ```bash
@@ -591,7 +591,7 @@ Wrappers usually don't need changes when Harmony updates; base fixes and new pro
 
 ### Rollback
 
-- **Option 1:** `npm install @deltek-sst/harmony-design-system@<previous-version>` (e.g. `@1.0.0`).
+- **Option 1:** `npm install @dltkfrancesmunoz/harmony-design-system@<previous-version>` (e.g. `@1.0.0`).
 - **Option 2:** `git revert HEAD` (or reset to the commit before the update).
 - **Option 3:** Restore from a backup branch: `git checkout backup-before-harmony-update` and copy state back to main if needed.
 
@@ -616,17 +616,9 @@ Document why you rolled back and when you'll retry.
 
 ## Deployment
 
-The package is installed from a **private GitHub repository**. On the deployment server (Railway, Vercel, Netlify, etc.), `npm install` must be able to clone that repo.
+If `package.json` lists this design system as a **Git** dependency (`git+https://...`), your build host must be able to clone that URL. A **public** repo needs no registry token; a **private** repo needs whatever Git credentials your host supports (deploy key, CI secret, etc.)—follow that platform’s docs.
 
-**Configure a GitHub token on the deployment platform:**
-
-1. Create a **Personal Access Token** (classic) with `repo` scope. Use it only for deployment; don't commit it.
-2. Add it as an environment variable, e.g. `GITHUB_TOKEN`, in your deployment project settings.
-3. Ensure your app's `package.json` dependency uses the HTTPS URL (e.g. `github:deltek-sst/ux-harmony-design-system` or `git+https://...`). Many platforms use `GITHUB_TOKEN` automatically for `npm install` when installing from GitHub.
-
-**Local development:** Developers use their own GitHub auth (SSH or HTTPS); they don't need the deployment token.
-
-**Rotation:** When the token expires, generate a new one and update the env var on the deployment platform.
+**Local development:** Use SSH or HTTPS with your usual Git credentials.
 
 ---
 
@@ -656,18 +648,18 @@ npm run harmony:diff ComponentName   # Diff fork vs base
 ### Import Cheatsheet
 
 ```astro
-import { Button, Card, Input } from '@deltek-sst/harmony-design-system/ui';
-import ShellLayout from '@deltek-sst/harmony-design-system/layouts/ShellLayout.astro';
-import '@deltek-sst/harmony-design-system/styles/global.css';
-import * as tokens from '@deltek-sst/harmony-design-system/tokens';
+import { Button, Card, Input } from '@dltkfrancesmunoz/harmony-design-system/ui';
+import ShellLayout from '@dltkfrancesmunoz/harmony-design-system/layouts/ShellLayout.astro';
+import '@dltkfrancesmunoz/harmony-design-system/styles/global.css';
+import * as tokens from '@dltkfrancesmunoz/harmony-design-system/tokens';
 ```
 
 ### Documentation in Package
 
 After install:
 
-- **Docs:** `node_modules/@deltek-sst/harmony-design-system/README.md` and `node_modules/@deltek-sst/harmony-design-system/docs/customization/` (this guide).
-- **Scripts:** `node_modules/@deltek-sst/harmony-design-system/scripts/`.
+- **Docs:** `node_modules/@dltkfrancesmunoz/harmony-design-system/README.md` and `node_modules/@dltkfrancesmunoz/harmony-design-system/docs/customization/` (this guide).
+- **Scripts:** `node_modules/@dltkfrancesmunoz/harmony-design-system/scripts/`.
 
 ### In Your Project README
 
@@ -676,7 +668,7 @@ You can add a short section to your app's README, for example:
 ```markdown
 ## Customizing Harmony Components
 
-This project uses Harmony with the four-tier customization system. See the [Consumer Guide](node_modules/@deltek-sst/harmony-design-system/docs/customization/CONSUMER_GUIDE.md) in the package.
+This project uses Harmony with the four-tier customization system. See the [Consumer Guide](node_modules/@dltkfrancesmunoz/harmony-design-system/docs/customization/CONSUMER_GUIDE.md) in the package.
 
 **Quick reference:** `npm run harmony:copy ComponentName` | `harmony:check-updates` | `harmony:diff ComponentName`  
 **Local:** `src/styles/theme-*.css` (Tier 0) | `src/components/composed/` (Tier 2) | `src/components/harmony/` (Tier 3)
@@ -694,7 +686,7 @@ If you use Cursor and want to convert Harmony Astro components to another framew
 
 1. **Rule:** Copy `reference/cursor-rule-exact-replica.mdc.example` from the harmony-converter skill to your project as `.cursor/rules/harmony-exact-replica.mdc`. Adjust `globs` if needed.
 
-2. **Converter subagent:** Copy `reference/converter-subagent.md.example` to `.cursor/agents/harmony-converter.md`. Replace `[SPARSE_CHECKOUT_OR_COPY_COMMAND]` with your repo-specific command to get the preview file onto disk (e.g. sparse-checkout or copy from `node_modules/@deltek-sst/harmony-design-system/src/pages/preview/`).
+2. **Converter subagent:** Copy `reference/converter-subagent.md.example` to `.cursor/agents/harmony-converter.md`. Replace `[SPARSE_CHECKOUT_OR_COPY_COMMAND]` with your repo-specific command to get the preview file onto disk (e.g. sparse-checkout or copy from `node_modules/@dltkfrancesmunoz/harmony-design-system/src/pages/preview/`).
 
 3. **Verifier subagent:** Copy `reference/verifier-subagent.md.example` to `.cursor/agents/harmony-verifier.md`.
 

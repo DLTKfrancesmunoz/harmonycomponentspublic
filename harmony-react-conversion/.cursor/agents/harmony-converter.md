@@ -16,7 +16,7 @@ You convert **one** Harmony Astro component to the target framework. The task wi
 [SPARSE_CHECKOUT_OR_COPY_COMMAND]
 ```
 
-Example (replace with your repo path): `git sparse-checkout set src/pages/preview/shell-layout-dark-vp.astro` then checkout; or copy from `node_modules/@deltek/harmony-components/src/pages/preview/` to the expected path.
+Example (replace with your repo path): `git sparse-checkout set src/pages/preview/shell-layout-dark-vp.astro` then checkout; or copy from `node_modules/@dltkfrancesmunoz/harmony-design-system/src/pages/preview/` to the expected path.
 
 **If the preview file does not exist at the expected path after this step:** Stop. Do not proceed to implementation. Output exactly:
 

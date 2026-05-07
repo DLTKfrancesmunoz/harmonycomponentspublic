@@ -7,4 +7,4 @@ In **this kit**, derive usage rules from the vendored files:
 - **`harmony-styles/tokens.css`** + **`components.css`** — token and component styling rules
 - **`reference-components/*.tsx`** — read-only spec for expected component behavior and accessibility
 
-If a Harmony npm package is installed (e.g. `@deltek/harmony-components`), you can also read `docs/RULES.md` from that package. Use the heading-pattern docs here only when maintaining or running rule-extraction tooling against upstream HTML/markdown sources.
+If a Harmony npm package is installed (e.g. `@dltkfrancesmunoz/harmony-design-system`), you can also read `docs/RULES.md` from that package. Use the heading-pattern docs here only when maintaining or running rule-extraction tooling against upstream HTML/markdown sources.

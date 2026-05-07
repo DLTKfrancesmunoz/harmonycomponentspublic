@@ -1414,10 +1414,6 @@ When and how to use the Shell Layout component.
     // In a real application, you would handle opening in new window here
   });
 
-  document.addEventListener('tab-strip:set-default', (e) => {
-    console.log('Set default tab:', e.detail.tabId);
-  });
-
 ### Toggle Switches
 
 ### Labels
@@ -1570,10 +1566,6 @@ When and how to use the Shell Layout component.
   document.addEventListener('tab-strip:open-new-window', (e) => {
     console.log('Open tab in new window:', e.detail.tabId);
     // In a real application, you would handle opening tab in new window here
-  });
-
-  document.addEventListener('tab-strip:set-default', (e) => {
-    console.log('Set default tab:', e.detail.tabId);
   });
 
 ### Shell: Left Sidebar
@@ -1753,96 +1745,6 @@ When and how to use the Shell Layout component.
     right: 0 !important;
   }
 
-  /* --- Dela-page demo shell (copied so right rail + panel layout works on this page) --- */
-  .dela-demo-container {
-    position: relative;
-    min-height: 1300px;
-    background-color: var(--page-bg);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
-    overflow: hidden;
-    isolation: isolate;
-  }
-
-  .dela-demo-content {
-    position: relative;
-    z-index: 1;
-    margin-bottom: var(--space-4);
-  }
-
-  .dela-demo-sidebar {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
-    z-index: 11;
-  }
-
-  .dela-demo-container :global(.shell-panel) {
-    position: absolute !important;
-    top: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    z-index: 10 !important;
-  }
-
-  .dela-demo-container :global(.right-sidebar[data-panel-open='true']) {
-    width: 52px !important;
-  }
-
-  .dela-demo-container :global(.right-sidebar[data-panel-open='true']:hover) {
-    width: 52px !important;
-  }
-
-  .dela-demo-container :global(.right-sidebar[data-panel-open='true'] .right-sidebar__label) {
-    opacity: 0;
-    visibility: hidden;
-  }
-
-  .dela-demo-container :global(.right-sidebar[data-panel-open='true'] .right-sidebar__item-tooltip .tooltip__content) {
-    display: block;
-  }
-
-  .dela-demo-container
-    :global(.right-sidebar[data-panel-open='true'] .right-sidebar__item:hover .right-sidebar__item-tooltip .tooltip__content) {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  .dela-demo-container :global(.right-sidebar[data-panel-open='true'] .right-sidebar__item[data-active='true']) {
-    background-color: var(--theme-primary);
-    color: var(--text-inverse);
-  }
-
-  .dela-demo-container :global(.right-sidebar[data-panel-open='true'] .right-sidebar__item[data-active='true'] .right-sidebar__icon) {
-    color: var(--text-inverse);
-  }
-
-  .dela-demo-container
-    :global(.right-sidebar[data-panel-open='true'] .right-sidebar__item[data-active='true']:has(.right-sidebar__dela-logo)) {
-    background: var(--linear-new, linear-gradient(136deg, #00bbc6 9.15%, #7133ff 57.36%, #cd21ff 80.6%));
-    border-radius: 12px;
-    color: var(--text-inverse);
-  }
-
-  .dela-demo-container
-    :global(.right-sidebar[data-panel-open='true'] .right-sidebar__item[data-active='true']:has(.right-sidebar__dela-logo):hover) {
-    background: var(--linear-new, linear-gradient(136deg, #00bbc6 9.15%, #7133ff 57.36%, #cd21ff 80.6%));
-    color: var(--text-inverse);
-  }
-
-  .dela-demo-container
-    :global(.right-sidebar[data-panel-open='true'] .right-sidebar__item[data-active='true']:has(.right-sidebar__dela-logo) .right-sidebar__icon) {
-    color: var(--text-inverse);
-  }
-
-  .dela-demo-container :global(.right-sidebar[data-panel-open='true'] .right-sidebar__section) {
-    box-shadow: none;
-    border: none;
-    background-color: transparent;
-    border-radius: 0;
-  }
-
 ### Shell: Right Sidebar
 
 ### Keyboard Navigation
@@ -1882,12 +1784,12 @@ The dialog uses a column flex layout: the header and footer are sticky (always v
 
             
 
-              The "More" control appears when `showMore={true}` and `overflowTabs` has items (manual overflow). Pass hidden tabs in `overflowTabs`; the Tab Strip shows `More (N)` and lists them in an upward-opening menu with the same row actions as auto overflow.
+              The "More" dropdown appears when `showMore={true}` is set and displays the number of hidden tabs via `moreCount`. This prevents the tab bar from becoming cluttered when users have many workspaces open.
             
 
             
 
-              For viewport-driven overflow without listing tabs yourself, use Tab Strip with `overflowMode="auto"` (see Tab Strip).
+              Recommendation: Implement logic to automatically show "More" when tabs exceed viewport width, typically around 8-10 visible tabs.
             
 
           
@@ -1905,15 +1807,15 @@ The dialog uses a column flex layout: the header and footer are sticky (always v
             
 
               
-- `tabs`: Array of tab objects; optional per-tab `showOpenInNewWindow`, `showClose`, `showMenu` override footer defaults
+- `tabs`: Array of tab objects with id, label, active, and optional href
               
-- `showMore` + `overflowTabs`: Manual More menu when both are set
+- `showMore`: Boolean to display the More dropdown (default: false)
               
-- `showAddTab`: Show Add Tab button (default: true)
+- `moreCount`: Number displayed in More button (default: 0)
               
-- `variant`: `'default'` or `'compact'`
+- `showAddTab`: Boolean to show Add Tab button (default: true)
               
-- `showTabOpenInNew`, `showTabClose`, `showTabOverflowMenu`: Defaults for per-tab toolbar actions (passed to Tab Strip)
+- `variant`: 'default' or 'compact' for different sizes
             
 
           

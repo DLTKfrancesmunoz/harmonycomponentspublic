@@ -1,6 +1,6 @@
-# @deltek-sst/harmony-react
+# @dltkfrancesmunoz/harmony-react
 
-Harmony Design System - React components and agent skills for building Deltek applications.
+Harmony Design System — React components and agent skills for Astro-aligned product UIs (public distribution).
 
 ## Features
 
@@ -29,32 +29,21 @@ Harmony Design System - React components and agent skills for building Deltek ap
 ## Installation
 
 ```bash
-npm install @deltek-sst/harmony-react
+# From your app (adjust the relative path to where you cloned this repo):
+npm install file:../harmonycomponentspublic/harmony-react-conversion
 ```
 
-### Configure .npmrc
-
-Create or update `.npmrc` in your project root:
-
-```
-@deltek-sst:registry=https://npm.pkg.github.com/
-//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
-```
-
-Set your GitHub token:
-```bash
-export GITHUB_TOKEN="your_github_personal_access_token"
-```
+Or clone the repo, run `npm ci` and `npm run build:lib` inside `harmony-react-conversion`, then `npm link` from that folder and `npm link @dltkfrancesmunoz/harmony-react` in your app.
 
 ## Usage
 
 ### Basic Components
 
 ```tsx
-import { Button, Card, Alert } from '@deltek-sst/harmony-react';
-import '@deltek-sst/harmony-react/styles/Button.css';
-import '@deltek-sst/harmony-react/styles/Card.css';
-import '@deltek-sst/harmony-react/styles/Alert.css';
+import { Button, Card, Alert } from '@dltkfrancesmunoz/harmony-react';
+import '@dltkfrancesmunoz/harmony-react/styles/Button.css';
+import '@dltkfrancesmunoz/harmony-react/styles/Card.css';
+import '@dltkfrancesmunoz/harmony-react/styles/Alert.css';
 
 function App() {
   return (
@@ -77,8 +66,8 @@ import {
   ShellFooter,
   LeftSidebar,
   ShellPanel
-} from '@deltek-sst/harmony-react';
-import '@deltek-sst/harmony-react/styles/ShellLayout.css';
+} from '@dltkfrancesmunoz/harmony-react';
+import '@dltkfrancesmunoz/harmony-react/styles/ShellLayout.css';
 
 function App() {
   return (
@@ -96,7 +85,7 @@ function App() {
       </ShellPanel>
 
       <ShellFooter>
-        © 2026 Deltek
+        © 2026 Your company
       </ShellFooter>
     </ShellLayout>
   );
@@ -111,10 +100,10 @@ import {
   Checkbox,
   DatePicker,
   Button
-} from '@deltek-sst/harmony-react';
-import '@deltek-sst/harmony-react/styles/Input.css';
-import '@deltek-sst/harmony-react/styles/Checkbox.css';
-import '@deltek-sst/harmony-react/styles/DatePicker.css';
+} from '@dltkfrancesmunoz/harmony-react';
+import '@dltkfrancesmunoz/harmony-react/styles/Input.css';
+import '@dltkfrancesmunoz/harmony-react/styles/Checkbox.css';
+import '@dltkfrancesmunoz/harmony-react/styles/DatePicker.css';
 
 function Form() {
   return (
@@ -209,7 +198,7 @@ The package includes agent skills for Cursor and Claude Code:
 
 ### Using Skills in Cursor/Claude Code
 
-Skills are available at `node_modules/@deltek-sst/harmony-react/.cursor/skills/`:
+Skills are available at `node_modules/@dltkfrancesmunoz/harmony-react/.cursor/skills/`:
 
 - **harmony** - Harmony component library reference
 - **harmony-converter** - Convert components to Harmony
@@ -224,8 +213,8 @@ Reference in your `.cursor/config.json`:
 ```json
 {
   "skills": [
-    "node_modules/@deltek-sst/harmony-react/.cursor/skills/harmony",
-    "node_modules/@deltek-sst/harmony-react/.cursor/skills/harmony-converter"
+    "node_modules/@dltkfrancesmunoz/harmony-react/.cursor/skills/harmony",
+    "node_modules/@dltkfrancesmunoz/harmony-react/.cursor/skills/harmony-converter"
   ]
 }
 ```
@@ -235,8 +224,8 @@ Reference in your `.cursor/config.json`:
 ### Import Individual Styles
 
 ```tsx
-import '@deltek-sst/harmony-react/styles/Button.css';
-import '@deltek-sst/harmony-react/styles/Card.css';
+import '@dltkfrancesmunoz/harmony-react/styles/Button.css';
+import '@dltkfrancesmunoz/harmony-react/styles/Card.css';
 ```
 
 ### CSS Custom Properties
@@ -258,7 +247,7 @@ Components use CSS custom properties for theming:
 Full TypeScript support with type definitions:
 
 ```tsx
-import { Button, ButtonProps } from '@deltek-sst/harmony-react';
+import { Button, ButtonProps } from '@dltkfrancesmunoz/harmony-react';
 
 const MyButton: React.FC<ButtonProps> = (props) => {
   return <Button {...props} />;
@@ -273,19 +262,18 @@ const MyButton: React.FC<ButtonProps> = (props) => {
 
 ## Related Packages
 
-- `@deltek-sst/harmony-design-system` - Design tokens and CSS styles
-- `@deltek-sst/harmony-components` - Astro component library
+- `@dltkfrancesmunoz/harmony-design-system` — Astro package (tokens, global CSS, UI primitives)
 
 ## License
 
-UNLICENSED - Internal Deltek use only
+MIT — see repository root for the full Harmony design system license.
+
+## Changelog
+
+See the repo root **[CHANGELOG.md](../CHANGELOG.md)** and the docs site **`/changelog`** (data is updated locally with `npm run changelog`, then committed—no GitHub automation).
 
 ## Support
 
 For issues and questions:
-- Repository: https://github.com/deltek-sst/ux-harmony-design-system
+- Repository: https://github.com/DLTKfrancesmunoz/harmonycomponentspublic
 - Documentation: https://{env}/harmony/
-
-## Changelog
-
-See [CHANGELOG.md](../CHANGELOG.md) for release history.

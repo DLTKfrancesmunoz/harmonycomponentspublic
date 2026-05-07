@@ -1,6 +1,6 @@
 /**
  * Harmony Design System - React Components
- * @deltek-sst/harmony-react
+ * @dltkfrancesmunoz/harmony-react
  */
 
 // Export all components

@@ -28,11 +28,11 @@ mkdir -p src/components/composed
 
 ```bash
 # Copy individual examples
-cp node_modules/@deltek/harmony-components/examples/wrappers/TrackedButton.astro \
+cp node_modules/@dltkfrancesmunoz/harmony-design-system/examples/wrappers/TrackedButton.astro \
    src/components/composed/
 
 # Or copy all examples
-cp node_modules/@deltek/harmony-components/examples/wrappers/*.astro \
+cp node_modules/@dltkfrancesmunoz/harmony-design-system/examples/wrappers/*.astro \
    src/components/composed/
 ```
 
@@ -44,7 +44,7 @@ cat > src/components/composed/README.md << 'EOF'
 
 This folder contains wrapper components that extend Harmony components.
 
-See: @deltek/harmony-components/docs/customization/CONSUMER_GUIDE.md#component-patterns
+See: @dltkfrancesmunoz/harmony-design-system/docs/customization/CONSUMER_GUIDE.md#component-patterns
 
 ## Our Wrappers
 
@@ -81,7 +81,7 @@ See the complete setup guide:
 
 Reference implementations are in:
 ```
-node_modules/@deltek/harmony-components/examples/wrappers/
+node_modules/@dltkfrancesmunoz/harmony-design-system/examples/wrappers/
 ```
 
 Copy and adapt these to your `src/components/composed/` folder.

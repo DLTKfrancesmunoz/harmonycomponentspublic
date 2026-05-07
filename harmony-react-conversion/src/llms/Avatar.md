@@ -18,7 +18,7 @@ User avatar for shell header, tables, and cards: default user icon, initials, or
 ## Usage
 
 ```tsx
-import { Avatar } from '@deltek-sst/harmony-react';
+import { Avatar } from '@dltkfrancesmunoz/harmony-react';
 
 <Avatar size="sm" interactive />
 <Avatar variant="initials" initials="Jane Doe" />

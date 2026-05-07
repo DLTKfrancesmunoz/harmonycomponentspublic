@@ -6,7 +6,7 @@ Convert all Harmony components to the target framework. Runs the full convert-co
 
 0. **Check Harmony installation (before resolving paths).**
    - If `.cursor/harmony.json` exists: paths are configured → proceed.
-   - Else if `node_modules/@deltek/harmony-components/` exists: package is installed → proceed.
+   - Else if `node_modules/@dltkfrancesmunoz/harmony-design-system/` exists: package is installed → proceed.
    - Else (neither exists): stop. Tell the user: "Harmony package not found. Run `npm install github:DLTKfrancesmunoz/harmonycomponents` to install it, then retry. See the harmony-converter skill's CONSUMER_GUIDE for full setup instructions." Do not ask the user to choose between npm vs git vs local path. Do not attempt to install. Do not proceed.
 
 1. **User input.** The user provides:
@@ -16,7 +16,7 @@ Convert all Harmony components to the target framework. Runs the full convert-co
    - Optional: `--skip-shell` — skip shell components even if they haven't been converted (useful if the shell was already converted separately).
 
 2. **Build the component list.**
-   - Scan `node_modules/@deltek/harmony-components/src/components/ui/*.astro` (or the resolved Harmony root) for all `.astro` files. Each file is one component (filename without extension = component name).
+   - Scan `node_modules/@dltkfrancesmunoz/harmony-design-system/src/components/ui/*.astro` (or the resolved Harmony root) for all `.astro` files. Each file is one component (filename without extension = component name).
    - Also include layout components from `src/layouts/*.astro` (e.g. ShellLayout).
    - This is the full list.
 

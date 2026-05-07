@@ -68,4 +68,4 @@
 ## Build
 
 - `npm run build` succeeds (tsc + vite build).
-- No stubs; all components are full conversions from `@deltek/harmony-components` Astro source with matching DOM, BEM classes, and CSS (from components.css or component `<style>` blocks).
+- No stubs; all components are full conversions from `@dltkfrancesmunoz/harmony-design-system` Astro source with matching DOM, BEM classes, and CSS (from components.css or component `<style>` blocks).

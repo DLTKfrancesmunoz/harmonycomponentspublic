@@ -19,8 +19,9 @@ const changelog = defineCollection({
     properties: z.array(z.object({
       name: z.string(),
       change: z.string(),
-      before: z.string().optional(),
-      after: z.string().optional(),
+      // Snapshot data may use null for added/removed fields
+      before: z.string().nullish(),
+      after: z.string().nullish(),
     })).optional(),
     tokenPath: z.string().optional(),
     commit: z.object({

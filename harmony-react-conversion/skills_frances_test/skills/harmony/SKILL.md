@@ -39,7 +39,7 @@ This section defines where to read Harmony components, layouts, docs, and tokens
 ## Resolve Harmony root
 
 1. If `.cursor/harmony.json` exists (from **harmony-setup**), use its `harmonyRoot` value.
-2. Else: **Harmony repo** = workspace root; **Consumer project** = `node_modules/@deltek-sst/harmony-design-system` or the path where components were copied (e.g. `src/harmony`).
+2. Else: **Harmony repo** = workspace root; **Consumer project** = `node_modules/@dltkfrancesmunoz/harmony-design-system` or the path where components were copied (e.g. `src/harmony`).
 
 All paths below are relative to `{harmonyRoot}`.
 

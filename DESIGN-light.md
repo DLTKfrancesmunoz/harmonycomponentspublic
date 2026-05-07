@@ -325,7 +325,7 @@ components:
 
 ## Overview
 
-Harmony is Deltek's enterprise design system for Astro-based applications. It ships 50+ production-ready UI components, comprehensive theming, and zero-runtime-JS pure CSS architecture. This file represents **light mode**, which is identical across all four product themes: Costpoint (CP), Vantagepoint (VP), PPM, and Maconomy.
+Harmony is an enterprise design system for Astro-based applications. It ships 50+ production-ready UI components, comprehensive theming, and zero-runtime-JS pure CSS architecture. This file represents **light mode**, which is identical across all four product themes: Costpoint (CP), Vantagepoint (VP), PPM, and Maconomy.
 
 ### --dela-* variable contract
 

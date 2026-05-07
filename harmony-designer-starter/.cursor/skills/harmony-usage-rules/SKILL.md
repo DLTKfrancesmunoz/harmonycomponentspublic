@@ -10,7 +10,7 @@ Apply these rules when auditing, critiquing, or checking Harmony design system c
 
 ## Where to find rules
 
-**Option A — Harmony npm package (if installed):** Read `{harmonyRoot}/docs/RULES.md` from the installed Harmony package (e.g. `node_modules/@deltek/harmony-components/docs/RULES.md` or `node_modules/@deltek-sst/harmony-design-system/docs/RULES.md`).
+**Option A — Harmony npm package (if installed):** Read `{harmonyRoot}/docs/RULES.md` from the installed Harmony package (e.g. `node_modules/@dltkfrancesmunoz/harmony-design-system/docs/RULES.md` or `node_modules/@dltkfrancesmunoz/harmony-design-system/docs/RULES.md`).
 
 **Option B — Integration kit sources (always available):** When no Harmony npm package is installed, derive rules from the kit's vendored files:
 

@@ -1,6 +1,6 @@
 ---
 name: harmony-converter
-description: Converts Harmony Design System Astro components to React, Vue, Svelte, Angular, or vanilla. Use when converting @deltek/harmony-components or when working with Harmony Astro components in non-Astro projects.
+description: Converts Harmony Design System Astro components to React, Vue, Svelte, Angular, or vanilla. Use when converting @dltkfrancesmunoz/harmony-design-system or when working with Harmony Astro components in non-Astro projects.
 ---
 
 # Harmony Design System Converter
@@ -84,7 +84,7 @@ Framework scaffolds (Vite, Create React App, Angular CLI, etc.) include default 
 
 ## Mandatory rules (read first)
 
-- **Use the real source — do not skip:** When the user's project has the Harmony package installed (`node_modules/@deltek/harmony-components/` or `src/components/harmony/`), you MUST read the actual .astro files and CSS (components.css, layout.css) from that package for the component you are converting. When the package is not installed, you MUST read this skill's `reference/CONSUMER_GUIDE.md` and follow it to install the package so the source is available, then read the .astro and CSS from the package. Do not generate from the in-doc examples or memory when the package is or can be present; your output must be derived from the file contents you read.
+- **Use the real source — do not skip:** When the user's project has the Harmony package installed (`node_modules/@dltkfrancesmunoz/harmony-design-system/` or `src/components/harmony/`), you MUST read the actual .astro files and CSS (components.css, layout.css) from that package for the component you are converting. When the package is not installed, you MUST read this skill's `reference/CONSUMER_GUIDE.md` and follow it to install the package so the source is available, then read the .astro and CSS from the package. Do not generate from the in-doc examples or memory when the package is or can be present; your output must be derived from the file contents you read.
 - **Source of truth:** The spec is the Astro source (and package components.css / layout.css). You MUST derive DOM, classes, styles, and behavior only from that. Do not invent pipelines, manifests, or CSS that are not in the source.
 - **Styles:** For each converted component you MUST have matching CSS. If the Astro component has a `<style>` block, copy every selector block (including every `html.dark` and `html.theme-*.dark`) into the converted component's CSS. If the Astro component has **no** `<style>` block (e.g. Card, ShellHeader), you MUST copy the rules from components.css (and layout.css when the component uses layout rules, e.g. `.header__gradient`) that apply to that component's selectors into the converted component's CSS. Do not rely on global Harmony CSS alone; framework encapsulation or load order may prevent it from applying.
 - **Icons:** You MUST use the theme-scoped manifest from the package when present and implement icons the same way as the source (Icon.astro: e.g. inline SVG + currentColor or `<img src="…">` from manifest paths). The manifest is not exhaustive. The converted Icon component must also implement the Astro fallback chain (Heroicons → Tabler → public/{name}.svg) for icons not in the manifest. See the "Icon manifest is not complete" pitfall. The fallback chain must be a generic resolution mechanism (check manifest, then icon libraries, then public path), not a hardcoded map of individual icon names. If the conversion adds icons one at a time to a FALLBACK_SVG map, the implementation is wrong — it should resolve dynamically like Icon.astro does. Do not invent a new manifest or path scheme (e.g. custom `/icons/...`). Do not add dark-mode CSS for icons that is not in the source (e.g. no global `html.dark ... img { filter: ... }`).
@@ -134,7 +134,7 @@ The **real Astro source** is inside the Harmony package. You do not run Astro; t
 Components and dependencies are installed via npm:
 
 ```
-node_modules/@deltek/harmony-components/
+node_modules/@dltkfrancesmunoz/harmony-design-system/
   src/
     components/
       ui/           ← All components (Button.astro, Alert.astro, etc.)
@@ -166,8 +166,8 @@ If a component exists in `src/components/harmony/`, use that version. Otherwise 
 
 **Before writing conversion code:** Resolve and read the source. If the package is absent, read `reference/CONSUMER_GUIDE.md` (in this skill) and install per the guide, then read the .astro and CSS from the installed package. If the package is present, read the .astro and relevant CSS files for the component you are converting. Do not proceed using only the in-doc examples when the package is or can be available.
 
-- **If the Harmony package is not in the project:** Install it so the Astro source is available (e.g. `npm install @deltek/harmony-components` or from a Git URL / private registry). If needed, read the Consumer Guide in this skill at `reference/CONSUMER_GUIDE.md` for install commands (e.g. npm from Git) and setup steps. Then read the .astro files under `node_modules/@deltek/harmony-components/src/` (e.g. `src/components/ui/*.astro`, `src/layouts/*.astro`) and convert from that. The app stays in the user's target framework (React, Vue, Svelte, Angular, or vanilla); you do not install or run the Astro framework.
-- **If the package is already present:** Read the actual files. The source of truth is the real Astro in `node_modules/@deltek/harmony-components/` or `src/components/harmony/`. Open and read those .astro files and the relevant rules in components.css / layout.css; copy default data, DOM, BEM, and icon names from what you read. Do not invent or simplify.
+- **If the Harmony package is not in the project:** Install it so the Astro source is available (e.g. `npm install @dltkfrancesmunoz/harmony-design-system` or from a Git URL / private registry). If needed, read the Consumer Guide in this skill at `reference/CONSUMER_GUIDE.md` for install commands (e.g. npm from Git) and setup steps. Then read the .astro files under `node_modules/@dltkfrancesmunoz/harmony-design-system/src/` (e.g. `src/components/ui/*.astro`, `src/layouts/*.astro`) and convert from that. The app stays in the user's target framework (React, Vue, Svelte, Angular, or vanilla); you do not install or run the Astro framework.
+- **If the package is already present:** Read the actual files. The source of truth is the real Astro in `node_modules/@dltkfrancesmunoz/harmony-design-system/` or `src/components/harmony/`. Open and read those .astro files and the relevant rules in components.css / layout.css; copy default data, DOM, BEM, and icon names from what you read. Do not invent or simplify.
 - **If the package truly cannot be installed** (no access to registry or Git): Use the skill's reference examples as the canonical DOM, props, and structure. **React:** use the in-doc examples in this skill. **Vue, Svelte, Angular, vanilla:** read the implementation in this skill at **reference/vue/**, **reference/svelte/**, **reference/angular/**, **reference/vanilla/** (paths relative to the skill folder) and produce full, buildable components from those references—not stubs. No external folder or repo is required. That output will not be an exact replica of the live design system.
 - **Never:** Do not create stub or fake Astro files or a `harmony-source/` folder. Do not invent default section arrays, icon names, or DOM. Do not clone a separate repo and write your own .astro files. Installing the **npm package** (which contains the real .astro source) is correct and expected; "do not clone" means do not invent source, not "do not install the package."
 
@@ -185,7 +185,7 @@ When the package cannot be installed, the skill's reference examples are the can
 
 ### Consumer Guide (install and setup)
 
-- **When the package is installed:** The canonical install, customization, and setup instructions are in the **Harmony Consumer Guide** at `node_modules/@deltek/harmony-components/docs/CONSUMER_GUIDE.md` or `node_modules/@deltek/harmony-components/docs/customization/CONSUMER_GUIDE.md`. Use it for full setup (scripts, peer deps, assets, tiers). When wiring Harmony CSS in the host app, use the order reset.css → tokens.css → global.css → components.css (see Source Locations).
+- **When the package is installed:** The canonical install, customization, and setup instructions are in the **Harmony Consumer Guide** at `node_modules/@dltkfrancesmunoz/harmony-design-system/docs/CONSUMER_GUIDE.md` or `node_modules/@dltkfrancesmunoz/harmony-design-system/docs/customization/CONSUMER_GUIDE.md`. Use it for full setup (scripts, peer deps, assets, tiers). When wiring Harmony CSS in the host app, use the order reset.css → tokens.css → global.css → components.css (see Source Locations).
 - **When the package is not in the project:** A copy of the Consumer Guide is in this skill at `reference/CONSUMER_GUIDE.md` (relative to the skill folder). Read it and follow **"Two Ways to Get Harmony"** and **"Setup"** (e.g. `npm install github:DLTKfrancesmunoz/harmonycomponents`) to install the package so the Astro source is available in `node_modules`, then convert from that. Do not invent source; use the guide to get the real package first.
 
 **Using sources for defaults and preview:** Default data (section arrays, icon names, default props) must be copied from the Astro component files (frontmatter, imported constants). Do not invent or simplify. If the package is not present, use the skill's reference examples as the only source (React in this doc; Vue/Svelte/Angular/vanilla in this skill at reference/vue/, reference/svelte/, reference/angular/, reference/vanilla/); do not create your own Astro source. Use preview pages (e.g. `src/pages/preview/*.astro` or the package’s preview structure) to see how the shell/layout is meant to look (page header, main content, cards). Icon resolution and per-theme shell structure are defined below (theme-scoped icon manifest, Shell layout defaults).
@@ -194,13 +194,13 @@ When the package cannot be installed, the skill's reference examples are the can
 
 This is a **user-requested** step. Do not do it by default after conversion. Only when the user asks to detach, remove the package, remove Astro components, go package-free, or make the app standalone, follow the steps below.
 
-- **When to use:** When the user wants the converted app to stand alone with no dependency on `@deltek/harmony-components`. The package is only needed at runtime for the CSS (and any assets) you import; the .astro files are not executed.
+- **When to use:** When the user wants the converted app to stand alone with no dependency on `@dltkfrancesmunoz/harmony-design-system`. The package is only needed at runtime for the CSS (and any assets) you import; the .astro files are not executed.
 - **Steps:**
   1. Copy the Harmony CSS files the app uses (reset.css, tokens.css, global.css, components.css, and optionally layout.css, utilities.css) from the package into the app (e.g. `src/styles/` or `public/styles/`). Keep the same order when importing.
   2. Copy any assets the app uses (e.g. from the package `public/`) into the app's public or assets folder if not already there. If the app uses the icon manifest, ensure it lives in the app (e.g. `src/data/`).
-  3. In the app, change all imports from `@deltek/harmony-components/styles/...` to the new local paths. Where those imports live depends on the framework (e.g. main entry, root component, or config).
+  3. In the app, change all imports from `@dltkfrancesmunoz/harmony-design-system/styles/...` to the new local paths. Where those imports live depends on the framework (e.g. main entry, root component, or config).
   4. Run the app and confirm layout and styles match.
-  5. Run `npm uninstall @deltek/harmony-components` (and any peer deps that were only for Harmony). The app then depends only on its own components, copied styles, and copied assets.
+  5. Run `npm uninstall @dltkfrancesmunoz/harmony-design-system` (and any peer deps that were only for Harmony). The app then depends only on its own components, copied styles, and copied assets.
 - **Result:** Styles and tokens are a **snapshot** from conversion time. Future design updates from the design system would need to be re-applied manually to these local files if you want to stay in sync. Optionally, you can later trim the copied CSS (e.g. purge unused rules) to reduce bundle size; keeping the full files is simpler and still removes the package dependency.
 
 ---
@@ -544,7 +544,7 @@ For **icons and SVG**, use the **same approach as reference/angular** (inline SV
 
 ## Version Compatibility
 
-Applies to Harmony components as documented here; check your `@deltek/harmony-components` package version for API or DOM divergence.
+Applies to Harmony components as documented here; check your `@dltkfrancesmunoz/harmony-design-system` package version for API or DOM divergence.
 
 ---
 
@@ -632,7 +632,7 @@ When copying styles, you MUST copy every `html.dark` and `html.theme-*.dark` blo
 
 **Icon resolution is explicit and theme-scoped when the manifest is present.** The installed package may include a theme-scoped icon manifest (per theme: CP, VP, PPM, Maconomy). For each icon name in default content, the manifest gives: **source** (hero | tabler | custom), **path** (e.g. node_modules path or public path), and for custom optionally **svg** (inline SVG string).
 
-**Manifest optional; location:** When the installed package includes a theme-scoped icon manifest (e.g. at `node_modules/@deltek/harmony-components/src/data/icon-manifest.json`), use it for the target theme. The package may provide an **inline SVG manifest**: after running `npm run inline:icon-manifest`, the manifest has a **svg** field per icon (full `<svg>...</svg>` string). When present, use the **svg** field for inline SVG in the target framework so you do not need node_modules or public/ paths; do not invent a URL-based service. The manifest is **inside the installed package**—same place as the Astro components. No separate repo or pull is required. When the package is not present or the manifest is not there, use the skill's reference examples and the resolution order documented in the skill (Heroicons then Tabler then public). Do **not** create a fake manifest or fake icon set. Do **not** refuse to convert or output stubs because the manifest is missing. If no manifest: icon names and resolution come from the Astro source (when present) or from the skill's examples; use Heroicons to Tabler to public order. Always output full icon usage in the converted code—no placeholder stubs. The manifest path in the repo is e.g. `src/data/icon-manifest.json` with top-level keys cp, vp, ppm, maconomy; or one file per theme such as `icon-manifest-cp.json`. For each icon use the manifest source and path when the manifest is present (and for custom, path or svg). Do **not** substitute or assume Heroicons for all icons when the source uses Tabler or custom.
+**Manifest optional; location:** When the installed package includes a theme-scoped icon manifest (e.g. at `node_modules/@dltkfrancesmunoz/harmony-design-system/src/data/icon-manifest.json`), use it for the target theme. The package may provide an **inline SVG manifest**: after running `npm run inline:icon-manifest`, the manifest has a **svg** field per icon (full `<svg>...</svg>` string). When present, use the **svg** field for inline SVG in the target framework so you do not need node_modules or public/ paths; do not invent a URL-based service. The manifest is **inside the installed package**—same place as the Astro components. No separate repo or pull is required. When the package is not present or the manifest is not there, use the skill's reference examples and the resolution order documented in the skill (Heroicons then Tabler then public). Do **not** create a fake manifest or fake icon set. Do **not** refuse to convert or output stubs because the manifest is missing. If no manifest: icon names and resolution come from the Astro source (when present) or from the skill's examples; use Heroicons to Tabler to public order. Always output full icon usage in the converted code—no placeholder stubs. The manifest path in the repo is e.g. `src/data/icon-manifest.json` with top-level keys cp, vp, ppm, maconomy; or one file per theme such as `icon-manifest-cp.json`. For each icon use the manifest source and path when the manifest is present (and for custom, path or svg). Do **not** substitute or assume Heroicons for all icons when the source uses Tabler or custom.
 
 **Icon sizes are not in the manifest.** Icon size is defined per usage in the component template via the Icon component’s **size** prop (xs | sm | md | lg | xl). Read and preserve the size prop from each `<Icon name="…" size="…" />` usage in the Astro template; do not infer or default sizes. Icon sizes come from the component source, not from the manifest.
 
@@ -706,7 +706,7 @@ Before converting, ensure you're not falling into any Anti-patterns (see above).
 
 ### Example 1: Button (Simple)
 
-**Astro Source:** `node_modules/@deltek/harmony-components/src/components/ui/Button.astro`
+**Astro Source:** `node_modules/@dltkfrancesmunoz/harmony-design-system/src/components/ui/Button.astro`
 
 **React: Button.tsx**
 
@@ -975,7 +975,7 @@ export function getButtonIcon(name: string) {
 
 ### Example 2: Alert (Medium)
 
-**Astro Source:** `node_modules/@deltek/harmony-components/src/components/ui/Alert.astro`
+**Astro Source:** `node_modules/@dltkfrancesmunoz/harmony-design-system/src/components/ui/Alert.astro`
 
 **React: Alert.tsx**
 
@@ -1197,7 +1197,7 @@ export function Alert({
 
 ### Example 3: RightSidebar (Complex)
 
-**Astro Source:** `node_modules/@deltek/harmony-components/src/components/ui/RightSidebar.astro`
+**Astro Source:** `node_modules/@dltkfrancesmunoz/harmony-design-system/src/components/ui/RightSidebar.astro`
 
 **React: RightSidebar.tsx**
 

@@ -68,7 +68,7 @@ const componentFile = componentName.endsWith('.astro') ? componentName : `${comp
 
 // Paths
 const projectRoot = path.resolve(__dirname, '..');
-const harmonyPackage = path.join(projectRoot, 'node_modules', '@deltek', 'harmony-components');
+const harmonyPackage = path.join(projectRoot, 'node_modules', '@dltkfrancesmunoz', 'harmony-design-system');
 const harmonyOverridesDir = path.join(projectRoot, 'src', 'components', 'harmony');
 const trackingFile = path.join(harmonyOverridesDir, '.harmony-sync.json');
 
@@ -98,7 +98,7 @@ if (!sourcePath) {
   possiblePaths.forEach(p => console.log(`  - ${p}`));
   console.log('\nMake sure:');
   console.log('  1. The component name is correct');
-  console.log('  2. @deltek/harmony-components is installed (npm install)');
+  console.log('  2. @dltkfrancesmunoz/harmony-design-system is installed (npm install)');
   process.exit(1);
 }
 
@@ -135,7 +135,7 @@ const metadataHeader = `---
 /**
  * STARTPOINT OVERRIDE
  *
- * Base Component: @deltek/harmony-components/src/${componentType}/${componentFile}
+ * Base Component: @dltkfrancesmunoz/harmony-design-system/src/${componentType}/${componentFile}
  * Base Version: ${harmonyVersion}
  * Forked Date: ${today}
  * Last Synced: ${today}
@@ -145,7 +145,7 @@ const metadataHeader = `---
  *
  * IMPORT NOTES:
  * - If importing other Harmony components, use node_modules paths if package subpaths fail
- * - Example: import Icon from '../../../node_modules/@deltek/harmony-components/src/components/ui/Icon.astro';
+ * - Example: import Icon from '../../../node_modules/@dltkfrancesmunoz/harmony-design-system/src/components/ui/Icon.astro';
  *
  * DEPENDENCIES (from Harmony):
  * - [TODO: List Harmony components this imports]
@@ -230,7 +230,7 @@ log('   - Import local overrides from ./ComponentName.astro', 'yellow');
 
 console.log('\n4. Update imports in your pages:');
 log('   // BEFORE:', 'red');
-log(`   import ${componentName} from '@deltek/harmony-components/${componentType}/${componentFile}';`, 'red');
+log(`   import ${componentName} from '@dltkfrancesmunoz/harmony-design-system/${componentType}/${componentFile}';`, 'red');
 log('   // AFTER:', 'green');
 log(`   import ${componentName} from '../components/harmony/${componentFile}';`, 'green');
 

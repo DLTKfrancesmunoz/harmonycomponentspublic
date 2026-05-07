@@ -2,7 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { HashRouter } from 'react-router-dom'
 /** Single entry: chains tokens, reset, layout, components, utilities per Harmony global.css */
-import '@deltek/harmony-components/styles/global.css'
+import '@dltkfrancesmunoz/harmony-design-system/styles/global.css'
 import './index.css'
 import App from './App'
 

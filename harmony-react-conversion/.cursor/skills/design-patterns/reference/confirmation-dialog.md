@@ -101,7 +101,7 @@ Dialog
 ### Component Dependencies
 
 ```typescript
-// Harmony components (verify imports from @deltek/harmony-components or project alias)
+// Harmony components (verify imports from @dltkfrancesmunoz/harmony-design-system or project alias)
 import { Dialog } from '@/components/ui/dialog';  // or Harmony Dialog
 import { Button } from '@/components/ui/button';  // or Harmony Button
 import { Icon } from '@/components/ui/icon';      // or Harmony Icon
