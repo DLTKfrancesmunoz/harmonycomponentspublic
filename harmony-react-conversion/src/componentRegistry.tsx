@@ -44,6 +44,10 @@ import { Spinner } from './components/harmony/Spinner'
 import { Step } from './components/harmony/Step'
 import { Stepper } from './components/harmony/Stepper'
 import { Table } from './components/harmony/Table'
+import { CostpointSplitTableGallery } from './components/harmony/CostpointSplitTableGallery'
+import { TableCostpointGrid } from './components/harmony/TableCostpointGrid'
+import { CommandCenterPanel } from './components/harmony/CommandCenterPanel'
+import { CommandCenterPanelSection } from './components/harmony/CommandCenterPanelSection'
 import { TabStrip } from './components/harmony/TabStrip'
 import { Textarea } from './components/harmony/Textarea'
 import { TimePicker } from './components/harmony/TimePicker'
@@ -733,6 +737,65 @@ function TabStripDemo() {
   )
 }
 
+/** Status chips for Command Center PR demo (square swatches). */
+function CcPrStatusSwatches({ hexList }: { hexList: readonly string[] }) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-1)', flexWrap: 'wrap' }}>
+      {hexList.map((hex, i) => (
+        <span
+          key={`${hex}-${i}`}
+          aria-hidden
+          style={{
+            display: 'inline-block',
+            width: 10,
+            height: 10,
+            borderRadius: 2,
+            backgroundColor: hex,
+            flexShrink: 0,
+          }}
+        />
+      ))}
+    </div>
+  )
+}
+
+const COMMAND_CENTER_PR_ROWS: Array<{
+  id: string
+  vendor: string
+  amount: string
+  swatches: readonly string[]
+  overdue: string
+  overdueNumerator: number
+}> = [
+  { id: 'PR-2041', vendor: 'Acme Office Supplies', amount: '$1,250.00', swatches: ['#F58220', '#E13D91'], overdue: '2/5', overdueNumerator: 2 },
+  { id: 'PR-2045', vendor: 'Litware Medical Devices', amount: '$3,890.25', swatches: ['#F58220', '#E13D91'], overdue: '1/6', overdueNumerator: 1 },
+  { id: 'PR-2042', vendor: 'Northwind Logistics', amount: '$8,420.50', swatches: ['#F58220', '#E13D91', '#2E5BCC'], overdue: '1/4', overdueNumerator: 1 },
+  { id: 'PR-2048', vendor: 'Wide World Importers', amount: '$22,150.00', swatches: ['#F58220', '#E13D91', '#2E5BCC'], overdue: '4/9', overdueNumerator: 4 },
+  { id: 'PR-2043', vendor: 'Contoso Training Group', amount: '$2,100.00', swatches: ['#F58220'], overdue: '1/3', overdueNumerator: 1 },
+  { id: 'PR-2046', vendor: 'Adventure Works IT', amount: '$475.90', swatches: ['#F58220'], overdue: '0/2', overdueNumerator: 0 },
+  { id: 'PR-2044', vendor: 'Fabrikam Facilities Inc.', amount: '$640.00', swatches: ['#F58220', '#D32F2F'], overdue: '1/2', overdueNumerator: 1 },
+  { id: 'PR-2047', vendor: 'Blue Yonder Analytics', amount: '$9,999.00', swatches: ['#F58220', '#E13D91', '#D32F2F'], overdue: '3/3', overdueNumerator: 3 },
+]
+
+const COMMAND_CENTER_PANEL_META: Record<string, { lines: string; requisitioner: string }> = {
+  'PR-2041': { lines: '5', requisitioner: 'Jamie Rivera' },
+  'PR-2045': { lines: '6', requisitioner: 'Chris Ng' },
+  'PR-2042': { lines: '4', requisitioner: 'Taylor Brooks' },
+  'PR-2048': { lines: '9', requisitioner: 'Sam Okonkwo' },
+  'PR-2043': { lines: '2', requisitioner: 'Morgan Chen' },
+  'PR-2046': { lines: '2', requisitioner: 'Jordan Lee' },
+  'PR-2044': { lines: '2', requisitioner: 'Riley Park' },
+  'PR-2047': { lines: '3', requisitioner: 'Casey Alvarez' },
+}
+
+function overdueFractionPct(overdue: string): number {
+  const parts = overdue.split('/')
+  const num = Number(parts[0])
+  const den = Number(parts[1])
+  if (!den || Number.isNaN(num) || Number.isNaN(den)) return 33
+  return Math.round((num / den) * 100)
+}
+
 /** All table variants on one page, matching Astro tables docs. */
 function TableDemo() {
   const [sortColumn, setSortColumn] = useState<string | null>(null)
@@ -740,6 +803,10 @@ function TableDemo() {
   const [period, setPeriod] = useState('all')
   const [status, setStatus] = useState('all')
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set())
+  const [ccSelectedId, setCcSelectedId] = useState<string | null>('PR-2042')
+  const [ccPanelOpen, setCcPanelOpen] = useState(true)
+  const [ccSortKey, setCcSortKey] = useState('prId')
+  const [ccSortDir, setCcSortDir] = useState<'asc' | 'desc'>('asc')
 
   const interactiveRowIds = ['1', '2', '3'] as const
   const toggleRow = (id: string) => {
@@ -759,6 +826,20 @@ function TableDemo() {
     { key: 'status', label: 'Status', align: 'left' as const },
     { key: 'budget', label: 'Budget', align: 'right' as const },
   ]
+  const commandCenterSortColumns = [
+    { key: 'prId', label: 'PR ID', align: 'left' as const },
+    { key: 'vendor', label: 'Preferred Vendor Name', align: 'left' as const },
+    { key: 'amount', label: 'Total Amount', align: 'right' as const },
+    { key: 'status', label: 'Status', align: 'left' as const },
+    { key: 'overdue', label: 'Overdue', align: 'left' as const },
+  ]
+
+  const ccSelRow = COMMAND_CENTER_PR_ROWS.find((r) => r.id === ccSelectedId)
+  const ccSelMeta = ccSelectedId ? COMMAND_CENTER_PANEL_META[ccSelectedId] : undefined
+  const ccLateParts = ccSelRow?.overdue.split('/').map(Number) ?? [1, 3]
+  const ccLateNum = ccLateParts[0]
+  const ccLateDen = ccLateParts[1]
+  const ccAlertPctLabel = `${overdueFractionPct(ccSelRow?.overdue ?? '1/3')}%`
   const sortRows = [
     { id: 'PRJ-001', name: 'Website Redesign', status: 'Active', budget: '$25,000' },
     { id: 'PRJ-002', name: 'Mobile App Development', status: 'In Progress', budget: '$150,000' },
@@ -1085,6 +1166,124 @@ function TableDemo() {
           } />
         </div>
       </div>
+
+      {/* 8. Command Center table + panel */}
+      <div style={sectionGap}>
+        <h2 style={sectionTitleStyle}>Command Center</h2>
+        <div style={sectionDescStyle}>
+          Dense grid, sort and filter header affordances, tinted row selection, and a docked Purchase Requisitions–style detail panel (summary, overdue banner, late items). Sample rows show PR IDs, vendors, amounts, status swatches, and overdue counts. Filter icons are wired to a no-op; implement <code>onFilterClick</code> in the app.
+        </div>
+        <div style={{ width: '100%', minWidth: 0, minHeight: 280, ...overflowWrap }}>
+            <Table
+              variant="commandCenter"
+              commandCenterToolbar={(
+                <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'flex-end', gap: 'var(--space-3)', width: '100%' }}>
+                  <span style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)' }}>As of 09/20/2024</span>
+                </div>
+              )}
+              commandCenterAside={
+                ccPanelOpen && ccSelectedId != null ? (
+                  <CommandCenterPanel
+                    title="Purchase Requisitions"
+                    open
+                    onClose={() => { setCcPanelOpen(false); setCcSelectedId(null) }}
+                    visual={(
+                      <div>
+                        <div className="command-center-panel__identity-row">
+                          <p className="command-center-panel__entity-id">{ccSelRow?.id ?? ccSelectedId}</p>
+                          <a href="#demo" className="text-link" style={{ fontSize: 'var(--text-sm)' }} onClick={(e) => e.preventDefault()}>
+                            Purchase Requisition Report
+                          </a>
+                        </div>
+                        <div className="command-center-panel__alert-banner" role="status" aria-label={`${ccAlertPctLabel} overdue lines`}>
+                          <span className="command-center-panel__alert-value">{ccAlertPctLabel}</span>
+                          <span className="command-center-panel__alert-label">Overdue lines</span>
+                        </div>
+                      </div>
+                    )}
+                  >
+                    <div className="command-center-panel__sections">
+                      <CommandCenterPanelSection title="Summary" defaultOpen>
+                        <div className="command-center-panel__kv-grid">
+                          <div className="command-center-panel__kv-cell">
+                            <p className="command-center-card__label">PR ID</p>
+                            <p className="command-center-card__value">{ccSelRow?.id ?? '—'}</p>
+                          </div>
+                          <div className="command-center-panel__kv-cell">
+                            <p className="command-center-card__label">Preferred Vendor Name</p>
+                            <p className="command-center-card__value">{ccSelRow?.vendor ?? '—'}</p>
+                          </div>
+                          <div className="command-center-panel__kv-cell">
+                            <p className="command-center-card__label">No. of Lines</p>
+                            <p className="command-center-card__value">{ccSelMeta?.lines ?? '—'}</p>
+                          </div>
+                          <div className="command-center-panel__kv-cell">
+                            <p className="command-center-card__label">Requisitioner Name</p>
+                            <p className="command-center-card__value">{ccSelMeta?.requisitioner ?? '—'}</p>
+                          </div>
+                        </div>
+                      </CommandCenterPanelSection>
+                      <CommandCenterPanelSection title="Late Items" defaultOpen className="command-center-panel-section--divider-before">
+                        <p className="command-center-panel__late-stats">
+                          <span className="command-center-panel__late-stat-overdue">{ccLateNum}</span>
+                          {' '}
+                          Overdue | <span className="command-center-panel__late-stat-total">{ccLateDen}</span> Total
+                        </p>
+                        <div className="command-center-card">
+                          <div className="command-center-panel__late-card-head">
+                            <div className="command-center-panel__late-card-head-main">
+                              <span className="command-center-panel__status-marker" aria-hidden="true" />
+                              <p className="command-center-panel__late-card-title">Pending Submittal</p>
+                            </div>
+                            <a href="#demo" className="text-link" onClick={(e) => e.preventDefault()}>Follow up</a>
+                          </div>
+                          <p className="command-center-panel__late-card-value">{ccLateNum}</p>
+                        </div>
+                      </CommandCenterPanelSection>
+                    </div>
+                  </CommandCenterPanel>
+                ) : null
+              }
+              sortColumns={commandCenterSortColumns}
+              sortColumn={ccSortKey}
+              sortDirection={ccSortDir}
+              onSort={(key, dir) => { setCcSortKey(key); setCcSortDir(dir) }}
+              onFilterClick={() => {}}
+              selectedRowId={ccSelectedId}
+              onRowSelect={(id) => { setCcSelectedId(id); setCcPanelOpen(true) }}
+              body={(
+                <tbody>
+                  {COMMAND_CENTER_PR_ROWS.map((row) => (
+                    <tr key={row.id} data-row-id={row.id}>
+                      <td>
+                        <a href="#demo" className="text-link" onClick={(e) => e.preventDefault()}>{row.id}</a>
+                      </td>
+                      <td>{row.vendor}</td>
+                      <td className="text-right">{row.amount}</td>
+                      <td><CcPrStatusSwatches hexList={row.swatches} /></td>
+                      <td style={{ color: row.overdueNumerator > 0 ? 'var(--color-error-text, var(--color-error))' : 'var(--text-primary)' }}>
+                        {row.overdue}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              )}
+            />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function TableCostpointGridDemo() {
+  return (
+    <div className="ds-demo-only-theme-cp">
+      <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', marginBottom: '0.75rem' }}>
+        Full default dataset (13 sample rows) and scroll columns including Vendor Location and Template. For the
+        nine-row docs-aligned variant, open <strong>CostpointSplitTable</strong> in this gallery. Requires{' '}
+        <code className="text-xs">html.theme-cp</code> and Harmony global styles.
+      </p>
+      <TableCostpointGrid />
     </div>
   )
 }
@@ -1283,6 +1482,7 @@ export const componentRegistry: ComponentRegistryEntry[] = [
   { name: 'Checkbox', Component: CheckboxDemo as AnyComponent },
   { name: 'CheckboxGroup', Component: CheckboxGroup as AnyComponent, demoProps: { legend: 'Options', children: <><Checkbox label="Option A" /><Checkbox label="Option B" /></> } },
   { name: 'Chip', Component: Chip as AnyComponent, demoProps: { label: 'Chip' } },
+  { name: 'CostpointSplitTable', Component: CostpointSplitTableGallery as AnyComponent },
   { name: 'DateInput', Component: DateInput as AnyComponent, demoProps: { id: 'demo-date', label: 'Date' } },
   { name: 'DatePicker', Component: DatePicker as AnyComponent },
   { name: 'DateTimePicker', Component: DateTimePicker as AnyComponent },
@@ -1336,6 +1536,7 @@ export const componentRegistry: ComponentRegistryEntry[] = [
   { name: 'Step', Component: StepDemo as AnyComponent },
   { name: 'Stepper', Component: Stepper as AnyComponent, demoProps: { steps: [{ label: 'First', description: 'Step one' }, { label: 'Second', description: 'Step two', completed: true }, { label: 'Third', description: 'Step three' }], activeStep: 1 } },
   { name: 'Table', Component: TableDemo as AnyComponent },
+  { name: 'TableCostpointGrid', Component: TableCostpointGridDemo as AnyComponent },
   { name: 'TabStrip', Component: TabStripDemo as AnyComponent },
   { name: 'Textarea', Component: Textarea as AnyComponent, demoProps: { id: 'demo-ta', label: 'Description', placeholder: 'Enter text' } },
   { name: 'TimePicker', Component: TimePicker as AnyComponent },

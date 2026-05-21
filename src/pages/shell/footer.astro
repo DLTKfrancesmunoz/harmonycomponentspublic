@@ -18,6 +18,14 @@ import Icon from '../../components/ui/Icon.astro';
     <section class="space-y-6">
       <h2 class="section__title">Product Availability</h2>
 
+      <div class="card">
+        <div class="card__body">
+          <p class="text-sm text-secondary mb-0">
+            Shell Footer is intended for <strong>Vision (VP)</strong>, <strong>PPM</strong>, and <strong>Maconomy</strong> shell layouts. It composes the shared <a href="/components/tab-strip" class="link">Tab Strip</a> with footer styling and workspace-tab patterns.
+          </p>
+        </div>
+      </div>
+
       <div class="a11y-card a11y-card--warning">
         <h3 class="a11y-card__title">
           <Icon name="x-circle" size="sm" class="a11y-card__title-icon" />
@@ -34,7 +42,7 @@ import Icon from '../../components/ui/Icon.astro';
       <h2 class="section__title">Examples</h2>
 
       <ExampleSection title="Default Tab Bar" description="Multiple workspace tabs with one active tab indicated by a blue underline.">
-        <div class="border overflow-hidden">
+        <div class="border overflow-visible">
           <ShellFooter
             tabs={[
               { id: '1', label: 'Tab 1', active: true },
@@ -49,7 +57,23 @@ import Icon from '../../components/ui/Icon.astro';
         </div>
       </ExampleSection>
 
-      <ExampleSection title="With More Dropdown" description="When there are too many tabs, overflow tabs are accessible via the 'More' dropdown.">
+      <ExampleSection title="With per-tab actions" description="Optional open-in-new, close, and ⋮ menu on each tab (from TabStrip). The ⋮ menu opens upward like More; it lists only actions not already shown inline (here, Set as default). Listen for tab-strip:open-new-window, tab-strip:close-tab, and tab-strip:set-default on the document or a parent.">
+        <div class="border">
+          <ShellFooter
+            tabs={[
+              { id: '1', label: 'Tab 1', active: true },
+              { id: '2', label: 'Tab 2' },
+              { id: '3', label: 'Tab 3' },
+            ]}
+            showTabOpenInNew={true}
+            showTabClose={true}
+            showTabOverflowMenu={true}
+            showAddTab={true}
+          />
+        </div>
+      </ExampleSection>
+
+      <ExampleSection title="With More Dropdown" description="When there are too many tabs, overflow tabs are accessible via the 'More' control. The overflow menu opens above the bar (same as the per-tab ⋮ menu). Each row includes open-in-new and close actions.">
         <div class="border">
           <ShellFooter
             tabs={[
@@ -72,7 +96,7 @@ import Icon from '../../components/ui/Icon.astro';
       </ExampleSection>
 
       <ExampleSection title="Compact Variant" description="A more condensed version with reduced height and padding.">
-        <div class="border overflow-hidden">
+        <div class="border overflow-visible">
           <ShellFooter
             tabs={[
               { id: '1', label: 'Workspace 1', active: true },
@@ -195,10 +219,10 @@ import Icon from '../../components/ui/Icon.astro';
           <div class="card__body">
             <h3 class="text-heading-s text-primary mb-2">Overflow Behavior</h3>
             <p class="text-sm text-secondary mb-3">
-              The "More" dropdown appears when <code>showMore={true}</code> is set and displays the number of hidden tabs via <code>moreCount</code>. This prevents the tab bar from becoming cluttered when users have many workspaces open.
+              The "More" control appears when <code>showMore={true}</code> and <code>overflowTabs</code> has items (manual overflow). Pass hidden tabs in <code>overflowTabs</code>; the Tab Strip shows <code>More (N)</code> and lists them in an upward-opening menu with the same row actions as auto overflow.
             </p>
             <p class="text-sm text-muted">
-              Recommendation: Implement logic to automatically show "More" when tabs exceed viewport width, typically around 8-10 visible tabs.
+              For viewport-driven overflow without listing tabs yourself, use Tab Strip with <code>overflowMode="auto"</code> (see <a href="/components/tab-strip" class="link">Tab Strip</a>).
             </p>
           </div>
         </div>
@@ -210,11 +234,11 @@ import Icon from '../../components/ui/Icon.astro';
               The ShellFooter component accepts several props for customization:
             </p>
             <ul class="text-sm text-secondary space-y-2 list-disc list-inside">
-              <li><code>tabs</code>: Array of tab objects with id, label, active, and optional href</li>
-              <li><code>showMore</code>: Boolean to display the More dropdown (default: false)</li>
-              <li><code>moreCount</code>: Number displayed in More button (default: 0)</li>
-              <li><code>showAddTab</code>: Boolean to show Add Tab button (default: true)</li>
-              <li><code>variant</code>: 'default' or 'compact' for different sizes</li>
+              <li><code>tabs</code>: Array of tab objects; optional per-tab <code>showOpenInNewWindow</code>, <code>showClose</code>, <code>showMenu</code> override footer defaults</li>
+              <li><code>showMore</code> + <code>overflowTabs</code>: Manual More menu when both are set</li>
+              <li><code>showAddTab</code>: Show Add Tab button (default: true)</li>
+              <li><code>variant</code>: <code>'default'</code> or <code>'compact'</code></li>
+              <li><code>showTabOpenInNew</code>, <code>showTabClose</code>, <code>showTabOverflowMenu</code>: Defaults for per-tab toolbar actions (passed to Tab Strip)</li>
             </ul>
           </div>
         </div>
@@ -304,5 +328,9 @@ import Icon from '../../components/ui/Icon.astro';
   document.addEventListener('tab-strip:open-new-window', (e) => {
     console.log('Open tab in new window:', e.detail.tabId);
     // In a real application, you would handle opening tab in new window here
+  });
+
+  document.addEventListener('tab-strip:set-default', (e) => {
+    console.log('Set default tab:', e.detail.tabId);
   });
 </script>

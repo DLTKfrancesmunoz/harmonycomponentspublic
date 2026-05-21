@@ -72,6 +72,9 @@ interface Props {
   overflowTabs?: Tab[];
   showAddTab?: boolean;
   footerVariant?: 'default' | 'compact';
+  showTabOpenInNew?: boolean;
+  showTabClose?: boolean;
+  showTabOverflowMenu?: boolean;
 
   // Left sidebar props
   leftSidebarVariant?: 'cp' | 'vp' | 'ppm' | 'maconomy';
@@ -119,6 +122,9 @@ const {
   overflowTabs = [],
   showAddTab = true,
   footerVariant = 'default',
+  showTabOpenInNew = false,
+  showTabClose = false,
+  showTabOverflowMenu = false,
   leftSidebarVariant,
   leftSidebarSections,
   rightSidebarVariant,
@@ -295,6 +301,9 @@ const effectiveHasFooter = showFooter === false ? false : hasFooter;
         overflowTabs={overflowTabs}
         showAddTab={showAddTab}
         variant={footerVariant}
+        showTabOpenInNew={showTabOpenInNew}
+        showTabClose={showTabClose}
+        showTabOverflowMenu={showTabOverflowMenu}
         class="shell-layout__footer"
       />
     ) : (
@@ -306,6 +315,9 @@ const effectiveHasFooter = showFooter === false ? false : hasFooter;
           overflowTabs={overflowTabs}
           showAddTab={showAddTab}
           variant={footerVariant}
+          showTabOpenInNew={showTabOpenInNew}
+          showTabClose={showTabClose}
+          showTabOverflowMenu={showTabOverflowMenu}
           class="shell-layout__footer"
         />
       )
@@ -430,6 +442,7 @@ const effectiveHasFooter = showFooter === false ? false : hasFooter;
     grid-row: 3;
     grid-column: 1;
     z-index: var(--z-40);
+    overflow: visible;
   }
 
   /* Hide footer when data-has-footer is false */

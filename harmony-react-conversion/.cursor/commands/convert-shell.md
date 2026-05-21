@@ -6,7 +6,7 @@ Convert the full Harmony shell template to the target framework.
 
 0. **Check Harmony installation (before resolving paths):**
    - If `.cursor/harmony.json` exists: Harmony paths are configured → proceed.
-   - Else if `node_modules/@dltkfrancesmunoz/harmony-design-system/` exists: Harmony package is installed → proceed.
+   - Else if `node_modules/@deltek/harmony-components/` exists: Harmony package is installed → proceed.
    - Else: Harmony is not set up. Tell the user: "Harmony package not found. Run `npm install github:DLTKfrancesmunoz/harmonycomponents` to install it, then retry. See the harmony-converter skill's CONSUMER_GUIDE for full setup instructions." Do NOT ask the user to choose between npm, git, or local path. Do NOT attempt to install it yourself. Do NOT proceed to conversion without the package.
 
 1. **User input:** The user will supply a **shell variant** (e.g. "VP dark", "CP dark") and a **target framework** (e.g. "Vue"). Optional: if the user includes **--dry-run**, output the resolved paths and the sequence that would run, but do **not** run conversion or verifier. Stop after that output.

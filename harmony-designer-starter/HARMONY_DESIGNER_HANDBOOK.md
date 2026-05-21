@@ -44,6 +44,7 @@ harmony-designer-starter/
 ├── CHANGELOG.md
 ├── AGENTS.md
 ├── package.json
+├── llms/                           ← LLM reference markdown for selected components (e.g. Costpoint grid)
 ├── harmony-styles/                 ← vendored Harmony global CSS (see Vite alias)
 ├── harmony-data/                   ← icon manifest and related data
 ├── icons/                          ← vendored SVG library (Tabler outline + custom; no npm icon pack required)
@@ -80,7 +81,7 @@ Scripts such as `python .cursor/skills/design-patterns/scripts/search_patterns.p
 | **Node / npm** | Install deps, `npm run dev` / `npm run build`. |
 | **Python 3** (optional) | `create_pattern.py` and `search_patterns.py` under `.cursor/skills/design-patterns/scripts/`. For full YAML frontmatter: `pip install pyyaml`. |
 
-This kit runs **without** installing `@dltkfrancesmunoz/harmony-design-system` from npm: React components and styles are included under `src/components/harmony/` and `harmony-styles/`. If you add a Harmony package later for `RULES.md`, see [harmony-usage-rules and RULES.md](#harmony-usage-rules-and-rulesmd).
+This kit runs **without** installing `@deltek/harmony-design-system` from npm: React components and styles are included under `src/components/harmony/` and `harmony-styles/`. If you add a Harmony package later for `RULES.md`, see [harmony-usage-rules and RULES.md](#harmony-usage-rules-and-rulesmd).
 
 ---
 
@@ -178,7 +179,7 @@ Ask in plain language; the **harmony** skill covers setup, component lookup, tok
 
 ## harmony-usage-rules and RULES.md
 
-The **harmony-usage-rules** skill loads **`{harmonyRoot}/docs/RULES.md`** when a Harmony package is available (for example `node_modules/@dltkfrancesmunoz/harmony-design-system/docs/RULES.md`). This path is **not** bundled in the zip by default. Without a package install, rely on this handbook, component source under `src/components/harmony/`, and vendored CSS under `harmony-styles/`.
+The **harmony-usage-rules** skill loads **`{harmonyRoot}/docs/RULES.md`** when a Harmony package is available (for example `node_modules/@deltek/harmony-design-system/docs/RULES.md`). This path is **not** bundled in the zip by default. Without a package install, rely on this handbook, component source under `src/components/harmony/`, and vendored CSS under `harmony-styles/`.
 
 ---
 
@@ -203,7 +204,9 @@ Harmony UI for this preview lives under:
 src/components/harmony/
 ```
 
-Use `ShellLayout`, `ShellPageHeader`, `Card`, inputs, and other components from that folder (`.tsx` + colocated `.css`). The Vite config aliases `@dltkfrancesmunoz/harmony-design-system/styles` to `./harmony-styles` so global Harmony CSS resolves from this repo.
+Use `ShellLayout`, `ShellPageHeader`, `Card`, inputs, and other components from that folder (`.tsx` + colocated `.css`). The Vite config aliases `@deltek/harmony-components/styles` to `./harmony-styles` so global Harmony CSS resolves from this repo.
+
+**Costpoint split grid:** `TableCostpointGrid.tsx` and `CostpointSplitTableGallery.tsx` live in the same folder; browse them in the in-app component gallery under **`TableCostpointGrid`** and **`CostpointSplitTable`** (use `html.theme-cp` on `<html>` to see CP styling). See **`llms/TableCostpointGrid.md`** for props, slots, exports, and parity with the main design system Astro component.
 
 ---
 
@@ -212,11 +215,12 @@ Use `ShellLayout`, `ShellPageHeader`, `Card`, inputs, and other components from 
 | Path | Purpose |
 |------|---------|
 | `src/components/harmony/` | React Harmony components (shell, form, navigation, …). |
-| `harmony-styles/` | Global CSS: tokens, reset, layout, components, utilities (aliased as `@dltkfrancesmunoz/harmony-design-system/styles`). |
+| `harmony-styles/` | Global CSS: tokens, reset, layout, components, utilities (aliased as `@deltek/harmony-components/styles`). |
 | `harmony-data/` | **`icon-manifest.json`:** per-theme maps with inline **`svg`** strings (and optional `source`) consumed by `Icon`. |
 | `icons/` | **Vendored SVG files** (e.g. `icons/tabler/outline/*.svg`, `icons/custom/*.svg`) for browsing and handoff. At runtime, `Icon` resolves names using manifest **`svg`** data plus built-in fallbacks—not file paths in the manifest. |
 | `public/` | Static assets (logos, SVGs referenced by shell). |
 | `src/pages/` | Example pages (gallery, demos). |
+| `llms/` | LLM-oriented component notes (e.g. `TableCostpointGrid.md` for the Costpoint split grid). |
 | `src/App.tsx` | Routes and default **theme** classes on `document.documentElement`. |
 
 ---

@@ -3116,8 +3116,12 @@ html.theme-vp .tabstrip--pill .tab {
   border-bottom: none;
   margin-bottom: 0;
   border-radius: var(--radius-08);
-  padding: var(--space-2) var(--space-3);
+  padding: var(--space-1-5) var(--space-2);
   color: var(--theme-primary);
+}
+
+html.theme-vp .tabstrip--pill .tab__label {
+  line-height: 1;
 }
 
 html.theme-vp .tabstrip--pill .tab:hover:not(:disabled):not(.tab--disabled):not(.is-active) {
@@ -6435,9 +6439,48 @@ html.theme-maconomy.dark .left-sidebar__variant--maconomy {
 .table__expand-btn--expanded .table__expand-icon {
   transform: rotate(90deg);
 }
-/* Reserve width for max indentation (depth 4) so column doesn't grow on expand */
-.table--grouped tbody td:nth-child(2) {
+/* Reserve width for max indentation (depth 4) — default grouped only (CC uses inline Project ID cell) */
+.table--grouped:not(.table--command-center) tbody td:nth-child(2) {
   min-width: calc(var(--space-4) * 5 + 12ch);
+}
+
+/* Command Center + grouped: chevron lives inside the Project ID cell */
+.table--command-center.table--grouped .table__cc-project-id-cell {
+  vertical-align: middle;
+}
+.table--command-center.table--grouped .table__cc-project-id-inner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-1);
+  min-width: 0;
+}
+.table--command-center.table--grouped .table__cc-project-id-inner .text-link,
+.table--command-center.table--grouped .table__cc-project-id-inner a.text-link {
+  white-space: nowrap;
+}
+.table--command-center.table--grouped .table__cc-inline-expand,
+.table--command-center.table--grouped .table__cc-inline-expand-gutter {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5rem;
+  width: 1.5rem;
+  box-sizing: content-box;
+}
+.table--command-center.table--grouped .table__cc-inline-expand-gutter {
+  min-height: 1.25rem;
+}
+.table--command-center.table--grouped .table__expand-icon--cc-leaf {
+  opacity: 0.85;
+}
+
+/* Project ID column chevrons: no focus ring (hover / expanded states unchanged) */
+.table--command-center.table--grouped .table__cc-inline-expand .table__expand-btn:focus,
+.table--command-center.table--grouped .table__cc-inline-expand .table__expand-btn:focus-visible {
+  outline: none;
+  box-shadow: none;
 }
 
 /* 11. Text Alignment Utilities */
@@ -6476,6 +6519,1184 @@ html.theme-maconomy.dark .left-sidebar__variant--maconomy {
 }
 .table thead th.text-right .table__sort-header {
   flex-direction: row-reverse;
+}
+
+/* 11b. Command Center table and layout */
+.table-wrapper--command-center {
+  border-radius: 0;
+  max-width: 100%;
+  overflow: visible;
+}
+
+.table__command-center-toolbar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  width: 100%;
+  /* Inset from the canvas (which uses overflow: hidden) so control borders / rounded corners are not clipped */
+  padding: var(--space-1) var(--space-1) var(--space-2) var(--space-1);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.table--command-center {
+  /* Selected row highlight uses cell backgrounds (semi-transparent tint). */
+  border-radius: 0;
+  border-collapse: collapse;
+  border: 1px solid var(--table-command-center-border);
+  overflow: visible;
+  font-size: var(--text-sm);
+}
+
+/* Full 2D grid: explicit borders on every cell (higher specificity than default table "middle line" model) */
+.table.table--command-center thead th,
+.table.table--command-center tbody td {
+  border: 1px solid var(--table-command-center-border);
+  border-width: 1px;
+  border-color: var(--table-command-center-border);
+  border-style: solid;
+}
+
+.table--command-center thead th {
+  vertical-align: middle;
+  color: var(--text-primary);
+  font-weight: var(--font-semibold);
+  background-color: var(--table-command-center-header-bg);
+  padding: var(--space-3) var(--space-4);
+}
+
+.table--command-center tbody td {
+  vertical-align: middle;
+  padding: var(--space-3) var(--space-4);
+  color: var(--text-primary);
+}
+
+/* Square corners: overrides base table radius on header/cells */
+.table--command-center thead tr:first-child th:first-child,
+.table--command-center thead tr:first-child th:last-child,
+.table--command-center tbody tr:last-child td:first-child,
+.table--command-center tbody tr:last-child td:last-child {
+  border-radius: 0;
+}
+
+.table__cc-header {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-1);
+  width: 100%;
+  text-align: left;
+}
+
+.table thead th.text-left .table__cc-header,
+.table--command-center thead th.text-left .table__cc-header {
+  text-align: left;
+  justify-content: flex-start;
+}
+
+.table thead th.text-right .table__cc-header,
+.table--command-center thead th.text-right .table__cc-header {
+  flex-direction: row;
+  text-align: right;
+  justify-content: flex-end;
+}
+
+/* Command Center: center label and sort/filter affordances within the cell */
+.table--command-center thead th .table__cc-header {
+  align-items: center;
+}
+
+.table--command-center thead th .table__cc-header-label {
+  padding-top: 0;
+}
+
+.table__cc-header-label {
+  flex: 1 1 auto;
+  min-width: 0;
+  line-height: var(--leading-tight, 1.3);
+  padding-top: 2px;
+}
+
+.table__cc-header-actions {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0;
+}
+
+.table__cc-header-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-1);
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  border-radius: var(--radius-04);
+  cursor: pointer;
+  transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.table--command-center .table__cc-header-btn {
+  color: var(--text-muted, #6b7280);
+}
+
+.table__cc-header-btn:hover {
+  color: var(--text-primary);
+  background-color: var(--elevated-bg);
+}
+
+.table__cc-header-btn:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.table--command-center tbody tr.table-row--command-center-selected {
+  position: relative;
+  z-index: 1;
+}
+
+.table--command-center tbody tr.table-row--command-center-selected > td,
+.table--command-center tbody tr.table-row--command-center-selected > th {
+  position: relative;
+  z-index: 1;
+  background-color: var(--table-command-center-selection-bg, #0073e626) !important;
+  border-width: 1px !important;
+  border-style: solid !important;
+  border-color: var(--table-command-center-border) !important;
+}
+
+/* Zebra: odd rows = subtle gray, even = white (mockup) */
+.table--striped.table--command-center tbody tr:nth-child(odd) {
+  background-color: var(--table-command-center-stripe-bg);
+}
+
+.table--striped.table--command-center tbody tr:nth-child(even) {
+  background-color: var(--surface-bg);
+}
+
+/* Neutral row hover (overrides default primary-tint table hover); includes selected Command Center row */
+.table--command-center tbody tr:hover:not(.table-row--selected):not(:has(.checkbox__input:checked)) {
+  background-color: var(--table-command-center-row-hover-bg) !important;
+}
+
+/* Command Center: optional outer wrapper (table + panel now use .command-center-canvas inside .table-wrapper) */
+.command-center-layout {
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
+/* Grid: toolbar row only over the table column; table + panel share the row below (panel top aligns with table header) */
+.command-center-canvas {
+  display: grid;
+  width: 100%;
+  min-width: 0;
+  column-gap: 0;
+  row-gap: 0;
+  align-items: start;
+  overflow: hidden; /* contain panel slide-in transform */
+}
+
+.command-center-canvas--with-toolbar {
+  grid-template-columns: minmax(0, 1fr) min(420px, 42vw);
+  grid-template-rows: auto minmax(0, 1fr);
+}
+
+.command-center-canvas--with-toolbar .command-center-canvas__toolbar {
+  grid-column: 1;
+  grid-row: 1;
+  min-width: 0;
+}
+
+.command-center-canvas--with-toolbar .command-center-canvas__spacer {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+}
+
+.command-center-canvas--with-toolbar .command-center-canvas__main {
+  grid-column: 1;
+  grid-row: 2;
+  min-width: 0;
+  min-height: 0;
+  overflow-x: auto;
+}
+
+.command-center-canvas--with-toolbar .command-center-canvas__aside {
+  grid-column: 2;
+  grid-row: 2;
+  min-width: 0;
+  align-self: stretch;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.command-center-canvas--no-toolbar {
+  grid-template-columns: minmax(0, 1fr) min(420px, 42vw);
+  grid-template-rows: minmax(0, 1fr);
+}
+
+.command-center-canvas--no-toolbar .command-center-canvas__main {
+  grid-column: 1;
+  grid-row: 1;
+  min-width: 0;
+  min-height: 0;
+  overflow-x: auto;
+}
+
+.command-center-canvas--no-toolbar .command-center-canvas__aside {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+  align-self: stretch;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.command-center-canvas__aside .command-center-panel {
+  flex: 1 1 auto;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  min-height: 0;
+  box-sizing: border-box;
+}
+
+.table-wrapper--has-command-center-aside {
+  min-width: 0;
+}
+
+@keyframes command-center-panel-slide-in {
+  from {
+    transform: translate3d(100%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.command-center-layout__main {
+  min-width: 0;
+  width: 100%;
+  overflow: auto;
+}
+
+/* --------------------------------------------------------------------------
+   Costpoint data grid (split frozen + scroll columns; html.theme-cp only)
+   -------------------------------------------------------------------------- */
+
+html.theme-cp .cp-datagrid {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  max-width: 100%;
+  min-height: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-xs, 0.75rem);
+  line-height: 1.25;
+  color: var(--text-primary);
+  background: var(--cp-datagrid-body-bg);
+  border: 1px solid var(--cp-datagrid-cell-border);
+  box-sizing: border-box;
+}
+
+html.theme-cp .cp-datagrid__primary {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+}
+
+html.theme-cp .cp-datagrid__y-scroller {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  max-height: calc(
+    var(--cp-datagrid-header-h) + var(--cp-datagrid-body-visible-rows) * var(--cp-datagrid-row-h)
+  );
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+html.theme-cp .cp-datagrid__panes {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  min-width: 0;
+}
+
+html.theme-cp .cp-datagrid__frozen {
+  flex: 0 0 auto;
+  min-width: 0;
+}
+
+/* When JS sets an explicit frozen pane width (split resize). */
+html.theme-cp .cp-datagrid__frozen.cp-datagrid__frozen--sized {
+  flex-shrink: 0;
+  min-width: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+html.theme-cp .cp-datagrid__split {
+  position: relative;
+  z-index: 1;
+  flex: 0 0 var(--cp-datagrid-split-width);
+  width: var(--cp-datagrid-split-width);
+  align-self: stretch;
+  background: var(--cp-datagrid-split-color);
+  box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.35), inset -1px 0 0 rgba(0, 0, 0, 0.08);
+  cursor: col-resize;
+  touch-action: none;
+  user-select: none;
+}
+
+/* Wider invisible hit strip for dragging (keeps visual bar width from tokens). */
+html.theme-cp .cp-datagrid__split::after {
+  content: '';
+  position: absolute;
+  left: -5px;
+  right: -5px;
+  top: 0;
+  bottom: 0;
+}
+
+html.theme-cp .cp-datagrid__split:focus {
+  outline: none;
+}
+
+html.theme-cp .cp-datagrid__split:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: -1px;
+}
+
+html.theme-cp .cp-datagrid__split.cp-datagrid__split--dragging,
+html.theme-cp .cp-datagrid.cp-datagrid--resizing-split {
+  cursor: col-resize;
+}
+
+html.theme-cp .cp-datagrid.cp-datagrid--resizing-split * {
+  user-select: none;
+}
+
+html.theme-cp .cp-datagrid__scroll-stack {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-height: 0;
+}
+
+html.theme-cp .cp-datagrid__scroll-x {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  position: relative;
+}
+
+html.theme-cp .cp-datagrid__scroll-x-inner {
+  display: inline-block;
+  width: max-content;
+  min-width: min-content;
+  vertical-align: top;
+  will-change: transform;
+}
+
+html.theme-cp .cp-datagrid__hscroll-row {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  flex: 0 0 auto;
+  width: 100%;
+  min-height: 0;
+  background: var(--cp-datagrid-body-bg);
+  border-top: 1px solid var(--cp-datagrid-cell-border);
+}
+
+html.theme-cp .cp-datagrid__hscroll-mirror {
+  flex: 0 0 auto;
+  flex-shrink: 0;
+  pointer-events: none;
+}
+
+html.theme-cp .cp-datagrid__hscroll-split-mirror {
+  flex: 0 0 var(--cp-datagrid-split-width);
+  width: var(--cp-datagrid-split-width);
+  flex-shrink: 0;
+  pointer-events: none;
+}
+
+html.theme-cp .cp-datagrid__hscroll-rail {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-gutter: stable;
+}
+
+html.theme-cp .cp-datagrid__hscroll-rail__ghost {
+  height: 1px;
+  pointer-events: none;
+  opacity: 0;
+}
+
+html.theme-cp .cp-datagrid__table {
+  width: max-content;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: auto;
+  background: transparent;
+}
+
+/* Frozen pane: intrinsic table width until JS locks pane (--sized); then table fills pane. */
+html.theme-cp .cp-datagrid__frozen:not(.cp-datagrid__frozen--sized) .cp-datagrid__table {
+  width: max-content;
+  min-width: max-content;
+  table-layout: auto;
+}
+
+html.theme-cp .cp-datagrid__frozen.cp-datagrid__frozen--sized .cp-datagrid__table {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  table-layout: fixed;
+}
+
+html.theme-cp .cp-datagrid__frozen .cp-datagrid__table thead th.cp-datagrid__cell--gutter,
+html.theme-cp .cp-datagrid__frozen .cp-datagrid__table tbody td.cp-datagrid__cell--gutter {
+  width: 2.25rem;
+  min-width: 2.25rem;
+  max-width: 2.5rem;
+}
+
+html.theme-cp .cp-datagrid__frozen:not(.cp-datagrid__frozen--sized) .cp-datagrid__table thead th:not(.cp-datagrid__cell--gutter) {
+  min-width: min-content;
+}
+
+html.theme-cp .cp-datagrid__frozen.cp-datagrid__frozen--sized .cp-datagrid__table thead th:not(.cp-datagrid__cell--gutter) {
+  min-width: 0;
+}
+
+/* Let body cells shrink so column width follows header titles (inputs use width:100% + min-width:0). */
+html.theme-cp .cp-datagrid__frozen .cp-datagrid__table tbody td:not(.cp-datagrid__cell--gutter) {
+  min-width: 0;
+}
+
+html.theme-cp .cp-datagrid__frozen .cp-datagrid__cell-inner {
+  width: 100%;
+}
+
+html.theme-cp .cp-datagrid__frozen .cp-datagrid__input,
+html.theme-cp .cp-datagrid__frozen .cp-datagrid__select {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  field-sizing: initial;
+}
+
+html.theme-cp .cp-datagrid__table thead th {
+  box-sizing: border-box;
+  height: var(--cp-datagrid-header-h);
+  min-height: var(--cp-datagrid-header-h);
+  padding: 0 var(--space-2);
+  border: 1px solid var(--cp-datagrid-cell-border);
+  vertical-align: middle;
+  background-clip: padding-box;
+  text-align: center;
+  font-weight: var(--font-bold, 700);
+  color: var(--text-primary);
+  background-color: var(--cp-datagrid-header-bg);
+  white-space: nowrap;
+}
+
+html.theme-cp .cp-datagrid__table tbody td {
+  box-sizing: border-box;
+  height: var(--cp-datagrid-row-h);
+  min-height: var(--cp-datagrid-row-h);
+  padding: 0 var(--space-2);
+  border: 1px solid var(--cp-datagrid-cell-border);
+  vertical-align: middle;
+  background-clip: padding-box;
+  white-space: nowrap;
+  color: var(--text-primary);
+  background-color: var(--cp-datagrid-body-bg);
+}
+
+html.theme-cp .cp-datagrid__table tbody tr:hover td {
+  background-color: var(--cp-datagrid-row-hover-bg);
+}
+
+html.theme-cp .cp-datagrid__table tbody tr[aria-selected='true'] td,
+html.theme-cp .cp-datagrid__table tbody tr.cp-datagrid__row--selected td {
+  background-color: var(--cp-datagrid-row-selected-bg) !important;
+}
+
+html.theme-cp .cp-datagrid__table tbody tr[aria-selected='true']:hover td,
+html.theme-cp .cp-datagrid__table tbody tr.cp-datagrid__row--selected:hover td {
+  background-color: var(--cp-datagrid-row-selected-bg) !important;
+}
+
+html.theme-cp .cp-datagrid__table tbody tr[aria-selected='true'] td,
+html.theme-cp .cp-datagrid__table tbody tr.cp-datagrid__row--selected td {
+  border-top-color: var(--cp-datagrid-row-selected-border);
+  border-bottom-color: var(--cp-datagrid-row-selected-border);
+}
+
+html.theme-cp .cp-datagrid__table tbody tr[aria-selected='true'] td:first-of-type,
+html.theme-cp .cp-datagrid__table tbody tr.cp-datagrid__row--selected td:first-of-type {
+  border-left-color: var(--cp-datagrid-row-selected-border);
+}
+
+html.theme-cp .cp-datagrid__table tbody tr[aria-selected='true'] td:last-of-type,
+html.theme-cp .cp-datagrid__table tbody tr.cp-datagrid__row--selected td:last-of-type {
+  border-right-color: var(--cp-datagrid-row-selected-border);
+}
+
+html.theme-cp .cp-datagrid__table tbody tr[aria-selected='true'] td.cp-datagrid__cell--gutter,
+html.theme-cp .cp-datagrid__table tbody tr.cp-datagrid__row--selected td.cp-datagrid__cell--gutter {
+  background-color: var(--cp-datagrid-gutter-selected-bg) !important;
+}
+
+html.theme-cp .cp-datagrid__table tbody tr[aria-selected='true']:hover td.cp-datagrid__cell--gutter,
+html.theme-cp .cp-datagrid__table tbody tr.cp-datagrid__row--selected:hover td.cp-datagrid__cell--gutter {
+  background-color: var(--cp-datagrid-gutter-selected-bg) !important;
+}
+
+html.theme-cp .cp-datagrid__cell--left {
+  text-align: left;
+}
+
+html.theme-cp .cp-datagrid__cell--right {
+  text-align: right;
+}
+
+html.theme-cp .cp-datagrid__cell--center {
+  text-align: center;
+}
+
+/* Row-handle column: empty clickable cell (no hatch). */
+html.theme-cp .cp-datagrid__table .cp-datagrid__cell--gutter {
+  position: relative;
+  z-index: 0;
+  cursor: pointer;
+}
+
+/* Diagonal hatch for non-editable (read-only) cells only */
+html.theme-cp .cp-datagrid__table .cp-datagrid__cell--hatch {
+  position: relative;
+  z-index: 0;
+}
+
+html.theme-cp .cp-datagrid__table .cp-datagrid__cell--hatch::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 3px,
+    var(--cp-datagrid-hatch) 3px,
+    var(--cp-datagrid-hatch) 4px
+  );
+}
+
+html.theme-cp .cp-datagrid__cell-inner {
+  display: flex;
+  align-items: center;
+  justify-content: inherit;
+  width: auto;
+  max-width: 100%;
+  min-width: 0;
+  gap: var(--space-1);
+}
+
+html.theme-cp .cp-datagrid__cell--center .cp-datagrid__cell-inner {
+  justify-content: center;
+}
+
+html.theme-cp .cp-datagrid__cell--right .cp-datagrid__cell-inner {
+  justify-content: flex-end;
+}
+
+html.theme-cp .cp-datagrid__input {
+  width: auto;
+  min-width: 2.25rem;
+  max-width: 100%;
+  field-sizing: content;
+  margin: 0;
+  padding: 2px 4px;
+  border: none;
+  border-radius: 2px;
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  box-sizing: border-box;
+}
+
+html.theme-cp .cp-datagrid__input:focus {
+  outline: 2px solid var(--border-focus);
+  outline-offset: -1px;
+  background: var(--cp-datagrid-cell-edit-bg);
+}
+
+html.theme-cp .cp-datagrid__input:disabled,
+html.theme-cp .cp-datagrid__input[readonly] {
+  opacity: 1;
+  color: var(--text-primary);
+  cursor: default;
+}
+
+html.theme-cp .cp-datagrid__input--edit.cp-datagrid__input--active {
+  background: var(--cp-datagrid-cell-edit-bg);
+}
+
+html.theme-cp .cp-datagrid__select {
+  width: auto;
+  min-width: 2.25rem;
+  max-width: 100%;
+  field-sizing: content;
+  font: inherit;
+  padding: 2px 6px 2px 4px;
+  border: none;
+  border-radius: 2px;
+  background-color: transparent;
+  background-image: none;
+  color: inherit;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+html.theme-cp .cp-datagrid__select::-ms-expand {
+  display: none;
+}
+
+html.theme-cp .cp-datagrid__select:focus {
+  outline: 2px solid var(--border-focus);
+  outline-offset: -1px;
+  background: var(--cp-datagrid-cell-edit-bg);
+}
+
+html.theme-cp .cp-datagrid__date-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  width: auto;
+  max-width: 100%;
+  min-width: 0;
+}
+
+html.theme-cp .cp-datagrid__date-wrap .cp-datagrid__input {
+  flex: 0 1 auto;
+  width: auto;
+}
+
+html.theme-cp .cp-datagrid__scroll-chrome-h {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0;
+  flex-shrink: 0;
+  border-top: 1px solid var(--cp-datagrid-cell-border);
+  background: var(--cp-datagrid-header-bg);
+}
+
+html.theme-cp .cp-datagrid__scroll-chrome-spacer {
+  flex: 0 0 auto;
+  width: 0;
+  min-width: 0;
+}
+
+html.theme-cp .cp-datagrid__scroll-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 1px solid var(--cp-datagrid-scroll-btn-border);
+  background: var(--cp-datagrid-scroll-btn-bg);
+  color: var(--text-secondary);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+html.theme-cp .cp-datagrid__scroll-btn:hover {
+  background: var(--cp-datagrid-row-hover-bg);
+  color: var(--text-primary);
+}
+
+html.theme-cp .cp-datagrid__scroll-btn:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 1px;
+}
+
+html.theme-cp .cp-datagrid__v-chrome {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+  border-left: 1px solid var(--cp-datagrid-cell-border);
+  background: var(--cp-datagrid-header-bg);
+}
+
+html.theme-cp .cp-datagrid__scroll-btn--stack {
+  flex: 1 1 0;
+  min-height: 22px;
+  width: 22px;
+  border: none;
+  border-bottom: 1px solid var(--cp-datagrid-scroll-btn-border);
+  border-radius: 0;
+}
+
+html.theme-cp .cp-datagrid__scroll-btn--stack:last-child {
+  border-bottom: none;
+}
+
+html.theme-cp .cp-datagrid .checkbox-wrapper {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+html.theme-cp .cp-datagrid .checkbox-wrapper .checkbox {
+  padding: 0;
+}
+
+html.theme-cp .cp-datagrid .checkbox-wrapper .checkbox__label {
+  display: none;
+}
+
+/* Command Center slide-in panel (docked, narrows main) */
+.command-center-panel {
+  flex: 0 0 420px;
+  width: 420px;
+  max-width: 42vw;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  border: 1px solid var(--command-center-panel-border, var(--border-color));
+  border-left: 2px solid var(--table-command-center-border);
+  background-color: var(--command-center-panel-surface-bg, var(--surface-bg));
+  color: var(--text-primary);
+  animation: command-center-panel-slide-in 0.32s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .command-center-panel {
+    animation: none;
+  }
+}
+
+.command-center-panel--hidden {
+  display: none;
+}
+
+.command-center-panel__header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  gap: var(--space-3);
+  min-height: 48px;
+  padding: 0 var(--space-3);
+  background-color: var(--command-center-panel-header-bg, var(--theme-primary));
+  color: var(--text-inverse);
+}
+
+.command-center-panel__title {
+  margin: 0;
+  font-size: var(--text-base, 1rem);
+  font-weight: var(--font-semibold);
+  line-height: 1.2;
+  color: inherit;
+}
+
+.command-center-panel__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  border-radius: var(--radius-04);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.command-center-panel__close:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.command-center-panel__close:focus-visible {
+  outline: 2px solid var(--text-inverse);
+  outline-offset: 2px;
+}
+
+.command-center-panel__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  padding: var(--space-5) 0 var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  background-color: var(--command-center-panel-surface-bg, var(--surface-bg));
+}
+
+.command-center-panel__body > :not(.command-center-panel__visual) {
+  padding-inline: var(--space-3);
+}
+
+.command-center-panel__visual {
+  margin: 0;
+  padding: 0;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.command-center-panel__visual > :last-child {
+  margin-bottom: 0;
+}
+
+/* Purchase Requisitions–style identity row + alert */
+.command-center-panel__identity-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+  width: 100%;
+  padding-inline: var(--space-3);
+  box-sizing: border-box;
+}
+
+.command-center-panel__entity-id {
+  margin: 0;
+  font-size: var(--text-lg, 1.125rem);
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
+  line-height: 1.25;
+}
+
+.command-center-panel__alert-banner {
+  width: 100%;
+  box-sizing: border-box;
+  margin: var(--space-4) 0 0;
+  padding: var(--space-3);
+  border-radius: 0;
+  background-color: var(--command-center-panel-alert-bg, #edc46c);
+  color: var(--command-center-panel-alert-fg, #1f2937);
+}
+
+.command-center-panel__alert-value {
+  display: block;
+  font-size: var(--text-2xl, 1.5rem);
+  font-weight: var(--font-bold, 700);
+  line-height: 1.1;
+}
+
+.command-center-panel__alert-label {
+  display: block;
+  margin-top: var(--space-1);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium, 500);
+  line-height: 1.3;
+}
+
+.command-center-panel__kv-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4) var(--space-5);
+  width: 100%;
+}
+
+.command-center-panel__kv-cell {
+  min-width: 0;
+}
+
+.command-center-panel__late-stats {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.command-center-panel__late-stat-overdue {
+  color: var(--color-error-text, var(--color-error));
+  font-weight: var(--font-semibold);
+}
+
+.command-center-panel__late-stat-total {
+  font-weight: var(--font-bold);
+  color: var(--text-primary);
+}
+
+.command-center-panel__late-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.command-center-panel__late-card-head-main {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.command-center-panel__status-marker {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  margin-top: 0.35rem;
+  border-radius: var(--radius-02, 2px);
+  background-color: var(--command-center-panel-status-marker, #ea580c);
+}
+
+.command-center-panel__late-card-title {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
+}
+
+.command-center-panel__late-card-value {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.command-center-panel-section--divider-before {
+  border-top: 1px solid var(--command-center-panel-card-border, var(--border-color));
+  padding-top: var(--space-4);
+  margin-top: var(--space-2);
+}
+
+/* Stacked “meter” / range illustration under project link (optional) */
+.command-center-panel__meter {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 2.5rem;
+  border-radius: var(--radius-08);
+  border: 1px solid var(--command-center-panel-card-border, var(--border-color));
+  background: linear-gradient(90deg, #fce7f3 0%, #ffedd5 32%, #fef3c7 60%, #bbf7d0 100%);
+  overflow: hidden;
+}
+
+.command-center-panel__meter-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 2px;
+  margin-top: -1px;
+  background: rgba(55, 65, 81, 0.5);
+  pointer-events: none;
+}
+
+.command-center-panel__meter-ticks {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  margin-top: var(--space-1);
+  font-size: var(--text-2xs, 0.625rem);
+  font-weight: var(--font-medium, 500);
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+}
+
+/* Collapsible regions (independent; not a single-accordion set) */
+.command-center-panel__sections {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  width: 100%;
+}
+
+.command-center-panel-section {
+  /* section container */
+  width: 100%;
+}
+
+.command-center-panel-section__trigger {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  margin: 0;
+  padding: var(--space-1) 0;
+  border: none;
+  background: transparent;
+  text-align: left;
+  font: inherit;
+  color: var(--text-primary);
+  cursor: pointer;
+  gap: var(--space-2);
+  border-radius: var(--radius-04);
+  transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.command-center-panel-section__trigger:hover {
+  color: var(--text-primary);
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.command-center-panel-section__trigger:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.command-center-panel-section__chevron {
+  flex-shrink: 0;
+  color: var(--text-muted, #6b7280);
+  width: 1.125rem;
+  height: 1.125rem;
+  margin-top: 0.1rem;
+  transform: rotate(-90deg);
+  transform-origin: center;
+  transition: transform var(--transition-fast);
+}
+
+.command-center-panel-section--open .command-center-panel-section__chevron {
+  transform: rotate(0);
+}
+
+.command-center-panel-section__title {
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
+  line-height: 1.35;
+}
+
+.command-center-panel-section__content {
+  display: none;
+  margin-top: var(--space-3);
+}
+
+.command-center-panel-section--open .command-center-panel-section__content {
+  display: block;
+}
+
+.command-center-panel-section__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-3);
+  width: 100%;
+  padding: 0;
+}
+
+/* Field cards in panel (white on gray surface) */
+.command-center-card {
+  box-sizing: border-box;
+  background-color: var(--surface-bg);
+  border: 1px solid var(--command-center-panel-card-border, var(--border-color));
+  border-radius: var(--radius-08);
+  padding: var(--space-4);
+  min-width: 0;
+  box-shadow: none;
+}
+
+.command-center-card--flush {
+  padding: var(--space-3) var(--space-4);
+}
+
+.command-center-card__label {
+  margin: 0 0 var(--space-1) 0;
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: var(--font-semibold, 600);
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.command-center-card__value {
+  margin: 0;
+  font-size: var(--text-sm, 0.875rem);
+  color: var(--text-secondary);
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.command-center-card__inline-icon {
+  flex-shrink: 0;
+  color: var(--link-color, var(--theme-primary));
+}
+
+.command-center-card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+  width: 100%;
+}
+
+/* Borderless key-value grid for “Financial Information” (mockup) */
+.command-center-stat-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-xs, 0.75rem);
+}
+
+.command-center-stat-table th,
+.command-center-stat-table td {
+  border: none;
+  padding: var(--space-1) 0;
+  vertical-align: top;
+  background: transparent;
+}
+
+.command-center-stat-table th {
+  font-weight: var(--font-normal);
+  color: var(--text-primary);
+  text-align: right;
+  white-space: nowrap;
+  padding-left: var(--space-2);
+  width: 1%;
+}
+
+.command-center-stat-table th:first-of-type,
+.command-center-stat-table__label {
+  text-align: left;
+  font-weight: var(--font-medium, 500);
+  width: auto;
+  padding-left: 0;
+  padding-right: var(--space-2);
+  color: var(--text-primary);
+}
+
+.command-center-stat-table__num {
+  text-align: right;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 /* 12. Avatar in Table Cells (keep existing functionality) */
@@ -8417,7 +9638,7 @@ html.theme-cp .kanban-card-cp__menu .dropdown__trigger {
 .kanban-card-cp__fields {
   display: flex;
   flex-direction: column;
-  gap: var(--space-1);
+  gap: 4px;
   min-height: 0;
 }
 
@@ -8429,15 +9650,16 @@ html.theme-cp .kanban-card-cp__menu .dropdown__trigger {
 .kanban-card-cp__field {
   display: flex;
   flex-direction: column;
-  gap: var(--space-0-5);
+  gap: 0;
   min-width: 0;
+  line-height: 12px;
 }
 
 .kanban-card-cp__field-label {
   font-family: var(--font-sans);
   font-size: var(--text-xs);
-  font-weight: var(--font-medium);
-  color: var(--text-muted);
+  font-weight: var(--font-bold);
+  color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.02em;
 }

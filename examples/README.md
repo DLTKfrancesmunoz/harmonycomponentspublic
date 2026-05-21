@@ -14,11 +14,11 @@ These examples demonstrate real-world patterns for:
 
 ```bash
 # Copy an individual example wrapper
-cp node_modules/@dltkfrancesmunoz/harmony-design-system/examples/wrappers/TrackedButton.astro \
+cp node_modules/@deltek/harmony-components/examples/wrappers/TrackedButton.astro \
    src/components/composed/
 
 # Copy all wrappers
-cp node_modules/@dltkfrancesmunoz/harmony-design-system/examples/wrappers/*.astro \
+cp node_modules/@deltek/harmony-components/examples/wrappers/*.astro \
    src/components/composed/
 ```
 
@@ -58,7 +58,7 @@ For complete customization guidance:
 ```astro
 ---
 // Import base component from Harmony
-import Button from '../../../node_modules/@dltkfrancesmunoz/harmony-design-system/src/components/ui/Button.astro';
+import Button from '../../../node_modules/@deltek/harmony-components/src/components/ui/Button.astro';
 
 // Define wrapper props (extends base props)
 interface Props {
@@ -98,7 +98,7 @@ your-project/
 **In Harmony Package:**
 
 ```
-@dltkfrancesmunoz/harmony-design-system/
+@deltek/harmony-components/
 ├── docs/customization/        # Documentation
 ├── examples/                  # This folder - reference implementations
 └── scripts/                   # Helper scripts for Tier 3 forks

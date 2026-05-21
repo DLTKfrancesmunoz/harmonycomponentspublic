@@ -44,6 +44,10 @@ import { Spinner } from './components/harmony/Spinner'
 import { Step } from './components/harmony/Step'
 import { Stepper } from './components/harmony/Stepper'
 import { Table } from './components/harmony/Table'
+import { CostpointSplitTableGallery } from './components/harmony/CostpointSplitTableGallery'
+import { TableCostpointGrid } from './components/harmony/TableCostpointGrid'
+import { CommandCenterPanel } from './components/harmony/CommandCenterPanel'
+import { CommandCenterPanelSection } from './components/harmony/CommandCenterPanelSection'
 import { TabStrip } from './components/harmony/TabStrip'
 import { Textarea } from './components/harmony/Textarea'
 import { TimePicker } from './components/harmony/TimePicker'
@@ -201,6 +205,40 @@ function CheckboxDemo() {
   )
 }
 
+/** Demo wrapper: default toggle plus segmented (static and controlled) */
+function ToggleDemo() {
+  const [segmented, setSegmented] = useState(false)
+  const row = (label: string, content: React.ReactNode) => (
+    <div key={label} style={{ marginBottom: '1rem' }}>
+      <div style={{ fontSize: '0.875rem', color: '#666', marginBottom: '0.25rem' }}>{label}</div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', alignItems: 'center' }}>{content}</div>
+    </div>
+  )
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+      {row('Default', <>
+        <Toggle id="demo-toggle-default" label="Notifications" />
+        <Toggle id="demo-toggle-on" label="On" defaultChecked />
+      </>)}
+      {row('Segmented (static)', <>
+        <Toggle variant="segmented" id="demo-seg-a" />
+        <Toggle variant="segmented" id="demo-seg-b" defaultChecked />
+      </>)}
+      {row('Segmented (controlled)', <>
+        <Toggle
+          variant="segmented"
+          id="demo-seg-controlled"
+          checked={segmented}
+          onChange={(e) => setSegmented(e.target.checked)}
+        />
+        <span style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
+          {segmented ? 'Right option' : 'Left option'}
+        </span>
+      </>)}
+    </div>
+  )
+}
+
 /** Demo wrapper to show Link size variants and optional muted/external */
 function LinkDemo() {
   const row = (label: string, content: React.ReactNode) => (
@@ -219,6 +257,126 @@ function LinkDemo() {
       {row('Muted', <Link href="#" muted>Muted link</Link>)}
       {row('External', <Link href="https://example.com" external>External link</Link>)}
     </>
+  )
+}
+
+/** Demo wrapper to show Badge size variants and with icons */
+function BadgeDemo() {
+  const row = (label: string, content: React.ReactNode) => (
+    <div key={label} style={{ marginBottom: '1rem' }}>
+      <div style={{ fontSize: '0.875rem', color: '#666', marginBottom: '0.25rem' }}>{label}</div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', alignItems: 'center' }}>{content}</div>
+    </div>
+  )
+  return (
+    <>
+      {row('Sizes', <>
+        <Badge variant="default" size="small">Small</Badge>
+        <Badge variant="default" size="medium">Medium</Badge>
+        <Badge variant="default" size="large">Large</Badge>
+      </>)}
+      {row('With Icons', <>
+        <Badge variant="success" size="small" icon="check">Small</Badge>
+        <Badge variant="success" size="medium" icon="check">Medium</Badge>
+        <Badge variant="success" size="large" icon="check">Large</Badge>
+      </>)}
+    </>
+  )
+}
+
+/** Demo wrapper to show ButtonGroup with text-only, icon+text, and icon-only at all sizes */
+function ButtonGroupDemo() {
+  const row = (label: string, content: React.ReactNode) => (
+    <div key={label} style={{ marginBottom: '1rem' }}>
+      <div style={{ fontSize: '0.875rem', color: '#666', marginBottom: '0.25rem' }}>{label}</div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', alignItems: 'center' }}>{content}</div>
+    </div>
+  )
+  return (
+    <>
+      {row('Text only', (
+        <ButtonGroup variant="default" size="md">
+          <Button key="1" buttonType="theme" variant="primary">Option 1</Button>
+          <Button key="2" buttonType="theme" variant="outline">Option 2</Button>
+          <Button key="3" buttonType="theme" variant="outline">Option 3</Button>
+        </ButtonGroup>
+      ))}
+      {row('With icons and text', (
+        <ButtonGroup variant="default" size="md">
+          <Button key="1" buttonType="theme" variant="primary" icon="plus">Button 1</Button>
+          <Button key="2" buttonType="theme" variant="outline" icon="squares-2x2">Button 2</Button>
+          <Button key="3" buttonType="theme" variant="outline" icon="chart-bar">Button 3</Button>
+        </ButtonGroup>
+      ))}
+      {row('With icons and text – sizes', (
+        <>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
+            <span style={{ fontSize: '0.75rem', color: '#666' }}>Small</span>
+            <ButtonGroup variant="default" size="sm">
+              <Button key="1" buttonType="theme" variant="primary" icon="plus">Button 1</Button>
+              <Button key="2" buttonType="theme" variant="outline" icon="squares-2x2">Button 2</Button>
+              <Button key="3" buttonType="theme" variant="outline" icon="chart-bar">Button 3</Button>
+            </ButtonGroup>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
+            <span style={{ fontSize: '0.75rem', color: '#666' }}>Medium</span>
+            <ButtonGroup variant="default" size="md">
+              <Button key="1" buttonType="theme" variant="primary" icon="plus">Button 1</Button>
+              <Button key="2" buttonType="theme" variant="outline" icon="squares-2x2">Button 2</Button>
+              <Button key="3" buttonType="theme" variant="outline" icon="chart-bar">Button 3</Button>
+            </ButtonGroup>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
+            <span style={{ fontSize: '0.75rem', color: '#666' }}>Large</span>
+            <ButtonGroup variant="default" size="lg">
+              <Button key="1" buttonType="theme" variant="primary" icon="plus">Button 1</Button>
+              <Button key="2" buttonType="theme" variant="outline" icon="squares-2x2">Button 2</Button>
+              <Button key="3" buttonType="theme" variant="outline" icon="chart-bar">Button 3</Button>
+            </ButtonGroup>
+          </div>
+        </>
+      ))}
+      {row('Icon-only', (
+        <ButtonGroup variant="default" size="md">
+          <Button key="1" buttonType="theme" variant="primary" icon="plus" className="btn--icon-md" ariaLabel="Add" />
+          <Button key="2" buttonType="theme" variant="outline" icon="squares-2x2" className="btn--icon-md" ariaLabel="Layers" />
+          <Button key="3" buttonType="theme" variant="outline" icon="chart-bar" className="btn--icon-md" ariaLabel="Chart" />
+        </ButtonGroup>
+      ))}
+    </>
+  )
+}
+
+/** Demo wrapper to show RadioButton states, size variants, and validation states */
+function RadioButtonDemo() {
+  const row = (label: string, content: React.ReactNode) => (
+    <div key={label} style={{ marginBottom: '1.5rem' }}>
+      <div style={{ fontSize: '0.875rem', color: '#666', marginBottom: '0.5rem' }}>{label}</div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>{content}</div>
+    </div>
+  )
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
+      {row('States', <>
+        <RadioButton name="demo-states" value="1" label="Unchecked" />
+        <RadioButton name="demo-states" value="2" label="Checked" defaultChecked />
+        <RadioButton name="demo-states-disabled" value="3" label="Disabled" disabled />
+        <RadioButton name="demo-states-disabled" value="4" label="Checked & Disabled" defaultChecked disabled />
+      </>)}
+      {row('Size variants', <>
+        <RadioButton name="demo-sizes" value="sm" label="Small" size="small" />
+        <RadioButton name="demo-sizes" value="md" label="Medium (default)" size="medium" defaultChecked />
+        <RadioButton name="demo-sizes" value="lg" label="Large" size="large" />
+      </>)}
+      {row('Warning states', <>
+        <RadioButton name="demo-warn-1" value="1" label="Unchecked with warning" warning warningMessage="This action may have unintended consequences" />
+        <RadioButton name="demo-warn-2" value="2" label="Checked with warning" defaultChecked warning warningMessage="Review this selection carefully" />
+      </>)}
+      {row('Error states', <>
+        <RadioButton name="demo-err-1" value="1" label="Unchecked with error" error errorMessage="This field is required" />
+        <RadioButton name="demo-err-2" value="2" label="Checked with error" defaultChecked error errorMessage="This selection is invalid" />
+      </>)}
+    </div>
   )
 }
 
@@ -256,23 +414,224 @@ function CardDemo() {
   )
 }
 
-/** Demo wrapper so Dialog open/close is controlled by state; close button and onClose actually close it */
-function DialogDemo() {
-  const [open, setOpen] = useState(true)
+const dialogSectionTitleStyle: React.CSSProperties = { fontSize: '1rem', fontWeight: 600, marginBottom: '0.25rem' }
+const dialogSectionDescStyle: React.CSSProperties = { fontSize: '0.875rem', color: '#666', marginBottom: '0.5rem' }
+const dialogSectionGap: React.CSSProperties = { marginBottom: '1.5rem' }
+
+/** Default and enhanced-with-actions (buttons + link on one row) */
+function AlertDemo() {
+  const section = (title: string, desc: string, node: ReactNode) => (
+    <div key={title} style={dialogSectionGap}>
+      <div style={dialogSectionTitleStyle}>{title}</div>
+      <div style={dialogSectionDescStyle}>{desc}</div>
+      <div style={{ maxWidth: '36rem' }}>{node}</div>
+    </div>
+  )
   return (
-    <>
-      <Button buttonType="theme" variant="primary" onClick={() => setOpen(true)}>
-        Open dialog
-      </Button>
-      <Dialog
-        id="demo-dialog"
-        title="Dialog"
-        open={open}
-        onClose={() => setOpen(false)}
-      >
-        Dialog body content.
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      {section('Default', 'Standard info alert.', <Alert variant="info">This is an info alert.</Alert>)}
+      {section(
+        'Enhanced with actions',
+        'Primary and secondary buttons with a link on the same row.',
+        <Alert
+          variant="success"
+          style="enhanced"
+          title="Success Alert"
+          primaryButton={{ text: 'Button Text' }}
+          secondaryButton={{ text: 'Button Text' }}
+          linkText="Link Text"
+          linkHref="#"
+          dismissible
+        >
+          This alert includes primary and secondary buttons, plus a link.
+        </Alert>,
+      )}
+    </div>
+  )
+}
+
+/** Accordion gallery: basic, label, allowMultiple, defaultOpen, disabled */
+function AccordionDemo() {
+  const basicItems = [
+    { title: 'First section', content: 'Content for the first panel.' },
+    { title: 'Second section', content: 'Content for the second panel.' },
+    { title: 'Third section', content: 'Content for the third panel.' },
+  ]
+  const defaultOpenItems = [
+    { title: 'Closed by default', content: 'Expand to read.' },
+    { title: 'Open by default', content: 'This section starts expanded.', defaultOpen: true },
+  ]
+  const labeledItems = [
+    { title: 'Notifications', content: 'Choose how you receive updates.' },
+    { title: 'Privacy', content: 'Control what data is stored.' },
+  ]
+  const disabledItems = [
+    { title: 'Editable section', content: 'This section can be expanded.' },
+    { title: 'Disabled section', content: 'This content is not available.', disabled: true },
+    { title: 'Another section', content: 'Additional content here.' },
+  ]
+  const section = (title: string, desc: string, node: ReactNode) => (
+    <div key={title} style={dialogSectionGap}>
+      <div style={dialogSectionTitleStyle}>{title}</div>
+      <div style={dialogSectionDescStyle}>{desc}</div>
+      <div style={{ maxWidth: '36rem' }}>{node}</div>
+    </div>
+  )
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      {section('Basic', 'Single open section at a time (default).', <Accordion items={basicItems} />)}
+      {section(
+        'With label',
+        'Optional label above the control; sets role="group" and aria-labelledby.',
+        <Accordion label="Account preferences" items={labeledItems} />,
+      )}
+      {section(
+        'Allow multiple',
+        'Several sections can stay open at once.',
+        <Accordion items={basicItems} allowMultiple />,
+      )}
+      {section(
+        'Default open',
+        'An item may set defaultOpen to start expanded.',
+        <Accordion items={defaultOpenItems} />,
+      )}
+      {section(
+        'With disabled section',
+        'Disabled items cannot be expanded and are skipped in the tab order.',
+        <Accordion items={disabledItems} allowMultiple />,
+      )}
+    </div>
+  )
+}
+
+/** Multiple dialog examples showing all options: basic, tertiary button, primary header, right-aligned, confirmation, non-resizable, long content */
+function DialogDemo() {
+  const [openId, setOpenId] = useState<string | null>(null)
+  const close = () => setOpenId(null)
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+      <div style={dialogSectionGap}>
+        <div style={dialogSectionTitleStyle}>Basic</div>
+        <div style={dialogSectionDescStyle}>Default dialog with Confirm and Cancel.</div>
+        <Button buttonType="theme" variant="primary" onClick={() => setOpenId('basic')}>Open basic dialog</Button>
+      </div>
+
+      <div style={dialogSectionGap}>
+        <div style={dialogSectionTitleStyle}>Three buttons (Yes, No, Cancel)</div>
+        <div style={dialogSectionDescStyle}>Optional tertiary (link-style) button for a less prominent action.</div>
+        <Button buttonType="theme" variant="primary" onClick={() => setOpenId('tertiary')}>Open save changes dialog</Button>
+      </div>
+
+      <div style={dialogSectionGap}>
+        <div style={dialogSectionTitleStyle}>Primary header</div>
+        <div style={dialogSectionDescStyle}>Header uses theme primary background with inverse text.</div>
+        <Button buttonType="theme" variant="primary" onClick={() => setOpenId('primary-header')}>Open primary header dialog</Button>
+      </div>
+
+      <div style={dialogSectionGap}>
+        <div style={dialogSectionTitleStyle}>Right-aligned buttons</div>
+        <div style={dialogSectionDescStyle}>Footer buttons aligned to the right.</div>
+        <Button buttonType="theme" variant="primary" onClick={() => setOpenId('right-align')}>Open right-aligned dialog</Button>
+      </div>
+
+      <div style={dialogSectionGap}>
+        <div style={dialogSectionTitleStyle}>Confirmation (custom footer)</div>
+        <div style={dialogSectionDescStyle}>Custom footer with destructive action and Cancel.</div>
+        <Button buttonType="theme" variant="destructive" onClick={() => setOpenId('confirm')}>Delete item</Button>
+      </div>
+
+      <div style={dialogSectionGap}>
+        <div style={dialogSectionTitleStyle}>Non-resizable</div>
+        <div style={dialogSectionDescStyle}>Resize grip hidden when resizable=false.</div>
+        <Button buttonType="theme" variant="primary" onClick={() => setOpenId('non-resizable')}>Open non-resizable dialog</Button>
+      </div>
+
+      <div style={dialogSectionGap}>
+        <div style={dialogSectionTitleStyle}>Long content (scrollable body)</div>
+        <div style={dialogSectionDescStyle}>Body overflows and scrolls; header and footer stay fixed.</div>
+        <Button buttonType="theme" variant="primary" onClick={() => setOpenId('scrollable')}>Open scrollable dialog</Button>
+      </div>
+
+      <Dialog id="demo-dialog-basic" title="Dialog" open={openId === 'basic'} onClose={close}>
+        Dialog body content. Confirm and Cancel use the default footer.
       </Dialog>
-    </>
+
+      <Dialog
+        id="demo-dialog-tertiary"
+        title="Save changes?"
+        open={openId === 'tertiary'}
+        onClose={close}
+        tertiaryLabel="Cancel"
+      >
+        <p style={{ margin: 0 }}>Do you want to save your changes before closing? Yes saves and closes, No closes without saving, Cancel keeps the dialog open.</p>
+      </Dialog>
+
+      <Dialog
+        id="demo-dialog-primary"
+        title="Primary header"
+        headerVariant="primary"
+        open={openId === 'primary-header'}
+        onClose={close}
+      >
+        <p style={{ margin: 0 }}>This dialog has a primary-colored header with inverse text.</p>
+      </Dialog>
+
+      <Dialog
+        id="demo-dialog-right"
+        title="Right-aligned buttons"
+        buttonAlignment="right"
+        open={openId === 'right-align'}
+        onClose={close}
+      >
+        <p style={{ margin: 0 }}>Footer buttons are aligned to the right.</p>
+      </Dialog>
+
+      <Dialog
+        id="demo-dialog-confirm"
+        title="Delete item?"
+        open={openId === 'confirm'}
+        onClose={close}
+        footer={
+          <div className="dialog__footer-actions">
+            <Button buttonType="theme" variant="destructive" onClick={close}>Delete</Button>
+            <Button buttonType="theme" variant="secondary" onClick={close}>Cancel</Button>
+          </div>
+        }
+      >
+        <p style={{ margin: 0 }}>Are you sure you want to delete this item? This action cannot be undone.</p>
+      </Dialog>
+
+      <Dialog
+        id="demo-dialog-nonresize"
+        title="Non-resizable"
+        resizable={false}
+        open={openId === 'non-resizable'}
+        onClose={close}
+      >
+        <p style={{ margin: 0 }}>This dialog has no resize grip in the corner.</p>
+      </Dialog>
+
+      <Dialog
+        id="demo-dialog-scrollable"
+        title="Scrollable Body"
+        className="dialog--scrollable-demo"
+        open={openId === 'scrollable'}
+        onClose={close}
+      >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <p style={{ margin: 0 }}>When content is long, only the body scrolls. The header and footer stay fixed.</p>
+          <p style={{ margin: 0 }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          <p style={{ margin: 0 }}>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
+          <p style={{ margin: 0 }}>Cras mattis consectetur purus sit amet fermentum. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+          <p style={{ margin: 0 }}>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Maecenas sed diam eget risus varius blandit sit amet non magna. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+          <p style={{ margin: 0 }}>Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p>
+          <p style={{ margin: 0 }}>Etiam porta sem malesuada magna mollis euismod. Sed posuere consectetur est at lobortis. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
+          <p style={{ margin: 0 }}>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam quis risus eget urna mollis ornare vel eu leo.</p>
+          <p style={{ margin: 0 }}>Scroll to see that the header and footer remain fixed at the top and bottom.</p>
+        </div>
+      </Dialog>
+    </div>
   )
 }
 
@@ -350,6 +709,65 @@ const sectionDescStyle: React.CSSProperties = { fontSize: '0.875rem', color: '#6
 const sectionGap = { marginBottom: '2rem' }
 const overflowWrap = { overflowX: 'auto' as const }
 
+/** Status chips for Command Center PR demo (square swatches). */
+function CcPrStatusSwatches({ hexList }: { hexList: readonly string[] }) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-1)', flexWrap: 'wrap' }}>
+      {hexList.map((hex, i) => (
+        <span
+          key={`${hex}-${i}`}
+          aria-hidden
+          style={{
+            display: 'inline-block',
+            width: 10,
+            height: 10,
+            borderRadius: 2,
+            backgroundColor: hex,
+            flexShrink: 0,
+          }}
+        />
+      ))}
+    </div>
+  )
+}
+
+const COMMAND_CENTER_PR_ROWS: Array<{
+  id: string
+  vendor: string
+  amount: string
+  swatches: readonly string[]
+  overdue: string
+  overdueNumerator: number
+}> = [
+  { id: 'PR-2041', vendor: 'Acme Office Supplies', amount: '$1,250.00', swatches: ['#F58220', '#E13D91'], overdue: '2/5', overdueNumerator: 2 },
+  { id: 'PR-2045', vendor: 'Litware Medical Devices', amount: '$3,890.25', swatches: ['#F58220', '#E13D91'], overdue: '1/6', overdueNumerator: 1 },
+  { id: 'PR-2042', vendor: 'Northwind Logistics', amount: '$8,420.50', swatches: ['#F58220', '#E13D91', '#2E5BCC'], overdue: '1/4', overdueNumerator: 1 },
+  { id: 'PR-2048', vendor: 'Wide World Importers', amount: '$22,150.00', swatches: ['#F58220', '#E13D91', '#2E5BCC'], overdue: '4/9', overdueNumerator: 4 },
+  { id: 'PR-2043', vendor: 'Contoso Training Group', amount: '$2,100.00', swatches: ['#F58220'], overdue: '1/3', overdueNumerator: 1 },
+  { id: 'PR-2046', vendor: 'Adventure Works IT', amount: '$475.90', swatches: ['#F58220'], overdue: '0/2', overdueNumerator: 0 },
+  { id: 'PR-2044', vendor: 'Fabrikam Facilities Inc.', amount: '$640.00', swatches: ['#F58220', '#D32F2F'], overdue: '1/2', overdueNumerator: 1 },
+  { id: 'PR-2047', vendor: 'Blue Yonder Analytics', amount: '$9,999.00', swatches: ['#F58220', '#E13D91', '#D32F2F'], overdue: '3/3', overdueNumerator: 3 },
+]
+
+const COMMAND_CENTER_PANEL_META: Record<string, { lines: string; requisitioner: string }> = {
+  'PR-2041': { lines: '5', requisitioner: 'Jamie Rivera' },
+  'PR-2045': { lines: '6', requisitioner: 'Chris Ng' },
+  'PR-2042': { lines: '4', requisitioner: 'Taylor Brooks' },
+  'PR-2048': { lines: '9', requisitioner: 'Sam Okonkwo' },
+  'PR-2043': { lines: '2', requisitioner: 'Morgan Chen' },
+  'PR-2046': { lines: '2', requisitioner: 'Jordan Lee' },
+  'PR-2044': { lines: '2', requisitioner: 'Riley Park' },
+  'PR-2047': { lines: '3', requisitioner: 'Casey Alvarez' },
+}
+
+function overdueFractionPct(overdue: string): number {
+  const parts = overdue.split('/')
+  const num = Number(parts[0])
+  const den = Number(parts[1])
+  if (!den || Number.isNaN(num) || Number.isNaN(den)) return 33
+  return Math.round((num / den) * 100)
+}
+
 function TabStripDemo() {
   const baseTabs = [
     { id: 'tab-1', label: 'Tab 1', active: true },
@@ -378,13 +796,17 @@ function TabStripDemo() {
   )
 }
 
-/** All table variants on one page, matching Harmony table documentation patterns. */
+/** All table variants on one page, matching Astro tables docs. */
 function TableDemo() {
   const [sortColumn, setSortColumn] = useState<string | null>(null)
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc')
   const [period, setPeriod] = useState('all')
   const [status, setStatus] = useState('all')
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set())
+  const [ccSelectedId, setCcSelectedId] = useState<string | null>('PR-2042')
+  const [ccPanelOpen, setCcPanelOpen] = useState(true)
+  const [ccSortKey, setCcSortKey] = useState('prId')
+  const [ccSortDir, setCcSortDir] = useState<'asc' | 'desc'>('asc')
 
   const interactiveRowIds = ['1', '2', '3'] as const
   const toggleRow = (id: string) => {
@@ -404,6 +826,20 @@ function TableDemo() {
     { key: 'status', label: 'Status', align: 'left' as const },
     { key: 'budget', label: 'Budget', align: 'right' as const },
   ]
+  const commandCenterSortColumns = [
+    { key: 'prId', label: 'PR ID', align: 'left' as const },
+    { key: 'vendor', label: 'Preferred Vendor Name', align: 'left' as const },
+    { key: 'amount', label: 'Total Amount', align: 'right' as const },
+    { key: 'status', label: 'Status', align: 'left' as const },
+    { key: 'overdue', label: 'Overdue', align: 'left' as const },
+  ]
+
+  const ccSelRow = COMMAND_CENTER_PR_ROWS.find((r) => r.id === ccSelectedId)
+  const ccSelMeta = ccSelectedId ? COMMAND_CENTER_PANEL_META[ccSelectedId] : undefined
+  const ccLateParts = ccSelRow?.overdue.split('/').map(Number) ?? [1, 3]
+  const ccLateNum = ccLateParts[0]
+  const ccLateDen = ccLateParts[1]
+  const ccAlertPctLabel = `${overdueFractionPct(ccSelRow?.overdue ?? '1/3')}%`
   const sortRows = [
     { id: 'PRJ-001', name: 'Website Redesign', status: 'Active', budget: '$25,000' },
     { id: 'PRJ-002', name: 'Mobile App Development', status: 'In Progress', budget: '$150,000' },
@@ -730,6 +1166,124 @@ function TableDemo() {
           } />
         </div>
       </div>
+
+      {/* 8. Command Center table + panel */}
+      <div style={sectionGap}>
+        <h2 style={sectionTitleStyle}>Command Center</h2>
+        <div style={sectionDescStyle}>
+          Dense grid, sort and filter header affordances, tinted row selection, and a docked Purchase Requisitions–style detail panel (summary, overdue banner, late items). Sample rows show PR IDs, vendors, amounts, status swatches, and overdue counts. Filter icons are wired to a no-op; implement <code>onFilterClick</code> in the app.
+        </div>
+        <div style={{ width: '100%', minWidth: 0, minHeight: 280, ...overflowWrap }}>
+            <Table
+              variant="commandCenter"
+              commandCenterToolbar={(
+                <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'flex-end', gap: 'var(--space-3)', width: '100%' }}>
+                  <span style={{ fontSize: 'var(--text-sm)', color: 'var(--text-secondary)' }}>As of 09/20/2024</span>
+                </div>
+              )}
+              commandCenterAside={
+                ccPanelOpen && ccSelectedId != null ? (
+                  <CommandCenterPanel
+                    title="Purchase Requisitions"
+                    open
+                    onClose={() => { setCcPanelOpen(false); setCcSelectedId(null) }}
+                    visual={(
+                      <div>
+                        <div className="command-center-panel__identity-row">
+                          <p className="command-center-panel__entity-id">{ccSelRow?.id ?? ccSelectedId}</p>
+                          <a href="#demo" className="text-link" style={{ fontSize: 'var(--text-sm)' }} onClick={(e) => e.preventDefault()}>
+                            Purchase Requisition Report
+                          </a>
+                        </div>
+                        <div className="command-center-panel__alert-banner" role="status" aria-label={`${ccAlertPctLabel} overdue lines`}>
+                          <span className="command-center-panel__alert-value">{ccAlertPctLabel}</span>
+                          <span className="command-center-panel__alert-label">Overdue lines</span>
+                        </div>
+                      </div>
+                    )}
+                  >
+                    <div className="command-center-panel__sections">
+                      <CommandCenterPanelSection title="Summary" defaultOpen>
+                        <div className="command-center-panel__kv-grid">
+                          <div className="command-center-panel__kv-cell">
+                            <p className="command-center-card__label">PR ID</p>
+                            <p className="command-center-card__value">{ccSelRow?.id ?? '—'}</p>
+                          </div>
+                          <div className="command-center-panel__kv-cell">
+                            <p className="command-center-card__label">Preferred Vendor Name</p>
+                            <p className="command-center-card__value">{ccSelRow?.vendor ?? '—'}</p>
+                          </div>
+                          <div className="command-center-panel__kv-cell">
+                            <p className="command-center-card__label">No. of Lines</p>
+                            <p className="command-center-card__value">{ccSelMeta?.lines ?? '—'}</p>
+                          </div>
+                          <div className="command-center-panel__kv-cell">
+                            <p className="command-center-card__label">Requisitioner Name</p>
+                            <p className="command-center-card__value">{ccSelMeta?.requisitioner ?? '—'}</p>
+                          </div>
+                        </div>
+                      </CommandCenterPanelSection>
+                      <CommandCenterPanelSection title="Late Items" defaultOpen className="command-center-panel-section--divider-before">
+                        <p className="command-center-panel__late-stats">
+                          <span className="command-center-panel__late-stat-overdue">{ccLateNum}</span>
+                          {' '}
+                          Overdue | <span className="command-center-panel__late-stat-total">{ccLateDen}</span> Total
+                        </p>
+                        <div className="command-center-card">
+                          <div className="command-center-panel__late-card-head">
+                            <div className="command-center-panel__late-card-head-main">
+                              <span className="command-center-panel__status-marker" aria-hidden="true" />
+                              <p className="command-center-panel__late-card-title">Pending Submittal</p>
+                            </div>
+                            <a href="#demo" className="text-link" onClick={(e) => e.preventDefault()}>Follow up</a>
+                          </div>
+                          <p className="command-center-panel__late-card-value">{ccLateNum}</p>
+                        </div>
+                      </CommandCenterPanelSection>
+                    </div>
+                  </CommandCenterPanel>
+                ) : null
+              }
+              sortColumns={commandCenterSortColumns}
+              sortColumn={ccSortKey}
+              sortDirection={ccSortDir}
+              onSort={(key, dir) => { setCcSortKey(key); setCcSortDir(dir) }}
+              onFilterClick={() => {}}
+              selectedRowId={ccSelectedId}
+              onRowSelect={(id) => { setCcSelectedId(id); setCcPanelOpen(true) }}
+              body={(
+                <tbody>
+                  {COMMAND_CENTER_PR_ROWS.map((row) => (
+                    <tr key={row.id} data-row-id={row.id}>
+                      <td>
+                        <a href="#demo" className="text-link" onClick={(e) => e.preventDefault()}>{row.id}</a>
+                      </td>
+                      <td>{row.vendor}</td>
+                      <td className="text-right">{row.amount}</td>
+                      <td><CcPrStatusSwatches hexList={row.swatches} /></td>
+                      <td style={{ color: row.overdueNumerator > 0 ? 'var(--color-error-text, var(--color-error))' : 'var(--text-primary)' }}>
+                        {row.overdue}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              )}
+            />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function TableCostpointGridDemo() {
+  return (
+    <div className="ds-demo-only-theme-cp">
+      <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', marginBottom: '0.75rem' }}>
+        Full default dataset (13 sample rows) and scroll columns including Vendor Location and Template. For the
+        nine-row docs-aligned variant, open <strong>CostpointSplitTable</strong> in this gallery. Requires{' '}
+        <code className="text-xs">html.theme-cp</code> and Harmony global styles.
+      </p>
+      <TableCostpointGrid />
     </div>
   )
 }
@@ -775,42 +1329,6 @@ function IconsDemo() {
             <span style={{ fontSize: '0.7rem', wordBreak: 'break-word', textAlign: 'center' }}>{name}</span>
           </div>
         ))}
-      </div>
-    </div>
-  )
-}
-
-/** Default and enhanced-with-actions (buttons + link on one row) */
-function AlertDemo() {
-  const sectionGap: React.CSSProperties = { marginBottom: '1.5rem' }
-  const titleStyle: React.CSSProperties = { fontSize: '1rem', fontWeight: 600, marginBottom: '0.25rem' }
-  const descStyle: React.CSSProperties = { fontSize: '0.875rem', color: '#666', marginBottom: '0.5rem' }
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <div style={sectionGap}>
-        <div style={titleStyle}>Default</div>
-        <div style={descStyle}>Standard info alert.</div>
-        <div style={{ maxWidth: '36rem' }}>
-          <Alert variant="info">This is an info alert.</Alert>
-        </div>
-      </div>
-      <div style={sectionGap}>
-        <div style={titleStyle}>Enhanced with actions</div>
-        <div style={descStyle}>Primary and secondary buttons with a link on the same row.</div>
-        <div style={{ maxWidth: '36rem' }}>
-          <Alert
-            variant="success"
-            style="enhanced"
-            title="Success Alert"
-            primaryButton={{ text: 'Button Text' }}
-            secondaryButton={{ text: 'Button Text' }}
-            linkText="Link Text"
-            linkHref="#"
-            dismissible
-          >
-            This alert includes primary and secondary buttons, plus a link.
-          </Alert>
-        </div>
       </div>
     </div>
   )
@@ -922,6 +1440,7 @@ function readHtmlThemeCp(): boolean {
   return document.documentElement.classList.contains('theme-cp')
 }
 
+/** Theme-aware Kanban: Costpoint shell when <code>html.theme-cp</code>, default board otherwise (matches Astro docs routing). */
 function KanbanDemo() {
   const [isCp, setIsCp] = useState(readHtmlThemeCp)
 
@@ -953,16 +1472,17 @@ function KanbanDemo() {
 }
 
 export const componentRegistry: ComponentRegistryEntry[] = [
-  { name: 'Accordion', Component: Accordion as AnyComponent, demoProps: { items: [{ title: 'Section 1', content: 'Content for section 1' }, { title: 'Section 2', content: 'Content for section 2', defaultOpen: true }] } },
+  { name: 'Accordion', Component: AccordionDemo as AnyComponent },
   { name: 'Alert', Component: AlertDemo as AnyComponent },
   { name: 'Avatar', Component: AvatarDemo as AnyComponent },
-  { name: 'Badge', Component: Badge as AnyComponent, demoProps: { variant: 'default', children: 'Badge' } },
+  { name: 'Badge', Component: BadgeDemo as AnyComponent },
   { name: 'Button', Component: ButtonDemo as AnyComponent },
-  { name: 'ButtonGroup', Component: ButtonGroup as AnyComponent, demoProps: { children: [<Button key="1" buttonType="theme" variant="primary">Primary</Button>, <Button key="2" buttonType="theme" variant="secondary">Secondary</Button>, <Button key="3" buttonType="theme" variant="tertiary">Tertiary</Button>] } },
+  { name: 'ButtonGroup', Component: ButtonGroupDemo as AnyComponent },
   { name: 'Card', Component: CardDemo as AnyComponent },
   { name: 'Checkbox', Component: CheckboxDemo as AnyComponent },
   { name: 'CheckboxGroup', Component: CheckboxGroup as AnyComponent, demoProps: { legend: 'Options', children: <><Checkbox label="Option A" /><Checkbox label="Option B" /></> } },
   { name: 'Chip', Component: Chip as AnyComponent, demoProps: { label: 'Chip' } },
+  { name: 'CostpointSplitTable', Component: CostpointSplitTableGallery as AnyComponent },
   { name: 'DateInput', Component: DateInput as AnyComponent, demoProps: { id: 'demo-date', label: 'Date' } },
   { name: 'DatePicker', Component: DatePicker as AnyComponent },
   { name: 'DateTimePicker', Component: DateTimePicker as AnyComponent },
@@ -1003,7 +1523,7 @@ export const componentRegistry: ComponentRegistryEntry[] = [
   { name: 'NumberInput', Component: NumberInput as AnyComponent, demoProps: { id: 'demo-num', label: 'Number' } },
   { name: 'PickerPopup', Component: PickerPopupDemo as AnyComponent },
   { name: 'ProgressBar', Component: ProgressBar as AnyComponent, demoProps: { value: 60, max: 100 } },
-  { name: 'RadioButton', Component: RadioButton as AnyComponent, demoProps: { name: 'demo', value: 'opt', label: 'Option' } },
+  { name: 'RadioButton', Component: RadioButtonDemo as AnyComponent },
   { name: 'RadioGroup', Component: RadioGroup as AnyComponent, demoProps: { name: 'demo', legend: 'Choose', children: <><RadioButton name="demo" value="a" label="Option A" defaultChecked /><RadioButton name="demo" value="b" label="Option B" /></> } },
   { name: 'RangeInput', Component: RangeInput as AnyComponent, demoProps: { id: 'demo-range', min: 0, max: 100, defaultValue: 50 } },
   { name: 'RightSidebar', Component: RightSidebar as AnyComponent },
@@ -1016,10 +1536,11 @@ export const componentRegistry: ComponentRegistryEntry[] = [
   { name: 'Step', Component: StepDemo as AnyComponent },
   { name: 'Stepper', Component: Stepper as AnyComponent, demoProps: { steps: [{ label: 'First', description: 'Step one' }, { label: 'Second', description: 'Step two', completed: true }, { label: 'Third', description: 'Step three' }], activeStep: 1 } },
   { name: 'Table', Component: TableDemo as AnyComponent },
+  { name: 'TableCostpointGrid', Component: TableCostpointGridDemo as AnyComponent },
   { name: 'TabStrip', Component: TabStripDemo as AnyComponent },
   { name: 'Textarea', Component: Textarea as AnyComponent, demoProps: { id: 'demo-ta', label: 'Description', placeholder: 'Enter text' } },
   { name: 'TimePicker', Component: TimePicker as AnyComponent },
-  { name: 'Toggle', Component: Toggle as AnyComponent, demoProps: { id: 'demo-toggle', label: 'Toggle' } },
+  { name: 'Toggle', Component: ToggleDemo as AnyComponent },
   { name: 'Tooltip', Component: Tooltip as AnyComponent, demoProps: { text: 'Tooltip text', children: <span>Hover me</span> } },
   { name: 'WeekPicker', Component: WeekPicker as AnyComponent },
 ]

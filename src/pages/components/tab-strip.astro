@@ -6,13 +6,16 @@ import TabStrip from '../../components/ui/TabStrip.astro';
 import Icon from '../../components/ui/Icon.astro';
 
 const props = [
-  { name: 'tabs', type: 'Tab[]', default: '[]', description: 'Array of tab objects with id, label, and optional icon, iconPosition, active, disabled, href' },
+  { name: 'tabs', type: 'Tab[]', default: '[]', description: 'Tab objects: id, label, optional icon, iconPosition, active, disabled, href, and optional showOpenInNewWindow, showClose, showMenu (override component defaults)' },
   { name: 'showAddTab', type: 'boolean', default: 'false', description: 'Whether to show "Add Tab" button' },
   { name: 'addTabLabel', type: 'string', default: "'Add Tab'", description: 'Label for Add Tab button' },
   { name: 'overflowMode', type: "'auto' | 'manual' | 'none'", default: "'auto'", description: 'Overflow handling mode: auto (automatic), manual (use overflowTabs), or none' },
   { name: 'overflowTabs', type: 'Tab[]', default: '[]', description: 'Manual override for overflow tabs (used when overflowMode is "manual")' },
   { name: 'variant', type: "'default' | 'compact' | 'pill'", default: "'default'", description: 'Visual variant: default, compact (reduced height/padding), or pill (filled selected tab — pill styling only when the VP theme is active on html; other themes keep the underline)' },
   { name: 'iconPosition', type: "'left' | 'right' | 'top'", default: '—', description: 'Enforce consistent icon position for all tabs. Overrides individual tab iconPosition values. Prevents mixing inline (left/right) with stacked (top) positions.' },
+  { name: 'showTabOpenInNew', type: 'boolean', default: 'false', description: 'Default: show per-tab open-in-new-window control' },
+  { name: 'showTabClose', type: 'boolean', default: 'false', description: 'Default: show per-tab close control' },
+  { name: 'showTabOverflowMenu', type: 'boolean', default: 'false', description: 'Default: show per-tab ⋮ menu (items omit actions already shown inline)' },
 ];
 ---
 
@@ -126,7 +129,25 @@ const props = [
         </div>
       </ExampleSection>
 
-      <ExampleSection title="With Overflow Handling" description="When tabs overflow, a 'More(N)' button appears showing overflow tabs in a dropdown. Each overflow tab has close and open-in-new-window icons.">
+      <ExampleSection title="Per-tab actions (open, close, ⋮)" description="Enable optional controls on each visible tab. Inline open and close sit beside the label; the ⋮ menu opens upward and lists actions not already inline (e.g. Set as default when open and close are both inline). Events: tab-strip:open-new-window, tab-strip:close-tab, tab-strip:set-default.">
+        <div>
+          <TabStrip
+            tabs={[
+              { id: '1', label: 'Documents', active: true },
+              { id: '2', label: 'Reports' },
+              { id: '3', label: 'Settings', showMenu: false },
+            ]}
+            showTabOpenInNew={true}
+            showTabClose={true}
+            showTabOverflowMenu={true}
+          />
+        </div>
+        <p class="text-sm text-secondary mt-2">
+          Tab 3 disables the ⋮ menu via <code>showMenu: false</code> while keeping the default inline actions.
+        </p>
+      </ExampleSection>
+
+      <ExampleSection title="With Overflow Handling" description="When tabs overflow, a 'More(N)' control appears. The overflow menu opens above the strip (bottom-anchored footers use the same upward pattern). Each overflow row has open-in-new-window and close actions.">
         <div style="width: 400px; border: 1px solid var(--border-color); padding: var(--space-4);">
           <TabStrip
             tabs={[
@@ -185,7 +206,7 @@ const props = [
       </ExampleSection>
 
       <div class="ds-demo-only-theme-vp">
-        <ExampleSection title="VP Pill Variant" description="Selected tab uses a filled pill instead of a thick bottom border. VP theme only.">
+        <ExampleSection title="VP Pill Variant" description="Selected tab uses a filled pill instead of a thick bottom border. VP theme only: pill tabs use 6px vertical and 8px horizontal padding, with label line-height at 100% of the tab font size.">
           <div>
             <TabStrip
               tabs={[
@@ -306,5 +327,9 @@ const props = [
   document.addEventListener('tab-strip:open-new-window', (e) => {
     console.log('Open in new window:', e.detail.tabId);
     // In a real application, you would handle opening in new window here
+  });
+
+  document.addEventListener('tab-strip:set-default', (e) => {
+    console.log('Set default tab:', e.detail.tabId);
   });
 </script>

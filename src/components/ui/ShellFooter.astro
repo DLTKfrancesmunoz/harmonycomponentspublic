@@ -11,7 +11,10 @@
  * @prop {Array} overflowTabs - Array of overflow tabs shown in dropdown (default: [])
  * @prop {boolean} showAddTab - Whether to show "Add Tab" button (default: true)
  * @prop {string} variant - 'default' | 'compact' (default: 'default')
- * @usagePattern tabstrip-delegation ShellFooter wraps TabStrip and passes tabs, showAddTab, overflowMode, and overflowTabs. When showMore is true and overflowTabs has items, overflowMode is manual; otherwise none. Active tabs display a pin icon.
+ * @prop {boolean} showTabOpenInNew - Default per-tab open-in-new control (see TabStrip)
+ * @prop {boolean} showTabClose - Default per-tab close control
+ * @prop {boolean} showTabOverflowMenu - Default per-tab ⋮ menu
+ * @usagePattern tabstrip-delegation ShellFooter wraps TabStrip and passes tabs, showAddTab, overflowMode, overflowTabs, and optional per-tab action props. When showMore is true and overflowTabs has items, overflowMode is manual; otherwise none. Active tabs display a pin icon.
  * @usagePattern variant-height The variant prop controls height: default uses --shell-footer-height-default, compact uses --shell-footer-height-compact.
  */
 import TabStrip, { type Tab } from './TabStrip.astro';
@@ -23,16 +26,22 @@ interface Props {
   overflowTabs?: Tab[];
   showAddTab?: boolean;
   variant?: 'default' | 'compact';
+  showTabOpenInNew?: boolean;
+  showTabClose?: boolean;
+  showTabOverflowMenu?: boolean;
   class?: string;
 }
 
 const {
   tabs = [],
   showMore = false,
-  moreCount = 0,
+  moreCount: _moreCount = 0,
   overflowTabs = [],
   showAddTab = true,
   variant = 'default',
+  showTabOpenInNew = false,
+  showTabClose = false,
+  showTabOverflowMenu = false,
   class: className = ''
 } = Astro.props;
 
@@ -62,6 +71,9 @@ const overflowTabsWithPinIcon = overflowTabs.map(tab => ({
     overflowMode={overflowMode}
     overflowTabs={overflowTabsWithPinIcon}
     variant={variant}
+    showTabOpenInNew={showTabOpenInNew}
+    showTabClose={showTabClose}
+    showTabOverflowMenu={showTabOverflowMenu}
     class="shell-footer__tabstrip"
   />
 </div>
@@ -75,6 +87,7 @@ const overflowTabsWithPinIcon = overflowTabs.map(tab => ({
     padding: 0 var(--space-4);
     display: flex;
     align-items: center;
+    overflow: visible;
   }
 
   /* Remove base underline from TabStrip container */
@@ -189,6 +202,22 @@ const overflowTabsWithPinIcon = overflowTabs.map(tab => ({
   html.dark .shell-footer :global(.tabstrip) :global(.tabstrip__add.tab.is-active:hover) :global(.tab__icon),
   html.dark .shell-footer :global(.tabstrip) :global(.tabstrip__more.tab.is-active:hover) :global(.tab__icon) {
     color: var(--shell-footer-tab-icon-color-active);
+  }
+
+  /* Per-tab toolbar icons on footer (open / close / ⋮) */
+  .shell-footer :global(.tabstrip__tab-cell:not(:has(.tab.is-active)) .tabstrip__tab-action-btn) {
+    color: var(--shell-footer-tab-label-color);
+    opacity: 0.85;
+  }
+
+  .shell-footer :global(.tabstrip__tab-cell:has(.tab.is-active) .tabstrip__tab-action-btn) {
+    color: var(--shell-footer-tab-icon-color-active);
+    opacity: 1;
+  }
+
+  .shell-footer :global(.tabstrip__tab-action-btn:hover) {
+    opacity: 1;
+    background-color: var(--shell-footer-tab-hover-bg);
   }
 
   /* Compact variant - styles applied via .shell-footer--compact for exact spec discovery */

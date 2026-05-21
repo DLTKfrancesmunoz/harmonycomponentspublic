@@ -1,12 +1,22 @@
 ---
 import '../../styles/global.css';
 import Table from '../../components/ui/Table.astro';
+import CommandCenterPanel from '../../components/ui/CommandCenterPanel.astro';
+import CommandCenterPanelSection from '../../components/ui/CommandCenterPanelSection.astro';
 import Badge from '../../components/ui/Badge.astro';
 import Checkbox from '../../components/ui/Checkbox.astro';
 import Icon from '../../components/ui/Icon.astro';
 import Dropdown from '../../components/ui/Dropdown.astro';
 import Button from '../../components/ui/Button.astro';
 import Chip from '../../components/ui/Chip.astro';
+
+const commandCenterSortColumns = [
+  { key: 'prId', label: 'PR ID', align: 'left' as const },
+  { key: 'vendor', label: 'Preferred Vendor Name', align: 'left' as const },
+  { key: 'amount', label: 'Total Amount', align: 'right' as const },
+  { key: 'status', label: 'Status', align: 'left' as const },
+  { key: 'overdue', label: 'Overdue', align: 'left' as const },
+];
 ---
 
 <!DOCTYPE html>
@@ -459,6 +469,172 @@ import Chip from '../../components/ui/Chip.astro';
               </td>
             </tr>
           </Fragment>
+        </Table>
+      </div>
+    </div>
+
+    <div>
+      <h2 style="margin-bottom: 16px; font-size: 18px; font-weight: 600;">Command Center + panel</h2>
+      <div class="overflow-x-auto">
+        <Table
+          variant="commandCenter"
+          sortColumns={commandCenterSortColumns}
+          sortColumn="prId"
+          sortDirection="asc"
+        >
+          <Fragment slot="command-center-toolbar">
+            <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 0.75rem; width: 100%">
+              <span>As of 09/20/2024</span>
+            </div>
+          </Fragment>
+          <Fragment slot="body">
+            <tr data-row-id="PR-2041">
+              <td><a class="text-link" href="#">PR-2041</a></td>
+              <td>Acme Office Supplies</td>
+              <td class="text-right">$1,250.00</td>
+              <td>
+                <span style="display: inline-flex; flex-wrap: wrap; align-items: center; gap: 4px" aria-hidden="true">
+                  <span style="display: inline-block; width: 10px; height: 10px; border-radius: 2px; background: #F58220; flex-shrink: 0"></span>
+                  <span style="display: inline-block; width: 10px; height: 10px; border-radius: 2px; background: #E13D91; flex-shrink: 0"></span>
+                </span>
+              </td>
+              <td style="color: var(--color-error-text, var(--color-error))">2/5</td>
+            </tr>
+            <tr data-row-id="PR-2045">
+              <td><a class="text-link" href="#">PR-2045</a></td>
+              <td>Litware Medical Devices</td>
+              <td class="text-right">$3,890.25</td>
+              <td>
+                <span style="display: inline-flex; flex-wrap: wrap; align-items: center; gap: 4px" aria-hidden="true">
+                  <span style="display: inline-block; width: 10px; height: 10px; border-radius: 2px; background: #F58220; flex-shrink: 0"></span>
+                  <span style="display: inline-block; width: 10px; height: 10px; border-radius: 2px; background: #E13D91; flex-shrink: 0"></span>
+                </span>
+              </td>
+              <td style="color: var(--color-error-text, var(--color-error))">1/6</td>
+            </tr>
+            <tr class="table-row--command-center-selected" data-row-id="PR-2042">
+              <td><a class="text-link" href="#">PR-2042</a></td>
+              <td>Northwind Logistics</td>
+              <td class="text-right">$8,420.50</td>
+              <td>
+                <span style="display: inline-flex; flex-wrap: wrap; align-items: center; gap: 4px" aria-hidden="true">
+                  <span style="display: inline-block; width: 10px; height: 10px; border-radius: 2px; background: #F58220; flex-shrink: 0"></span>
+                  <span style="display: inline-block; width: 10px; height: 10px; border-radius: 2px; background: #E13D91; flex-shrink: 0"></span>
+                  <span style="display: inline-block; width: 10px; height: 10px; border-radius: 2px; background: #2E5BCC; flex-shrink: 0"></span>
+                </span>
+              </td>
+              <td style="color: var(--color-error-text, var(--color-error))">1/4</td>
+            </tr>
+            <tr data-row-id="PR-2048">
+              <td><a class="text-link" href="#">PR-2048</a></td>
+              <td>Wide World Importers</td>
+              <td class="text-right">$22,150.00</td>
+              <td>
+                <span style="display: inline-flex; flex-wrap: wrap; align-items: center; gap: 4px" aria-hidden="true">
+                  <span style="display: inline-block; width: 10px; height: 10px; border-radius: 2px; background: #F58220; flex-shrink: 0"></span>
+                  <span style="display: inline-block; width: 10px; height: 10px; border-radius: 2px; background: #E13D91; flex-shrink: 0"></span>
+                  <span style="display: inline-block; width: 10px; height: 10px; border-radius: 2px; background: #2E5BCC; flex-shrink: 0"></span>
+                </span>
+              </td>
+              <td style="color: var(--color-error-text, var(--color-error))">4/9</td>
+            </tr>
+            <tr data-row-id="PR-2043">
+              <td><a class="text-link" href="#">PR-2043</a></td>
+              <td>Contoso Training Group</td>
+              <td class="text-right">$2,100.00</td>
+              <td>
+                <span style="display: inline-flex; flex-wrap: wrap; align-items: center; gap: 4px" aria-hidden="true">
+                  <span style="display: inline-block; width: 10px; height: 10px; border-radius: 2px; background: #F58220; flex-shrink: 0"></span>
+                </span>
+              </td>
+              <td style="color: var(--color-error-text, var(--color-error))">1/3</td>
+            </tr>
+            <tr data-row-id="PR-2046">
+              <td><a class="text-link" href="#">PR-2046</a></td>
+              <td>Adventure Works IT</td>
+              <td class="text-right">$475.90</td>
+              <td>
+                <span style="display: inline-flex; flex-wrap: wrap; align-items: center; gap: 4px" aria-hidden="true">
+                  <span style="display: inline-block; width: 10px; height: 10px; border-radius: 2px; background: #F58220; flex-shrink: 0"></span>
+                </span>
+              </td>
+              <td style="color: var(--text-primary)">0/2</td>
+            </tr>
+            <tr data-row-id="PR-2044">
+              <td><a class="text-link" href="#">PR-2044</a></td>
+              <td>Fabrikam Facilities Inc.</td>
+              <td class="text-right">$640.00</td>
+              <td>
+                <span style="display: inline-flex; flex-wrap: wrap; align-items: center; gap: 4px" aria-hidden="true">
+                  <span style="display: inline-block; width: 10px; height: 10px; border-radius: 2px; background: #F58220; flex-shrink: 0"></span>
+                  <span style="display: inline-block; width: 10px; height: 10px; border-radius: 2px; background: #D32F2F; flex-shrink: 0"></span>
+                </span>
+              </td>
+              <td style="color: var(--color-error-text, var(--color-error))">1/2</td>
+            </tr>
+            <tr data-row-id="PR-2047">
+              <td><a class="text-link" href="#">PR-2047</a></td>
+              <td>Blue Yonder Analytics</td>
+              <td class="text-right">$9,999.00</td>
+              <td>
+                <span style="display: inline-flex; flex-wrap: wrap; align-items: center; gap: 4px" aria-hidden="true">
+                  <span style="display: inline-block; width: 10px; height: 10px; border-radius: 2px; background: #F58220; flex-shrink: 0"></span>
+                  <span style="display: inline-block; width: 10px; height: 10px; border-radius: 2px; background: #E13D91; flex-shrink: 0"></span>
+                  <span style="display: inline-block; width: 10px; height: 10px; border-radius: 2px; background: #D32F2F; flex-shrink: 0"></span>
+                </span>
+              </td>
+              <td style="color: var(--color-error-text, var(--color-error))">3/3</td>
+            </tr>
+          </Fragment>
+          <CommandCenterPanel title="Purchase Requisitions" open slot="command-center-aside">
+            <div slot="visual">
+              <div class="command-center-panel__identity-row">
+                <p class="command-center-panel__entity-id">PR-2042</p>
+                <a class="text-link" href="#" style="font-size: var(--text-sm)">Purchase Requisition Report</a>
+              </div>
+              <div class="command-center-panel__alert-banner" role="status" aria-label="25 percent overdue lines">
+                <span class="command-center-panel__alert-value">25%</span>
+                <span class="command-center-panel__alert-label">Overdue lines</span>
+              </div>
+            </div>
+            <div class="command-center-panel__sections">
+              <CommandCenterPanelSection title="Summary" open>
+                <div class="command-center-panel__kv-grid">
+                  <div class="command-center-panel__kv-cell">
+                    <p class="command-center-card__label">PR ID</p>
+                    <p class="command-center-card__value">PR-2042</p>
+                  </div>
+                  <div class="command-center-panel__kv-cell">
+                    <p class="command-center-card__label">Preferred Vendor Name</p>
+                    <p class="command-center-card__value">Northwind Logistics</p>
+                  </div>
+                  <div class="command-center-panel__kv-cell">
+                    <p class="command-center-card__label">No. of Lines</p>
+                    <p class="command-center-card__value">4</p>
+                  </div>
+                  <div class="command-center-panel__kv-cell">
+                    <p class="command-center-card__label">Requisitioner Name</p>
+                    <p class="command-center-card__value">Taylor Brooks</p>
+                  </div>
+                </div>
+              </CommandCenterPanelSection>
+              <CommandCenterPanelSection title="Late Items" open class="command-center-panel-section--divider-before">
+                <p class="command-center-panel__late-stats">
+                  <span class="command-center-panel__late-stat-overdue">1</span> Overdue | <span class="command-center-panel__late-stat-total">4</span> Total
+                </p>
+                <div class="command-center-card">
+                  <div class="command-center-panel__late-card-head">
+                    <div class="command-center-panel__late-card-head-main">
+                      <span class="command-center-panel__status-marker" aria-hidden="true"></span>
+                      <p class="command-center-panel__late-card-title">Pending Submittal</p>
+                    </div>
+                    <a class="text-link" href="#">Follow up</a>
+                  </div>
+                  <p class="command-center-panel__late-card-value">1</p>
+                </div>
+              </CommandCenterPanelSection>
+            </div>
+          </CommandCenterPanel>
         </Table>
       </div>
     </div>

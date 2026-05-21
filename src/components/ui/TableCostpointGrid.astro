@@ -1,0 +1,449 @@
+---
+/**
+ * Costpoint-only high-density split data grid: frozen columns + horizontal scroll,
+ * Lexend typography (via tokens). Optional scroll arrow chrome (off by default). Use with html.theme-cp.
+ */
+import Icon from './Icon.astro';
+
+export interface Props {
+  /** When set, caps vertical scroller height (overrides default six visible body rows). */
+  maxHeight?: string;
+  /** Scroll arrow buttons beside the panes (default false; native scrollbars otherwise). */
+  scrollChrome?: boolean;
+  /** Allow dragging the split bar to resize frozen vs scroll panes (default true). */
+  resizableSplit?: boolean;
+  class?: string;
+  /** Stable unique id for scroll regions (use when multiple grids per page). */
+  instanceId?: string;
+}
+
+const {
+  maxHeight,
+  scrollChrome = false,
+  resizableSplit = true,
+  class: className = '',
+  instanceId: instanceIdProp,
+} = Astro.props;
+const instanceId = instanceIdProp || `cpdg-${Math.random().toString(36).slice(2, 11)}`;
+const yId = `${instanceId}-y`;
+const xId = `${instanceId}-x`;
+const hRailId = `${instanceId}-hrail`;
+---
+
+<div
+  class:list={['cp-datagrid', className]}
+  data-cp-datagrid-root={instanceId}
+>
+  <div class="cp-datagrid__primary">
+    <div
+      class="cp-datagrid__y-scroller"
+      id={yId}
+      tabindex="-1"
+      style={maxHeight ? { maxHeight } : undefined}
+    >
+      <div class="cp-datagrid__panes">
+        <div class="cp-datagrid__frozen">
+          <table class="cp-datagrid__table" aria-label="Fixed columns">
+            <thead>
+              <slot name="frozen-thead" />
+            </thead>
+            <tbody>
+              <slot name="frozen-tbody" />
+            </tbody>
+          </table>
+        </div>
+        {resizableSplit ? (
+          <div
+            class="cp-datagrid__split"
+            data-cp-dg-split=""
+            role="separator"
+            aria-orientation="vertical"
+            aria-label="Resize frozen and scroll columns"
+            tabindex="0"
+          />
+        ) : (
+          <div class="cp-datagrid__split" aria-hidden="true" />
+        )}
+        <div class="cp-datagrid__scroll-stack">
+          <div class="cp-datagrid__scroll-x" id={xId} tabindex="-1">
+            <div class="cp-datagrid__scroll-x-inner" data-cp-dg-x-inner>
+              <table class="cp-datagrid__table" aria-label="Scrollable columns">
+                <thead>
+                  <slot name="scroll-thead" />
+                </thead>
+                <tbody>
+                  <slot name="scroll-tbody" />
+                </tbody>
+              </table>
+            </div>
+          </div>
+          {scrollChrome && (
+            <div class="cp-datagrid__scroll-chrome-h">
+              <button
+                type="button"
+                class="cp-datagrid__scroll-btn"
+                aria-label="Scroll left"
+                data-cp-dg-hscroll={hRailId}
+                data-cp-dg-dx="-120"
+              >
+                <Icon name="chevron-left" size="sm" aria-hidden="true" />
+              </button>
+              <button
+                type="button"
+                class="cp-datagrid__scroll-btn"
+                aria-label="Scroll right"
+                data-cp-dg-hscroll={hRailId}
+                data-cp-dg-dx="120"
+              >
+                <Icon name="chevron-right" size="sm" aria-hidden="true" />
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+    <div class="cp-datagrid__hscroll-row">
+      <div class="cp-datagrid__hscroll-mirror" data-cp-dg-frozen-mirror aria-hidden="true"></div>
+      <div class="cp-datagrid__hscroll-split-mirror" aria-hidden="true"></div>
+      <div
+        class="cp-datagrid__hscroll-rail"
+        id={hRailId}
+        data-cp-dg-hrail
+        tabindex="0"
+        aria-label="Scroll horizontally"
+      >
+        <div class="cp-datagrid__hscroll-rail__ghost" data-cp-dg-h-ghost aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+  {scrollChrome && (
+    <div class="cp-datagrid__v-chrome" aria-label="Vertical scroll controls">
+      <button
+        type="button"
+        class="cp-datagrid__scroll-btn cp-datagrid__scroll-btn--stack"
+        aria-label="Scroll up"
+        data-cp-dg-yscroll={yId}
+        data-cp-dg-dy="-34"
+      >
+        <Icon name="chevron-up" size="sm" aria-hidden="true" />
+      </button>
+      <button
+        type="button"
+        class="cp-datagrid__scroll-btn cp-datagrid__scroll-btn--stack"
+        aria-label="Scroll down"
+        data-cp-dg-yscroll={yId}
+        data-cp-dg-dy="34"
+      >
+        <Icon name="chevron-down" size="sm" aria-hidden="true" />
+      </button>
+    </div>
+  )}
+
+  <script is:inline>
+    (function () {
+      var MIN_FROZEN = 220;
+      var MIN_SCROLL = 120;
+
+      function bindScrollButtons() {
+        document.querySelectorAll('[data-cp-dg-hscroll]').forEach(function (btn) {
+          if (btn.getAttribute('data-cp-dg-bound')) return;
+          btn.setAttribute('data-cp-dg-bound', '1');
+          btn.addEventListener('click', function () {
+            var id = btn.getAttribute('data-cp-dg-hscroll');
+            var dx = parseInt(btn.getAttribute('data-cp-dg-dx') || '-80', 10);
+            var el = id && document.getElementById(id);
+            if (el) el.scrollBy({ left: dx, behavior: 'smooth' });
+          });
+        });
+        document.querySelectorAll('[data-cp-dg-yscroll]').forEach(function (btn) {
+          if (btn.getAttribute('data-cp-dg-bound')) return;
+          btn.setAttribute('data-cp-dg-bound', '1');
+          btn.addEventListener('click', function () {
+            var id = btn.getAttribute('data-cp-dg-yscroll');
+            var dy = parseInt(btn.getAttribute('data-cp-dg-dy') || '34', 10);
+            var el = id && document.getElementById(id);
+            if (el) el.scrollBy({ top: dy, behavior: 'smooth' });
+          });
+        });
+      }
+
+      function maxFrozenPx(panes, split) {
+        var pw = panes.getBoundingClientRect().width;
+        var sw =
+          split && typeof split.getBoundingClientRect === 'function'
+            ? split.getBoundingClientRect().width
+            : 3;
+        return Math.max(MIN_FROZEN, pw - sw - MIN_SCROLL);
+      }
+
+      function initSplitResize(root) {
+        if (root.getAttribute('data-cp-dg-split-init')) return;
+        var split = root.querySelector('.cp-datagrid__split[data-cp-dg-split]');
+        var panes = root.querySelector('.cp-datagrid__panes');
+        var frozen = root.querySelector('.cp-datagrid__frozen');
+        if (!split || !panes || !frozen) return;
+        root.setAttribute('data-cp-dg-split-init', '1');
+
+        function collectFrozenHeaderWs(tbl) {
+          if (!tbl) return [];
+          var tr = tbl.querySelector('thead tr');
+          if (!tr) return [];
+          var ths = tr.querySelectorAll('th');
+          if (!ths.length) return [];
+          var ws = [];
+          for (var i = 0; i < ths.length; i++) {
+            var el = ths[i];
+            var sw = el.scrollWidth;
+            var rw = el.getBoundingClientRect().width;
+            ws.push(Math.ceil(Math.max(sw, rw)));
+          }
+          return ws;
+        }
+
+        function applyFrozenColgroup(tbl, widths) {
+          if (!tbl) return;
+          var old = tbl.querySelector('colgroup[data-cp-dg-frozen-cols]');
+          if (old) old.remove();
+          if (!widths || !widths.length) return;
+          var sum = widths.reduce(function (a, b) {
+            return a + b;
+          }, 0);
+          if (sum <= 0) return;
+          var pcts = widths.map(function (w) {
+            return (100 * w) / sum;
+          });
+          var ps = pcts.reduce(function (a, b) {
+            return a + b;
+          }, 0);
+          pcts[pcts.length - 1] += 100 - ps;
+          var cg = document.createElement('colgroup');
+          cg.setAttribute('data-cp-dg-frozen-cols', '1');
+          for (var j = 0; j < pcts.length; j++) {
+            var col = document.createElement('col');
+            col.style.width = pcts[j] + '%';
+            cg.appendChild(col);
+          }
+          tbl.insertBefore(cg, tbl.firstChild);
+        }
+
+        /** Ideal width so frozen headers/cells are not clipped (at least MIN_FROZEN). */
+        var prevFrozenW = frozen.style.width;
+        var prevFrozenFlex = frozen.style.flex;
+        frozen.classList.remove('cp-datagrid__frozen--sized');
+        frozen.style.flex = '0 0 auto';
+        frozen.style.width = 'max-content';
+        frozen.offsetWidth;
+        var tbl = frozen.querySelector('table');
+        var tbody = tbl ? tbl.querySelector('tbody') : null;
+        var prevTbodyDisplay = tbody ? tbody.style.display : '';
+        if (tbody) {
+          tbody.style.display = 'none';
+        }
+        frozen.offsetWidth;
+        var ws = collectFrozenHeaderWs(tbl);
+        var fromHeaders = ws.reduce(function (a, b) {
+          return a + b;
+        }, 0);
+        var tableW = tbl ? Math.ceil(tbl.scrollWidth) : 0;
+        var boxW = Math.ceil(frozen.getBoundingClientRect().width);
+        var measured =
+          fromHeaders >= MIN_FROZEN ? fromHeaders : tableW > 0 ? tableW : boxW;
+        var frozenContentMin = Math.max(MIN_FROZEN, measured > 0 ? measured : MIN_FROZEN);
+        if (tbody) {
+          tbody.style.display = prevTbodyDisplay;
+        }
+        frozen.style.width = prevFrozenW;
+        frozen.style.flex = prevFrozenFlex;
+
+        function frozenDragFloor(ideal, maxW) {
+          var floor = ideal <= maxW ? Math.max(MIN_FROZEN, ideal) : MIN_FROZEN;
+          return Math.min(maxW, floor);
+        }
+        function clampFrozenPx(desired, ideal, maxW) {
+          var dragFloor = frozenDragFloor(ideal, maxW);
+          return Math.min(maxW, Math.max(dragFloor, desired));
+        }
+
+        function setFrozenWidth(px) {
+          var maxW = maxFrozenPx(panes, split);
+          var w = clampFrozenPx(px, frozenContentMin, maxW);
+          frozen.classList.add('cp-datagrid__frozen--sized');
+          applyFrozenColgroup(tbl, ws);
+          frozen.style.flex = '0 0 ' + w + 'px';
+          frozen.style.width = w + 'px';
+          if (split && split.setAttribute) {
+            split.setAttribute('aria-valuenow', String(Math.round(w)));
+            split.setAttribute('aria-valuemax', String(Math.round(maxW)));
+            split.setAttribute('aria-valuemin', String(Math.round(frozenDragFloor(frozenContentMin, maxW))));
+          }
+        }
+
+        setFrozenWidth(frozenContentMin);
+
+        var dragging = false;
+        var startX = 0;
+        var startW = 0;
+
+        function onDown(ev) {
+          if (ev.button !== 0) return;
+          ev.preventDefault();
+          split.setPointerCapture(ev.pointerId);
+          dragging = true;
+          startX = ev.clientX;
+          startW = frozen.getBoundingClientRect().width;
+          root.classList.add('cp-datagrid--resizing-split');
+        }
+        function onMove(ev) {
+          if (!dragging) return;
+          var maxW = maxFrozenPx(panes, split);
+          var w = clampFrozenPx(startW + (ev.clientX - startX), frozenContentMin, maxW);
+          frozen.classList.add('cp-datagrid__frozen--sized');
+          frozen.style.flex = '0 0 ' + w + 'px';
+          frozen.style.width = w + 'px';
+          split.setAttribute('aria-valuenow', String(Math.round(w)));
+          split.setAttribute('aria-valuemax', String(Math.round(maxW)));
+          split.setAttribute('aria-valuemin', String(Math.round(frozenDragFloor(frozenContentMin, maxW))));
+        }
+        function onUp(ev) {
+          if (!dragging) return;
+          try {
+            split.releasePointerCapture(ev.pointerId);
+          } catch (e) {}
+          dragging = false;
+          root.classList.remove('cp-datagrid--resizing-split');
+        }
+        function onKey(ev) {
+          if (ev.key !== 'ArrowLeft' && ev.key !== 'ArrowRight') return;
+          ev.preventDefault();
+          var step = ev.shiftKey ? 24 : 8;
+          var cur = frozen.getBoundingClientRect().width;
+          var delta = ev.key === 'ArrowRight' ? step : -step;
+          setFrozenWidth(cur + delta);
+        }
+
+        split.addEventListener('pointerdown', onDown);
+        split.addEventListener('pointermove', onMove);
+        split.addEventListener('pointerup', onUp);
+        split.addEventListener('pointercancel', onUp);
+        split.addEventListener('keydown', onKey);
+
+        var ro = new ResizeObserver(function () {
+          var maxW = maxFrozenPx(panes, split);
+          var cur = frozen.getBoundingClientRect().width;
+          var floor = frozenDragFloor(frozenContentMin, maxW);
+          if (cur < floor) setFrozenWidth(frozenContentMin);
+          else if (cur > maxW) setFrozenWidth(maxW);
+          split.setAttribute('aria-valuemax', String(Math.round(maxW)));
+          split.setAttribute('aria-valuemin', String(Math.round(frozenDragFloor(frozenContentMin, maxW))));
+        });
+        ro.observe(panes);
+      }
+
+      /** Sync row selection across frozen and scroll body tables (same row order). */
+      function initRowSelect(root) {
+        if (root.getAttribute('data-cp-dg-row-select-init')) return;
+        var panes = root.querySelector('.cp-datagrid__panes');
+        var frozenTbody = root.querySelector('.cp-datagrid__frozen table tbody');
+        var scrollTbody = root.querySelector('[data-cp-dg-x-inner] tbody');
+        if (!panes || !frozenTbody || !scrollTbody) return;
+        root.setAttribute('data-cp-dg-row-select-init', '1');
+
+        function clearSelected() {
+          var i;
+          for (i = 0; i < frozenTbody.children.length; i++) {
+            var fr = frozenTbody.children[i];
+            fr.removeAttribute('aria-selected');
+            fr.classList.remove('cp-datagrid__row--selected');
+          }
+          for (i = 0; i < scrollTbody.children.length; i++) {
+            var sr = scrollTbody.children[i];
+            sr.removeAttribute('aria-selected');
+            sr.classList.remove('cp-datagrid__row--selected');
+          }
+        }
+
+        function setSelectedIndex(index) {
+          if (index < 0) return;
+          if (index >= frozenTbody.children.length || index >= scrollTbody.children.length) return;
+          clearSelected();
+          var fr = frozenTbody.children[index];
+          var sr = scrollTbody.children[index];
+          fr.setAttribute('aria-selected', 'true');
+          sr.setAttribute('aria-selected', 'true');
+          fr.classList.add('cp-datagrid__row--selected');
+          sr.classList.add('cp-datagrid__row--selected');
+        }
+
+        panes.addEventListener('click', function (ev) {
+          var t = ev.target;
+          if (!t || !t.closest) return;
+          var tr = t.closest('tr');
+          if (!tr || !tr.parentElement || tr.parentElement.tagName !== 'TBODY') return;
+          var tbody = tr.parentElement;
+          if (tbody !== frozenTbody && tbody !== scrollTbody) return;
+          var idx = Array.prototype.indexOf.call(tbody.children, tr);
+          if (idx < 0) return;
+          setSelectedIndex(idx);
+        });
+      }
+
+      function initHRailSync(root) {
+        if (root.getAttribute('data-cp-dg-hrail-init')) return;
+        var rail = root.querySelector('[data-cp-dg-hrail]');
+        var xInner = root.querySelector('[data-cp-dg-x-inner]');
+        var ghost = root.querySelector('[data-cp-dg-h-ghost]');
+        var frozen = root.querySelector('.cp-datagrid__frozen');
+        var mirror = root.querySelector('[data-cp-dg-frozen-mirror]');
+        var scrollXEl = root.querySelector('.cp-datagrid__scroll-x');
+        if (!rail || !xInner || !ghost || !frozen || !mirror) return;
+        root.setAttribute('data-cp-dg-hrail-init', '1');
+
+        function syncMirror() {
+          mirror.style.width = Math.ceil(frozen.getBoundingClientRect().width) + 'px';
+        }
+        function syncGhost() {
+          ghost.style.width = xInner.scrollWidth + 'px';
+          var max = Math.max(0, xInner.scrollWidth - rail.clientWidth);
+          if (rail.scrollLeft > max) rail.scrollLeft = max;
+          xInner.style.transform = 'translateX(' + -rail.scrollLeft + 'px)';
+        }
+        function onRailScroll() {
+          xInner.style.transform = 'translateX(' + -rail.scrollLeft + 'px)';
+        }
+
+        rail.addEventListener('scroll', onRailScroll);
+        var roInner = new ResizeObserver(syncGhost);
+        roInner.observe(xInner);
+        var roFrozen = new ResizeObserver(syncMirror);
+        roFrozen.observe(frozen);
+        syncGhost();
+        syncMirror();
+
+        if (scrollXEl) {
+          scrollXEl.addEventListener(
+            'wheel',
+            function (ev) {
+              var dx = ev.deltaX || (ev.shiftKey ? ev.deltaY : 0);
+              if (!dx) return;
+              ev.preventDefault();
+              rail.scrollLeft += dx;
+              xInner.style.transform = 'translateX(' + -rail.scrollLeft + 'px)';
+            },
+            { passive: false }
+          );
+        }
+      }
+
+      function bind() {
+        bindScrollButtons();
+        document.querySelectorAll('[data-cp-datagrid-root]').forEach(function (root) {
+          initSplitResize(root);
+          initRowSelect(root);
+          initHRailSync(root);
+        });
+      }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind);
+      else bind();
+    })();
+  </script>
+</div>

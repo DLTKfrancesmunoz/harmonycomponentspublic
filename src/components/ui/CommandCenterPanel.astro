@@ -1,0 +1,73 @@
+---
+/**
+ * Command Center — slide-in panel (docked beside the table; not a full-viewport overlay).
+ * Pass as the Table `command-center-aside` slot (or `commandCenterAside` in React) with `variant="commandCenter"`.
+ * The table’s grid places the panel so its header aligns with the table header, not the toolbar row above.
+ */
+import Icon from './Icon.astro';
+
+export interface Props {
+  title: string;
+  /** When false, the panel is removed from the layout (use for “closed” state). */
+  open?: boolean;
+  class?: string;
+  closeButtonLabel?: string;
+}
+
+const {
+  title,
+  open = true,
+  class: className = '',
+  closeButtonLabel = 'Close panel',
+} = Astro.props;
+---
+
+<div class="command-center-panel-astro-root" style="display: contents">
+{open && (
+  <aside class:list={['command-center-panel', className]}>
+    <div class="command-center-panel__header">
+      <h2 class="command-center-panel__title" id="command-center-panel-title">{title}</h2>
+      <button
+        type="button"
+        class="command-center-panel__close"
+        aria-label={closeButtonLabel}
+        data-command-center-close
+      >
+        <Icon name="x-mark" size="md" />
+      </button>
+    </div>
+    <div class="command-center-panel__body">
+      {Astro.slots.has('visual') && (
+        <div class="command-center-panel__visual">
+          <slot name="visual" />
+        </div>
+      )}
+      <slot />
+    </div>
+  </aside>
+)}
+
+<script>
+  function initCommandCenterPanelSectionToggles() {
+    document.querySelectorAll('.command-center-panel [data-command-center-section]').forEach(
+      (section) => {
+        if (!(section instanceof HTMLElement) || section.dataset.ccSectionBound) return
+        const trigger = section.querySelector('.command-center-panel-section__trigger')
+        if (!(trigger instanceof HTMLButtonElement)) return
+        section.dataset.ccSectionBound = '1'
+        trigger.addEventListener('click', () => {
+          const open = !section.classList.contains('command-center-panel-section--open')
+          section.classList.toggle('command-center-panel-section--open', open)
+          trigger.setAttribute('aria-expanded', open ? 'true' : 'false')
+        })
+      }
+    )
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCommandCenterPanelSectionToggles)
+  } else {
+    initCommandCenterPanelSectionToggles()
+  }
+  document.addEventListener('astro:page-load', initCommandCenterPanelSectionToggles)
+</script>
+</div>

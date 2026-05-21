@@ -12,7 +12,7 @@ Generate `llms.txt` and `llms-full.txt` files for the Harmony React component li
 
 0. **Check prerequisites.**
    - Converted React components must exist in the app output directory (e.g. `src/components/harmony/*.tsx`). If no converted components are found, tell the user: "No converted components found. Run `/convert-all React` first."
-   - Optional: Harmony package installed (`node_modules/@dltkfrancesmunoz/harmony-design-system/`) for Astro doc pages as a secondary source for descriptions and usage notes.
+   - Optional: Harmony package installed (`node_modules/@deltek/harmony-design-system/`) for Astro doc pages as a secondary source for descriptions and usage notes.
 
 1. **User input.**
    - Optional: **output directory** for the generated files (default: project root).
@@ -30,7 +30,7 @@ Generate `llms.txt` and `llms-full.txt` files for the Harmony React component li
      - **Imports** (dependencies on other Harmony components).
 
 3. **Enrich from Astro docs (optional).**
-   - If `node_modules/@dltkfrancesmunoz/harmony-design-system/src/pages/components/` exists, read the corresponding doc page for each component (e.g. `buttons.astro` for Button).
+   - If `node_modules/@deltek/harmony-design-system/src/pages/components/` exists, read the corresponding doc page for each component (e.g. `buttons.astro` for Button).
    - Extract: description paragraph, usage guidelines, accessibility notes, "when to use / when not to use."
    - If the Astro docs are not available, generate descriptions from the Props interface and component structure. Mark these as "auto-generated" in a comment.
 
@@ -41,7 +41,7 @@ Generate `llms.txt` and `llms-full.txt` files for the Harmony React component li
    ```markdown
    # Harmony React Components
 
-   > Harmony is a multi-theme design system. This file documents the React component library converted from the Harmony Astro design system. Use these components with Harmony CSS tokens and themes (theme-cp, theme-vp, theme-ppm, theme-maconomy) with light and dark modes.
+   > Harmony is Deltek's design system. This file documents the React component library converted from the Harmony Astro design system. Use these components with Harmony CSS tokens and themes (theme-cp, theme-vp, theme-ppm, theme-maconomy) with light and dark modes.
 
    Important notes:
    - All components use Harmony CSS custom properties (tokens). Do not resolve to hardcoded values.

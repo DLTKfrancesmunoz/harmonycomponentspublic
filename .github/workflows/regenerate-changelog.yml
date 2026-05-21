@@ -1,0 +1,61 @@
+name: Regenerate Changelog Data
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/components/ui/**'
+      - 'src/styles/**'
+      - 'src/tokens/**'
+      - 'src/layouts/**'
+      - 'scripts/changelog/**'
+
+jobs:
+  regenerate-changelog:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run changelog automation
+        run: npm run changelog
+
+      - name: Create branch, commit, and open PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "Regenerate Data Bot"
+          git config user.email "regenerate-data-bot@github-actions"
+
+          git add changelog-data/
+          if git diff --staged --quiet; then
+            echo "No changelog data changes to commit"
+            exit 0
+          fi
+
+          branch="changelog/regenerate-${{ github.run_id }}"
+          git checkout -b "$branch"
+          git commit -m "chore: regenerate changelog data [skip ci]"
+          git push -u origin "$branch"
+
+          gh pr create \
+            --base main \
+            --head "$branch" \
+            --title "chore: regenerate changelog data [skip ci]" \
+            --body "Automated changelog update from the Regenerate Changelog Data workflow. Please review and merge when ready."

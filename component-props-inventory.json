@@ -1621,12 +1621,13 @@
   "Kanban": {
     "hasProps": true,
     "filePath": "src/components/ui/Kanban.astro",
-    "description": "Kanban Component",
+    "description": "Kanban board: default task layout or costpoint (CP MVP) variant",
     "dependencies": [
       "Button",
       "Icon",
       "Card",
       "Input",
+      "KanbanCard",
       "KanbanCardCostpoint"
     ],
     "imports": [
@@ -1634,34 +1635,10 @@
       "./Icon.astro",
       "./Card.astro",
       "./Input.astro",
+      "./KanbanCard.astro",
       "./KanbanCardCostpoint.astro"
     ],
     "cssClasses": [
-      "kanban-cp",
-      "kanban-cp__toolbar",
-      "kanban-cp__board-header",
-      "kanban-cp__board-meta",
-      "kanban-cp__board-meta-sep",
-      "kanban-cp__board-search",
-      "kanban-cp__search-input",
-      "kanban-cp__board-settings",
-      "kanban-cp__columns-outer",
-      "kanban-cp__col-nav",
-      "kanban-cp__col-nav-btn",
-      "kanban-cp__col-scroll",
-      "kanban-cp__columns",
-      "kanban-cp__column-wrap",
-      "kanban-cp__column-card",
-      "kanban-cp__column",
-      "kanban-cp__column-header",
-      "kanban-cp__column-header-content",
-      "kanban-cp__column-title",
-      "kanban-cp__column-count",
-      "kanban-cp__column-body",
-      "kanban-cp__load-more",
-      "kanban-cp__load-more-link",
-      "kanban-cp__col-dots",
-      "kanban-cp__col-dot",
       "kanban__container",
       "kanban__title-bar",
       "kanban__title-bar-content",
@@ -1685,7 +1662,21 @@
       "kanban__column-action-icon",
       "kanban__column-content",
       "kanban__add-button",
-      "kanban__add-column-button"
+      "kanban__add-column-button",
+      "kanban-cp",
+      "kanban-cp__toolbar",
+      "kanban-cp__toolbar-start",
+      "kanban-cp__toolbar-title",
+      "kanban-cp__toolbar-text-btn",
+      "kanban-cp__toolbar-end",
+      "kanban-cp__board-header",
+      "kanban-cp__board-meta-sep",
+      "kanban-cp__load-more-link",
+      "kanban-cp__column-header-content",
+      "kanban-cp__columns",
+      "kanban-card-cp",
+      "kanban-card-cp__graphic--accent",
+      "kanban-cp__column-card"
     ],
     "props": {
       "columns": {
@@ -1769,7 +1760,7 @@
       "cpSortLabel": {
         "optional": true,
         "type": "string;",
-        "default": "'Due Date'",
+        "default": null,
         "description": null
       },
       "cpActiveView": {
@@ -1781,13 +1772,13 @@
       "cpSearchPlaceholder": {
         "optional": true,
         "type": "string;",
-        "default": "'Quick search…'",
+        "default": null,
         "description": null
       },
       "cpScrollColumnIndex": {
         "optional": true,
         "type": "number;",
-        "default": "0",
+        "default": null,
         "description": null
       },
       "showLoadMore": {
@@ -1798,19 +1789,14 @@
       }
     },
     "defaults": {
-      "variant": "'default'",
       "title": "'Kanban Board'",
       "actionButtons": "[]",
       "actionDropdowns": "[]",
       "class": "''",
       "showAddButton": "true",
-      "cardFieldsConfig": "[]",
-      "cpSortLabel": "'Due Date'",
-      "cpSearchPlaceholder": "'Quick search…'",
-      "cpScrollColumnIndex": "0",
-      "showLoadMore": "true"
+      "variant": "'default'"
     },
-    "rawInterface": "columns: KanbanColumn[] | KanbanCostpointColumn[]\n  variant?: 'default' | 'costpoint'\n  title?: string\n  actionButtons?: ActionButton[]\n  actionDropdowns?: ActionDropdown[]\n  class?: string\n  showAddButton?: boolean\n  cardFieldsConfig?: KanbanViewCardField[]\n  cpRecordCount?: number\n  cpRecordShown?: number\n  cpRecordTotal?: number\n  cpToolbarTitle?: string\n  cpSortedBy?: string\n  cpSortLabel?: string\n  cpActiveView?: 'table' | 'form' | 'kanban'\n  cpSearchPlaceholder?: string\n  cpScrollColumnIndex?: number\n  showLoadMore?: boolean"
+    "rawInterface": "columns: KanbanColumn[] | KanbanCostpointColumn[]\n  variant?: 'default' | 'costpoint'\n  cardFieldsConfig?: KanbanViewCardField[]\n  cpRecordCount?: number\n  cpRecordShown?: number\n  cpRecordTotal?: number\n  cpToolbarTitle?: string\n  cpSortedBy?: string\n  cpSortLabel?: string\n  cpActiveView?: 'table' | 'form' | 'kanban'\n  ..."
   },
   "KanbanCard": {
     "hasProps": true,
@@ -1918,7 +1904,7 @@
   "KanbanCardCostpoint": {
     "hasProps": true,
     "filePath": "src/components/ui/KanbanCardCostpoint.astro",
-    "description": "Costpoint (CP theme) Kanban card — five configurable fields, footer actions (spec §3).",
+    "description": "Costpoint Kanban card (five fields, move menu, open record)",
     "dependencies": [
       "Card",
       "Dropdown",
@@ -1929,28 +1915,15 @@
       "./Card.astro",
       "./Dropdown.astro",
       "./Icon.astro",
-      "./Tooltip.astro",
-      "../../utils/kanban-cp-card"
+      "./Tooltip.astro"
     ],
     "cssClasses": [
-      "kanban-card-cp__graphic",
-      "kanban-card-cp__graphic--accent",
-      "kanban-card-cp__title-row",
+      "kanban-card-cp",
+      "kanban-card-cp--selected",
       "kanban-card-cp__title",
-      "kanban-card-cp__title-tooltip",
-      "kanban-card-cp__title-text",
-      "kanban-card-cp__menu",
-      "kanban-card-cp__move-dropdown",
-      "kanban-card-cp__kebab-trigger",
-      "sr-only",
       "kanban-card-cp__fields",
-      "kanban-card-cp__spacer",
-      "kanban-card-cp__field",
-      "kanban-card-cp__field-label",
-      "kanban-card-cp__field-line",
-      "kanban-card-cp__field-line--multiline",
       "kanban-card-cp__footer",
-      "kanban-card-cp__open-link"
+      "kanban-card-cp__field-text--fallback"
     ],
     "props": {
       "id": {
@@ -1977,16 +1950,16 @@
         "default": null,
         "description": null
       },
-      "selected": {
-        "optional": true,
-        "type": "boolean;",
-        "default": "false",
-        "description": null
-      },
       "moveOptions": {
         "optional": false,
         "type": "Option[];",
         "default": null,
+        "description": null
+      },
+      "selected": {
+        "optional": true,
+        "type": "boolean;",
+        "default": "false",
         "description": null
       },
       "graphicalClass": {
@@ -2016,11 +1989,10 @@
     },
     "defaults": {
       "selected": "false",
-      "graphicalClass": "''",
       "class": "''",
       "openRecordLabel": "'Open record'"
     },
-    "rawInterface": "id: string\n  title: string\n  fieldsConfig: KanbanViewCardField[]\n  valuesByFieldName: Record<string, string | undefined>\n  selected?: boolean\n  moveOptions: Option[]\n  graphicalClass?: string\n  accentColor?: string\n  class?: string\n  openRecordLabel?: string"
+    "rawInterface": "id: string\n  title: string\n  fieldsConfig: KanbanViewCardField[]\n  valuesByFieldName: Record<string, string | undefined>\n  moveOptions: Option[]\n  selected?: boolean\n  graphicalClass?: string\n  accentColor?: string\n  class?: string\n  openRecordLabel?: string"
   },
   "Label": {
     "hasProps": true,
@@ -3366,7 +3338,6 @@
     ],
     "cssClasses": [
       "tabstrip",
-      "${variant",
       "${className}",
       "tabstrip__nav",
       "tabstrip__container",
@@ -3419,7 +3390,7 @@
       },
       "variant": {
         "optional": true,
-        "type": "'default' | 'compact' | 'pill';",
+        "type": "'default' | 'compact';",
         "default": "'default'",
         "description": null
       },
@@ -3445,7 +3416,7 @@
       "variant": "'default'",
       "class": "''"
     },
-    "rawInterface": "tabs: Tab[]\n  showAddTab?: boolean\n  addTabLabel?: string\n  overflowMode?: 'auto' | 'manual' | 'none'\n  overflowTabs?: Tab[]\n  variant?: 'default' | 'compact' | 'pill'\n  iconPosition?: 'left' | 'right' | 'top'\n  class?: string"
+    "rawInterface": "tabs: Tab[]\n  showAddTab?: boolean\n  addTabLabel?: string\n  overflowMode?: 'auto' | 'manual' | 'none'\n  overflowTabs?: Tab[]\n  variant?: 'default' | 'compact'\n  iconPosition?: 'left' | 'right' | 'top'\n  class?: string"
   },
   "Table": {
     "hasProps": true,

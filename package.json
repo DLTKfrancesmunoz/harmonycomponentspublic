@@ -1,19 +1,23 @@
 {
-  "name": "@dltkfrancesmunoz/harmony-design-system",
+  "name": "@deltek/harmony-design-system",
   "version": "1.0.0",
-  "description": "Harmony Design System — public Astro UI components, layouts, and design tokens",
+  "description": "Harmony Design System - Internal UI components, layouts, and design tokens for Deltek Astro applications",
   "type": "module",
-  "license": "MIT",
+  "license": "UNLICENSED",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DLTKfrancesmunoz/harmonycomponentspublic.git"
+    "url": "git+https://github.com/deltek/ux-harmony-design-system.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/",
+    "access": "restricted"
   },
   "keywords": [
     "astro",
     "design-system",
     "ui-components",
-    "harmony",
-    "public"
+    "deltek",
+    "internal"
   ],
   "files": [
     "src/components/ui",
@@ -42,18 +46,16 @@
     "./package.json": "./package.json"
   },
   "peerDependencies": {
-    "astro": "^5.0.0",
     "@tabler/icons": "^3.0.0",
+    "astro": "^6.1.9",
     "heroicons": "^2.0.0"
-  },
-  "dependencies": {
-    "serve": "^14.2.0"
   },
   "scripts": {
     "prepare": "husky",
     "dev": "astro dev",
     "start": "serve dist -l ${PORT:-3000}",
     "build": "astro build && node scripts/extract-usage-rules.js",
+    "check": "astro check --tsconfig tsconfig.astro-check.json",
     "generate:rules": "node scripts/extract-usage-rules.js",
     "preview": "astro preview",
     "astro": "astro",
@@ -67,18 +69,21 @@
     "inline:icon-manifest": "node scripts/inline-icon-manifest.js"
   },
   "devDependencies": {
-    "astro": "^5.16.7",
-    "@tabler/icons": "^3.36.1",
-    "heroicons": "^2.2.0",
-    "@astrojs/rss": "^4.0.14",
-    "fuse.js": "^7.1.0",
-    "chokidar": "^3.6.0",
-    "concurrently": "^8.2.2",
+    "@astrojs/check": "^0.9.9",
+    "@astrojs/rss": "^4.0.18",
+    "@tabler/icons": "^3.41.1",
+    "@types/node": "^25.6.0",
+    "astro": "^6.1.9",
+    "chokidar": "^5.0.0",
+    "concurrently": "^9.2.1",
     "deep-diff": "^1.0.2",
-    "postcss": "^8.4.0",
-    "postcss-value-parser": "^4.2.0",
-    "simple-git": "^3.30.0",
+    "fuse.js": "^7.3.0",
+    "heroicons": "^2.2.0",
     "husky": "^9.1.7",
-    "@types/node": "^22.10.0"
+    "postcss": "^8.5.10",
+    "postcss-value-parser": "^4.2.0",
+    "serve": "^14.2.6",
+    "simple-git": "^3.36.0",
+    "typescript": "^5.9.3"
   }
 }

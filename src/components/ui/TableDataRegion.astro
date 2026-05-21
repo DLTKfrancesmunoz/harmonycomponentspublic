@@ -1,0 +1,172 @@
+---
+/**
+ * Filter bar, title/action rows, and <table> — shared by Table when docked vs. undocked.
+ */
+import Icon from './Icon.astro';
+
+interface SortColumn {
+  key: string;
+  label: string;
+  align?: 'left' | 'right';
+  sortable?: boolean;
+  filterable?: boolean;
+}
+
+type SortDir = 'asc' | 'desc' | null;
+
+export interface Props {
+  tableClass: string;
+  hasFilterBar: boolean;
+  hasTitleBar: boolean;
+  hasActionBar: boolean;
+  hasHeaderSlot: boolean;
+  hasBodySlot: boolean;
+  useCommandCenterHeader: boolean;
+  useSortHeader: boolean;
+  reorderable: boolean;
+  /** When true with `grouped`, the expand chevron is inside the first column (Command Center); no separate expand header cell. */
+  isCommandCenter: boolean;
+  grouped: boolean;
+  sortColumns?: SortColumn[] | null;
+  sortColumn: string | null;
+  sortDirection: SortDir;
+  getSortIcon: (key: string) => string;
+  getAriaSort: (key: string) => 'ascending' | 'descending' | undefined;
+  getSortLabel: (key: string, label: string) => string;
+}
+
+const {
+  tableClass: classes,
+  hasFilterBar,
+  hasTitleBar,
+  hasActionBar,
+  hasHeaderSlot,
+  hasBodySlot,
+  useCommandCenterHeader,
+  useSortHeader,
+  reorderable,
+  isCommandCenter = false,
+  grouped,
+  sortColumns,
+  getSortIcon,
+  getAriaSort,
+  getSortLabel,
+} = Astro.props;
+---
+
+<!-- Optional Filter Bar -->
+{hasFilterBar && (
+  <div class="table__filter-bar">
+    <slot name="filter-bar" />
+  </div>
+)}
+
+<!-- Optional Title Bar -->
+{hasTitleBar && (
+  <div class="table__title-bar">
+    <div class="table__title-bar-content">
+      {Astro.slots.has('title-bar-content') && (
+        <slot name="title-bar-content" />
+      )}
+      {Astro.slots.has('title-bar-icons') && (
+        <div class="table__title-bar-icons">
+          <slot name="title-bar-icons" />
+        </div>
+      )}
+    </div>
+  </div>
+)}
+
+<!-- Optional Action Bar -->
+{hasActionBar && (
+  <div class="table__action-bar">
+    <slot name="action-bar" />
+  </div>
+)}
+
+<!-- Table -->
+<table class={classes}>
+  <thead>
+    {useCommandCenterHeader ? (
+      <tr>
+        {reorderable && (
+          <th class="table__grip-column" scope="col" aria-label="Reorder"></th>
+        )}
+        {grouped && !isCommandCenter && (
+          <th class="table__expand-column" scope="col" aria-label="Expand"></th>
+        )}
+        {sortColumns!.map((col) => (
+          <th
+            scope="col"
+            class={col.align === 'right' ? 'text-right' : 'text-left'}
+            aria-sort={getAriaSort(col.key)}
+          >
+            <div class="table__cc-header">
+              <span class="table__cc-header-label">{col.label}</span>
+              <div class="table__cc-header-actions" role="group" aria-label={col.label}>
+                {col.sortable !== false && (
+                  <button
+                    type="button"
+                    class="table__cc-header-btn"
+                    aria-label={getSortLabel(col.key, col.label)}
+                  >
+                    <Icon name={getSortIcon(col.key)} size="sm" />
+                  </button>
+                )}
+                {col.filterable !== false && (
+                  <button type="button" class="table__cc-header-btn" aria-label={`Filter ${col.label}`}>
+                    <Icon name="funnel" size="sm" />
+                  </button>
+                )}
+              </div>
+            </div>
+          </th>
+        ))}
+      </tr>
+    ) : useSortHeader ? (
+      <tr>
+        {reorderable && (
+          <th class="table__grip-column" scope="col" aria-label="Reorder"></th>
+        )}
+        {grouped && !isCommandCenter && (
+          <th class="table__expand-column" scope="col" aria-label="Expand"></th>
+        )}
+        {sortColumns!.map((col) => (
+          <th
+            scope="col"
+            class={col.align === 'right' ? 'text-right' : 'text-left'}
+            aria-sort={getAriaSort(col.key)}
+          >
+            <button
+              type="button"
+              class="table__sort-header"
+              aria-label={getSortLabel(col.key, col.label)}
+            >
+              {col.label}
+              <Icon name={getSortIcon(col.key)} size="sm" />
+            </button>
+          </th>
+        ))}
+      </tr>
+    ) : hasHeaderSlot ? (
+      <slot name="header" />
+    ) : (
+      <tr>
+        {reorderable && (
+          <th class="table__grip-column" scope="col" aria-label="Reorder"></th>
+        )}
+        {grouped && !isCommandCenter && (
+          <th class="table__expand-column" scope="col" aria-label="Expand"></th>
+        )}
+        <th scope="col">Column</th>
+      </tr>
+    )}
+  </thead>
+  <tbody>
+    {hasBodySlot ? (
+      <slot name="body" />
+    ) : (
+      <tr><td>Table body content. Override by passing header and body slots.</td></tr>
+    )}
+  </tbody>
+</table>

@@ -1,0 +1,44 @@
+---
+/**
+ * Command Center — one independent collapsible section inside CommandCenterPanel.
+ * Not an accordion: each section toggles on its own; use multiple for stacked groups.
+ */
+import Icon from './Icon.astro';
+
+export interface Props {
+  title: string;
+  /** When true, the section body is shown on first paint. */
+  open?: boolean;
+  class?: string;
+}
+
+const { title, open = true, class: className = '' } = Astro.props;
+const baseId = `ccps-${Math.random().toString(36).slice(2, 9)}`;
+const panelId = `${baseId}-panel`;
+---
+
+<div
+  class:list={['command-center-panel-section', open && 'command-center-panel-section--open', className]}
+  data-command-center-section
+>
+  <button
+    type="button"
+    class="command-center-panel-section__trigger"
+    aria-expanded={open ? 'true' : 'false'}
+    aria-controls={panelId}
+    id={`${baseId}-btn`}
+  >
+    <Icon name="chevron-down" class="command-center-panel-section__chevron" size="sm" />
+    <span class="command-center-panel-section__title">{title}</span>
+  </button>
+  <div
+    class="command-center-panel-section__content"
+    id={panelId}
+    role="region"
+    aria-labelledby={`${baseId}-btn`}
+  >
+    <div class="command-center-panel-section__inner">
+      <slot />
+    </div>
+  </div>
+</div>

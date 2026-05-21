@@ -141,12 +141,21 @@ const hasHeaderSlot = Astro.slots.has('header');
           // Coordinate with sidebar state
           const isRightPanel = panel.classList.contains('shell-panel--right');
           if (isRightPanel) {
-            const rightSidebar = document.querySelector('.right-sidebar') as HTMLElement | null;
-            if (rightSidebar) {
-              rightSidebar.removeAttribute('data-panel-open');
-              // Clear active items
-              rightSidebar.querySelectorAll('[data-right-sidebar-item]').forEach((item) => {
-                item.removeAttribute('data-active');
+            const scope = panel.closest('[data-shell-panel-scope]');
+            if (scope) {
+              const sb = scope.querySelector('.right-sidebar') as HTMLElement | null;
+              if (sb) {
+                sb.removeAttribute('data-panel-open');
+                sb.querySelectorAll('[data-right-sidebar-item]').forEach((item) => {
+                  item.removeAttribute('data-active');
+                });
+              }
+            } else {
+              document.querySelectorAll('.right-sidebar').forEach((sb) => {
+                sb.removeAttribute('data-panel-open');
+                sb.querySelectorAll('[data-right-sidebar-item]').forEach((item) => {
+                  item.removeAttribute('data-active');
+                });
               });
             }
           }

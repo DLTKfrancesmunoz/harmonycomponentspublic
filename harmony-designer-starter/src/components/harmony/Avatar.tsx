@@ -93,7 +93,7 @@ export const Avatar = forwardRef<
   if (interactive) {
     return (
       <button
-        ref={ref as ForwardedRef<HTMLButtonElement>}
+        ref={ref as React.ForwardedRef<HTMLButtonElement>}
         type="button"
         className={classes}
         disabled={disabled}

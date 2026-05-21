@@ -184,6 +184,8 @@ const sidebarSections = getSections();
 const shouldRenderAllVariants = !sections;
 ---
 
+<!-- Single root: avoids Astro "Unknown chunk type: script" when nav/style/script were siblings (streaming). -->
+<div class="right-sidebar-astro-root" style="display: contents">
 <nav class:list={['right-sidebar', `right-sidebar--${variant}`, className]} data-variant={variant}>
   {shouldRenderAllVariants ? (
     <>
@@ -380,6 +382,7 @@ const shouldRenderAllVariants = !sections;
               data-panel-icon={panelIcon}
               data-panel-content-id={item.panelContentId}
               data-item-id={itemId}
+              data-use-gradient-header={String(item.useGradientHeader ?? false)}
               data-right-sidebar-item
             >
               <span class="right-sidebar__label">{item.label}</span>
@@ -434,159 +437,147 @@ const shouldRenderAllVariants = !sections;
   }
 </style>
 
-<script>
-  // Right sidebar panel functionality
-  (function() {
-    function initRightSidebarPanel() {
-      const rightSidebar = document.querySelector('.right-sidebar') as HTMLElement | null;
-      if (!rightSidebar) return;
+<script is:inline>
+  // Right sidebar ↔ shell panel: delegated clicks, scope-aware panel target ([data-shell-panel-scope]), no duplicate listeners on astro:page-load
+  (function () {
+    if (typeof window === 'undefined') return;
+    if (window.__harmonyRightSidebarPanelDelegated) return;
+    window.__harmonyRightSidebarPanelDelegated = true;
 
-      const panelItems = rightSidebar.querySelectorAll('[data-right-sidebar-item]');
-      const rightPanel = document.querySelector('.shell-panel--right') as HTMLElement | null;
+    function resolveRightPanel(rightSidebar) {
+      var scope = rightSidebar.closest('[data-shell-panel-scope]');
+      return (scope && scope.querySelector('.shell-panel--right')) ?? document.querySelector('.shell-panel--right');
+    }
 
-      // Handle item clicks
-      panelItems.forEach((item) => {
-        const link = item as HTMLAnchorElement;
-        
-        link.addEventListener('click', (e) => {
-          // Only handle if item has panel configuration
-          if (!link.dataset.panelTitle) {
-            return; // Let default link behavior happen
-          }
-
-          e.preventDefault();
-
-          const title = link.dataset.panelTitle || '';
-          const icon = link.dataset.panelIcon || '';
-          const contentId = link.dataset.panelContentId;
-          const useGradientHeader = link.dataset.useGradientHeader === 'true';
-          
-          // Check if this is Dela AI item (automatic detection)
-          const isDelaAI = title === 'Dela AI' || 
-            (link.querySelector('.right-sidebar__dela-logo') !== null);
-          
-          // Determine if gradient should be applied
-          const shouldUseGradient = useGradientHeader || isDelaAI;
-
-          // Update panel dynamically
-          if (rightPanel) {
-            const isDelaPanel = rightPanel.getAttribute('data-dela-panel') === 'true';
-            const preserveDelaLayout = isDelaPanel && (isDelaAI || shouldUseGradient);
-
-            // Get panel header
-            const panelHeader = rightPanel.querySelector('.shell-panel__header') as HTMLElement | null;
-
-            // Set or clear gradient header attribute
-            if (panelHeader) {
-              if (shouldUseGradient) {
-                panelHeader.setAttribute('data-gradient-header', 'true');
-              } else {
-                panelHeader.removeAttribute('data-gradient-header');
-              }
-            }
-            // Update title
-            const titleElement = rightPanel.querySelector('.shell-panel__title') as HTMLElement | null;
-            if (titleElement) {
-              titleElement.textContent = title;
-            }
-
-            // For Dela panel opened from Dela AI item: only gradient and title were set above; do not replace icon or content
-            if (!preserveDelaLayout) {
-              // Update icon - find the icon container and update the icon
-              const iconContainer = rightPanel.querySelector('[data-panel-icon-container]') as HTMLElement | null;
-              if (iconContainer) {
-                // Find existing icon SVG or Icon element
-                const existingIcon = iconContainer.querySelector('svg, [data-panel-icon]');
-                if (existingIcon) {
-                  existingIcon.remove();
-                }
-
-                // Try to find and clone icon from the clicked item
-                const sourceIcon = link.querySelector('.right-sidebar__icon svg, .right-sidebar__icon img') as HTMLElement | null;
-                if (sourceIcon) {
-                  const clonedIcon = sourceIcon.cloneNode(true) as HTMLElement;
-                  // Ensure proper sizing for panel header
-                  if (clonedIcon.tagName === 'SVG') {
-                    clonedIcon.setAttribute('width', '20');
-                    clonedIcon.setAttribute('height', '20');
-                  }
-                  clonedIcon.setAttribute('data-panel-icon', icon || '');
-                  iconContainer.appendChild(clonedIcon);
-                  // Show the icon container
-                  iconContainer.style.display = 'flex';
-                } else if (icon) {
-                  // If no source icon found but we have an icon name, set data attribute
-                  iconContainer.setAttribute('data-icon-name', icon);
-                  iconContainer.style.display = 'flex';
-                } else {
-                  // Hide icon container if no icon
-                  iconContainer.style.display = 'none';
-                }
-              }
-
-              // Update content if needed
-              if (contentId) {
-                rightPanel.setAttribute('data-panel-content-id', contentId);
-              }
-
-              // Add default demo content if content area is empty
-              const contentArea = rightPanel.querySelector('.shell-panel__content') as HTMLElement | null;
-              if (contentArea && !contentArea.hasChildNodes()) {
-                contentArea.innerHTML = `
-                <div style="padding: var(--space-4);">
-                  <p style="color: var(--text-secondary); margin-bottom: var(--space-4);">
-                    Panel content for: <strong>${title}</strong>
-                  </p>
-                  <p style="color: var(--text-secondary); font-size: var(--text-sm);">
-                    This is contextual content that would be specific to the "${title}" menu item.
-                    In a real application, this content would be dynamically loaded based on the selected item.
-                  </p>
-                </div>
-              `;
-              }
-            }
-
-            // Open panel
-            rightPanel.classList.add('shell-panel--open');
-            rightPanel.setAttribute('data-open', 'true');
-
-            // Set sidebar state
-            rightSidebar.setAttribute('data-panel-open', 'true');
-
-            // Set active item
-            panelItems.forEach((i) => i.removeAttribute('data-active'));
-            link.setAttribute('data-active', 'true');
-          }
-        });
-      });
-
-      // Handle panel close - listen for close events
-      const closeButtons = document.querySelectorAll('[data-panel-close]');
-      closeButtons.forEach((btn) => {
-        btn.addEventListener('click', () => {
-          const panel = btn.closest('.shell-panel--right') as HTMLElement | null;
-          if (panel && panel.classList.contains('shell-panel--open')) {
-            // Close panel
-            panel.classList.remove('shell-panel--open');
-            panel.setAttribute('data-open', 'false');
-
-            // Clear gradient header attribute
-            const panelHeader = panel.querySelector('.shell-panel__header') as HTMLElement | null;
-            if (panelHeader) {
-              panelHeader.removeAttribute('data-gradient-header');
-            }
-
-            // Clear sidebar state
-            rightSidebar.removeAttribute('data-panel-open');
-
-            // Clear active item
-            panelItems.forEach((i) => i.removeAttribute('data-active'));
-          }
+    function clearSidebarOpenState(panel) {
+      var scope = panel && panel.closest('[data-shell-panel-scope]');
+      if (scope) {
+        var sb = scope.querySelector('.right-sidebar');
+        if (sb) {
+          sb.removeAttribute('data-panel-open');
+          sb.querySelectorAll('[data-right-sidebar-item]').forEach(function (i) {
+            i.removeAttribute('data-active');
+          });
+        }
+        return;
+      }
+      document.querySelectorAll('.right-sidebar').forEach(function (sb) {
+        sb.removeAttribute('data-panel-open');
+        sb.querySelectorAll('[data-right-sidebar-item]').forEach(function (i) {
+          i.removeAttribute('data-active');
         });
       });
     }
 
-    initRightSidebarPanel();
-    document.addEventListener('astro:page-load', initRightSidebarPanel);
+    document.addEventListener(
+      'click',
+      function (e) {
+        var target = e.target;
+        if (!(target instanceof Element)) return;
+
+        var closeBtn = target.closest('[data-panel-close]');
+        if (closeBtn) {
+          var panel = closeBtn.closest('.shell-panel--right');
+          if (panel && panel.classList.contains('shell-panel--open')) {
+            panel.classList.remove('shell-panel--open');
+            panel.setAttribute('data-open', 'false');
+            var panelHeader = panel.querySelector('.shell-panel__header');
+            if (panelHeader) panelHeader.removeAttribute('data-gradient-header');
+            clearSidebarOpenState(panel);
+          }
+          return;
+        }
+
+        var link = target.closest('[data-right-sidebar-item]');
+        if (!link || !link.dataset.panelTitle) return;
+
+        var rightSidebar = link.closest('.right-sidebar');
+        if (!rightSidebar) return;
+
+        e.preventDefault();
+
+        var title = link.dataset.panelTitle || '';
+        var icon = link.dataset.panelIcon || '';
+        var contentId = link.dataset.panelContentId;
+        var useGradientHeader = link.dataset.useGradientHeader === 'true';
+
+        var isDelaAI =
+          title === 'Dela AI' || link.querySelector('.right-sidebar__dela-logo') !== null;
+        var shouldUseGradient = useGradientHeader || isDelaAI;
+
+        var rightPanel = resolveRightPanel(rightSidebar);
+        if (!rightPanel) return;
+
+        var isDelaPanel = rightPanel.getAttribute('data-dela-panel') === 'true';
+        var preserveDelaLayout = isDelaPanel && (isDelaAI || shouldUseGradient);
+
+        var panelHeader = rightPanel.querySelector('.shell-panel__header');
+        if (panelHeader) {
+          if (shouldUseGradient) {
+            panelHeader.setAttribute('data-gradient-header', 'true');
+          } else {
+            panelHeader.removeAttribute('data-gradient-header');
+          }
+        }
+
+        var titleElement = rightPanel.querySelector('.shell-panel__title');
+        if (titleElement) {
+          titleElement.textContent = title;
+        }
+
+        if (!preserveDelaLayout) {
+          var iconContainer = rightPanel.querySelector('[data-panel-icon-container]');
+          if (iconContainer) {
+            var existingIcon = iconContainer.querySelector('svg, [data-panel-icon]');
+            if (existingIcon) existingIcon.remove();
+
+            var sourceIcon = link.querySelector('.right-sidebar__icon svg, .right-sidebar__icon img');
+            if (sourceIcon) {
+              var clonedIcon = sourceIcon.cloneNode(true);
+              if (clonedIcon.tagName === 'SVG') {
+                clonedIcon.setAttribute('width', '20');
+                clonedIcon.setAttribute('height', '20');
+              }
+              clonedIcon.setAttribute('data-panel-icon', icon || '');
+              iconContainer.appendChild(clonedIcon);
+              iconContainer.style.display = 'flex';
+            } else if (icon) {
+              iconContainer.setAttribute('data-icon-name', icon);
+              iconContainer.style.display = 'flex';
+            } else {
+              iconContainer.style.display = 'none';
+            }
+          }
+
+          if (contentId) {
+            rightPanel.setAttribute('data-panel-content-id', contentId);
+          }
+
+          var contentArea = rightPanel.querySelector('.shell-panel__content');
+          if (contentArea && !contentArea.hasChildNodes()) {
+            contentArea.innerHTML =
+              '<div style="padding: var(--space-4);">' +
+              '<p style="color: var(--text-secondary); margin-bottom: var(--space-4);">Panel content for: <strong>' +
+              title.replace(/</g, '&lt;') +
+              '</strong></p>' +
+              '<p style="color: var(--text-secondary); font-size: var(--text-sm);">This is contextual content that would be specific to the "' +
+              title.replace(/</g, '&lt;') +
+              '" menu item. In a real application, this content would be dynamically loaded based on the selected item.</p>' +
+              '</div>';
+          }
+        }
+
+        rightPanel.classList.add('shell-panel--open');
+        rightPanel.setAttribute('data-open', 'true');
+        rightSidebar.setAttribute('data-panel-open', 'true');
+
+        rightSidebar.querySelectorAll('[data-right-sidebar-item]').forEach(function (i) {
+          i.removeAttribute('data-active');
+        });
+        link.setAttribute('data-active', 'true');
+      },
+      true
+    );
   })();
 </script>
+</div>

@@ -167,14 +167,14 @@ const categoryConfig: Record<CategoryKey, { label: string; color: 'success' | 'i
         <div class="changelog-empty">
           <p>📝 No changelog entries yet.</p>
           <p>
-            Generate entries locally after you change components, styles, or tokens, then commit the updated files under <code>changelog-data/</code>.
+            The changelog automatically updates when commits are pushed to main that modify components or design tokens.
           </p>
           <details class="changelog-empty-details">
             <summary>How does it work?</summary>
             <ul>
-              <li>From the repo root, run <code>npm run changelog</code> (or <code>npm run changelog:snapshot</code>)</li>
-              <li>Review and commit the updated JSON in <code>changelog-data/</code></li>
-              <li>Rebuild or refresh the docs site to see entries here</li>
+              <li>GitHub Actions detects component/token changes automatically</li>
+              <li>Changelog entries are generated and committed</li>
+              <li>Changes appear here after the workflow completes</li>
             </ul>
           </details>
         </div>

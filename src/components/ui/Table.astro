@@ -6,16 +6,22 @@
  * Supports optional title bar and action bar via slots.
  * When sortColumns is provided, renders a built-in sortable header row (icons + aria-sort).
  */
-import Icon from './Icon.astro';
+import TableDataRegion from './TableDataRegion.astro';
 
 export interface SortColumn {
   key: string;
   label: string;
   align?: 'left' | 'right';
+  /** When variant is commandCenter, false hides the sort control for this column. */
+  sortable?: boolean;
+  /** When variant is commandCenter, false hides the filter control for this column. */
+  filterable?: boolean;
 }
 
 export interface Props {
   headerVariant?: 'gray' | 'white' | 'none';
+  /** 'commandCenter' applies full cell grid, same body sizing as default tables, default striped, and border-based row selection styling. */
+  variant?: 'default' | 'commandCenter';
   striped?: boolean;
   reorderable?: boolean;
   grouped?: boolean;
@@ -23,10 +29,13 @@ export interface Props {
   sortColumns?: SortColumn[];
   sortColumn?: string | null;
   sortDirection?: 'asc' | 'desc' | null;
+  /** Comma- or space-separated `data-row-id` values to expand on load (with `grouped`). */
+  groupedDefaultExpanded?: string;
 }
 
 const {
   headerVariant = 'gray',
+  variant: tableVariant = 'default',
   striped = false,
   reorderable = false,
   grouped = false,
@@ -34,23 +43,39 @@ const {
   sortColumns,
   sortColumn = null,
   sortDirection = null,
+  groupedDefaultExpanded = '',
 } = Astro.props;
 
-const classes = [
-  'table',
-  `table--header-${headerVariant}`,
-  striped && 'table--striped',
-  reorderable && 'table--reorderable',
-  grouped && 'table--grouped',
-  className,
-].filter(Boolean).join(' ');
-
+const isCommandCenter = tableVariant === 'commandCenter';
+const effectiveStriped = isCommandCenter ? striped !== false : striped;
+const hasCommandCenterSlot = isCommandCenter && Astro.slots.has('command-center-toolbar');
+const hasCommandCenterAside = isCommandCenter && Astro.slots.has('command-center-aside');
+const useCommandCenterDock = isCommandCenter && hasCommandCenterAside;
 const hasFilterBar = Astro.slots.has('filter-bar');
 const hasTitleBar = Astro.slots.has('title-bar-content') || Astro.slots.has('title-bar-icons');
 const hasActionBar = Astro.slots.has('action-bar');
 const hasHeaderSlot = Astro.slots.has('header');
 const hasBodySlot = Astro.slots.has('body');
 const useSortHeader = sortColumns && sortColumns.length > 0;
+const useCommandCenterHeader = isCommandCenter && useSortHeader;
+
+const classes = [
+  'table',
+  isCommandCenter ? 'table--command-center' : `table--header-${headerVariant}`,
+  effectiveStriped && 'table--striped',
+  reorderable && 'table--reorderable',
+  grouped && 'table--grouped',
+  className,
+].filter(Boolean).join(' ');
+
+const wrapperClass = [
+  'table-wrapper',
+  isCommandCenter && 'table-wrapper--command-center',
+  hasCommandCenterSlot && 'table-wrapper--has-command-center-toolbar',
+  hasCommandCenterAside && 'table-wrapper--has-command-center-aside',
+]
+  .filter(Boolean)
+  .join(' ');
 
 function getSortIcon(key: string) {
   if (sortColumn !== key) return 'chevron-up-down';
@@ -66,7 +91,13 @@ function getSortLabel(key: string, label: string): string {
 }
 ---
 
-<div class="table-wrapper" data-reorderable={reorderable || undefined} data-grouped={grouped || undefined}>
+<div
+  class={wrapperClass}
+  data-reorderable={reorderable || undefined}
+  data-grouped={grouped || undefined}
+  data-grouped-default-expanded={grouped && groupedDefaultExpanded ? groupedDefaultExpanded : undefined}
+  data-table-variant={isCommandCenter ? 'commandCenter' : undefined}
+>
   {reorderable && (
     <template class="table__grip-template">
       <button type="button" class="table__grip-handle" aria-label="Drag to reorder"></button>
@@ -79,84 +110,90 @@ function getSortLabel(key: string, label: string): string {
       </button>
     </template>
   )}
-  <!-- Optional Filter Bar -->
-  {hasFilterBar && (
-    <div class="table__filter-bar">
-      <slot name="filter-bar" />
-    </div>
-  )}
-
-  <!-- Optional Title Bar -->
-  {hasTitleBar && (
-    <div class="table__title-bar">
-      <div class="table__title-bar-content">
-        {Astro.slots.has('title-bar-content') && (
-          <slot name="title-bar-content" />
-        )}
-        {Astro.slots.has('title-bar-icons') && (
-          <div class="table__title-bar-icons">
-            <slot name="title-bar-icons" />
+  {useCommandCenterDock ? (
+    <div
+      class:list={[
+        'command-center-canvas',
+        hasCommandCenterSlot ? 'command-center-canvas--with-toolbar' : 'command-center-canvas--no-toolbar',
+      ]}
+    >
+      {hasCommandCenterSlot && (
+        <>
+          <div class="command-center-canvas__toolbar">
+            <div class="table__command-center-toolbar">
+              <slot name="command-center-toolbar" />
+            </div>
           </div>
-        )}
+          <div class="command-center-canvas__spacer" aria-hidden="true"></div>
+        </>
+      )}
+      <div class="command-center-canvas__main">
+        <TableDataRegion
+          tableClass={classes}
+          hasFilterBar={hasFilterBar}
+          hasTitleBar={hasTitleBar}
+          hasActionBar={hasActionBar}
+          hasHeaderSlot={hasHeaderSlot}
+          hasBodySlot={hasBodySlot}
+          useCommandCenterHeader={useCommandCenterHeader}
+          useSortHeader={!!useSortHeader}
+          reorderable={reorderable}
+          isCommandCenter={isCommandCenter}
+          grouped={grouped}
+          sortColumns={sortColumns}
+          sortColumn={sortColumn}
+          sortDirection={sortDirection}
+          getSortIcon={getSortIcon}
+          getAriaSort={getAriaSort}
+          getSortLabel={getSortLabel}
+        >
+          <div slot="filter-bar"><slot name="filter-bar" /></div>
+          <div slot="title-bar-content"><slot name="title-bar-content" /></div>
+          <div slot="title-bar-icons"><slot name="title-bar-icons" /></div>
+          <div slot="action-bar"><slot name="action-bar" /></div>
+          <div slot="header"><slot name="header" /></div>
+          <div slot="body"><slot name="body" /></div>
+        </TableDataRegion>
+      </div>
+      <div class="command-center-canvas__aside">
+        <slot name="command-center-aside" />
       </div>
     </div>
-  )}
-  
-  <!-- Optional Action Bar -->
-  {hasActionBar && (
-    <div class="table__action-bar">
-      <slot name="action-bar" />
+  ) : (
+    <div class="table__undocked-cluster" style="display: contents">
+      {hasCommandCenterSlot && (
+        <div class="table__command-center-toolbar">
+          <slot name="command-center-toolbar" />
+        </div>
+      )}
+      <TableDataRegion
+        tableClass={classes}
+        hasFilterBar={hasFilterBar}
+        hasTitleBar={hasTitleBar}
+        hasActionBar={hasActionBar}
+        hasHeaderSlot={hasHeaderSlot}
+        hasBodySlot={hasBodySlot}
+        useCommandCenterHeader={useCommandCenterHeader}
+        useSortHeader={!!useSortHeader}
+        reorderable={reorderable}
+        isCommandCenter={isCommandCenter}
+        grouped={grouped}
+        sortColumns={sortColumns}
+        sortColumn={sortColumn}
+        sortDirection={sortDirection}
+        getSortIcon={getSortIcon}
+        getAriaSort={getAriaSort}
+        getSortLabel={getSortLabel}
+      >
+        <div slot="filter-bar"><slot name="filter-bar" /></div>
+        <div slot="title-bar-content"><slot name="title-bar-content" /></div>
+        <div slot="title-bar-icons"><slot name="title-bar-icons" /></div>
+        <div slot="action-bar"><slot name="action-bar" /></div>
+        <div slot="header"><slot name="header" /></div>
+        <div slot="body"><slot name="body" /></div>
+      </TableDataRegion>
     </div>
   )}
-  
-  <!-- Table -->
-  <table class={classes}>
-    <thead>
-      {useSortHeader ? (
-        <tr>
-          {reorderable && (
-            <th class="table__grip-column" scope="col" aria-label="Reorder"></th>
-          )}
-          {grouped && (
-            <th class="table__expand-column" scope="col" aria-label="Expand"></th>
-          )}
-          {sortColumns!.map((col) => (
-            <th
-              scope="col"
-              class={col.align === 'right' ? 'text-right' : 'text-left'}
-              aria-sort={getAriaSort(col.key)}
-            >
-              <button type="button" class="table__sort-header" aria-label={getSortLabel(col.key, col.label)}>
-                {col.label}
-                <Icon name={getSortIcon(col.key)} size="sm" />
-              </button>
-            </th>
-          ))}
-        </tr>
-      ) : hasHeaderSlot ? (
-        <slot name="header" />
-      ) : (
-        <tr>
-          {reorderable && (
-            <th class="table__grip-column" scope="col" aria-label="Reorder"></th>
-          )}
-          {grouped && (
-            <th class="table__expand-column" scope="col" aria-label="Expand"></th>
-          )}
-          <th scope="col">Column</th>
-        </tr>
-      )}
-    </thead>
-    <tbody>
-      {hasBodySlot ? (
-        <slot name="body" />
-      ) : (
-        <tr><td>Table body content. Override by passing header and body slots.</td></tr>
-      )}
-    </tbody>
-  </table>
-</div>
-
 {reorderable && (
   <script>
     (function () {
@@ -265,7 +302,15 @@ function getSortLabel(key: string, label: string): string {
           const tbody = table?.querySelector('tbody');
           if (!tbody || !template) return;
 
+          const isCC = wrapper.getAttribute('data-table-variant') === 'commandCenter';
           const expandedIds = new Set();
+          var defaultExpandedAttr = wrapper.getAttribute('data-grouped-default-expanded');
+          if (defaultExpandedAttr) {
+            defaultExpandedAttr.split(/[\s,]+/).forEach(function (id) {
+              var t = id.trim();
+              if (t) expandedIds.add(t);
+            });
+          }
 
           function getRowId(row) {
             return row.getAttribute('data-row-id') || null;
@@ -316,10 +361,94 @@ function getSortLabel(key: string, label: string): string {
           const rows = Array.from(tbody.querySelectorAll('tr'));
           rows.forEach(function (row) {
             if (row.classList.contains('table-row--total')) {
-              const emptyTd = document.createElement('td');
-              emptyTd.className = 'table__expand-cell table__expand-cell--placeholder';
-              emptyTd.setAttribute('aria-hidden', 'true');
-              row.insertBefore(emptyTd, row.firstChild);
+              if (isCC) {
+                var tdf = row.querySelector('td');
+                if (tdf && !tdf.querySelector('.table__cc-project-id-inner')) {
+                  tdf.classList.add('table__cc-project-id-cell');
+                  var inr = document.createElement('div');
+                  inr.className = 'table__cc-project-id-inner';
+                  var gg = document.createElement('span');
+                  gg.className = 'table__cc-inline-expand-gutter';
+                  gg.setAttribute('aria-hidden', 'true');
+                  inr.appendChild(gg);
+                  while (tdf.firstChild) inr.appendChild(tdf.removeChild(tdf.firstChild));
+                  tdf.appendChild(inr);
+                }
+              } else {
+                var emptyTd = document.createElement('td');
+                emptyTd.className = 'table__expand-cell table__expand-cell--placeholder';
+                emptyTd.setAttribute('aria-hidden', 'true');
+                row.insertBefore(emptyTd, row.firstChild);
+              }
+              return;
+            }
+
+            if (isCC) {
+              var firstTd = row.querySelector('td');
+              if (!firstTd || firstTd.querySelector('.table__cc-project-id-inner')) return;
+              var depth0 = getDepth(row);
+              if (depth0 > 0) {
+                firstTd.style.paddingLeft = 'calc(var(--space-4) * ' + depth0 + ' + var(--space-4))';
+              }
+              var inner = document.createElement('div');
+              inner.className = 'table__cc-project-id-inner';
+              var pId = getParentId(row);
+              if (pId) {
+                var gr = document.createElement('span');
+                gr.className = 'table__cc-inline-expand-gutter';
+                gr.setAttribute('aria-hidden', 'true');
+                inner.appendChild(gr);
+              } else if (hasChildren(row)) {
+                var rid0 = getRowId(row);
+                var wrap0 = document.createElement('span');
+                wrap0.className = 'table__cc-inline-expand';
+                var btnF = /** @type {DocumentFragment} */ (template.content.cloneNode(true));
+                var btnB = btnF.querySelector('button');
+                if (btnB && rid0) {
+                  btnB.addEventListener('click', function () {
+                    toggleExpanded(rid0);
+                  });
+                }
+                wrap0.appendChild(btnF);
+                inner.appendChild(wrap0);
+              } else {
+                var wlf = document.createElement('span');
+                wlf.className = 'table__cc-inline-expand';
+                wlf.setAttribute('aria-hidden', 'true');
+                var ic = document.createElement('span');
+                ic.className = 'table__expand-icon table__expand-icon--cc-leaf';
+                wlf.appendChild(ic);
+                inner.appendChild(wlf);
+              }
+              var rest = document.createDocumentFragment();
+              while (firstTd.firstChild) {
+                rest.appendChild(firstTd.removeChild(firstTd.firstChild));
+              }
+              var rch = /** @type {Node[]} */ (Array.prototype.slice.call(rest.childNodes));
+              var vNode;
+              if (rch.length === 1 && rch[0].nodeType === 3) {
+                var a0 = document.createElement('a');
+                a0.className = 'text-link';
+                a0.href = '#';
+                a0.addEventListener('click', function (e) {
+                  e.preventDefault();
+                });
+                a0.textContent = (rch[0]).textContent;
+                vNode = a0;
+              } else if (rch.length === 1 && rch[0].nodeName === 'A') {
+                (rch[0]).classList.add('text-link');
+                vNode = rch[0];
+              } else {
+                var sp0 = document.createElement('span');
+                sp0.className = 'table__cc-project-id-text';
+                rch.forEach(function (n) {
+                  sp0.appendChild(n);
+                });
+                vNode = sp0;
+              }
+              inner.appendChild(vNode);
+              firstTd.classList.add('table__cc-project-id-cell');
+              firstTd.appendChild(inner);
               return;
             }
 
@@ -330,10 +459,12 @@ function getSortLabel(key: string, label: string): string {
               const rowId = getRowId(row);
               const btn = template.content.cloneNode(true);
               const btnEl = btn.querySelector('button');
-              btnEl.addEventListener('click', function () {
-                toggleExpanded(rowId);
-              });
-              expandTd.appendChild(btn);
+              if (btnEl) {
+                btnEl.addEventListener('click', function () {
+                  toggleExpanded(rowId);
+                });
+                expandTd.appendChild(btn);
+              }
             }
 
             row.insertBefore(expandTd, row.firstChild);
@@ -347,7 +478,22 @@ function getSortLabel(key: string, label: string): string {
             }
           });
 
+          function syncExpandButtons() {
+            tbody.querySelectorAll('tr[data-has-children]').forEach(function (row) {
+              var id = getRowId(row);
+              if (!id) return;
+              var btn = row.querySelector('.table__expand-btn');
+              if (!btn) return;
+              var isOpen = expandedIds.has(id);
+              btn.setAttribute('aria-expanded', isOpen);
+              btn.setAttribute('aria-label', isOpen ? 'Collapse row' : 'Expand row');
+              if (isOpen) btn.classList.add('table__expand-btn--expanded');
+              else btn.classList.remove('table__expand-btn--expanded');
+            });
+          }
+
           updateVisibility();
+          syncExpandButtons();
         });
       }
 
@@ -390,3 +536,4 @@ function getSortLabel(key: string, label: string): string {
     });
   });
 </script>
+</div>

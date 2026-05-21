@@ -1,4 +1,4 @@
-# @dltkfrancesmunoz/harmony-design-system
+# @deltek/harmony-components
 
 > Enterprise design system for Astro applications with 40+ production-ready UI components, layouts, and comprehensive theming support.
 
@@ -22,10 +22,10 @@ Ensure you have Node.js and npm installed, and that your project uses Astro.
 
 ```bash
 # Install the design system from GitHub
-npm install git+https://github.com/DLTKfrancesmunoz/harmonycomponentspublic.git
+npm install git+https://github.com/DLTKfrancesmunoz/ux-harmony-design-system.git
 
 # Or install a specific version
-npm install git+https://github.com/DLTKfrancesmunoz/harmonycomponentspublic.git#v1.0.0
+npm install git+https://github.com/DLTKfrancesmunoz/ux-harmony-design-system.git#v1.0.0
 ```
 
 ### Peer Dependencies
@@ -46,10 +46,10 @@ In your main layout or `src/pages/_app.astro`:
 
 ```astro
 ---
-import '@dltkfrancesmunoz/harmony-design-system/styles/reset.css';
-import '@dltkfrancesmunoz/harmony-design-system/styles/tokens.css';
-import '@dltkfrancesmunoz/harmony-design-system/styles/global.css';
-import '@dltkfrancesmunoz/harmony-design-system/styles/components.css';
+import '@deltek/harmony-components/styles/reset.css';
+import '@deltek/harmony-components/styles/tokens.css';
+import '@deltek/harmony-components/styles/global.css';
+import '@deltek/harmony-components/styles/components.css';
 ---
 ```
 
@@ -65,7 +65,7 @@ import '@dltkfrancesmunoz/harmony-design-system/styles/components.css';
 
 ```astro
 ---
-import { Button, Card, Input } from '@dltkfrancesmunoz/harmony-design-system/ui';
+import { Button, Card, Input } from '@deltek/harmony-components/ui';
 ---
 
 <Card>
@@ -79,7 +79,7 @@ import { Button, Card, Input } from '@dltkfrancesmunoz/harmony-design-system/ui'
 
 ```astro
 ---
-import ShellLayout from '@dltkfrancesmunoz/harmony-design-system/layouts/ShellLayout.astro';
+import ShellLayout from '@deltek/harmony-components/layouts/ShellLayout.astro';
 ---
 
 <ShellLayout
@@ -101,11 +101,11 @@ import ShellLayout from '@dltkfrancesmunoz/harmony-design-system/layouts/ShellLa
 
 ```typescript
 // Import all components at once
-import { Button, Card, Dialog, Input, Dropdown } from '@dltkfrancesmunoz/harmony-design-system/ui';
+import { Button, Card, Dialog, Input, Dropdown } from '@deltek/harmony-components/ui';
 
 // Import individual components
-import Button from '@dltkfrancesmunoz/harmony-design-system/ui/Button.astro';
-import Card from '@dltkfrancesmunoz/harmony-design-system/ui/Card.astro';
+import Button from '@deltek/harmony-components/ui/Button.astro';
+import Card from '@deltek/harmony-components/ui/Card.astro';
 ```
 
 **Available Components:**
@@ -135,8 +135,8 @@ import Card from '@dltkfrancesmunoz/harmony-design-system/ui/Card.astro';
 ### Layouts
 
 ```astro
-import ShellLayout from '@dltkfrancesmunoz/harmony-design-system/layouts/ShellLayout.astro';
-import DocsLayout from '@dltkfrancesmunoz/harmony-design-system/layouts/DocsLayout.astro';
+import ShellLayout from '@deltek/harmony-components/layouts/ShellLayout.astro';
+import DocsLayout from '@deltek/harmony-components/layouts/DocsLayout.astro';
 ```
 
 #### ShellLayout Props
@@ -167,28 +167,28 @@ interface ShellLayoutProps {
 
 ```typescript
 // Import individual stylesheets
-import '@dltkfrancesmunoz/harmony-design-system/styles/reset.css';      // CSS reset
-import '@dltkfrancesmunoz/harmony-design-system/styles/tokens.css';     // Design tokens as CSS variables
-import '@dltkfrancesmunoz/harmony-design-system/styles/global.css';     // Global styles
-import '@dltkfrancesmunoz/harmony-design-system/styles/components.css'; // Component styles
-import '@dltkfrancesmunoz/harmony-design-system/styles/layout.css';     // Layout utilities
-import '@dltkfrancesmunoz/harmony-design-system/styles/utilities.css';  // Utility classes
+import '@deltek/harmony-components/styles/reset.css';      // CSS reset
+import '@deltek/harmony-components/styles/tokens.css';     // Design tokens as CSS variables
+import '@deltek/harmony-components/styles/global.css';     // Global styles
+import '@deltek/harmony-components/styles/components.css'; // Component styles
+import '@deltek/harmony-components/styles/layout.css';     // Layout utilities
+import '@deltek/harmony-components/styles/utilities.css';  // Utility classes
 ```
 
 ### Design Tokens
 
 ```typescript
 // Import all tokens
-import { colors, spacing, typography, elevations } from '@dltkfrancesmunoz/harmony-design-system/tokens';
+import { colors, spacing, typography, elevations } from '@deltek/harmony-components/tokens';
 
 // Import specific token sets
-import { semanticColors, themeColors } from '@dltkfrancesmunoz/harmony-design-system/tokens';
+import { semanticColors, themeColors } from '@deltek/harmony-components/tokens';
 
 // Import raw JSON
-import colorsJson from '@dltkfrancesmunoz/harmony-design-system/tokens/colors.json';
-import spacingJson from '@dltkfrancesmunoz/harmony-design-system/tokens/spacing.json';
-import typographyJson from '@dltkfrancesmunoz/harmony-design-system/tokens/typography.json';
-import elevationsJson from '@dltkfrancesmunoz/harmony-design-system/tokens/elevations.json';
+import colorsJson from '@deltek/harmony-components/tokens/colors.json';
+import spacingJson from '@deltek/harmony-components/tokens/spacing.json';
+import typographyJson from '@deltek/harmony-components/tokens/typography.json';
+import elevationsJson from '@deltek/harmony-components/tokens/elevations.json';
 ```
 
 ### Public Assets
@@ -200,7 +200,7 @@ Assets like logos are included in the package:
 // Reference logos from the package's public folder
 // Note: You may need to copy these to your project's public folder
 ---
-<img src="/node_modules/@dltkfrancesmunoz/harmony-design-system/public/logos/CPVPLogo.svg" alt="Logo" />
+<img src="/node_modules/@deltek/harmony-components/public/logos/CPVPLogo.svg" alt="Logo" />
 ```
 
 ## Theme System
@@ -273,9 +273,9 @@ Harmony includes helper scripts for managing customizations:
 # Helper scripts are included in the published package
 # Copy them to your project's scripts folder:
 mkdir -p scripts
-cp node_modules/@dltkfrancesmunoz/harmony-design-system/scripts/copy-harmony-component.cjs scripts/
-cp node_modules/@dltkfrancesmunoz/harmony-design-system/scripts/check-harmony-updates.cjs scripts/
-cp node_modules/@dltkfrancesmunoz/harmony-design-system/scripts/diff-harmony-component.cjs scripts/
+cp node_modules/@deltek/harmony-components/scripts/copy-harmony-component.cjs scripts/
+cp node_modules/@deltek/harmony-components/scripts/check-harmony-updates.cjs scripts/
+cp node_modules/@deltek/harmony-components/scripts/diff-harmony-component.cjs scripts/
 
 # Add to your package.json:
 {
@@ -293,10 +293,10 @@ The package includes reference wrapper components in `examples/`:
 
 ```bash
 # View available examples
-ls node_modules/@dltkfrancesmunoz/harmony-design-system/examples/wrappers/
+ls node_modules/@deltek/harmony-components/examples/wrappers/
 
 # Copy an example to your project
-cp node_modules/@dltkfrancesmunoz/harmony-design-system/examples/wrappers/TrackedButton.astro \
+cp node_modules/@deltek/harmony-components/examples/wrappers/TrackedButton.astro \
    src/components/composed/
 ```
 
@@ -308,7 +308,7 @@ See [examples/README.md](./examples/README.md) for detailed documentation and us
 
 ### Why This System?
 
-**⚠️ Never edit `node_modules/@dltkfrancesmunoz/harmony-design-system/` directly:**
+**⚠️ Never edit `node_modules/@deltek/harmony-components/` directly:**
 - Changes are wiped on `npm install`
 - Custom props don't exist in published package
 - Production builds fail
@@ -322,7 +322,7 @@ To get the latest changes from the design system:
 
 ```bash
 # Update to the latest version
-npm update @dltkfrancesmunoz/harmony-design-system
+npm update @deltek/harmony-components
 
 # Or install a specific version
 npm install git+https://github.com/DLTKfrancesmunoz/harmonycomponents.git#v1.0.1
@@ -333,8 +333,8 @@ npm install git+https://github.com/DLTKfrancesmunoz/harmonycomponents.git#v1.0.1
 All components export TypeScript interfaces for props:
 
 ```typescript
-import type { Props as ButtonProps } from '@dltkfrancesmunoz/harmony-design-system/ui/Button.astro';
-import type { Props as CardProps } from '@dltkfrancesmunoz/harmony-design-system/ui/Card.astro';
+import type { Props as ButtonProps } from '@deltek/harmony-components/ui/Button.astro';
+import type { Props as CardProps } from '@deltek/harmony-components/ui/Card.astro';
 ```
 
 ## Browser Support
@@ -344,19 +344,20 @@ import type { Props as CardProps } from '@dltkfrancesmunoz/harmony-design-system
 - CSS Grid and Flexbox
 - CSS Custom Properties
 
-## Changelog
-
-- **[CHANGELOG.md](./CHANGELOG.md)** — human-readable release notes.
-- **Docs site `/changelog`** — optional detail view fed by `changelog-data/` when you run **`npm run changelog`** (or **`npm run changelog:snapshot`**) locally and commit the updated JSON. Nothing on GitHub runs or auto-commits this for you.
-
 ## Contributing
 
-Issues and pull requests are welcome on the [GitHub repository](https://github.com/DLTKfrancesmunoz/harmonycomponentspublic).
+This package is maintained by the Deltek Design Systems team. For issues, feature requests, or contributions, please contact the design systems team or open an issue in the GitHub repository.
+
+**Changelog sync:** When you change components, styles, tokens, or layouts in this repo, commit and push. CI on push to `main` regenerates changelog data and commits the updates.
 
 ## License
 
-MIT — see `package.json` for the SPDX identifier.
+UNLICENSED - Internal use only for Deltek projects.
+
+## Changelog
+
+See [CHANGELOG.md](./CHANGELOG.md) for version history and release notes.
 
 ---
 
-Public Harmony design system distribution.
+Built with ❤️ by the Deltek Design Systems Team

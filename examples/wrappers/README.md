@@ -91,7 +91,7 @@ const project = {
 ### Step 1: Copy Example
 
 ```bash
-cp node_modules/@dltkfrancesmunoz/harmony-design-system/examples/wrappers/TrackedButton.astro \
+cp node_modules/@deltek/harmony-components/examples/wrappers/TrackedButton.astro \
    src/components/composed/MyButton.astro
 ```
 
@@ -99,7 +99,7 @@ cp node_modules/@dltkfrancesmunoz/harmony-design-system/examples/wrappers/Tracke
 
 ```astro
 ---
-import Button from '../../../node_modules/@dltkfrancesmunoz/harmony-design-system/src/components/ui/Button.astro';
+import Button from '../../../node_modules/@deltek/harmony-components/src/components/ui/Button.astro';
 
 interface Props {
   // Your custom props
@@ -138,12 +138,12 @@ import MyButton from '../components/composed/MyButton.astro';
 
 **Option 1: Full node_modules path (recommended)**
 ```astro
-import Button from '../../../node_modules/@dltkfrancesmunoz/harmony-design-system/src/components/ui/Button.astro';
+import Button from '../../../node_modules/@deltek/harmony-components/src/components/ui/Button.astro';
 ```
 
 **Option 2: Package subpath (may not work in all environments)**
 ```astro
-import Button from '@dltkfrancesmunoz/harmony-design-system/ui/Button.astro';
+import Button from '@deltek/harmony-components/ui/Button.astro';
 ```
 
 If option 2 fails, use option 1. Some build tools don't support Astro file package subpaths.
@@ -189,7 +189,7 @@ npm run build
    /**
     * TrackedButton - Button wrapper with analytics
     * Custom props: trackEvent
-    * Base: @dltkfrancesmunoz/harmony-design-system/ui/Button.astro
+    * Base: @deltek/harmony-components/ui/Button.astro
     */
    ```
 
@@ -211,7 +211,7 @@ npm run build
 
 ```astro
 ---
-import Button from '@dltkfrancesmunoz/harmony-design-system/ui/Button.astro';
+import Button from '@deltek/harmony-components/ui/Button.astro';
 
 interface Props {
   trackEvent?: string;
@@ -234,8 +234,8 @@ const { trackEvent, ...baseProps } = Astro.props;
 
 ```astro
 ---
-import Card from '@dltkfrancesmunoz/harmony-design-system/ui/Card.astro';
-import Badge from '@dltkfrancesmunoz/harmony-design-system/ui/Badge.astro';
+import Card from '@deltek/harmony-components/ui/Card.astro';
+import Badge from '@deltek/harmony-components/ui/Badge.astro';
 
 interface Props {
   item: {
@@ -269,9 +269,9 @@ const statusColors = {
 
 ```astro
 ---
-import Card from '@dltkfrancesmunoz/harmony-design-system/ui/Card.astro';
-import Button from '@dltkfrancesmunoz/harmony-design-system/ui/Button.astro';
-import Badge from '@dltkfrancesmunoz/harmony-design-system/ui/Badge.astro';
+import Card from '@deltek/harmony-components/ui/Card.astro';
+import Button from '@deltek/harmony-components/ui/Button.astro';
+import Badge from '@deltek/harmony-components/ui/Badge.astro';
 
 interface Props {
   title: string;
@@ -305,12 +305,12 @@ const { title, tags = [], onAction } = Astro.props;
 
 **Problem: Import fails**
 ```
-Cannot find module '@dltkfrancesmunoz/harmony-design-system/ui/Button.astro'
+Cannot find module '@deltek/harmony-components/ui/Button.astro'
 ```
 
 **Solution:** Use full node_modules path:
 ```astro
-import Button from '../../../node_modules/@dltkfrancesmunoz/harmony-design-system/src/components/ui/Button.astro';
+import Button from '../../../node_modules/@deltek/harmony-components/src/components/ui/Button.astro';
 ```
 
 **Problem: Props not working**

@@ -47,13 +47,14 @@ Design-system components are audited for **optional extension points** (slots or
 | Step | Has | Default slot + `description` slot. |
 | Stepper | Has | Default `<slot />` for Step children. |
 | Table | Has | Slots: title-bar-content, title-bar-icons, action-bar, header, body. |
+| TableCostpointGrid | Has | Astro: slots `frozen-thead`, `frozen-tbody`, `scroll-thead`, `scroll-tbody`; props for `maxHeight`, `scrollChrome`, `resizableSplit`, `instanceId`, `class`. React: props for columns, rows, selection, split width, etc. |
 | TabStrip | Has | `tabs` prop; fully config-driven. |
 | Tooltip | Has | Default `<slot />`. |
 | Toggle | OK | Props-only. |
 
 ## Summary
 
-- **Has / OK:** Alert, Avatar, Badge, Button, ButtonGroup, Card, Checkbox, CheckboxGroup, Chip, Dialog, form primitives, Icon, KanbanCard, Label, Link, PickerPopup, ProgressBar, RadioGroup, RightSidebar, ShellFooter, Spinner, Step, Stepper, Table, TabStrip, Tooltip, Toggle.
+- **Has / OK:** Alert, Avatar, Badge, Button, ButtonGroup, Card, Checkbox, CheckboxGroup, Chip, Dialog, form primitives, Icon, KanbanCard, Label, Link, PickerPopup, ProgressBar, RadioGroup, RightSidebar, ShellFooter, Spinner, Step, Stepper, Table, TableCostpointGrid, TabStrip, Tooltip, Toggle.
 - **Partial (before fixes):** Accordion, Dropdown, Kanban, LeftSidebar, ListMenu, ShellHeader, ShellPageHeader, ShellPanel.
 - **Missing (before fixes):** FloatingNav, ShellLayout.
 

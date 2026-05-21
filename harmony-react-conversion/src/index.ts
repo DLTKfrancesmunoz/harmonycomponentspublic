@@ -1,6 +1,6 @@
 /**
  * Harmony Design System - React Components
- * @dltkfrancesmunoz/harmony-react
+ * @deltek/harmony-react
  */
 
 // Export all components
@@ -49,6 +49,19 @@ export { Spinner } from './components/harmony/Spinner';
 export { Step } from './components/harmony/Step';
 export { Stepper } from './components/harmony/Stepper';
 export { Table } from './components/harmony/Table';
+export {
+  TableCostpointGrid,
+  CP_DATAGRID_DEFAULT_SCROLL_COLUMNS,
+  CP_DATAGRID_DEFAULT_ROWS,
+  CP_DATAGRID_DOCS_SCROLL_COLUMNS,
+  createCpDatagridDocsDemoRows,
+} from './components/harmony/TableCostpointGrid';
+export type { CpDatagridColumn, CpDatagridRow, TableCostpointGridProps, CpDatagridColumnType } from './components/harmony/TableCostpointGrid';
+export { CostpointSplitTableGallery } from './components/harmony/CostpointSplitTableGallery';
+export { CommandCenterPanel } from './components/harmony/CommandCenterPanel';
+export type { CommandCenterPanelProps } from './components/harmony/CommandCenterPanel';
+export { CommandCenterPanelSection } from './components/harmony/CommandCenterPanelSection';
+export type { CommandCenterPanelSectionProps } from './components/harmony/CommandCenterPanelSection';
 export { TabStrip } from './components/harmony/TabStrip';
 export { Textarea } from './components/harmony/Textarea';
 export { TimePicker } from './components/harmony/TimePicker';

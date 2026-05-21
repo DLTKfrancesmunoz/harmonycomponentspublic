@@ -26,8 +26,9 @@ export type CostpointFieldRow =
   | { kind: 'spacer' }
 
 /**
- * Build visible rows: disabled fields become a single spacer when enabled fields follow;
- * trailing disabled fields are omitted. Fields 1–4 are single-line; 5 is multiline block.
+ * Build visible rows in position order. Each pair of consecutive enabled fields is separated
+ * by `{ kind: 'spacer' }` for even vertical rhythm. Disabled slots are skipped. Fields 1–4 are
+ * single-line; 5 is multiline block.
  */
 export function buildCostpointFieldRows(
   fields: KanbanViewCardField[],
@@ -38,47 +39,29 @@ export function buildCostpointFieldRows(
     byPos.set(f.position, f)
   }
 
-  let lastEnabledPos = 0
-  for (let p = 1; p <= 5; p++) {
-    const f = byPos.get(p)
-    if (f?.enabled) lastEnabledPos = p
-  }
-
   const rows: CostpointFieldRow[] = []
-  let pendingSpacer = false
+  let afterFirstField = false
 
   for (let p = 1; p <= 5; p++) {
     const f = byPos.get(p)
-    if (!f) continue
+    if (!f?.enabled) continue
 
-    if (f.enabled) {
-      if (pendingSpacer) {
-        rows.push({ kind: 'spacer' })
-        pendingSpacer = false
-      }
-      const raw = valuesByFieldName[f.fieldName]
-      const value = raw === undefined || raw === null ? '' : String(raw)
-      const styleClass = resolveKanbanCpStyleClass(f.styleId)
-      rows.push({
-        kind: 'field',
-        position: p as 1 | 2 | 3 | 4 | 5,
-        label: f.fieldName,
-        value,
-        styleClass,
-        multiline: p === 5,
-      })
-      continue
+    if (afterFirstField) {
+      rows.push({ kind: 'spacer' })
     }
 
-    // disabled
-    if (p > lastEnabledPos) continue
-    const hasEnabledAfter = lastEnabledPos > p
-    if (!hasEnabledAfter) continue
-    pendingSpacer = true
-  }
-
-  if (pendingSpacer) {
-    rows.push({ kind: 'spacer' })
+    const raw = valuesByFieldName[f.fieldName]
+    const value = raw === undefined || raw === null ? '' : String(raw)
+    const styleClass = resolveKanbanCpStyleClass(f.styleId)
+    rows.push({
+      kind: 'field',
+      position: p as 1 | 2 | 3 | 4 | 5,
+      label: f.fieldName,
+      value,
+      styleClass,
+      multiline: p === 5,
+    })
+    afterFirstField = true
   }
 
   return rows

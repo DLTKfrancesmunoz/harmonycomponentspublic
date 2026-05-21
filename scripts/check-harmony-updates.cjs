@@ -59,7 +59,7 @@ function info(message) {
 
 // Paths
 const projectRoot = path.resolve(__dirname, '..');
-const harmonyPackage = path.join(projectRoot, 'node_modules', '@dltkfrancesmunoz', 'harmony-design-system');
+const harmonyPackage = path.join(projectRoot, 'node_modules', '@deltek', 'harmony-components');
 const trackingFile = path.join(projectRoot, 'src', 'components', 'harmony', '.harmony-sync.json');
 
 log('\n🔍 Checking Harmony Component Updates...\n', 'cyan');
@@ -197,10 +197,10 @@ if (!isOutdated && needsReview.length === 0) {
 }
 
 if (isOutdated) {
-  console.log('1. Review upstream changes:');
+  console.log('1. Review Harmony Changelog:');
   console.log('   - Check what changed in the new version');
   console.log('   - Look for breaking changes, bug fixes, new features');
-  console.log('   - Compare: npm run harmony:diff <ComponentName>\n');
+  console.log('   - Changelog: node_modules/@deltek/harmony-components/CHANGELOG.md\n');
 }
 
 if (needsReview.length > 0) {

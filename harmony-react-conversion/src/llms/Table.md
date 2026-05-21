@@ -6,7 +6,8 @@ Data table with optional header variant, striped rows, title bar, and filter bar
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| headerVariant | 'gray' \| 'white' \| 'none' | 'gray' | Header style: default or primary. |
+| headerVariant | 'gray' \| 'white' \| 'none' | 'gray' | Header style (not used for command center table cells; use `sortColumns` for that variant). |
+| variant | 'default' \| 'commandCenter' | 'default' | Command Center: full grid (`--table-command-center-border`), sort + filter header affordances, tinted row selection; body uses same font size and padding as default tables. Default zebra on unless `striped={false}`. |
 | striped | boolean | false | When true, table rows are striped. |
 | grouped | boolean | false | Enable grouped rows with expand/collapse. Rows with data-has-children show an arrow; child rows use data-parent-id and data-depth (max 4 levels). |
 | className | string | '' | Additional CSS classes applied to the root element. |
@@ -16,6 +17,24 @@ Data table with optional header variant, striped rows, title bar, and filter bar
 | actionBar | ReactNode | — | Content to render (React node). |
 | header | ReactNode | — | Custom header content (overrides headerTitle/headerSubtitle when set). |
 | body | ReactNode | — | Content to render (React node). |
+| sortColumns | `SortColumn[]` | — | When set, renders built-in sortable header. Each column can include `sortable` and `filterable` (default true) for `variant="commandCenter"`. |
+| sortColumn | `string` \| `null` | null | Current sort key (controlled). |
+| sortDirection | 'asc' \| 'desc' \| null | null | Current sort direction. |
+| onSort | `(key, direction) => void` | — | Sort handler. |
+| onFilterClick | `(columnKey) => void` | — | Filter icon click (v1: affordance only; host implements UI). |
+| commandCenterToolbar | ReactNode | — | Row above the table (e.g. “As of” date or status) when `variant="commandCenter"`. |
+| selectedRowId | `string` \| `null` | null | For command center, rows should set `data-row-id`; selection shows `.table-row--command-center-selected`. |
+| onRowSelect | `(rowId: string \| null) => void` | — | Row click handler (ignores interactive elements in the row). |
+
+## Command Center layout and panel
+
+Use a flex row so the main column shrinks when a docked right panel is shown. Import `CommandCenterPanel` from the same package.
+
+- Layout: `command-center-layout` &gt; `command-center-layout__main` (table) and a sibling `CommandCenterPanel`.
+- Table: `variant="commandCenter"`, `sortColumns` (with optional `filterable: false` per column), `selectedRowId`, `onRowSelect`, body rows with `data-row-id`.
+- Panel: `CommandCenterPanel` with `title` (design-system demo uses Purchase Requisitions), `open`, `onClose`, optional `visual` (identity row + overdue banner), and `children` (e.g. `CommandCenterPanelSection` blocks for Summary and Late Items).
+
+**CSS (grid / panel):** `--table-command-center-border` (e.g. `#E0E4EB` in light), `.table--command-center`, `.table-row--command-center-selected`, `.command-center-layout*`, `.command-center-panel*`.
 
 ## Usage
 
@@ -103,12 +122,19 @@ When `grouped` is true, add an expand column as the first header column (`<th cl
 ## CSS Classes
 
 - `.table`
+- `.table--command-center` — Command Center table grid
 - `.table--striped`
 - `.table--grouped`
+- `.table__cc-header` — per-column label + sort/filter controls
+- `.table__cc-header-btn`
+- `.table-row--command-center-selected` — tinted row selection (`var(--table-command-center-selection-bg, #0073e626)`)
+- `.table__command-center-toolbar` — slot wrapper above the table
+- `.command-center-layout` / `command-center-layout__main` — main + panel row
+- `.command-center-panel` — docked detail panel
 - `.table__expand-column`
 - `.table__expand-cell`
 - `.table__filter-bar`
 
 ## Dependencies
 
-None (standalone component).
+**CommandCenterPanel** — optional companion for the docked right panel (same package).

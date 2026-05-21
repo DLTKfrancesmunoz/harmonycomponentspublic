@@ -11,7 +11,7 @@ Tabs with optional add-tab, overflow (“More”) with ResizeObserver when `over
 | addTabLabel | string | 'Add Tab' | Accessible label for the add-tab button. |
 | overflowMode | 'auto' \| 'manual' \| 'none' | 'auto' | **auto**: ResizeObserver moves tabs into More; **manual**: More lists `overflowTabs`; **none**: no More. |
 | overflowTabs | TabStripTab[] | [] | Used when `overflowMode="manual"`. |
-| variant | 'default' \| 'compact' | 'default' | default / compact tab sizing. |
+| variant | 'default' \| 'compact' \| 'pill' | 'default' | default / compact tab sizing; **pill** adds a filled selected state on VP only (see below). |
 | iconPosition | 'left' \| 'right' \| 'top' | — | Enforces icon position for all tabs. |
 | showTabOpenInNew | boolean | false | Default: show per-tab open-in-new control. |
 | showTabClose | boolean | false | Default: show per-tab close control. |
@@ -43,11 +43,11 @@ import { TabStrip } from './components/harmony/TabStrip';
 
 - **default**: Default tab strip (underline selected tab).
 - **compact**: Compact tabs.
-- **pill**: Adds `.tabstrip--pill`; filled pill selected state is styled only under `html.theme-vp` / `html.theme-vp.dark`.
+- **pill**: Adds `.tabstrip--pill`; filled pill selected state is styled only under `html.theme-vp` / `html.theme-vp.dark`. For VP pill tabs, tab padding is `var(--space-1-5) var(--space-2)` (6px top/bottom, 8px left/right) and `.tab__label` uses `line-height: 1` (100% of the label font size, e.g. 14px with `var(--text-sm)`) so vertical padding reads evenly.
 
 ## CSS Classes
 
-- `.tabstrip`, `.tabstrip--compact`
+- `.tabstrip`, `.tabstrip--compact`, `.tabstrip--pill` (with VP theme for filled pill)
 - `.tabstrip__tab-cell`, `.tabstrip__tab-toolbar`, `.tabstrip__tab-action-btn`, `.tabstrip__tab-menu-wrapper`
 - `.tabstrip__dropdown`, `.tabstrip__dropdown--per-tab`, `.tabstrip__dropdown-menu-item`
 - `.tab--icon-top`, `.tab--icon-right`, `.tab--icon-left`, `.tab--disabled`

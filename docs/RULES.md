@@ -8,6 +8,7 @@ Generated from Harmony component and shell doc pages. Do not edit by hand; run `
 
 ### When to Use Each Button Type
 
+
           
 
             
@@ -17,6 +18,7 @@ Generated from Harmony component and shell doc pages. Do not edit by hand; run `
           
 
           ### When to Use Each Variant
+
 
           
 
@@ -40,6 +42,7 @@ Generated from Harmony component and shell doc pages. Do not edit by hand; run `
           
             ### Do
 
+
             
 
               
@@ -58,6 +61,7 @@ Generated from Harmony component and shell doc pages. Do not edit by hand; run `
           
             ### Don't
 
+
             
 
               
@@ -74,6 +78,7 @@ Generated from Harmony component and shell doc pages. Do not edit by hand; run `
 ### Checkboxes
 
 ### Do
+
 
           
 
@@ -97,6 +102,7 @@ Generated from Harmony component and shell doc pages. Do not edit by hand; run `
         
           ### Don't
 
+
           
 
             
@@ -116,6 +122,7 @@ Generated from Harmony component and shell doc pages. Do not edit by hand; run `
 
 ### Do
 
+
           
 
             
@@ -132,6 +139,7 @@ Generated from Harmony component and shell doc pages. Do not edit by hand; run `
         
           ### Don't
 
+
           
 
             
@@ -146,6 +154,7 @@ Generated from Harmony component and shell doc pages. Do not edit by hand; run `
 ### Tables
 
 ### Best Practices
+
 
         
           
@@ -172,6 +181,7 @@ Generated from Harmony component and shell doc pages. Do not edit by hand; run `
       
         ### Accessibility
 
+
         
 
           Use proper `<table>`, `<thead>`, `<tbody>`, `<th>`, and `<td>` elements. Include `scope` attributes on header cells and provide a caption or `aria-label` for the table's purpose.
@@ -179,6 +189,7 @@ Generated from Harmony component and shell doc pages. Do not edit by hand; run `
 ### Shell: Layout
 
 When and how to use the Shell Layout component.
+
 
       
 
@@ -189,6 +200,7 @@ When and how to use the Shell Layout component.
               ✓
               
                 ### Do Use For
+
 
                 
 
@@ -214,6 +226,7 @@ When and how to use the Shell Layout component.
               
                 ### Don't Use For
 
+
                 
 
                   
@@ -228,6 +241,7 @@ When and how to use the Shell Layout component.
 ### Shell: Page Header
 
 ### Do
+
 
           
 
@@ -252,6 +266,7 @@ When and how to use the Shell Layout component.
         
           ### Don't
 
+
           
 
             
@@ -271,6 +286,7 @@ When and how to use the Shell Layout component.
 
 ### When to Use
 
+
           
 
             
@@ -288,6 +304,7 @@ When and how to use the Shell Layout component.
         
           ### Header Variants
 
+
           
 
             
@@ -300,6 +317,7 @@ When and how to use the Shell Layout component.
 
         
           ### Width Modes
+
 
           
 
@@ -314,6 +332,7 @@ When and how to use the Shell Layout component.
         
           ### Panel Positioning
 
+
           
 
             
@@ -327,16 +346,19 @@ When and how to use the Shell Layout component.
         
           ### Dela Variant
 
+
           
 
             Use `variant="dela"` when the panel is the Ask Dela / Digital Assistant panel opened from the right sidebar's Dela AI item (RS_DelaDefault.svg default, RS_Dela_Active.svg when active). The Dela icon's active state uses a gradient background (--linear-new) and shows RS_Dela_Active.svg. The RightSidebar will only set the gradient and title and will not replace the header or content, so your pre-rendered Dela layout is preserved. The header shows the title plus width toggle and close only; the pencil (New chat) and question-mark (Help) icons sit above the first message, left-aligned (`dela-panel__toolbar`). The content area uses a white background; the chat input is docked to the bottom in a single white input box that contains the text field plus attach (paperclip), microphone, and send icons. For a full example, see the Dela foundation page.
           
+
 
         
 
         
           
             ### Do
+
 
             
 
@@ -356,6 +378,7 @@ When and how to use the Shell Layout component.
           
             ### Don't
 
+
             
 
               
@@ -374,6 +397,7 @@ When and how to use the Shell Layout component.
 ### Icons
 
 ### Icon Component
+
 
         
           
@@ -408,10 +432,12 @@ When and how to use the Shell Layout component.
 
 ### Basic Structure
 
+
             
 
               The Stepper component uses an alternative label layout where labels appear below the step indicators. The step label is provided as slot content.
             
+
 
             
               <Stepper activeStep={1}>
@@ -427,10 +453,12 @@ When and how to use the Shell Layout component.
           
             ### Step States: Success, Warning, and Error
 
+
             
 
               Steps can display different states. Success state uses the semantic success color (green) with a checkmark icon. Warning and error states use their respective semantic colors.
             
+
 
             
               <Stepper activeStep={2}>
@@ -447,10 +475,12 @@ When and how to use the Shell Layout component.
           
             ### Step with Description
 
+
             
 
               Steps can include a description using a named slot. Labels use Lexend (display font) and descriptions use Figtree (body font) at the same size for clear typographic hierarchy.
             
+
 
             
               <Step completed success>
@@ -467,10 +497,12 @@ When and how to use the Shell Layout component.
           
             ### Linear vs Non-linear
 
+
             
 
               Omit `nonLinear` for linear mode (default): future steps are disabled. Set `nonLinear` to allow jumping to any step. Listen for `stepper:step-clicked` to handle step changes in non-linear mode.
             
+
 
             
               <!-- Linear: steps after activeStep disabled -->
@@ -485,20 +517,24 @@ When and how to use the Shell Layout component.
 
 ### Keyboard Navigation
 
+
         
 
           Accordion headers are fully keyboard accessible. Use Tab to navigate to accordion items, and Enter or Space to toggle expansion.
         
+
 
       
       
       
         ### ARIA Attributes
 
+
         
 
           The Accordion component uses proper ARIA attributes:
         
+
 
         
 
@@ -519,6 +555,7 @@ When and how to use the Shell Layout component.
       
         ### Screen Reader Support
 
+
         
 
           Screen readers announce the accordion header text, expansion state, and content when expanded. The relationship between headers and their content is clearly communicated.
@@ -526,6 +563,7 @@ When and how to use the Shell Layout component.
 ### Alerts
 
 ### Role
+
 
         
 
@@ -535,6 +573,7 @@ When and how to use the Shell Layout component.
 
 ### Roles and labels
 
+
         
 
           Non-interactive avatars use `role="img"` with an `aria-label`. Interactive avatars render a `button` with `aria-label`. Decorative inner content is `aria-hidden` where redundant.
@@ -543,25 +582,30 @@ When and how to use the Shell Layout component.
 
 ### Semantic HTML
 
+
         
 
           Badges use semantic `<span>` elements and are typically decorative. When badges convey important information, ensure they are associated with their related content using appropriate ARIA attributes or proximity.
         
+
 
       
       
       
         ### Color Contrast
 
+
         
 
           All badge variants meet WCAG 2.1 AA contrast requirements. Text and background colors provide sufficient contrast for readability.
         
 
+
       
       
       
         ### Icon Badges
+
 
         
 
@@ -571,32 +615,39 @@ When and how to use the Shell Layout component.
 
 ### Keyboard Navigation
 
+
         
 
           All buttons are focusable and can be activated with Enter or Space.
         
 
+
       
       
         ### Icon-Only Buttons
+
 
         
 
           Always include `aria-label` for icon-only buttons to provide context for screen readers.
         
 
+
       
       
         ### Focus States
+
 
         
 
           Buttons include visible focus indicators that meet WCAG 2.1 requirements for contrast.
         
 
+
       
       
         ### Disabled State
+
 
         
 
@@ -606,35 +657,42 @@ When and how to use the Shell Layout component.
 
 ### Semantic Structure
 
+
         
 
           Cards use semantic HTML structure with proper heading hierarchy. Use `card__header`, `card__body`, and `card__footer` classes to organize content logically.
         
+
 
       
       
       
         ### Interactive Cards
 
+
         
 
           When using the `interactive` prop, ensure cards are keyboard accessible. Use proper focus management and provide clear indication of clickable areas. Consider using `role="button"` or wrapping content in a `<button>` or `<a>` element.
         
+
 
       
       
       
         ### Focus Indicators
 
+
         
 
           Interactive cards include visible focus indicators that meet WCAG 2.1 requirements. Ensure focus is clearly visible when navigating with keyboard.
         
 
+
       
       
       
         ### Screen Reader Support
+
 
         
 
@@ -644,35 +702,42 @@ When and how to use the Shell Layout component.
 
 ### Fieldset and Legend
 
+
         
 
           The CheckboxGroup component uses `<fieldset>` and `<legend>` elements to group related checkboxes. This provides semantic structure and helps screen readers understand the relationship between checkboxes.
         
+
 
       
       
       
         ### Keyboard Navigation
 
+
         
 
           All checkboxes in the group are keyboard accessible. Use Tab to navigate between checkboxes and Space to toggle selection.
         
+
 
       
       
       
         ### Error and Warning States
 
+
         
 
           When `error` or `warning` props are set, the group and all child checkboxes display the appropriate state. Error/warning messages are associated via `aria-describedby` and announced to screen readers.
         
 
+
       
       
       
         ### Screen Reader Support
+
 
         
 
@@ -682,23 +747,28 @@ When and how to use the Shell Layout component.
 
 ### Labels
 
+
         
 
           The Checkbox component automatically wraps the input in a `<label>` element, ensuring proper association.
         
 
+
       
       
         ### Keyboard
+
 
         
 
           Checkboxes are togglable with Space key and navigable with Tab.
         
 
+
       
       
         ### Error States
+
 
         
 
@@ -708,35 +778,42 @@ When and how to use the Shell Layout component.
 
 ### Keyboard Navigation
 
+
         
 
           Interactive chips (those with click handlers) are keyboard accessible. Use Tab to navigate to chips and Enter or Space to activate them.
         
+
 
       
       
       
         ### Focus States
 
+
         
 
           Chips include visible focus indicators when in the `focused` state. Focus indicators meet WCAG 2.1 requirements for contrast and visibility.
         
+
 
       
       
       
         ### Removable Chips
 
+
         
 
           When chips are removable, the remove button should include an `aria-label` (e.g., "Remove [chip label]") to provide context for screen reader users.
         
 
+
       
       
       
         ### Screen Reader Support
+
 
         
 
@@ -746,10 +823,12 @@ When and how to use the Shell Layout component.
 
 ### Keyboard Navigation
 
+
         
 
           All pickers support full keyboard navigation:
         
+
 
         
 
@@ -770,10 +849,12 @@ When and how to use the Shell Layout component.
       
         ### ARIA Attributes
 
+
         
 
           All pickers include proper ARIA roles and attributes:
         
+
 
         
 
@@ -794,15 +875,18 @@ When and how to use the Shell Layout component.
       
         ### Focus Indicators
 
+
         
 
           All interactive elements have visible focus indicators using the theme primary color with sufficient contrast for WCAG 2.1 compliance.
         
 
+
       
       
       
         ### Screen Reader Support
+
 
         
 
@@ -812,20 +896,24 @@ When and how to use the Shell Layout component.
 
 ### ARIA Roles
 
+
         
 
           Dialogs use `role="dialog"` and include `aria-modal="true"` to indicate modal behavior. The dialog title is associated using `aria-labelledby`.
         
+
 
       
       
       
         ### Keyboard Navigation
 
+
         
 
           Dialogs support standard keyboard interactions:
         
+
 
         
 
@@ -844,15 +932,18 @@ When and how to use the Shell Layout component.
       
         ### Focus Management
 
+
         
 
           When a dialog opens, focus moves to the first focusable element (typically the close button or first input). When closed, focus returns to the element that triggered the dialog. Focus is trapped within the dialog to prevent users from interacting with background content.
         
 
+
       
       
       
         ### Screen Reader Support
+
 
         
 
@@ -862,20 +953,24 @@ When and how to use the Shell Layout component.
 
 ### Labels
 
+
         
 
           Always associate labels with dropdowns using the `label` prop or a separate `Label` component with the `for` attribute. This ensures screen readers can identify the dropdown's purpose.
         
+
 
       
       
       
         ### Keyboard Navigation
 
+
         
 
           Dropdowns support full keyboard navigation:
         
+
 
         
 
@@ -896,10 +991,12 @@ When and how to use the Shell Layout component.
       
         ### ARIA Attributes
 
+
         
 
           The Dropdown component includes proper ARIA attributes:
         
+
 
         
 
@@ -920,6 +1017,7 @@ When and how to use the Shell Layout component.
       
         ### Disabled State
 
+
         
 
           Disabled dropdowns are marked with the `disabled` attribute and are not focusable. Screen readers announce them as disabled.
@@ -928,6 +1026,7 @@ When and how to use the Shell Layout component.
 
 ### Icon Accessibility
 
+
         
           
 
@@ -935,6 +1034,7 @@ When and how to use the Shell Layout component.
             When using icons without text labels, add an `aria-label` to the parent button or link
             for screen reader users.
           
+
 
           
 `<button aria-label="Edit document">
@@ -949,14 +1049,17 @@ When and how to use the Shell Layout component.
 
 ### Labels
 
+
         
 
           Always associate labels with inputs using the `for` attribute. The Label component handles this automatically.
         
 
+
       
       
         ### Error Announcements
+
 
         
 
@@ -966,45 +1069,54 @@ When and how to use the Shell Layout component.
 
 ### Semantic Structure
 
+
         
 
           The Kanban board uses semantic HTML with `<section>` for the columns container and `<article>` for each column. The title bar uses `<h1>` and column headers use proper heading hierarchy with `<h2>` elements.
         
+
 
       
       
       
         ### ARIA Labels
 
+
         
 
           The Kanban board includes `role="region"` with an `aria-label` for the main container. Each column has `role="group"` with descriptive `aria-label` attributes. Column counts include `aria-label` for screen readers.
         
+
 
       
       
       
         ### Keyboard Navigation
 
+
         
 
           Cards are keyboard accessible and can be navigated using Tab. The "Add" buttons in column headers are fully keyboard accessible. For drag-and-drop functionality, implement keyboard alternatives such as arrow keys to move cards between columns.
         
+
 
       
       
       
         ### Screen Reader Support
 
+
         
 
           Column titles and card counts are announced by screen readers. Card titles and descriptions provide context. When implementing drag-and-drop, ensure proper ARIA live regions announce card movements to screen reader users.
         
 
+
       
       
       
         ### Focus Management
+
 
         
 
@@ -1014,35 +1126,42 @@ When and how to use the Shell Layout component.
 
 ### Label Association
 
+
         
 
           Always use the `for` prop to associate labels with their corresponding form inputs. This ensures screen readers can identify which label belongs to which input.
         
+
 
       
       
       
         ### Required Indicators
 
+
         
 
           When using the `required` prop, the label visually indicates required fields. Ensure the associated input also has the `required` attribute for proper form validation and screen reader announcements.
         
+
 
       
       
       
         ### Screen Reader Support
 
+
         
 
           Screen readers announce label text when associated inputs receive focus. Helper text (via the `helper` prop) is also announced to provide additional context.
         
 
+
       
       
       
         ### Semantic HTML
+
 
         
 
@@ -1052,35 +1171,42 @@ When and how to use the Shell Layout component.
 
 ### Semantic HTML
 
+
         
 
           Links use semantic `<a>` elements, ensuring proper navigation behavior and screen reader support. External links automatically include an icon and `aria-label` indicating they open in a new tab.
         
+
 
       
       
       
         ### Keyboard Navigation
 
+
         
 
           All links are keyboard accessible. Use Tab to navigate to links and Enter to activate them. Links have visible focus indicators.
         
+
 
       
       
       
         ### External Links
 
+
         
 
           When the `external` prop is used, links include an icon and screen readers announce that the link opens in a new tab. This helps users understand the navigation behavior.
         
 
+
       
       
       
         ### Focus Indicators
+
 
         
 
@@ -1090,35 +1216,42 @@ When and how to use the Shell Layout component.
 
 ### ARIA Labels
 
+
         
 
           Notification badges should include `aria-label` attributes to provide context for screen readers. For example, "5 unread notifications" or "New message indicator".
         
+
 
       
       
       
         ### Screen Reader Support
 
+
         
 
           Screen readers announce badge content when properly labeled. For number badges, the count is announced. For dot badges, ensure an `aria-label` describes what the indicator represents.
         
+
 
       
       
       
         ### Color Contrast
 
+
         
 
           All notification badge variants meet WCAG 2.1 AA contrast requirements. Text and background colors provide sufficient contrast for readability, especially for number and overflow badges.
         
 
+
       
       
       
         ### Live Regions
+
 
         
 
@@ -1128,35 +1261,42 @@ When and how to use the Shell Layout component.
 
 ### ARIA Attributes
 
+
         
 
           Progress bars use `role="progressbar"` with `aria-valuenow`, `aria-valuemin`, and `aria-valuemax` attributes to communicate progress to screen readers.
         
+
 
       
       
       
         ### Screen Reader Support
 
+
         
 
           Screen readers announce the current progress value and percentage. When `showLabel` is enabled, the percentage is also visually displayed for all users.
         
+
 
       
       
       
         ### Color Contrast
 
+
         
 
           All progress bar variants meet WCAG 2.1 AA contrast requirements. The progress indicator has sufficient contrast against the background for visibility.
         
 
+
       
       
       
         ### Labels
+
 
         
 
@@ -1166,35 +1306,42 @@ When and how to use the Shell Layout component.
 
 ### Labels
 
+
         
 
           The RadioButton component automatically wraps the input in a `<label>` element, ensuring proper association between the label and radio button.
         
+
 
       
       
       
         ### Keyboard Navigation
 
+
         
 
           Radio buttons are navigable with Tab and selectable with Space. Arrow keys can be used to navigate between radio buttons in the same group.
         
+
 
       
       
       
         ### Group Association
 
+
         
 
           All radio buttons in a group must share the same `name` attribute. This ensures proper grouping and that only one option can be selected at a time.
         
 
+
       
       
       
         ### Error States
+
 
         
 
@@ -1204,35 +1351,42 @@ When and how to use the Shell Layout component.
 
 ### Fieldset and Legend
 
+
         
 
           The RadioGroup component uses `<fieldset>` and `<legend>` elements to group related radio buttons. This provides semantic structure and helps screen readers understand the relationship between options.
         
+
 
       
       
       
         ### Keyboard Navigation
 
+
         
 
           Radio buttons in a group are keyboard accessible. Use Tab to navigate to the group, then Arrow Up/Down or Arrow Left/Right to move between options. Space selects the focused option.
         
+
 
       
       
       
         ### Group Association
 
+
         
 
           All radio buttons in a group must share the same `name` attribute. The RadioGroup component ensures this by requiring a `name` prop that is applied to all child radio buttons.
         
 
+
       
       
       
         ### Error and Warning States
+
 
         
 
@@ -1242,25 +1396,30 @@ When and how to use the Shell Layout component.
 
 ### ARIA Attributes
 
+
         
 
           Spinners use `role="status"` and `aria-label` to indicate loading state to screen readers. The spinner is announced as a live region so users are informed when content is loading.
         
+
 
       
       
       
         ### Screen Reader Support
 
+
         
 
           Screen readers announce loading states. Provide descriptive `aria-label` text (e.g., "Loading content" or "Processing request") to give context about what is loading.
         
 
+
       
       
       
         ### Animation Preferences
+
 
         
 
@@ -1270,21 +1429,25 @@ When and how to use the Shell Layout component.
 
 ### Keyboard Navigation
 
+
         
 
           In non-linear mode, steps are keyboard accessible. Use Tab to navigate between steps,
           and Enter or Space to activate a step.
         
 
+
       
       
       
         ### ARIA Attributes
 
+
         
 
           The Stepper component uses proper ARIA attributes:
         
+
 
         
 
@@ -1303,16 +1466,19 @@ When and how to use the Shell Layout component.
       
         ### Screen Reader Support
 
+
         
 
           Screen readers announce the step number, label text, and current state (active, completed, error, warning).
           The relationship between steps is clearly communicated through ARIA attributes.
         
 
+
       
 
       
         ### Visual Indicators
+
 
         
 
@@ -1323,10 +1489,12 @@ When and how to use the Shell Layout component.
 
 ### Keyboard Navigation
 
+
         
 
           Tabs support full keyboard navigation:
         
+
 
         
 
@@ -1347,10 +1515,12 @@ When and how to use the Shell Layout component.
       
         ### ARIA Attributes
 
+
         
 
           The TabStrip component includes proper ARIA attributes:
         
+
 
         
 
@@ -1373,24 +1543,30 @@ When and how to use the Shell Layout component.
       
         ### Screen Reader Support
 
+
         
 
           Screen readers announce tab labels, active state, and navigation instructions. The active tab is clearly indicated, and disabled tabs are announced as unavailable.
         
+
 
       
       
       
         ### Focus Management
 
+
         
 
           Focus indicators are visible on all interactive elements. When a tab is activated, focus moves to the corresponding tab panel content. The overflow dropdown properly manages focus when opened.
         
 
+
       
     
   
+
+
 
   // Demo: Listen for tab strip events
   document.addEventListener('tab-strip:tab-selected', (e) => {
@@ -1414,49 +1590,62 @@ When and how to use the Shell Layout component.
     // In a real application, you would handle opening in new window here
   });
 
+  document.addEventListener('tab-strip:set-default', (e) => {
+    console.log('Set default tab:', e.detail.tabId);
+  });
+
 ### Toggle Switches
 
 ### Labels
+
 
         
 
           For the default variant, visible label text sits inside the wrapping `label` element so it is associated with the control. The segmented variant has no external label; both options are visible in the track, and a default `aria-label` lists both option names unless you pass your own.
         
 
+
       
       
       
         ### Keyboard Navigation
+
 
         
 
           Toggle switches are keyboard accessible. Use Tab to navigate to toggles and Space to toggle the state.
         
 
+
       
       
       
         ### ARIA Attributes
+
 
         
 
           Toggles use `role="switch"` and `aria-checked` to reflect the current state. For the segmented variant, `aria-checked` is `false` when the left option is selected and `true` when the right option is selected.
         
 
+
       
       
       
         ### Screen Reader Support
+
 
         
 
           Screen readers announce the toggle label and current state (on/off). State changes are announced when toggles are activated.
         
 
+
       
       
       
         ### Disabled State
+
 
         
 
@@ -1466,35 +1655,42 @@ When and how to use the Shell Layout component.
 
 ### ARIA Attributes
 
+
         
 
           Tooltips use `role="tooltip"` and are associated with their trigger element using `aria-describedby`. This ensures screen readers announce tooltip content when the trigger receives focus.
         
+
 
       
       
       
         ### Keyboard Access
 
+
         
 
           Tooltips appear on hover for mouse users and on focus for keyboard users. When a tooltip trigger receives keyboard focus, the tooltip is displayed to provide context.
         
+
 
       
       
       
         ### Screen Reader Support
 
+
         
 
           Screen readers announce tooltip content when the associated element receives focus. Tooltips should supplement, not replace, accessible labels on interactive elements.
         
 
+
       
       
       
         ### Important Information
+
 
         
 
@@ -1504,45 +1700,55 @@ When and how to use the Shell Layout component.
 
 ### Keyboard Navigation
 
+
           
 
             Use Tab to move focus between tabs. Press Enter or Space to activate a focused tab. Arrow keys can be used to move between tabs within the tablist.
           
+
 
         
 
         
           ### ARIA Labels
 
+
           
 
             The component uses proper ARIA roles and attributes: `role="tablist"` on the nav, `role="tab"` on each tab, and `aria-selected` to indicate the active tab.
           
+
 
         
 
         
           ### Screen Reader Support
 
+
           
 
             Screen readers announce "Workspace tabs" when entering the footer, the active state of each tab, and descriptive labels for the More and Add Tab buttons.
           
+
 
         
 
         
           ### Focus Indicators
 
+
           
 
             Tabs display a visible focus outline when navigated via keyboard. The focus style uses a 2px outline in the primary color to ensure sufficient contrast.
           
 
+
         
       
     
   
+
+
 
   // Demo: Listen for TabStrip events (used by ShellFooter)
   document.addEventListener('tab-strip:tab-selected', (e) => {
@@ -1568,9 +1774,14 @@ When and how to use the Shell Layout component.
     // In a real application, you would handle opening tab in new window here
   });
 
+  document.addEventListener('tab-strip:set-default', (e) => {
+    console.log('Set default tab:', e.detail.tabId);
+  });
+
 ### Shell: Left Sidebar
 
 ### Keyboard Navigation
+
 
         
 
@@ -1580,6 +1791,7 @@ When and how to use the Shell Layout component.
 
 ### Semantic Structure
 
+
           
 
             Use proper heading hierarchy (h1 → h2 → h3). Each page should have one h1. Section titles use h2.
@@ -1587,10 +1799,12 @@ When and how to use the Shell Layout component.
             representing standalone content.
           
 
+
         
 
         
           ### Keyboard Navigation
+
 
           
 
@@ -1598,10 +1812,12 @@ When and how to use the Shell Layout component.
             Enter or Space to activate. Interactive cards should have visible focus indicators and clear hover states.
           
 
+
         
 
         
           ### Color Contrast
+
 
           
 
@@ -1610,10 +1826,12 @@ When and how to use the Shell Layout component.
             that doesn't rely solely on color.
           
 
+
         
 
         
           ### Descriptive Labels
+
 
           
 
@@ -1625,35 +1843,42 @@ When and how to use the Shell Layout component.
 
 ### Semantic HTML
 
+
           
 
             The component uses a semantic `<header>` element with an `<h1>` for the title, ensuring proper document structure and heading hierarchy.
           
+
 
         
 
         
           ### Keyboard Navigation
 
+
           
 
             All buttons are fully keyboard accessible. Use Tab to navigate between buttons, and Enter or Space to activate. Focus indicators are provided for all interactive elements.
           
+
 
         
 
         
           ### Color Contrast
 
+
           
 
             Button colors meet WCAG AA contrast requirements. The dark blue (#043852) provides sufficient contrast against white backgrounds for both text and borders.
           
 
+
         
 
         
           ### Button Labels
+
 
           
 
@@ -1663,44 +1888,54 @@ When and how to use the Shell Layout component.
 
 ### Keyboard Navigation
 
+
         
 
           All action buttons (maximize/minimize, popout, close) are keyboard accessible. Use Tab to navigate between buttons and Enter or Space to activate them. Focus management ensures proper tab order when the panel is open.
         
+
 
       
       
       
         ### Focus Management
 
+
         
 
           When a panel opens, focus should move to the panel content. When closing, focus should return to the element that triggered the panel. Ensure proper focus trapping within the panel when it's open.
         
+
 
       
       
       
         ### Screen Reader Support
 
+
         
 
           Panel headers use semantic heading elements (`<h2>`) for proper screen reader navigation. All action buttons include descriptive `aria-label` attributes. Panel state (open/closed) should be communicated to assistive technologies.
         
+
 
       
       
       
         ### Escape Key
 
+
         
 
           Panels should close when the Escape key is pressed, providing a quick way to dismiss the panel without using the mouse.
         
 
+
       
     
   
+
+
 
   /* Shell-layout wrapper for demos - provides context for panel CSS */
   .shell-layout {
@@ -1745,9 +1980,100 @@ When and how to use the Shell Layout component.
     right: 0 !important;
   }
 
+  /* --- Dela-page demo shell (copied so right rail + panel layout works on this page) --- */
+  .dela-demo-container {
+    position: relative;
+    min-height: 1300px;
+    background-color: var(--page-bg);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .dela-demo-content {
+    position: relative;
+    z-index: 1;
+    margin-bottom: var(--space-4);
+  }
+
+  .dela-demo-sidebar {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    z-index: 11;
+  }
+
+  .dela-demo-container :global(.shell-panel) {
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    z-index: 10 !important;
+  }
+
+  .dela-demo-container :global(.right-sidebar[data-panel-open='true']) {
+    width: 52px !important;
+  }
+
+  .dela-demo-container :global(.right-sidebar[data-panel-open='true']:hover) {
+    width: 52px !important;
+  }
+
+  .dela-demo-container :global(.right-sidebar[data-panel-open='true'] .right-sidebar__label) {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .dela-demo-container :global(.right-sidebar[data-panel-open='true'] .right-sidebar__item-tooltip .tooltip__content) {
+    display: block;
+  }
+
+  .dela-demo-container
+    :global(.right-sidebar[data-panel-open='true'] .right-sidebar__item:hover .right-sidebar__item-tooltip .tooltip__content) {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .dela-demo-container :global(.right-sidebar[data-panel-open='true'] .right-sidebar__item[data-active='true']) {
+    background-color: var(--theme-primary);
+    color: var(--text-inverse);
+  }
+
+  .dela-demo-container :global(.right-sidebar[data-panel-open='true'] .right-sidebar__item[data-active='true'] .right-sidebar__icon) {
+    color: var(--text-inverse);
+  }
+
+  .dela-demo-container
+    :global(.right-sidebar[data-panel-open='true'] .right-sidebar__item[data-active='true']:has(.right-sidebar__dela-logo)) {
+    background: var(--linear-new, linear-gradient(136deg, #00bbc6 9.15%, #7133ff 57.36%, #cd21ff 80.6%));
+    border-radius: 12px;
+    color: var(--text-inverse);
+  }
+
+  .dela-demo-container
+    :global(.right-sidebar[data-panel-open='true'] .right-sidebar__item[data-active='true']:has(.right-sidebar__dela-logo):hover) {
+    background: var(--linear-new, linear-gradient(136deg, #00bbc6 9.15%, #7133ff 57.36%, #cd21ff 80.6%));
+    color: var(--text-inverse);
+  }
+
+  .dela-demo-container
+    :global(.right-sidebar[data-panel-open='true'] .right-sidebar__item[data-active='true']:has(.right-sidebar__dela-logo) .right-sidebar__icon) {
+    color: var(--text-inverse);
+  }
+
+  .dela-demo-container :global(.right-sidebar[data-panel-open='true'] .right-sidebar__section) {
+    box-shadow: none;
+    border: none;
+    background-color: transparent;
+    border-radius: 0;
+  }
+
 ### Shell: Right Sidebar
 
 ### Keyboard Navigation
+
 
         
 
@@ -1765,15 +2091,18 @@ The dialog uses a column flex layout: the header and footer are sticky (always v
 
 ### Tab Navigation
 
+
             
 
               Tabs represent different workspaces or contexts within the application. When a user clicks a tab, it should switch the main content area to display that workspace's content. Tabs can use either `href` for navigation or button behavior for dynamic switching.
             
 
+
             
 
               Example: In a project management tool, tabs might represent different projects or dashboards that the user has open.
             
+
 
           
         
@@ -1782,15 +2111,18 @@ The dialog uses a column flex layout: the header and footer are sticky (always v
           
             ### Overflow Behavior
 
-            
-
-              The "More" dropdown appears when `showMore={true}` is set and displays the number of hidden tabs via `moreCount`. This prevents the tab bar from becoming cluttered when users have many workspaces open.
-            
 
             
 
-              Recommendation: Implement logic to automatically show "More" when tabs exceed viewport width, typically around 8-10 visible tabs.
+              The "More" control appears when `showMore={true}` and `overflowTabs` has items (manual overflow). Pass hidden tabs in `overflowTabs`; the Tab Strip shows `More (N)` and lists them in an upward-opening menu with the same row actions as auto overflow.
             
+
+
+            
+
+              For viewport-driven overflow without listing tabs yourself, use Tab Strip with `overflowMode="auto"` (see Tab Strip).
+            
+
 
           
         
@@ -1799,23 +2131,25 @@ The dialog uses a column flex layout: the header and footer are sticky (always v
           
             ### Component Props
 
+
             
 
               The ShellFooter component accepts several props for customization:
             
 
+
             
 
               
-- `tabs`: Array of tab objects with id, label, active, and optional href
+- `tabs`: Array of tab objects; optional per-tab `showOpenInNewWindow`, `showClose`, `showMenu` override footer defaults
               
-- `showMore`: Boolean to display the More dropdown (default: false)
+- `showMore` + `overflowTabs`: Manual More menu when both are set
               
-- `moreCount`: Number displayed in More button (default: 0)
+- `showAddTab`: Show Add Tab button (default: true)
               
-- `showAddTab`: Boolean to show Add Tab button (default: true)
+- `variant`: `'default'` or `'compact'`
               
-- `variant`: 'default' or 'compact' for different sizes
+- `showTabOpenInNew`, `showTabClose`, `showTabOverflowMenu`: Defaults for per-tab toolbar actions (passed to Tab Strip)
             
 
           
@@ -1825,10 +2159,12 @@ The dialog uses a column flex layout: the header and footer are sticky (always v
           
             ### CP Alternative: Floating Nav
 
+
             
 
               Instead of the Shell Footer, the Costpoint (CP) theme uses the Floating Nav component. This floating toolbar appears below the header and contains action buttons (Execute, Actions, Refresh, Save) rather than workspace tabs.
             
+
 
             
 
@@ -1838,10 +2174,12 @@ The dialog uses a column flex layout: the header and footer are sticky (always v
 
 ### Gradient Border
 
+
             
 
               The gradient border fades at the edges (opacity 0.02) and is solid in the center (50%). The 6px height creates a subtle visual accent that changes with company selection.
             
+
 
           
         
@@ -1850,10 +2188,12 @@ The dialog uses a column flex layout: the header and footer are sticky (always v
           
             ### Company Dropdown
 
+
             
 
               Each company has a colored circle indicator that matches its gradient color. The dropdown is populated from the theme configuration and supports multiple companies per product.
             
+
 
           
         
@@ -1862,16 +2202,20 @@ The dialog uses a column flex layout: the header and footer are sticky (always v
           
             ### Avatar Component
 
+
             
 
               The avatar uses the theme primary color for its background and supports icon, initials, or photo variants. Sizes are sm (24px), md (32px), and lg (40px). The header uses a small interactive avatar for the user menu trigger.
             
+
 
           
         
       
     
   
+
+
 
   // Helper: Convert RGB/RGBA to hex
   function rgbToHex(rgb: string): string {
@@ -1964,6 +2308,8 @@ The dialog uses a column flex layout: the header and footer are sticky (always v
   // Initialize gradient on page load
   updateDemoCompany();
 
+
+
   .demo-header {
     height: 56px;
     background-color: var(--nav-bg);
@@ -1978,10 +2324,12 @@ The dialog uses a column flex layout: the header and footer are sticky (always v
 
 ### Basic Structure
 
+
             
 
               Page content uses semantic HTML with article and section elements for proper document structure.
             
+
 
             
               <article class="space-y-12">
@@ -2003,13 +2351,16 @@ The dialog uses a column flex layout: the header and footer are sticky (always v
           
             ### Card Grid Patterns
 
+
             
 Common grid layouts for organizing multiple cards:
+
 
             
               
                 
 Two Column Grid
+
 
                 
                   <div class="grid md:grid-cols-2 gap-4">
@@ -2022,6 +2373,7 @@ Two Column Grid
                 
 Three Column Grid
 
+
                 
                   <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <Card>...</Card>
@@ -2033,6 +2385,7 @@ Three Column Grid
               
                 
 Mixed Width Grid
+
 
                 
                   <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -2049,8 +2402,10 @@ Mixed Width Grid
           
             ### Semantic HTML
 
+
             
 Use proper HTML5 elements for better SEO and accessibility:
+
 
             
 
@@ -2073,8 +2428,10 @@ Use proper HTML5 elements for better SEO and accessibility:
           
             ### CSS Variables
 
+
             
 Key CSS variables used in page content and cards:
+
 
             
               
@@ -2109,6 +2466,7 @@ Key CSS variables used in page content and cards:
           
             ### Performance Tips
 
+
             
 
               
@@ -2128,10 +2486,12 @@ Key CSS variables used in page content and cards:
 
 ### Basic Usage
 
+
             
 
               The Shell Page Header is used within the ShellLayout's main content area, above page content cards.
             
+
 
             
               <ShellLayout>
@@ -2150,10 +2510,12 @@ Key CSS variables used in page content and cards:
           
             ### Button Styling
 
+
             
 
               All buttons use the page header button style with dark blue (#043852) colors:
             
+
 
             
 
@@ -2174,10 +2536,12 @@ Key CSS variables used in page content and cards:
           
             ### Typography
 
+
             
 
               The component uses design system typography tokens:
             
+
 
             
 
@@ -2196,10 +2560,12 @@ Key CSS variables used in page content and cards:
           
             ### Responsive Behavior
 
+
             
 
               On mobile devices (below md breakpoint), the layout adapts:
             
+
 
             
 
@@ -2217,6 +2583,7 @@ Key CSS variables used in page content and cards:
 ### Shell: Page Content
 
 ### Do
+
 
           
 
@@ -2243,6 +2610,7 @@ Key CSS variables used in page content and cards:
         
           ### Don't
 
+
           
 
             
@@ -2268,35 +2636,42 @@ Key CSS variables used in page content and cards:
 
 ### Tab Selection
 
+
           
 
             Click or tap on a tab to activate it. The active tab displays a blue underline indicator at the bottom. Only one tab can be active at a time.
           
+
 
         
 
         
           ### Overflow Handling
 
+
           
 
             When there are more tabs than can fit in the viewport, additional tabs are accessible through the "More" dropdown button which displays the count of hidden tabs.
           
+
 
         
 
         
           ### Add Tab
 
+
           
 
             The "Add Tab" button appears at the far right of the tab bar, allowing users to create new workspace tabs. This button can be hidden via the showAddTab prop.
           
 
+
         
 
         
           ### Fixed Position
+
 
           
 
@@ -2306,35 +2681,42 @@ Key CSS variables used in page content and cards:
 
 ### Collapsible
 
+
           
 
             Collapsed by default showing only icons (~52px width). Expands on hover to reveal labels (~220px width).
           
+
 
         
         
         
           ### Fixed Position
 
+
           
 
             Docked to the left edge of the viewport, vertically centered. Stays in place while content scrolls.
           
+
 
         
         
         
           ### Configurable Sections
 
+
           
 
             CP theme includes two sections (Main Navigation + Application Modules). VP, PPM, and Maconomy themes include a single section with theme-specific navigation items.
           
 
+
         
         
         
           ### Smooth Animation
+
 
           
 
@@ -2344,16 +2726,19 @@ Key CSS variables used in page content and cards:
 
 ### Scrolling
 
+
           
 
             The page content area is scrollable when content exceeds viewport height. Shell header and
             footer remain fixed, providing consistent navigation access.
           
 
+
         
 
         
           ### Responsive Layout
+
 
           
 
@@ -2361,10 +2746,12 @@ Key CSS variables used in page content and cards:
             breakpoint control. Test layouts at different screen sizes.
           
 
+
         
 
         
           ### Loading States
+
 
           
 
@@ -2372,10 +2759,12 @@ Key CSS variables used in page content and cards:
             stability and provide visual feedback to users.
           
 
+
         
 
         
           ### Empty States
+
 
           
 
@@ -2386,35 +2775,42 @@ Key CSS variables used in page content and cards:
 
 ### Collapsible
 
+
           
 
             Collapsed by default showing only icons (~52px width). Expands on hover to reveal labels (~220px width).
           
+
 
         
         
         
           ### Fixed Position
 
+
           
 
             Docked to the right edge of the viewport, vertically centered. Stays in place while content scrolls.
           
+
 
         
         
         
           ### Three Sections
 
+
           
 
             All themes organize items into three sections. CP theme has different items per section compared to VP/PPM/Maconomy themes.
           
 
+
         
         
         
           ### Dela AI Integration
+
 
           
 

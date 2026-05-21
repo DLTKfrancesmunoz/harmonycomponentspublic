@@ -11,7 +11,7 @@ export async function changelogLoader() {
 
   // Check if changelog file exists
   if (!existsSync(changelogPath)) {
-    console.info('📝 No changelog data found. Run `npm run changelog` or `npm run changelog:snapshot` locally to generate data.');
+    console.info('📝 No changelog data found. Changelog will populate automatically via GitHub Actions.');
     return [];
   }
 

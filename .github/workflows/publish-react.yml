@@ -1,0 +1,128 @@
+name: Publish React Package
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'harmony-react-conversion/**'
+      - '.github/workflows/publish-react.yml'
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@deltek'
+
+      - name: Install dependencies
+        working-directory: ./harmony-react-conversion
+        run: npm ci
+
+      - name: Build library
+        working-directory: ./harmony-react-conversion
+        run: npm run build:lib
+
+      - name: Generate timestamped version
+        id: version
+        working-directory: ./harmony-react-conversion
+        run: |
+          BASE_VERSION=$(node -p "require('./package.json').version")
+          TIMESTAMP=$(date +%s)
+          VERSION="${BASE_VERSION}-${TIMESTAMP}"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "base_version=$BASE_VERSION" >> $GITHUB_OUTPUT
+          echo "tag=harmony-react-v$VERSION" >> $GITHUB_OUTPUT
+          echo "Generated version: $VERSION"
+
+      - name: Update package.json with timestamped version
+        working-directory: ./harmony-react-conversion
+        run: |
+          npm version ${{ steps.version.outputs.version }} --no-git-tag-version
+          cat package.json | grep version
+
+      - name: Publish to GitHub Packages
+        working-directory: ./harmony-react-conversion
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HUSKY: '0'
+
+      - name: Create Git tag
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git tag ${{ steps.version.outputs.tag }}
+          git push origin ${{ steps.version.outputs.tag }}
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.version.outputs.tag }}
+          release_name: Harmony React ${{ steps.version.outputs.tag }}
+          body: |
+            ## Harmony React Components Published
+
+            **Package:** `@deltek/harmony-react`
+            **Version:** `${{ steps.version.outputs.version }}`
+            **Base Version:** `${{ steps.version.outputs.base_version }}`
+
+            ### Installation
+            ```bash
+            npm install @deltek/harmony-react@${{ steps.version.outputs.version }}
+            ```
+
+            Or use latest:
+            ```bash
+            npm install @deltek/harmony-react@latest
+            ```
+
+            ### What's Included
+            - ✅ 48 React components (Button, Card, Alert, DatePicker, ShellLayout, etc.)
+            - ✅ Agent Skills (harmony, harmony-converter, harmony-usage-rules, etc.)
+            - ✅ TypeScript definitions
+            - ✅ Component CSS styles
+
+            ### Usage Example
+            ```tsx
+            import { Button, Card, Alert } from '@deltek/harmony-react';
+            import '@deltek/harmony-react/styles/Button.css';
+
+            function App() {
+              return (
+                <Card>
+                  <Alert variant="success">Hello Harmony!</Alert>
+                  <Button variant="primary">Click me</Button>
+                </Card>
+              );
+            }
+            ```
+
+            ### Agent Skills
+            Access skills from `.cursor/skills/`:
+            - harmony
+            - harmony-converter
+            - harmony-usage-rules
+            - harmony-ux-principles
+            - layout-builder
+            - design-patterns
+
+            Auto-published from commit: ${{ github.sha }}
+          draft: false
+          prerelease: false

@@ -10,4 +10,4 @@ Apply these rules when auditing, critiquing, or checking Harmony design system c
 
 **When this skill is invoked, read the full rules from the Harmony repo:** `{harmonyRoot}/docs/RULES.md`
 
-Resolve `harmonyRoot` the same way other Harmony skills do (e.g. the project’s Harmony package path, such as `node_modules/@dltkfrancesmunoz/harmony-design-system`, or the path to the Harmony repo when working in it, or `HARMONY_ROOT` if set). Open that file and use its contents for accessibility, component usage guidance, layout rules, and do's and don'ts. The file is generated from Harmony component and shell doc pages and is kept in sync automatically when the Harmony repo builds.
+Resolve `harmonyRoot` the same way other Harmony skills do (e.g. the project’s Harmony package path, such as `node_modules/@deltek/harmony-components`, or the path to the Harmony repo when working in it, or `HARMONY_ROOT` if set). Open that file and use its contents for accessibility, component usage guidance, layout rules, and do's and don'ts. The file is generated from Harmony component and shell doc pages and is kept in sync automatically when the Harmony repo builds.

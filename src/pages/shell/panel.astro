@@ -3,9 +3,42 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
 import PropsTable from '../../components/PropsTable.astro';
 import ExampleSection from '../../components/ExampleSection.astro';
 import ShellPanel from '../../components/ui/ShellPanel.astro';
+import RightSidebar from '../../components/ui/RightSidebar.astro';
 import Icon from '../../components/ui/Icon.astro';
 import Card from '../../components/ui/Card.astro';
 import Button from '../../components/ui/Button.astro';
+
+/** Same right-rail config as the Dela foundation demo ([foundation/dela.astro](foundation/dela)) */
+const delaDemoSections = [
+  {
+    items: [
+      {
+        label: 'Dela AI',
+        isCustom: true,
+        customSrc: '/RS_DelaDefault.svg',
+        customSrcActive: '/RS_Dela_Active.svg',
+        panelTitle: 'Dela AI',
+        useGradientHeader: true,
+      },
+      { icon: 'bell', label: 'Notifications' },
+      { icon: 'arrow-up-tray', label: 'Files' },
+    ],
+  },
+  {
+    items: [
+      { icon: 'printer', label: 'Print' },
+      { icon: 'view-columns', label: 'Layout Options' },
+    ],
+  },
+  {
+    items: [
+      { icon: 'mic-slash', label: 'Microphone' },
+      { icon: 'signal-slash', label: 'Offline' },
+      { icon: 'command-line', label: 'Keyboard Shortcuts' },
+      { icon: 'question-mark-circle', label: 'Help' },
+    ],
+  },
+];
 
 const props = [
   { name: 'side', type: "'left' | 'right'", default: '—', description: 'Which side the panel slides from' },
@@ -37,6 +70,7 @@ const props = [
 
     <nav class="article-nav">
       <a href="#examples" class="article-nav__link"><Icon name="eye" size="sm" /> Examples</a>
+      <a href="#right-sidebar-integration" class="article-nav__link"><Icon name="squares-2x2" size="sm" /> Right sidebar + panel</a>
       <a href="#props" class="article-nav__link"><Icon name="queue-list" size="sm" /> Props</a>
       <a href="#usage" class="article-nav__link"><Icon name="book-open" size="sm" /> Usage</a>
       <a href="#accessibility" class="article-nav__link"><Icon name="check-badge" size="sm" /> Accessibility</a>
@@ -178,6 +212,56 @@ const props = [
             >
               <div style="padding: var(--space-4);">
                 <p class="text-secondary">Panel with an icon in the header.</p>
+              </div>
+            </ShellPanel>
+          </div>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection
+        title="Right sidebar + panel (theme ShellPanel)"
+        description="Same boxed demo as Dela → Live demo (right rail + panel). This page uses a theme ShellPanel with default body content, not variant dela. See the Dela foundation page for the full Ask Dela chat layout."
+      >
+        <div id="right-sidebar-integration" class="shell-layout" style="position: relative; height: auto; min-height: 1300px;">
+          <div class="dela-demo-container" data-shell-panel-scope>
+            <div class="dela-demo-content">
+              <p class="text-secondary text-sm mb-4">
+                The right sidebar is docked to the right edge. Hover to see labels, then click an icon to open the panel. This uses the same demo shell as <a href="/foundation/dela#demo" class="link">Dela → Live demo</a>, with a <strong>theme</strong> ShellPanel (default slot content) instead of <code class="text-sm">variant="dela"</code>.
+              </p>
+              <p class="text-secondary text-sm mb-2">
+                <strong>Key features:</strong>
+              </p>
+              <ul class="list-disc list-inside text-sm text-secondary space-y-1 mb-4">
+                <li>Same CP right-rail sections and Dela-first icon row as the Dela page</li>
+                <li>Panel slides from the right with theme header (title, popout, width toggle, close)</li>
+                <li>Right rail stays above the panel edge in this demo container</li>
+                <li>Scoped to this box so other right panels on the page are not affected</li>
+              </ul>
+            </div>
+
+            <div class="dela-demo-sidebar">
+              <RightSidebar variant="cp" sections={delaDemoSections} />
+            </div>
+
+            <ShellPanel
+              side="right"
+              open={false}
+              title="Ask Dela"
+              headerVariant="theme"
+              width="narrow"
+              showPopout={true}
+              id="shell-panel-right-sidebar-integration"
+              class="shell-panel--right"
+            >
+              <div style="padding: var(--space-4);">
+                <p class="text-secondary text-sm mb-4">
+                  Placeholder panel body for a standard contextual drawer. Wire your own content per selected sidebar item; use <code class="text-sm">variant="dela"</code> only for the Ask Dela chat layout.
+                </p>
+                <Card primary elevated>
+                  <div class="card__body">
+                    <p class="text-secondary text-sm">Example content inside a theme-header ShellPanel.</p>
+                  </div>
+                </Card>
               </div>
             </ShellPanel>
           </div>
@@ -352,5 +436,95 @@ const props = [
   .panel-demo-container :global(.shell-panel--right) {
     left: auto !important;
     right: 0 !important;
+  }
+
+  /* --- Dela-page demo shell (copied so right rail + panel layout works on this page) --- */
+  .dela-demo-container {
+    position: relative;
+    min-height: 1300px;
+    background-color: var(--page-bg);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .dela-demo-content {
+    position: relative;
+    z-index: 1;
+    margin-bottom: var(--space-4);
+  }
+
+  .dela-demo-sidebar {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    z-index: 11;
+  }
+
+  .dela-demo-container :global(.shell-panel) {
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    z-index: 10 !important;
+  }
+
+  .dela-demo-container :global(.right-sidebar[data-panel-open='true']) {
+    width: 52px !important;
+  }
+
+  .dela-demo-container :global(.right-sidebar[data-panel-open='true']:hover) {
+    width: 52px !important;
+  }
+
+  .dela-demo-container :global(.right-sidebar[data-panel-open='true'] .right-sidebar__label) {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .dela-demo-container :global(.right-sidebar[data-panel-open='true'] .right-sidebar__item-tooltip .tooltip__content) {
+    display: block;
+  }
+
+  .dela-demo-container
+    :global(.right-sidebar[data-panel-open='true'] .right-sidebar__item:hover .right-sidebar__item-tooltip .tooltip__content) {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .dela-demo-container :global(.right-sidebar[data-panel-open='true'] .right-sidebar__item[data-active='true']) {
+    background-color: var(--theme-primary);
+    color: var(--text-inverse);
+  }
+
+  .dela-demo-container :global(.right-sidebar[data-panel-open='true'] .right-sidebar__item[data-active='true'] .right-sidebar__icon) {
+    color: var(--text-inverse);
+  }
+
+  .dela-demo-container
+    :global(.right-sidebar[data-panel-open='true'] .right-sidebar__item[data-active='true']:has(.right-sidebar__dela-logo)) {
+    background: var(--linear-new, linear-gradient(136deg, #00bbc6 9.15%, #7133ff 57.36%, #cd21ff 80.6%));
+    border-radius: 12px;
+    color: var(--text-inverse);
+  }
+
+  .dela-demo-container
+    :global(.right-sidebar[data-panel-open='true'] .right-sidebar__item[data-active='true']:has(.right-sidebar__dela-logo):hover) {
+    background: var(--linear-new, linear-gradient(136deg, #00bbc6 9.15%, #7133ff 57.36%, #cd21ff 80.6%));
+    color: var(--text-inverse);
+  }
+
+  .dela-demo-container
+    :global(.right-sidebar[data-panel-open='true'] .right-sidebar__item[data-active='true']:has(.right-sidebar__dela-logo) .right-sidebar__icon) {
+    color: var(--text-inverse);
+  }
+
+  .dela-demo-container :global(.right-sidebar[data-panel-open='true'] .right-sidebar__section) {
+    box-shadow: none;
+    border: none;
+    background-color: transparent;
+    border-radius: 0;
   }
 </style>

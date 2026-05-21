@@ -29,6 +29,6 @@ When you change a **shared Harmony component** (props, DOM, or styles), apply th
 
 1. **Astro source** — repo root `src/components/ui/` and global styles in `src/styles/` when needed.
 2. **Harmony React conversion** — `harmony-react-conversion/src/components/harmony/`, plus `componentRegistry.tsx` demos and `src/llms/` / `llms/` when applicable.
-3. **This kit (designer starter)** — mirror under `src/components/harmony/`, vendored `harmony-styles/`, and `src/componentRegistry.tsx`.
+3. **This kit (designer starter)** — mirror under `src/components/harmony/`, vendored `harmony-styles/`, `src/componentRegistry.tsx`, and `llms/` reference markdown when the main repo ships it (e.g. `llms/TableCostpointGrid.md`).
 
 **VP-only doc demos:** wrap the example in `class="ds-demo-only-theme-vp"` (see root `src/styles/utilities.css` and `harmony-styles/utilities.css`). That hides the block unless `html` has `theme-vp`, so readers on CP/PPM/Maconomy do not see the demo.

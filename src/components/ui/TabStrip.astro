@@ -7,7 +7,7 @@
  * @usagePattern icon-position-consistency All tabs must use either inline icon positioning (left/right) OR stacked (top), but cannot mix both. Use the component-level iconPosition prop to enforce consistency across all tabs, or ensure individual tab iconPosition values follow this rule. The component will log a warning if mixed positions are detected (lines 52-68).
  * @usagePattern overflow-modes The overflowMode prop has three behaviors: 'auto' (default) uses ResizeObserver to automatically detect and move tabs to dropdown when they don't fit; 'manual' requires you to provide overflowTabs prop with specific tabs to show in dropdown; 'none' disables overflow handling entirely and may cause horizontal scrolling.
  * @usagePattern named-slots-limitation Custom tab content can only be provided via named slots tab-0 through tab-9, supporting a maximum of 10 tabs with custom content. This is an Astro limitation requiring static slot names. For tabs beyond index 9, only the standard tab rendering is available.
- * @usagePattern custom-events TabStrip dispatches three custom events: 'tab-strip:tab-selected' (bubbles, includes tabId), 'tab-strip:close-tab' (from overflow dropdown close action), and 'tab-strip:open-new-window' (from overflow dropdown). Listen for these events on the TabStrip container to handle user interactions. The 'tab-strip:add-tab' event is dispatched when the optional Add Tab button is clicked.
+ * @usagePattern custom-events TabStrip dispatches: 'tab-strip:tab-selected', 'tab-strip:close-tab', 'tab-strip:open-new-window', 'tab-strip:set-default' (from per-tab toolbar, ⋮ menu, or More overflow). 'tab-strip:add-tab' when Add Tab is clicked.
  *
  * @prop {Array} tabs - Array of tab objects
  * @prop {boolean} showAddTab - Whether to show "Add Tab" button (default: false)
@@ -16,6 +16,9 @@
  * @prop {Array} overflowTabs - Manual override for overflow tabs (default: [])
  * @prop {string} variant - 'default' | 'compact' | 'pill' (default: 'default'). The pill selected style applies only when the document uses the VP theme (html.theme-vp); other themes keep the standard underline.
  * @prop {string} iconPosition - Enforce consistent icon position for all tabs: 'left' | 'right' | 'top' (optional)
+ * @prop {boolean} showTabOpenInNew - Default: show per-tab open-in-new-window control (overridable per tab)
+ * @prop {boolean} showTabClose - Default: show per-tab close control
+ * @prop {boolean} showTabOverflowMenu - Default: show per-tab ⋮ menu (open/close/set default omitted from menu when shown inline)
  * @prop {string} class - Additional CSS classes
  */
 import Icon from './Icon.astro';
@@ -28,6 +31,10 @@ export interface Tab {
   active?: boolean;
   disabled?: boolean;
   href?: string;
+  /** Override component default for this tab */
+  showOpenInNewWindow?: boolean;
+  showClose?: boolean;
+  showMenu?: boolean;
 }
 
 interface Props {
@@ -38,6 +45,9 @@ interface Props {
   overflowTabs?: Tab[];
   variant?: 'default' | 'compact' | 'pill';
   iconPosition?: 'left' | 'right' | 'top';
+  showTabOpenInNew?: boolean;
+  showTabClose?: boolean;
+  showTabOverflowMenu?: boolean;
   class?: string;
 }
 
@@ -49,6 +59,9 @@ const {
   overflowTabs = [],
   variant = 'default',
   iconPosition: componentIconPosition,
+  showTabOpenInNew = false,
+  showTabClose = false,
+  showTabOverflowMenu = false,
   class: className = ''
 } = Astro.props;
 
@@ -84,12 +97,19 @@ if (tabs.length > 0 && !componentIconPosition) {
     <div class="tabstrip__container">
       <div class="tabstrip__tabs" data-tabstrip-tabs>
         {tabs.map((tab) => {
-          // Use component-level iconPosition if provided, otherwise use tab's iconPosition
           const iconPosition = componentIconPosition || tab.iconPosition || 'left';
-          const iconModifier = iconPosition === 'top' ? 'tab--icon-top' : 
-                              iconPosition === 'right' ? 'tab--icon-right' : 
+          const iconModifier = iconPosition === 'top' ? 'tab--icon-top' :
+                              iconPosition === 'right' ? 'tab--icon-right' :
                               'tab--icon-left';
-          
+
+          const effOpen = tab.showOpenInNewWindow !== undefined ? tab.showOpenInNewWindow : showTabOpenInNew;
+          const effClose = tab.showClose !== undefined ? tab.showClose : showTabClose;
+          const effMenu = tab.showMenu !== undefined ? tab.showMenu : showTabOverflowMenu;
+          const showToolbar = effOpen || effClose || effMenu;
+          const menuOpenInNew = effMenu && !effOpen;
+          const menuClose = effMenu && !effClose;
+          const menuSetDefault = effMenu;
+
           const tabContent = (
             <>
               {tab.icon && iconPosition === 'top' && (
@@ -114,7 +134,7 @@ if (tabs.length > 0 && !componentIconPosition) {
             iconModifier
           ].filter(Boolean);
 
-          return tab.href ? (
+          const tabControl = tab.href ? (
             <a
               href={tab.href}
               role="tab"
@@ -141,6 +161,94 @@ if (tabs.length > 0 && !componentIconPosition) {
             >
               {tabContent}
             </button>
+          );
+
+          return (
+            <div class="tabstrip__tab-cell" data-tabstrip-tab-cell data-tab-id={tab.id}>
+              {tabControl}
+              {showToolbar && (
+                <div class="tabstrip__tab-toolbar" data-tabstrip-tab-toolbar>
+                  {effOpen && (
+                    <button
+                      type="button"
+                      class="tabstrip__tab-action-btn"
+                      data-tab-id={tab.id}
+                      data-action="open-new-window"
+                      aria-label={`Open ${tab.label} in new window`}
+                      title="Open in new window"
+                    >
+                      <Icon name="arrow-top-right-on-square" size="sm" />
+                    </button>
+                  )}
+                  {effClose && (
+                    <button
+                      type="button"
+                      class="tabstrip__tab-action-btn"
+                      data-tab-id={tab.id}
+                      data-action="close-tab"
+                      aria-label={`Close ${tab.label}`}
+                      title="Close"
+                    >
+                      <Icon name="x-mark" size="sm" />
+                    </button>
+                  )}
+                  {effMenu && (
+                    <div class="tabstrip__tab-menu-wrapper" data-tabstrip-per-tab-menu>
+                      <button
+                        type="button"
+                        class="tabstrip__tab-action-btn"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        aria-label={`More actions for ${tab.label}`}
+                        data-tabstrip-per-tab-menu-btn
+                      >
+                        <Icon name="ellipsis-vertical" size="sm" />
+                      </button>
+                      <div
+                        class="tabstrip__dropdown tabstrip__dropdown--per-tab"
+                        role="menu"
+                        aria-label={`${tab.label} tab actions`}
+                        data-tabstrip-per-tab-dropdown
+                      >
+                        {menuOpenInNew && (
+                          <button
+                            type="button"
+                            class="tabstrip__dropdown-menu-item"
+                            role="menuitem"
+                            data-tab-id={tab.id}
+                            data-action="open-new-window"
+                          >
+                            Open in new window
+                          </button>
+                        )}
+                        {menuClose && (
+                          <button
+                            type="button"
+                            class="tabstrip__dropdown-menu-item"
+                            role="menuitem"
+                            data-tab-id={tab.id}
+                            data-action="close-tab"
+                          >
+                            Close tab
+                          </button>
+                        )}
+                        {menuSetDefault && (
+                          <button
+                            type="button"
+                            class="tabstrip__dropdown-menu-item"
+                            role="menuitem"
+                            data-tab-id={tab.id}
+                            data-action="set-default"
+                          >
+                            Set as default
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
           );
         })}
       </div>
@@ -238,13 +346,103 @@ if (tabs.length > 0 && !componentIconPosition) {
     border-bottom: 1px solid var(--border-color);
   }
 
+  /* overflow-x must not be `hidden` (or `auto`) with overflow-y visible — spec forces y to `auto`
+     and clips per-tab ⋮ menus. `clip` trims horizontal overflow without breaking y: visible. */
   .tabstrip__tabs {
     display: flex;
     flex: 1;
     gap: var(--space-1);
     min-width: 0;
-    overflow-x: hidden;
-    overflow-y: hidden;
+    overflow-x: clip;
+    overflow-y: visible;
+    align-items: stretch;
+  }
+
+  .tabstrip__tab-cell {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    flex-shrink: 0;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .tabstrip__tab-cell .tab {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .tabstrip__tab-toolbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-1);
+    flex-shrink: 0;
+    padding-left: var(--space-1);
+    padding-right: var(--space-1);
+  }
+
+  .tabstrip__tab-menu-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .tabstrip__tab-action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-1);
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    transition: background-color var(--transition-fast), color var(--transition-fast);
+  }
+
+  .tabstrip__tab-action-btn:hover {
+    background-color: var(--hover-bg);
+    color: var(--text-primary);
+  }
+
+  :global(.tabstrip__dropdown--per-tab) {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    right: 0;
+    left: auto;
+    margin-bottom: var(--space-2);
+    min-width: var(--dropdown-min-width);
+    background-color: var(--card-bg);
+    border: var(--border-width-thin) solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-dropdown);
+    padding: var(--space-1) 0;
+    z-index: calc(var(--z-dropdown) + 1);
+    max-height: var(--dropdown-max-height);
+    overflow-y: auto;
+  }
+
+  .tabstrip__tab-menu-wrapper.is-open :global(.tabstrip__dropdown--per-tab) {
+    display: block;
+  }
+
+  :global(.tabstrip__dropdown-menu-item) {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: var(--space-2) var(--space-4);
+    border: none;
+    background: transparent;
+    color: var(--text-primary);
+    font-size: var(--text-sm);
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+  }
+
+  :global(.tabstrip__dropdown-menu-item:hover) {
+    background-color: var(--hover-bg);
   }
 
   .tabstrip__add {
@@ -451,10 +649,64 @@ if (tabs.length > 0 && !componentIconPosition) {
     font-size: var(--text-xs);
   }
 
+  /* VP theme only: pill selected state (mirrors src/styles/components.css) */
+  html.theme-vp .tabstrip--pill .tabstrip__container {
+    align-items: flex-end;
+    padding-bottom: var(--space-2);
+  }
+
+  html.theme-vp .tabstrip--pill .tabstrip__tabs {
+    gap: var(--space-2);
+  }
+
+  html.theme-vp .tabstrip--pill .tab {
+    border-bottom: none;
+    margin-bottom: 0;
+    border-radius: var(--radius-08);
+    padding: var(--space-1-5) var(--space-2);
+    color: var(--theme-primary);
+  }
+
+  html.theme-vp .tabstrip--pill .tab__label {
+    line-height: 1;
+  }
+
+  html.theme-vp .tabstrip--pill .tab:hover:not(:disabled):not(.tab--disabled):not(.is-active) {
+    color: var(--theme-primary-hover);
+  }
+
+  html.theme-vp .tabstrip--pill .tab.is-active {
+    color: var(--text-inverse);
+    background-color: var(--theme-primary);
+    border-bottom: none;
+    font-weight: var(--font-semibold);
+  }
+
+  html.theme-vp .tabstrip--pill .tab.is-active:hover:not(:disabled):not(.tab--disabled) {
+    background-color: var(--theme-primary-hover);
+    color: var(--text-inverse);
+  }
+
+  html.theme-vp .tabstrip--pill .tab--disabled,
+  html.theme-vp .tabstrip--pill .tab:disabled {
+    color: var(--text-muted);
+  }
+
+  html.theme-vp.dark .tabstrip--pill .tab:hover:not(:disabled):not(.tab--disabled):not(.is-active) {
+    color: var(--theme-primary-hover);
+  }
+
+  html.theme-vp.dark .tabstrip--pill .tab.is-active:hover:not(:disabled):not(.tab--disabled) {
+    background-color: var(--theme-primary-hover);
+    color: var(--text-inverse);
+  }
+
   /* TabStrip Responsive Styles */
   @media (max-width: var(--breakpoint-md)) {
+    /* Narrow view: horizontal scroll; per-tab ⋮ may clip here (overflow-x: auto forces y to auto). */
     .tabstrip__tabs {
       overflow-x: auto;
+      overflow-y: visible;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: thin;
     }
@@ -487,8 +739,48 @@ if (tabs.length > 0 && !componentIconPosition) {
 </style>
 
 <script>
+  function dispatchTabStripAction(
+    container: HTMLElement,
+    action: string,
+    tabId: string | null
+  ) {
+    if (action === 'select-tab') {
+      container.dispatchEvent(
+        new CustomEvent('tab-strip:tab-selected', { bubbles: true, detail: { tabId } })
+      );
+    } else if (action === 'close-tab') {
+      container.dispatchEvent(
+        new CustomEvent('tab-strip:close-tab', { bubbles: true, detail: { tabId } })
+      );
+    } else if (action === 'open-new-window') {
+      container.dispatchEvent(
+        new CustomEvent('tab-strip:open-new-window', { bubbles: true, detail: { tabId } })
+      );
+    } else if (action === 'set-default') {
+      container.dispatchEvent(
+        new CustomEvent('tab-strip:set-default', { bubbles: true, detail: { tabId } })
+      );
+    }
+  }
+
+  function closeAllPerTabMenus(container: HTMLElement) {
+    container.querySelectorAll('[data-tabstrip-per-tab-menu].is-open').forEach((wrap) => {
+      const w = wrap as HTMLElement;
+      w.classList.remove('is-open');
+      const btn = w.querySelector('[data-tabstrip-per-tab-menu-btn]') as HTMLButtonElement | null;
+      btn?.setAttribute('aria-expanded', 'false');
+    });
+  }
+
+  function getTabButtons(container: HTMLElement) {
+    return Array.from(
+      container.querySelectorAll(
+        '[data-tabstrip-tabs] [data-tabstrip-tab-cell] [role="tab"]'
+      )
+    ) as (HTMLButtonElement | HTMLAnchorElement)[];
+  }
+
   function initTabStrip(container: HTMLElement) {
-    // Prevent double initialization
     if (container.hasAttribute('data-init')) return;
     container.setAttribute('data-init', 'true');
 
@@ -500,21 +792,22 @@ if (tabs.length > 0 && !componentIconPosition) {
     const dropdownItems = container.querySelector('[data-tabstrip-dropdown-items]') as HTMLElement;
     const addButton = container.querySelector('[data-tabstrip-add]') as HTMLButtonElement;
     const overflowMode = container.getAttribute('data-overflow-mode') || 'auto';
-    const allTabs = Array.from(container.querySelectorAll('[data-tab-id]')) as HTMLElement[];
-    const tabButtons = Array.from(container.querySelectorAll('button[role="tab"], a[role="tab"]')) as (HTMLButtonElement | HTMLAnchorElement)[];
 
-    let visibleTabs: HTMLElement[] = [];
-    let overflowTabs: HTMLElement[] = [];
     let resizeObserver: ResizeObserver | null = null;
+    let moreMenuFocusIndex = -1;
+    let perTabMenuFocusIndex = -1;
 
-    // Calculate overflow
+    function tabButtons() {
+      return getTabButtons(container);
+    }
+
+    // Calculate overflow (measure tab cells, not raw tabs)
     function calculateOverflow() {
       if (overflowMode === 'none' || !tabsContainer || !moreWrapper) {
         return;
       }
 
       if (overflowMode === 'manual') {
-        // Manual mode - show more button if overflowTabs prop is provided
         const hasOverflow = dropdownItems && dropdownItems.children.length > 0;
         if (hasOverflow) {
           moreWrapper.style.display = 'flex';
@@ -528,45 +821,51 @@ if (tabs.length > 0 && !componentIconPosition) {
         return;
       }
 
-      // Automatic mode
       if (!tabsContainer.parentElement) return;
 
       const containerWidth = tabsContainer.parentElement.offsetWidth;
-      const addTabWidth = addButton && addButton.offsetParent !== null ? addButton.offsetWidth + parseInt(getComputedStyle(addButton).marginLeft) + parseInt(getComputedStyle(addButton).marginRight) : 0;
-      // Reserve space for more button (approximate, will be refined)
-      const moreButtonReservedWidth = 90; // Approximate width for "More (N)" button with padding
+      const addTabWidth =
+        addButton && addButton.offsetParent !== null
+          ? addButton.offsetWidth +
+            parseInt(getComputedStyle(addButton).marginLeft || '0') +
+            parseInt(getComputedStyle(addButton).marginRight || '0')
+          : 0;
+      const moreButtonReservedWidth = 90;
       const availableWidth = containerWidth - addTabWidth - moreButtonReservedWidth;
 
       let totalWidth = 0;
-      const tabs = Array.from(tabsContainer.children) as HTMLElement[];
-      visibleTabs = [];
-      overflowTabs = [];
+      const cells = Array.from(tabsContainer.querySelectorAll('[data-tabstrip-tab-cell]')) as HTMLElement[];
 
-      for (let i = 0; i < tabs.length; i++) {
-        const tab = tabs[i];
-        const tabWidth = tab.offsetWidth + parseInt(getComputedStyle(tab).marginLeft || '0') + parseInt(getComputedStyle(tab).marginRight || '0');
-        
-        // Account for gap between tabs
+      cells.forEach((cell, i) => {
+        cell.style.display = '';
+      });
+
+      const overflowCells: HTMLElement[] = [];
+
+      for (let i = 0; i < cells.length; i++) {
+        const cell = cells[i];
+        const cellWidth =
+          cell.offsetWidth +
+          parseInt(getComputedStyle(cell).marginLeft || '0') +
+          parseInt(getComputedStyle(cell).marginRight || '0');
         const gap = i > 0 ? parseInt(getComputedStyle(tabsContainer).gap || '0') : 0;
-        
-        if (totalWidth + tabWidth + gap <= availableWidth) {
-          totalWidth += tabWidth + gap;
-          visibleTabs.push(tab);
-          tab.style.display = '';
+
+        if (totalWidth + cellWidth + gap <= availableWidth) {
+          totalWidth += cellWidth + gap;
         } else {
-          overflowTabs.push(tab);
-          tab.style.display = 'none';
+          overflowCells.push(cell);
+          cell.style.display = 'none';
         }
       }
 
-      // Update dropdown with overflow tabs
-      if (dropdownItems && overflowTabs.length > 0) {
+      if (dropdownItems && overflowCells.length > 0) {
         dropdownItems.innerHTML = '';
-        overflowTabs.forEach((tab) => {
-          const tabId = tab.getAttribute('data-tab-id');
-          const label = tab.querySelector('.tab__label')?.textContent || tab.textContent?.trim() || '';
-          const icon = tab.getAttribute('data-tab-icon') || '';
-          const isActive = tab.classList.contains('is-active');
+        overflowCells.forEach((cell) => {
+          const tabId = cell.getAttribute('data-tab-id');
+          const tabEl = cell.querySelector('[role="tab"]') as HTMLElement | null;
+          const label = tabEl?.querySelector('.tab__label')?.textContent?.trim() || '';
+          const icon = tabEl?.getAttribute('data-tab-icon') || '';
+          const isActive = tabEl?.classList.contains('is-active') ?? false;
 
           const item = document.createElement('div');
           item.className = `tabstrip__dropdown-item ${isActive ? 'is-active' : ''}`;
@@ -577,17 +876,15 @@ if (tabs.length > 0 && !componentIconPosition) {
           labelBtn.className = 'tabstrip__dropdown-item-label';
           labelBtn.setAttribute('data-tab-id', tabId || '');
           labelBtn.setAttribute('data-action', 'select-tab');
-          
+
           if (icon) {
             const iconEl = document.createElement('span');
             iconEl.className = 'tabstrip__dropdown-item-icon';
             iconEl.setAttribute('data-icon-name', icon);
-            // Icon will be rendered by Icon component via data attribute
-            // For now, use a placeholder that can be enhanced
             iconEl.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="16" height="16" aria-hidden="true"><!-- Icon: ${icon} --></svg>`;
             labelBtn.insertBefore(iconEl, labelBtn.firstChild);
           }
-          
+
           const labelSpan = document.createElement('span');
           labelSpan.textContent = label;
           labelBtn.appendChild(labelSpan);
@@ -602,7 +899,8 @@ if (tabs.length > 0 && !componentIconPosition) {
           openBtn.setAttribute('data-action', 'open-new-window');
           openBtn.setAttribute('aria-label', `Open ${label} in new window`);
           openBtn.setAttribute('title', 'Open in new window');
-          openBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="16" height="16"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25M21 3L6 18" /></svg>';
+          openBtn.innerHTML =
+            '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="16" height="16"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25M21 3L6 18" /></svg>';
 
           const closeBtn = document.createElement('button');
           closeBtn.type = 'button';
@@ -611,7 +909,8 @@ if (tabs.length > 0 && !componentIconPosition) {
           closeBtn.setAttribute('data-action', 'close-tab');
           closeBtn.setAttribute('aria-label', `Close ${label}`);
           closeBtn.setAttribute('title', 'Close');
-          closeBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="16" height="16"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>';
+          closeBtn.innerHTML =
+            '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="16" height="16"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>';
 
           actions.appendChild(openBtn);
           actions.appendChild(closeBtn);
@@ -619,40 +918,38 @@ if (tabs.length > 0 && !componentIconPosition) {
           item.appendChild(actions);
           dropdownItems.appendChild(item);
         });
+      } else if (dropdownItems && overflowCells.length === 0) {
+        dropdownItems.innerHTML = '';
       }
 
-      // Show/hide more button
-      if (overflowTabs.length > 0) {
+      if (overflowCells.length > 0) {
         moreWrapper.style.display = 'flex';
         if (moreLabel) {
-          moreLabel.textContent = `More (${overflowTabs.length})`;
+          moreLabel.textContent = `More (${overflowCells.length})`;
         }
       } else {
         moreWrapper.style.display = 'none';
+        moreWrapper.setAttribute('aria-expanded', 'false');
+        moreButton?.setAttribute('aria-expanded', 'false');
       }
     }
 
-    // Initialize overflow calculation
     if (overflowMode === 'auto') {
-      // Use ResizeObserver for automatic overflow detection
       resizeObserver = new ResizeObserver(() => {
         calculateOverflow();
       });
-
       if (tabsContainer.parentElement) {
         resizeObserver.observe(tabsContainer.parentElement);
       }
-
-      // Initial calculation
       setTimeout(() => calculateOverflow(), 0);
     } else if (overflowMode === 'manual') {
       calculateOverflow();
     }
 
-    // More button toggle
     if (moreButton) {
       moreButton.addEventListener('click', (e) => {
         e.stopPropagation();
+        closeAllPerTabMenus(container);
         const isOpen = moreWrapper.getAttribute('aria-expanded') === 'true';
         const newState = (!isOpen).toString();
         moreWrapper.setAttribute('aria-expanded', newState);
@@ -660,110 +957,185 @@ if (tabs.length > 0 && !componentIconPosition) {
       });
     }
 
-    // Dropdown item clicks
     if (dropdown) {
       dropdown.addEventListener('click', (e) => {
         const target = e.target as HTMLElement;
         const actionBtn = target.closest('[data-action]') as HTMLElement;
-        if (!actionBtn) return;
+        if (!actionBtn || actionBtn.closest('[data-tabstrip-per-tab-dropdown]')) return;
 
         e.stopPropagation();
         const action = actionBtn.getAttribute('data-action');
         const tabId = actionBtn.getAttribute('data-tab-id');
+        if (action) dispatchTabStripAction(container, action, tabId);
 
-        if (action === 'select-tab') {
-          container.dispatchEvent(new CustomEvent('tab-strip:tab-selected', {
-            bubbles: true,
-            detail: { tabId }
-          }));
-        } else if (action === 'close-tab') {
-          container.dispatchEvent(new CustomEvent('tab-strip:close-tab', {
-            bubbles: true,
-            detail: { tabId }
-          }));
-        } else if (action === 'open-new-window') {
-          container.dispatchEvent(new CustomEvent('tab-strip:open-new-window', {
-            bubbles: true,
-            detail: { tabId }
-          }));
-        }
-
-        // Close dropdown
         moreWrapper.setAttribute('aria-expanded', 'false');
         moreButton?.setAttribute('aria-expanded', 'false');
       });
     }
 
-    // Tab clicks
-    tabButtons.forEach((tab) => {
+    // Inline toolbar (open / close) — not the ⋮ menu button
+    container.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      const menuToggle = target.closest('[data-tabstrip-per-tab-menu-btn]');
+      if (menuToggle) return;
+
+      const toolbarAction = target.closest(
+        '[data-tabstrip-tab-toolbar] [data-action]'
+      ) as HTMLElement | null;
+      if (!toolbarAction || toolbarAction.closest('[data-tabstrip-per-tab-dropdown]')) return;
+
+      e.stopPropagation();
+      const action = toolbarAction.getAttribute('data-action');
+      const tabId = toolbarAction.getAttribute('data-tab-id');
+      if (action) dispatchTabStripAction(container, action, tabId);
+    });
+
+    // Per-tab ⋮ menu toggle
+    container.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      const btn = target.closest('[data-tabstrip-per-tab-menu-btn]') as HTMLButtonElement | null;
+      if (!btn || !container.contains(btn)) return;
+
+      e.stopPropagation();
+      const wrap = btn.closest('[data-tabstrip-per-tab-menu]') as HTMLElement;
+      if (!wrap) return;
+
+      const opening = !wrap.classList.contains('is-open');
+      closeAllPerTabMenus(container);
+      if (opening) {
+        wrap.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+
+    // Per-tab dropdown menuitem clicks
+    container.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      const mi = target.closest(
+        '[data-tabstrip-per-tab-dropdown] [data-action]'
+      ) as HTMLElement | null;
+      if (!mi) return;
+
+      e.stopPropagation();
+      const action = mi.getAttribute('data-action');
+      const tabId = mi.getAttribute('data-tab-id');
+      if (action) dispatchTabStripAction(container, action, tabId);
+
+      const wrap = mi.closest('[data-tabstrip-per-tab-menu]') as HTMLElement | null;
+      wrap?.classList.remove('is-open');
+      wrap?.querySelector('[data-tabstrip-per-tab-menu-btn]')?.setAttribute('aria-expanded', 'false');
+    });
+
+    tabButtons().forEach((tab) => {
       tab.addEventListener('click', (e) => {
         if (tab.getAttribute('aria-disabled') === 'true') {
           e.preventDefault();
           return;
         }
-
         const tabId = tab.getAttribute('data-tab-id');
-        container.dispatchEvent(new CustomEvent('tab-strip:tab-selected', {
-          bubbles: true,
-          detail: { tabId }
-        }));
+        container.dispatchEvent(
+          new CustomEvent('tab-strip:tab-selected', { bubbles: true, detail: { tabId } })
+        );
       });
     });
 
-    // Add Tab button
     if (addButton) {
       addButton.addEventListener('click', () => {
-        container.dispatchEvent(new CustomEvent('tab-strip:add-tab', {
-          bubbles: true
-        }));
+        container.dispatchEvent(new CustomEvent('tab-strip:add-tab', { bubbles: true }));
       });
     }
 
-    // Close dropdown on outside click
     document.addEventListener('click', (e) => {
-      if (moreWrapper && !moreWrapper.contains(e.target as Node)) {
+      const t = e.target as Node;
+      if (moreWrapper && !moreWrapper.contains(t)) {
         moreWrapper.setAttribute('aria-expanded', 'false');
         moreButton?.setAttribute('aria-expanded', 'false');
       }
+      container.querySelectorAll('[data-tabstrip-per-tab-menu].is-open').forEach((menu) => {
+        if (!menu.contains(t)) {
+          menu.classList.remove('is-open');
+          menu
+            .querySelector('[data-tabstrip-per-tab-menu-btn]')
+            ?.setAttribute('aria-expanded', 'false');
+        }
+      });
     });
-
-    // Keyboard navigation
-    let currentFocusIndex = -1;
 
     container.addEventListener('keydown', (e) => {
       const isMoreOpen = moreWrapper?.getAttribute('aria-expanded') === 'true';
-      const dropdownActionItems = dropdown ? Array.from(dropdown.querySelectorAll('[data-action]')) as HTMLElement[] : [];
+      const openPerTabWrap = container.querySelector(
+        '[data-tabstrip-per-tab-menu].is-open'
+      ) as HTMLElement | null;
+      const moreItems = dropdown
+        ? (Array.from(dropdown.querySelectorAll('[data-action]')) as HTMLElement[])
+        : [];
+      const perTabItems = openPerTabWrap
+        ? (Array.from(
+            openPerTabWrap.querySelectorAll('[data-tabstrip-per-tab-dropdown] [data-action]')
+          ) as HTMLElement[])
+        : [];
 
-      if (e.key === 'Escape' && isMoreOpen) {
-        e.preventDefault();
-        moreWrapper.setAttribute('aria-expanded', 'false');
-        moreButton?.setAttribute('aria-expanded', 'false');
-        moreButton?.focus();
-      } else if (isMoreOpen && ['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(e.key)) {
+      if (e.key === 'Escape') {
+        if (isMoreOpen) {
+          e.preventDefault();
+          moreWrapper.setAttribute('aria-expanded', 'false');
+          moreButton?.setAttribute('aria-expanded', 'false');
+          moreButton?.focus();
+        } else if (openPerTabWrap) {
+          e.preventDefault();
+          closeAllPerTabMenus(container);
+          openPerTabWrap.querySelector('[data-tabstrip-per-tab-menu-btn]')?.focus();
+        }
+        return;
+      }
+
+      if (isMoreOpen && ['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(e.key)) {
         e.preventDefault();
         if (e.key === 'ArrowDown') {
-          currentFocusIndex = (currentFocusIndex + 1) % dropdownActionItems.length;
+          moreMenuFocusIndex = (moreMenuFocusIndex + 1) % moreItems.length;
         } else if (e.key === 'ArrowUp') {
-          currentFocusIndex = currentFocusIndex <= 0 ? dropdownActionItems.length - 1 : currentFocusIndex - 1;
+          moreMenuFocusIndex =
+            moreMenuFocusIndex <= 0 ? moreItems.length - 1 : moreMenuFocusIndex - 1;
         } else if (e.key === 'Home') {
-          currentFocusIndex = 0;
+          moreMenuFocusIndex = 0;
         } else if (e.key === 'End') {
-          currentFocusIndex = dropdownActionItems.length - 1;
+          moreMenuFocusIndex = moreItems.length - 1;
         }
-        dropdownActionItems[currentFocusIndex]?.focus();
-      } else if (['ArrowLeft', 'ArrowRight'].includes(e.key) && !isMoreOpen) {
+        moreItems[moreMenuFocusIndex]?.focus();
+        return;
+      }
+
+      if (openPerTabWrap && ['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(e.key)) {
+        e.preventDefault();
+        if (e.key === 'ArrowDown') {
+          perTabMenuFocusIndex = (perTabMenuFocusIndex + 1) % perTabItems.length;
+        } else if (e.key === 'ArrowUp') {
+          perTabMenuFocusIndex =
+            perTabMenuFocusIndex <= 0 ? perTabItems.length - 1 : perTabMenuFocusIndex - 1;
+        } else if (e.key === 'Home') {
+          perTabMenuFocusIndex = 0;
+        } else if (e.key === 'End') {
+          perTabMenuFocusIndex = perTabItems.length - 1;
+        }
+        perTabItems[perTabMenuFocusIndex]?.focus();
+        return;
+      }
+
+      if (['ArrowLeft', 'ArrowRight'].includes(e.key) && !isMoreOpen && !openPerTabWrap) {
         e.preventDefault();
         const currentTab = document.activeElement as HTMLElement;
-        if (!currentTab || !currentTab.hasAttribute('data-tab-id')) return;
+        const tabs = tabButtons();
+        if (!currentTab || !tabs.includes(currentTab as HTMLButtonElement & HTMLAnchorElement))
+          return;
 
         const direction = e.key === 'ArrowLeft' ? -1 : 1;
-        const currentIndex = tabButtons.findIndex(t => t === currentTab);
+        const currentIndex = tabs.indexOf(currentTab as HTMLButtonElement & HTMLAnchorElement);
         let nextIndex = currentIndex + direction;
 
-        if (nextIndex < 0) nextIndex = tabButtons.length - 1;
-        if (nextIndex >= tabButtons.length) nextIndex = 0;
+        if (nextIndex < 0) nextIndex = tabs.length - 1;
+        if (nextIndex >= tabs.length) nextIndex = 0;
 
-        const nextTab = tabButtons[nextIndex];
+        const nextTab = tabs[nextIndex];
         if (nextTab && nextTab.getAttribute('aria-disabled') !== 'true') {
           nextTab.focus();
           if (e.shiftKey || e.ctrlKey) {
@@ -773,7 +1145,6 @@ if (tabs.length > 0 && !componentIconPosition) {
       }
     });
 
-    // Cleanup
     return () => {
       if (resizeObserver) {
         resizeObserver.disconnect();

@@ -5,17 +5,98 @@ import PropsTable from '../../components/PropsTable.astro';
 import Icon from '../../components/ui/Icon.astro';
 import Checkbox from '../../components/ui/Checkbox.astro';
 import Table from '../../components/ui/Table.astro';
+import TableCostpointGrid from '../../components/ui/TableCostpointGrid.astro';
+import CommandCenterPanel from '../../components/ui/CommandCenterPanel.astro';
+import CommandCenterPanelSection from '../../components/ui/CommandCenterPanelSection.astro';
 import Button from '../../components/ui/Button.astro';
 import Dropdown from '../../components/ui/Dropdown.astro';
 import Chip from '../../components/ui/Chip.astro';
 
+const commandCenterSortColumns = [
+  { key: 'prId', label: 'PR ID', align: 'left' as const },
+  { key: 'vendor', label: 'Preferred Vendor Name', align: 'left' as const },
+  { key: 'amount', label: 'Total Amount', align: 'right' as const },
+  { key: 'status', label: 'Status', align: 'left' as const },
+  { key: 'overdue', label: 'Overdue', align: 'left' as const },
+];
+
+/** Costpoint split-grid demo: nine body rows (vertical scroll after six). */
+const cpDgDemoRows = Array.from({ length: 9 }, (_, i) => ({
+  selected: i === 0,
+  voucher: String(10042 + i),
+  fiscalYear: '2020',
+  period: String((i % 4) + 1),
+  subperiod: String((i % 2) + 1),
+  vendor: `V${100004 + i}`,
+  vendorName: ['ACME Supplies', 'Contoso LLC', 'Fabrikam Parts', 'Northwind', 'Tailspin'][i % 5],
+  termsOption: i % 2,
+  appr: i % 2 === 0,
+  inv: `INV-${9921 + i}`,
+  invDate: `03/${String(15 + (i % 10)).padStart(2, '0')}/2020`,
+  invAmt: `${((i + 1) * 1000).toLocaleString('en-US')}.00`,
+  discountPercent: i === 1 ? '2.00' : '0.00',
+  discountDate: i === 1 ? '03/25/2020' : `03/${String(10 + (i % 15)).padStart(2, '0')}/2020`,
+  discountAmount: i === 1 ? '84.01' : '0.00',
+  apAccount: '2000 — Accounts Payable',
+  cashAccount: '1000 — Operating Cash',
+  dueDate: `04/${String(10 + (i % 14)).padStart(2, '0')}/2020`,
+  dueAmount: `${((i + 1) * 1000 - (i === 1 ? 84 : 0)).toLocaleString('en-US')}.00`,
+  voucherType: i % 8 === 7 ? 'Credit' : 'Standard',
+  voucherLineDist: i % 3 === 0 ? 'Prorate' : i % 3 === 1 ? 'None' : 'Prorate',
+  salesTaxCharged: i % 2 === 0 ? 'On receipt' : 'Never',
+  inputFileVoucherNo: i === 5 ? 'IF-001' : '',
+  totalTaxAmt: i % 4 === 0 ? '12.50' : '0.00',
+  remainingBalance: `${((i + 1) * 1000).toLocaleString('en-US')}.00`,
+  taxId: i === 2 ? 'T-88' : '',
+  taxingDate: i === 2 ? '03/20/2020' : `05/${String(1 + (i % 27)).padStart(2, '0')}/2020`,
+  taxLocation: ['MA', 'WA', 'IL', 'TX', 'FL'][i % 5],
+}));
+
+const tableCostpointGridProps = [
+  {
+    name: 'maxHeight',
+    type: 'string',
+    default: '—',
+    description: 'Caps the vertical scroller height (overrides the default of six visible body rows plus header).',
+  },
+  {
+    name: 'scrollChrome',
+    type: 'boolean',
+    default: 'false',
+    description: 'When true, shows horizontal scroll arrow buttons under the panes and vertical arrows on the right.',
+  },
+  {
+    name: 'resizableSplit',
+    type: 'boolean',
+    default: 'true',
+    description: 'When true, the split bar resizes the frozen vs scroll panes (pointer drag and keyboard).',
+  },
+  {
+    name: 'class',
+    type: 'string',
+    default: '—',
+    description: 'Additional classes on the root `.cp-datagrid` container.',
+  },
+  {
+    name: 'instanceId',
+    type: 'string',
+    default: 'random id',
+    description: 'Stable prefix for scroll region ids; set when multiple grids exist on one page.',
+  },
+];
+
 const props = [
-  { name: 'headerVariant', type: "'gray' | 'white' | 'none'", default: "'gray'", description: 'Header background variant: gray (light gray background), white (white background), or none (transparent)' },
-  { name: 'striped', type: 'boolean', default: 'false', description: 'Enable alternating row background colors (zebra striping) for easier scanning' },
+  { name: 'headerVariant', type: "'gray' | 'white' | 'none'", default: "'gray'", description: "Header background (ignored when variant is 'commandCenter', which uses the command-center header style via sortColumns).", },
+  { name: 'variant', type: "'default' | 'commandCenter'", default: "'default'", description: "Command Center: full grid borders (#E0E4EB in light), sort and filter header controls (sortColumns), body typography and cell padding aligned with default tables; default zebra striping unless striped={false}." },
+  { name: 'striped', type: 'boolean', default: 'false', description: "Zebra rows. For variant commandCenter, defaults to true; pass striped={false} to disable." },
   { name: 'reorderable', type: 'boolean', default: 'false', description: 'Enable row reordering via drag-and-drop. Displays a grip icon at the far left of each row.' },
   { name: 'grouped', type: 'boolean', default: 'false', description: 'Enable grouped rows with expand/collapse. Rows with data-has-children show an arrow; child rows use data-parent-id and data-depth (max 4 levels).' },
+  { name: 'groupedDefaultExpanded', type: 'string', default: '—', description: "When grouped: comma- or space-separated data-row-id values for parents to render expanded on load (child rows must follow the parent in the body)." },
+  { name: 'groupedExpandedRowIds / onGroupedExpandedRowIdsChange (React only)', type: 'string[] / fn', default: '—', description: "Optional controlled expansion: current expanded parent data-row-id values and callback. Use to wire Collapse/Expand all with variant commandCenter + grouped." },
   { name: 'class', type: 'string', default: '—', description: 'Additional CSS classes to apply to the table element' },
+  { name: 'sortColumns / sortColumn / sortDirection', type: 'array / string / asc|desc', default: '—', description: 'When sortColumns is set, Table renders a sortable header row. For commandCenter, headers also show filter icon affordances; wire behavior in your app (see React Table onFilterClick).', },
   { name: 'filter-bar (slot)', type: 'slot', default: '—', description: 'Content for the filter bar above the table (dropdowns, chips, clear button)' },
+  { name: 'command-center-toolbar (slot)', type: 'slot', default: '—', description: "Optional row above the table (e.g. 'As of' date or status) when using variant commandCenter" },
 ];
 ---
 
@@ -724,6 +805,377 @@ const props = [
           </Table>
         </div>
       </ExampleSection>
+    </section>
+
+    <section class="space-y-6" id="command-center">
+      <h2 class="section__title">Command Center (variant + panel)</h2>
+      <p class="text-sm" style="color: var(--text-secondary); max-width: 60rem;">
+        Command Center grid, sort and filter header affordances, and zebra rows. Sample data includes PR IDs, vendors, amounts,
+        status as color swatches, and overdue counts. The docked panel can follow a Purchase Requisitions–style pattern (summary,
+        overdue banner, late items). Selecting a row uses the
+        <code class="text-xs">.table-row--command-center-selected</code> class (semi-transparent tint on cells). Pass a
+        <code class="text-xs">command-center-aside</code> slot with <code class="text-xs">CommandCenterPanel</code> so the panel aligns with
+        the table (toolbar stays above the table only). In React, use the <code class="text-xs">commandCenterAside</code> prop and
+        <code class="text-xs">onRowSelect</code> on <code class="text-xs">Table</code> with <code class="text-xs">variant="commandCenter"</code>.
+        For hierarchical rows, use <code class="text-xs">grouped</code> with <code class="text-xs">data-has-children</code> and child
+        <code class="text-xs">tr</code> elements (<code class="text-xs">data-parent-id</code>, <code class="text-xs">data-depth</code>); limit nesting to four levels.
+      </p>
+
+      <ExampleSection
+        title="Command Center table with docked panel"
+        description="Illustrative layout: toolbar, table (row selected), and slide-in style panel. Filter icons are affordances; implement popovers in the host app (v1)."
+      >
+        <div class="overflow-x-auto" data-doc-command-center>
+            <Table
+              variant="commandCenter"
+              sortColumns={commandCenterSortColumns}
+              sortColumn="prId"
+              sortDirection="asc"
+            >
+              <Fragment slot="command-center-toolbar">
+                <div class="flex w-full flex-wrap items-center justify-end gap-3">
+                  <span>As of 09/20/2024</span>
+                </div>
+              </Fragment>
+              <Fragment slot="body">
+                <tr data-row-id="PR-2041">
+                  <td><a class="text-link" href="#">PR-2041</a></td>
+                  <td>Acme Office Supplies</td>
+                  <td class="text-right">$1,250.00</td>
+                  <td>
+                    <span class="inline-flex flex-wrap items-center gap-1" aria-hidden="true">
+                      <span class="inline-block h-2.5 w-2.5 shrink-0 rounded-sm" style="background: #F58220"></span>
+                      <span class="inline-block h-2.5 w-2.5 shrink-0 rounded-sm" style="background: #E13D91"></span>
+                    </span>
+                  </td>
+                  <td style="color: var(--color-error-text, var(--color-error))">2/5</td>
+                </tr>
+                <tr data-row-id="PR-2045">
+                  <td><a class="text-link" href="#">PR-2045</a></td>
+                  <td>Litware Medical Devices</td>
+                  <td class="text-right">$3,890.25</td>
+                  <td>
+                    <span class="inline-flex flex-wrap items-center gap-1" aria-hidden="true">
+                      <span class="inline-block h-2.5 w-2.5 shrink-0 rounded-sm" style="background: #F58220"></span>
+                      <span class="inline-block h-2.5 w-2.5 shrink-0 rounded-sm" style="background: #E13D91"></span>
+                    </span>
+                  </td>
+                  <td style="color: var(--color-error-text, var(--color-error))">1/6</td>
+                </tr>
+                <tr class="table-row--command-center-selected" data-row-id="PR-2042">
+                  <td><a class="text-link" href="#">PR-2042</a></td>
+                  <td>Northwind Logistics</td>
+                  <td class="text-right">$8,420.50</td>
+                  <td>
+                    <span class="inline-flex flex-wrap items-center gap-1" aria-hidden="true">
+                      <span class="inline-block h-2.5 w-2.5 shrink-0 rounded-sm" style="background: #F58220"></span>
+                      <span class="inline-block h-2.5 w-2.5 shrink-0 rounded-sm" style="background: #E13D91"></span>
+                      <span class="inline-block h-2.5 w-2.5 shrink-0 rounded-sm" style="background: #2E5BCC"></span>
+                    </span>
+                  </td>
+                  <td style="color: var(--color-error-text, var(--color-error))">1/4</td>
+                </tr>
+                <tr data-row-id="PR-2048">
+                  <td><a class="text-link" href="#">PR-2048</a></td>
+                  <td>Wide World Importers</td>
+                  <td class="text-right">$22,150.00</td>
+                  <td>
+                    <span class="inline-flex flex-wrap items-center gap-1" aria-hidden="true">
+                      <span class="inline-block h-2.5 w-2.5 shrink-0 rounded-sm" style="background: #F58220"></span>
+                      <span class="inline-block h-2.5 w-2.5 shrink-0 rounded-sm" style="background: #E13D91"></span>
+                      <span class="inline-block h-2.5 w-2.5 shrink-0 rounded-sm" style="background: #2E5BCC"></span>
+                    </span>
+                  </td>
+                  <td style="color: var(--color-error-text, var(--color-error))">4/9</td>
+                </tr>
+                <tr data-row-id="PR-2043">
+                  <td><a class="text-link" href="#">PR-2043</a></td>
+                  <td>Contoso Training Group</td>
+                  <td class="text-right">$2,100.00</td>
+                  <td>
+                    <span class="inline-flex flex-wrap items-center gap-1" aria-hidden="true">
+                      <span class="inline-block h-2.5 w-2.5 shrink-0 rounded-sm" style="background: #F58220"></span>
+                    </span>
+                  </td>
+                  <td style="color: var(--color-error-text, var(--color-error))">1/3</td>
+                </tr>
+                <tr data-row-id="PR-2046">
+                  <td><a class="text-link" href="#">PR-2046</a></td>
+                  <td>Adventure Works IT</td>
+                  <td class="text-right">$475.90</td>
+                  <td>
+                    <span class="inline-flex flex-wrap items-center gap-1" aria-hidden="true">
+                      <span class="inline-block h-2.5 w-2.5 shrink-0 rounded-sm" style="background: #F58220"></span>
+                    </span>
+                  </td>
+                  <td style="color: var(--text-primary)">0/2</td>
+                </tr>
+                <tr data-row-id="PR-2044">
+                  <td><a class="text-link" href="#">PR-2044</a></td>
+                  <td>Fabrikam Facilities Inc.</td>
+                  <td class="text-right">$640.00</td>
+                  <td>
+                    <span class="inline-flex flex-wrap items-center gap-1" aria-hidden="true">
+                      <span class="inline-block h-2.5 w-2.5 shrink-0 rounded-sm" style="background: #F58220"></span>
+                      <span class="inline-block h-2.5 w-2.5 shrink-0 rounded-sm" style="background: #D32F2F"></span>
+                    </span>
+                  </td>
+                  <td style="color: var(--color-error-text, var(--color-error))">1/2</td>
+                </tr>
+                <tr data-row-id="PR-2047">
+                  <td><a class="text-link" href="#">PR-2047</a></td>
+                  <td>Blue Yonder Analytics</td>
+                  <td class="text-right">$9,999.00</td>
+                  <td>
+                    <span class="inline-flex flex-wrap items-center gap-1" aria-hidden="true">
+                      <span class="inline-block h-2.5 w-2.5 shrink-0 rounded-sm" style="background: #F58220"></span>
+                      <span class="inline-block h-2.5 w-2.5 shrink-0 rounded-sm" style="background: #E13D91"></span>
+                      <span class="inline-block h-2.5 w-2.5 shrink-0 rounded-sm" style="background: #D32F2F"></span>
+                    </span>
+                  </td>
+                  <td style="color: var(--color-error-text, var(--color-error))">3/3</td>
+                </tr>
+              </Fragment>
+            <CommandCenterPanel title="Purchase Requisitions" open slot="command-center-aside">
+            <div slot="visual">
+              <div class="command-center-panel__identity-row">
+                <p class="command-center-panel__entity-id">PR-2042</p>
+                <a class="text-link" href="#" style="font-size: var(--text-sm)">Purchase Requisition Report</a>
+              </div>
+              <div class="command-center-panel__alert-banner" role="status" aria-label="25 percent overdue lines">
+                <span class="command-center-panel__alert-value">25%</span>
+                <span class="command-center-panel__alert-label">Overdue lines</span>
+              </div>
+            </div>
+            <div class="command-center-panel__sections">
+              <CommandCenterPanelSection title="Summary" open>
+                <div class="command-center-panel__kv-grid">
+                  <div class="command-center-panel__kv-cell">
+                    <p class="command-center-card__label">PR ID</p>
+                    <p class="command-center-card__value">PR-2042</p>
+                  </div>
+                  <div class="command-center-panel__kv-cell">
+                    <p class="command-center-card__label">Preferred Vendor Name</p>
+                    <p class="command-center-card__value">Northwind Logistics</p>
+                  </div>
+                  <div class="command-center-panel__kv-cell">
+                    <p class="command-center-card__label">No. of Lines</p>
+                    <p class="command-center-card__value">4</p>
+                  </div>
+                  <div class="command-center-panel__kv-cell">
+                    <p class="command-center-card__label">Requisitioner Name</p>
+                    <p class="command-center-card__value">Taylor Brooks</p>
+                  </div>
+                </div>
+              </CommandCenterPanelSection>
+              <CommandCenterPanelSection title="Late Items" open class="command-center-panel-section--divider-before">
+                <p class="command-center-panel__late-stats">
+                  <span class="command-center-panel__late-stat-overdue">1</span> Overdue | <span class="command-center-panel__late-stat-total">4</span> Total
+                </p>
+                <div class="command-center-card">
+                  <div class="command-center-panel__late-card-head">
+                    <div class="command-center-panel__late-card-head-main">
+                      <span class="command-center-panel__status-marker" aria-hidden="true"></span>
+                      <p class="command-center-panel__late-card-title">Pending Submittal</p>
+                    </div>
+                    <a class="text-link" href="#">Follow up</a>
+                  </div>
+                  <p class="command-center-panel__late-card-value">1</p>
+                </div>
+              </CommandCenterPanelSection>
+            </div>
+          </CommandCenterPanel>
+            </Table>
+        </div>
+      </ExampleSection>
+      <p class="text-sm" style="color: var(--text-secondary)">
+        Row selection: apply <code class="text-xs">.table-row--command-center-selected</code> to the active row, or in React
+        use <code class="text-xs">onRowSelect</code> and <code class="text-xs">data-row-id</code> on each
+        <code class="text-xs">&lt;tr&gt;</code>.
+      </p>
+    </section>
+
+    <section class="space-y-6 ds-demo-only-theme-cp">
+      <h2 class="section__title">Costpoint data grid</h2>
+      <p class="text-sm" style="color: var(--text-secondary); max-width: 72ch">
+        High-density Costpoint-only grid with frozen row-handle and voucher columns, split bar, horizontal scroll for detail
+        columns, Lexend typography, diagonal hatch on read-only cells, native scrollbars when content overflows, and a solid
+        header row. This block is visible when the docs theme is Costpoint (<code class="text-xs">html.theme-cp</code>). The
+        React gallery and this Astro example both use the same scrollable column set from Subperiod through Tax Location, with
+        the same layout mechanics.
+      </p>
+      <ExampleSection
+        title="Split frozen / scroll table"
+        description="Use TableCostpointGrid.astro with matching row counts in both panes. Nine sample rows exercise vertical scroll (six body rows visible by default). First row shows selected state and an active Invoice cell."
+      >
+        <TableCostpointGrid instanceId="tables-cp-dg">
+          <Fragment slot="frozen-thead">
+            <tr>
+              <th class="cp-datagrid__cell--center cp-datagrid__cell--gutter" aria-label="Row" />
+              <th>Voucher</th>
+              <th>Fiscal year *</th>
+              <th>Period *</th>
+            </tr>
+          </Fragment>
+          <Fragment slot="frozen-tbody">
+            {cpDgDemoRows.map((r) => (
+              <tr aria-selected={r.selected ? 'true' : undefined}>
+                <td class="cp-datagrid__cell--center cp-datagrid__cell--gutter" aria-label={`Select row ${r.voucher}`} />
+                <td class="cp-datagrid__cell--right">
+                  <input class="cp-datagrid__input cp-datagrid__input--edit" type="text" value={r.voucher} aria-label="Voucher" />
+                </td>
+                <td class="cp-datagrid__cell--left">
+                  <input class="cp-datagrid__input cp-datagrid__input--edit" type="text" value={r.fiscalYear} aria-label="Fiscal year" />
+                </td>
+                <td class="cp-datagrid__cell--right">
+                  <input class="cp-datagrid__input cp-datagrid__input--edit" type="text" value={r.period} aria-label="Period" />
+                </td>
+              </tr>
+            ))}
+          </Fragment>
+          <Fragment slot="scroll-thead">
+            <tr>
+              <th class="cp-datagrid__cell--right">Subperiod *</th>
+              <th class="cp-datagrid__cell--left">Original Voucher</th>
+              <th class="cp-datagrid__cell--left">Vendor *</th>
+              <th class="cp-datagrid__cell--left">Vendor Name</th>
+              <th class="cp-datagrid__cell--left">Terms</th>
+              <th class="cp-datagrid__cell--center">Approved</th>
+              <th class="cp-datagrid__cell--left">Invoice</th>
+              <th class="cp-datagrid__cell--left">Invoice Date</th>
+              <th class="cp-datagrid__cell--left">Invoice Amount *</th>
+              <th class="cp-datagrid__cell--right">Discount Percent</th>
+              <th class="cp-datagrid__cell--left">Discount Date</th>
+              <th class="cp-datagrid__cell--right">Discount Amount</th>
+              <th class="cp-datagrid__cell--left">A/P Account Description</th>
+              <th class="cp-datagrid__cell--left">Cash Account Description</th>
+              <th class="cp-datagrid__cell--left">Due Date</th>
+              <th class="cp-datagrid__cell--right">Due Amount</th>
+              <th class="cp-datagrid__cell--left">Voucher Type</th>
+              <th class="cp-datagrid__cell--left">Voucher Line Distribution Recalculation Method</th>
+              <th class="cp-datagrid__cell--left">When Calculated Sales Tax is Charged</th>
+              <th class="cp-datagrid__cell--left">Input File Voucher No</th>
+              <th class="cp-datagrid__cell--right">Total Tax Amt</th>
+              <th class="cp-datagrid__cell--right">Remaining Balance</th>
+              <th class="cp-datagrid__cell--left">Tax ID</th>
+              <th class="cp-datagrid__cell--left">Taxing Date</th>
+              <th class="cp-datagrid__cell--left">Tax Location</th>
+            </tr>
+          </Fragment>
+          <Fragment slot="scroll-tbody">
+            {cpDgDemoRows.map((r) => (
+              <tr aria-selected={r.selected ? 'true' : undefined}>
+                <td class="cp-datagrid__cell--right">
+                  <input class="cp-datagrid__input cp-datagrid__input--edit" type="text" value={r.subperiod} aria-label="Subperiod" />
+                </td>
+                <td class:list={['cp-datagrid__cell--left', 'cp-datagrid__cell--hatch']}>
+                  <input class="cp-datagrid__input" type="text" value="" readonly aria-label="Original Voucher" />
+                </td>
+                <td class:list={['cp-datagrid__cell--left', 'cp-datagrid__cell--hatch']}>
+                  <input class="cp-datagrid__input" type="text" value={r.vendor} readonly aria-label="Vendor" />
+                </td>
+                <td class:list={['cp-datagrid__cell--left', 'cp-datagrid__cell--hatch']}>
+                  <input class="cp-datagrid__input" type="text" value={r.vendorName} readonly aria-label="Vendor Name" />
+                </td>
+                <td class="cp-datagrid__cell--left">
+                  <select class="cp-datagrid__select" aria-label="Terms">
+                    <option selected={r.termsOption === 0}>NET 30</option>
+                    <option selected={r.termsOption === 1}>90 Days</option>
+                  </select>
+                </td>
+                <td class="cp-datagrid__cell--center">
+                  <div class="cp-datagrid__cell-inner">
+                    <Checkbox checked={r.appr} aria-label="Approved" />
+                  </div>
+                </td>
+                <td class="cp-datagrid__cell--left">
+                  <input
+                    class={r.selected
+                      ? 'cp-datagrid__input cp-datagrid__input--edit cp-datagrid__input--active'
+                      : 'cp-datagrid__input cp-datagrid__input--edit'}
+                    type="text"
+                    value={r.inv}
+                    aria-label="Invoice"
+                  />
+                </td>
+                <td class="cp-datagrid__cell--left">
+                  <div class="cp-datagrid__date-wrap">
+                    <input class="cp-datagrid__input cp-datagrid__input--edit" type="text" value={r.invDate} aria-label="Invoice Date" />
+                    <button type="button" class="cp-datagrid__scroll-btn" style="width: 24px; height: 24px" aria-label="Open calendar">
+                      <Icon name="calendar" size="sm" aria-hidden="true" />
+                    </button>
+                  </div>
+                </td>
+                <td class="cp-datagrid__cell--left">
+                  <input class="cp-datagrid__input cp-datagrid__input--edit" type="text" value={r.invAmt} aria-label="Invoice Amount" />
+                </td>
+                <td class="cp-datagrid__cell--right">
+                  <input class="cp-datagrid__input cp-datagrid__input--edit" type="text" value={r.discountPercent} aria-label="Discount Percent" />
+                </td>
+                <td class="cp-datagrid__cell--left">
+                  <input class="cp-datagrid__input cp-datagrid__input--edit" type="text" value={r.discountDate} aria-label="Discount Date" />
+                </td>
+                <td class="cp-datagrid__cell--right">
+                  <input class="cp-datagrid__input cp-datagrid__input--edit" type="text" value={r.discountAmount} aria-label="Discount Amount" />
+                </td>
+                <td class="cp-datagrid__cell--left">
+                  <input class="cp-datagrid__input cp-datagrid__input--edit" type="text" value={r.apAccount} aria-label="A/P Account Description" />
+                </td>
+                <td class="cp-datagrid__cell--left">
+                  <input class="cp-datagrid__input cp-datagrid__input--edit" type="text" value={r.cashAccount} aria-label="Cash Account Description" />
+                </td>
+                <td class="cp-datagrid__cell--left">
+                  <input class="cp-datagrid__input cp-datagrid__input--edit" type="text" value={r.dueDate} aria-label="Due Date" />
+                </td>
+                <td class="cp-datagrid__cell--right">
+                  <input class="cp-datagrid__input cp-datagrid__input--edit" type="text" value={r.dueAmount} aria-label="Due Amount" />
+                </td>
+                <td class="cp-datagrid__cell--left">
+                  <input class="cp-datagrid__input cp-datagrid__input--edit" type="text" value={r.voucherType} aria-label="Voucher Type" />
+                </td>
+                <td class="cp-datagrid__cell--left">
+                  <input class="cp-datagrid__input cp-datagrid__input--edit" type="text" value={r.voucherLineDist} aria-label="Voucher Line Distribution Recalculation Method" />
+                </td>
+                <td class="cp-datagrid__cell--left">
+                  <input class="cp-datagrid__input cp-datagrid__input--edit" type="text" value={r.salesTaxCharged} aria-label="When Calculated Sales Tax is Charged" />
+                </td>
+                <td class="cp-datagrid__cell--left">
+                  <input class="cp-datagrid__input cp-datagrid__input--edit" type="text" value={r.inputFileVoucherNo} aria-label="Input File Voucher No" />
+                </td>
+                <td class="cp-datagrid__cell--right">
+                  <input class="cp-datagrid__input cp-datagrid__input--edit" type="text" value={r.totalTaxAmt} aria-label="Total Tax Amt" />
+                </td>
+                <td class="cp-datagrid__cell--right">
+                  <input class="cp-datagrid__input cp-datagrid__input--edit" type="text" value={r.remainingBalance} aria-label="Remaining Balance" />
+                </td>
+                <td class="cp-datagrid__cell--left">
+                  <input class="cp-datagrid__input cp-datagrid__input--edit" type="text" value={r.taxId} aria-label="Tax ID" />
+                </td>
+                <td class="cp-datagrid__cell--left">
+                  <input class="cp-datagrid__input cp-datagrid__input--edit" type="text" value={r.taxingDate} aria-label="Taxing Date" />
+                </td>
+                <td class="cp-datagrid__cell--left">
+                  <input class="cp-datagrid__input cp-datagrid__input--edit" type="text" value={r.taxLocation} aria-label="Tax Location" />
+                </td>
+              </tr>
+            ))}
+          </Fragment>
+        </TableCostpointGrid>
+      </ExampleSection>
+      <h3 class="section__title section__title--sm mt-6">TableCostpointGrid (Astro) props</h3>
+      <PropsTable props={tableCostpointGridProps} />
+      <p class="text-sm mt-4" style="color: var(--text-secondary); max-width: 72ch">
+        <strong>Slots:</strong>{' '}
+        <code class="text-xs">frozen-thead</code>, <code class="text-xs">frozen-tbody</code>,{' '}
+        <code class="text-xs">scroll-thead</code>, <code class="text-xs">scroll-tbody</code> — use the same number of body
+        rows in both panes. In the Harmony repo the source is <code class="text-xs">src/components/ui/TableCostpointGrid.astro</code>.
+        <strong>React:</strong> import <code class="text-xs">TableCostpointGrid</code>,{' '}
+        <code class="text-xs">CostpointSplitTableGallery</code>, and column/row helpers from{' '}
+        <code class="text-xs">@deltek/harmony-react</code>; the component gallery includes <strong>TableCostpointGrid</strong>{' '}
+        (full default dataset) and <strong>CostpointSplitTable</strong> (nine-row sample aligned with this page).{' '}
+        <strong>Harmony Designer Starter</strong> mirrors the React components and styles under{' '}
+        <code class="text-xs">src/components/harmony/</code> and <code class="text-xs">harmony-styles/</code>.
+      </p>
     </section>
 
     <section id="props" class="space-y-6">

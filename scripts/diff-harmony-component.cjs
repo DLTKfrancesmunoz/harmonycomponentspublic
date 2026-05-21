@@ -72,7 +72,7 @@ const componentFile = componentName.endsWith('.astro') ? componentName : `${comp
 
 // Paths
 const projectRoot = path.resolve(__dirname, '..');
-const harmonyPackage = path.join(projectRoot, 'node_modules', '@dltkfrancesmunoz', 'harmony-design-system');
+const harmonyPackage = path.join(projectRoot, 'node_modules', '@deltek', 'harmony-components');
 const overridePath = path.join(projectRoot, 'src', 'components', 'harmony', componentFile);
 
 log(`\n🔍 Comparing ${componentFile}...\n`, 'cyan');
@@ -104,7 +104,7 @@ if (!basePath) {
   error(`Base component not found in Harmony package`);
   console.log('\nSearched in:');
   possibleBasePaths.forEach(p => console.log(`  - ${p}`));
-  console.log('\nMake sure @dltkfrancesmunoz/harmony-design-system is installed.');
+  console.log('\nMake sure @deltek/harmony-components is installed.');
   process.exit(1);
 }
 
